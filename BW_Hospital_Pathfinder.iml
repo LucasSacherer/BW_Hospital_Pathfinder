@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="charm-down-desktop-0.0.2" level="project" />
+    <orderEntry type="library" name="charm-glisten-4.4.1" level="project" />
   </component>
 </module>
