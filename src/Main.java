@@ -11,10 +11,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("boundary/main.fxml"));
         primaryStage.setTitle("B&W Path Finding");
         primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
-
-
+    
     public static void main(String[] args) {
         launch(args);
     }

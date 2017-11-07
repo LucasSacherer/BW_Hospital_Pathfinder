@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="650.0" prefWidth="975.0">
          <children>
@@ -33,7 +33,10 @@
                                        <children>
                                           <TextField layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="160.0" text="Type a Location" />
                                           <Button layoutX="184.0" layoutY="7.0" mnemonicParsing="false" text="Search" />
-                                          <TextArea editable="false" layoutX="24.0" layoutY="77.0" prefHeight="200.0" prefWidth="200.0" text="Info about selected &#10;location goes here" />
+                                          <TextArea editable="false" layoutX="25.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" text="&lt;Info pane&gt;&#10;&#10;Info about selected &#10;location goes here" />
+                                          <Button layoutX="33.0" layoutY="87.0" minWidth="48.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="72.0" text="Back" />
+                                          <Label layoutX="31.0" layoutY="58.0" text="DIrectory/Path/CurrentLocation" underline="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="87.0" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: cyan;" text="CurrentLocation" textAlignment="CENTER" />
                                        </children>
                                     </AnchorPane>
                                     <Separator prefWidth="200.0" />
@@ -70,7 +73,7 @@
                      <children>
                         <ImageView fitHeight="524.0" fitWidth="710.0" layoutX="3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/Shapiro Map1.png" />
+                              <Image url="@images/Shapiro%20Map1.png" />
                            </image>
                         </ImageView>
                      </children></AnchorPane>
