@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="650.0" prefWidth="975.0">
          <children>
@@ -66,7 +66,14 @@
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox prefHeight="650.0" prefWidth="726.0">
                <children>
-                  <AnchorPane prefHeight="526.0" prefWidth="725.0" />
+                  <AnchorPane prefHeight="526.0" prefWidth="725.0">
+                     <children>
+                        <ImageView fitHeight="524.0" fitWidth="710.0" layoutX="3.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/Shapiro Map1.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
                   <Separator prefWidth="200.0" />
                   <AnchorPane prefHeight="124.0" prefWidth="723.0">
                      <children>
