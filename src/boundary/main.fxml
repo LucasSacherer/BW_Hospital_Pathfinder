@@ -146,32 +146,24 @@
                                           <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom Out" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <HBox prefHeight="100.0" prefWidth="200.0">
-                                             <children>
-                                                <VBox alignment="CENTER">
-                                                   <children>
-                                                      <ImageView fitHeight="81.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@images/down_arrow.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox alignment="CENTER">
-                                                   <children>
-                                                      <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@images/up_arrow.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
+                                          <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/down_arrow.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="BOTTOM_CENTER">
+                                       <children>
+                                          <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/up_arrow.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
