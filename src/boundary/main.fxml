@@ -18,11 +18,11 @@
 
 <AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxWidth="-Infinity" prefWidth="250.0">
+          <AnchorPane maxWidth="255.0" prefWidth="255.0">
                <children>
-                  <TabPane prefHeight="750.0" prefWidth="262.0" style="-fx-background-color: cyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane prefHeight="750.0" prefWidth="262.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
                       <Tab text="Directory">
                         <content>
@@ -101,11 +101,11 @@
                      <items>
                         <AnchorPane prefHeight="773.0" prefWidth="756.0">
                            <children>
-                              <ScrollPane prefHeight="80.0" prefWidth="584.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ScrollPane hvalue="0.29" prefHeight="80.0" prefWidth="584.0" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <ImageView pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/ShapiroMap2.PNG" />
+                                          <Image url="@images/01_thefirstfloor.png" />
                                        </image>
                                     </ImageView>
                                  </content>
@@ -114,7 +114,7 @@
                         </AnchorPane>
                         <AnchorPane maxHeight="-Infinity" prefHeight="112.0" prefWidth="877.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" style="-fx-background-color: cyan; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
