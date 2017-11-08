@@ -85,11 +85,6 @@
                   <HBox alignment="CENTER" layoutX="-78.0" layoutY="-4.0" prefHeight="123.0" prefWidth="804.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-78.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Region prefHeight="123.0" prefWidth="21.0" />
-                        <ImageView fitHeight="89.0" fitWidth="86.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/fullScreen.png" />
-                           </image>
-                        </ImageView>
                         <Region prefHeight="123.0" prefWidth="21.0" />
                         <ImageView fitHeight="88.0" fitWidth="85.0" layoutX="115.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -119,14 +114,14 @@
                            <children>
                               <Label text="Current Floor: " textAlignment="CENTER" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                               <Label text="L1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                              <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <image>
-                                    <Image url="@images/Black%20arrow.png" />
+                                    <Image url="@images/ic_play_arrow_3x.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                              <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <image>
-                                    <Image url="@images/plusOne.png" />
+                                    <Image url="@images/ic_play_arrow_3x.png" />
                                  </image>
                               </ImageView>
                            </children>
