@@ -84,11 +84,6 @@
                <children>
                   <HBox alignment="CENTER" layoutX="-78.0" layoutY="-4.0" prefHeight="123.0" prefWidth="804.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-78.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="84.0" fitWidth="81.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/compass.png" />
-                           </image>
-                        </ImageView>
                         <Region prefHeight="123.0" prefWidth="21.0" />
                         <ImageView fitHeight="89.0" fitWidth="86.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
