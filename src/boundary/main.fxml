@@ -89,7 +89,7 @@
                                  </image>
                               </ImageView>
                               <Region prefHeight="123.0" prefWidth="21.0" />
-                              <ImageView fitHeight="95.0" fitWidth="94.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="89.0" fitWidth="86.0" layoutX="10.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/fullScreen.png" />
                                  </image>
@@ -150,11 +150,11 @@
                                     </ImageView>
                                  </children>
                               </GridPane>
-                              <ImageView fitHeight="101.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="105.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/Nearest%20Bathroom.png" />
                                  </image></ImageView>
-                              <ImageView fitHeight="102.0" fitWidth="136.0" layoutX="217.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="98.0" fitWidth="97.0" layoutX="217.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/help.png" />
                                  </image>
