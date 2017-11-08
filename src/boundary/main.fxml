@@ -184,9 +184,9 @@
                                           <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER">
+                                    <VBox alignment="CENTER" prefHeight="91.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fitHeight="97.0" fitWidth="92.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="90.0" fitWidth="86.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@images/help.png" />
                                              </image>
