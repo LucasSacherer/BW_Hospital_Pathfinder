@@ -1,147 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="752.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefHeight="650.0" prefWidth="255.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Search">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="249.0">
-                     <children>
-                        <VBox layoutX="18.0" layoutY="37.0" prefHeight="590.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox>
+         <children>
+            <TabPane prefHeight="650.0" prefWidth="255.0" style="-fx-background-color: cyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Directory">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="249.0">
                            <children>
-                              <AnchorPane prefHeight="479.0" prefWidth="255.0">
+                              <VBox layoutX="18.0" layoutY="37.0" prefHeight="590.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <TextField layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="160.0" text="Type a Location" />
-                                    <Button layoutX="184.0" layoutY="7.0" mnemonicParsing="false" text="Search" />
-                                    <TextArea editable="false" layoutX="25.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" text="&lt;Info pane&gt;&#10;&#10;Info about selected &#10;location goes here" />
-                                    <Button layoutX="33.0" layoutY="87.0" minWidth="48.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="72.0" text="Back" />
-                                    <Label layoutX="31.0" layoutY="58.0" text="DIrectory/Path/" underline="true" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="87.0" prefHeight="32.0" prefWidth="112.0" text="CurrentLocation" textAlignment="CENTER" underline="true" />
-                                    <Button layoutX="85.0" layoutY="356.0" mnemonicParsing="false" text="Set Origin" />
-                                    <Button layoutX="69.0" layoutY="409.0" mnemonicParsing="false" text="Set Destination" />
+                                    <AnchorPane prefHeight="540.0" prefWidth="255.0">
+                                       <children>
+                                          <Button layoutX="85.0" layoutY="386.0" mnemonicParsing="false" text="Set Origin" />
+                                          <Button layoutX="69.0" layoutY="428.0" mnemonicParsing="false" text="Set Destination" />
+                                          <Accordion prefHeight="338.0" prefWidth="254.0">
+                                            <panes>
+                                              <TitledPane animated="false" text="Location 1">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" text="Location  2">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" text="Location  3">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </TitledPane>
+                                                <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Location  4">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Location  5">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children>
+                                    </AnchorPane>
+                                    <Separator prefWidth="200.0" />
+                                    <AnchorPane prefHeight="166.0" prefWidth="255.0">
+                                       <children>
+                                          <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="146.0" text="Kiosk (Default)" />
+                                          <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="146.0" text="Set Destination" />
+                                          <Label layoutX="45.0" layoutY="48.0" text="Origin:" />
+                                          <Label layoutX="13.0" layoutY="81.0" text="Destination:" />
+                                          <Button layoutX="90.0" layoutY="127.0" mnemonicParsing="false" text="Navigate" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
-                              </AnchorPane>
-                              <Separator prefWidth="200.0" />
-                              <AnchorPane prefHeight="166.0" prefWidth="255.0">
-                                 <children>
-                                    <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="146.0" text="Kiosk (Default)" />
-                                    <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="146.0" text="Set Destination" />
-                                    <Label layoutX="45.0" layoutY="48.0" text="Origin:" />
-                                    <Label layoutX="13.0" layoutY="81.0" text="Destination:" />
-                                    <Button layoutX="90.0" layoutY="127.0" mnemonicParsing="false" text="Navigate" />
-                                 </children>
-                              </AnchorPane>
+                              </VBox>
                            </children>
-                        </VBox>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Requests">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                <Tab text="Admin">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="272.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+            <Region prefHeight="123.0" prefWidth="21.0" />
+            <Separator orientation="VERTICAL" prefHeight="750.0" prefWidth="12.0" />
+            <Region layoutX="265.0" layoutY="10.0" prefHeight="123.0" prefWidth="21.0" />
+            <VBox prefHeight="650.0" prefWidth="726.0">
+               <children>
+                  <AnchorPane prefHeight="526.0" prefWidth="725.0">
+                     <children>
+                        <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.5079345703125" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <image>
+                              <Image url="@images/ShapiroMap2.PNG" />
+                           </image>
+                           <rotationAxis>
+                              <Point3D />
+                           </rotationAxis>
+                        </ImageView>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Requests">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-          <Tab text="Admin">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="272.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      <Separator orientation="VERTICAL" prefHeight="200.0" />
-      <VBox prefHeight="650.0" prefWidth="726.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane prefHeight="526.0" prefWidth="725.0">
-               <children>
-                  <ImageView fitHeight="584.0" fitWidth="747.0" layoutX="-23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/ShapiroMap2.PNG" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Separator prefWidth="200.0" />
-            <AnchorPane prefHeight="124.0" prefWidth="723.0">
-               <children>
-                  <HBox alignment="CENTER" layoutX="-78.0" layoutY="-4.0" prefHeight="123.0" prefWidth="804.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-78.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Separator prefWidth="200.0" />
+                  <AnchorPane prefHeight="124.0" prefWidth="723.0">
                      <children>
-                        <Region prefHeight="123.0" prefWidth="21.0" />
-                        <Region prefHeight="123.0" prefWidth="21.0" />
-                        <ImageView fitHeight="88.0" fitWidth="85.0" layoutX="115.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/bullsEye.png" />
-                           </image>
-                        </ImageView>
-                        <Region prefHeight="123.0" prefWidth="21.0" />
-                        <ImageView fitHeight="97.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/Black%20Plus.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="99.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/Black%20Minus.png" />
-                           </image>
-                        </ImageView>
-                        <GridPane scaleY="0.9" style="-fx-background-color: silver; -fx-background-radius: 20px; -fx-border-color: black; -fx-border-radius: 20px;">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="54.365478515625" minHeight="10.0" prefHeight="41.09650421142578" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="79.90349578857422" minHeight="10.0" prefHeight="79.90349578857422" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <HBox alignment="CENTER" layoutX="-78.0" layoutY="-4.0" prefHeight="115.0" prefWidth="876.0" style="-fx-background-color: cyan; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label text="Current Floor: " textAlignment="CENTER" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                              <Label text="L1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                 <image>
-                                    <Image url="@images/ic_play_arrow_3x.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                                 <image>
-                                    <Image url="@images/ic_play_arrow_3x.png" />
-                                 </image>
-                              </ImageView>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/bullsEye.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Center Map" textAlignment="CENTER" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="81.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/Black%20Plus.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom In" textAlignment="CENTER" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="88.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/Black%20Minus.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom Out" textAlignment="CENTER" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox alignment="CENTER">
+                                             <children>
+                                                <ImageView fitHeight="81.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/down_arrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER">
+                                             <children>
+                                                <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/up_arrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="86.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/nearest.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="97.0" fitWidth="92.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/help.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="95.0" text="Help" textAlignment="CENTER" />
+                                 </children>
+                              </VBox>
                            </children>
-                        </GridPane>
-                        <ImageView fitHeight="105.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/Nearest%20Bathroom.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="98.0" fitWidth="97.0" layoutX="217.0" layoutY="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/help.png" />
-                           </image>
-                        </ImageView>
-                        <Region layoutX="298.0" layoutY="10.0" prefHeight="123.0" prefWidth="21.0" />
+                        </HBox>
                      </children>
-                  </HBox>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
