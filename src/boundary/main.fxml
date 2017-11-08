@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="653.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="752.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane prefHeight="650.0" prefWidth="255.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -27,7 +27,7 @@
                      <children>
                         <VBox layoutX="18.0" layoutY="37.0" prefHeight="590.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane prefHeight="393.0" prefWidth="249.0">
+                              <AnchorPane prefHeight="479.0" prefWidth="255.0">
                                  <children>
                                     <TextField layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="160.0" text="Type a Location" />
                                     <Button layoutX="184.0" layoutY="7.0" mnemonicParsing="false" text="Search" />
@@ -35,10 +35,12 @@
                                     <Button layoutX="33.0" layoutY="87.0" minWidth="48.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="72.0" text="Back" />
                                     <Label layoutX="31.0" layoutY="58.0" text="DIrectory/Path/" underline="true" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="87.0" prefHeight="32.0" prefWidth="112.0" text="CurrentLocation" textAlignment="CENTER" underline="true" />
+                                    <Button layoutX="85.0" layoutY="356.0" mnemonicParsing="false" text="Set Origin" />
+                                    <Button layoutX="69.0" layoutY="409.0" mnemonicParsing="false" text="Set Destination" />
                                  </children>
                               </AnchorPane>
                               <Separator prefWidth="200.0" />
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                              <AnchorPane prefHeight="166.0" prefWidth="255.0">
                                  <children>
                                     <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="146.0" text="Kiosk (Default)" />
                                     <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="146.0" text="Set Destination" />
@@ -70,7 +72,7 @@
          <children>
             <AnchorPane prefHeight="526.0" prefWidth="725.0">
                <children>
-                  <ImageView fitHeight="524.0" fitWidth="710.0" layoutX="3.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="584.0" fitWidth="747.0" layoutX="-23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/ShapiroMap2.PNG" />
                      </image>
@@ -116,12 +118,12 @@
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="55.4444465637207" minHeight="10.0" prefHeight="46.55555725097656" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="79.90349578857422" minHeight="10.0" prefHeight="74.44444274902344" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="54.365478515625" minHeight="10.0" prefHeight="41.09650421142578" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="79.90349578857422" minHeight="10.0" prefHeight="79.90349578857422" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label prefHeight="63.0" prefWidth="89.0" text="Current Floor: " textAlignment="CENTER" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                              <Label text="Floor #" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                              <Label text="Current Floor: " textAlignment="CENTER" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                              <Label text="L1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                               <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <image>
                                     <Image url="@images/Black%20arrow.png" />
