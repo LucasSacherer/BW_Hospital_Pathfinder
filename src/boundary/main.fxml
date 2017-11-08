@@ -32,8 +32,6 @@
                                        <children>
                                           <AnchorPane prefHeight="540.0" prefWidth="255.0">
                                              <children>
-                                                <Button layoutX="85.0" layoutY="386.0" mnemonicParsing="false" text="Set Origin" />
-                                                <Button layoutX="69.0" layoutY="428.0" mnemonicParsing="false" text="Set Destination" />
                                                 <Accordion prefHeight="338.0" prefWidth="254.0">
                                                   <panes>
                                                     <TitledPane animated="false" text="Location 1">
@@ -68,11 +66,11 @@
                                           <Separator prefWidth="200.0" />
                                           <AnchorPane prefHeight="166.0" prefWidth="256.0">
                                              <children>
-                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="146.0" text="Kiosk (Default)" />
-                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="146.0" text="Set Destination" />
-                                                <Label layoutX="45.0" layoutY="48.0" text="Origin:" />
-                                                <Label layoutX="13.0" layoutY="81.0" text="Destination:" />
-                                                <Button layoutX="90.0" layoutY="127.0" mnemonicParsing="false" text="Navigate" />
+                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0" />
+                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" />
+                                                <Button mnemonicParsing="false" text="Set Origin" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="120.0" />
+                                                <Button mnemonicParsing="false" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="120.0" />
+                                                <Button layoutX="90.0" layoutY="127.0" mnemonicParsing="false" text="Navigate" AnchorPane.bottomAnchor="10.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
