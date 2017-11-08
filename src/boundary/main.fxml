@@ -116,37 +116,37 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox alignment="CENTER">
+                                    <VBox alignment="BOTTOM_CENTER">
                                        <children>
                                           <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/bullsEye.png" />
+                                                <Image url="@images/location.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Center Map" textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="My Location" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER">
+                                    <VBox alignment="BOTTOM_CENTER">
                                        <children>
                                           <ImageView fitHeight="81.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@images/Black%20Plus.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom In" textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom In" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER">
+                                    <VBox alignment="BOTTOM_CENTER">
                                        <children>
                                           <ImageView fitHeight="88.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@images/Black%20Minus.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom Out" textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom Out" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <HBox prefHeight="100.0" prefWidth="200.0">
                                              <children>
@@ -157,7 +157,7 @@
                                                             <Image url="@images/down_arrow.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
+                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
                                                    </children>
                                                 </VBox>
                                                 <VBox alignment="CENTER">
@@ -167,41 +167,41 @@
                                                             <Image url="@images/up_arrow.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
+                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
                                                    </children>
                                                 </VBox>
                                              </children>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER">
+                                    <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="86.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="86.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@images/nearest.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="91.0" prefWidth="82.0">
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="91.0" prefWidth="82.0">
                                        <children>
                                           <ImageView fitHeight="90.0" fitWidth="86.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@images/help.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="95.0" text="Help" textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="95.0" text="Help" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" layoutX="122.0" layoutY="10.0">
+                                    <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0">
                                        <children>
                                           <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@images/home.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Home" textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Home" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
                                  </children>
