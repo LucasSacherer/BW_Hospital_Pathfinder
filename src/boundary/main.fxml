@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -35,27 +35,32 @@
                                              <children>
                                                 <Accordion prefHeight="338.0" prefWidth="254.0">
                                                   <panes>
-                                                    <TitledPane animated="false" text="Location 1">
+                                                    <TitledPane animated="false" text="Cafeterias">
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                       </content>
                                                     </TitledPane>
-                                                    <TitledPane animated="false" text="Location  2">
+                                                    <TitledPane animated="false" text="Gift Shops">
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                       </content>
                                                     </TitledPane>
-                                                    <TitledPane animated="false" text="Location  3">
-                                                      <content>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                      </content>
-                                                    </TitledPane>
-                                                      <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Location  4">
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="ATMs">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                          </content>
                                                       </TitledPane>
-                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Location  5">
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="122.0" text="Parking Lots">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Departments">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Elevators">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                          </content>
@@ -205,7 +210,7 @@
                                                 <Image url="@images/home.png" />
                                              </image>
                                           </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Home" textAlignment="CENTER" />
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Reset" textAlignment="CENTER" />
                                        </children>
                                     </VBox>
                                  </children>
