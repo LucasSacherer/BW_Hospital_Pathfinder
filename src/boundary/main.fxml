@@ -72,7 +72,7 @@
                <children>
                   <ImageView fitHeight="524.0" fitWidth="710.0" layoutX="3.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/Shapiro%20Map1.png" />
+                        <Image url="@images/ShapiroMap2.PNG" />
                      </image>
                   </ImageView>
                </children>
