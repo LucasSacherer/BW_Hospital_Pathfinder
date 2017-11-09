@@ -229,7 +229,7 @@
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0">
                                        <children>
-                                          <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" rotate="-53.1">
                                              <image>
                                                 <Image url="@images/home.png" />
                                              </image>
