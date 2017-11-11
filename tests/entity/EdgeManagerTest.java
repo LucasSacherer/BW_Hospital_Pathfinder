@@ -17,10 +17,10 @@ public class EdgeManagerTest {
     @Test
     public void testGetNeighbors() throws Exception {
 
-        Node n1 = new Node(1, 1, 1, 1, "test", "lName", "sName");
-        Node n2 = new Node(2, 1, 1, 1, "test", "lName", "sName");
-        Node n3 = new Node(3, 1, 1, 1, "test", "lName", "sName");
-        Node n4 = new Node(4, 1, 1, 1, "test", "lName", "sName");
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName",true);
+        Node n2 = new Node("2", 1, 1, "1", "test","type", "lName", "sName",true);
+        Node n3 = new Node("3", 1, 1, "1", "test","type", "lName", "sName", true);
+        Node n4 = new Node("4", 1, 1, "1", "test", "type", "lName", "sName", true);
         Edge e1 = new Edge(n2, n4);
         Edge e2 = new Edge(n1, n3);
 
@@ -36,10 +36,10 @@ public class EdgeManagerTest {
     @Test
     public void testEdgeWeight() throws Exception {
 
-        Node n1 = new Node(1, 1, 1, 1, "test", "lName", "sName");
-        Node n2 = new Node(2, 1, 1, 1, "test", "lName", "sName");
-        Node n3 = new Node(3, 1, 4, 1, "test", "lName", "sName");
-        Node n4 = new Node(4, 1, 3, 1, "test", "lName", "sName");
+        Node n1 = new Node("1", 1, 1, "1", "test","type", "lName", "sName", true);
+        Node n2 = new Node("2", 1, 1, "1", "test","type", "lName", "sName", true);
+        Node n3 = new Node("3", 1, 4, "1", "test","type", "lName", "sName", true);
+        Node n4 = new Node("4", 1, 3, "1", "test","type", "lName", "sName", true);
         Edge e1 = new Edge(n2, n3);
         Edge e2 = new Edge(n1, n3);
         Edge e3 = new Edge(n2, n4);

@@ -1,23 +1,27 @@
 package entity;
 
 public class Node {
-    final private int nodeID;
+    final private String nodeID;
     final private int xcoord;
     final private int ycoord;
-    final private int floor;
+    final private String floor;
     final private String building;
+    final private String nodeType;
     final private String longName;
     final private String shortName;
+    final private boolean visitable;
     private int weight;
 
-    public Node(int nodeID, int xcoord, int ycoord, int floor, String building, String longName, String shortName) {
+    public Node(String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName, boolean visitable) {
         this.nodeID = nodeID;
         this.xcoord = xcoord;
         this.ycoord = ycoord;
         this.floor = floor;
         this.building = building;
+        this.nodeType = nodeType;
         this.longName = longName;
         this.shortName = shortName;
+        this.visitable = visitable;
     }
 
     public void setWeight(Node dest) {
@@ -27,7 +31,7 @@ public class Node {
 
     }
 
-    public int getNodeID() {
+    public String getNodeID() {
         return nodeID;
     }
 
@@ -39,12 +43,16 @@ public class Node {
         return ycoord;
     }
 
-    public int getFloor() {
+    public String getFloor() {
         return floor;
     }
 
     public String getBuilding() {
         return building;
+    }
+
+    public String getNodeType() {
+        return nodeType;
     }
 
     public String getLongName() {
@@ -57,5 +65,9 @@ public class Node {
 
     public int getWeight() {
         return weight;
+    }
+
+    public boolean isVisitable() {
+        return visitable;
     }
 }

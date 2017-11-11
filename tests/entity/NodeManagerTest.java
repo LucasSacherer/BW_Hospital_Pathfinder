@@ -5,6 +5,8 @@ import org.junit.Test;
 public class NodeManagerTest {
 
     @Test
-    public void checkGetNode(){
+    public void checkUpdateNodes(){
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
     }
 }
