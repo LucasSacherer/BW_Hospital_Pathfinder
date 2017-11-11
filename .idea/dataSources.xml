@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="bw_pathfinder_db" uuid="5053a89a-a13c-4e9e-a62f-1d80d88dc57e">
+    <data-source source="LOCAL" name="bw_pathfinder_db" uuid="00e6652b-e800-4f22-8983-f7585280ab6c">
       <driver-ref>derby.remote</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>
