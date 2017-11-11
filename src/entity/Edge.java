@@ -17,8 +17,15 @@ public class Edge {
     }
 
     private int setWeight(Node start, Node end) {
-        return (int) Math.sqrt ((start.getXcoord() - end.getXcoord()) * (start.getXcoord() - end.getXcoord())
-                +
+        return (int) Math.sqrt ((start.getXcoord() - end.getXcoord()) * (start.getXcoord() - end.getXcoord()) +
                 (start.getYcoord() - end.getYcoord()) *  (start.getYcoord() - end.getYcoord()));
+    }
+
+    public Node getStartNode() {
+        return startNode;
+    }
+
+    public Node getEndNode() {
+        return endNode;
     }
 }
