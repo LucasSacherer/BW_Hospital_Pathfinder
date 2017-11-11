@@ -56,6 +56,24 @@ public class NodeManager {
     }
 
     /**
+     * Returns the node with the given nodeID, returns null if the node could not be found
+     * @param nodeID
+     * @return
+     */
+    public Node getNode(String nodeID){
+        if(nodeID == null)
+            return null;
+
+        for(Node node : nodes){
+            if (node.getNodeID().equals(nodeID)){
+                return node;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * For testing updateNodes only, should never really be used
      */
     private void printOutContent(){
