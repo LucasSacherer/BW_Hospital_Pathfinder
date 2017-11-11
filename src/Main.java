@@ -75,9 +75,6 @@ public class Main extends Application {
             System.out.println ("Table already exists");
         }
 
-        //Insert in all the Nodes to the table
-
-
         stmt.close();
         conn.close();
     }
