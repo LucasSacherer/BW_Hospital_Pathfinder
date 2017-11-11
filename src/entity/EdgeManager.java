@@ -23,14 +23,14 @@ public class EdgeManager {
     public List<Edge> getNeighbors(Node node){
 
         //filter to find any edge that starts or end with this node
-        return (edges.stream().filter(p -> p.start == node || p.end == node).collect(Collectors.toList()));
+        return (edges.stream().filter(p -> p.getStartNode() == node || p.getEndNode() == node).collect(Collectors.toList()));
     }
 
     public double edgeWeight(Node start, Node end){
 
         //find the edge in the list with the given start & end node, return the weight
         Edge target;
-        target = (edges.stream().filter(p -> p.start == start && p.end == end).findFirst()).get();
+        target = (edges.stream().filter(p -> p.getStartNode() == start && p.getEndNode() == end).findFirst()).get();
         return (double)target.weight;
     }
 }
