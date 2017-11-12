@@ -85,6 +85,10 @@ public class NodeManager {
         return nodes.stream().filter(Node::isVisitable).collect(Collectors.toList());
     }
 
+    /**
+     * Adds the given node to the database and updates the node manager
+     * @param node - node to be added to the database
+     */
     public void addNode(Node node){
         try {
             Connection conn = DriverManager.getConnection(DBURL);
@@ -104,6 +108,10 @@ public class NodeManager {
         updateNodes();
     }
 
+    /**
+     * Deletes the given node (with matching nodeID) from the database and updates the node manager
+     * @param node - node with the nodeID of the node to remove
+     */
     public void removeNode(Node node){
         String nodeToRemove = node.getNodeID();
 
@@ -115,6 +123,34 @@ public class NodeManager {
             conn.close();
         }catch (SQLException ex){
             System.out.println("Failed to remove node from database!");
+            ex.printStackTrace();
+            return;
+        }
+
+        updateNodes();
+    }
+
+    /**
+     * Updates the node in the database with the matching nodeID to the given node object and updates the manager
+     * @param node - updated node (must use an existing nodeID)
+     */
+    public void updateNode(Node node){
+        try{
+            Connection conn = DriverManager.getConnection(DBURL);
+            Statement stmt = conn.createStatement();
+            String visitable = node.isVisitable()? "TRUE" : "FALSE";
+            stmt.executeUpdate("UPDATE NODE SET XCOORD = " + node.getXcoord() + "," +
+                    "YCOORD = " + node.getYcoord() + "," +
+                    "FLOOR = '" + node.getFloor() + "'," +
+                    "BUILDING = '" + node.getBuilding() + "'," +
+                    "NODETYPE = '" + node.getNodeType() + "'," +
+                    "LONGNAME = '" + node.getLongName() + "'," +
+                    "SHORTNAME = '" + node.getShortName() + "'," +
+                    "VISITABLE = '" + visitable + "' WHERE NODEID = '" + node.getNodeID() + "'");
+            stmt.close();
+            conn.close();
+        }catch (SQLException ex){
+            System.out.println("Failed to update a node!");
             ex.printStackTrace();
             return;
         }

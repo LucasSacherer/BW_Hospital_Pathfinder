@@ -52,4 +52,16 @@ public class NodeManagerTest {
         manager.removeNode(test);
         assertNull(manager.getNode(test.getNodeID()));
     }
+
+    @Test
+    public void testUpdateNode(){
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        Node test = new Node("1",2,3,"1","building","type","lName","sName",true);
+        manager.addNode(test);
+        Node testModified = new Node("1",6,6,"1","building","type","lName","sName",true);
+        manager.updateNode(testModified);
+        assertEquals(manager.getNode(test.getNodeID()).getXcoord(),testModified.getXcoord());
+        manager.removeNode(testModified);
+    }
 }
