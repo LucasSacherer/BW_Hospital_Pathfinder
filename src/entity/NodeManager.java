@@ -3,6 +3,7 @@ package entity;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NodeManager {
 
@@ -42,7 +43,7 @@ public class NodeManager {
                 String longName = rs.getString("LONGNAME");
                 String shortName = rs.getString("SHORTNAME");
                 String visitableS = rs.getString("VISITABLE");
-                boolean visitable = visitableS.equals("true");
+                boolean visitable = visitableS.equals("TRUE");
 
                 nodes.add(new Node(nodeID,xcoord,ycoord,floor,building,nodetype,longName,shortName,visitable));
             }
@@ -71,6 +72,15 @@ public class NodeManager {
         }
 
         return null;
+    }
+
+    /**
+     * Returns a list of all nodes marked with the visitable flag
+     * @return
+     */
+    public List<Node> getVisitableNodes(){
+        //filters to nodes that are only visitable
+        return nodes.stream().filter(Node::isVisitable).collect(Collectors.toList());
     }
 
     /**
