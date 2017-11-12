@@ -17,6 +17,7 @@ public class PathController {
      * B. On the the same floor
      * C. In the same building
      * D. not Null
+     *
      * @param start
      * @param end
      * @return true if all the above listed factors are satisfied.
@@ -24,14 +25,22 @@ public class PathController {
 
     //MAKE THIS PRIVATE AFTER TESTING
     //Add Null checking
-    public static Boolean validatePath(Node start, Node end){
-        if (start.getNodeID().equals(end.getNodeID()) || start.getFloor().equals(end.getFloor())|| start.getBuilding().equals(end.getBuilding())){
+    public static Boolean validatePath(Node start, Node end) {
+        if (start.getNodeID().equals(end.getNodeID())){
             return false;
-        }
-        else
+        } else if (!start.getFloor().equals(end.getFloor())) {
+            return false;
+        } else if (!start.getBuilding().equals(end.getBuilding())){
+            return false;
+        } else if (!start.isVisitable() || !end.isVisitable()) {
+            return false;
+        } else if (!start.getNodeType().equals(end.getNodeType())){
+            return false;
+        } else {
             return true;
-    }
+        }
 
+    }
 }
 
 

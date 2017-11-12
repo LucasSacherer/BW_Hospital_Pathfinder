@@ -15,15 +15,22 @@ public class PathControllerTest {
     @Test
     public void validatePathTest(){
         Node nodeA = new Node("1", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
-        Node nodeB = new Node("1", 1, 1, "2", "BuildingB","Type A","Short Name", "1",true);
-        Node nodeC = new Node("2", 1, 1, "3", "BuildingA","Type A","Short Name", "1",true);
-        Node nodeD = new Node("3", 1, 1, "1", "BuildingC","Type A","Short Name", "1",true);
-        Node nodeE = new Node("4", 1, 1, "4", "BuildingD","Type A","Short Name", "1",true);
+        Node nodeB = new Node("1", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
+        Node nodeC = new Node("3", 1, 1, "2", "BuildingA","Type A","Short Name", "1",true);
+        Node nodeD = new Node("4", 1, 1, "1", "BuildingB","Type A","Short Name", "1",true);
+        Node nodeE = new Node("5", 1, 1, "1", "BuildingA","Type A","Short Name", "1",false);
+        Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type B","Short Name", "1",true);
+        Node nodeG = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
 
-        assertEquals(PathController.validatePath(nodeA, nodeE),true);
-        assertEquals(PathController.validatePath(nodeA, nodeB), false);
-        assertEquals(PathController.validatePath(nodeA, nodeC), false);
-        assertEquals(PathController.validatePath(nodeA, nodeD), false);
+
+
+        assertEquals(false, PathController.validatePath(nodeA, nodeB));
+        assertEquals(false, PathController.validatePath(nodeA, nodeC));
+        assertEquals(false, PathController.validatePath(nodeA, nodeD));
+        assertEquals(false, PathController.validatePath(nodeA, nodeE));
+        assertEquals(false, PathController.validatePath(nodeA, nodeF));
+        assertEquals(true, PathController.validatePath(nodeA, nodeG));
+
 
 
 
