@@ -41,4 +41,15 @@ public class NodeManagerTest {
         }
         assertTrue(ok);
     }
+
+    @Test
+    public void testAddDeleteNode(){
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        Node test = new Node("1",2,3,"1","building","type","lName","sName",true);
+        manager.addNode(test);
+        assertEquals(manager.getNode(test.getNodeID()).getNodeID(),test.getNodeID());
+        manager.removeNode(test);
+        assertNull(manager.getNode(test.getNodeID()));
+    }
 }
