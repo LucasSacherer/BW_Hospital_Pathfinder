@@ -47,6 +47,8 @@ public class NodeManager {
 
                 nodes.add(new Node(nodeID,xcoord,ycoord,floor,building,nodetype,longName,shortName,visitable));
             }
+            stmt.close();
+            conn.close();
         }catch (SQLException ex){
             System.out.println("Failed to update the node manager!");
             ex.printStackTrace();
@@ -81,6 +83,43 @@ public class NodeManager {
     public List<Node> getVisitableNodes(){
         //filters to nodes that are only visitable
         return nodes.stream().filter(Node::isVisitable).collect(Collectors.toList());
+    }
+
+    public void addNode(Node node){
+        try {
+            Connection conn = DriverManager.getConnection(DBURL);
+            Statement stmt = conn.createStatement();
+            String visitable = node.isVisitable() ? "TRUE" : "FALSE";
+            stmt.executeUpdate("INSERT INTO NODE VALUES ('"+node.getNodeID()+"',"+node.getXcoord()+","+
+                    node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
+                    node.getLongName()+"','"+node.getShortName()+"','','"+visitable+"')");
+            stmt.close();
+            conn.close();
+        }catch (SQLException ex){
+            System.out.println("Failed to add new node to database!");
+            ex.printStackTrace();
+            return;
+        }
+
+        updateNodes();
+    }
+
+    public void removeNode(Node node){
+        String nodeToRemove = node.getNodeID();
+
+        try{
+            Connection conn = DriverManager.getConnection(DBURL);
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
+            stmt.close();
+            conn.close();
+        }catch (SQLException ex){
+            System.out.println("Failed to remove node from database!");
+            ex.printStackTrace();
+            return;
+        }
+
+        updateNodes();
     }
 
     /**
