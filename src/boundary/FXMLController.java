@@ -1,8 +1,7 @@
 package boundary;
 
-import controller.*;
-
 import controller.PathController;
+import entity.NodeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -17,13 +16,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import controller.MapDisplayController;
-import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class FXMLController {
-    private final NodeManager;
+    final private MapDisplayController newMap = new MapDisplayController();
 
     private Node loc1;
     private Node loc2;
@@ -41,25 +37,18 @@ public class FXMLController {
     @FXML
     private ImageView mapImageView;
 
+    @FXML
+    private ScrollPane imageScroll;
 
     public FXMLController() {
         //TODO all of the managers and controllers will be created here
     }
-   final private MapDisplayController newMap = new MapDisplayController();
-
-   @FXML
-    private ScrollPane imageScroll;
 
    @FXML
    private void initialize(){
        Image groundFloor= newMap.getMap("G");
        imageScroll.setContent(new ImageView(groundFloor));
    }
-
-   public FXMLController() {
-
-   }
-}
 
     private void setStartLocation(ActionEvent e) {
         // sets loc1
@@ -71,8 +60,10 @@ public class FXMLController {
     }
 
     // finds the path from loc1 to loc2
+    @FXML
     private void findPath(ActionEvent e) {
-        PathController.findPath(loc1, loc2);
+       // TODO: Add a PathController object at the top of this class, call find path in there
+        //PathController.findPath(loc1, loc2);
     }
 
     // finds the path from
@@ -81,7 +72,8 @@ public class FXMLController {
     }
 
     private void retrieveMapImage(ActionEvent e) {
-        MapDisplayController.getMap(currentFloor);
+        // TODO: Add a MapDisplayController object at the top of this class, call find path in there
+       //MapDisplayController.getMap(currentFloor);
     }
 
     private void zoomInMap(ActionEvent e) {
@@ -96,6 +88,7 @@ public class FXMLController {
     }
 
     private void placeNode(ActionEvent e) {
+       // TODO: get all the node information out of the UI and give the node ot the map edit controller
         String nodeID;
         int xcoord;
         int ycoord;
@@ -105,7 +98,7 @@ public class FXMLController {
         String longName;
         String shortName;
         boolean visitable;
-        Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
+        //Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
     }
 
     private void snapToNode(ActionEvent e) {
