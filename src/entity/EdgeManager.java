@@ -82,10 +82,21 @@ public class EdgeManager {
      * @param node the node to find the neighbors of
      * @return List<Edge> the list of edges connected to the given node
      */
-    public List<Edge> getNeighbors(Node node){
+    public List<Node> getNeighbors(Node node){
 
-        return (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
                 p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
+
+        List<Node> neighbors = new ArrayList<>();
+        for (Edge edge: connectedEdges){
+            if (edge.getStartNode().getNodeID().equals(node.getNodeID())){
+                neighbors.add(edge.getEndNode());
+            }else{
+                neighbors.add(edge.getStartNode());
+            }
+        }
+
+        return neighbors;
     }
 
     /**
