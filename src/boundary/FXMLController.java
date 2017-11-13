@@ -18,7 +18,7 @@ import javafx.scene.control.ScrollPane;
 public class FXMLController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
-    final private EdgeManager edgeManager = new EdgeManager();
+    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private MapManager mapManager = new MapManager();
     final private RequestManager requestManager = new RequestManager();
 

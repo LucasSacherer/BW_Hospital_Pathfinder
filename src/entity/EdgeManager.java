@@ -11,7 +11,7 @@ public class EdgeManager {
     private List<Edge> edges;
     final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
 
-    EdgeManager(NodeManager nodeManager){
+    public EdgeManager(NodeManager nodeManager){
         this.nodeManager = nodeManager;
         edges = new ArrayList<>();
     }
