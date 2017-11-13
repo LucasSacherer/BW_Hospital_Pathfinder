@@ -16,6 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.ScrollPane;
 
 public class FXMLController {
+    /* managers */
+    final private NodeManager nodeManager = new NodeManager();
+    final private EdgeManager edgeManager = new EdgeManager();
+    final private MapManager mapManager = new MapManager();
+    final private RequestManager requestManager = new RequestManager();
+
     /* controllers */
     final private MapDisplayController mapDisplayController = new MapDisplayController();
     final private MapEditController mapEditController = new MapEditController();
@@ -24,12 +30,6 @@ public class FXMLController {
     final private PathController pathController = new PathController;
     final private RequestController requestController = new RequestController();
     // final private NearestPOIController nearestPOIController = new NearestPOController();
-
-    /* managers */
-    final private NodeManager nodeManager = new NodeManager();
-    final private EdgeManager edgeManager = new EdgeManager();
-    final private MapManager mapManager = new MapManager();
-    final private RequestManager requestManager = new RequestManager();
 
     private Node loc1;
     private Node loc2;
@@ -99,6 +99,7 @@ public class FXMLController {
 
     private void placeNode(ActionEvent e) {
        // TODO: get all the node information out of the UI and give the node ot the map edit controller
+        // this should be in the pop-up on the Map Editor page
         String nodeID;
         int xcoord;
         int ycoord;
@@ -133,7 +134,7 @@ public class FXMLController {
     }
 
     private void displayRequests(ActionEvent e) {
-
+        // requestController.
     }
 
     private void login(ActionEvent e) {
