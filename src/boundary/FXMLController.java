@@ -1,7 +1,6 @@
 package boundary;
 
-import controller.PathController;
-import entity.NodeManager;
+import controller.MapEditController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -19,7 +18,8 @@ import controller.MapDisplayController;
 import javafx.scene.control.ScrollPane;
 
 public class FXMLController {
-    final private MapDisplayController newMap = new MapDisplayController();
+    final private MapDisplayController mapDisplayController = new MapDisplayController();
+    final private MapEditController mapEditController = new MapEditController();
 
     private Node loc1;
     private Node loc2;
@@ -46,7 +46,7 @@ public class FXMLController {
 
    @FXML
    private void initialize(){
-       Image groundFloor= newMap.getMap("G");
+       Image groundFloor = mapDisplayController.getMap("G");
        imageScroll.setContent(new ImageView(groundFloor));
    }
 
