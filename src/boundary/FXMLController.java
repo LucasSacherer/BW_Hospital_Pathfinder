@@ -1,11 +1,9 @@
 package boundary;
 
-import controller.PathController;
-import entity.NodeManager;
+import controller.*;
+import entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
-import entity.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,11 +13,26 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import controller.MapDisplayController;
 import javafx.scene.control.ScrollPane;
 
 public class FXMLController {
-    final private MapDisplayController newMap = new MapDisplayController();
+    /* managers */
+    final private NodeManager nodeManager = new NodeManager();
+    final private EdgeManager edgeManager = new EdgeManager();
+    final private MapManager mapManager = new MapManager();
+    final private RequestManager requestManager = new RequestManager();
+
+//    final private Astar aStar = new Astar(edgeManager);
+//
+//    /* controllers */
+    final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
+//    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
+//    final private ClickController clickController = new ClickController(nodeManager);
+//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+//    final private PathController pathController = new PathController(aStar);
+//    final private RequestController requestController = new RequestController(requestManager, nodeManager);
+//    // final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
+//
 
     private Node loc1;
     private Node loc2;
@@ -30,7 +43,6 @@ public class FXMLController {
     private int currentFloor;
     private List<Node> currentPath;
 
-
     @FXML
     private Button navigate;
 
@@ -40,13 +52,9 @@ public class FXMLController {
     @FXML
     private ScrollPane imageScroll;
 
-    public FXMLController() {
-        //TODO all of the managers and controllers will be created here
-    }
-
    @FXML
    private void initialize(){
-       Image groundFloor= newMap.getMap("G");
+       Image groundFloor = mapDisplayController.getMap("G");
        imageScroll.setContent(new ImageView(groundFloor));
    }
 
@@ -89,6 +97,7 @@ public class FXMLController {
 
     private void placeNode(ActionEvent e) {
        // TODO: get all the node information out of the UI and give the node ot the map edit controller
+        // this should be in the pop-up on the Map Editor page
         String nodeID;
         int xcoord;
         int ycoord;
@@ -123,7 +132,7 @@ public class FXMLController {
     }
 
     private void displayRequests(ActionEvent e) {
-
+        // requestController.
     }
 
     private void login(ActionEvent e) {

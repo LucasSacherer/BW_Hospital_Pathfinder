@@ -8,7 +8,7 @@ public class EdgeManager {
 
     private List<Edge> edges;
 
-    EdgeManager(){
+    public EdgeManager(){
         edges = new ArrayList<>();
     }
 
