@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -99,7 +99,7 @@
                                                 <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" />
                                                 <Button mnemonicParsing="false" text="Set Origin" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="120.0" />
                                                 <Button mnemonicParsing="false" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="120.0" />
-                                                <Button layoutX="90.0" layoutY="127.0" mnemonicParsing="false" text="Navigate" AnchorPane.bottomAnchor="10.0" />
+                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#findPath" text="Navigate" AnchorPane.bottomAnchor="10.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -182,15 +182,7 @@
                      <items>
                         <AnchorPane prefHeight="773.0" prefWidth="756.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <ScrollPane hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <ImageView pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/01_thefirstfloor.png" />
-                                       </image>
-                                    </ImageView>
-                                 </content>
-                              </ScrollPane>
+                              <ScrollPane fx:id="imageScroll" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane maxHeight="-Infinity" prefHeight="112.0" prefWidth="877.0" SplitPane.resizableWithParent="false">

@@ -12,5 +12,4 @@ public class EdgeTest {
         Edge e = new Edge(n1,n2);
         assertEquals(e.getWeight(),1);
     }
-
 }
