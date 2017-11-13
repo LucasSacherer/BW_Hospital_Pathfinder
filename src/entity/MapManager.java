@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class MapManager {
     private HashMap<String, Image> maps;
 
-    public MapManager(HashMap<String, Image> maps) {
-        this.maps = maps;
+    public MapManager() {
+        maps = new HashMap<>();
     }
 
     /**
