@@ -98,6 +98,7 @@ public class NodeManagerTest {
         manager.addNode(test3);
         manager.addNode(test4);
         assertEquals(manager.nearestLoc(0,0, "bathroom").getNodeID(), test4.getNodeID());
+        assertNull(manager.nearestLoc(0, 0, "monkey"));
         manager.removeNode(test);
         manager.removeNode(test2);
         manager.removeNode(test3);

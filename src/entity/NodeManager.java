@@ -60,8 +60,8 @@ public class NodeManager {
 
     /**
      * Returns the node with the given nodeID, returns null if the node could not be found
-     * @param nodeID
-     * @return
+     * @param nodeID the ID of the node you want to get
+     * @return the corresponding node
      */
     public Node getNode(String nodeID){
         if(nodeID == null)
@@ -78,7 +78,7 @@ public class NodeManager {
 
     /**
      * Returns a list of all nodes marked with the visitable flag
-     * @return
+     * @return the list of visitable nodes
      */
     public List<Node> getVisitableNodes(){
         //filters to nodes that are only visitable
@@ -178,7 +178,7 @@ public class NodeManager {
     public Node nearestNode(int x, int y){
         double newDistance;
         double nodeDistance = 10000000000.0;
-        Node result = new Node("-1",0,0,"floor","building","nodeType","lName","sName",false);
+        Node result = null;
 
         for (Node node: nodes){
             newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
@@ -201,7 +201,7 @@ public class NodeManager {
     public Node nearestLoc(int x, int y, String type){
         double newDistance;
         double nodeDistance = 10000000000.0;
-        Node result = new Node("-1",0,0,"floor","building","nodeType","lName","sName",false);
+        Node result = null;
 
         for (Node node: nodes){
             if(node.getNodeType().equals(type)) {
