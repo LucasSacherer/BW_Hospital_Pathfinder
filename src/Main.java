@@ -1,3 +1,4 @@
+import controller.MapDisplayController;
 import entity.DatabaseSetup;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
