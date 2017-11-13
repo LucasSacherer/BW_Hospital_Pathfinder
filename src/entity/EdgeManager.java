@@ -1,15 +1,37 @@
 package entity;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EdgeManager {
 
+    private NodeManager nodeManager;
     private List<Edge> edges;
+    final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
 
-    EdgeManager(){
+    EdgeManager(NodeManager nodeManager){
+        this.nodeManager = nodeManager;
         edges = new ArrayList<>();
+    }
+
+    public void updateEdges(){
+        edges.clear();
+
+        try{
+            Connection conn = DriverManager.getConnection(DBURL);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM EDGE");
+            while (rs.next()){
+                String startNodeID = rs.getString("STARTNODE");
+                String endNodeID = rs.getString("ENDNODE");
+                edges.add(new Edge(nodeManager.getNode(startNodeID), nodeManager.getNode(endNodeID)));
+            }
+        }catch (SQLException ex){
+            System.out.println("Failed to get edges from database!");
+            ex.printStackTrace();
+        }
     }
 
     public void addEdge(Edge e){
