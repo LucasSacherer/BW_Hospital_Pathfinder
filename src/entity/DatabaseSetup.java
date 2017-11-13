@@ -28,17 +28,6 @@ public class DatabaseSetup {
         Connection conn = DriverManager.getConnection(dbURL);
         Statement stmt = conn.createStatement();
 
-        //Try to create Edge table, yell if already exists
-        try {
-            stmt.execute("CREATE TABLE edge (\n" +
-                    " edgeID VARCHAR(30) PRIMARY KEY,\n" +
-                    " startNode varchar(20) NOT NULL,\n" +
-                    " endNode varchar(20) NOT NULL\n" +
-                    ")");
-        } catch (SQLException e){
-            System.out.println ("Table already exists");
-        }
-
         //Try to create Node table, yell if already exists
         try {
             stmt.execute("CREATE TABLE node (\n" +
@@ -53,6 +42,18 @@ public class DatabaseSetup {
                     " teamAssigned varchar(10) NOT NULL,\n" +
                     " visitable varchar(5) NOT NULL\n " +
                     ")");
+        } catch (SQLException e){
+            System.out.println ("Table already exists");
+        }
+
+        //Try to create Edge table, yell if already exists
+        try {
+            stmt.execute("CREATE TABLE edge (\n" +
+                    " edgeID VARCHAR(30) PRIMARY KEY,\n" +
+                    " startNode varchar(20) NOT NULL,\n" +
+                    " endNode varchar(20) NOT NULL,\n" +
+                    " CONSTRAINT startNode_FK FOREIGN KEY (startNode) REFERENCES NODE(nodeID),\n" +
+                    " CONSTRAINT endNode_FK FOREIGN KEY (endNode) REFERENCES NODE(nodeID))");
         } catch (SQLException e){
             System.out.println ("Table already exists");
         }
