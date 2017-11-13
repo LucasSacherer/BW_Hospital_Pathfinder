@@ -1,5 +1,8 @@
 package boundary;
 
+import controller.*;
+
+import controller.PathController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -8,11 +11,14 @@ import entity.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javafx.scene.image.Image;
 
-import javax.swing.*;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class FXMLController {
+    private final NodeManager;
+
     private Node loc1;
     private Node loc2;
     private Node currentLoc;
@@ -22,35 +28,63 @@ public class FXMLController {
     private int currentFloor;
     private List<Node> currentPath;
 
-    private void getStartLocation(ActionEvent e) {
-        return loc1;
+
+    @FXML
+    private Button navigate;
+
+    @FXML
+    private ImageView mapImageView;
+
+
+    public FXMLController() {
+        //TODO all of the managers and controllers will be created here
     }
 
-    private void getEndLocation(ActionEvent e) {
-        return loc2;
+    private void setStartLocation(ActionEvent e) {
+        // sets loc1
+        // loc1
+    }
+
+    private void setEndLocation(ActionEvent e) {
+         //sets loc2;
     }
 
     // finds the path from loc1 to loc2
     private void findPath(ActionEvent e) {
-        //TODO draws a path from loc1 to loc2
-        // lineTO from sceneBuilder
+        PathController.findPath(loc1, loc2);
     }
 
     // finds the path from
     private void findNearest(ActionEvent e) {
-        //TODO calls NearestPOIController
+       // low priority
     }
 
     private void retrieveMapImage(ActionEvent e) {
-        //TODO calls MapDisplayController
+        MapDisplayController.getMap(currentFloor);
     }
 
-    private void scaleMap(ActionEvent e) {
+    private void zoomInMap(ActionEvent e) {
+        mapImageView.setScaleX(mapImageView.getScaleX() + 0.1);
+        mapImageView.setScaleY(mapImageView.getScaleY() + 0.1);
+    }
 
+    private void zoomOutMap(ActionEvent e) {
+        if (mapImageView.getScaleX() <= 1 || mapImageView.getScaleY() <= 1) return;
+        mapImageView.setScaleX(mapImageView.getScaleX() - 0.1);
+        mapImageView.setScaleY(mapImageView.getScaleY() - 0.1);
     }
 
     private void placeNode(ActionEvent e) {
-
+        String nodeID;
+        int xcoord;
+        int ycoord;
+        String floor;
+        String building;
+        String nodeType;
+        String longName;
+        String shortName;
+        boolean visitable;
+        Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
     }
 
     private void snapToNode(ActionEvent e) {
