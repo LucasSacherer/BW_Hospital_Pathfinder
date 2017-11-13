@@ -26,7 +26,7 @@ public class PathControllerTest {
         Node nodeC = new Node("3", 1, 1, "2", "BuildingA","Type A","Short Name", "1",true);
         Node nodeD = new Node("4", 1, 1, "1", "BuildingB","Type A","Short Name", "1",true);
         Node nodeE = new Node("5", 1, 1, "1", "BuildingA","Type A","Short Name", "1",false);
-        Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type B","Short Name", "1",true);
+        Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
         Node nodeG = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
 
 
