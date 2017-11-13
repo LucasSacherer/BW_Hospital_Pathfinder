@@ -21,8 +21,16 @@ public class RequestController {
      *
      * @param req
      */
+    //Should this be Boolean?
     protected void validateRequest(Request req){
-
+        for (int i = 0; i <= RequestManager.getRequests().size(); i++){
+            if (req.getName().equals(RequestManager.getRequests().get(i).getName())){
+                //Give some error if same name
+            }
+            if (req.getType().equals(RequestManager.getRequests().get(i).getType()) && req.getNode().equals(RequestManager.getRequests().get(i)).getNode()){
+                //Give some error if same type & node
+            }
+        }
     }
 
     /**
@@ -42,6 +50,10 @@ public class RequestController {
      */
     public void deleteRequest(Request req){
         RequestManager.deleteRequest(req);
+
+    }
+
+    public class sameNamedRequestException extends Exception{
 
     }
 }
