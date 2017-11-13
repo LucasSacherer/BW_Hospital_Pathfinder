@@ -39,7 +39,21 @@ public class EdgeManager {
      * @param e the edge to add
      */
     public void addEdge(Edge e){
-        edges.add(e);
+        try{
+            Connection conn = DriverManager.getConnection(DBURL);
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("INSERT INTO EDGE VALUES ('"+
+                    e.getStartNode().getNodeID()+"-"+e.getEndNode().getNodeID()+"','"+
+                    e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
+            stmt.close();
+            conn.close();
+        }catch (SQLException ex){
+            System.out.println("Failed to add an edge to the database!");
+            ex.printStackTrace();
+            return;
+        }
+
+        updateEdges();
     }
 
     /**
@@ -47,7 +61,20 @@ public class EdgeManager {
      * @param e the edge to remove
      */
     public void removeEdge(Edge e){
-        edges.remove(e);
+        try{
+            Connection conn = DriverManager.getConnection(DBURL);
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM EDGE WHERE EDGEID = '"+
+                    e.getStartNode().getNodeID()+"-"+e.getEndNode().getNodeID()+"'");
+            stmt.close();
+            conn.close();
+        }catch (SQLException ex){
+            System.out.println("Failed to remove Edge from the database!");
+            ex.printStackTrace();
+            return;
+        }
+
+        updateEdges();
     }
 
     /**
