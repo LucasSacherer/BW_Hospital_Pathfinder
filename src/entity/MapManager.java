@@ -22,5 +22,21 @@ public class MapManager {
         return null;
     }
 
+    /**
+     * Uploads the given picture to the database
+     * @param floor The key for the picture
+     * @param img The picture to be uploaded
+     */
+    public void uploadMapToDB(String floor, File img){
+
+    }
+
+    /**
+     * Updates the maps object to contain the latest maps in the database
+     */
+    public void updateMaps(){
+
+    }
+
 
 }
