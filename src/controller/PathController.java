@@ -1,9 +1,11 @@
 package controller;
 
+import entity.Astar;
 import entity.Node;
 import java.util.List;
 
 public class PathController {
+    final private Astar astar  = new Astar();
 
     /**
      * This method is simply a extension to Astar.findPath() and returns the same result.
@@ -43,5 +45,4 @@ public class PathController {
 
     }
 }
-
 

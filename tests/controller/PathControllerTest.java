@@ -27,7 +27,6 @@ public class PathControllerTest {
         Node nodeD = new Node("4", 1, 1, "1", "BuildingB","Type A","Short Name", "1",true);
         Node nodeE = new Node("5", 1, 1, "1", "BuildingA","Type A","Short Name", "1",false);
         Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
-        Node nodeG = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
 
 
 
@@ -35,8 +34,7 @@ public class PathControllerTest {
         assertEquals(false, PathController.validatePath(nodeA, nodeC));
         assertEquals(false, PathController.validatePath(nodeA, nodeD));
         assertEquals(false, PathController.validatePath(nodeA, nodeE));
-        assertEquals(false, PathController.validatePath(nodeA, nodeF));
-        assertEquals(true, PathController.validatePath(nodeA, nodeG));
+        assertEquals(true, PathController.validatePath(nodeA, nodeF));
 
 
 
