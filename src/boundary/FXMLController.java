@@ -16,6 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import controller.MapDisplayController;
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class FXMLController {
     private final NodeManager;
 
@@ -39,6 +45,21 @@ public class FXMLController {
     public FXMLController() {
         //TODO all of the managers and controllers will be created here
     }
+   final private MapDisplayController newMap = new MapDisplayController();
+
+   @FXML
+    private ScrollPane imageScroll;
+
+   @FXML
+   private void initialize(){
+       Image groundFloor= newMap.getMap("G");
+       imageScroll.setContent(new ImageView(groundFloor));
+   }
+
+   public FXMLController() {
+
+   }
+}
 
     private void setStartLocation(ActionEvent e) {
         // sets loc1

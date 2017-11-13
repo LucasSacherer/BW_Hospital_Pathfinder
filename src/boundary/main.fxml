@@ -182,15 +182,7 @@
                      <items>
                         <AnchorPane prefHeight="773.0" prefWidth="756.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <ScrollPane hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <ImageView pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/01_thefirstfloor.png" />
-                                       </image>
-                                    </ImageView>
-                                 </content>
-                              </ScrollPane>
+                              <ScrollPane fx:id="imageScroll" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane maxHeight="-Infinity" prefHeight="112.0" prefWidth="877.0" SplitPane.resizableWithParent="false">
