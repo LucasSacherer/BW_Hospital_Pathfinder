@@ -64,4 +64,44 @@ public class NodeManagerTest {
         assertEquals(manager.getNode(test.getNodeID()).getXcoord(),testModified.getXcoord());
         manager.removeNode(testModified);
     }
+
+    @Test
+    public void testNearestNode(){
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        Node test = new Node("1",50,0,"1","building","type","lName","sName",true);
+        Node test2 = new Node("2",99, 99,"1","building","type","lName","sName",true);
+        Node test3 = new Node("3",2,2,"1","building","type","lName","sName",true);
+        Node test4 = new Node("4",5,5,"1","building","type","lName","sName",true);
+        manager.addNode(test);
+        manager.addNode(test2);
+        manager.addNode(test3);
+        manager.addNode(test4);
+        assertEquals(test3.getNodeID(),manager.nearestNode(0, 0).getNodeID());
+        manager.removeNode(test);
+        manager.removeNode(test2);
+        manager.removeNode(test3);
+        manager.removeNode(test4);
+
+    }
+
+    @Test
+    public void testNearestLoc(){
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        Node test = new Node("1",1,1,"1","building","type","lName","sName",true);
+        Node test2 = new Node("2",2, 2,"1","building","type","lName","sName",true);
+        Node test3 = new Node("3",5,5,"1","building","bathroom","lName","sName",true);
+        Node test4 = new Node("4",3,3,"1","building","bathroom","lName","sName",true);
+        manager.addNode(test);
+        manager.addNode(test2);
+        manager.addNode(test3);
+        manager.addNode(test4);
+        assertEquals(manager.nearestLoc(0,0, "bathroom").getNodeID(), test4.getNodeID());
+        manager.removeNode(test);
+        manager.removeNode(test2);
+        manager.removeNode(test3);
+        manager.removeNode(test4);
+
+    }
 }

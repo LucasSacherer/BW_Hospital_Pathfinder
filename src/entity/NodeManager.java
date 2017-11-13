@@ -168,4 +168,51 @@ public class NodeManager {
                     "," + node.getShortName() + "," + node.isVisitable());
         }
     }
+
+    /**
+     * Finds the node nearest to the given coordinates
+     * @param x the x coordinate to search from
+     * @param y the y coordinate to search from
+     * @return result the closest node
+     */
+    public Node nearestNode(int x, int y){
+        double newDistance;
+        double nodeDistance = 10000000000.0;
+        Node result = new Node("-1",0,0,"floor","building","nodeType","lName","sName",false);
+
+        for (Node node: nodes){
+            newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
+                    (y - node.getYcoord()) *  (y - node.getYcoord())));
+            if (newDistance < nodeDistance){
+                nodeDistance = newDistance;
+                result = node;
+            }
+        }
+        return result;
+    }
+
+    /**
+     *
+     * @param x the x coordinate to search from
+     * @param y the y coordinate to search from
+     * @param type the type of node to search for
+     * @return result the closest node of the specified type
+     */
+    public Node nearestLoc(int x, int y, String type){
+        double newDistance;
+        double nodeDistance = 10000000000.0;
+        Node result = new Node("-1",0,0,"floor","building","nodeType","lName","sName",false);
+
+        for (Node node: nodes){
+            if(node.getNodeType().equals(type)) {
+                newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
+                        (y - node.getYcoord()) * (y - node.getYcoord())));
+                if (newDistance < nodeDistance) {
+                    nodeDistance = newDistance;
+                    result = node;
+                }
+            }
+        }
+        return result;
+    }
 }
