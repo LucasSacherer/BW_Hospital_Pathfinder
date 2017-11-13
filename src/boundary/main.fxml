@@ -185,7 +185,6 @@
                                                                <children>
                                                                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Node" GridPane.rowIndex="3" />
                                                                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                  <TextField promptText="Node Information" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                   <Label text="Type:" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font size="14.0" />
@@ -211,6 +210,7 @@
                                                                         <Font size="14.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <TextField prefHeight="25.0" prefWidth="119.0" promptText="Node Information" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
