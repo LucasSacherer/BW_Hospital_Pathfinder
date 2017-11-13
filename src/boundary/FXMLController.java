@@ -28,7 +28,7 @@ public class FXMLController {
     final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
 //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
 //    final private ClickController clickController = new ClickController(nodeManager);
-//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+    final private DirectoryController directoryController = new DirectoryController(nodeManager);
 //    final private PathController pathController = new PathController(aStar);
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
 //    // final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
