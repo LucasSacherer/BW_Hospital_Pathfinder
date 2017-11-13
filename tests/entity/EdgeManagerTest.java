@@ -28,9 +28,9 @@ public class EdgeManagerTest {
         test.addEdge(e1);
         test.addEdge(e2);
 
-        List<Edge> result = test.getNeighbors(n1);
+        List<Node> result = test.getNeighbors(n1);
 
-        assertEquals(result.get(0), e2);
+        assertEquals(result.get(0).getNodeID(), n3.getNodeID());
     }
 
     @Test

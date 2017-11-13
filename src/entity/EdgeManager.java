@@ -33,9 +33,21 @@ public class EdgeManager {
      * @param node the node to find the neighbors of
      * @return List<Edge> the list of edges connected to the given node
      */
-    public List<Edge> getNeighbors(Node node){
+    public List<Node> getNeighbors(Node node){
 
-        return (edges.stream().filter(p -> p.getStartNode() == node || p.getEndNode() == node).collect(Collectors.toList()));
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode() == node ||
+                p.getEndNode() == node).collect(Collectors.toList()));
+
+        List<Node> neighbors = new ArrayList<>();
+        for (Edge edge: connectedEdges){
+            if (edge.getStartNode().getNodeID().equals(node.getNodeID())){
+                neighbors.add(edge.getEndNode());
+            }else{
+                neighbors.add(edge.getStartNode());
+            }
+        }
+
+        return neighbors;
     }
 
     /**
