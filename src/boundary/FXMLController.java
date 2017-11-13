@@ -1,10 +1,9 @@
 package boundary;
 
-import controller.MapEditController;
+import controller.*;
+import entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
-import entity.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,12 +13,23 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import controller.MapDisplayController;
 import javafx.scene.control.ScrollPane;
 
 public class FXMLController {
+    /* controllers */
     final private MapDisplayController mapDisplayController = new MapDisplayController();
     final private MapEditController mapEditController = new MapEditController();
+    final private ClickController clickController = new ClickController();
+    final private DirectoryController directoryController = new DirectoryController();
+    final private PathController pathController = new PathController;
+    final private RequestController requestController = new RequestController();
+    // final private NearestPOIController nearestPOIController = new NearestPOController();
+
+    /* managers */
+    final private NodeManager nodeManager = new NodeManager();
+    final private EdgeManager edgeManager = new EdgeManager();
+    final private MapManager mapManager = new MapManager();
+    final private RequestManager requestManager = new RequestManager();
 
     private Node loc1;
     private Node loc2;
