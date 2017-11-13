@@ -192,7 +192,7 @@ public class NodeManager {
     }
 
     /**
-     *
+     * Finds the node of a given type nearest to the given coordinate
      * @param x the x coordinate to search from
      * @param y the y coordinate to search from
      * @param type the type of node to search for
