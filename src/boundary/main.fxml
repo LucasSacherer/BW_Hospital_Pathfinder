@@ -213,7 +213,11 @@
                                                             </GridPane>
                                                          </children>
                                                       </VBox>
-                                                      <TextField alignment="CENTER" text="Delete a Map" AnchorPane.bottomAnchor="215.0" AnchorPane.leftAnchor="15.0" />
+                                                      <Label layoutX="25.0" layoutY="295.0" prefHeight="34.0" prefWidth="145.0" text="Delete a Map:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
                                                    </children>
                                                 </AnchorPane>
                                           </content>
