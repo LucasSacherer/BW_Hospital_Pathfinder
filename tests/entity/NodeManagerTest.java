@@ -77,12 +77,14 @@ public class NodeManagerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        assertEquals(test3.getNodeID(),manager.nearestNode(0, 0).getNodeID());
+        String nodeID = manager.nearestNode(0, 0).getNodeID();
+
         manager.removeNode(test);
         manager.removeNode(test2);
         manager.removeNode(test3);
         manager.removeNode(test4);
 
+        assertEquals(test3.getNodeID(),nodeID);
     }
 
     @Test
@@ -97,12 +99,15 @@ public class NodeManagerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        assertEquals(manager.nearestLoc(0,0, "bathroom").getNodeID(), test4.getNodeID());
-        assertNull(manager.nearestLoc(0, 0, "monkey"));
+        String nearestNode = manager.nearestLoc(0,0, "bathroom").getNodeID();
+        Node nearestNull = manager.nearestLoc(0, 0, "monkey");
+
         manager.removeNode(test);
         manager.removeNode(test2);
         manager.removeNode(test3);
         manager.removeNode(test4);
 
+        assertEquals(nearestNode, test4.getNodeID());
+        assertNull(nearestNull);
     }
 }

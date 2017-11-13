@@ -84,7 +84,8 @@ public class EdgeManager {
      */
     public List<Edge> getNeighbors(Node node){
 
-        return (edges.stream().filter(p -> p.getStartNode() == node || p.getEndNode() == node).collect(Collectors.toList()));
+        return (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+                p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
     }
 
     /**
@@ -96,7 +97,10 @@ public class EdgeManager {
     public double edgeWeight(Node start, Node end){
 
         Edge target;
-        target = (edges.stream().filter(p -> p.getStartNode() == start && p.getEndNode() == end).findFirst()).get();
+        target = (edges.stream().filter(p -> (p.getStartNode().getNodeID().equals(start.getNodeID()) &&
+                p.getEndNode().getNodeID().equals(end.getNodeID())) ||
+                (p.getStartNode().getNodeID().equals(end.getNodeID()) &&
+                        p.getEndNode().getNodeID().equals(start.getNodeID()))).findFirst()).get();
         return (double)target.weight;
     }
 }

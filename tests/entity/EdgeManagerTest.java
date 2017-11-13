@@ -38,14 +38,15 @@ public class EdgeManagerTest {
 
         List<Edge> result = test.getNeighbors(n1);
 
-        assertEquals(result.get(0), e2);
-
+        test.removeEdge(e1);
+        test.removeEdge(e2);
         manager.removeNode(n1);
         manager.removeNode(n2);
         manager.removeNode(n3);
         manager.removeNode(n4);
-        test.removeEdge(e1);
-        test.removeEdge(e2);
+
+        assertEquals(result.get(0).getStartNode().getNodeID(), e2.getStartNode().getNodeID());
+        assertEquals(result.get(0).getEndNode().getNodeID(), e2.getEndNode().getNodeID());
     }
 
     @Test
@@ -72,15 +73,18 @@ public class EdgeManagerTest {
         test.addEdge(e2);
         test.addEdge(e3);
 
-        assertEquals(test.edgeWeight(n2, n4), 2.0, .1);
+        double weight = test.edgeWeight(n2, n4);
+        double weight2 = test.edgeWeight(n4, n2);
 
+        test.removeEdge(e1);
+        test.removeEdge(e2);
+        test.removeEdge(e3);
         manager.removeNode(n1);
         manager.removeNode(n2);
         manager.removeNode(n3);
         manager.removeNode(n4);
-        test.removeEdge(e1);
-        test.removeEdge(e2);
-        test.removeEdge(e3);
 
+        assertEquals(weight, 2.0, .1);
+        assertEquals(weight2, 2.0, .1);
     }
 }
