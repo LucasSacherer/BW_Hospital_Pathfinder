@@ -3,14 +3,21 @@ package controller;
 import entity.Node;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class PathControllerTest {
 
-    //@Test
-    //public void findPathTest(){
+    @Test
+    public void findPathTest(){
+        List<Node> testEmptyList1 = new ArrayList<Node>();
+        List<Node> testEmptyList2 = new ArrayList<Node>();
 
-    //}
+
+        assertArrayEquals(testEmptyList1.toArray(),testEmptyList2.toArray());
+    }
 
     @Test
     public void validatePathTest(){
