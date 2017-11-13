@@ -40,7 +40,6 @@ public class FXMLController {
     private int currentFloor;
     private List<Node> currentPath;
 
-
     @FXML
     private Button navigate;
 
@@ -49,10 +48,6 @@ public class FXMLController {
 
     @FXML
     private ScrollPane imageScroll;
-
-    public FXMLController() {
-        //TODO all of the managers and controllers will be created here
-    }
 
    @FXML
    private void initialize(){
