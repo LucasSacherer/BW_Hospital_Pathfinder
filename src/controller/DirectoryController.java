@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DirectoryController {
-    private NodeManager nm = new NodeManager();
+    private NodeManager nm;
 
-    DirectoryController(NodeManager nm) {
+    public DirectoryController(NodeManager nm) {
         this.nm = nm;
     }
 
