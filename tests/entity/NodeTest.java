@@ -12,5 +12,4 @@ public class NodeTest {
         assertEquals(n1.getWeight(),1);
         assertTrue(true);
     }
-
 }
