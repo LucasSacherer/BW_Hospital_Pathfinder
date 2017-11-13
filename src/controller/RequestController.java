@@ -9,7 +9,7 @@ public class RequestController {
 
     //Check if this needs to be
     public void addRequest(Request req){
-    //    getRequests().add(req);
+        RequestManager.getRequests().add(req);
     }
 
     protected void validateRequest(Request req){
@@ -20,11 +20,13 @@ public class RequestController {
      * Calls the getRequests() method in RequestManager
      * @return The list of current requests in request attribute of RequestManager.
      */
-    public List<Request> getRequests(){
+    public List<Request> getRequests()
+    {
         return RequestManager.getRequests();
     }
 
     public void deleteRequest(Request req){
+        RequestManager.deleteRequest(req);
 
     }
 }

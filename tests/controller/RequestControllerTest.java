@@ -1,24 +1,27 @@
 package controller;
 
+import entity.Request;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class RequestControllerTest {
+
+
     @Test
-    public void addRequest() throws Exception {
+    public void addRequest(){
     }
 
     @Test
-    public void validateRequest() throws Exception {
+    public void validateRequest() {
     }
 
     @Test
-    public void getRequests() throws Exception {
+    public void getRequests() {
     }
 
     @Test
-    public void deleteRequest() throws Exception {
+    public void deleteRequest() {
     }
 
 }
