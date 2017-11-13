@@ -20,6 +20,10 @@ public class EdgeManager {
         edges.remove(e);
     }
 
+    public List<Edge> getAllEdges(){
+        return edges;
+    }
+
     public List<Edge> getNeighbors(Node node){
 
         //filter to find any edge that starts or end with this node
