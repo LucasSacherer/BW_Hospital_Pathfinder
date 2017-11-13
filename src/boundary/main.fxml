@@ -140,7 +140,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="272.0">
                                  <children>
-                                    <Accordion prefHeight="630.0" prefWidth="250.0">
+                                    <Accordion maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0">
                                       <panes>
                                           <TitledPane animated="false" layoutX="10.0" layoutY="66.0" prefWidth="250.0" text="Report Logs">
                                              <content>
@@ -151,7 +151,7 @@
                                                 </AnchorPane>
                                              </content>
                                           </TitledPane>
-                                        <TitledPane animated="false" text="Map Editing Mode">
+                                        <TitledPane animated="false" maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0" text="Map Editing Mode">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -160,7 +160,7 @@
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
-                                        <TitledPane animated="false" text="Upload Map">
+                                        <TitledPane animated="false" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -213,11 +213,13 @@
                                                             </GridPane>
                                                          </children>
                                                       </VBox>
-                                                      <Label layoutX="25.0" layoutY="295.0" prefHeight="34.0" prefWidth="145.0" text="Delete a Map:">
+                                                      <Label layoutX="26.0" layoutY="295.0" prefHeight="34.0" prefWidth="145.0" text="Delete a Map:">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
+                                                      <Button layoutX="56.0" layoutY="24.0" mnemonicParsing="false" text="Choose File" AnchorPane.leftAnchor="56.0" AnchorPane.topAnchor="24.0" />
+                                                      <Label layoutX="37.0" layoutY="37.0" prefHeight="18.0" prefWidth="29.0" text="File:" />
                                                    </children>
                                                 </AnchorPane>
                                           </content>
