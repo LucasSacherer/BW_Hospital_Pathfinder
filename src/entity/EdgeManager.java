@@ -84,8 +84,8 @@ public class EdgeManager {
      */
     public List<Node> getNeighbors(Node node){
 
-        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode() == node ||
-                p.getEndNode() == node).collect(Collectors.toList()));
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+                p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
 
         List<Node> neighbors = new ArrayList<>();
         for (Edge edge: connectedEdges){
@@ -97,8 +97,6 @@ public class EdgeManager {
         }
 
         return neighbors;
-        return (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
-                p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
     }
 
     /**
