@@ -27,7 +27,7 @@ public class FXMLController {
 //    final private Astar aStar = new Astar(edgeManager);
 //
 //    /* controllers */
-    final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
+    final private MapDisplayController mapDisplayController = new MapDisplayController(mapManager); //new MapDisplayController(mapManager);
 //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
 //    final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
