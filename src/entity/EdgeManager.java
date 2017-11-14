@@ -99,7 +99,6 @@ public class EdgeManager {
                 neighbors.add(edge.getStartNode());
             }
         }
-
         return neighbors;
     }
 
@@ -110,7 +109,6 @@ public class EdgeManager {
      * @return double the weight of the end
      */
     public double edgeWeight(Node start, Node end){
-
         Edge target;
         target = (edges.stream().filter(p -> (p.getStartNode().getNodeID().equals(start.getNodeID()) &&
                 p.getEndNode().getNodeID().equals(end.getNodeID())) ||
