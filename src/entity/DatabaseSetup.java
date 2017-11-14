@@ -35,8 +35,8 @@ public class DatabaseSetup {
                     " floor varchar(3) NOT NULL,\n" +
                     " building varchar(20) NOT NULL,\n" +
                     " nodeType varchar(10) NOT NULL,\n" +
-                    " longName varchar(50) NOT NULL,\n" +
-                    " shortName varchar(20) NOT NULL,\n" +
+                    " longName varchar(100) NOT NULL,\n" +
+                    " shortName varchar(50) NOT NULL,\n" +
                     " teamAssigned varchar(10) NOT NULL,\n" +
                     " visitable varchar(5) NOT NULL\n " +
                     ")");
@@ -134,12 +134,12 @@ public class DatabaseSetup {
     private void insertDefaultMapFiles(Connection conn) throws FileNotFoundException{
         //Create a hashmap containing all the paths to the default maps
         HashMap<String, String> defaultImages = new HashMap<>();
-        defaultImages.put("L2", "src/boundary/images/Maps/00_thelowerlevel1.png");
-        defaultImages.put("L1", "src/boundary/images/Maps/00_thelowerlevel2.png");
-        defaultImages.put("G", "src/boundary/images/Maps/00_thegroundfloor.png");
-        defaultImages.put("1", "src/boundary/images/Maps/01_thefirstfloor.png");
-        defaultImages.put("2", "src/boundary/images/Maps/02_thesecondfloor.png");
-        defaultImages.put("3", "src/boundary/images/Maps/03_thethirdfloor.png");
+        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
+        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("G", "src/boundary/images/DefaultMaps/00_thegroundfloor.png");
+        defaultImages.put("1", "src/boundary/images/DefaultMaps/01_thefirstfloor.png");
+        defaultImages.put("2", "src/boundary/images/DefaultMaps/02_thesecondfloor.png");
+        defaultImages.put("3", "src/boundary/images/DefaultMaps/03_thethirdfloor.png");
 
         //Create the initial statements to isnert the images to the database
         FileInputStream fis = null;
