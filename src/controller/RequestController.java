@@ -8,7 +8,7 @@ public class RequestController {
 
     private final RequestManager requestmanager;
 
-    public RequestController(RequestManager requestManager){
+    public RequestController(RequestManager requestManager) {
         requestmanager = requestManager;
     }
 
@@ -39,10 +39,9 @@ public class RequestController {
         if (validateRequest(req)) {
             requestmanager.getRequests().add(req);
         } else {
-            throw new invalidRequestException();
+            throw new IllegalArgumentException("This is an invalid Request. There is either a request with the same name or a request of the same type at the same location.");
         }
     }
-
 
     /**
      * Calls the getRequests() method in RequestManager
@@ -62,14 +61,5 @@ public class RequestController {
     public void deleteRequest(Request req) {
         requestmanager.deleteRequest(req);
 
-    }
-
-    public class invalidRequestException extends Exception {
-
-        public invalidRequestException() {
-        }
-        public invalidRequestException(String message) {
-            message = "This is an invalid Request. There is either a request with the same name or a request of the same type at the same location.";
-        }
     }
 }
