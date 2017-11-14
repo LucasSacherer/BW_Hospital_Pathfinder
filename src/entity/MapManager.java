@@ -1,9 +1,5 @@
 package entity;
 
-
-import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
-import java.awt.*;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
@@ -15,7 +11,13 @@ public class MapManager {
         //Create the object
         maps = new HashMap<>();
 
-        //Add all image paths
+        //Add all paths to the object
+        maps.put("L2", "src/boundary/images/MapsForUI/L2.png");
+        maps.put("L1", "src/boundary/images/MapsForUI/L1.png");
+        maps.put("G", "src/boundary/images/MapsForUI/G.png");
+        maps.put("1", "src/boundary/images/MapsForUI/1.png");
+        maps.put("2", "src/boundary/images/MapsForUI/2.png");
+        maps.put("3", "src/boundary/images/MapsForUI/3.png");
     }
 
     /**
@@ -24,11 +26,11 @@ public class MapManager {
      * @return The map of the specified floor
      */
     public File getMap(String floor) throws SQLException, IOException {
-        return new File("src/boundary/images/MapsForUI/" + floor + ".png");
+        return new File(this.maps.get(floor));
     }
 
     /**
-     * Uploads the given picture to the database
+     * Uploads the given picture to the database and also writes it to the correct MapForUI
      * @param floor The key for the picture
      * @param image The picture to be uploaded
      */
@@ -91,10 +93,11 @@ public class MapManager {
     }
 
     /**
-     * Takes the specified (by floor) image from the database and stores it in the MapsForUI Folder under the correct floor
+     * HELPER FUNCTION: Takes the specified (by floor) image from the database and stores it in the MapsForUI
+     * folder under the correct floor
      * @param floor The specified floor
      */
-    public void addToUIMaps(String floor, Connection conn) throws SQLException, IOException {
+    private void addToUIMaps(String floor, Connection conn) throws SQLException, IOException {
         //Make the hash table of the floor's image path
         HashMap<String, String> mapPaths = new HashMap<>();
         mapPaths.put("L2", "src/boundary/images/MapsForUI/L2.png");
@@ -115,7 +118,7 @@ public class MapManager {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int i = 0;
+        int i;
         while ((i = in.read()) > -1) {
             try {
                 outputFile.write(i);
