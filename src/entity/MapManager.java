@@ -8,12 +8,13 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class MapManager {
-    private HashMap<String, Image> maps = new HashMap<String, Image>();
+    private HashMap<String, Image> maps = new HashMap<>();
 
 
-    public MapManager(HashMap<String, Image> maps) {
+    public MapManager() {
+        maps = new HashMap<>();
+
         try {
-            this.maps = maps;
             File file1 = new File("src/boundary/images/Maps/00_thegroundfloor.png");
             Image imageG = new Image(new FileInputStream(file1));
             File file2 = new File("src/boundary/images/Maps/00_thelowerlevel1.png");
