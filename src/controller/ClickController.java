@@ -7,7 +7,7 @@ public class ClickController {
 
     private final NodeManager nodemanager;
 
-    public ClickController(NodeManager nodeManager){
+    public ClickController(NodeManager nodeManager) {
         nodemanager = nodeManager;
     }
 
