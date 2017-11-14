@@ -56,6 +56,20 @@ public class DatabaseSetup {
             System.out.println ("Edge table already exists");
         }
 
+        //Try to create Request table, yell if already exists
+        try {
+            stmt.execute("CREATE TABLE request (\n" +
+                    " name VARCHAR(50),\n" +
+                    " time TIMESTAMP,\n" +
+                    " type VARCHAR(20),\n" +
+                    " description VARCHAR (100),\n" +
+                    " nodeID VARCHAR(20),\n" +
+                    " CONSTRAINT request_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT nodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+        }catch (SQLException e){
+            System.out.println("Request table already exists");
+        }
+
         //Try to create Maps table, yell if already exists
         try {
             stmt.execute("CREATE TABLE map (\n" +
