@@ -60,21 +60,25 @@ public class EdgeManager {
      * Removes a given edge from the list of edges
      * @param e the edge to remove
      */
-    public void removeEdge(Edge e){
-        try{
+    public void removeEdge(Edge e) {
+        try {
             Connection conn = DriverManager.getConnection(DBURL);
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM EDGE WHERE EDGEID = '"+
-                    e.getStartNode().getNodeID()+"-"+e.getEndNode().getNodeID()+"'");
+            stmt.executeUpdate("DELETE FROM EDGE WHERE EDGEID = '" +
+                    e.getStartNode().getNodeID() + "-" + e.getEndNode().getNodeID() + "'");
             stmt.close();
             conn.close();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Failed to remove Edge from the database!");
             ex.printStackTrace();
             return;
         }
 
         updateEdges();
+    }
+
+    public List<Edge> getAllEdges(){
+        return edges;
     }
 
     /**
