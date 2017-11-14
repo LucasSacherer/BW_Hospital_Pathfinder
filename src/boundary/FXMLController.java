@@ -49,14 +49,26 @@ public class FXMLController {
     private ScrollPane imageScroll;
 
     @FXML
-    private ListView elevatorDir, deptDir, parkingDir, atmsDir, giftShopDir, cafeteriaDir;
+    private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
     @FXML
     private void initialize(){
        Image groundFloor = mapDisplayController.getMap("G");
        imageScroll.setContent(new ImageView(groundFloor));
-       elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
-       //TODO set the rest of the directories
+       initializeDirectory();
+    }
+
+    private void initializeDirectory() {
+        elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
+        restroomDir.setItems(directoryController.getDirectory().get("Restrooms"));
+        stairsDir.setItems(directoryController.getDirectory().get("Stairs"));
+        labDir.setItems(directoryController.getDirectory().get("Departments"));
+        deptDir.setItems(directoryController.getDirectory().get("Labs"));
+        infoDeskDir.setItems(directoryController.getDirectory().get("Information Desks"));
+        conferenceDir.setItems(directoryController.getDirectory().get("Conference Rooms"));
+        exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
+        shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
+        nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
     }
 
     // finds the path from loc1 to loc2
