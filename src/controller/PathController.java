@@ -1,14 +1,21 @@
 package controller;
 
 import entity.Astar;
+import entity.EdgeManager;
 import entity.Node;
+import entity.NodeManager;
+
 import java.util.List;
 
 public class PathController {
     private Astar astar;
+    private EdgeManager edgeManager;
+    private NodeManager nodeManager;
 
-    public PathController () {
-        astar = new Astar();
+    public PathController (Astar astar) {
+        this.nodeManager =  new NodeManager();
+        this.edgeManager =  new EdgeManager(nodeManager);
+        this.astar = new Astar(edgeManager);
     }
 
 
@@ -19,7 +26,7 @@ public class PathController {
      * @return A list of Nodes that is determined by findPath() in Astar class
      */
     public List<Node> findPath(Node start, Node end){
-        return astar.findPath(start,end);
+        return astar.Astar(start,end);
     }
 
 
