@@ -111,7 +111,7 @@ public class FXMLController {
     private void snapToNode(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();
-        nodeManager.nearestNode(x,y);
+        loc2 = nodeManager.nearestNode(x,y); //TODO make sure this makes sense, snapToNode setting loc2
     }
 
     private void addNewMap(ActionEvent e) {
