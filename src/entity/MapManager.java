@@ -117,6 +117,5 @@ public class MapManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
