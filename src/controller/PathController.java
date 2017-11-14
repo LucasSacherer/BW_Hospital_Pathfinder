@@ -5,7 +5,12 @@ import entity.Node;
 import java.util.List;
 
 public class PathController {
-    final private Astar astar  = new Astar();
+    private Astar astar;
+
+    public PathController () {
+        astar = new Astar();
+    }
+
 
     /**
      * This method is simply a extension to Astar.findPath() and returns the same result.
@@ -13,9 +18,9 @@ public class PathController {
      * @param end
      * @return A list of Nodes that is determined by findPath() in Astar class
      */
-    //public static List<Node> findPath(Node start, Node end){
-    //    return Astar.findPath(start,end);
-    //}
+    public List<Node> findPath(Node start, Node end){
+        return astar.findPath(start,end);
+    }
 
 
     /**
