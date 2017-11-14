@@ -188,34 +188,6 @@ public class FXMLController {
     }
 
     @FXML
-    private void floorDown(MouseEvent e) {
-        switch(currentFloor) {
-            case "L2" :
-                return;
-            case "L1" :
-                imageView.setImage(mapDisplayController.getMap("L2"));
-                currentFloor = "L2";
-                currentFloorNum.setText(currentFloor);
-                break;
-            case "G" :
-                imageView.setImage(mapDisplayController.getMap("L1"));
-                currentFloor = "L1";
-                currentFloorNum.setText(currentFloor);
-                break;
-            case "1" :
-                imageView.setImage(mapDisplayController.getMap("G"));
-                currentFloor = "G";
-                currentFloorNum.setText(currentFloor);
-                break;
-            case "2" :
-                imageView.setImage(mapDisplayController.getMap("1"));
-                currentFloor = "1";
-                currentFloorNum.setText(currentFloor);
-                break;
-        }
-    }
-
-    @FXML
     private void floorUp(MouseEvent e) {
         switch (currentFloor) {
             case "L2":
@@ -240,6 +212,34 @@ public class FXMLController {
                 break;
             case "2":
                 return;
+        }
+    }
+
+    @FXML
+    private void floorDown(MouseEvent e) {
+        switch(currentFloor) {
+            case "L2" :
+                return;
+            case "L1" :
+                imageView.setImage(mapDisplayController.getMap("L2"));
+                currentFloor = "L2";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "G" :
+                imageView.setImage(mapDisplayController.getMap("L1"));
+                currentFloor = "L1";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "1" :
+                imageView.setImage(mapDisplayController.getMap("G"));
+                currentFloor = "G";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "2" :
+                imageView.setImage(mapDisplayController.getMap("1"));
+                currentFloor = "1";
+                currentFloorNum.setText(currentFloor);
+                break;
         }
     }
 }
