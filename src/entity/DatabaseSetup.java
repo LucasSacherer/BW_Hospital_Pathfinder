@@ -104,7 +104,6 @@ public class DatabaseSetup {
                     stmt.execute(line);
                 } catch (SQLException e){
                     failedRows++;
-                    e.printStackTrace();
                 }
             }
             if (failedRows != 0){ System.out.println(failedRows + " rows already exist."); }
