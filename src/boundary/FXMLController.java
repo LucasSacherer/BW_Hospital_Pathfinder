@@ -3,6 +3,8 @@ package boundary;
 import entity.Node;
 import controller.*;
 import entity.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -26,15 +28,14 @@ public class FXMLController {
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private MapManager mapManager = new MapManager();
     final private RequestManager requestManager = new RequestManager(nodeManager);
-
-//    final private Astar aStar = new Astar(edgeManager);
+    final private Astar aStar = new Astar(edgeManager);
 
     //    /* controllers */
     final private MapDisplayController mapDisplayController = new MapDisplayController(mapManager); //new MapDisplayController(mapManager);
     final private MapEditController mapEditController = new MapEditController(edgeManager, nodeManager, mapManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
-//    final private PathController pathController = new PathController(aStar);
+    final private PathController pathController = new PathController(aStar);
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
@@ -73,6 +74,7 @@ public class FXMLController {
         imageView.setImage(groundFloor);
         gc = canvas.getGraphicsContext2D();
         initializeDirectory();
+        initializeDirectoryListeners();
     }
 
     private void initializeDirectory() {
@@ -86,6 +88,63 @@ public class FXMLController {
         exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
+    }
+
+    private void initializeDirectoryListeners(){
+        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) elevatorDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) restroomDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) stairsDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) labDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) deptDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) infoDeskDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) conferenceDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) exitDir.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
+        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            Node toDraw = (Node) nonMedical.getItems().get(newValue.intValue());
+            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+            currentLoc = toDraw;
+        });
     }
 
     @FXML
