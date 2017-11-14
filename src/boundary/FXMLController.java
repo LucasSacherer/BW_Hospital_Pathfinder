@@ -49,6 +49,9 @@ public class FXMLController {
     private List<Node> currentPath;
 
     @FXML
+    private Pane mapPane;
+
+    @FXML
     private Label currentFloorNum;
 
     @FXML
@@ -104,15 +107,15 @@ public class FXMLController {
 
     @FXML
     private void zoomInMap(MouseEvent e) {
-        imageView.setScaleX(imageView.getScaleX() + 0.1);
-        imageView.setScaleY(imageView.getScaleY() + 0.1);
+        mapPane.setScaleX(mapPane.getScaleX() + 0.1);
+        mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
 
     @FXML //TODO fix
     private void zoomOutMap(MouseEvent e) {
-        if (imageView.getScaleX() <= 1 || imageView.getScaleY() <= 1) return;
-        imageView.setScaleX(imageView.getScaleX() - 0.1);
-        imageView.setScaleY(imageView.getScaleY() - 0.1);
+        if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
+        mapPane.setScaleX(mapPane.getScaleX() - 0.1);
+        mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
 
     private void placeNode(ActionEvent e) {
