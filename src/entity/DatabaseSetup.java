@@ -63,7 +63,7 @@ public class DatabaseSetup {
                     " name VARCHAR(50),\n" +
                     " time TIMESTAMP,\n" +
                     " type VARCHAR(20),\n" +
-                    " discription VARCHAR (100),\n" +
+                    " description VARCHAR (100),\n" +
                     " nodeID VARCHAR(20),\n" +
                     " CONSTRAINT request_PK PRIMARY KEY (name, time),\n" +
                     " CONSTRAINT nodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
