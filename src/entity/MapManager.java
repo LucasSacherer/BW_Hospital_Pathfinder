@@ -29,7 +29,7 @@ public class MapManager {
     /**
      * Uploads the given picture to the database
      * @param floor The key for the picture
-     * @param img The picture to be uploaded
+     * @param image The picture to be uploaded
      */
     public void uploadMapToDB(String floor, File image) throws SQLException {
         //DB Info
@@ -60,10 +60,11 @@ public class MapManager {
 
         //Create the update statement
         try {
-            psmnt = conn.prepareStatement("INSERT INTO MAP(floor, image) VALUES (?,?)");
-            psmnt.setString(1, key);
-            psmnt.setBinaryStream(2, fis, (int) (image.length()));
+            psmnt = conn.prepareStatement("UPDATE MAP SET image = ? WHERE floor = ?");
+            psmnt.setBinaryStream(1, fis, (int) (image.length()));
+            psmnt.setString(2, floor);
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         //Execute the statement
         try {
@@ -78,7 +79,7 @@ public class MapManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        }
+
     }
 
     /**
