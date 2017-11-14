@@ -103,13 +103,13 @@ public class FXMLController {
     }
 
     @FXML
-    private void zoomInMap(ActionEvent e) {
+    private void zoomInMap(MouseEvent e) {
         imageView.setScaleX(imageView.getScaleX() + 1);
         imageView.setScaleY(imageView.getScaleY() + 1);
     }
 
     @FXML //TODO fix
-    private void zoomOutMap(ActionEvent e) {
+    private void zoomOutMap(MouseEvent e) {
         if (imageView.getScaleX() <= 1 || imageView.getScaleY() <= 1) return;
         imageView.setScaleX(imageView.getScaleX() - 0.1);
         imageView.setScaleY(imageView.getScaleY() - 0.1);
