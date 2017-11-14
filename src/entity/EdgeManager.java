@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class EdgeManager {
 
-    private NodeManager nodeManager;
+    final private NodeManager nodeManager;
     private List<Edge> edges;
     final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
 
