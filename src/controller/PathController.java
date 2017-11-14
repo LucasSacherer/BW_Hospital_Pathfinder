@@ -2,6 +2,7 @@ package controller;
 
 import entity.Astar;
 import entity.Node;
+
 import java.util.List;
 
 public class PathController {
@@ -18,11 +19,7 @@ public class PathController {
      * @return A list of Nodes that is determined by findPath() in Astar class
      */
     public List<Node> findPath(Node start, Node end){
-        if(validatePath(start,end)){
-            return astar.Astar(start,end);
-        }else{
-            return null;
-        }
+        return astar.Astar(start,end);
     }
 
 

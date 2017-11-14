@@ -15,11 +15,18 @@ public class PathControllerTest {
 
     @Test
     public void findPathTest(){
-        List<Node> testEmptyList1 = new ArrayList<Node>();
-        List<Node> testEmptyList2 = new ArrayList<Node>();
+        NodeManager nodeM = new NodeManager();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        Astar star = new Astar(edgeM);
+        PathController pathController = new PathController(star);
 
-
-        assertArrayEquals(testEmptyList1.toArray(),testEmptyList2.toArray());
+        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
+        ArrayList<Node> actual = new ArrayList<>();
+        actual.add(n1);
+        List<Node> answer = pathController.findPath(n1,n1);
+        System.out.println(answer);
+        assertEquals(actual,answer);
+        nodeM.removeNode(n1);
     }
 
     @Test
