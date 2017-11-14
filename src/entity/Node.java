@@ -70,4 +70,9 @@ public class Node {
     public boolean isVisitable() {
         return visitable;
     }
+
+    @Override
+    public String toString() {
+        return this.getShortName();
+    }
 }
