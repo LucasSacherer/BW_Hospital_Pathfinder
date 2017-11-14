@@ -73,6 +73,6 @@ public class Node {
 
     @Override
     public String toString() {
-        return this.getLongName();
+        return this.getShortName();
     }
 }

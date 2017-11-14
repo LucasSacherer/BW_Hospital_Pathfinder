@@ -25,10 +25,10 @@ public class FXMLController {
     final private RequestManager requestManager = new RequestManager();
 
 //    final private Astar aStar = new Astar(edgeManager);
-//
-//    /* controllers */
+
+    //    /* controllers */
     final private MapDisplayController mapDisplayController = new MapDisplayController(mapManager); //new MapDisplayController(mapManager);
-//    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
+    //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
 //    final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
 //    final private PathController pathController = new PathController(aStar);
@@ -53,9 +53,9 @@ public class FXMLController {
 
     @FXML
     private void initialize(){
-       Image groundFloor = mapDisplayController.getMap("G");
-       imageScroll.setContent(new ImageView(groundFloor));
-       initializeDirectory();
+        Image groundFloor = mapDisplayController.getMap("G");
+        imageScroll.setContent(new ImageView(groundFloor));
+        initializeDirectory();
     }
 
     private void initializeDirectory() {
@@ -74,25 +74,27 @@ public class FXMLController {
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
-       // TODO: Add a PathController object at the top of this class, call find path in there
+        // TODO: Add a PathController object at the top of this class, call find path in there
         //PathController.findPath(loc1, loc2);
     }
 
     // finds the path from
     private void findNearest(ActionEvent e) {
-       // low priority
+        // low priority
     }
 
     private void retrieveMapImage(ActionEvent e) {
         // TODO: Add a MapDisplayController object at the top of this class, call find path in there
-       //MapDisplayController.getMap(currentFloor);
+        //MapDisplayController.getMap(currentFloor);
     }
 
+    @FXML
     private void zoomInMap(ActionEvent e) {
-        imageScroll.setScaleX(imageScroll.getScaleX() + 0.1);
-        imageScroll.setScaleY(imageScroll.getScaleY() + 0.1);
+        imageScroll.getContent().setScaleX(imageScroll.getContent().getScaleX() + 1);
+        imageScroll.getContent().setScaleY(imageScroll.getContent().getScaleY() + 1);
     }
 
+    @FXML //TODO fix
     private void zoomOutMap(ActionEvent e) {
         if (imageScroll.getScaleX() <= 1 || imageScroll.getScaleY() <= 1) return;
         imageScroll.setScaleX(imageScroll.getScaleX() - 0.1);
@@ -100,7 +102,7 @@ public class FXMLController {
     }
 
     private void placeNode(ActionEvent e) {
-       // TODO: get all the node information out of the UI and give the node ot the map edit controller
+        // TODO: get all the node information out of the UI and give the node ot the map edit controller
         // this should be in the pop-up on the Map Editor page
         String nodeID;
         int xcoord;
