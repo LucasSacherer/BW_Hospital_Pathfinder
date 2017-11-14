@@ -5,17 +5,25 @@ import entity.Node;
 import java.util.List;
 
 public class PathController {
-    final private Astar astar  = new Astar();
+    final private Astar astar;
+
+    public PathController(Astar astar){
+        this.astar = astar;
+    }
 
     /**
-     * This method is simply a extension to Astar.findPath() and returns the same result.
+     * Gets the path from one node to another, returns null if the path is not found or if the nodes are invalid
      * @param start
      * @param end
      * @return A list of Nodes that is determined by findPath() in Astar class
      */
-    //public static List<Node> findPath(Node start, Node end){
-    //    return Astar.findPath(start,end);
-    //}
+    public List<Node> findPath(Node start, Node end){
+        if(validatePath(start,end)){
+            return astar.Astar(start,end);
+        }else{
+            return null;
+        }
+    }
 
 
     /**
@@ -30,7 +38,7 @@ public class PathController {
      * @return true if all the above listed factors are satisfied.
      */
 
-    protected static Boolean validatePath(Node start, Node end) {
+    protected  Boolean validatePath(Node start, Node end) {
         if (start.getNodeID().equals(end.getNodeID())){
             return false;
         } else if (!start.getFloor().equals(end.getFloor())) {

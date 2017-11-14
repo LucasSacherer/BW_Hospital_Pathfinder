@@ -1,6 +1,9 @@
 package controller;
 
+import entity.Astar;
+import entity.EdgeManager;
 import entity.Node;
+import entity.NodeManager;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,13 +31,17 @@ public class PathControllerTest {
         Node nodeE = new Node("5", 1, 1, "1", "BuildingA","Type A","Short Name", "1",false);
         Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
 
+        NodeManager nodeManager = new NodeManager();
+        EdgeManager edgeManager = new EdgeManager(nodeManager);
+        Astar astar = new Astar(edgeManager);
+        PathController pathController = new PathController(astar);
 
 
-        assertEquals(false, PathController.validatePath(nodeA, nodeB));
-        assertEquals(false, PathController.validatePath(nodeA, nodeC));
-        assertEquals(false, PathController.validatePath(nodeA, nodeD));
-        assertEquals(false, PathController.validatePath(nodeA, nodeE));
-        assertEquals(true, PathController.validatePath(nodeA, nodeF));
+        assertEquals(false, pathController.validatePath(nodeA, nodeB));
+        assertEquals(false, pathController.validatePath(nodeA, nodeC));
+        assertEquals(false, pathController.validatePath(nodeA, nodeD));
+        assertEquals(false, pathController.validatePath(nodeA, nodeE));
+        assertEquals(true, pathController.validatePath(nodeA, nodeF));
 
 
 
