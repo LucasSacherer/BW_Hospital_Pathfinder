@@ -37,8 +37,8 @@ public class DatabaseSetup {
                     " floor varchar(3) NOT NULL,\n" +
                     " building varchar(20) NOT NULL,\n" +
                     " nodeType varchar(10) NOT NULL,\n" +
-                    " longName varchar(50) NOT NULL,\n" +
-                    " shortName varchar(20) NOT NULL,\n" +
+                    " longName varchar(100) NOT NULL,\n" +
+                    " shortName varchar(50) NOT NULL,\n" +
                     " teamAssigned varchar(10) NOT NULL,\n" +
                     " visitable varchar(5) NOT NULL\n " +
                     ")");
