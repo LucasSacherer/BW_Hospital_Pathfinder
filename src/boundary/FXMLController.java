@@ -76,6 +76,8 @@ public class FXMLController {
         }
         imageView.setImage(groundFloor);
         gc = canvas.getGraphicsContext2D();
+        currentFloor = "G";
+        currentFloorNum.setText(currentFloor);
         initializeDirectory();
     }
 
@@ -229,6 +231,11 @@ public class FXMLController {
                 currentFloor = "1";
                 currentFloorNum.setText(currentFloor);
                 break;
+            case "3" :
+                imageView.setImage(mapDisplayController.getMap("2"));
+                currentFloor = "2";
+                currentFloorNum.setText(currentFloor);
+                break;
         }
     }
 
@@ -256,7 +263,10 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
             case "2":
-                return;
+                imageView.setImage(mapDisplayController.getMap("3"));
+                currentFloor = "3";
+                currentFloorNum.setText(currentFloor);
+                break;
         }
     }
 }
