@@ -25,8 +25,8 @@ public class MapManager {
      * @param floor The specified floor of desired map
      * @return The map of the specified floor
      */
-    public File getMap(String floor) throws SQLException, IOException {
-        return new File(this.maps.get(floor));
+    public String getMap(String floor) throws SQLException, IOException {
+        return this.maps.get(floor);
     }
 
     /**

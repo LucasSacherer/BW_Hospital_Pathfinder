@@ -5,31 +5,28 @@ import controller.*;
 import entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
 public class FXMLController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-    final private MapManager mapManager = new MapManager();
     final private RequestManager requestManager = new RequestManager();
 
 //    final private Astar aStar = new Astar(edgeManager);
 
     //    /* controllers */
-    final private MapDisplayController mapDisplayController = new MapDisplayController(mapManager); //new MapDisplayController(mapManager);
+    final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
     //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
 //    final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
@@ -60,7 +57,14 @@ public class FXMLController {
 
     @FXML
     private void initialize(){
-        Image groundFloor = mapDisplayController.getMap("G");
+        Image groundFloor = null;
+        try {
+            groundFloor = mapDisplayController.getMap("G");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         imageView.setImage(groundFloor);
         gc = canvas.getGraphicsContext2D();
         initializeDirectory();

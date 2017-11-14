@@ -166,8 +166,7 @@ public class DatabaseSetup {
             try {
                 psmnt.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println(psmnt.toString() + " failed to execute");
+
             }
             //Close the statement
             try {
