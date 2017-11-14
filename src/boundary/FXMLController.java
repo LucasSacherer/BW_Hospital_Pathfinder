@@ -23,7 +23,7 @@ public class FXMLController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-    final private RequestManager requestManager = new RequestManager();
+    final private RequestManager requestManager = new RequestManager(nodeManager);
 
 //    final private Astar aStar = new Astar(edgeManager);
 

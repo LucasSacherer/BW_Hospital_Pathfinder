@@ -70,7 +70,7 @@ public class DatabaseSetup {
             System.out.println("Request table already exists");
         }
 
-        //Try to create Maps table, yell if already exists
+        //Try to create DefaultMaps table, yell if already exists
         try {
             stmt.execute("CREATE TABLE map (\n" +
                     " floor varchar(2) PRIMARY KEY,\n" +
@@ -94,7 +94,7 @@ public class DatabaseSetup {
             System.out.println( "The file src/databaseData/edgeInserts.txt does not exist!");
         }
 
-        //Insert the default Maps to the table
+        //Insert the default DefaultMaps to the table
         try {
             insertDefaultMapFiles(conn);
         } catch (FileNotFoundException e) {
