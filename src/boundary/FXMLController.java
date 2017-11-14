@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Node;
 import controller.*;
 import entity.*;
 import javafx.event.ActionEvent;
@@ -9,13 +10,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javafx.scene.control.Button;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 public class FXMLController {
     /* managers */
@@ -46,7 +48,12 @@ public class FXMLController {
     private List<Node> currentPath;
 
     @FXML
-    private ScrollPane imageScroll;
+    private ImageView imageView;
+
+    @FXML
+    private Canvas canvas;
+
+    GraphicsContext gc;
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
@@ -54,7 +61,8 @@ public class FXMLController {
     @FXML
     private void initialize(){
         Image groundFloor = mapDisplayController.getMap("G");
-        imageScroll.setContent(new ImageView(groundFloor));
+        imageView.setImage(groundFloor);
+        gc = canvas.getGraphicsContext2D();
         initializeDirectory();
     }
 
@@ -90,15 +98,15 @@ public class FXMLController {
 
     @FXML
     private void zoomInMap(ActionEvent e) {
-        imageScroll.getContent().setScaleX(imageScroll.getContent().getScaleX() + 1);
-        imageScroll.getContent().setScaleY(imageScroll.getContent().getScaleY() + 1);
+        imageView.setScaleX(imageView.getScaleX() + 1);
+        imageView.setScaleY(imageView.getScaleY() + 1);
     }
 
     @FXML //TODO fix
     private void zoomOutMap(ActionEvent e) {
-        if (imageScroll.getScaleX() <= 1 || imageScroll.getScaleY() <= 1) return;
-        imageScroll.setScaleX(imageScroll.getScaleX() - 0.1);
-        imageScroll.setScaleY(imageScroll.getScaleY() - 0.1);
+        if (imageView.getScaleX() <= 1 || imageView.getScaleY() <= 1) return;
+        imageView.setScaleX(imageView.getScaleX() - 0.1);
+        imageView.setScaleY(imageView.getScaleY() - 0.1);
     }
 
     private void placeNode(ActionEvent e) {
@@ -147,8 +155,26 @@ public class FXMLController {
         // Empty for now
     }
 
-    private void drawPath(ActionEvent e) {
 
+    @FXML
+    private void drawPath(ActionEvent e) {
+       // ArrayList<Node> pathToDraw = pathController.getPath(loc1, loc2);
+
+        /** Testing Only **/
+        ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
+        pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
+        pathToDraw.add(new Node("b",300, 300, "a","a","a","a","a",true));
+        pathToDraw.add(new Node("c",2000, 300, "a","a","a","a","a",true));
+        /** testing over **/
+
+        for(int i=0;i<pathToDraw.size()-1;i++) {
+           int x1 = pathToDraw.get(i).getXcoord();
+           int y1 = pathToDraw.get(i).getYcoord();
+            int x2 = pathToDraw.get(i+1).getXcoord();
+            int y2 = pathToDraw.get(i+1).getYcoord();
+            gc.setLineWidth(25);
+            gc.strokeLine(x1,y1,x2,y2);
+        }
     }
 
     private void drawRequests(ActionEvent e) {
