@@ -104,8 +104,8 @@ public class FXMLController {
 
     @FXML
     private void zoomInMap(MouseEvent e) {
-        imageView.setScaleX(imageView.getScaleX() + 1);
-        imageView.setScaleY(imageView.getScaleY() + 1);
+        imageView.setScaleX(imageView.getScaleX() + 0.1);
+        imageView.setScaleY(imageView.getScaleY() + 0.1);
     }
 
     @FXML //TODO fix
