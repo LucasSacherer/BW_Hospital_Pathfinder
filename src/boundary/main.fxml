@@ -407,7 +407,7 @@
                                              <font>
                                                 <Font name="System Bold" size="15.0" />
                                              </font></Label>
-                                          <Label text="L1">
+                                          <Label fx:id="currentFloorNum">
                                              <font>
                                                 <Font name="System Bold" size="40.0" />
                                              </font>
@@ -416,12 +416,16 @@
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/up_arrow.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
+                                          <Group onMouseClicked="#floorUp">
+                                             <children>
+                                                <ImageView fitHeight="84.0" fitWidth="83.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/up_arrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="83.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
