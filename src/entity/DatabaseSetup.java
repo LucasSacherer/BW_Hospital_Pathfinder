@@ -1,10 +1,8 @@
 package entity;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.HashMap;
 
 public class DatabaseSetup {
     /**
@@ -28,17 +26,6 @@ public class DatabaseSetup {
         Connection conn = DriverManager.getConnection(dbURL);
         Statement stmt = conn.createStatement();
 
-        //Try to create Edge table, yell if already exists
-        try {
-            stmt.execute("CREATE TABLE edge (\n" +
-                    " edgeID VARCHAR(30) PRIMARY KEY,\n" +
-                    " startNode varchar(20) NOT NULL,\n" +
-                    " endNode varchar(20) NOT NULL\n" +
-                    ")");
-        } catch (SQLException e){
-            System.out.println ("Table already exists");
-        }
-
         //Try to create Node table, yell if already exists
         try {
             stmt.execute("CREATE TABLE node (\n" +
@@ -48,13 +35,35 @@ public class DatabaseSetup {
                     " floor varchar(3) NOT NULL,\n" +
                     " building varchar(20) NOT NULL,\n" +
                     " nodeType varchar(10) NOT NULL,\n" +
-                    " longName varchar(50) NOT NULL,\n" +
-                    " shortName varchar(20) NOT NULL,\n" +
+                    " longName varchar(100) NOT NULL,\n" +
+                    " shortName varchar(50) NOT NULL,\n" +
                     " teamAssigned varchar(10) NOT NULL,\n" +
                     " visitable varchar(5) NOT NULL\n " +
                     ")");
         } catch (SQLException e){
-            System.out.println ("Table already exists");
+            System.out.println ("Node table already exists");
+        }
+
+        //Try to create Edge table, yell if already exists
+        try {
+            stmt.execute("CREATE TABLE edge (\n" +
+                    " edgeID VARCHAR(30) PRIMARY KEY,\n" +
+                    " startNode varchar(20) NOT NULL,\n" +
+                    " endNode varchar(20) NOT NULL,\n" +
+                    " CONSTRAINT startNode_FK FOREIGN KEY (startNode) REFERENCES NODE(nodeID),\n" +
+                    " CONSTRAINT endNode_FK FOREIGN KEY (endNode) REFERENCES NODE(nodeID))");
+        } catch (SQLException e){
+            System.out.println ("Edge table already exists");
+        }
+
+        //Try to create Maps table, yell if already exists
+        try {
+            stmt.execute("CREATE TABLE map (\n" +
+                    " floor varchar(2) PRIMARY KEY,\n" +
+                    " image blob NOT NULL\n " +
+                    ")");
+        } catch (SQLException e){
+            System.out.println ("Map table already exists");
         }
 
         //Insert all Nodes to the table
@@ -69,6 +78,13 @@ public class DatabaseSetup {
             insertStatementsFromFile("src/databaseData/edgeInserts.txt", stmt);
         } catch (FileNotFoundException e) {
             System.out.println( "The file src/databaseData/edgeInserts.txt does not exist!");
+        }
+
+        //Insert the default Maps to the table
+        try {
+            insertDefaultMapFiles(conn);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
         //Close shit down
@@ -108,6 +124,57 @@ public class DatabaseSetup {
             if (failedRows != 0){ System.out.println(failedRows + " rows already exist."); }
         } catch (IOException e) {
             System.out.println("Cannot read file!");
+        }
+    }
+
+    /**
+     * Inserts all the default map files into the database
+     * @throws FileNotFoundException when the path is does not exist
+     */
+    private void insertDefaultMapFiles(Connection conn) throws FileNotFoundException{
+        //Create a hashmap containing all the paths to the default maps
+        HashMap<String, String> defaultImages = new HashMap<>();
+        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
+        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("G", "src/boundary/images/DefaultMaps/00_thegroundfloor.png");
+        defaultImages.put("1", "src/boundary/images/DefaultMaps/01_thefirstfloor.png");
+        defaultImages.put("2", "src/boundary/images/DefaultMaps/02_thesecondfloor.png");
+        defaultImages.put("3", "src/boundary/images/DefaultMaps/03_thethirdfloor.png");
+
+        //Create the initial statements to isnert the images to the database
+        FileInputStream fis = null;
+
+        //Go through each path in the hashtable and create an insert statement and execute it
+        for (String key: defaultImages.keySet()){
+            //Create the statement and get the image from the HashMap
+            PreparedStatement psmnt = null;
+            File image = new File(defaultImages.get(key));
+            //Make a FileInputStream from the image
+            try {
+                fis = new FileInputStream(image);
+            } catch (FileNotFoundException e) {
+                System.out.println("The file " + defaultImages.get(key) + " not found");
+            }
+            //Create an insert statement with the key and FIS
+            try {
+                psmnt = conn.prepareStatement("INSERT INTO MAP(floor, image) VALUES (?,?)");
+                psmnt.setString(1, key);
+                psmnt.setBinaryStream(2, fis, (int)(image.length()));
+            } catch (SQLException e) {
+            }
+            //Execute the statement
+            try {
+                psmnt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println(psmnt.toString() + " failed to execute");
+            }
+            //Close the statement
+            try {
+                psmnt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
