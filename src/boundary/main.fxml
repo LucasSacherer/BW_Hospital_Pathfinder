@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -24,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -40,54 +41,90 @@
                                        <children>
                                           <AnchorPane prefHeight="540.0" prefWidth="255.0">
                                              <children>
-                                                <Accordion prefHeight="338.0" prefWidth="254.0">
+                                                <Accordion prefHeight="540.0" prefWidth="254.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <panes>
-                                                    <TitledPane animated="false" text="Cafeterias">
+                                                    <TitledPane animated="false" text="Elevators">
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
-                                                                  <ListView prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <ListView fx:id="elevatorDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children></AnchorPane>
                                                       </content>
                                                     </TitledPane>
-                                                    <TitledPane animated="false" text="Gift Shops">
+                                                    <TitledPane animated="false" text="Restrooms">
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
-                                                                  <ListView prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <ListView fx:id="restroomDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children></AnchorPane>
                                                       </content>
                                                     </TitledPane>
-                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="ATMs">
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Stairs">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
-                                                                  <ListView prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <ListView fx:id="stairsDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children></AnchorPane>
                                                          </content>
                                                       </TitledPane>
-                                                      <TitledPane animated="false" layoutX="10.0" layoutY="122.0" text="Parking Lots">
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="122.0" text="Departments">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
-                                                                  <ListView prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <ListView fx:id="deptDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children></AnchorPane>
                                                          </content>
                                                       </TitledPane>
-                                                      <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Departments">
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Labs">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
-                                                                  <ListView prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <ListView fx:id="labDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children></AnchorPane>
                                                          </content>
                                                       </TitledPane>
-                                                      <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Elevators">
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Info Desks">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
-                                                                  <ListView prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <ListView fx:id="infoDeskDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children></AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Conference Rooms">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <ListView fx:id="conferenceDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Exits/Entrances">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <ListView fx:id="exitDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Shops, Food, Phones">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <ListView fx:id="shopsDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="320.0" prefWidth="254.0" text="Non-Medical Services">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <ListView fx:id="nonMedical" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
                                                          </content>
                                                       </TitledPane>
                                                   </panes>
@@ -318,12 +355,16 @@
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="81.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/Black%20Plus.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom In" textAlignment="CENTER" />
+                                          <Group fx:id="zoomIn" onMouseClicked="#zoomInMap">
+                                             <children>
+                                                <ImageView fitHeight="81.0" fitWidth="86.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/Black%20Plus.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="81.0" prefHeight="18.0" prefWidth="85.0" text="Zoom In" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">

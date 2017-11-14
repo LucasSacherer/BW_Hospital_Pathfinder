@@ -2,8 +2,9 @@ package controller;
 
 import entity.Node;
 import entity.NodeManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DirectoryController {
      * Gets all visitable nodes from the database and returns a directory of nodes categorized by nodetype
      * @return A categorized Directory (HashMap)
      */
-    public HashMap<String, ArrayList<Node>> getDirectory(){
+    public HashMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
         nm.updateNodes();
         List<Node> visitableNodes = nm.getVisitableNodes();
@@ -32,19 +33,19 @@ public class DirectoryController {
      * @param visitableNodes All nodes that are visitable (pulled from database in NodeManager)
      * @return The categorized directory
      */
-    protected HashMap<String, ArrayList<Node>> formatNodeList(List<Node> visitableNodes) {
+    protected HashMap<String, ObservableList<Node>> formatNodeList(List<Node> visitableNodes) {
         //Initialize the final directory, and the lists that make up the directory
-        HashMap<String, ArrayList<Node>> directory = new HashMap<>();
-        ArrayList<Node> elev = new ArrayList<>();
-        ArrayList<Node> rest = new ArrayList<>();
-        ArrayList<Node> stai = new ArrayList<>();
-        ArrayList<Node> dept = new ArrayList<>();
-        ArrayList<Node> labs = new ArrayList<>();
-        ArrayList<Node> info = new ArrayList<>();
-        ArrayList<Node> conf = new ArrayList<>();
-        ArrayList<Node> exit = new ArrayList<>();
-        ArrayList<Node> retl = new ArrayList<>();
-        ArrayList<Node> serv = new ArrayList<>();
+        HashMap<String, ObservableList<Node>> directory = new HashMap<>();
+        ObservableList<Node> elev = FXCollections.observableArrayList();
+        ObservableList<Node> rest = FXCollections.observableArrayList();
+        ObservableList<Node> stai = FXCollections.observableArrayList();
+        ObservableList<Node> dept = FXCollections.observableArrayList();
+        ObservableList<Node> labs = FXCollections.observableArrayList();
+        ObservableList<Node> info = FXCollections.observableArrayList();
+        ObservableList<Node> conf = FXCollections.observableArrayList();
+        ObservableList<Node> exit = FXCollections.observableArrayList();
+        ObservableList<Node> retl = FXCollections.observableArrayList();
+        ObservableList<Node> serv = FXCollections.observableArrayList();
         nm.updateNodes();
 
         //Go through all the visitable nodes and assign them to the correct list based on nodeType
@@ -82,7 +83,7 @@ public class DirectoryController {
      * @param nodeList TESTING ONLY
      * @return TESTING ONLY
      */
-    public HashMap<String, ArrayList<Node>> formatNodeListTester(List<Node> nodeList) {
+    public HashMap<String, ObservableList<Node>> formatNodeListTester(List<Node> nodeList) {
         return formatNodeList(nodeList);
     }
 }
