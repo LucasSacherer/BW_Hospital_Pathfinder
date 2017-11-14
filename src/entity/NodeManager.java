@@ -60,8 +60,8 @@ public class NodeManager {
 
     /**
      * Returns the node with the given nodeID, returns null if the node could not be found
-     * @param nodeID
-     * @return
+     * @param nodeID the ID of the node you want to get
+     * @return the corresponding node
      */
     public Node getNode(String nodeID){
         if(nodeID == null)
@@ -83,7 +83,7 @@ public class NodeManager {
 
     /**
      * Returns a list of all nodes marked with the visitable flag
-     * @return
+     * @return the list of visitable nodes
      */
     public List<Node> getVisitableNodes(){
         //filters to nodes that are only visitable
@@ -172,5 +172,52 @@ public class NodeManager {
                     node.getFloor() + "," + node.getBuilding() + "," + node.getNodeType() + "," + node.getLongName() +
                     "," + node.getShortName() + "," + node.isVisitable());
         }
+    }
+
+    /**
+     * Finds the node nearest to the given coordinates
+     * @param x the x coordinate to search from
+     * @param y the y coordinate to search from
+     * @return result the closest node
+     */
+    public Node nearestNode(int x, int y){
+        double newDistance;
+        double nodeDistance = 10000000000.0;
+        Node result = null;
+
+        for (Node node: nodes){
+            newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
+                    (y - node.getYcoord()) *  (y - node.getYcoord())));
+            if (newDistance < nodeDistance){
+                nodeDistance = newDistance;
+                result = node;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Finds the node of a given type nearest to the given coordinate
+     * @param x the x coordinate to search from
+     * @param y the y coordinate to search from
+     * @param type the type of node to search for
+     * @return result the closest node of the specified type
+     */
+    public Node nearestLoc(int x, int y, String type){
+        double newDistance;
+        double nodeDistance = 10000000000.0;
+        Node result = null;
+
+        for (Node node: nodes){
+            if(node.getNodeType().equals(type)) {
+                newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
+                        (y - node.getYcoord()) * (y - node.getYcoord())));
+                if (newDistance < nodeDistance) {
+                    nodeDistance = newDistance;
+                    result = node;
+                }
+            }
+        }
+        return result;
     }
 }
