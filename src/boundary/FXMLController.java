@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 
 public class FXMLController {
     /* managers */
@@ -28,11 +29,11 @@ public class FXMLController {
     final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
 //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
 //    final private ClickController clickController = new ClickController(nodeManager);
-    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
 //    final private PathController pathController = new PathController(aStar);
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
-//    // final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
-//
+//    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
+
 
     private Node loc1;
     private Node loc2;
@@ -45,9 +46,6 @@ public class FXMLController {
 
     @FXML
     private Button navigate;
-
-    @FXML
-    private ImageView mapImageView;
 
     @FXML
     private ScrollPane imageScroll;
@@ -85,14 +83,14 @@ public class FXMLController {
     }
 
     private void zoomInMap(ActionEvent e) {
-        mapImageView.setScaleX(mapImageView.getScaleX() + 0.1);
-        mapImageView.setScaleY(mapImageView.getScaleY() + 0.1);
+        imageScroll.setScaleX(imageScroll.getScaleX() + 0.1);
+        imageScroll.setScaleY(imageScroll.getScaleY() + 0.1);
     }
 
     private void zoomOutMap(ActionEvent e) {
-        if (mapImageView.getScaleX() <= 1 || mapImageView.getScaleY() <= 1) return;
-        mapImageView.setScaleX(mapImageView.getScaleX() - 0.1);
-        mapImageView.setScaleY(mapImageView.getScaleY() - 0.1);
+        if (imageScroll.getScaleX() <= 1 || imageScroll.getScaleY() <= 1) return;
+        imageScroll.setScaleX(imageScroll.getScaleX() - 0.1);
+        imageScroll.setScaleY(imageScroll.getScaleY() - 0.1);
     }
 
     private void placeNode(ActionEvent e) {
@@ -110,8 +108,10 @@ public class FXMLController {
         //Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
     }
 
-    private void snapToNode(ActionEvent e) {
-
+    private void snapToNode(MouseEvent m) {
+        int x = (int) m.getX();
+        int y = (int) m.getY();
+        nodeManager.nearestNode(x,y);
     }
 
     private void addNewMap(ActionEvent e) {
