@@ -18,11 +18,11 @@ public class RequestController {
      * @param req the node that you are checking to see if it can be a valid node to add.
      */
     protected boolean validateRequest(Request req) {
-        for (int i = 0; i <= RequestManager.getRequests().size(); i++) {
-            if (req.getName().equals(RequestManager.getRequests().get(i).getName())) {
+        for (int i = 0; i <= requestmanager.getRequests().size(); i++) {
+            if (req.getName().equals(requestmanager.getRequests().get(i).getName())) {
                 return false;
             }
-            if (req.getType().equals(RequestManager.getRequests().get(i).getType()) && req.getNode().equals(RequestManager.getRequests().get(i)).getNode()) {
+            if (req.getType().equals(requestmanager.getRequests().get(i).getType()) && req.getNode().equals(requestmanager.getRequests().get(i)).getNode()) {
                 return false;
             }
         }
@@ -37,7 +37,7 @@ public class RequestController {
      */
     public void addRequest(Request req) {
         if (validateRequest(req)) {
-            RequestManager.getRequests().add(req);
+            requestmanager.getRequests().add(req);
         } else {
             throw new invalidRequestException();
         }
@@ -49,7 +49,7 @@ public class RequestController {
      * @return The list of current requests in request attribute of RequestManager.
      */
     public List<Request> getRequests() {
-       return RequestManager.getRequests();
+       return requestmanager.getRequests();
     }
 
     /**
@@ -60,7 +60,7 @@ public class RequestController {
      * @param req
      */
     public void deleteRequest(Request req) {
-        RequestManager.deleteRequest(req);
+        requestmanager.deleteRequest(req);
 
     }
 
