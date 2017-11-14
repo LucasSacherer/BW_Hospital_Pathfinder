@@ -88,6 +88,16 @@ public class FXMLController {
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
     }
 
+    @FXML
+    private void setLoc1(MouseEvent m) {
+        // TODO
+    }
+
+    @FXML
+    private void setLoc2(MouseEvent m) {
+        // TODO
+    }
+
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
