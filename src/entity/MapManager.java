@@ -1,5 +1,6 @@
 package entity;
 
+
 import javax.swing.*;
 import javax.swing.plaf.nimbus.State;
 import java.awt.*;
@@ -126,4 +127,5 @@ public class MapManager {
         in.close();
         stmt.close();
     }
+
 }

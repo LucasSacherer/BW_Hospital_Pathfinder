@@ -60,15 +60,15 @@ public class EdgeManager {
      * Removes a given edge from the list of edges
      * @param e the edge to remove
      */
-    public void removeEdge(Edge e){
-        try{
+    public void removeEdge(Edge e) {
+        try {
             Connection conn = DriverManager.getConnection(DBURL);
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM EDGE WHERE EDGEID = '"+
-                    e.getStartNode().getNodeID()+"-"+e.getEndNode().getNodeID()+"'");
+            stmt.executeUpdate("DELETE FROM EDGE WHERE EDGEID = '" +
+                    e.getStartNode().getNodeID() + "-" + e.getEndNode().getNodeID() + "'");
             stmt.close();
             conn.close();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Failed to remove Edge from the database!");
             ex.printStackTrace();
             return;
@@ -77,15 +77,29 @@ public class EdgeManager {
         updateEdges();
     }
 
+    public List<Edge> getAllEdges(){
+        return edges;
+    }
+
     /**
      * Finds all edges that a given node is connected to
      * @param node the node to find the neighbors of
      * @return List<Edge> the list of edges connected to the given node
      */
-    public List<Edge> getNeighbors(Node node){
+    public List<Node> getNeighbors(Node node){
 
-        return (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
                 p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
+
+        List<Node> neighbors = new ArrayList<>();
+        for (Edge edge: connectedEdges){
+            if (edge.getStartNode().getNodeID().equals(node.getNodeID())){
+                neighbors.add(edge.getEndNode());
+            }else{
+                neighbors.add(edge.getStartNode());
+            }
+        }
+        return neighbors;
     }
 
     /**
@@ -95,7 +109,6 @@ public class EdgeManager {
      * @return double the weight of the end
      */
     public double edgeWeight(Node start, Node end){
-
         Edge target;
         target = (edges.stream().filter(p -> (p.getStartNode().getNodeID().equals(start.getNodeID()) &&
                 p.getEndNode().getNodeID().equals(end.getNodeID())) ||

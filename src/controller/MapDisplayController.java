@@ -1,15 +1,13 @@
 package controller;
 
-import javafx.scene.image.Image;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
+import entity.MapManager;
+import javafx.scene.image.Image;
 
 public class MapDisplayController {
 
-    HashMap<String, Image> maps = new HashMap<String, Image>();
+    private final MapManager mapManager;
+
 
     public MapDisplayController() {
         try {
@@ -35,10 +33,10 @@ public class MapDisplayController {
             System.out.println("Failed to load floor images!");
             ex.printStackTrace();
         }
+
     }
 
-
     public Image getMap(String floor){
-        return maps.get(floor);
+        return mapManager.getMap(floor);
     }
 }
