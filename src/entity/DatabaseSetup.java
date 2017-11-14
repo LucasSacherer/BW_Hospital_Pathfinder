@@ -28,17 +28,6 @@ public class DatabaseSetup {
         Connection conn = DriverManager.getConnection(dbURL);
         Statement stmt = conn.createStatement();
 
-        //Try to create Edge table, yell if already exists
-        try {
-            stmt.execute("CREATE TABLE edge (\n" +
-                    " edgeID VARCHAR(30) PRIMARY KEY,\n" +
-                    " startNode varchar(20) NOT NULL,\n" +
-                    " endNode varchar(20) NOT NULL\n" +
-                    ")");
-        } catch (SQLException e){
-            System.out.println ("Table already exists");
-        }
-
         //Try to create Node table, yell if already exists
         try {
             stmt.execute("CREATE TABLE node (\n" +
@@ -48,13 +37,38 @@ public class DatabaseSetup {
                     " floor varchar(3) NOT NULL,\n" +
                     " building varchar(20) NOT NULL,\n" +
                     " nodeType varchar(10) NOT NULL,\n" +
-                    " longName varchar(50) NOT NULL,\n" +
-                    " shortName varchar(20) NOT NULL,\n" +
+                    " longName varchar(100) NOT NULL,\n" +
+                    " shortName varchar(50) NOT NULL,\n" +
                     " teamAssigned varchar(10) NOT NULL,\n" +
                     " visitable varchar(5) NOT NULL\n " +
                     ")");
         } catch (SQLException e){
-            System.out.println ("Table already exists");
+            System.out.println ("Node table already exists");
+        }
+
+        //Try to create Edge table, yell if already exists
+        try {
+            stmt.execute("CREATE TABLE edge (\n" +
+                    " edgeID VARCHAR(30) PRIMARY KEY,\n" +
+                    " startNode varchar(20) NOT NULL,\n" +
+                    " endNode varchar(20) NOT NULL,\n" +
+                    " CONSTRAINT startNode_FK FOREIGN KEY (startNode) REFERENCES NODE(nodeID),\n" +
+                    " CONSTRAINT endNode_FK FOREIGN KEY (endNode) REFERENCES NODE(nodeID))");
+        } catch (SQLException e){
+            System.out.println ("Edge table already exists");
+        }
+
+        try {
+            stmt.execute("CREATE TABLE request (\n" +
+                    " name VARCHAR(50),\n" +
+                    " time TIMESTAMP,\n" +
+                    " type VARCHAR(20),\n" +
+                    " description VARCHAR (100),\n" +
+                    " nodeID VARCHAR(20),\n" +
+                    " CONSTRAINT request_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT nodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+        }catch (SQLException e){
+            System.out.println("Request table already exists");
         }
 
         //Insert all Nodes to the table
