@@ -12,6 +12,7 @@ import java.util.List;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,8 +31,8 @@ public class FXMLController {
 
     //    /* controllers */
     final private MapDisplayController mapDisplayController = new MapDisplayController(mapManager); //new MapDisplayController(mapManager);
-    //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
-//    final private ClickController clickController = new ClickController(nodeManager);
+    final private MapEditController mapEditController = new MapEditController(edgeManager, nodeManager, mapManager);
+    final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
 //    final private PathController pathController = new PathController(aStar);
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
@@ -44,8 +45,11 @@ public class FXMLController {
     private Image currentMap; // TODO
     private int time;
     private HashMap<String, ArrayList<Node>> directory;
-    private int currentFloor;
+    private String currentFloor;
     private List<Node> currentPath;
+
+    @FXML
+    private Label currentFloorNum;
 
     @FXML
     private ImageView imageView;
@@ -61,6 +65,8 @@ public class FXMLController {
     @FXML
     private void initialize(){
         Image groundFloor = mapDisplayController.getMap("G");
+        currentFloor = "G";
+        currentFloorNum.setText(currentFloor);
         imageView.setImage(groundFloor);
         gc = canvas.getGraphicsContext2D();
         initializeDirectory();
@@ -179,5 +185,61 @@ public class FXMLController {
 
     private void drawRequests(ActionEvent e) {
 
+    }
+
+    @FXML
+    private void floorDown(MouseEvent e) {
+        switch(currentFloor) {
+            case "L2" :
+                return;
+            case "L1" :
+                imageView.setImage(mapDisplayController.getMap("L2"));
+                currentFloor = "L2";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "G" :
+                imageView.setImage(mapDisplayController.getMap("L1"));
+                currentFloor = "L1";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "1" :
+                imageView.setImage(mapDisplayController.getMap("G"));
+                currentFloor = "G";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "2" :
+                imageView.setImage(mapDisplayController.getMap("1"));
+                currentFloor = "1";
+                currentFloorNum.setText(currentFloor);
+                break;
+        }
+    }
+
+    @FXML
+    private void floorUp(MouseEvent e) {
+        switch (currentFloor) {
+            case "L2":
+                imageView.setImage(mapDisplayController.getMap("L1"));
+                currentFloor = "L1";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "L1":
+                imageView.setImage(mapDisplayController.getMap("G"));
+                currentFloor = "G";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "G":
+                imageView.setImage(mapDisplayController.getMap("1"));
+                currentFloor = "1";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "1":
+                imageView.setImage(mapDisplayController.getMap("2"));
+                currentFloor = "2";
+                currentFloorNum.setText(currentFloor);
+                break;
+            case "2":
+                return;
+        }
     }
 }
