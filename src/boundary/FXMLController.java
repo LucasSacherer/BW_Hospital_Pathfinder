@@ -30,7 +30,7 @@ public class FXMLController {
     final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
 //    final private MapEditController mapEditController = new MapEditController(nodeManager, edgeManager, mapManager);
 //    final private ClickController clickController = new ClickController(nodeManager);
-//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+    final private DirectoryController directoryController = new DirectoryController(nodeManager);
 //    final private PathController pathController = new PathController(aStar);
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
@@ -49,12 +49,14 @@ public class FXMLController {
     private ScrollPane imageScroll;
 
     @FXML
-    private ListView cafeteria_dir, atm_dir, gift_shops_dir, parking_dir, dept_dir, elevator_dir;
+    private ListView elevatorDir, deptDir, parkingDir, atmsDir, giftShopDir, cafeteriaDir;
 
     @FXML
     private void initialize(){
        Image groundFloor = mapDisplayController.getMap("G");
        imageScroll.setContent(new ImageView(groundFloor));
+       elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
+       //TODO set the rest of the directories
     }
 
     // finds the path from loc1 to loc2
