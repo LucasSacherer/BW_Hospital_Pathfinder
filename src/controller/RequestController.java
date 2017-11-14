@@ -5,12 +5,16 @@ import entity.Request;
 import java.util.List;
 
 public class RequestController {
-    final private RequestManager requestManager = new RequestManager();
+
+    private final RequestManager requestmanager;
+
+    public RequestController(RequestManager requestManager){
+        requestmanager = requestManager;
+    }
 
     /**
      * Checks to see if a node that was input has either the same name as an already present Node
      * or if there already is a node of the same type at same location.
-     *
      * @param req the node that you are checking to see if it can be a valid node to add.
      */
     protected boolean validateRequest(Request req) {
@@ -64,7 +68,6 @@ public class RequestController {
 
         public invalidRequestException() {
         }
-
         public invalidRequestException(String message) {
             message = "This is an invalid Request. There is either a request with the same name or a request of the same type at the same location.";
         }
