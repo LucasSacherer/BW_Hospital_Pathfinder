@@ -49,6 +49,9 @@ public class FXMLController {
     private List<Node> currentPath;
 
     @FXML
+    private Pane mapPane;
+
+    @FXML
     private Label currentFloorNum;
 
     @FXML
@@ -85,6 +88,16 @@ public class FXMLController {
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
     }
 
+    @FXML
+    private void setLoc1(MouseEvent m) {
+        // TODO
+    }
+
+    @FXML
+    private void setLoc2(MouseEvent m) {
+        // TODO
+    }
+
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
@@ -103,16 +116,16 @@ public class FXMLController {
     }
 
     @FXML
-    private void zoomInMap(ActionEvent e) {
-        imageView.setScaleX(imageView.getScaleX() + 1);
-        imageView.setScaleY(imageView.getScaleY() + 1);
+    private void zoomInMap(MouseEvent e) {
+        mapPane.setScaleX(mapPane.getScaleX() + 0.1);
+        mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
 
     @FXML //TODO fix
-    private void zoomOutMap(ActionEvent e) {
-        if (imageView.getScaleX() <= 1 || imageView.getScaleY() <= 1) return;
-        imageView.setScaleX(imageView.getScaleX() - 0.1);
-        imageView.setScaleY(imageView.getScaleY() - 0.1);
+    private void zoomOutMap(MouseEvent e) {
+        if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
+        mapPane.setScaleX(mapPane.getScaleX() - 0.1);
+        mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
 
     private void placeNode(ActionEvent e) {
