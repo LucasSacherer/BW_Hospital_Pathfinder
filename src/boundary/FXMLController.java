@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -45,24 +46,15 @@ public class FXMLController {
     private List<Node> currentPath;
 
     @FXML
-    private Button navigate;
-
-    @FXML
     private ScrollPane imageScroll;
 
-   @FXML
-   private void initialize(){
+    @FXML
+    private ListView cafeteria_dir, atm_dir, gift_shops_dir, parking_dir, dept_dir, elevator_dir;
+
+    @FXML
+    private void initialize(){
        Image groundFloor = mapDisplayController.getMap("G");
        imageScroll.setContent(new ImageView(groundFloor));
-   }
-
-    private void setStartLocation(ActionEvent e) {
-        // sets loc1
-        // loc1
-    }
-
-    private void setEndLocation(ActionEvent e) {
-         //sets loc2;
     }
 
     // finds the path from loc1 to loc2
