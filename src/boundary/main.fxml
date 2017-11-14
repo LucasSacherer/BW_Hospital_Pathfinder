@@ -201,11 +201,11 @@
                                           <Separator prefWidth="200.0" />
                                           <AnchorPane prefHeight="166.0" prefWidth="256.0">
                                              <children>
-                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
+                                                <TextField fx:id="originField" layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>
-                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
+                                                <TextField fx:id="destinationField" layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>

@@ -16,6 +16,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -54,6 +55,9 @@ public class FXMLController {
 
     @FXML
     private Label currentFloorNum;
+
+    @FXML
+    private TextField originField, destinationField;
 
     @FXML
     private ImageView imageView;
@@ -148,13 +152,15 @@ public class FXMLController {
     }
 
     @FXML
-    private void setLoc1(MouseEvent m) {
-        // TODO
+    private void setLoc1(ActionEvent e) {
+        loc1 = currentLoc;
+        originField.setText(loc1.getShortName());
     }
 
     @FXML
-    private void setLoc2(MouseEvent m) {
-        // TODO
+    private void setLoc2(ActionEvent e) {
+        loc2 = currentLoc;
+        destinationField.setText(loc2.getShortName());
     }
 
     // finds the path from loc1 to loc2
