@@ -22,7 +22,7 @@ public class RequestController {
             if (req.getName().equals(requestmanager.getRequests().get(i).getName())) {
                 return false;
             }
-            if (req.getType().equals(requestmanager.getRequests().get(i).getType()) && req.getNode().equals(requestmanager.getRequests().get(i)).getNode()) {
+            if (req.getType().equals(requestmanager.getRequests().get(i).getType()) && req.getNode().equals(requestmanager.getRequests().get(i).getNode())) {
                 return false;
             }
         }

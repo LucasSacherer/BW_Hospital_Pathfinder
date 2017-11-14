@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Node;
+import entity.NodeManager;
 import entity.Request;
 import entity.RequestManager;
 import org.junit.Test;
@@ -24,27 +25,32 @@ public class RequestControllerTest {
 
 
 
-
-
-
-
     @Test
     public void addRequest(){
     }
 
     @Test
     public void validateRequest() {
-        RequestManager requestManager = new RequestManager();
+        NodeManager nodeManager = new NodeManager();
+        RequestManager requestManager = new RequestManager(nodeManager);
         RequestController requestController = new RequestController(requestManager);
+        nodeManager.addNode(test1);
+        nodeManager.addNode(test2);
+        nodeManager.updateNodes();
         requestManager.updateRequests();
         requestManager.addRequest(request1);
         requestManager.addRequest(request5);
 
-        assertEquals(false, requestController.validateRequest(request2));
+        //assertEquals(false, requestController.validateRequest(request2));
         assertEquals(false, requestController.validateRequest(request3));
         assertEquals(true, requestController.validateRequest(request4));
         assertEquals(false, requestController.validateRequest(request6));
         assertEquals(false, requestController.validateRequest(request7));
+
+        requestManager.deleteRequest(request1);
+        requestManager.deleteRequest(request2);
+        nodeManager.removeNode(test1);
+        nodeManager.removeNode(test2);
 
 
 
