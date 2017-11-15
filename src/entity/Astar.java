@@ -52,7 +52,7 @@ public class Astar {
             //add all the nodes from the connected edges to the neighbors list
             for (int i = 0; i< connected.size(); i ++) {
                 neighbors.add((connected.get(i)));
-                System.out.println(connected.get(i));
+                System.out.println(connected.get(i).getNodeID());
             }
             //loop through the nieghbors
             for (int i = 0; i < neighbors.size(); i++) {
