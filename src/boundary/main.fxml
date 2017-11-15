@@ -394,7 +394,7 @@
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
-                                          <TitledPane animated="false" text="Export ro CSV">
+                                          <TitledPane animated="false" text="Export to CSV">
                                             <content>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -413,13 +413,13 @@
                                                         </rowConstraints>
                                                          <children>
                                                             <Label text="Nodes" />
-                                                            <Button fx:id="choosePathEdge" mnemonicParsing="false" text="Choose Path" GridPane.rowIndex="4" />
+                                                            <Button fx:id="choosePathEdge" mnemonicParsing="false" onAction="#getEdgeExportPath" text="Choose Path" GridPane.rowIndex="4" />
                                                             <Label text="Edges" GridPane.rowIndex="3" />
                                                             <TextField fx:id="edgePath" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                            <Button fx:id="choosePathNode" mnemonicParsing="false" text="Choose Path" GridPane.rowIndex="1" />
-                                                            <Button fx:id="exportEdgesButton" mnemonicParsing="false" text="Export Edges" GridPane.rowIndex="5" />
+                                                            <Button fx:id="choosePathNode" mnemonicParsing="false" onAction="#getNodeExportPath" text="Choose Path" GridPane.rowIndex="1" />
+                                                            <Button fx:id="exportEdgesButton" mnemonicParsing="false" onAction="#exportEdges" text="Export Edges" GridPane.rowIndex="5" />
                                                             <TextField fx:id="nodePath" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                            <Button fx:id="exportNodesButton" mnemonicParsing="false" text="Export Nodes" GridPane.rowIndex="2" />
+                                                            <Button fx:id="exportNodesButton" mnemonicParsing="false" onAction="#exportNodes" text="Export Nodes" GridPane.rowIndex="2" />
                                                          </children>
                                                       </GridPane>
                                                    </children>
