@@ -180,8 +180,8 @@ public class DatabaseSetup {
     private void insertDefaultMapFiles(Connection conn) throws FileNotFoundException{
         //Create a hashmap containing all the paths to the default maps
         HashMap<String, String> defaultImages = new HashMap<>();
-        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
-        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
         defaultImages.put("G", "src/boundary/images/DefaultMaps/00_thegroundfloor.png");
         defaultImages.put("1", "src/boundary/images/DefaultMaps/01_thefirstfloor.png");
         defaultImages.put("2", "src/boundary/images/DefaultMaps/02_thesecondfloor.png");
