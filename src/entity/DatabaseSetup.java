@@ -82,16 +82,16 @@ public class DatabaseSetup {
 
         //Insert all Nodes to the table
         try {
-            insertStatementsFromFile("src/DefaultData/nodeInserts.txt", stmt);
+            insertCSVToDatabase("src/DefaultData/defaultNodes.txt", stmt, "NODE");
         } catch (FileNotFoundException e) {
-            System.out.println( "The file src/DefaultData/nodeInserts.txt does not exist!");
+            e.printStackTrace();
         }
 
         //Insert all Edges to the table
         try {
-            insertStatementsFromFile("src/DefaultData/edgeInserts.txt", stmt);
+            insertCSVToDatabase("src/DefaultData/defaultEdges.txt", stmt, "EDGE");
         } catch (FileNotFoundException e) {
-            System.out.println( "The file src/DefaultData/edgeInserts.txt does not exist!");
+            e.printStackTrace();
         }
 
         //Insert the default DefaultMaps to the table
@@ -108,36 +108,53 @@ public class DatabaseSetup {
     }
 
     /**
-     * This method takes a path to a text file of SQL statements and calls them using the stmt param
-     * @param path the file path to be accessed
-     * @param stmt the stmt to be executed
+     * Reads a csv file of type (node or edge) and creates insert statements and executes them to the database
+     * @param path
+     * @param stmt
+     * @param table
+     * @throws FileNotFoundException
      */
-    private void insertStatementsFromFile(String path, Statement stmt) throws FileNotFoundException {
+    private void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
         File file = new File(path);
-        FileReader fileReader;
-
-        //Try to open file
-        try {
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();
-        }
+        FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
 
-        //Try to read each line and execute it on the database
         String line;
-        int failedRows = 0;
+        String query;
         try {
             while ((line = br.readLine()) != null){
                 try {
-                    stmt.execute(line);
-                } catch (SQLException e){
-                    failedRows++;
+                    if (line != null){
+                        String[] array = line.split(",");
+                        //Execute query to database
+                        if (table == "NODE"){
+                            try {
+                                query = ("INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"','"+array[9]+"')");
+                                stmt.execute(query);
+                            } catch (SQLException e) {
+                                //e.printStackTrace();
+                            }
+                        } else {
+                            try {
+                                query = ("INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')");
+                                stmt.execute(query);
+                            } catch (SQLException e) {
+                                //e.printStackTrace();
+                            }
+                        }
+                    }
+                } finally {
+                    if (br == null) {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-            if (failedRows != 0){ System.out.println(failedRows + " rows already exist."); }
         } catch (IOException e) {
-            System.out.println("Cannot read file!");
+            e.printStackTrace();
         }
     }
 
