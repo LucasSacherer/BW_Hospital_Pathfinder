@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -30,7 +38,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -376,12 +384,12 @@
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="uploadImage" layoutX="26.0" layoutY="56.0" mnemonicParsing="false" text="Upload Image">
+                                                      <Button fx:id="uploadImage" layoutX="26.0" layoutY="56.0" mnemonicParsing="false" onAction="#uploadImage" text="Upload Image">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
                                                       </Button>
-                                                      <Button fx:id="uploadCSVEdge" layoutX="26.0" layoutY="106.0" mnemonicParsing="false" text="Upload CSV Edge">
+                                                      <Button fx:id="uploadCSVEdge" layoutX="26.0" layoutY="106.0" mnemonicParsing="false" onAction="#uploadCSVEdge" text="Upload CSV Edge">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -391,24 +399,15 @@
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
                                                       </Button>
-                                                      <Button fx:id="uploadCSVNode" layoutX="26.0" layoutY="156.0" mnemonicParsing="false" text="Upload CSV Node">
+                                                      <Button fx:id="uploadCSVNode" layoutX="26.0" layoutY="156.0" mnemonicParsing="false" onAction="#uploadCSVNode" text="Upload CSV Node">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
                                                       </Button>
-                                                      <MenuButton fx:id="chooseFloor" layoutX="26.0" layoutY="206.0" mnemonicParsing="false" text="Choose Floor">
-                                                        <items>
-                                                          <MenuItem fx:id="floorL2" mnemonicParsing="false" text="Floor L2" />
-                                                          <MenuItem fx:id="FloorL1" mnemonicParsing="false" text="Floor L1" />
-                                                            <MenuItem fx:id="Floor00" mnemonicParsing="false" text="Floor 00" />
-                                                            <MenuItem fx:id="Floor01" mnemonicParsing="false" text="Floor 01" />
-                                                            <MenuItem fx:id="Floor02" mnemonicParsing="false" text="Floor 02" />
-                                                        </items>
-                                                      </MenuButton>
                                                       <TextField fx:id="uploadCSVNodeText" layoutX="151.0" layoutY="156.0" prefHeight="26.0" prefWidth="87.0" />
                                                       <TextField fx:id="uploadCSVEdgeText" layoutX="151.0" layoutY="105.0" prefHeight="26.0" prefWidth="87.0" />
                                                       <TextField fx:id="uploadImageText" layoutX="151.0" layoutY="55.0" prefHeight="26.0" prefWidth="87.0" />
-                                                      <TextField fx:id="chooseFloorText" layoutX="151.0" layoutY="206.0" prefHeight="26.0" prefWidth="87.0" />
+                                                      <TextField fx:id="floorText" layoutX="80.0" layoutY="214.0" prefHeight="31.0" prefWidth="154.0" />
                                                    </children>
                                                    <cursor>
                                                       <Cursor fx:constant="DEFAULT" />
