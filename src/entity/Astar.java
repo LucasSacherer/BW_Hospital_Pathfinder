@@ -60,7 +60,7 @@ public class Astar {
                 for (int j = 0; j < closedSet.size(); j++) {
                     if (neighbors.get(i).getNodeID().equals(closedSet.get(j).getNodeID())) {
                         alreadfound = true;
-                        continue;// Ignore the neighbor which is already evaluated.
+                        break;// Ignore the neighbor which is already evaluated.
                     } else {
                         alreadfound = false;
 
@@ -69,7 +69,7 @@ public class Astar {
 
                 if (alreadfound == true){
                     //if the node is in the closed set ignore it
-                    continue;
+                    break;
                 }
                 else {
                     //if it is not in the closed set add it the priority queue allong with its parent
