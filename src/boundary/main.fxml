@@ -376,101 +376,39 @@
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <VBox alignment="BOTTOM_CENTER" layoutX="24.6" prefHeight="200.0" prefWidth="148.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
-                                                         <children>
-                                                            <GridPane prefHeight="209.0" prefWidth="100.0">
-                                                              <rowConstraints>
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                              </rowConstraints>
-                                                               <columnConstraints>
-                                                                  <ColumnConstraints maxWidth="112.0" minWidth="10.0" prefWidth="112.0" />
-                                                                  <ColumnConstraints maxWidth="69.0" minWidth="10.0" prefWidth="36.0" />
-                                                               </columnConstraints>
-                                                               <children>
-                                                                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="0.0" prefWidth="48.0" text="X" textFill="#da0b04" GridPane.columnIndex="1">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor>
-                                                                  </Button>
-                                                                  <Button alignment="CENTER" layoutX="122.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor>
-                                                                  </Button>
-                                                                  <Button alignment="CENTER" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor>
-                                                                  </Button>
-                                                                  <Button alignment="CENTER" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor>
-                                                                  </Button>
-                                                                  <Button alignment="CENTER" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor>
-                                                                  </Button>
-                                                                  <TextField alignment="CENTER" editable="false" prefHeight="41.0" prefWidth="112.0" text="Floor G">
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="TEXT" />
-                                                                     </cursor></TextField>
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor L1" GridPane.rowIndex="1">
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="TEXT" />
-                                                                     </cursor></TextField>
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor L2" GridPane.rowIndex="2">
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="TEXT" />
-                                                                     </cursor></TextField>
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor 1" GridPane.rowIndex="3">
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="TEXT" />
-                                                                     </cursor></TextField>
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor 2" GridPane.rowIndex="4">
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="TEXT" />
-                                                                     </cursor></TextField>
-                                                               </children>
-                                                            </GridPane>
-                                                         </children>
-                                                      </VBox>
-                                                      <Label layoutX="26.0" layoutY="295.0" prefHeight="34.0" prefWidth="145.0" text="Delete a Map:">
-                                                         <font>
-                                                            <Font size="14.0" />
-                                                         </font>
-                                                         <cursor>
-                                                            <Cursor fx:constant="DEFAULT" />
-                                                         </cursor>
-                                                      </Label>
-                                                      <Button layoutX="56.0" layoutY="24.0" mnemonicParsing="false" text="Choose File" AnchorPane.leftAnchor="56.0" AnchorPane.topAnchor="24.0">
+                                                      <Button fx:id="uploadImage" layoutX="26.0" layoutY="56.0" mnemonicParsing="false" text="Upload Image">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
-                                                         </cursor></Button>
-                                                      <Label layoutX="37.0" layoutY="37.0" prefHeight="18.0" prefWidth="29.0" text="File:">
-                                                         <opaqueInsets>
-                                                            <Insets />
-                                                         </opaqueInsets></Label>
+                                                         </cursor>
+                                                      </Button>
+                                                      <Button fx:id="uploadCSVEdge" layoutX="26.0" layoutY="106.0" mnemonicParsing="false" text="Upload CSV Edge">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Button>
+                                                      <Button fx:id="submit" layoutX="96.0" layoutY="456.0" mnemonicParsing="false" text="Submit">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Button>
+                                                      <Button fx:id="uploadCSVNode" layoutX="26.0" layoutY="156.0" mnemonicParsing="false" text="Upload CSV Node">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Button>
+                                                      <MenuButton fx:id="chooseFloor" layoutX="26.0" layoutY="206.0" mnemonicParsing="false" text="Choose Floor">
+                                                        <items>
+                                                          <MenuItem fx:id="floorL2" mnemonicParsing="false" text="Floor L2" />
+                                                          <MenuItem fx:id="FloorL1" mnemonicParsing="false" text="Floor L1" />
+                                                            <MenuItem fx:id="Floor00" mnemonicParsing="false" text="Floor 00" />
+                                                            <MenuItem fx:id="Floor01" mnemonicParsing="false" text="Floor 01" />
+                                                            <MenuItem fx:id="Floor02" mnemonicParsing="false" text="Floor 02" />
+                                                        </items>
+                                                      </MenuButton>
+                                                      <TextField fx:id="uploadCSVNodeText" layoutX="151.0" layoutY="156.0" prefHeight="26.0" prefWidth="87.0" />
+                                                      <TextField fx:id="uploadCSVEdgeText" layoutX="151.0" layoutY="105.0" prefHeight="26.0" prefWidth="87.0" />
+                                                      <TextField fx:id="uploadImageText" layoutX="151.0" layoutY="55.0" prefHeight="26.0" prefWidth="87.0" />
+                                                      <TextField fx:id="chooseFloorText" layoutX="151.0" layoutY="206.0" prefHeight="26.0" prefWidth="87.0" />
                                                    </children>
                                                    <cursor>
                                                       <Cursor fx:constant="DEFAULT" />
@@ -619,23 +557,69 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </VBox>
-                                    <VBox alignment="BOTTOM_CENTER">
-                                       <children>
-                                          <Group>
+                                    <MenuButton mnemonicParsing="false">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="Action 1">
+                                             <graphic>
+                                                <VBox alignment="BOTTOM_CENTER">
+                                                   <children>
+                                                      <Group>
+                                                         <children>
+                                                            <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@images/nearest.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Group>
+                                                   </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </VBox>
+                                             </graphic>
+                                          </MenuItem>
+                                        <MenuItem mnemonicParsing="false" text="Action 2">
+                                             <graphic>
+                                                <VBox alignment="BOTTOM_CENTER">
+                                                   <children>
+                                                      <Group>
+                                                         <children>
+                                                            <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@images/nearest.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Group>
+                                                   </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </VBox>
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                       <graphic>
+                                          <VBox alignment="BOTTOM_CENTER">
                                              <children>
-                                                <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@images/nearest.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="77.0" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                                <Group>
+                                                   <children>
+                                                      <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@images/nearest.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="77.0" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                                   </children>
+                                                </Group>
                                              </children>
-                                          </Group>
-                                       </children>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </VBox>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </VBox>
+                                       </graphic>
+                                    </MenuButton>
                                     <VBox alignment="BOTTOM_CENTER" prefHeight="91.0" prefWidth="82.0">
                                        <children>
                                           <Group>
