@@ -82,16 +82,16 @@ public class DatabaseSetup {
 
         //Insert all Nodes to the table
         try {
-            insertStatementsFromFile("src/databaseData/nodeInserts.txt", stmt);
+            insertStatementsFromFile("src/DefaultData/nodeInserts.txt", stmt);
         } catch (FileNotFoundException e) {
-            System.out.println( "The file src/databaseData/nodeInserts.txt does not exist!");
+            System.out.println( "The file src/DefaultData/nodeInserts.txt does not exist!");
         }
 
         //Insert all Edges to the table
         try {
-            insertStatementsFromFile("src/databaseData/edgeInserts.txt", stmt);
+            insertStatementsFromFile("src/DefaultData/edgeInserts.txt", stmt);
         } catch (FileNotFoundException e) {
-            System.out.println( "The file src/databaseData/edgeInserts.txt does not exist!");
+            System.out.println( "The file src/DefaultData/edgeInserts.txt does not exist!");
         }
 
         //Insert the default DefaultMaps to the table
