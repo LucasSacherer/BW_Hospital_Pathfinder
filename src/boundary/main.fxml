@@ -35,7 +35,7 @@
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxWidth="250.0" prefWidth="250.0">
+          <AnchorPane maxWidth="250.0" minWidth="250.0" prefWidth="250.0">
                <children>
                   <TabPane maxWidth="-Infinity" prefHeight="773.0" prefWidth="250.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
@@ -339,6 +339,15 @@
                                                                      <cursor>
                                                                         <Cursor fx:constant="HAND" />
                                                                      </cursor></Button>
+                                                                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" onAction="#addEdge" text="Add Edge" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                     <opaqueInsets>
+                                                                        <Insets />
+                                                                     </opaqueInsets>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" onAction="#clearEdge" text="Clear Edge" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -499,7 +508,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox alignment="BOTTOM_CENTER">
+                                    <VBox alignment="BOTTOM_CENTER" opacity="0.0">
                                        <children>
                                           <Group>
                                              <children>
@@ -597,24 +606,57 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </VBox>
-                                    <VBox alignment="BOTTOM_CENTER">
-                                       <children>
-                                          <Group>
-                                             <children>
-                                                <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                                    <MenuButton mnemonicParsing="false">
+                                      <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#infoClicked" text="Info">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@images/nearest.png" />
+                                                      <Image url="@images/mapIcons/info.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="77.0" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                             </graphic>
+                                          </MenuItem>
+                                        <MenuItem mnemonicParsing="false" onAction="#bathroomClicked" text="Bathroom">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/mapIcons/bathroom.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MenuItem>
+                                        <MenuItem mnemonicParsing="false" onAction="#elevatorClicked" text="Elevator">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/mapIcons/elev.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                       <graphic>
+                                          <VBox alignment="BOTTOM_CENTER">
+                                             <children>
+                                                <Group>
+                                                   <children>
+                                                      <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@images/nearest.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="77.0" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                                   </children>
+                                                </Group>
                                              </children>
-                                          </Group>
-                                       </children>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </VBox>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="91.0" prefWidth="82.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </VBox>
+                                       </graphic>
+                                    </MenuButton>
+                                    <VBox alignment="BOTTOM_CENTER" opacity="0.0" prefHeight="91.0" prefWidth="82.0">
                                        <children>
                                           <Group>
                                              <children>
@@ -631,7 +673,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </VBox>
-                                    <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0">
+                                    <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0" opacity="0.0">
                                        <children>
                                           <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" rotate="-53.1">
                                              <image>

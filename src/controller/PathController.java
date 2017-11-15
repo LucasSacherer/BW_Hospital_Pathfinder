@@ -49,9 +49,7 @@ public class PathController {
             return false;
         } else if (!start.getBuilding().equals(end.getBuilding())){
             return false;
-        } else if (!start.isVisitable() || !end.isVisitable()) {
-            return false;
-        } else {
+        }else {
             return true;
         }
 
