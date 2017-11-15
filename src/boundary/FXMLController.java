@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class FXMLController {
     /* managers */
@@ -194,12 +195,14 @@ public class FXMLController {
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
+
         currentPath = pathController.findPath(loc1,loc2);
         drawPath();
     }
 
     // finds the path from currentLoc to nearest requested node type
     private void findNearest(ActionEvent e) {
+
         // TODO
         // low priority
     }
@@ -277,9 +280,10 @@ public class FXMLController {
     private void drawPath() {
         List<Node> pathToDraw = currentPath;
 
-        if(pathToDraw == null || !pathToDraw.get(0).getFloor().equals(currentFloor)){
+        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){
             return;
         }
+
         /** Testing Only **
         ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
         pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
@@ -304,6 +308,52 @@ public class FXMLController {
         }
         gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
     }
+
+    @FXML
+    private void drawEdge(Edge edge){
+
+        Node startNode = edge.getStartNode();
+        int sx = startNode.getXcoord();
+        int sy = startNode.getYcoord();
+        Node endNode = edge.getEndNode();
+        int ex = endNode.getXcoord();
+        int ey = endNode.getYcoord();
+
+        gc.setLineWidth(5);
+        gc.strokeLine(sx,sy,ex,ey);
+    }
+
+
+    @FXML
+    private void drawNode(Node n) {
+        gc.setFill(Color.BLUE);
+        gc.fillOval(n.getXcoord(), n.getYcoord(), 10, 10);
+        gc.setFill(Color.BLACK);
+    }
+
+    @FXML
+    private void drawAllNodes() {
+        for (Node n : mapEditController.getAllNodes()) {
+            if (n.getFloor().equals(currentFloor)) {
+                drawNode(n);
+            }
+        }
+    }
+
+    @FXML
+    private void drawAllEdges(){
+        for (Edge e : mapEditController.getAllEdges()){
+            if(e.getStartNode().getFloor().equals(currentFloor)){
+                drawEdge(e);
+            }
+        }
+    }
+    @FXML
+    private void enterMapEditing() {
+        drawAllNodes();
+    }
+
+
 
     private void clearCanvas(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
