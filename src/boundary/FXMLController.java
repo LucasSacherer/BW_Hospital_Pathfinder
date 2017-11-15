@@ -81,9 +81,7 @@ public class FXMLController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
 
-        Image groundFloor = mapDisplayController.getMap("G");
-        currentFloor = "G";
-        currentFloorNum.setText(currentFloor);
+
         Image groundFloor = null;
         try {
             groundFloor = mapDisplayController.getMap("G");
