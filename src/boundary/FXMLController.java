@@ -411,6 +411,9 @@ public class FXMLController {
 
     @FXML
     private void exitMapEditing() {
+        selectorTool.setSelected(false);
+        nodeTool.setSelected(false);
+        edgeTool.setSelected(false);
         clearCanvas();
         currentLoc = null;
         inMapEditing = false;
