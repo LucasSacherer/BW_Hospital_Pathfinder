@@ -330,13 +330,6 @@
                                                                      <cursor>
                                                                         <Cursor fx:constant="HAND" />
                                                                      </cursor></Button>
-                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                                                     <opaqueInsets>
-                                                                        <Insets />
-                                                                     </opaqueInsets>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor></Button>
                                                                </children>
                                                             </GridPane>
                                                          </children>

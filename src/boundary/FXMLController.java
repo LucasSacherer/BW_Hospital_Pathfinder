@@ -226,7 +226,8 @@ public class FXMLController {
     //finds node nearest to clicked location and sets the nearest node as currentLoc
     // creates a new Node in the Map editor
     @FXML
-    private void addNode(MouseEvent m) {
+    private void addNode(ActionEvent e) {
+        System.out.println("Tried to add node");
         String longName = "Hallway" + " New Added Node " + currentNodeID + " Floor " + currentFloor;
         String shortName = "Added Node" + currentNodeID;
         String nodeID = "GHALL" + currentNodeID + currentFloor;
@@ -234,6 +235,7 @@ public class FXMLController {
 
         Node n = new Node(nodeID, editX, editY, currentFloor, "Shapiro", "Hall", longName, shortName, true);
         mapEditController.addNode(n);
+        drawAllNodes();
     }
 
     private void snapToNode(MouseEvent m) {
