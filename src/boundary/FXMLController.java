@@ -48,6 +48,7 @@ public class FXMLController {
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
     final private RequestController requestController = new RequestController(requestManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
+    final private CSVController csvController = new CSVController();
 
 
     private Node loc1;
@@ -70,7 +71,10 @@ public class FXMLController {
     private Label currentFloorNum;
 
     @FXML
-    private TextField originField, destinationField;
+    private TextField originField, destinationField, edgePath, nodePath;
+
+    @FXML
+    private Button choosePathEdge, choosePathNode, exportEdgesButton, exportNodesButton;
 
     @FXML
     private TextField uploadImageText, uploadCSVEdgeText, uploadCSVNodeText;
@@ -108,6 +112,36 @@ public class FXMLController {
     @FXML
     private void uploadCSVNode(ActionEvent e) {
         uploadCSVNodeText.setText(fileSelector.selectFile());
+    }
+    @FXML
+    private void getNodeExportPath(ActionEvent e){
+        nodePath.setText(fileSelector.selectFile());
+    }
+    @FXML
+    private void getEdgeExportPath(ActionEvent e){
+        edgePath.setText(fileSelector.selectFile());
+    }
+    @FXML
+    private void exportNodes(ActionEvent e){
+        String path = nodePath.getText();
+        try {
+            csvController.saveNodes(path);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+    @FXML
+    private void exportEdges(ActionEvent e){
+        String path = edgePath.getText();
+        try {
+            csvController.saveEdge(path);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
     @FXML
     private void submit(ActionEvent e){
