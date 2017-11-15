@@ -339,6 +339,15 @@
                                                                      <cursor>
                                                                         <Cursor fx:constant="HAND" />
                                                                      </cursor></Button>
+                                                                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" onAction="#addEdge" text="Add Edge" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                     <opaqueInsets>
+                                                                        <Insets />
+                                                                     </opaqueInsets>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" onAction="#clearEdge" text="Clear Edge" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
