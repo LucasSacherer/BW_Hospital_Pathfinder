@@ -243,7 +243,7 @@ public class FXMLController {
     private void snapToNode(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();
-        currentLoc = clickController.getNearestNode(x,y);
+        currentLoc = clickController.getNearestNode(x,y,currentFloor);
         clearCanvas();
         drawCurrentNode();
         drawPath();
