@@ -249,7 +249,7 @@ public class FXMLController {
     private void snapToNode(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();
-        currentLoc = clickController.getNearestNode(x,y);
+        currentLoc = clickController.getNearestNode(x,y,currentFloor);
         clearCanvas();
         drawCurrentNode();
         drawPath();
@@ -452,17 +452,12 @@ public class FXMLController {
             clearCanvas();
             drawAllNodes();
             drawAllEdges();
-            if (edgeStart == null) edgeStart = clickController.getNearestNode((int)m.getX(), (int)m.getY());
+            if (edgeStart == null) edgeStart = clickController.getNearestNode((int)m.getX(), (int)m.getY(), currentFloor);
             else {
-                edgeEnd = clickController.getNearestNode((int) m.getX(), (int) m.getY());
+                edgeEnd = clickController.getNearestNode((int) m.getX(), (int) m.getY(), currentFloor);
                 Edge potential = new Edge(edgeStart, edgeEnd);
                 drawEdge(potential);
             }
-        }
-        else if (selectorTool.isSelected()) {
-            clearCanvas();
-            drawAllNodes();
-            drawAllEdges();
         }
         else {
             snapToNode(m);
