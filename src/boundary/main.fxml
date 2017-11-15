@@ -30,7 +30,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -258,7 +258,7 @@
                                           </HBox>
                                           <Region prefHeight="100.0" prefWidth="250.0" />
                                           <Label alignment="CENTER" contentDisplay="CENTER" text="Requests" />
-                                          <ListView fixedCellSize="3.0" prefHeight="713.0" prefWidth="250.0" />
+                                          <ListView fx:id="requestList" prefHeight="184.0" prefWidth="252.8" />
                                        </children>
                                     </VBox>
                                  </children>

@@ -36,7 +36,7 @@ public class FXMLController {
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
     final private PathController pathController = new PathController(aStar);
-//    final private RequestController requestController = new RequestController(requestManager, nodeManager);
+    final private RequestController requestController = new RequestController(requestManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
 
@@ -77,9 +77,14 @@ public class FXMLController {
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
     @FXML
+    private ListView requestList;
+
+    @FXML
     private void initialize(){
         nodeManager.updateNodes();
         edgeManager.updateEdges();
+
+
 
 
         Image groundFloor = null;
@@ -115,6 +120,8 @@ public class FXMLController {
         exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
+        requestManager.updateRequests();
+        requestList.setItems(requestController.getRequests());
     }
 
 
@@ -169,6 +176,12 @@ public class FXMLController {
         });
         nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        requestList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) requestList.getItems().get(newValue.intValue());
             clearCanvas();
             drawPath();
             drawCurrentNode();
