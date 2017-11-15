@@ -365,11 +365,24 @@ public class FXMLController {
 
     }
 
+    private void bathroomClicked(ActionEvent e){
+        findNearest(currentLoc, "REST");
+    }
+
+    private void infoClicked(ActionEvent e){
+        findNearest(currentLoc, "INFO");
+    }
+
+    private void elevatorClicked(ActionEvent e){
+        findNearest(currentLoc, "ELEV");
+    }
+
     private void findNearest(Node node, String type){
         int x = node.getXcoord();
         int y = node.getYcoord();
         nodeManager.nearestLoc(x,y,type);
     }
+
     @FXML
     private void floorDown(MouseEvent e) throws IOException, SQLException {
         switch(currentFloor) {
