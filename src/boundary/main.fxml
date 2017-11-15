@@ -17,6 +17,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -298,18 +300,13 @@
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Node Tool">
-                                                               <cursor>
-                                                                  <Cursor fx:constant="HAND" />
-                                                               </cursor></Button>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Edge Tool (connect nodes)" GridPane.rowIndex="1">
-                                                               <cursor>
-                                                                  <Cursor fx:constant="HAND" />
-                                                               </cursor></Button>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Selector Tool" GridPane.rowIndex="2">
-                                                               <cursor>
-                                                                  <Cursor fx:constant="HAND" />
-                                                               </cursor></Button>
+                                                            <ToggleButton fx:id="nodeTool" mnemonicParsing="false" text="Node Tool">
+                                                               <toggleGroup>
+                                                                  <ToggleGroup fx:id="editTools" />
+                                                               </toggleGroup>
+                                                            </ToggleButton>
+                                                            <ToggleButton fx:id="edgeTool" mnemonicParsing="false" text="Edge Tool" toggleGroup="$editTools" GridPane.rowIndex="1" />
+                                                            <ToggleButton fx:id="selectorTool" mnemonicParsing="false" selected="true" text="Selector Tool" toggleGroup="$editTools" GridPane.rowIndex="2" />
                                                          </children>
                                                       </GridPane>
                                                       <AnchorPane layoutX="24.0" layoutY="340.0" prefHeight="200.0" prefWidth="200.0">
@@ -490,7 +487,7 @@
                                     <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false">
                                        <children>
                                           <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
-                                          <Canvas fx:id="canvas" height="3400.0" width="5000.0" />
+                                          <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
                                        </children>
                                     </Pane>
                                  </content></ScrollPane>

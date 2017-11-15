@@ -37,7 +37,7 @@ public class FXMLController {
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
     final private PathController pathController = new PathController(aStar);
-//    final private RequestController requestController = new RequestController(requestManager, nodeManager);
+    final private RequestController requestController = new RequestController(requestManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
 
@@ -74,6 +74,9 @@ public class FXMLController {
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
+
+    @FXML
+    private ToggleButton nodeTool, edgeTool, selectorTool;
 
     @FXML
     private void initialize(){
@@ -415,5 +418,27 @@ public class FXMLController {
         clearCanvas();
         drawPath();
         drawCurrentNode();
+    }
+
+    @FXML
+    private void clickOnMap(MouseEvent m) {
+        // todo make sure that the tool gets un-set at the right times
+        // node tool
+        if (nodeTool.isSelected()) {
+            clearCanvas();
+            drawAllNodes();
+            drawAllEdges();
+            editX = (int) m.getX();
+            editY = (int) m.getY();
+            // draw node on map
+            gc.fillOval(editX, editY, 10, 10);
+        }
+        // edge controller //TODO
+        else if (edgeTool.isSelected()) {
+
+        }
+        else {
+            snapToNode(m);
+        }
     }
 }
