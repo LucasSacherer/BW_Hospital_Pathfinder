@@ -4,16 +4,16 @@ GHALL003L2,1729,2089,L2,Shapiro,LABS,Lab Node 3 Floor L2,Cardiovascular Imaging 
 GREST004L2,1680,2090,L2,Shapiro,REST,Restroom Node 4,Restroom Shapiro L2,Team G,TRUE
 GHALL005L2,1642,2089,L2,Shapiro,HALL,Hallway Node 5 Floor L2,,Team G,FALSE
 GELEV00QL2,1625,2089,L2,Shapiro,ELEV,Elevator Q Node 6 Floor L2,Elevator Q L2,Team G,TRUE
-GHALL007L2,1578,2196,L2,Shapiro,HALL,Hallway Node 7 Floor L2,,Team G,FALSE
-GHALL008L2,1577,2089,L2,Shapiro,HALL,Hallway Node 8 (exit?) Floor L2,,Team G,FALSE
+GHALL007L2,1578,2089,L2,Shapiro,HALL,Hallway Node 7 Floor L2,,Team G,FALSE
+GHALL008L2,1577,2195,L2,Shapiro,HALL,Hallway Node 8 (exit?) Floor L2,,Team G,FALSE
 GHALL009L2,1578,2032,L2,Shapiro,HALL,Hallway Node 9 Floor L2,,Team G,FALSE
 GHALL010L2,1550,2032,L2,Shapiro,HALL,Hallway Node 10 Floor L2,,Team G,FALSE
-GHALL011L2,1512,1966,L2,Shapiro,HALL,Hallway Node 11 Floor L2,,Team G,FALSE
-GHALL012L2,1548,1967,L2,Shapiro,HALL,Hallway Node 12 Floor L2,,Team G,FALSE
+GHALL011L2,1550,1966,L2,Shapiro,HALL,Hallway Node 11 Floor L2,,Team G,FALSE
+GHALL012L2,1512,1967,L2,Shapiro,HALL,Hallway Node 12 Floor L2,,Team G,FALSE
 GHALL013L2,1512,1910,L2,Shapiro,HALL,Hallway Node 13 Floor L2,,Team G,FALSE
-GHALL014L2,1510,1844,L2,Shapiro,LABS,Lab Node 14 (Cardiac Stress Test Lab) Floor L2,Cardiac Stress Test Lab,Team G,TRUE
-GHALL015L2,1510,1812,L2,Shapiro,LABS,Lab Node 15 (CVRR) Floor L2,CVRR,Team G,TRUE
-GHALL016L2,1514,1702,L2,Shapiro,HALL,Hallway Node 16 Floor L2,,Team G,FALSE
+GHALL014L2,1512,1844,L2,Shapiro,LABS,Lab Node 14 (Cardiac Stress Test Lab) Floor L2,Cardiac Stress Test Lab,Team G,TRUE
+GHALL015L2,1512,1812,L2,Shapiro,LABS,Lab Node 15 (CVRR) Floor L2,CVRR,Team G,TRUE
+GHALL016L2,1512,1702,L2,Shapiro,HALL,Hallway Node 16 Floor L2,,Team G,FALSE
 GHALL017L2,1512,1539,L2,Shapiro,HALL,Hallway Node 18 (Exit?) Floor L2,,Team G,FALSE
 GEXIT001L1,1702,2260,L1,Shapiro,EXIT,Exit Node 1 Floor L1,Fenwood Road Entrance/Exit L1,Team G,TRUE
 GHALL002L1,1702,2167,L1,Shapiro,HALL,Hallway Node 2 Floor L1,,Team G,FALSE
