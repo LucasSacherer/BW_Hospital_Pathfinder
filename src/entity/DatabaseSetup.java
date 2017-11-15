@@ -101,6 +101,21 @@ public class DatabaseSetup {
             e.printStackTrace();
         }
 
+        //Add Default maps to UI Maps
+        MapManager mm = new MapManager();
+        try {
+            mm.addToUIMaps("L2", conn);
+            mm.addToUIMaps("L1", conn);
+            mm.addToUIMaps("G", conn);
+            mm.addToUIMaps("1", conn);
+            mm.addToUIMaps("2", conn);
+            mm.addToUIMaps("3", conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //Close shit down
         System.out.println("Database Created!");
         stmt.close();

@@ -97,7 +97,7 @@ public class MapManager {
      * folder under the correct floor
      * @param floor The specified floor
      */
-    private void addToUIMaps(String floor, Connection conn) throws SQLException, IOException {
+    public void addToUIMaps(String floor, Connection conn) throws SQLException, IOException {
         //Make the hash table of the floor's image path
         HashMap<String, String> mapPaths = new HashMap<>();
         mapPaths.put("L2", "src/boundary/images/MapsForUI/L2.png");

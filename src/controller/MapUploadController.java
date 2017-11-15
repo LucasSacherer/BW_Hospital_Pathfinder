@@ -30,6 +30,7 @@ public class MapUploadController {
 
         //Delete all nodes from table that contain a node on the selected floor
         stmt.execute("DELETE FROM EDGE WHERE STARTNODE IN (SELECT NODEID FROM NODE WHERE FLOOR = '" + floor + "')");
+        stmt.execute("DELETE FROM EDGE WHERE ENDNODE IN (SELECT NODEID FROM NODE WHERE FLOOR = '" + floor + "')");
         stmt.execute("DELETE FROM NODE WHERE FLOOR = '" + floor +"'");
 
         stmt.close();
