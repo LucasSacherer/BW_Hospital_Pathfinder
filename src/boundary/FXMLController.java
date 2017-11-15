@@ -298,7 +298,6 @@ public class FXMLController {
     @FXML
     private void enterMapEditing() {
         drawAllNodes();
-
     }
 
     @FXML
