@@ -35,6 +35,7 @@ public class FXMLController {
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private RequestManager requestManager = new RequestManager(nodeManager);
     final private Astar aStar = new Astar(edgeManager);
+    final private FileSelector fileSelector = new FileSelector();
 
     //    /* controllers */
     final private MapManager mapManager = new MapManager();
@@ -43,6 +44,8 @@ public class FXMLController {
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
     final private PathController pathController = new PathController(aStar);
+    final private MapUploadController mapUploadController = new MapUploadController();
+//    final private RequestController requestController = new RequestController(requestManager, nodeManager);
     final private RequestController requestController = new RequestController(requestManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
@@ -70,6 +73,12 @@ public class FXMLController {
     private TextField originField, destinationField;
 
     @FXML
+    private TextField uploadImageText, uploadCSVEdgeText, uploadCSVNodeText;
+
+    @FXML
+    private TextField floorText;
+
+    @FXML
     private ImageView imageView;
 
     @FXML
@@ -84,6 +93,48 @@ public class FXMLController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
+    @FXML
+    private MenuButton chooseFloor;
+
+    // Admin dropdown menu
+    @FXML
+    private void uploadImage(ActionEvent e){
+        uploadImageText.setText(fileSelector.selectFile());
+    }
+    @FXML
+    private void uploadCSVEdge(ActionEvent e){
+        uploadCSVEdgeText.setText(fileSelector.selectFile());
+    }
+    @FXML
+    private void uploadCSVNode(ActionEvent e) {
+        uploadCSVNodeText.setText(fileSelector.selectFile());
+    }
+    @FXML
+    private void submit(ActionEvent e){
+        String imagePath = uploadImageText.getText();
+        String nodePath = uploadCSVNodeText.getText();
+        String edgePath = uploadCSVEdgeText.getText();
+        String floor = floorText.getText();
+
+        try {
+            mapUploadController.deleteEdgesAndNodes(floor);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        mapUploadController.uploadMap(imagePath, floor);
+        try {
+            mapUploadController.insertNodesAndEdges(nodePath, edgePath);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Map Uploaded to database");
+
+        alert.showAndWait();
+    }
     @FXML
     private ListView requestList;
 

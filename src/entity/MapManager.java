@@ -97,7 +97,7 @@ public class MapManager {
      * folder under the correct floor
      * @param floor The specified floor
      */
-    private void addToUIMaps(String floor, Connection conn) throws SQLException, IOException {
+    public void addToUIMaps(String floor, Connection conn) throws SQLException, IOException {
         //Make the hash table of the floor's image path
         HashMap<String, String> mapPaths = new HashMap<>();
         mapPaths.put("L2", "src/boundary/images/MapsForUI/L2.png");
@@ -110,25 +110,28 @@ public class MapManager {
         //Get the binary code from the database for the specified floor and write it into the
         //correct MapsForUI map.
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT image FROM map WHERE floor = " + floor);
-        InputStream in = rs.getBinaryStream(1);
-        OutputStream outputFile = null;
-        try {
-            outputFile = new FileOutputStream(new File(mapPaths.get(floor)));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        int i;
-        while ((i = in.read()) > -1) {
+        ResultSet rs = stmt.executeQuery("SELECT image FROM map WHERE floor = '" + floor +"'");
+        if (rs.next()){
+            InputStream in = rs.getBinaryStream(1);
+            OutputStream outputFile = null;
             try {
-                outputFile.write(i);
-            } catch (IOException e) {
+                outputFile = new FileOutputStream(new File(mapPaths.get(floor)));
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            int i;
+            while ((i = in.read()) > -1) {
+                try {
+                    outputFile.write(i);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            outputFile.close();
+            in.close();
+            stmt.close();
         }
-        outputFile.close();
-        in.close();
-        stmt.close();
+
     }
 
 }
