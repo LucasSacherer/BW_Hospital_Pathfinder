@@ -46,7 +46,7 @@ public class PathControllerTest {
         assertEquals(false, pathController.validatePath(nodeA, nodeB));
         assertEquals(false, pathController.validatePath(nodeA, nodeC));
         assertEquals(false, pathController.validatePath(nodeA, nodeD));
-        assertEquals(false, pathController.validatePath(nodeA, nodeE));
+        assertEquals(true, pathController.validatePath(nodeA, nodeE));
         assertEquals(true, pathController.validatePath(nodeA, nodeF));
 
 
