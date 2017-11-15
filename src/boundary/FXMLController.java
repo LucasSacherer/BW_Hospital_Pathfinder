@@ -280,7 +280,7 @@ public class FXMLController {
     private void drawPath() {
         List<Node> pathToDraw = currentPath;
 
-        if(pathToDraw == null || !pathToDraw.get(0).getFloor().equals(currentFloor)){
+        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){
             return;
         }
 
