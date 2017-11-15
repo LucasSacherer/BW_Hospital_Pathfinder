@@ -22,7 +22,6 @@ public class PathControllerTest {
 
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
         ArrayList<Node> actual = new ArrayList<>();
-        actual.add(n1);
         List<Node> answer = pathController.findPath(n1,n1);
         System.out.println(answer);
         assertEquals(actual,answer);

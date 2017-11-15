@@ -34,7 +34,7 @@ GHALL00901,1707,2164,1,Shapiro,HALL,Hallway Node 9,,Team G,FALSE
 GHALL01001,1673,2165,1,Shapiro,HALL,Hallway Node 10,,Team G,FALSE
 GREST01201,1671,2015,1,Shapiro,REST,Bathroom Node 12,Restroom Shapiro Floor 1,Team G,TRUE
 GSTAI01301,1750,2014,1,Shapiro,STAI,Staircase Node 13,Floor 1 Stairs to Fendwood Road,Team G,TRUE
-GSTAI01401,1749,2151,1,Shapiro,HALL,Hallway Node 14,,Team G,FALSE
+GHALL01401,1749,2151,1,Shapiro,HALL,Hallway Node 14,,Team G,FALSE
 GHALL01501,1749,2224,1,Shapiro,HALL,Hallway Node 15,,Team G,FALSE
 GHALL01601,1689,2225,1,Shapiro,HALL,Hallway Node 16,,Team G,FALSE
 GHALL01701,1605,2093,1,Shapiro,HALL,Hallway Node 17,,Team G,FALSE
@@ -102,7 +102,7 @@ GHALL00703,1685,2230,3,Shapiro,HALL,Hallway Node 7,,Team G,FALSE
 GHALL00803,1685,2106,3,Shapiro,HALL,Hallway Node 8,,Team G,FALSE
 GHALL00903,1685,2052,3,Shapiro,STAI,Staircase Node 9,Floor 3 Stairs ,Team G,TRUE
 GHALL01003,1580,2070,3,Shapiro,HALL,Hallway Node 10,,Team G,FALSE
-GHALL01103,1628,200,3,Shapiro,HALL,Hallway Node 11,,Team G,FALSE
+GHALL01103,1628,2070,3,Shapiro,HALL,Hallway Node 11,,Team G,FALSE
 GHALL01203,1628,2052,3,Shapiro,REST,Restroom Node 12,Restroom Shapiro Floor 3,Team G,TRUE
 GHALL01303,1580,2006,3,Shapiro,HALL,Hallway Node 13,,Team G,FALSE
 GHALL01403,1580,1904,3,Shapiro,DEPT,Department Node 14,Watkins Clinic C,Team G,TRUE
