@@ -192,7 +192,9 @@ public class FXMLController {
     private void findPath(ActionEvent e) {
 
         currentPath = pathController.findPath(loc1,loc2);
+        clearCanvas();
         drawPath();
+        drawCurrentNode();
     }
 
     // finds the path from currentLoc to nearest requested node type
@@ -267,7 +269,7 @@ public class FXMLController {
     private void drawPath() {
         List<Node> pathToDraw = currentPath;
 
-        if(pathToDraw == null || !pathToDraw.get(0).getFloor().equals(currentFloor)){
+        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){
             return;
         }
 
