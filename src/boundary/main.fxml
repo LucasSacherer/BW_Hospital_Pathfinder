@@ -39,7 +39,7 @@
                <children>
                   <TabPane maxWidth="-Infinity" prefHeight="773.0" prefWidth="250.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab onSelectionChanged="#clearCanvas" text="Directory">
+                      <Tab onSelectionChanged="#exitMapEditing" text="Directory">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="249.0">
                                  <children>
@@ -234,7 +234,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab onSelectionChanged="#clearCanvas" text="Requests">
+                        <Tab onSelectionChanged="#exitMapEditing" text="Requests">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -283,7 +283,7 @@
                                  <children>
                                     <Accordion maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0">
                                       <panes>
-                                          <TitledPane animated="false" layoutX="10.0" layoutY="66.0" onMouseClicked="#clearCanvas" prefWidth="250.0" text="Report Logs">
+                                          <TitledPane animated="false" layoutX="10.0" layoutY="66.0" onMouseClicked="#exitMapEditing" prefWidth="250.0" text="Report Logs">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -359,7 +359,7 @@
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
-                                        <TitledPane animated="false" onMouseClicked="#clearCanvas" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
+                                        <TitledPane animated="false" onMouseClicked="#exitMapEditing" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
