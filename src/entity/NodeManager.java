@@ -180,12 +180,15 @@ public class NodeManager {
      * @param y the y coordinate to search from
      * @return result the closest node
      */
-    public Node nearestNode(int x, int y){
+    public Node nearestNode(int x, int y, String floor){
         double newDistance;
         double nodeDistance = 10000000000.0;
         Node result = null;
 
         for (Node node: nodes){
+            if (!node.getFloor().equals(floor)){
+                continue;
+            }
             newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
                     (y - node.getYcoord()) *  (y - node.getYcoord())));
             if (newDistance < nodeDistance){
@@ -203,13 +206,13 @@ public class NodeManager {
      * @param type the type of node to search for
      * @return result the closest node of the specified type
      */
-    public Node nearestLoc(int x, int y, String type){
+    public Node nearestLoc(int x, int y, String floor, String type){
         double newDistance;
         double nodeDistance = 10000000000.0;
         Node result = null;
 
         for (Node node: nodes){
-            if(node.getNodeType().equals(type)) {
+            if(node.getNodeType().equals(type) && node.getFloor().equals(floor)) {
                 newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
                         (y - node.getYcoord()) * (y - node.getYcoord())));
                 if (newDistance < nodeDistance) {

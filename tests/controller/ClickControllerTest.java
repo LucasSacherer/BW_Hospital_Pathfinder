@@ -20,7 +20,7 @@ public class ClickControllerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        String nodeID = clickController.getNearestNode(0, 0).getNodeID();
+        String nodeID = clickController.getNearestNode(0, 0, "1").getNodeID();
 
         manager.removeNode(test);
         manager.removeNode(test2);
