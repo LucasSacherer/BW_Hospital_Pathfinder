@@ -6,6 +6,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
@@ -201,11 +202,11 @@
                                           <Separator prefWidth="200.0" />
                                           <AnchorPane prefHeight="166.0" prefWidth="256.0">
                                              <children>
-                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
+                                                <TextField fx:id="originField" layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>
-                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
+                                                <TextField fx:id="destinationField" layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>
@@ -217,7 +218,7 @@
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor></Button>
-                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#drawPath" text="Navigate" AnchorPane.bottomAnchor="10.0">
+                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#findPath" text="Navigate" AnchorPane.bottomAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor></Button>
@@ -350,19 +351,6 @@
                                                                         <Font size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <MenuButton mnemonicParsing="false" text="Node Type" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                                     <items>
-                                                                        <MenuItem mnemonicParsing="false" text="Cafeterias" />
-                                                                        <MenuItem mnemonicParsing="false" text="Gift Shops" />
-                                                                        <MenuItem mnemonicParsing="false" text="ATM's" />
-                                                                        <MenuItem mnemonicParsing="false" text="Parking Lots" />
-                                                                        <MenuItem mnemonicParsing="false" text="Departments" />
-                                                                        <MenuItem mnemonicParsing="false" text="Elevator" />
-                                                                     </items>
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="HAND" />
-                                                                     </cursor>
-                                                                  </MenuButton>
                                                                   <Label prefWidth="300.0" text="Enter New Node Information" textAlignment="CENTER" underline="true" GridPane.columnSpan="2">
                                                                      <font>
                                                                         <Font size="14.0" />
@@ -372,6 +360,7 @@
                                                                      <cursor>
                                                                         <Cursor fx:constant="TEXT" />
                                                                      </cursor></TextField>
+                                                                  <ChoiceBox fx:id="nodeTypeBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                </children>
                                                             </GridPane>
                                                          </children>

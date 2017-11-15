@@ -3,6 +3,7 @@ package controller;
 import entity.Astar;
 import entity.Node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PathController {
@@ -19,7 +20,11 @@ public class PathController {
      * @return A list of Nodes that is determined by findPath() in Astar class
      */
     public List<Node> findPath(Node start, Node end){
-        return astar.Astar(start,end);
+        if (validatePath(start,end)){
+            return astar.Astar(start,end);
+        }else{
+            return new ArrayList<>();
+        }
     }
 
 
@@ -36,7 +41,9 @@ public class PathController {
      */
 
     protected  Boolean validatePath(Node start, Node end) {
-        if (start.getNodeID().equals(end.getNodeID())){
+        if (start == null || end == null) {
+            return false;
+        }else if (start.getNodeID().equals(end.getNodeID())){
             return false;
         } else if (!start.getFloor().equals(end.getFloor())) {
             return false;
