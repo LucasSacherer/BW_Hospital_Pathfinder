@@ -379,14 +379,14 @@ public class FXMLController {
     private void findNearest(Node node, String type){
         int x = node.getXcoord();
         int y = node.getYcoord();
-        Node closest = nodeManager.nearestLoc(x,y,type);
-        //loc2 = closest;
-        //destinationField.setText(loc2.getShortName());
+        Node closest = nodeManager.nearestLoc(x,y,currentFloor,type);
+        loc2 = closest;
+        destinationField.setText(loc2.getShortName());
         drawNode(closest);
-        //currentPath = pathController.findPath(loc1,loc2);
-        //clearCanvas();
-        //drawPath();
-        //drawCurrentNode();
+        currentPath = pathController.findPath(loc1,loc2);
+        clearCanvas();
+        drawPath();
+        drawCurrentNode();
 
     }
 
