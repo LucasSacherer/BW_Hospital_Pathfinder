@@ -53,6 +53,7 @@ public class FXMLController {
     private List<Node> currentPath;
     private int currentNodeID = 999;
     private Node nodeA, nodeB;
+    private boolean inMapEditing = false;
 
     @FXML
     private Pane mapPane;
@@ -349,8 +350,17 @@ public class FXMLController {
     @FXML
     private void enterMapEditing() {
         currentLoc = null;
+        clearCanvas();
         drawAllNodes();
         drawAllEdges();
+        inMapEditing = true;
+    }
+
+    @FXML
+    private void exitMapEditing() {
+        clearCanvas();
+        currentLoc = null;
+        inMapEditing = false;
     }
 
     @FXML
@@ -393,7 +403,10 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
-
+        if (inMapEditing == true) {
+            enterMapEditing();
+            return;
+        }
         clearCanvas();
         drawPath();
         drawCurrentNode();
@@ -428,7 +441,10 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
-
+        if (inMapEditing == true) {
+            enterMapEditing();
+            return;
+        }
         clearCanvas();
         drawPath();
         drawCurrentNode();
