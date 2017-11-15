@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class EdgeManager {
 
-    private NodeManager nodeManager;
+    final private NodeManager nodeManager;
     private List<Edge> edges;
     final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
 
@@ -16,6 +16,7 @@ public class EdgeManager {
         edges = new ArrayList<>();
     }
 
+    //updates list of edges to match what is currently in the database
     public void updateEdges(){
         edges.clear();
 
@@ -99,7 +100,6 @@ public class EdgeManager {
                 neighbors.add(edge.getStartNode());
             }
         }
-
         return neighbors;
     }
 
@@ -110,7 +110,6 @@ public class EdgeManager {
      * @return double the weight of the end
      */
     public double edgeWeight(Node start, Node end){
-
         Edge target;
         target = (edges.stream().filter(p -> (p.getStartNode().getNodeID().equals(start.getNodeID()) &&
                 p.getEndNode().getNodeID().equals(end.getNodeID())) ||
