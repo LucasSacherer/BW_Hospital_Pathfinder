@@ -26,6 +26,9 @@ public class EdgeManagerTest {
 
         NodeManager manager = new NodeManager();
         manager.updateNodes();
+
+        Node n0 = manager.getNode("GHALL00402");
+
         EdgeManager test = new EdgeManager(manager);
         test.updateEdges();
 
@@ -39,6 +42,8 @@ public class EdgeManagerTest {
         List<Node> result = test.getNeighbors(n1);
         List<Node> result2 = test.getNeighbors(n3);
 
+        List<Node> result0 = test.getNeighbors(n0);
+
         test.removeEdge(e1);
         test.removeEdge(e2);
         manager.removeNode(n1);
@@ -48,6 +53,8 @@ public class EdgeManagerTest {
 
         assertEquals(result.get(0).getNodeID(), n3.getNodeID());
         assertEquals(result2.get(0).getNodeID(), n1.getNodeID());
+        System.out.println(result0);
+        System.out.println(result0.size());
     }
 
     @Test
