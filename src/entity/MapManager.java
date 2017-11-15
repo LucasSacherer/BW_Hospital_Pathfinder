@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class MapManager {
     private HashMap<String, Image> maps = new HashMap<>();
 
-
+    //creates master map hashmap
     public MapManager() {
         maps = new HashMap<>();
 
@@ -38,14 +38,16 @@ public class MapManager {
             ex.printStackTrace();
         }
     }
-    // getMap Method
+
     public Image getMap(String floor){
         return maps.get(floor);
     }
-    // updateMap method
+
+    //adds floor to list of maps
     public void updateMaps (String floor, Image newMap){
         maps.put(floor, newMap);
     }
-    // uploadMapToDB method
+
+    //uploads new floor map to the database
     public void uploadMapToDB(String floor, Image mapPicture){}
 }
