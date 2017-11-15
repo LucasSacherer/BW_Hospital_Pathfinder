@@ -221,8 +221,10 @@ public class FXMLController {
 
     @FXML
     private void addRequestButton(ActionEvent e){
-        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(), currentLoc, LocalDateTime.now());
-        requestManager.addRequest(a);
+        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(),nodeManager.getNode("GREST01201"), LocalDateTime.now());
+        requestController.addRequest(a);
+        requestList.setItems(requestController.getRequests());
+
     }
 
     @FXML
