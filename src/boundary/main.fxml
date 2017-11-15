@@ -30,7 +30,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -202,11 +202,11 @@
                                           <Separator prefWidth="200.0" />
                                           <AnchorPane prefHeight="166.0" prefWidth="256.0">
                                              <children>
-                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
+                                                <TextField fx:id="originField" layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>
-                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
+                                                <TextField fx:id="destinationField" layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>
@@ -218,7 +218,7 @@
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor></Button>
-                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#drawPath" text="Navigate" AnchorPane.bottomAnchor="10.0">
+                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#findPath" text="Navigate" AnchorPane.bottomAnchor="10.0">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor></Button>

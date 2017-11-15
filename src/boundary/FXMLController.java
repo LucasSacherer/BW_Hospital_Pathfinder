@@ -27,8 +27,7 @@ public class FXMLController {
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private RequestManager requestManager = new RequestManager(nodeManager);
-
-//    final private Astar aStar = new Astar(edgeManager);
+    final private Astar aStar = new Astar(edgeManager);
 
     //    /* controllers */
     final private MapManager mapManager = new MapManager();
@@ -36,7 +35,7 @@ public class FXMLController {
     final private MapEditController mapEditController = new MapEditController(edgeManager, nodeManager, mapManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
-//    final private PathController pathController = new PathController(aStar);
+    final private PathController pathController = new PathController(aStar);
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
@@ -60,6 +59,9 @@ public class FXMLController {
     private Label currentFloorNum;
 
     @FXML
+    private TextField originField, destinationField;
+
+    @FXML
     private ImageView imageView;
 
     @FXML
@@ -76,6 +78,10 @@ public class FXMLController {
 
     @FXML
     private void initialize(){
+        nodeManager.updateNodes();
+        edgeManager.updateEdges();
+
+
         Image groundFloor = null;
         try {
             groundFloor = mapDisplayController.getMap("G");
@@ -89,6 +95,7 @@ public class FXMLController {
         currentFloor = "G";
         currentFloorNum.setText(currentFloor);
         initializeDirectory();
+        initializeDirectoryListeners();
 
         //Map Editing Node Type Choice
         nodeTypeBox.setValue("Node Type");
@@ -110,25 +117,85 @@ public class FXMLController {
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
     }
 
-    //sets loc1 to nearest node to click location
+
+    private void initializeDirectoryListeners(){
+        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+    }
+
     @FXML
-    private void setLoc1(MouseEvent m) {
-        snapToNode(m);
+    private void setLoc1(ActionEvent e) {
         loc1 = currentLoc;
+        originField.setText(loc1.getShortName());
+
     }
 
     //sets loc2 to nearest node to click location
     @FXML
-    private void setLoc2(MouseEvent m) {
-        snapToNode(m);
+
+    private void setLoc2(ActionEvent e) {
         loc2 = currentLoc;
+        destinationField.setText(loc2.getShortName());
+
     }
 
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
-        // TODO: Add a PathController object at the top of this class, call find path in there
-        //PathController.findPath(loc1, loc2);
+        currentPath = pathController.findPath(loc1,loc2);
+        drawPath();
     }
 
     // finds the path from currentLoc to nearest requested node type
@@ -207,12 +274,13 @@ public class FXMLController {
         // Empty for now
     }
 
+    private void drawPath() {
+        List<Node> pathToDraw = currentPath;
 
-    @FXML
-    private void drawPath(ActionEvent e) {
-       // ArrayList<Node> pathToDraw = pathController.getPath(loc1, loc2);
-
-        /** Testing Only **/
+        if(pathToDraw == null || !pathToDraw.get(0).getFloor().equals(currentFloor)){
+            return;
+        }
+        /** Testing Only **
         ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
         pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
         pathToDraw.add(new Node("b",300, 300, "a","a","a","a","a",true));
@@ -224,9 +292,21 @@ public class FXMLController {
            int y1 = pathToDraw.get(i).getYcoord();
             int x2 = pathToDraw.get(i+1).getXcoord();
             int y2 = pathToDraw.get(i+1).getYcoord();
-            gc.setLineWidth(25);
+            gc.setLineWidth(5);
             gc.strokeLine(x1,y1,x2,y2);
         }
+    }
+
+    private void drawCurrentNode(){
+        Node toDraw = currentLoc;
+        if(toDraw == null || !toDraw.getFloor().equals(currentFloor)){
+            return;
+        }
+        gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+    }
+
+    private void clearCanvas(){
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
     }
 
     private void drawRequests(ActionEvent e) {
@@ -264,6 +344,10 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
+
+        clearCanvas();
+         drawPath();
+         drawCurrentNode();
     }
 
     @FXML
@@ -295,5 +379,9 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
+
+        clearCanvas();
+        drawPath();
+        drawCurrentNode();
     }
 }
