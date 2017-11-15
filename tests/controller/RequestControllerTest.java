@@ -16,6 +16,7 @@ public class RequestControllerTest {
 
     Node test1 = new Node("54",0,0,"1","building","type","lName","sName",true);
     Node test2 = new Node("96",1,1,"1","building","type","lName","sName",true);
+
     LocalDateTime rightNow = LocalDateTime.now();
     Request request1 = new Request("TypeA", "NameA", "Description", test1, rightNow);
     Request request2 = new Request("TypeA", "NameB", "Description", test1, rightNow);
@@ -33,12 +34,15 @@ public class RequestControllerTest {
         RequestController requestController = new RequestController(requestManager);
         nodeManager.updateNodes();
         requestManager.updateRequests();
-        nodeManager.addNode(test1);
+        //nodeManager.addNode(test1);
         //nodeManager.addNode(test2);
 
+        Request requestA = new Request("TypeA", "NameA", "Description",nodeManager.getNode("GREST01201"), rightNow);
 
-        requestController.addRequest(request1);
-/*        System.out.println(requestManager.getRequests().get(0).getName());
+
+
+            requestController.addRequest(requestA);
+/*      System.out.println(requestManager.getRequests().get(0).getName());
         assertEquals("NameA", requestManager.getRequests().get(0).getName());
         requestController.addRequest(request4);
         assertEquals("NameC", requestManager.getRequests().get(1).getName());

@@ -1,5 +1,6 @@
 package boundary;
 
+import com.sun.javafx.scene.layout.region.LayeredBackgroundPositionConverter;
 import entity.Node;
 import controller.*;
 import entity.*;
@@ -20,7 +21,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import java.time.LocalDateTime;
+
 
 public class FXMLController {
     /* managers */
@@ -80,6 +84,27 @@ public class FXMLController {
     private ListView requestList;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private HBox addRequestBox;
+
+    @FXML
+    private TextField requestName;
+
+    @FXML
+    private TextField requestType;
+
+    @FXML
+    private TextField requestDescription;
+
+    @FXML
+    private Label currentLocLabel;
+
+    @FXML
     private void initialize(){
         nodeManager.updateNodes();
         edgeManager.updateEdges();
@@ -107,6 +132,7 @@ public class FXMLController {
         nodeTypeBox.setItems(FXCollections.observableArrayList(
                 "Elevators", "Restrooms", "Stairs", "Departments", "Labs",
                 "Information Desks", "Conference Rooms"));
+
     }
 
     private void initializeDirectory() {
@@ -181,11 +207,22 @@ public class FXMLController {
             drawCurrentNode();
         });
         requestList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) requestList.getItems().get(newValue.intValue());
+            currentLoc = ((Request)requestList.getItems().get(newValue.intValue())).getNode();
             clearCanvas();
             drawPath();
             drawCurrentNode();
         });
+    }
+
+    @FXML
+    private void deleteRequestButton(ActionEvent e){
+        requestController.deleteRequest((Request)requestList.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void addRequestButton(ActionEvent e){
+        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(), currentLoc, LocalDateTime.now());
+        requestManager.addRequest(a);
     }
 
     @FXML
@@ -265,6 +302,7 @@ public class FXMLController {
         int x = (int) m.getX();
         int y = (int) m.getY();
         currentLoc = clickController.getNearestNode(x,y);
+
     }
 
     private void addNewMap(ActionEvent e) {
