@@ -117,6 +117,7 @@ public class FXMLController {
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
     }
 
+
     private void initializeDirectoryListeners(){
         elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
@@ -178,12 +179,16 @@ public class FXMLController {
     private void setLoc1(ActionEvent e) {
         loc1 = currentLoc;
         originField.setText(loc1.getShortName());
+
     }
 
+    //sets loc2 to nearest node to click location
     @FXML
+
     private void setLoc2(ActionEvent e) {
         loc2 = currentLoc;
         destinationField.setText(loc2.getShortName());
+
     }
 
     // finds the path from loc1 to loc2
@@ -193,22 +198,26 @@ public class FXMLController {
         drawPath();
     }
 
-    // finds the path from
+    // finds the path from currentLoc to nearest requested node type
     private void findNearest(ActionEvent e) {
+        // TODO
         // low priority
     }
+
 
     private void retrieveMapImage(ActionEvent e) {
         // TODO: Add a MapDisplayController object at the top of this class, call find path in there
         //MapDisplayController.getMap(currentFloor);
     }
 
+    //zooms in by 0.1 on click of zoom in button
     @FXML
     private void zoomInMap(MouseEvent e) {
         mapPane.setScaleX(mapPane.getScaleX() + 0.1);
         mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
 
+    //zooms out by 0.1 on click of zoom out button
     @FXML //TODO fix
     private void zoomOutMap(MouseEvent e) {
         if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
@@ -216,6 +225,7 @@ public class FXMLController {
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
 
+    //finds node nearest to clicked location and sets the nearest node as currentLoc
     // creates a new Node in the Map editor
     @FXML
     private void addNode(MouseEvent m) {
@@ -241,15 +251,15 @@ public class FXMLController {
     private void snapToNode(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();
-        loc2 = nodeManager.nearestNode(x,y); //TODO make sure this makes sense, snapToNode setting loc2
+        currentLoc = clickController.getNearestNode(x,y);
     }
 
     private void addNewMap(ActionEvent e) {
+        //TODO
         // mapEditController
     }
 
     private void editAnExistingMap(ActionEvent e) {
-
     }
 
     private void sendRequest(ActionEvent e) {

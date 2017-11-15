@@ -16,6 +16,7 @@ public class EdgeManager {
         edges = new ArrayList<>();
     }
 
+    //updates list of edges to match what is currently in the database
     public void updateEdges(){
         edges.clear();
 
