@@ -232,6 +232,9 @@ public class FXMLController {
     // creates a new Node in the Map editor
     @FXML
     private void addNode(ActionEvent e) {
+        if (currentLoc == null){
+            return;
+        }
         String longName = "Hallway" + " New Added Node " + currentNodeID + " Floor " + currentFloor;
         String shortName = "Added Node" + currentNodeID;
         String nodeID = "GHALL" + currentNodeID + currentFloor;
@@ -345,6 +348,7 @@ public class FXMLController {
     }
     @FXML
     private void enterMapEditing() {
+        currentLoc = null;
         drawAllNodes();
         drawAllEdges();
     }
@@ -454,6 +458,11 @@ public class FXMLController {
                 Edge potential = new Edge(edgeStart, edgeEnd);
                 drawEdge(potential);
             }
+        }
+        else if (selectorTool.isSelected()) {
+            clearCanvas();
+            drawAllNodes();
+            drawAllEdges();
         }
         else {
             snapToNode(m);
