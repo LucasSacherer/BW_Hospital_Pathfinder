@@ -1,3 +1,58 @@
+GHALL001L2,1730,1585,L2,Shapiro,HALL,Hallway Node 1 Floor L2,,Team G,FALSE
+GHALL002L2,1745,1540,L2,Shapiro,HALL,Hallway Connector 2 Floor L2,Hallway G02L2,Team G,FALSE
+GHALL003L2,1729,2089,L2,Shapiro,LABS,Lab Node 3 Floor L2,Cardiovascular Imaging Center,Team G,TRUE
+GREST004L2,1680,2090,L2,Shapiro,REST,Restroom Node 4,Restroom Shapiro L2,Team G,TRUE
+GHALL005L2,1642,2089,L2,Shapiro,HALL,Hallway Node 5 Floor L2,,Team G,FALSE
+GELEV00QL2,1625,2089,L2,Shapiro,ELEV,Elevator Q Node 6 Floor L2,Elevator Q L2,Team G,TRUE
+GHALL007L2,1578,2196,L2,Shapiro,HALL,Hallway Node 7 Floor L2,,Team G,FALSE
+GHALL008L2,1577,2089,L2,Shapiro,HALL,Hallway Node 8 (exit?) Floor L2,,Team G,FALSE
+GHALL009L2,1578,2032,L2,Shapiro,HALL,Hallway Node 9 Floor L2,,Team G,FALSE
+GHALL010L2,1550,2032,L2,Shapiro,HALL,Hallway Node 10 Floor L2,,Team G,FALSE
+GHALL011L2,1512,1966,L2,Shapiro,HALL,Hallway Node 11 Floor L2,,Team G,FALSE
+GHALL012L2,1548,1967,L2,Shapiro,HALL,Hallway Node 12 Floor L2,,Team G,FALSE
+GHALL013L2,1512,1910,L2,Shapiro,HALL,Hallway Node 13 Floor L2,,Team G,FALSE
+GHALL014L2,1510,1844,L2,Shapiro,LABS,Lab Node 14 (Cardiac Stress Test Lab) Floor L2,Cardiac Stress Test Lab,Team G,TRUE
+GHALL015L2,1510,1812,L2,Shapiro,LABS,Lab Node 15 (CVRR) Floor L2,CVRR,Team G,TRUE
+GHALL016L2,1514,1702,L2,Shapiro,HALL,Hallway Node 16 Floor L2,,Team G,FALSE
+GHALL017L2,1512,1539,L2,Shapiro,HALL,Hallway Node 18 (Exit?) Floor L2,,Team G,FALSE
+GEXIT001L1,1702,2260,L1,Shapiro,EXIT,Exit Node 1 Floor L1,Fenwood Road Entrance/Exit L1,Team G,TRUE
+GHALL002L1,1702,2167,L1,Shapiro,HALL,Hallway Node 2 Floor L1,,Team G,FALSE
+GHALL003L1,1688,2167,L1,Shapiro,HALL,Hallway Node 3 Floor L1,,Team G,FALSE
+GHALL004L1,1666,2167,L1,Shapiro,HALL,Hallway Node 4 Floor L1,,Team G,FALSE
+GHALL005L1,1688,2131,L1,Shapiro,HALL,Hallway Node 5 Floor L1,,Team G,FALSE
+GHALL006L1,1665,2116,L1,Shapiro,HALL,Hallway Node 6 Floor L1,,Team G,FALSE
+GELEV007L1,1637,2116,L1,Shapiro,ELEV,Hallway Node 7 Floor L1,Elevator Q L1,Team G,TRUE
+GSTAI008L1,1720,2131,L1,Shapiro,STAI,Hallway Node 8 Floor L1,L1 Stairs,Team G,TRUE
+GEXIT00101,1748,1832,1,Shapiro,EXIT,Exit Node 1,Vining Street Entrance/Exit Floor 1,Team G,TRUE
+GHALL00201,1722,1832,1,Shapiro,HALL,Hallway Node 2,,Team G,FALSE
+GHALL00301,1705,1831,1,Shapiro,HALL,Hallway Node 3,,Team G,FALSE
+GSTAI00501,1707,1992,1,Shapiro,STAI,Stairway Node 5,Floor 1 Stairs to Francis Street,Team G,TRUE
+GHALL00601,1707,2015,1,Shapiro,HALL,Hallway Node 6,,Team G,FALSE
+GHALL00701,1708,2092,1,Shapiro,HALL,Hallway Node 7,,Team G,FALSE
+GHALL00801,1707,2152,1,Shapiro,HALL,Hallway Node 8,,Team G,FALSE
+GHALL00901,1707,2164,1,Shapiro,HALL,Hallway Node 9,,Team G,FALSE
+GHALL01001,1673,2165,1,Shapiro,HALL,Hallway Node 10,,Team G,FALSE
+GREST01201,1671,2015,1,Shapiro,REST,Bathroom Node 12,Restroom Shapiro Floor 1,Team G,TRUE
+GSTAI01301,1750,2014,1,Shapiro,STAI,Staircase Node 13,Floor 1 Stairs to Fendwood Road,Team G,TRUE
+GSTAI01401,1749,2151,1,Shapiro,HALL,Hallway Node 14,,Team G,FALSE
+GHALL01501,1749,2224,1,Shapiro,HALL,Hallway Node 15,,Team G,FALSE
+GHALL01601,1689,2225,1,Shapiro,HALL,Hallway Node 16,,Team G,FALSE
+GHALL01701,1605,2093,1,Shapiro,HALL,Hallway Node 17,,Team G,FALSE
+GELEV00Q01,1607,2115,1,Shapiro,ELEV,Elevator Q Node 18,Elevator Q Floor 1,Team G,TRUE
+GDEPT01901,1567,2116,1,Shapiro,DEPT,Zinner Department Node 19,Zinner Breakout Room,Team G,TRUE
+GCONF02001,1513,2116,1,Shapiro,CONF,Shapiro Conferance Node 20,Shapiro Board Room,Team G,TRUE
+GHALL02101,1600,1830,1,Shapiro,HALL,Hallway Node 21,,Team G,FALSE
+GHALL02201,1601,1866,1,Shapiro,HALL,Hallway Node 22,,Team G,FALSE
+GSERV02301,1600,1895,1,Shapiro,SERV,ATM Node 23,ATM Floor 1,Team G,TRUE
+GHALL02401,1602,1928,1,Shapiro,HALL,Hallway Node 24,,Team G,FALSE
+GELEV00N01,1647,1930,1,Shapiro,HALL,Elevator N Node 26,,Team G,FALSE
+GHALL02801,1270,1830,1,Shapiro,HALL,Hallway Node 28,,Team G,FALSE
+GHALL02901,1262,1850,1,Shapiro,HALL,Hallway Node 29,,Team G,FALSE
+GHALL0301,1256,1858,1,Shapiro,HALL,Hallway Node 30,,Team G,FALSE
+GHALL03101,1227,1859,1,Shapiro,HALL,Hallway Node 31,,Team G,FALSE
+GHALL03301,1255,1872,1,Shapiro,HALL,Hallway Node 33,,Team G,FALSE
+GHALL03401,1284,1872,1,Shapiro,HALL,Hallway Node 34,,Team G,FALSE
+GRETL03501,1284,1884,1,Shapiro,RETL,Random Room Node 35,Secret Room Floor 1,Team G,TRUE
 GHALL00102,1170,1780,2,Shapiro,HALL,Hall Node 1,,Team G,FALSE
 GHALL00202,1168,1820,2,Shapiro,HALL,Hall Node 2,,Team G,FALSE
 GHALL00302,1231,1781,2,Shapiro,HALL,Hall Node 3,,Team G,FALSE
@@ -37,3 +92,19 @@ GDEPT03502,1580,2166,2,Shapiro,DEPT,DEPT Node 35 (Watkins B),Watkins B,Team G,TR
 GHALL03602,1580,2208,2,Shapiro,HALL,Hall Node 36,,Team G,FALSE
 GHALL03702,1692,2211,2,Shapiro,HALL,Hall Node 37,,Team G,FALSE
 GHALL03802,1726,2210,2,Shapiro,HALL,Hall Node 38,,Team G,FALSE
+GHALL00103,1562,2230,3,Shapiro,HALL,Hallway Node 1,,Team G,FALSE
+GHALL00203,1580,2230,3,Shapiro,HALL,Hallway Node 2,,Team G,FALSE
+GHALL00303,1580,2180,3,Shapiro,HALL,Hallway Node 3,,Team G,FALSE
+GHALL00403,1580,2142,3,Shapiro,DEPT,Department Node 4,Brigham Circle Medical Associates,Team G,TRUE
+GHALL00503,1628,2142,3,Shapiro,ELEV,Elevator Node 5,Elevator Q Floor 3,Team G,TRUE
+GHALL00603,1685,2142,3,Shapiro,HALL,Hallway Node 6,,Team G,FALSE
+GHALL00703,1685,2230,3,Shapiro,HALL,Hallway Node 7,,Team G,FALSE
+GHALL00803,1685,2106,3,Shapiro,HALL,Hallway Node 8,,Team G,FALSE
+GHALL00903,1685,2052,3,Shapiro,STAI,Staircase Node 9,Floor 3 Stairs ,Team G,TRUE
+GHALL01003,1580,2070,3,Shapiro,HALL,Hallway Node 10,,Team G,FALSE
+GHALL01103,1628,200,3,Shapiro,HALL,Hallway Node 11,,Team G,FALSE
+GHALL01203,1628,2052,3,Shapiro,REST,Restroom Node 12,Restroom Shapiro Floor 3,Team G,TRUE
+GHALL01303,1580,2006,3,Shapiro,HALL,Hallway Node 13,,Team G,FALSE
+GHALL01403,1580,1904,3,Shapiro,DEPT,Department Node 14,Watkins Clinic C,Team G,TRUE
+GHALL01503,1628,1904,3,Shapiro,ELEV,Elevator Node 15,Elevator N Floor 3,Team G,TRUE
+GHALL01603,1580,1858,3,Shapiro,SERV,The Porch Node 16,The Porch,Team G,TRUE
