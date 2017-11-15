@@ -464,7 +464,7 @@ public class FXMLController {
     @FXML
     private void drawNode(Node n) {
         gc.setFill(Color.BLUE);
-        gc.fillOval(n.getXcoord() - 5, n.getYcoord() - 5, 15, 15);
+        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
         gc.setFill(Color.BLACK);
     }
 
@@ -627,7 +627,7 @@ public class FXMLController {
             editX = (int) m.getX();
             editY = (int) m.getY();
             // draw node on map
-            gc.fillOval(editX, editY, 10, 10);
+            gc.fillOval(editX - 10, editY - 10, 20, 20);
         }
         // edge controller //TODO
         else if (edgeTool.isSelected()) {
