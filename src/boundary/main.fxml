@@ -264,7 +264,6 @@
                                           <Label text="Description" textAlignment="CENTER" />
                                           <TextField fx:id="requestDescription" />
                                           <Button fx:id="addButton" mnemonicParsing="false" onAction="#addRequestButton" text="Add Request" />
-                                          <Label fx:id="currentLocLabel" text="-" />
                                           <Region prefHeight="49.0" prefWidth="250.0" />
                                           <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRequestButton" text="Delete Selected Request" />
                                           <Region layoutX="10.0" layoutY="126.0" prefHeight="49.0" prefWidth="250.0" />

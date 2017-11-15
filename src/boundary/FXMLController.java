@@ -26,6 +26,8 @@ import java.time.LocalDateTime;
 
 import javafx.scene.paint.Color;
 
+import static java.time.LocalDateTime.now;
+
 public class FXMLController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
@@ -99,8 +101,7 @@ public class FXMLController {
     @FXML
     private TextField requestDescription;
 
-    @FXML
-    private Label currentLocLabel;
+
 
     @FXML
     private ToggleButton nodeTool, edgeTool, selectorTool;
@@ -209,13 +210,18 @@ public class FXMLController {
     @FXML
     private void deleteRequestButton(ActionEvent e){
         requestController.deleteRequest((Request)requestList.getSelectionModel().getSelectedItem());
+        currentLoc = null;
+        clearCanvas();
     }
 
     @FXML
     private void addRequestButton(ActionEvent e){
-        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(),nodeManager.getNode("GREST01201"), LocalDateTime.now());
+        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(),currentLoc, LocalDateTime.now());
         requestController.addRequest(a);
         requestList.setItems(requestController.getRequests());
+        requestDescription.setText("");
+        requestName.setText("");
+        requestType.setText("");
 
     }
 
