@@ -67,7 +67,7 @@ public class RequestManager {
         try {
             Connection conn = DriverManager.getConnection(DBURL);
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM REQUEST WHERE NAME = '"+req.getNode().getNodeID()+"'AND TIME = '"+
+            stmt.executeUpdate("DELETE FROM REQUEST WHERE NAME = '"+req.getName()+"'AND TIME = '"+
                     Timestamp.valueOf(req.getTimeStamp()).toString()+"'");
             stmt.close();
             conn.close();
