@@ -19,8 +19,7 @@ public class RequestManagerTest {
                 nodeManager.getNode("GHALL001L2"), LocalDateTime.now());
         requestManager.addRequest(req);
         List<Request> requests = requestManager.getRequests();
-        requestManager.deleteRequest(req);
-
         assertEquals(requests.get(0).getName(),req.getName());
+        requestManager.deleteRequest(req);
     }
 }
