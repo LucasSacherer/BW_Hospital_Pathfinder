@@ -3,6 +3,10 @@ package boundary;
 import entity.Node;
 import controller.*;
 import entity.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -12,8 +16,7 @@ import java.util.List;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -49,6 +52,9 @@ public class FXMLController {
     private List<Node> currentPath;
 
     @FXML
+    private ChoiceBox<String> nodeTypeBox;
+
+    @FXML
     private Pane mapPane;
 
     @FXML
@@ -60,6 +66,10 @@ public class FXMLController {
     @FXML
     private Canvas canvas;
 
+    @FXML
+    private TextField newNodeName;
+
+    @FXML
     GraphicsContext gc;
 
     @FXML
@@ -73,6 +83,12 @@ public class FXMLController {
         imageView.setImage(groundFloor);
         gc = canvas.getGraphicsContext2D();
         initializeDirectory();
+
+        //Map Editing Node Type Choice
+        nodeTypeBox.setValue("Node Type");
+        nodeTypeBox.setItems(FXCollections.observableArrayList(
+                "Elevators", "Restrooms", "Stairs", "Departments", "Labs",
+                "Information Desks", "Conference Rooms"));
     }
 
     private void initializeDirectory() {
@@ -128,19 +144,26 @@ public class FXMLController {
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
 
-    private void placeNode(ActionEvent e) {
-        // TODO: get all the node information out of the UI and give the node ot the map edit controller
-        // this should be in the pop-up on the Map Editor page
-        String nodeID;
-        int xcoord;
-        int ycoord;
-        String floor;
-        String building;
-        String nodeType;
-        String longName;
-        String shortName;
-        boolean visitable;
-        //Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
+    // creates a new Node in the Map editor
+    @FXML
+    private void addNode(MouseEvent m) {
+        // TODO: if invalid, excape the function
+
+        // first get the x and y coordinate from the screen, but only if the click is on the mapPane
+        int xcoord = 1;
+        int ycoord = 1;
+
+        String floor = currentFloor;
+        String building = "Shapiro"; // For now
+        String nodeType = nodeTypeBox.getSelectionModel().getSelectedItem();
+        String longName = "LONGNAME"; //TODO
+        String shortName = "SHORTNAME"; //TODO
+        boolean visitable = true; //TODO
+
+        String nodeID = "NODEID"; //TODO
+
+        Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
+        mapEditController.addNode(n);
     }
 
     private void snapToNode(MouseEvent m) {
@@ -154,11 +177,6 @@ public class FXMLController {
     }
 
     private void editAnExistingMap(ActionEvent e) {
-
-    }
-
-    // map editing mode
-    private void addNodes(ActionEvent e) {
 
     }
 
