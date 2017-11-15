@@ -1,6 +1,7 @@
 package boundary;
 
 import entity.Node;
+import entity.Edge;
 import controller.*;
 import entity.*;
 import javafx.beans.value.ChangeListener;
@@ -20,8 +21,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import java.time.LocalDateTime;
+
 import javafx.scene.paint.Color;
+
+import static java.time.LocalDateTime.now;
 
 public class FXMLController {
     /* managers */
@@ -40,6 +46,7 @@ public class FXMLController {
     final private PathController pathController = new PathController(aStar);
     final private MapUploadController mapUploadController = new MapUploadController();
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
+    final private RequestController requestController = new RequestController(requestManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
 
@@ -47,13 +54,14 @@ public class FXMLController {
     private Node loc2;
     private Node currentLoc;
     private Image currentMap; // TODO
-    private int time;
+    private int time, editX, editY;
+    private Node edgeStart = null, edgeEnd = null;
     private HashMap<String, ArrayList<Node>> directory;
     private String currentFloor;
     private List<Node> currentPath;
-
-    @FXML
-    private ChoiceBox<String> nodeTypeBox;
+    private int currentNodeID = 999;
+    private Node nodeA, nodeB;
+    private boolean inMapEditing = false;
 
     @FXML
     private Pane mapPane;
@@ -128,6 +136,32 @@ public class FXMLController {
         alert.showAndWait();
     }
     @FXML
+    private ListView requestList;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private HBox addRequestBox;
+
+    @FXML
+    private TextField requestName;
+
+    @FXML
+    private TextField requestType;
+
+    @FXML
+    private TextField requestDescription;
+
+
+
+    @FXML
+    private ToggleButton nodeTool, edgeTool, selectorTool;
+
+    @FXML
     private void initialize(){
         nodeManager.updateNodes();
         edgeManager.updateEdges();
@@ -147,12 +181,6 @@ public class FXMLController {
         currentFloorNum.setText(currentFloor);
         initializeDirectory();
         initializeDirectoryListeners();
-
-        //Map Editing Node Type Choice
-        nodeTypeBox.setValue("Node Type");
-        nodeTypeBox.setItems(FXCollections.observableArrayList(
-                "Elevators", "Restrooms", "Stairs", "Departments", "Labs",
-                "Information Desks", "Conference Rooms"));
     }
 
     private void initializeDirectory() {
@@ -166,6 +194,8 @@ public class FXMLController {
         exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
+        requestManager.updateRequests();
+        requestList.setItems(requestController.getRequests());
     }
 
 
@@ -224,6 +254,30 @@ public class FXMLController {
             drawPath();
             drawCurrentNode();
         });
+        requestList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = ((Request)requestList.getItems().get(newValue.intValue())).getNode();
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+    }
+
+    @FXML
+    private void deleteRequestButton(ActionEvent e){
+        requestController.deleteRequest((Request)requestList.getSelectionModel().getSelectedItem());
+        currentLoc = null;
+        clearCanvas();
+    }
+
+    @FXML
+    private void addRequestButton(ActionEvent e){
+        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(),currentLoc, LocalDateTime.now());
+        requestController.addRequest(a);
+        requestList.setItems(requestController.getRequests());
+        requestDescription.setText("");
+        requestName.setText("");
+        requestType.setText("");
+
     }
 
     @FXML
@@ -247,7 +301,9 @@ public class FXMLController {
     private void findPath(ActionEvent e) {
 
         currentPath = pathController.findPath(loc1,loc2);
+        clearCanvas();
         drawPath();
+        drawCurrentNode();
     }
 
     // finds the path from currentLoc to nearest requested node type
@@ -266,6 +322,8 @@ public class FXMLController {
     //zooms in by 0.1 on click of zoom in button
     @FXML
     private void zoomInMap(MouseEvent e) {
+
+        if (mapPane.getScaleX() >= 0.8 || mapPane.getScaleY() >= 0.8) return;
         mapPane.setScaleX(mapPane.getScaleX() + 0.1);
         mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
@@ -273,7 +331,7 @@ public class FXMLController {
     //zooms out by 0.1 on click of zoom out button
     @FXML //TODO fix
     private void zoomOutMap(MouseEvent e) {
-        if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
+        if (mapPane.getScaleX() <= 0.5 || mapPane.getScaleY() <= 0.5) return;
         mapPane.setScaleX(mapPane.getScaleX() - 0.1);
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
@@ -281,30 +339,25 @@ public class FXMLController {
     //finds node nearest to clicked location and sets the nearest node as currentLoc
     // creates a new Node in the Map editor
     @FXML
-    private void addNode(MouseEvent m) {
-        // TODO: if invalid, excape the function
+    private void addNode(ActionEvent e) {
+        String longName = "Hallway" + " New Added Node " + currentNodeID + " Floor " + currentFloor;
+        String shortName = "Added Node" + currentNodeID;
+        String nodeID = "GHALL" + currentNodeID + currentFloor;
+        currentNodeID--;
 
-        // first get the x and y coordinate from the screen, but only if the click is on the mapPane
-        int xcoord = 1;
-        int ycoord = 1;
-
-        String floor = currentFloor;
-        String building = "Shapiro"; // For now
-        String nodeType = nodeTypeBox.getSelectionModel().getSelectedItem();
-        String longName = "LONGNAME"; //TODO
-        String shortName = "SHORTNAME"; //TODO
-        boolean visitable = true; //TODO
-
-        String nodeID = "NODEID"; //TODO
-
-        Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
+        Node n = new Node(nodeID, editX, editY, currentFloor, "Shapiro", "Hall", longName, shortName, true);
         mapEditController.addNode(n);
+        drawAllNodes();
+        drawAllEdges();
     }
 
     private void snapToNode(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();
-        currentLoc = clickController.getNearestNode(x,y);
+        currentLoc = clickController.getNearestNode(x,y,currentFloor);
+        clearCanvas();
+        drawCurrentNode();
+        drawPath();
     }
 
     private void addNewMap(ActionEvent e) {
@@ -400,16 +453,55 @@ public class FXMLController {
     }
     @FXML
     private void enterMapEditing() {
+        currentLoc = null;
+        clearCanvas();
         drawAllNodes();
+        drawAllEdges();
+        inMapEditing = true;
     }
 
+    @FXML
+    private void exitMapEditing() {
+        selectorTool.setSelected(false);
+        nodeTool.setSelected(false);
+        edgeTool.setSelected(false);
+        clearCanvas();
+        currentLoc = null;
+        inMapEditing = false;
+    }
 
-
+    @FXML
     private void clearCanvas(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
     }
 
     private void drawRequests(ActionEvent e) {
+
+    }
+    @FXML
+    private void bathroomClicked(ActionEvent e){
+        findNearest(currentLoc, "REST");
+    }
+    @FXML
+    private void infoClicked(ActionEvent e){
+        findNearest(currentLoc, "INFO");
+    }
+    @FXML
+    private void elevatorClicked(ActionEvent e){
+        findNearest(currentLoc, "ELEV");
+    }
+
+    private void findNearest(Node node, String type){
+        int x = node.getXcoord();
+        int y = node.getYcoord();
+        Node closest = nodeManager.nearestLoc(x,y,currentFloor,type);
+        loc2 = closest;
+        destinationField.setText(loc2.getShortName());
+        drawNode(closest);
+        currentPath = pathController.findPath(loc1,loc2);
+        clearCanvas();
+        drawPath();
+        drawCurrentNode();
 
     }
 
@@ -444,10 +536,13 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
-
+        if (inMapEditing == true) {
+            enterMapEditing();
+            return;
+        }
         clearCanvas();
-         drawPath();
-         drawCurrentNode();
+        drawPath();
+        drawCurrentNode();
     }
 
     @FXML
@@ -479,9 +574,59 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
-
+        if (inMapEditing == true) {
+            enterMapEditing();
+            return;
+        }
         clearCanvas();
         drawPath();
         drawCurrentNode();
+    }
+
+    @FXML
+    private void clickOnMap(MouseEvent m) {
+        // todo make sure that the tool gets un-set at the right times
+        // node tool
+        if (nodeTool.isSelected()) {
+            clearCanvas();
+            drawAllNodes();
+            drawAllEdges();
+            editX = (int) m.getX();
+            editY = (int) m.getY();
+            // draw node on map
+            gc.fillOval(editX, editY, 10, 10);
+        }
+        // edge controller //TODO
+        else if (edgeTool.isSelected()) {
+            clearCanvas();
+            drawAllNodes();
+            drawAllEdges();
+            if (edgeStart == null) edgeStart = clickController.getNearestNode((int)m.getX(), (int)m.getY(), currentFloor);
+            else {
+                edgeEnd = clickController.getNearestNode((int) m.getX(), (int) m.getY(), currentFloor);
+                Edge potential = new Edge(edgeStart, edgeEnd);
+                drawEdge(potential);
+            }
+        }
+        else {
+            snapToNode(m);
+        }
+    }
+
+    @FXML
+    private void addEdge(ActionEvent e) {
+        Edge edge = new Edge(edgeStart, edgeEnd);
+        mapEditController.addEdge(edge);
+        drawAllNodes();
+        drawAllEdges();
+    }
+
+    @FXML
+    private void clearEdge(ActionEvent e) {
+        edgeStart = null;
+        edgeEnd = null;
+        clearCanvas();
+        drawAllEdges();
+        drawAllNodes();
     }
 }

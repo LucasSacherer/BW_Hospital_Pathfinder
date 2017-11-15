@@ -37,4 +37,9 @@ public class Request {
     public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
+
+    @Override
+    public String toString() {
+        return name + "    " + timeStamp.getMonth() + " " + timeStamp.getDayOfMonth() + " " + timeStamp.getHour() + ":" + timeStamp.getMinute() + ":" + timeStamp.getSecond();
+    }
 }

@@ -6,7 +6,6 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
@@ -18,6 +17,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -30,15 +31,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxWidth="250.0" prefWidth="250.0">
+          <AnchorPane maxWidth="250.0" minWidth="250.0" prefWidth="250.0">
                <children>
                   <TabPane maxWidth="-Infinity" prefHeight="773.0" prefWidth="250.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab text="Directory">
+                      <Tab onSelectionChanged="#exitMapEditing" text="Directory">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="249.0">
                                  <children>
@@ -233,7 +234,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab text="Requests">
+                        <Tab onSelectionChanged="#exitMapEditing" text="Requests">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -256,9 +257,18 @@
                                                    </cursor></Button>
                                              </children>
                                           </HBox>
-                                          <Region prefHeight="100.0" prefWidth="250.0" />
+                                          <Label text="Type" textAlignment="CENTER" />
+                                          <TextField fx:id="requestType" />
+                                          <Label text="Name" textAlignment="CENTER" />
+                                          <TextField fx:id="requestName" />
+                                          <Label text="Description" textAlignment="CENTER" />
+                                          <TextField fx:id="requestDescription" />
+                                          <Button fx:id="addButton" mnemonicParsing="false" onAction="#addRequestButton" text="Add Request" />
+                                          <Region prefHeight="49.0" prefWidth="250.0" />
+                                          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRequestButton" text="Delete Selected Request" />
+                                          <Region layoutX="10.0" layoutY="126.0" prefHeight="49.0" prefWidth="250.0" />
                                           <Label alignment="CENTER" contentDisplay="CENTER" text="Requests" />
-                                          <ListView fixedCellSize="3.0" prefHeight="713.0" prefWidth="250.0" />
+                                          <ListView fx:id="requestList" prefHeight="267.0" prefWidth="250.0" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -273,7 +283,7 @@
                                  <children>
                                     <Accordion maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0">
                                       <panes>
-                                          <TitledPane animated="false" layoutX="10.0" layoutY="66.0" prefWidth="250.0" text="Report Logs">
+                                          <TitledPane animated="false" layoutX="10.0" layoutY="66.0" onMouseClicked="#exitMapEditing" prefWidth="250.0" text="Report Logs">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -285,7 +295,7 @@
                                                 </AnchorPane>
                                              </content>
                                           </TitledPane>
-                                        <TitledPane animated="false" maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0" text="Map Editing Mode">
+                                        <TitledPane animated="false" maxHeight="-Infinity" onMouseClicked="#enterMapEditing" prefHeight="630.0" prefWidth="250.0" text="Map Editing Mode">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -299,18 +309,13 @@
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Node Tool">
-                                                               <cursor>
-                                                                  <Cursor fx:constant="HAND" />
-                                                               </cursor></Button>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Edge Tool (connect nodes)" GridPane.rowIndex="1">
-                                                               <cursor>
-                                                                  <Cursor fx:constant="HAND" />
-                                                               </cursor></Button>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Selector Tool" GridPane.rowIndex="2">
-                                                               <cursor>
-                                                                  <Cursor fx:constant="HAND" />
-                                                               </cursor></Button>
+                                                            <ToggleButton fx:id="nodeTool" mnemonicParsing="false" text="Node Tool">
+                                                               <toggleGroup>
+                                                                  <ToggleGroup fx:id="editTools" />
+                                                               </toggleGroup>
+                                                            </ToggleButton>
+                                                            <ToggleButton fx:id="edgeTool" mnemonicParsing="false" text="Edge Tool" toggleGroup="$editTools" GridPane.rowIndex="1" />
+                                                            <ToggleButton fx:id="selectorTool" mnemonicParsing="false" selected="true" text="Selector Tool" toggleGroup="$editTools" GridPane.rowIndex="2" />
                                                          </children>
                                                       </GridPane>
                                                       <AnchorPane layoutX="24.0" layoutY="340.0" prefHeight="200.0" prefWidth="200.0">
@@ -327,40 +332,22 @@
                                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                               </rowConstraints>
                                                                <children>
-                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Node" GridPane.rowIndex="3">
+                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addNode" text="Add Node" GridPane.rowIndex="3">
                                                                      <opaqueInsets>
                                                                         <Insets />
                                                                      </opaqueInsets>
                                                                      <cursor>
                                                                         <Cursor fx:constant="HAND" />
                                                                      </cursor></Button>
-                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" onAction="#addEdge" text="Add Edge" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                      <opaqueInsets>
                                                                         <Insets />
                                                                      </opaqueInsets>
                                                                      <cursor>
                                                                         <Cursor fx:constant="HAND" />
-                                                                     </cursor></Button>
-                                                                  <Label text="Type:" GridPane.rowIndex="2">
-                                                                     <font>
-                                                                        <Font size="14.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label text="Name:" GridPane.rowIndex="1">
-                                                                     <font>
-                                                                        <Font size="14.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label prefWidth="300.0" text="Enter New Node Information" textAlignment="CENTER" underline="true" GridPane.columnSpan="2">
-                                                                     <font>
-                                                                        <Font size="14.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <TextField prefHeight="25.0" prefWidth="119.0" promptText="Node Information" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                                     <cursor>
-                                                                        <Cursor fx:constant="TEXT" />
-                                                                     </cursor></TextField>
-                                                                  <ChoiceBox fx:id="nodeTypeBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                     </cursor>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" onAction="#clearEdge" text="Clear Edge" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -372,7 +359,7 @@
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
-                                        <TitledPane animated="false" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
+                                        <TitledPane animated="false" onMouseClicked="#exitMapEditing" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -440,7 +427,7 @@
                                     <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false">
                                        <children>
                                           <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
-                                          <Canvas fx:id="canvas" height="3400.0" width="5000.0" />
+                                          <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
                                        </children>
                                     </Pane>
                                  </content></ScrollPane>
@@ -450,7 +437,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox alignment="BOTTOM_CENTER">
+                                    <VBox alignment="BOTTOM_CENTER" opacity="0.0">
                                        <children>
                                           <Group>
                                              <children>
@@ -550,44 +537,31 @@
                                     </VBox>
                                     <MenuButton mnemonicParsing="false">
                                       <items>
-                                        <MenuItem mnemonicParsing="false" text="Action 1">
+                                          <MenuItem mnemonicParsing="false" onAction="#infoClicked" text="Info">
                                              <graphic>
-                                                <VBox alignment="BOTTOM_CENTER">
-                                                   <children>
-                                                      <Group>
-                                                         <children>
-                                                            <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@images/nearest.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                         </children>
-                                                      </Group>
-                                                   </children>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </VBox>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/mapIcons/info.png" />
+                                                   </image>
+                                                </ImageView>
                                              </graphic>
                                           </MenuItem>
-                                        <MenuItem mnemonicParsing="false" text="Action 2">
+                                        <MenuItem mnemonicParsing="false" onAction="#bathroomClicked" text="Bathroom">
                                              <graphic>
-                                                <VBox alignment="BOTTOM_CENTER">
-                                                   <children>
-                                                      <Group>
-                                                         <children>
-                                                            <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@images/nearest.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                         </children>
-                                                      </Group>
-                                                   </children>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </VBox>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/mapIcons/bathroom.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MenuItem>
+                                        <MenuItem mnemonicParsing="false" onAction="#elevatorClicked" text="Elevator">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/mapIcons/elev.png" />
+                                                   </image>
+                                                </ImageView>
                                              </graphic>
                                           </MenuItem>
                                       </items>
@@ -611,7 +585,7 @@
                                           </VBox>
                                        </graphic>
                                     </MenuButton>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="91.0" prefWidth="82.0">
+                                    <VBox alignment="BOTTOM_CENTER" opacity="0.0" prefHeight="91.0" prefWidth="82.0">
                                        <children>
                                           <Group>
                                              <children>
@@ -628,7 +602,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </VBox>
-                                    <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0">
+                                    <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0" opacity="0.0">
                                        <children>
                                           <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" rotate="-53.1">
                                              <image>

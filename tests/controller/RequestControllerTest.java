@@ -16,6 +16,7 @@ public class RequestControllerTest {
 
     Node test1 = new Node("54",0,0,"1","building","type","lName","sName",true);
     Node test2 = new Node("96",1,1,"1","building","type","lName","sName",true);
+
     LocalDateTime rightNow = LocalDateTime.now();
     Request request1 = new Request("TypeA", "NameA", "Description", test1, rightNow);
     Request request2 = new Request("TypeA", "NameB", "Description", test1, rightNow);
@@ -24,6 +25,7 @@ public class RequestControllerTest {
     Request request5 = new Request("TypeC", "NameD", "Description", test2, rightNow);
     Request request6 = new Request("TypeC", "NameE", "Description", test2, rightNow);
     Request request7 = new Request("TypeD", "NameD", "Description", test2, rightNow);
+
 
     @Test
     public void addRequest(){
@@ -35,9 +37,8 @@ public class RequestControllerTest {
         nodeManager.addNode(test1);
         nodeManager.addNode(test2);
 
-
         requestController.addRequest(request1);
-        System.out.println(requestManager.getRequests().get(0).getName());
+
         assertEquals("NameA", requestManager.getRequests().get(0).getName());
         requestController.addRequest(request4);
         assertEquals("NameC", requestManager.getRequests().get(1).getName());
@@ -89,7 +90,8 @@ public class RequestControllerTest {
         requestManager.updateRequests();
         List<Request> testList = new ArrayList<Request>();
         testList.add(request1);
-        assertEquals(testList.get(0).getName(), requestController.getRequests().get(0).getName());
+        assertEquals(testList.get(0).getName(), requestManager.getRequests().get(0).getName());
+
 
         requestManager.deleteRequest(request1);
         nodeManager.removeNode(test1);

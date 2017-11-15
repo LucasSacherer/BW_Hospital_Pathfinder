@@ -1,5 +1,8 @@
 package entity;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,12 +11,12 @@ import java.util.List;
 public class RequestManager {
 
     final private NodeManager nodeManager;
-    private List<Request> requests;
+    private ObservableList<Request> requests;
     final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
 
     public RequestManager (NodeManager nodeManager){
         this.nodeManager = nodeManager;
-        requests = new ArrayList<>();
+        requests = FXCollections.observableArrayList();
     }
 
     //updates the requests list to match what is currently on the database
@@ -69,7 +72,7 @@ public class RequestManager {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("DELETE FROM REQUEST WHERE NAME = '"+req.getName()+"'AND TIME = '"+
                     Timestamp.valueOf(req.getTimeStamp()).toString()+"'");
-            stmt.close();
+            stmt.close(); 
             conn.close();
         }catch (SQLException ex){
             System.out.println("Failed to remove request from the database!");
@@ -80,7 +83,7 @@ public class RequestManager {
         updateRequests();
     }
 
-    public List<Request> getRequests() {
+    public ObservableList<Request> getRequests() {
         return requests;
     }
 }

@@ -43,6 +43,8 @@ public class Astar {
             if (current.node.getNodeID().equals(loc2.getNodeID())) {
                 System.out.println("reached goal!");
                 //if so trace back its path
+                closedSet.clear();
+                astarPQ.clear();
                 return reconstruct_path(current);
             }
             //add the current path to the closedSet(Explored)
