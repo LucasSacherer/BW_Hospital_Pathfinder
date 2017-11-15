@@ -72,6 +72,9 @@ public class FXMLController {
 
     @FXML
     private void initialize(){
+        nodeManager.updateNodes();
+        edgeManager.updateEdges();
+
         Image groundFloor = mapDisplayController.getMap("G");
         currentFloor = "G";
         currentFloorNum.setText(currentFloor);
@@ -242,9 +245,10 @@ public class FXMLController {
 
     @FXML
     private void drawPath(ActionEvent e) {
-       // ArrayList<Node> pathToDraw = pathController.getPath(loc1, loc2);
+       List<Node> pathToDraw = pathController.findPath(loc1,loc2);
 
-        /** Testing Only **/
+
+        /** Testing Only **
         ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
         pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
         pathToDraw.add(new Node("b",300, 300, "a","a","a","a","a",true));
