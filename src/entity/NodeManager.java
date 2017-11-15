@@ -75,7 +75,7 @@ public class NodeManager {
 
         return null;
     }
-    // getAllNodes method
+
     // returns the list of all nodes
     public List<Node> getAllNodes(){
         return nodes;

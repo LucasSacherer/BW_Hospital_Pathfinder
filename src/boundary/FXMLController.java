@@ -3,20 +3,22 @@ package boundary;
 import entity.Node;
 import controller.*;
 import entity.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -24,13 +26,13 @@ public class FXMLController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-    final private MapManager mapManager = new MapManager();
     final private RequestManager requestManager = new RequestManager(nodeManager);
 
 //    final private Astar aStar = new Astar(edgeManager);
 
     //    /* controllers */
-    final private MapDisplayController mapDisplayController = new MapDisplayController(mapManager); //new MapDisplayController(mapManager);
+    final private MapManager mapManager = new MapManager();
+    final private MapDisplayController mapDisplayController = new MapDisplayController(); //new MapDisplayController(mapManager);
     final private MapEditController mapEditController = new MapEditController(edgeManager, nodeManager, mapManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
@@ -49,6 +51,9 @@ public class FXMLController {
     private List<Node> currentPath;
 
     @FXML
+    private ChoiceBox<String> nodeTypeBox;
+
+    @FXML
     private Pane mapPane;
 
     @FXML
@@ -60,6 +65,10 @@ public class FXMLController {
     @FXML
     private Canvas canvas;
 
+    @FXML
+    private TextField newNodeName;
+
+    @FXML
     GraphicsContext gc;
 
     @FXML
@@ -67,12 +76,25 @@ public class FXMLController {
 
     @FXML
     private void initialize(){
-        Image groundFloor = mapDisplayController.getMap("G");
-        currentFloor = "G";
-        currentFloorNum.setText(currentFloor);
+        Image groundFloor = null;
+        try {
+            groundFloor = mapDisplayController.getMap("G");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         imageView.setImage(groundFloor);
         gc = canvas.getGraphicsContext2D();
+        currentFloor = "G";
+        currentFloorNum.setText(currentFloor);
         initializeDirectory();
+
+        //Map Editing Node Type Choice
+        nodeTypeBox.setValue("Node Type");
+        nodeTypeBox.setItems(FXCollections.observableArrayList(
+                "Elevators", "Restrooms", "Stairs", "Departments", "Labs",
+                "Information Desks", "Conference Rooms"));
     }
 
     private void initializeDirectory() {
@@ -88,14 +110,18 @@ public class FXMLController {
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
     }
 
+    //sets loc1 to nearest node to click location
     @FXML
     private void setLoc1(MouseEvent m) {
-        // TODO
+        snapToNode(m);
+        loc1 = currentLoc;
     }
 
+    //sets loc2 to nearest node to click location
     @FXML
     private void setLoc2(MouseEvent m) {
-        // TODO
+        snapToNode(m);
+        loc2 = currentLoc;
     }
 
     // finds the path from loc1 to loc2
@@ -105,22 +131,26 @@ public class FXMLController {
         //PathController.findPath(loc1, loc2);
     }
 
-    // finds the path from
+    // finds the path from currentLoc to nearest requested node type
     private void findNearest(ActionEvent e) {
+        // TODO
         // low priority
     }
+
 
     private void retrieveMapImage(ActionEvent e) {
         // TODO: Add a MapDisplayController object at the top of this class, call find path in there
         //MapDisplayController.getMap(currentFloor);
     }
 
+    //zooms in by 0.1 on click of zoom in button
     @FXML
     private void zoomInMap(MouseEvent e) {
         mapPane.setScaleX(mapPane.getScaleX() + 0.1);
         mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
 
+    //zooms out by 0.1 on click of zoom out button
     @FXML //TODO fix
     private void zoomOutMap(MouseEvent e) {
         if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
@@ -128,38 +158,41 @@ public class FXMLController {
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
 
-    private void placeNode(ActionEvent e) {
-        // TODO: get all the node information out of the UI and give the node ot the map edit controller
-        // this should be in the pop-up on the Map Editor page
-        String nodeID;
-        int xcoord;
-        int ycoord;
-        String floor;
-        String building;
-        String nodeType;
-        String longName;
-        String shortName;
-        boolean visitable;
-        //Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
+    //finds node nearest to clicked location and sets the nearest node as currentLoc
+    // creates a new Node in the Map editor
+    @FXML
+    private void addNode(MouseEvent m) {
+        // TODO: if invalid, excape the function
+
+        // first get the x and y coordinate from the screen, but only if the click is on the mapPane
+        int xcoord = 1;
+        int ycoord = 1;
+
+        String floor = currentFloor;
+        String building = "Shapiro"; // For now
+        String nodeType = nodeTypeBox.getSelectionModel().getSelectedItem();
+        String longName = "LONGNAME"; //TODO
+        String shortName = "SHORTNAME"; //TODO
+        boolean visitable = true; //TODO
+
+        String nodeID = "NODEID"; //TODO
+
+        Node n = new Node(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, visitable);
+        mapEditController.addNode(n);
     }
 
     private void snapToNode(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();
-        loc2 = nodeManager.nearestNode(x,y); //TODO make sure this makes sense, snapToNode setting loc2
+        currentLoc = clickController.getNearestNode(x,y);
     }
 
     private void addNewMap(ActionEvent e) {
+        //TODO
         // mapEditController
     }
 
     private void editAnExistingMap(ActionEvent e) {
-
-    }
-
-    // map editing mode
-    private void addNodes(ActionEvent e) {
-
     }
 
     private void sendRequest(ActionEvent e) {
@@ -201,7 +234,7 @@ public class FXMLController {
     }
 
     @FXML
-    private void floorDown(MouseEvent e) {
+    private void floorDown(MouseEvent e) throws IOException, SQLException {
         switch(currentFloor) {
             case "L2" :
                 return;
@@ -225,11 +258,16 @@ public class FXMLController {
                 currentFloor = "1";
                 currentFloorNum.setText(currentFloor);
                 break;
+            case "3" :
+                imageView.setImage(mapDisplayController.getMap("2"));
+                currentFloor = "2";
+                currentFloorNum.setText(currentFloor);
+                break;
         }
     }
 
     @FXML
-    private void floorUp(MouseEvent e) {
+    private void floorUp(MouseEvent e) throws IOException, SQLException {
         switch (currentFloor) {
             case "L2":
                 imageView.setImage(mapDisplayController.getMap("L1"));
@@ -252,7 +290,10 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
             case "2":
-                return;
+                imageView.setImage(mapDisplayController.getMap("3"));
+                currentFloor = "3";
+                currentFloorNum.setText(currentFloor);
+                break;
         }
     }
 }
