@@ -38,6 +38,7 @@ public class FXMLController {
     final private ClickController clickController = new ClickController(nodeManager);
     final private DirectoryController directoryController = new DirectoryController(nodeManager);
     final private PathController pathController = new PathController(aStar);
+    final private MapUploadController mapUploadController = new MapUploadController();
 //    final private RequestController requestController = new RequestController(requestManager, nodeManager);
 //    final private NearestPOIController nearestPOIController = new NearestPOController(nodeManager);
 
@@ -105,10 +106,26 @@ public class FXMLController {
         String imagePath = uploadImageText.getText();
         String nodePath = uploadCSVNodeText.getText();
         String edgePath = uploadCSVEdgeText.getText();
+        String floor = floorText.getText();
 
-        String floor = chooseFloor.getText();
+        try {
+            mapUploadController.deleteEdgesAndNodes(floor);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        mapUploadController.uploadMap(imagePath, floor);
+        try {
+            mapUploadController.insertNodesAndEdges(nodePath, edgePath);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Map Uploaded to database");
 
+        alert.showAndWait();
     }
     @FXML
     private void initialize(){

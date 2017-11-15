@@ -114,7 +114,7 @@ public class DatabaseSetup {
      * @param table
      * @throws FileNotFoundException
      */
-    private void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
+    public void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
