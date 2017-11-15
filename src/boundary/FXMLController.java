@@ -651,6 +651,8 @@ public class FXMLController {
     private void addEdge(ActionEvent e) {
         Edge edge = new Edge(edgeStart, edgeEnd);
         mapEditController.addEdge(edge);
+        edgeStart = null;
+        edgeEnd = null;
         drawAllNodes();
         drawAllEdges();
     }
