@@ -317,7 +317,7 @@ public class FXMLController {
         int ex = endNode.getXcoord();
         int ey = endNode.getYcoord();
 
-        gc.setLineWidth(25);
+        gc.setLineWidth(20);
         gc.strokeLine(sx,sy,ex,ey);
     }
 
