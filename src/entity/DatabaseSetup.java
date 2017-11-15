@@ -1,10 +1,8 @@
 package entity;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.HashMap;
 
 public class DatabaseSetup {
     /**
@@ -58,6 +56,7 @@ public class DatabaseSetup {
             System.out.println ("Edge table already exists");
         }
 
+        //Try to create Request table, yell if already exists
         try {
             stmt.execute("CREATE TABLE request (\n" +
                     " name VARCHAR(50),\n" +
@@ -71,18 +70,35 @@ public class DatabaseSetup {
             System.out.println("Request table already exists");
         }
 
+        //Try to create DefaultMaps table, yell if already exists
+        try {
+            stmt.execute("CREATE TABLE map (\n" +
+                    " floor varchar(2) PRIMARY KEY,\n" +
+                    " image blob NOT NULL\n " +
+                    ")");
+        } catch (SQLException e){
+            System.out.println ("Map table already exists");
+        }
+
         //Insert all Nodes to the table
         try {
-            insertStatementsFromFile("src/databaseData/nodeInserts.txt", stmt);
+            insertCSVToDatabase("src/DefaultData/defaultNodes.txt", stmt, "NODE");
         } catch (FileNotFoundException e) {
-            System.out.println( "The file src/databaseData/nodeInserts.txt does not exist!");
+            e.printStackTrace();
         }
 
         //Insert all Edges to the table
         try {
-            insertStatementsFromFile("src/databaseData/edgeInserts.txt", stmt);
+            insertCSVToDatabase("src/DefaultData/defaultEdges.txt", stmt, "EDGE");
         } catch (FileNotFoundException e) {
-            System.out.println( "The file src/databaseData/edgeInserts.txt does not exist!");
+            e.printStackTrace();
+        }
+
+        //Insert the default DefaultMaps to the table
+        try {
+            insertDefaultMapFiles(conn);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
         //Close shit down
@@ -92,36 +108,103 @@ public class DatabaseSetup {
     }
 
     /**
-     * This method takes a path to a text file of SQL statements and calls them using the stmt param
-     * @param path the file path to be accessed
-     * @param stmt the stmt to be executed
+     * Reads a csv file of type (node or edge) and creates insert statements and executes them to the database
+     * @param path
+     * @param stmt
+     * @param table
+     * @throws FileNotFoundException
      */
-    private void insertStatementsFromFile(String path, Statement stmt) throws FileNotFoundException {
+    private void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
         File file = new File(path);
-        FileReader fileReader;
-
-        //Try to open file
-        try {
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();
-        }
+        FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
 
-        //Try to read each line and execute it on the database
         String line;
-        int failedRows = 0;
+        String query;
         try {
             while ((line = br.readLine()) != null){
                 try {
-                    stmt.execute(line);
-                } catch (SQLException e){
-                    failedRows++;
+                    if (line != null){
+                        String[] array = line.split(",");
+                        //Execute query to database
+                        if (table == "NODE"){
+                            try {
+                                query = ("INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"','"+array[9]+"')");
+                                stmt.execute(query);
+                            } catch (SQLException e) {
+                                //e.printStackTrace();
+                            }
+                        } else {
+                            try {
+                                query = ("INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')");
+                                stmt.execute(query);
+                            } catch (SQLException e) {
+                                //e.printStackTrace();
+                            }
+                        }
+                    }
+                } finally {
+                    if (br == null) {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-            if (failedRows != 0){ System.out.println(failedRows + " rows already exist."); }
         } catch (IOException e) {
-            System.out.println("Cannot read file!");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Inserts all the default map files into the database
+     * @throws FileNotFoundException when the path is does not exist
+     */
+    private void insertDefaultMapFiles(Connection conn) throws FileNotFoundException{
+        //Create a hashmap containing all the paths to the default maps
+        HashMap<String, String> defaultImages = new HashMap<>();
+        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
+        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("G", "src/boundary/images/DefaultMaps/00_thegroundfloor.png");
+        defaultImages.put("1", "src/boundary/images/DefaultMaps/01_thefirstfloor.png");
+        defaultImages.put("2", "src/boundary/images/DefaultMaps/02_thesecondfloor.png");
+        defaultImages.put("3", "src/boundary/images/DefaultMaps/03_thethirdfloor.png");
+
+        //Create the initial statements to isnert the images to the database
+        FileInputStream fis = null;
+
+        //Go through each path in the hashtable and create an insert statement and execute it
+        for (String key: defaultImages.keySet()){
+            //Create the statement and get the image from the HashMap
+            PreparedStatement psmnt = null;
+            File image = new File(defaultImages.get(key));
+            //Make a FileInputStream from the image
+            try {
+                fis = new FileInputStream(image);
+            } catch (FileNotFoundException e) {
+                System.out.println("The file " + defaultImages.get(key) + " not found");
+            }
+            //Create an insert statement with the key and FIS
+            try {
+                psmnt = conn.prepareStatement("INSERT INTO MAP(floor, image) VALUES (?,?)");
+                psmnt.setString(1, key);
+                psmnt.setBinaryStream(2, fis, (int)(image.length()));
+            } catch (SQLException e) {
+            }
+            //Execute the statement
+            try {
+                psmnt.executeUpdate();
+            } catch (SQLException e) {
+
+            }
+            //Close the statement
+            try {
+                psmnt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
