@@ -25,10 +25,8 @@ public class RequestControllerTest {
     Request request6 = new Request("TypeC", "NameE", "Description", test2, rightNow);
     Request request7 = new Request("TypeD", "NameD", "Description", test2, rightNow);
 
-
-
     @Test
-    public void addRequest() throws IllegalArgumentException{
+    public void addRequest(){
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
         RequestController requestController = new RequestController(requestManager);
@@ -39,26 +37,17 @@ public class RequestControllerTest {
 
 
         requestController.addRequest(request1);
-        assertEquals(true, requestManager.getRequests().contains(request1));
+        System.out.println(requestManager.getRequests().get(0).getName());
+        assertEquals("NameA", requestManager.getRequests().get(0).getName());
         requestController.addRequest(request4);
-        assertEquals(true, requestManager.getRequests().contains(request4));
+        assertEquals("NameC", requestManager.getRequests().get(1).getName());
+        assertEquals(false, requestController.addRequest(request2));
 
-/*
-        try{
-        requestController.addRequest(request2);
-        } catch (IllegalArgumentException ex){
-            requestManager.deleteRequest(request1);
-            requestManager.deleteRequest(request2);
-            requestManager.deleteRequest(request4);
-            nodeManager.removeNode(test1);
-            nodeManager.removeNode(test2);
-        }
-*/
-        //requestManager.deleteRequest(request1);
-        //requestManager.deleteRequest(request2);
-        //requestManager.deleteRequest(request4);
-        //nodeManager.removeNode(test1);
-        //nodeManager.removeNode(test2);
+        requestManager.deleteRequest(request1);
+        requestManager.deleteRequest(request2);
+        requestManager.deleteRequest(request4);
+        nodeManager.removeNode(test1);
+        nodeManager.removeNode(test2);
 
     }
 
@@ -100,14 +89,11 @@ public class RequestControllerTest {
         requestManager.updateRequests();
         List<Request> testList = new ArrayList<Request>();
         testList.add(request1);
-        assertEquals(testList.contains(request1), requestController.getRequests().contains(request1));
+        assertEquals(testList.get(0).getName(), requestController.getRequests().get(0).getName());
 
         requestManager.deleteRequest(request1);
         nodeManager.removeNode(test1);
-
-
     }
-
 
     @Test
     public void deleteRequest() {
@@ -119,14 +105,10 @@ public class RequestControllerTest {
         requestManager.addRequest(request1);
         requestManager.updateRequests();
 
-        assertEquals(true, requestManager.getRequests().contains(request1));
-
         requestController.deleteRequest(request1);
 
-        assertEquals(false, requestManager.getRequests().contains(request1));
+        assertEquals(true, requestManager.getRequests().isEmpty());
 
         nodeManager.removeNode(test1);
-
     }
-
 }

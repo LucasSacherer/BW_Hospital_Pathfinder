@@ -37,11 +37,12 @@ public class RequestController {
      * and adds the given Request element to the lists of Requests.
      * @param req (A request that is supposed to be added to the list of requests)
      */
-    public void addRequest(Request req) throws IllegalArgumentException {
+    public boolean addRequest(Request req) throws IllegalArgumentException {
         if (validateRequest(req)) {
             requestmanager.addRequest(req);
-        } else {
-            throw new IllegalArgumentException();
+            return true;
+        } else{
+            return false;
         }
     }
 
