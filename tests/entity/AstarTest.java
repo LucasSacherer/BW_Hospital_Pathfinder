@@ -71,8 +71,8 @@ public class AstarTest {
         nodeM.updateNodes();
         EdgeManager edgeM = new EdgeManager(nodeM);
         edgeM.updateEdges();
-        Node n1 = nodeM.getNode("GSTAI008L1");
-        Node n2 = nodeM.getNode("GELEV007L1");
+        Node n1 = nodeM.getNode("GHALL00102");
+        Node n2 = nodeM.getNode("GHALL00902");
         Astar star = new Astar(edgeM);
         ArrayList<Node> answer = star.Astar(n1,n2);
         System.out.println(answer);

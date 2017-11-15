@@ -50,9 +50,10 @@ public class Astar {
             //get all the edges connected to the starting node
             connected = edgeM.getNeighbors(current.node);
             //add all the nodes from the connected edges to the neighbors list
+            neighbors.clear();
             for (int i = 0; i< connected.size(); i ++) {
                 neighbors.add((connected.get(i)));
-                System.out.println(connected.get(i).getNodeID());
+                //System.out.println(connected.get(i).getNodeID());
             }
             //loop through the nieghbors
             for (int i = 0; i < neighbors.size(); i++) {
@@ -69,7 +70,9 @@ public class Astar {
 
                 if (alreadfound == true){
                     //if the node is in the closed set ignore it
-                    break;
+
+
+
                 }
                 else {
                     //if it is not in the closed set add it the priority queue allong with its parent
