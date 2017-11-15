@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
@@ -27,7 +30,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
+<AnchorPane prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.FXMLController">
    <children>
       <SplitPane dividerPositions="0.2548476454293629" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -50,48 +53,84 @@
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <ListView fx:id="elevatorDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children></AnchorPane>
+                                                               </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor></AnchorPane>
                                                       </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                     </TitledPane>
                                                     <TitledPane animated="false" text="Restrooms">
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <ListView fx:id="restroomDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children></AnchorPane>
+                                                               </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor></AnchorPane>
                                                       </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                     </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Stairs">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <ListView fx:id="stairsDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children></AnchorPane>
+                                                               </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor></AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="122.0" text="Departments">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <ListView fx:id="deptDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children></AnchorPane>
+                                                               </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor></AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Labs">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <ListView fx:id="labDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children></AnchorPane>
+                                                               </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor></AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Info Desks">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <ListView fx:id="infoDeskDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                               </children></AnchorPane>
+                                                               </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor></AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Conference Rooms">
                                                          <content>
@@ -99,8 +138,14 @@
                                                                <children>
                                                                   <ListView fx:id="conferenceDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor>
                                                             </AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Exits/Entrances">
                                                          <content>
@@ -108,8 +153,14 @@
                                                                <children>
                                                                   <ListView fx:id="exitDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor>
                                                             </AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Shops, Food, Phones">
                                                          <content>
@@ -117,8 +168,14 @@
                                                                <children>
                                                                   <ListView fx:id="shopsDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor>
                                                             </AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                       <TitledPane animated="false" layoutX="10.0" layoutY="320.0" prefWidth="254.0" text="Non-Medical Services">
                                                          <content>
@@ -126,26 +183,53 @@
                                                                <children>
                                                                   <ListView fx:id="nonMedical" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                </children>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="DEFAULT" />
+                                                               </cursor>
                                                             </AnchorPane>
                                                          </content>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
                                                       </TitledPane>
                                                   </panes>
+                                                   <cursor>
+                                                      <Cursor fx:constant="DEFAULT" />
+                                                   </cursor>
                                                 </Accordion>
                                              </children>
                                           </AnchorPane>
                                           <Separator prefWidth="200.0" />
                                           <AnchorPane prefHeight="166.0" prefWidth="256.0">
                                              <children>
-                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0" />
-                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" />
-                                                <Button mnemonicParsing="false" text="Set Origin" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="120.0" />
-                                                <Button mnemonicParsing="false" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="120.0" />
-                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#drawPath" text="Navigate" AnchorPane.bottomAnchor="10.0" />
+                                                <TextField layoutX="88.0" layoutY="40.0" prefHeight="26.0" prefWidth="110.0" text="Kiosk (Default)" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="TEXT" />
+                                                   </cursor></TextField>
+                                                <TextField layoutX="88.0" layoutY="73.0" prefHeight="26.0" prefWidth="110.0" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="TEXT" />
+                                                   </cursor></TextField>
+                                                <Button mnemonicParsing="false" onAction="#setLoc1" text="Set Origin" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="120.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></Button>
+                                                <Button mnemonicParsing="false" onAction="#setLoc2" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="120.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></Button>
+                                                <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#drawPath" text="Navigate" AnchorPane.bottomAnchor="10.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></Button>
                                              </children>
                                           </AnchorPane>
                                        </children>
                                     </VBox>
                                  </children>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
                               </AnchorPane>
                         </content>
                       </Tab>
@@ -162,8 +246,14 @@
                                                     <MenuItem mnemonicParsing="false" text="Spills" />
                                                     <MenuItem mnemonicParsing="false" text="Deliveries" />
                                                   </items>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
                                                 </MenuButton>
-                                                <Button minWidth="40.0" mnemonicParsing="false" prefHeight="32.0" text="Reset" />
+                                                <Button minWidth="40.0" mnemonicParsing="false" prefHeight="32.0" text="Reset">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></Button>
                                              </children>
                                           </HBox>
                                           <Region prefHeight="100.0" prefWidth="250.0" />
@@ -171,7 +261,10 @@
                                           <ListView fixedCellSize="3.0" prefHeight="713.0" prefWidth="250.0" />
                                        </children>
                                     </VBox>
-                                 </children></AnchorPane>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor></AnchorPane>
                           </content>
                         </Tab>
                       <Tab text="Admin">
@@ -186,6 +279,9 @@
                                                    <children>
                                                       <ListView prefHeight="517.0" prefWidth="248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="DEFAULT" />
+                                                   </cursor>
                                                 </AnchorPane>
                                              </content>
                                           </TitledPane>
@@ -203,9 +299,18 @@
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Node Tool" />
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Edge Tool (connect nodes)" GridPane.rowIndex="1" />
-                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Selector Tool" GridPane.rowIndex="2" />
+                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Node Tool">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor></Button>
+                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Edge Tool (connect nodes)" GridPane.rowIndex="1">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor></Button>
+                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="250.0" text="Selector Tool" GridPane.rowIndex="2">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor></Button>
                                                          </children>
                                                       </GridPane>
                                                       <AnchorPane layoutX="24.0" layoutY="340.0" prefHeight="200.0" prefWidth="200.0">
@@ -222,8 +327,20 @@
                                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                               </rowConstraints>
                                                                <children>
-                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Node" GridPane.rowIndex="3" />
-                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Add Node" GridPane.rowIndex="3">
+                                                                     <opaqueInsets>
+                                                                        <Insets />
+                                                                     </opaqueInsets>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor></Button>
+                                                                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                     <opaqueInsets>
+                                                                        <Insets />
+                                                                     </opaqueInsets>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor></Button>
                                                                   <Label text="Type:" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font size="14.0" />
@@ -234,27 +351,24 @@
                                                                         <Font size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <MenuButton mnemonicParsing="false" text="Node Type" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                                     <items>
-                                                                        <MenuItem mnemonicParsing="false" text="Cafeterias" />
-                                                                        <MenuItem mnemonicParsing="false" text="Gift Shops" />
-                                                                        <MenuItem mnemonicParsing="false" text="ATM's" />
-                                                                        <MenuItem mnemonicParsing="false" text="Parking Lots" />
-                                                                        <MenuItem mnemonicParsing="false" text="Departments" />
-                                                                        <MenuItem mnemonicParsing="false" text="Elevator" />
-                                                                     </items>
-                                                                  </MenuButton>
                                                                   <Label prefWidth="300.0" text="Enter New Node Information" textAlignment="CENTER" underline="true" GridPane.columnSpan="2">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <TextField prefHeight="25.0" prefWidth="119.0" promptText="Node Information" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                  <TextField prefHeight="25.0" prefWidth="119.0" promptText="Node Information" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="TEXT" />
+                                                                     </cursor></TextField>
+                                                                  <ChoiceBox fx:id="nodeTypeBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="DEFAULT" />
+                                                   </cursor>
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
@@ -281,32 +395,62 @@
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
                                                                   </Button>
                                                                   <Button alignment="CENTER" layoutX="122.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
                                                                   </Button>
                                                                   <Button alignment="CENTER" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
                                                                   </Button>
                                                                   <Button alignment="CENTER" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
                                                                   </Button>
                                                                   <Button alignment="CENTER" layoutX="10.0" layoutY="5.0" mnemonicParsing="false" text="X" textFill="#da0b04" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="HAND" />
+                                                                     </cursor>
                                                                   </Button>
-                                                                  <TextField alignment="CENTER" editable="false" prefHeight="41.0" prefWidth="112.0" text="Floor G" />
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor L1" GridPane.rowIndex="1" />
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor L2" GridPane.rowIndex="2" />
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor 1" GridPane.rowIndex="3" />
-                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor 2" GridPane.rowIndex="4" />
+                                                                  <TextField alignment="CENTER" editable="false" prefHeight="41.0" prefWidth="112.0" text="Floor G">
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="TEXT" />
+                                                                     </cursor></TextField>
+                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor L1" GridPane.rowIndex="1">
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="TEXT" />
+                                                                     </cursor></TextField>
+                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor L2" GridPane.rowIndex="2">
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="TEXT" />
+                                                                     </cursor></TextField>
+                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor 1" GridPane.rowIndex="3">
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="TEXT" />
+                                                                     </cursor></TextField>
+                                                                  <TextField alignment="CENTER" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="112.0" text="Floor 2" GridPane.rowIndex="4">
+                                                                     <cursor>
+                                                                        <Cursor fx:constant="TEXT" />
+                                                                     </cursor></TextField>
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -315,20 +459,44 @@
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
                                                       </Label>
-                                                      <Button layoutX="56.0" layoutY="24.0" mnemonicParsing="false" text="Choose File" AnchorPane.leftAnchor="56.0" AnchorPane.topAnchor="24.0" />
-                                                      <Label layoutX="37.0" layoutY="37.0" prefHeight="18.0" prefWidth="29.0" text="File:" />
+                                                      <Button layoutX="56.0" layoutY="24.0" mnemonicParsing="false" text="Choose File" AnchorPane.leftAnchor="56.0" AnchorPane.topAnchor="24.0">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor></Button>
+                                                      <Label layoutX="37.0" layoutY="37.0" prefHeight="18.0" prefWidth="29.0" text="File:">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets></Label>
                                                    </children>
+                                                   <cursor>
+                                                      <Cursor fx:constant="DEFAULT" />
+                                                   </cursor>
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
                                       </panes>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Accordion>
-                                    <Button contentDisplay="CENTER" layoutX="61.0" layoutY="112.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="129.0" text="Clear Requests" AnchorPane.bottomAnchor="25.0" />
-                                 </children></AnchorPane>
+                                    <Button contentDisplay="CENTER" layoutX="61.0" layoutY="112.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="129.0" text="Clear Requests" AnchorPane.bottomAnchor="25.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor></AnchorPane>
                         </content>
                       </Tab>
                     </tabs>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </TabPane>
                </children>
             </AnchorPane>
@@ -340,7 +508,7 @@
                            <children>
                               <ScrollPane hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0">
+                                    <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false">
                                        <children>
                                           <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
                                           <Canvas fx:id="canvas" height="3400.0" width="5000.0" />
@@ -355,17 +523,24 @@
                                  <children>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="80.0" fitWidth="87.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/location.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="My Location" textAlignment="CENTER" />
+                                          <Group>
+                                             <children>
+                                                <ImageView fitHeight="80.0" fitWidth="87.0" layoutX="3.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/location.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="80.0" prefHeight="18.0" prefWidth="85.0" text="My Location" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <Group fx:id="zoomIn" onMouseClicked="#zoomInMap">
+                                          <Group fx:id="zoomIn" onKeyPressed="#zoomInMap" onMouseClicked="#zoomInMap">
                                              <children>
                                                 <ImageView fitHeight="81.0" fitWidth="86.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -376,26 +551,43 @@
                                              </children>
                                           </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="88.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/Black%20Minus.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Zoom Out" textAlignment="CENTER" />
+                                          <Group onMouseClicked="#zoomOutMap">
+                                             <children>
+                                                <ImageView fitHeight="88.0" fitWidth="81.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/Black%20Minus.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="81.0" prefHeight="18.0" prefWidth="85.0" text="Zoom Out" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/down_arrow.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
+                                          <Group onMouseClicked="#floorDown">
+                                             <children>
+                                                <ImageView fitHeight="84.0" fitWidth="83.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/down_arrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="83.0" prefHeight="18.0" prefWidth="85.0" text="Floor Down" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER" layoutX="336.0" layoutY="10.0" style="-fx-background-color: powderblue; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                        <children>
@@ -403,7 +595,7 @@
                                              <font>
                                                 <Font name="System Bold" size="15.0" />
                                              </font></Label>
-                                          <Label text="L1">
+                                          <Label fx:id="currentFloorNum">
                                              <font>
                                                 <Font name="System Bold" size="40.0" />
                                              </font>
@@ -412,33 +604,54 @@
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/up_arrow.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
+                                          <Group onMouseClicked="#floorUp">
+                                             <children>
+                                                <ImageView fitHeight="84.0" fitWidth="83.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/up_arrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="83.0" prefHeight="18.0" prefWidth="85.0" text="Floor Up" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER">
                                        <children>
-                                          <ImageView fitHeight="86.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/nearest.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                          <Group>
+                                             <children>
+                                                <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/nearest.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="77.0" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER" prefHeight="91.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fitHeight="90.0" fitWidth="86.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@images/help.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="95.0" text="Help" textAlignment="CENTER" />
+                                          <Group>
+                                             <children>
+                                                <ImageView fitHeight="90.0" fitWidth="86.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/help.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="86.0" prefHeight="18.0" prefWidth="95.0" text="Help" textAlignment="CENTER" />
+                                             </children>
+                                          </Group>
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                     <VBox alignment="BOTTOM_CENTER" layoutX="122.0" layoutY="10.0">
                                        <children>
@@ -449,6 +662,9 @@
                                           </ImageView>
                                           <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="85.0" text="Reset" textAlignment="CENTER" />
                                        </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </VBox>
                                  </children>
                               </HBox>
