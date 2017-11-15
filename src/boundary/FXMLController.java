@@ -536,7 +536,6 @@ public class FXMLController {
         clearCanvas();
         drawPath();
         drawCurrentNode();
-
     }
 
     @FXML
@@ -638,8 +637,9 @@ public class FXMLController {
             if (edgeStart == null) edgeStart = clickController.getNearestNode((int)m.getX(), (int)m.getY(), currentFloor);
             else {
                 edgeEnd = clickController.getNearestNode((int) m.getX(), (int) m.getY(), currentFloor);
-                Edge potential = new Edge(edgeStart, edgeEnd);
-                drawEdge(potential);
+                gc.setStroke(Color.ORANGE);
+                gc.strokeLine(edgeStart.getXcoord(),edgeStart.getYcoord(), edgeEnd.getXcoord(), edgeEnd.getYcoord());
+                gc.setStroke(Color.BLACK);
             }
         }
         else {
