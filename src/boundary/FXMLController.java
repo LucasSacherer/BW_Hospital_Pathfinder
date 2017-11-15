@@ -464,7 +464,7 @@ public class FXMLController {
     @FXML
     private void drawNode(Node n) {
         gc.setFill(Color.BLUE);
-        gc.fillOval(n.getXcoord(), n.getYcoord(), 10, 10);
+        gc.fillOval(n.getXcoord() - 5, n.getYcoord() - 5, 10, 10);
         gc.setFill(Color.BLACK);
     }
 
