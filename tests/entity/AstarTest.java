@@ -35,7 +35,7 @@ public class AstarTest {
 
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
         Node n2 = new Node("2",2,1,"1","Shapiro","type","Stairwell","STAI",true);
-        Node n3 = new Node("3",2,2,"1","Shapiro","type","Stairwell","STAI",true);
+        Node n3 = new Node("3",3000,2000,"1","Shapiro","type","Stairwell","STAI",true);
         nodeM.addNode(n1);
         nodeM.addNode(n2);
         nodeM.addNode(n3);
