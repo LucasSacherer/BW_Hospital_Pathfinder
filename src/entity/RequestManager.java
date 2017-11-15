@@ -16,6 +16,7 @@ public class RequestManager {
         requests = new ArrayList<>();
     }
 
+    //updates the requests list to match what is currently on the database
     public void updateRequests(){
         requests.clear();
 
@@ -40,6 +41,7 @@ public class RequestManager {
         }
     }
 
+    //adds a request to the database
     public void addRequest(Request req){
         try{
             Connection conn = DriverManager.getConnection(DBURL);
@@ -60,11 +62,12 @@ public class RequestManager {
         updateRequests();
     }
 
+    //deletes a request from the database
     public void deleteRequest(Request req){
         try {
             Connection conn = DriverManager.getConnection(DBURL);
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM REQUEST WHERE NAME = '"+req.getNode().getNodeID()+"'AND TIME = '"+
+            stmt.executeUpdate("DELETE FROM REQUEST WHERE NAME = '"+req.getName()+"'AND TIME = '"+
                     Timestamp.valueOf(req.getTimeStamp()).toString()+"'");
             stmt.close();
             conn.close();
