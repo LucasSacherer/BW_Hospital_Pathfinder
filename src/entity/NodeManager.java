@@ -77,9 +77,7 @@ public class NodeManager {
     }
 
     // returns the list of all nodes
-    public List<Node> getAllNodes(){
-        return nodes;
-    }
+    public List<Node> getAllNodes(){ return nodes; }
 
     /**
      * Returns a list of all nodes marked with the visitable flag
