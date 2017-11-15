@@ -21,8 +21,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import java.time.LocalDateTime;
+
 import javafx.scene.paint.Color;
+
+import static java.time.LocalDateTime.now;
 
 public class FXMLController {
     /* managers */
@@ -80,6 +85,29 @@ public class FXMLController {
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
     @FXML
+    private ListView requestList;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private HBox addRequestBox;
+
+    @FXML
+    private TextField requestName;
+
+    @FXML
+    private TextField requestType;
+
+    @FXML
+    private TextField requestDescription;
+
+
+
+    @FXML
     private ToggleButton nodeTool, edgeTool, selectorTool;
 
     @FXML
@@ -115,6 +143,8 @@ public class FXMLController {
         exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
+        requestManager.updateRequests();
+        requestList.setItems(requestController.getRequests());
     }
 
 
@@ -173,6 +203,30 @@ public class FXMLController {
             drawPath();
             drawCurrentNode();
         });
+        requestList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = ((Request)requestList.getItems().get(newValue.intValue())).getNode();
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+    }
+
+    @FXML
+    private void deleteRequestButton(ActionEvent e){
+        requestController.deleteRequest((Request)requestList.getSelectionModel().getSelectedItem());
+        currentLoc = null;
+        clearCanvas();
+    }
+
+    @FXML
+    private void addRequestButton(ActionEvent e){
+        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(),currentLoc, LocalDateTime.now());
+        requestController.addRequest(a);
+        requestList.setItems(requestController.getRequests());
+        requestDescription.setText("");
+        requestName.setText("");
+        requestType.setText("");
+
     }
 
     @FXML
@@ -217,6 +271,8 @@ public class FXMLController {
     //zooms in by 0.1 on click of zoom in button
     @FXML
     private void zoomInMap(MouseEvent e) {
+
+        if (mapPane.getScaleX() >= 0.8 || mapPane.getScaleY() >= 0.8) return;
         mapPane.setScaleX(mapPane.getScaleX() + 0.1);
         mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
@@ -224,7 +280,7 @@ public class FXMLController {
     //zooms out by 0.1 on click of zoom out button
     @FXML //TODO fix
     private void zoomOutMap(MouseEvent e) {
-        if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
+        if (mapPane.getScaleX() <= 0.5 || mapPane.getScaleY() <= 0.5) return;
         mapPane.setScaleX(mapPane.getScaleX() - 0.1);
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
@@ -233,9 +289,6 @@ public class FXMLController {
     // creates a new Node in the Map editor
     @FXML
     private void addNode(ActionEvent e) {
-        if (currentLoc == null){
-            return;
-        }
         String longName = "Hallway" + " New Added Node " + currentNodeID + " Floor " + currentFloor;
         String shortName = "Added Node" + currentNodeID;
         String nodeID = "GHALL" + currentNodeID + currentFloor;
@@ -369,6 +422,32 @@ public class FXMLController {
     }
 
     private void drawRequests(ActionEvent e) {
+
+    }
+    @FXML
+    private void bathroomClicked(ActionEvent e){
+        findNearest(currentLoc, "REST");
+    }
+    @FXML
+    private void infoClicked(ActionEvent e){
+        findNearest(currentLoc, "INFO");
+    }
+    @FXML
+    private void elevatorClicked(ActionEvent e){
+        findNearest(currentLoc, "ELEV");
+    }
+
+    private void findNearest(Node node, String type){
+        int x = node.getXcoord();
+        int y = node.getYcoord();
+        Node closest = nodeManager.nearestLoc(x,y,currentFloor,type);
+        loc2 = closest;
+        destinationField.setText(loc2.getShortName());
+        drawNode(closest);
+        currentPath = pathController.findPath(loc1,loc2);
+        clearCanvas();
+        drawPath();
+        drawCurrentNode();
 
     }
 
