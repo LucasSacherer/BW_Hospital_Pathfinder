@@ -218,6 +218,8 @@ public class FXMLController {
     //zooms in by 0.1 on click of zoom in button
     @FXML
     private void zoomInMap(MouseEvent e) {
+
+        if (mapPane.getScaleX() >= 0.8 || mapPane.getScaleY() >= 0.8) return;
         mapPane.setScaleX(mapPane.getScaleX() + 0.1);
         mapPane.setScaleY(mapPane.getScaleY() + 0.1);
     }
@@ -225,7 +227,7 @@ public class FXMLController {
     //zooms out by 0.1 on click of zoom out button
     @FXML //TODO fix
     private void zoomOutMap(MouseEvent e) {
-        if (mapPane.getScaleX() <= 1 || mapPane.getScaleY() <= 1) return;
+        if (mapPane.getScaleX() <= 0.5 || mapPane.getScaleY() <= 0.5) return;
         mapPane.setScaleX(mapPane.getScaleX() - 0.1);
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
@@ -364,15 +366,15 @@ public class FXMLController {
     private void drawRequests(ActionEvent e) {
 
     }
-
+    @FXML
     private void bathroomClicked(ActionEvent e){
         findNearest(currentLoc, "REST");
     }
-
+    @FXML
     private void infoClicked(ActionEvent e){
         findNearest(currentLoc, "INFO");
     }
-
+    @FXML
     private void elevatorClicked(ActionEvent e){
         findNearest(currentLoc, "ELEV");
     }
@@ -380,7 +382,15 @@ public class FXMLController {
     private void findNearest(Node node, String type){
         int x = node.getXcoord();
         int y = node.getYcoord();
-        nodeManager.nearestLoc(x,y,type);
+        Node closest = nodeManager.nearestLoc(x,y,type);
+        //loc2 = closest;
+        //destinationField.setText(loc2.getShortName());
+        drawNode(closest);
+        //currentPath = pathController.findPath(loc1,loc2);
+        //clearCanvas();
+        //drawPath();
+        //drawCurrentNode();
+
     }
 
     @FXML
