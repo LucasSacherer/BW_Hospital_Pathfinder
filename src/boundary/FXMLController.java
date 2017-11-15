@@ -244,6 +244,9 @@ public class FXMLController {
         int x = (int) m.getX();
         int y = (int) m.getY();
         currentLoc = clickController.getNearestNode(x,y);
+        clearCanvas();
+        drawCurrentNode();
+        drawPath();
     }
 
     private void addNewMap(ActionEvent e) {
