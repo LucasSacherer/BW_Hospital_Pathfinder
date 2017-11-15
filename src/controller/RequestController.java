@@ -18,11 +18,13 @@ public class RequestController {
      * @param req the node that you are checking to see if it can be a valid node to add.
      */
     protected boolean validateRequest(Request req) {
-        for (int i = 0; i <= requestmanager.getRequests().size(); i++) {
+        for (int i = 0; i < requestmanager.getRequests().size(); i++) {
+
             if (req.getName().equals(requestmanager.getRequests().get(i).getName())) {
                 return false;
             }
-            if (req.getType().equals(requestmanager.getRequests().get(i).getType()) && req.getNode().equals(requestmanager.getRequests().get(i).getNode())) {
+            if (req.getType().equals(requestmanager.getRequests().get(i).getType())
+                    && req.getNode().getNodeID().equals(requestmanager.getRequests().get(i).getNode().getNodeID())) {
                 return false;
             }
         }
@@ -35,11 +37,11 @@ public class RequestController {
      * and adds the given Request element to the lists of Requests.
      * @param req (A request that is supposed to be added to the list of requests)
      */
-    public void addRequest(Request req) {
+    public void addRequest(Request req) throws IllegalArgumentException {
         if (validateRequest(req)) {
-            requestmanager.getRequests().add(req);
+            requestmanager.addRequest(req);
         } else {
-            throw new IllegalArgumentException("This is an invalid Request. There is either a request with the same name or a request of the same type at the same location.");
+            throw new IllegalArgumentException();
         }
     }
 
