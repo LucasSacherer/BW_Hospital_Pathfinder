@@ -194,12 +194,14 @@ public class FXMLController {
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
+
         currentPath = pathController.findPath(loc1,loc2);
         drawPath();
     }
 
     // finds the path from currentLoc to nearest requested node type
     private void findNearest(ActionEvent e) {
+
         // TODO
         // low priority
     }
@@ -303,6 +305,20 @@ public class FXMLController {
             return;
         }
         gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+    }
+
+    @FXML
+    private void drawEdge(Edge edge){
+
+        Node startNode = edge.getStartNode();
+        int sx = startNode.getXcoord();
+        int sy = startNode.getYcoord();
+        Node endNode = edge.getEndNode();
+        int ex = endNode.getXcoord();
+        int ey = endNode.getYcoord();
+
+        gc.setLineWidth(25);
+        gc.strokeLine(sx,sy,ex,ey);
     }
 
     private void clearCanvas(){
