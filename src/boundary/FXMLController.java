@@ -21,8 +21,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import java.time.LocalDateTime;
+
 import javafx.scene.paint.Color;
+
+import static java.time.LocalDateTime.now;
 
 public class FXMLController {
     /* managers */
@@ -79,6 +84,29 @@ public class FXMLController {
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
     @FXML
+    private ListView requestList;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private HBox addRequestBox;
+
+    @FXML
+    private TextField requestName;
+
+    @FXML
+    private TextField requestType;
+
+    @FXML
+    private TextField requestDescription;
+
+
+
+    @FXML
     private ToggleButton nodeTool, edgeTool, selectorTool;
 
     @FXML
@@ -114,6 +142,8 @@ public class FXMLController {
         exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
+        requestManager.updateRequests();
+        requestList.setItems(requestController.getRequests());
     }
 
 
@@ -172,6 +202,30 @@ public class FXMLController {
             drawPath();
             drawCurrentNode();
         });
+        requestList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = ((Request)requestList.getItems().get(newValue.intValue())).getNode();
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
+        });
+    }
+
+    @FXML
+    private void deleteRequestButton(ActionEvent e){
+        requestController.deleteRequest((Request)requestList.getSelectionModel().getSelectedItem());
+        currentLoc = null;
+        clearCanvas();
+    }
+
+    @FXML
+    private void addRequestButton(ActionEvent e){
+        Request a = new Request(requestType.getText(),requestName.getText(),requestDescription.getText(),currentLoc, LocalDateTime.now());
+        requestController.addRequest(a);
+        requestList.setItems(requestController.getRequests());
+        requestDescription.setText("");
+        requestName.setText("");
+        requestType.setText("");
+
     }
 
     @FXML

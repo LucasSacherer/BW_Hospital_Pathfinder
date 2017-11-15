@@ -257,9 +257,18 @@
                                                    </cursor></Button>
                                              </children>
                                           </HBox>
-                                          <Region prefHeight="100.0" prefWidth="250.0" />
+                                          <Label text="Type" textAlignment="CENTER" />
+                                          <TextField fx:id="requestType" />
+                                          <Label text="Name" textAlignment="CENTER" />
+                                          <TextField fx:id="requestName" />
+                                          <Label text="Description" textAlignment="CENTER" />
+                                          <TextField fx:id="requestDescription" />
+                                          <Button fx:id="addButton" mnemonicParsing="false" onAction="#addRequestButton" text="Add Request" />
+                                          <Region prefHeight="49.0" prefWidth="250.0" />
+                                          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRequestButton" text="Delete Selected Request" />
+                                          <Region layoutX="10.0" layoutY="126.0" prefHeight="49.0" prefWidth="250.0" />
                                           <Label alignment="CENTER" contentDisplay="CENTER" text="Requests" />
-                                          <ListView fixedCellSize="3.0" prefHeight="713.0" prefWidth="250.0" />
+                                          <ListView fx:id="requestList" prefHeight="267.0" prefWidth="250.0" />
                                        </children>
                                     </VBox>
                                  </children>
