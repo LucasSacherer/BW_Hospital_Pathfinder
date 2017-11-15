@@ -119,58 +119,58 @@ public class FXMLController {
 
     private void initializeDirectoryListeners(){
         elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) elevatorDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) restroomDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) stairsDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) labDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) deptDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) infoDeskDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) conferenceDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) exitDir.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
         nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            Node toDraw = (Node) nonMedical.getItems().get(newValue.intValue());
-            gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-            currentLoc = toDraw;
+            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
+            clearCanvas();
+            drawPath();
+            drawCurrentNode();
         });
     }
 
@@ -189,8 +189,8 @@ public class FXMLController {
     // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) {
-        // TODO: Add a PathController object at the top of this class, call find path in there
-        //PathController.findPath(loc1, loc2);
+        currentPath = pathController.findPath(loc1,loc2);
+        drawPath();
     }
 
     // finds the path from
@@ -264,12 +264,12 @@ public class FXMLController {
         // Empty for now
     }
 
+    private void drawPath() {
+        List<Node> pathToDraw = currentPath;
 
-    @FXML
-    private void drawPath(ActionEvent e) {
-       List<Node> pathToDraw = pathController.findPath(loc1,loc2);
-
-
+        if(pathToDraw == null || !pathToDraw.get(0).getFloor().equals(currentFloor)){
+            return;
+        }
         /** Testing Only **
         ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
         pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
@@ -282,9 +282,21 @@ public class FXMLController {
            int y1 = pathToDraw.get(i).getYcoord();
             int x2 = pathToDraw.get(i+1).getXcoord();
             int y2 = pathToDraw.get(i+1).getYcoord();
-            gc.setLineWidth(25);
+            gc.setLineWidth(5);
             gc.strokeLine(x1,y1,x2,y2);
         }
+    }
+
+    private void drawCurrentNode(){
+        Node toDraw = currentLoc;
+        if(toDraw == null || !toDraw.getFloor().equals(currentFloor)){
+            return;
+        }
+        gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+    }
+
+    private void clearCanvas(){
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
     }
 
     private void drawRequests(ActionEvent e) {
@@ -322,6 +334,10 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
+
+        clearCanvas();
+         drawPath();
+         drawCurrentNode();
     }
 
     @FXML
@@ -353,5 +369,9 @@ public class FXMLController {
                 currentFloorNum.setText(currentFloor);
                 break;
         }
+
+        clearCanvas();
+        drawPath();
+        drawCurrentNode();
     }
 }
