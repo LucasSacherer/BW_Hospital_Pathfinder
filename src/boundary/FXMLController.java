@@ -365,6 +365,11 @@ public class FXMLController {
 
     }
 
+    private void findNearest(Node node, String type){
+        int x = node.getXcoord();
+        int y = node.getYcoord();
+        nodeManager.nearestLoc(x,y,type);
+    }
     @FXML
     private void floorDown(MouseEvent e) throws IOException, SQLException {
         switch(currentFloor) {
