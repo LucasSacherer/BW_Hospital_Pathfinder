@@ -34,25 +34,21 @@ public class RequestControllerTest {
         RequestController requestController = new RequestController(requestManager);
         nodeManager.updateNodes();
         requestManager.updateRequests();
-        //nodeManager.addNode(test1);
-        //nodeManager.addNode(test2);
+        nodeManager.addNode(test1);
+        nodeManager.addNode(test2);
 
-        Request requestA = new Request("TypeA", "NameA", "Description",nodeManager.getNode("GREST01201"), rightNow);
+        requestController.addRequest(request1);
 
-
-
-            requestController.addRequest(requestA);
-/*      System.out.println(requestManager.getRequests().get(0).getName());
         assertEquals("NameA", requestManager.getRequests().get(0).getName());
         requestController.addRequest(request4);
         assertEquals("NameC", requestManager.getRequests().get(1).getName());
         assertEquals(false, requestController.addRequest(request2));
-*/
-        //requestManager.deleteRequest(request1);
-        //requestManager.deleteRequest(request2);
-        //requestManager.deleteRequest(request4);
-        //nodeManager.removeNode(test1);
-        //nodeManager.removeNode(test2);
+
+        requestManager.deleteRequest(request1);
+        requestManager.deleteRequest(request2);
+        requestManager.deleteRequest(request4);
+        nodeManager.removeNode(test1);
+        nodeManager.removeNode(test2);
 
     }
 
