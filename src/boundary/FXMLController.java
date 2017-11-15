@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class FXMLController {
     /* managers */
@@ -278,7 +279,8 @@ public class FXMLController {
         // todo make sure that the tool gets un-set at the right times
         // node tool
         if (nodeTool.isSelected()) {
-            gc.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
+            clearMap();
+            drawAllNodes();
             editX = (int) m.getX();
             editY = (int) m.getY();
             // draw node on map
@@ -289,8 +291,34 @@ public class FXMLController {
 
         }
         else {
-            gc.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
             snapToNode(m);
         }
+    }
+
+    @FXML
+    private void enterMapEditing() {
+        drawAllNodes();
+
+    }
+
+    @FXML
+    private void drawAllNodes() {
+        for (Node n : mapEditController.getAllNodes()) {
+            if (n.getFloor().equals(currentFloor)) {
+              drawNode(n);
+            }
+        }
+    }
+
+    @FXML
+    private void drawNode(Node n) {
+        gc.setFill(Color.BLUE);
+        gc.fillOval(n.getXcoord(), n.getYcoord(), 10, 10);
+        gc.setFill(Color.BLACK);
+    }
+
+    @FXML
+    private void clearMap() {
+        gc.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
     }
 }

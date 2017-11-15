@@ -40,7 +40,7 @@
                <children>
                   <TabPane maxWidth="-Infinity" prefHeight="773.0" prefWidth="250.0" style="-fx-background-color: lightcyan; -fx-background-radius: 15;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab text="Directory">
+                      <Tab onSelectionChanged="#clearMap" text="Directory">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="249.0">
                                  <children>
@@ -235,7 +235,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab text="Requests">
+                        <Tab onSelectionChanged="#clearMap" text="Requests">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -275,7 +275,7 @@
                                  <children>
                                     <Accordion maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0">
                                       <panes>
-                                          <TitledPane animated="false" layoutX="10.0" layoutY="66.0" prefWidth="250.0" text="Report Logs">
+                                          <TitledPane animated="false" layoutX="10.0" layoutY="66.0" onMouseClicked="#clearMap" prefWidth="250.0" text="Report Logs">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -287,7 +287,7 @@
                                                 </AnchorPane>
                                              </content>
                                           </TitledPane>
-                                        <TitledPane animated="false" maxHeight="-Infinity" prefHeight="630.0" prefWidth="250.0" text="Map Editing Mode">
+                                        <TitledPane animated="false" maxHeight="-Infinity" onMouseClicked="#enterMapEditing" prefHeight="630.0" prefWidth="250.0" text="Map Editing Mode">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
@@ -369,7 +369,7 @@
                                                 </AnchorPane>
                                           </content>
                                         </TitledPane>
-                                        <TitledPane animated="false" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
+                                        <TitledPane animated="false" onMouseClicked="#clearMap" prefHeight="616.0" prefWidth="250.0" text="Upload Map">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
