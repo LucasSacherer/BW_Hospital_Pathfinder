@@ -456,7 +456,7 @@ public class FXMLController {
         int ex = endNode.getXcoord();
         int ey = endNode.getYcoord();
 
-        gc.setLineWidth(5);
+        gc.setLineWidth(3);
         gc.strokeLine(sx,sy,ex,ey);
     }
 
@@ -464,7 +464,7 @@ public class FXMLController {
     @FXML
     private void drawNode(Node n) {
         gc.setFill(Color.BLUE);
-        gc.fillOval(n.getXcoord(), n.getYcoord(), 10, 10);
+        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
         gc.setFill(Color.BLACK);
     }
 
@@ -536,7 +536,6 @@ public class FXMLController {
         clearCanvas();
         drawPath();
         drawCurrentNode();
-
     }
 
     @FXML
@@ -628,7 +627,7 @@ public class FXMLController {
             editX = (int) m.getX();
             editY = (int) m.getY();
             // draw node on map
-            gc.fillOval(editX, editY, 10, 10);
+            gc.fillOval(editX - 10, editY - 10, 20, 20);
         }
         // edge controller //TODO
         else if (edgeTool.isSelected()) {
@@ -638,8 +637,9 @@ public class FXMLController {
             if (edgeStart == null) edgeStart = clickController.getNearestNode((int)m.getX(), (int)m.getY(), currentFloor);
             else {
                 edgeEnd = clickController.getNearestNode((int) m.getX(), (int) m.getY(), currentFloor);
-                Edge potential = new Edge(edgeStart, edgeEnd);
-                drawEdge(potential);
+                gc.setStroke(Color.ORANGE);
+                gc.strokeLine(edgeStart.getXcoord(),edgeStart.getYcoord(), edgeEnd.getXcoord(), edgeEnd.getYcoord());
+                gc.setStroke(Color.BLACK);
             }
         }
         else {
@@ -651,6 +651,8 @@ public class FXMLController {
     private void addEdge(ActionEvent e) {
         Edge edge = new Edge(edgeStart, edgeEnd);
         mapEditController.addEdge(edge);
+        edgeStart = null;
+        edgeEnd = null;
         drawAllNodes();
         drawAllEdges();
     }
