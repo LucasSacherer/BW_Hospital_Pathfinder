@@ -101,6 +101,21 @@ public class DatabaseSetup {
             e.printStackTrace();
         }
 
+        //Add Default maps to UI Maps
+        MapManager mm = new MapManager();
+        try {
+            mm.addToUIMaps("L2", conn);
+            mm.addToUIMaps("L1", conn);
+            mm.addToUIMaps("G", conn);
+            mm.addToUIMaps("1", conn);
+            mm.addToUIMaps("2", conn);
+            mm.addToUIMaps("3", conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //Close shit down
         System.out.println("Database Created!");
         stmt.close();
@@ -114,7 +129,7 @@ public class DatabaseSetup {
      * @param table
      * @throws FileNotFoundException
      */
-    private void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
+    public void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
@@ -165,8 +180,8 @@ public class DatabaseSetup {
     private void insertDefaultMapFiles(Connection conn) throws FileNotFoundException{
         //Create a hashmap containing all the paths to the default maps
         HashMap<String, String> defaultImages = new HashMap<>();
-        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
-        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("L2", "src/boundary/images/DefaultMaps/00_thelowerlevel2.png");
+        defaultImages.put("L1", "src/boundary/images/DefaultMaps/00_thelowerlevel1.png");
         defaultImages.put("G", "src/boundary/images/DefaultMaps/00_thegroundfloor.png");
         defaultImages.put("1", "src/boundary/images/DefaultMaps/01_thefirstfloor.png");
         defaultImages.put("2", "src/boundary/images/DefaultMaps/02_thesecondfloor.png");

@@ -2,6 +2,8 @@ package controller;
 
 import entity.RequestManager;
 import entity.Request;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 public class RequestController {
@@ -50,7 +52,7 @@ public class RequestController {
      * Calls the getRequests() method in RequestManager
      * @return The list of current requests in request attribute of RequestManager.
      */
-    public List<Request> getRequests() {
+    public ObservableList<Request> getRequests() {
        return requestmanager.getRequests();
     }
 
