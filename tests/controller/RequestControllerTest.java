@@ -1,9 +1,9 @@
 package controller;
 
 import Entity.Node;
-import Entity.NodeManager;
+import Database.NodeManager;
 import Entity.Request;
-import Entity.RequestManager;
+import Iteration1CodeWeMayNotNeed.RequestManager;
 import org.junit.Test;
 
 import java.time.LocalDateTime;

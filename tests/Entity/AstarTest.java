@@ -1,6 +1,9 @@
 package Entity;
 
 import static org.junit.Assert.*;
+
+import Database.EdgeManager;
+import Database.NodeManager;
 import org.junit.Test;
 
 import java.util.ArrayList;

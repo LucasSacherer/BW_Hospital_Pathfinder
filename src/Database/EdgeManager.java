@@ -1,4 +1,7 @@
-package Entity;
+package Database;
+
+import Entity.Edge;
+import Entity.Node;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -115,6 +118,6 @@ public class EdgeManager {
                 p.getEndNode().getNodeID().equals(end.getNodeID())) ||
                 (p.getStartNode().getNodeID().equals(end.getNodeID()) &&
                         p.getEndNode().getNodeID().equals(start.getNodeID()))).findFirst()).get();
-        return (double)target.weight;
+        return (double)target.getWeight();
     }
 }

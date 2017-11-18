@@ -1,7 +1,7 @@
 package controller;
 
 import Entity.Node;
-import Entity.NodeManager;
+import Database.NodeManager;
 import org.junit.Test;
 
 import java.util.ArrayList;

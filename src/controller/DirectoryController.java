@@ -1,7 +1,7 @@
 package controller;
 
 import Entity.Node;
-import Entity.NodeManager;
+import Database.NodeManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

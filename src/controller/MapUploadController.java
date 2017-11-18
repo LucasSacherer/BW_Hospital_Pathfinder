@@ -1,7 +1,7 @@
 package controller;
 
-import Entity.DatabaseSetup;
-import Entity.MapManager;
+import DatabaseSetup.DatabaseSetup;
+import Iteration1CodeWeMayNotNeed.MapManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;

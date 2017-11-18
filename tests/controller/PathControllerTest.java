@@ -1,9 +1,9 @@
 package controller;
 
 import Entity.Astar;
-import Entity.EdgeManager;
+import Database.EdgeManager;
 import Entity.Node;
-import Entity.NodeManager;
+import Database.NodeManager;
 import org.junit.Test;
 
 import java.util.ArrayList;

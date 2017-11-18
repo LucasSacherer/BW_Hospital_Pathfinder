@@ -1,4 +1,6 @@
-package Entity;
+package Database;
+
+import Entity.Node;
 
 import java.sql.*;
 import java.util.ArrayList;
