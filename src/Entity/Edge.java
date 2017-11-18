@@ -3,7 +3,7 @@ package Entity;
 public class Edge {
     final private Node startNode;
     final private Node endNode;
-    final int weight;
+    final private int weight;
 
 
     public Edge(Node startNode, Node endNode) {
