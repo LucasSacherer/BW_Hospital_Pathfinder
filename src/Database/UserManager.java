@@ -23,6 +23,13 @@ public class UserManager {
         }
         return false;
     }
+
+    /**
+     * Returns true if there exists a STAFF with the given credentials, false if there s no user
+     * @param username
+     * @param password
+     * @return
+     */
     public Boolean authenticateStaff(String username, String password){
         updateUsers();
         for (User user: users){
@@ -34,7 +41,35 @@ public class UserManager {
         }
         return false;
     }
-    public void updateUsers(){
 
+    /**
+     * Updates all users in the UserManager's list to be up to date with the database
+     */
+    public void updateUsers(){
+        //TODO reload all users in List<User> users from the database
+    }
+
+    /**
+     * Changes the user in the database with changedUser.userID to contain the new information
+     * @param changedUser
+     */
+    public void modifyUser(User changedUser){
+        //TODO edit the user in the database with updatedUser's ID to contain updatedUser's new info
+    }
+
+    /**
+     * Adds the new user to the User table in the database
+     * @param newUser
+     */
+    public void addUser(User newUser){
+        //TODO add the newUser to the User table in the database
+    }
+
+    /**
+     * Removes the oldUser from the User table in the database
+     * @param oldUser
+     */
+    public void removeUser(User oldUser){
+        //TODO remove the oldUser from the User table in the database
     }
 }
