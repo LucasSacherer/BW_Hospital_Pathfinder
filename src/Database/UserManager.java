@@ -51,9 +51,9 @@ public class UserManager {
 
     /**
      * Changes the user in the database with changedUser.userID to contain the new information
-     * @param changedUser
+     * @param updatedUser
      */
-    public void modifyUser(User changedUser){
+    public void modifyUser(User updatedUser){
         //TODO edit the user in the database with updatedUser's ID to contain updatedUser's new info
     }
 
