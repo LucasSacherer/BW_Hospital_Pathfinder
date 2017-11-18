@@ -12,9 +12,6 @@ public class User {
         this.adminFlag = adminFlag;
         this.department = department;
     }
-    public void modifyUser(User updatedUser){
-        //TODO edit the user in the database with updatedUser's ID to contain updatedUser's new info
-    }
     public String getUsername() {
         return username;
     }
