@@ -1,10 +1,8 @@
 package controller;
 
-import entity.RequestManager;
-import entity.Request;
+import Entity.RequestManager;
+import Entity.Request;
 import javafx.collections.ObservableList;
-
-import java.util.List;
 
 public class RequestController {
 

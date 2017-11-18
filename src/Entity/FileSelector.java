@@ -1,4 +1,4 @@
-package entity;
+package Entity;
 import javafx.stage.FileChooser;
 import java.io.File;
 

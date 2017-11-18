@@ -1,9 +1,7 @@
-package entity;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+package Entity;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Comparator;
 import java.util.List;
 

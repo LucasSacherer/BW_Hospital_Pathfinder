@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Node;
-import entity.NodeManager;
+import Entity.Node;
+import Entity.NodeManager;
 
 public class ClickController {
 

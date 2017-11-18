@@ -1,13 +1,4 @@
-package entity;
-
-import controller.MapDisplayController;
-import javafx.scene.image.Image;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.FileInputStream;
-
-import static org.junit.Assert.*;
+package Entity;
 
 public class MapDisplayControllerTest {
 

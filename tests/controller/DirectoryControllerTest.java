@@ -1,11 +1,10 @@
 package controller;
 
-import entity.Node;
-import entity.NodeManager;
+import Entity.Node;
+import Entity.NodeManager;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;

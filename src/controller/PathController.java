@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Astar;
-import entity.Node;
+import Entity.Astar;
+import Entity.Node;
 
 import java.util.ArrayList;
 import java.util.List;

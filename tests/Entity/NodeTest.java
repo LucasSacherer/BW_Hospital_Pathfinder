@@ -1,15 +1,15 @@
-package entity;
+package Entity;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertEquals;
-
-public class EdgeTest {
+public class NodeTest {
     @Test
     public void testSetWeight () {
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
         Node n2 = new Node("2",2,1,"1","Shapiro","type","Stairwell","STAI",true);
-        Edge e = new Edge(n1,n2);
-        assertEquals(e.getWeight(),1);
+        n1.setWeight(n2);
+        assertEquals(n1.getWeight(),1);
+        assertTrue(true);
     }
 }

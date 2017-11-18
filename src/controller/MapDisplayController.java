@@ -1,6 +1,6 @@
 package controller;
 
-import entity.MapManager;
+import Entity.MapManager;
 import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileInputStream;

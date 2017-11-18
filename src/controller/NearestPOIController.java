@@ -1,7 +1,7 @@
 package controller;
 
-import entity.NodeManager;
-import entity.Node;
+import Entity.NodeManager;
+import Entity.Node;
 
 public class NearestPOIController {
     private NodeManager nm;
