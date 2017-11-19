@@ -161,7 +161,7 @@ public class TableCreator {
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
-        DatabaseInteraction databaseInteraction = new DatabaseInteraction(statement);
+        DatabaseGargoyle dbGargoyle = new DatabaseGargoyle();
         String line, query = "default null query, if I am called then something is wrong";
 
         try {
@@ -175,7 +175,7 @@ public class TableCreator {
                         } else if (table == "EDGE"){
                             query = "INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')";
                         }
-                        databaseInteraction.executeUpdateOnDatabase(query);
+                        dbGargoyle.executeUpdateOnDatabase(query);
                     }
                 } finally {
                     if (br == null) {

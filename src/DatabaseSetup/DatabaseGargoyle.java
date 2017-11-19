@@ -1,11 +1,8 @@
 package DatabaseSetup;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class DatabaseCreator {
+public class DatabaseGargoyle {
     private final String URL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
     private final String driver = "org.apache.derby.jdbc.ClientDriver";
     private Connection connection;
@@ -34,7 +31,7 @@ public class DatabaseCreator {
     }
 
     /**
-     * Destroys the DatabaseCreator's statement and connection
+     * Destroys the DatabaseGargoyle's statement and connection
      */
     public void destroyConnection() {
         try {
@@ -57,5 +54,33 @@ public class DatabaseCreator {
         tableCreator.createFoodRequestTable();
         tableCreator.createInterpreterRequestTable();
         tableCreator.createCleanUpRequestTable();
+    }
+
+    /**
+     * Executes a SQL update statement to the database
+     * @param sqlStatement
+     */
+    public void executeUpdateOnDatabase(String sqlStatement){
+        try {
+            statement.executeUpdate(sqlStatement);
+        } catch (SQLException e) {
+            System.out.println("The statement " + sqlStatement +  " failed: ");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Executes a SQL Query on the database and returns the results
+     * @param sqlStatement
+     * @return
+     */
+    public ResultSet executeQueryOnDatabase(String sqlStatement){
+        try {
+            return statement.executeQuery(sqlStatement);
+        } catch (SQLException e) {
+            System.out.println("The statement " + sqlStatement +  " failed: ");
+            e.printStackTrace();
+            return null;
+        }
     }
 }

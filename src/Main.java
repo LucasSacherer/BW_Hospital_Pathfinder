@@ -1,4 +1,4 @@
-import DatabaseSetup.DatabaseCreator;
+import DatabaseSetup.DatabaseGargoyle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        DatabaseCreator databaseCreator = new DatabaseCreator();
-        databaseCreator.createConnection();
-        databaseCreator.createTables();
-        databaseCreator.destroyConnection();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        databaseGargoyle.createConnection();
+        databaseGargoyle.createTables();
+        databaseGargoyle.destroyConnection();
 
         //Load UI
         Parent root = FXMLLoader.load(getClass().getResource("boundary/main.fxml"));
