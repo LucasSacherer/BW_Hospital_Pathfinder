@@ -1,4 +1,4 @@
-package controller;
+package MapNavigation;
 
 import Iteration1CodeWeMayNotNeed.MapManager;
 import javafx.scene.image.Image;

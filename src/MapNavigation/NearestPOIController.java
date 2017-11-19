@@ -1,4 +1,4 @@
-package controller;
+package MapNavigation;
 
 import Database.NodeManager;
 import Entity.Node;

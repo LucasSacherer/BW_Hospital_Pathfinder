@@ -1,4 +1,4 @@
-package controller;
+package Editor;
 
 import Database.EdgeManager;
 import Database.NodeManager;
