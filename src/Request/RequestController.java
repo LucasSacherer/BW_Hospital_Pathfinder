@@ -1,9 +1,10 @@
-package controller;
+//package Request;
 
-import Entity.RequestManager;
-import Entity.Request;
-import javafx.collections.ObservableList;
+//import Entity.RequestManager;
+//import Entity.Request;
+//import javafx.collections.ObservableList;
 
+/*
 public class RequestController {
 
     private final RequestManager requestmanager;
@@ -16,7 +17,7 @@ public class RequestController {
      * Checks to see if a node that was input has either the same name as an already present Node
      * or if there already is a node of the same type at same location.
      * @param req the node that you are checking to see if it can be a valid node to add.
-     */
+     /
     protected boolean validateRequest(Request req) {
         for (int i = 0; i < requestmanager.getRequests().size(); i++) {
 
@@ -36,7 +37,7 @@ public class RequestController {
      * If its valid Call the getRequests() method of RequestManager
      * and adds the given Request element to the lists of Requests.
      * @param req (A request that is supposed to be added to the list of requests)
-     */
+     /
     public boolean addRequest(Request req) throws IllegalArgumentException {
         if (validateRequest(req)) {
             requestmanager.addRequest(req);
@@ -49,7 +50,7 @@ public class RequestController {
     /**
      * Calls the getRequests() method in RequestManager
      * @return The list of current requests in request attribute of RequestManager.
-     */
+     /
     public ObservableList<Request> getRequests() {
        return requestmanager.getRequests();
     }
@@ -60,9 +61,10 @@ public class RequestController {
      * It removes the request using the deleterequest() method in RequestManager
      *
      * @param req
-     */
+     /
     public void deleteRequest(Request req) {
         requestmanager.deleteRequest(req);
 
     }
 }
+*/
