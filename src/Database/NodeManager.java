@@ -27,6 +27,8 @@ public class NodeManager {
      * Updates the nodes in the node manager to match the nodes in the database
      */
     public void updateNodes(){
+        int xcoord, ycoord;
+        String floor, building, nodetype, longName, shortName;
         nodes.clear();
 
         databaseGargoyle.createConnection();
@@ -34,14 +36,13 @@ public class NodeManager {
         try {
             while(rs.next()){
                 String nodeID = rs.getString("NODEID");
-                int xcoord = rs.getInt("XCOORD");
-                int ycoord = rs.getInt("YCOORD");
-                String floor = rs.getString("FLOOR");
-                String building = rs.getString("BUILDING");
-                String nodetype = rs.getString("NODETYPE");
-                String longName = rs.getString("LONGNAME");
-                String shortName = rs.getString("SHORTNAME");
-                String visitableS = rs.getString("VISITABLE");
+                xcoord = rs.getInt("XCOORD");
+                ycoord = rs.getInt("YCOORD");
+                floor = rs.getString("FLOOR");
+                building = rs.getString("BUILDING");
+                nodetype = rs.getString("NODETYPE");
+                longName = rs.getString("LONGNAME");
+                shortName = rs.getString("SHORTNAME");
                 nodes.add(new Node(nodeID,xcoord,ycoord,floor,building,nodetype,longName,shortName));
             }
         } catch (SQLException e) {

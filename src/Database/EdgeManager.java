@@ -22,14 +22,15 @@ public class EdgeManager {
      * Updates list of edges to match what is currently in the database
      */
     public void updateEdges(){
+        String startNodeID, endNodeID;
         edges.clear();
 
         databaseGargoyle.createConnection();
         ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE");
         try {
             while (rs.next()){
-                String startNodeID = rs.getString("STARTNODE");
-                String endNodeID = rs.getString("ENDNODE");
+                startNodeID = rs.getString("STARTNODE");
+                endNodeID = rs.getString("ENDNODE");
                 edges.add(new Edge(nodeManager.getNode(startNodeID), nodeManager.getNode(endNodeID)));
             }
         } catch (SQLException e) {
