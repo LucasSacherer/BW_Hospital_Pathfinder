@@ -1,17 +1,17 @@
 package Database;
 
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class NodeManager {
-
-    final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
-
     private List<Node> nodes;
+    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     public NodeManager(){
         nodes = new ArrayList<>();
@@ -31,10 +31,9 @@ public class NodeManager {
     public void updateNodes(){
         nodes.clear();
 
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE");
         try {
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM NODE");
             while(rs.next()){
                 String nodeID = rs.getString("NODEID");
                 int xcoord = rs.getInt("XCOORD");
@@ -45,16 +44,13 @@ public class NodeManager {
                 String longName = rs.getString("LONGNAME");
                 String shortName = rs.getString("SHORTNAME");
                 String visitableS = rs.getString("VISITABLE");
-                boolean visitable = visitableS.equals("TRUE");
-
-                nodes.add(new Node(nodeID,xcoord,ycoord,floor,building,nodetype,longName,shortName,visitable));
+                nodes.add(new Node(nodeID,xcoord,ycoord,floor,building,nodetype,longName,shortName));
             }
-            stmt.close();
-            conn.close();
-        }catch (SQLException ex){
+        } catch (SQLException e) {
             System.out.println("Failed to update the node manager!");
-            ex.printStackTrace();
+            e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
 
         //Un-comment for testing this function
         //printOutContent();
@@ -97,20 +93,11 @@ public class NodeManager {
      * @param node - node to be added to the database
      */
     public void addNode(Node node){
-        try {
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            String visitable = node.isVisitable() ? "TRUE" : "FALSE";
-            stmt.executeUpdate("INSERT INTO NODE VALUES ('"+node.getNodeID()+"',"+node.getXcoord()+","+
-                    node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
-                    node.getLongName()+"','"+node.getShortName()+"','','"+visitable+"')");
-            stmt.close();
-            conn.close();
-        }catch (SQLException ex){
-            System.out.println("Failed to add new node to database!");
-            ex.printStackTrace();
-            return;
-        }
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("INSERT INTO NODE VALUES ('"+node.getNodeID()+"',"+node.getXcoord()+","+
+                node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
+                node.getLongName()+"','"+node.getShortName()+"','Team G')");
+        databaseGargoyle.destroyConnection();
 
         updateNodes();
     }
@@ -121,19 +108,9 @@ public class NodeManager {
      */
     public void removeNode(Node node){
         String nodeToRemove = node.getNodeID();
-
-        try{
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
-            stmt.close();
-            conn.close();
-        }catch (SQLException ex){
-            System.out.println("Failed to remove node from database!");
-            ex.printStackTrace();
-            return;
-        }
-
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
+        databaseGargoyle.destroyConnection();
         updateNodes();
     }
 
@@ -142,26 +119,15 @@ public class NodeManager {
      * @param node - updated node (must use an existing nodeID)
      */
     public void updateNode(Node node){
-        try{
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            String visitable = node.isVisitable()? "TRUE" : "FALSE";
-            stmt.executeUpdate("UPDATE NODE SET XCOORD = " + node.getXcoord() + "," +
-                    "YCOORD = " + node.getYcoord() + "," +
-                    "FLOOR = '" + node.getFloor() + "'," +
-                    "BUILDING = '" + node.getBuilding() + "'," +
-                    "NODETYPE = '" + node.getNodeType() + "'," +
-                    "LONGNAME = '" + node.getLongName() + "'," +
-                    "SHORTNAME = '" + node.getShortName() + "'," +
-                    "VISITABLE = '" + visitable + "' WHERE NODEID = '" + node.getNodeID() + "'");
-            stmt.close();
-            conn.close();
-        }catch (SQLException ex){
-            System.out.println("Failed to update a node!");
-            ex.printStackTrace();
-            return;
-        }
-
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("UPDATE NODE SET XCOORD = " + node.getXcoord() + "," +
+                "YCOORD = " + node.getYcoord() + "," +
+                "FLOOR = '" + node.getFloor() + "'," +
+                "BUILDING = '" + node.getBuilding() + "'," +
+                "NODETYPE = '" + node.getNodeType() + "'," +
+                "LONGNAME = '" + node.getLongName() + "'," +
+                "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'");
+        databaseGargoyle.destroyConnection();
         updateNodes();
     }
 
