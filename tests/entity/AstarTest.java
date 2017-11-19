@@ -50,7 +50,7 @@ public class AstarTest {
         actual.add(n3.getNodeID());
         actual.add(n1.getNodeID());
 
-        ArrayList<Node> answer = star.Astar(n1,n3);
+         ArrayList<Node> answer = star.Astar(n1,n3);
         ArrayList<String> ansID = new ArrayList<>();
         for(int i = 0; i < answer.size(); i++){
             ansID.add(answer.get(i).getNodeID());

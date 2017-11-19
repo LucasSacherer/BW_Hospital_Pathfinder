@@ -2,13 +2,15 @@ package entity;
 
 public class starNode {
     Node node;
-    double weight;
+    double hCost;
+    double gCost;
     starNode parent;
 
-    public starNode(Node n, starNode p, double w){
+    public starNode(Node n, starNode p, double hC, double gC){
         this.node = n;
-        this.weight = w;
+        this.hCost = hC;
         this.parent = p;
+        this.gCost = gC;
     }
 
 
