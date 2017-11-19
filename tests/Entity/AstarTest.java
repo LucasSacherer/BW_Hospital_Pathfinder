@@ -19,7 +19,7 @@ public class AstarTest {
         EdgeManager edgeM = new EdgeManager(nodeM);
 
         Astar star = new Astar(edgeM);
-        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
+        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
         ArrayList<Node> actual = new ArrayList<>();
         actual.add(n1);
         ArrayList<Node> answer = star.Astar(n1,n1);
@@ -37,9 +37,9 @@ public class AstarTest {
         NodeManager nodeM = new NodeManager();
         EdgeManager edgeM = new EdgeManager(nodeM);
 
-        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
-        Node n2 = new Node("2",2,1,"1","Shapiro","type","Stairwell","STAI",true);
-        Node n3 = new Node("3",3000,2000,"1","Shapiro","type","Stairwell","STAI",true);
+        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
+        Node n2 = new Node("2",2,1,"1","Shapiro","type","Stairwell","STAI");
+        Node n3 = new Node("3",3000,2000,"1","Shapiro","type","Stairwell","STAI");
         nodeM.addNode(n1);
         nodeM.addNode(n2);
         nodeM.addNode(n3);

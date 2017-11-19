@@ -21,7 +21,7 @@ public class PathControllerTest {
         Astar star = new Astar(edgeM);
         PathController pathController = new PathController(star);
 
-        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI",true);
+        Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
         ArrayList<Node> actual = new ArrayList<>();
         List<Node> answer = pathController.findPath(n1,n1);
         System.out.println(answer);
@@ -31,12 +31,12 @@ public class PathControllerTest {
 
     @Test
     public void validatePathTest(){
-        Node nodeA = new Node("1", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
-        Node nodeB = new Node("1", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
-        Node nodeC = new Node("3", 1, 1, "2", "BuildingA","Type A","Short Name", "1",true);
-        Node nodeD = new Node("4", 1, 1, "1", "BuildingB","Type A","Short Name", "1",true);
-        Node nodeE = new Node("5", 1, 1, "1", "BuildingA","Type A","Short Name", "1",false);
-        Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1",true);
+        Node nodeA = new Node("1", 1, 1, "1", "BuildingA","Type A","Short Name", "1");
+        Node nodeB = new Node("1", 1, 1, "1", "BuildingA","Type A","Short Name", "1");
+        Node nodeC = new Node("3", 1, 1, "2", "BuildingA","Type A","Short Name", "1");
+        Node nodeD = new Node("4", 1, 1, "1", "BuildingB","Type A","Short Name", "1");
+        Node nodeE = new Node("5", 1, 1, "1", "BuildingA","Type A","Short Name", "1");
+        Node nodeF = new Node("6", 1, 1, "1", "BuildingA","Type A","Short Name", "1");
 
         NodeManager nodeManager = new NodeManager();
         EdgeManager edgeManager = new EdgeManager(nodeManager);
