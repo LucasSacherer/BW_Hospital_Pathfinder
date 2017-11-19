@@ -1,4 +1,4 @@
-package controller;
+package Pathfinding;
 
 import Pathfinding.Astar;
 import Entity.Node;
