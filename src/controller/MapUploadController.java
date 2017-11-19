@@ -1,6 +1,6 @@
 package controller;
 
-import DatabaseSetup.DatabaseSetup;
+//import DatabaseSetup.DatabaseSetup;
 import Iteration1CodeWeMayNotNeed.MapManager;
 
 import java.io.File;
@@ -65,12 +65,12 @@ public class MapUploadController {
         Statement stmt = conn.createStatement();
 
         //Insert the node and edge csv to the database
-        DatabaseSetup db = new DatabaseSetup();
+        /*DatabaseSetup db = new DatabaseSetup();
         try {
             db.insertCSVToDatabase(nodePath, stmt, "NODE");
             db.insertCSVToDatabase(edgePath, stmt, "EDGE");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

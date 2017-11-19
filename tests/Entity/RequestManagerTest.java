@@ -1,7 +1,6 @@
 package Entity;
-
 import Database.NodeManager;
-import Iteration1CodeWeMayNotNeed.RequestManager;
+//import Iteration1CodeWeMayNotNeed.RequestManager;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -13,6 +12,7 @@ public class RequestManagerTest {
 
     @Test
     public void testAddRequest(){
+        /*
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
 
@@ -23,5 +23,7 @@ public class RequestManagerTest {
         List<Request> requests = requestManager.getRequests();
         assertEquals(requests.get(0).getName(),req.getName());
         requestManager.deleteRequest(req);
+        */
     }
+
 }
