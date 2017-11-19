@@ -3,7 +3,6 @@ package Database;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Edge;
 import Entity.Node;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

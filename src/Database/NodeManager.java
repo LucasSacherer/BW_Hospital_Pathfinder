@@ -2,8 +2,6 @@ package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
-
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
