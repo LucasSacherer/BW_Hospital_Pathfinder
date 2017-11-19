@@ -9,10 +9,9 @@ public class Node {
     final private String nodeType;
     final private String longName;
     final private String shortName;
-    final private boolean visitable;
     private int weight;
 
-    public Node(String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName, boolean visitable) {
+    public Node(String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName) {
         this.nodeID = nodeID;
         this.xcoord = xcoord;
         this.ycoord = ycoord;
@@ -21,7 +20,6 @@ public class Node {
         this.nodeType = nodeType;
         this.longName = longName;
         this.shortName = shortName;
-        this.visitable = visitable;
     }
 
     public void setWeight(Node dest) {
@@ -68,7 +66,10 @@ public class Node {
     }
 
     public boolean isVisitable() {
-        return visitable;
+        if (nodeType != "HALL"){
+            return true;
+        }
+        else return false;
     }
 
     @Override
