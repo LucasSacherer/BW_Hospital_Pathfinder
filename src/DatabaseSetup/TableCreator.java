@@ -171,7 +171,7 @@ public class TableCreator {
                         String[] array = line.split(",");
                         //Execute query to database
                         if (table == "NODE"){
-                            query = "INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"','"+array[9]+"')";
+                            query = "INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"')";
                         } else if (table == "EDGE"){
                             query = "INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')";
                         }
