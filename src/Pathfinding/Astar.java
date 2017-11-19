@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.List;
 
-public class Astar {
+public class Astar implements PathFinder {
     EdgeManager edgeM;
     // The set of nodes already evaluated
     ArrayList<Node> closedSet = new ArrayList<Node>();
