@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class RequestControllerTest {
 
     Node test1 = new Node("54",0,0,"1","building","type","lName","sName",true);
@@ -31,7 +29,7 @@ public class RequestControllerTest {
     public void addRequest(){
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
-        RequestController requestController = new RequestController(requestManager);
+        Request.RequestController requestController = new Request.RequestController(requestManager);
         nodeManager.updateNodes();
         requestManager.updateRequests();
         nodeManager.addNode(test1);
@@ -56,7 +54,7 @@ public class RequestControllerTest {
     public void validateRequest() {
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
-        RequestController requestController = new RequestController(requestManager);
+        Request.RequestController requestController = new Request.RequestController(requestManager);
         nodeManager.updateNodes();
         requestManager.updateRequests();
         nodeManager.addNode(test1);
@@ -81,7 +79,7 @@ public class RequestControllerTest {
     public void getRequests() {
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
-        RequestController requestController = new RequestController(requestManager);
+        Request.RequestController requestController = new Request.RequestController(requestManager);
         nodeManager.addNode(test1);
         nodeManager.updateNodes();
         requestManager.updateRequests();
@@ -101,7 +99,7 @@ public class RequestControllerTest {
     public void deleteRequest() {
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
-        RequestController requestController = new RequestController(requestManager);
+        Request.RequestController requestController = new Request.RequestController(requestManager);
         nodeManager.addNode(test1);
         nodeManager.updateNodes();
         requestManager.addRequest(request1);
