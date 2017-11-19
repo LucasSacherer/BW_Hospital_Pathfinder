@@ -1,5 +1,6 @@
 package Database;
 
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Edge;
 import Entity.Node;
 
@@ -9,33 +10,34 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EdgeManager {
-
     final private NodeManager nodeManager;
     private List<Edge> edges;
-    final String DBURL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
+    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     public EdgeManager(NodeManager nodeManager){
         this.nodeManager = nodeManager;
         edges = new ArrayList<>();
     }
 
-    //updates list of edges to match what is currently in the database
+    /**
+     * Updates list of edges to match what is currently in the database
+     */
     public void updateEdges(){
         edges.clear();
 
-        try{
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM EDGE");
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE");
+        try {
             while (rs.next()){
                 String startNodeID = rs.getString("STARTNODE");
                 String endNodeID = rs.getString("ENDNODE");
                 edges.add(new Edge(nodeManager.getNode(startNodeID), nodeManager.getNode(endNodeID)));
             }
-        }catch (SQLException ex){
+        } catch (SQLException e) {
             System.out.println("Failed to get edges from database!");
-            ex.printStackTrace();
+            e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
     }
 
     /**
@@ -43,20 +45,11 @@ public class EdgeManager {
      * @param e the edge to add
      */
     public void addEdge(Edge e){
-        try{
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("INSERT INTO EDGE VALUES ('"+
-                    e.getStartNode().getNodeID()+"-"+e.getEndNode().getNodeID()+"','"+
-                    e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
-            stmt.close();
-            conn.close();
-        }catch (SQLException ex){
-            System.out.println("Failed to add an edge to the database!");
-            ex.printStackTrace();
-            return;
-        }
-
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("INSERT INTO EDGE VALUES ('"+
+                e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
+                e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
+        databaseGargoyle.destroyConnection();
         updateEdges();
     }
 
@@ -65,22 +58,17 @@ public class EdgeManager {
      * @param e the edge to remove
      */
     public void removeEdge(Edge e) {
-        try {
-            Connection conn = DriverManager.getConnection(DBURL);
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM EDGE WHERE EDGEID = '" +
-                    e.getStartNode().getNodeID() + "-" + e.getEndNode().getNodeID() + "'");
-            stmt.close();
-            conn.close();
-        } catch (SQLException ex) {
-            System.out.println("Failed to remove Edge from the database!");
-            ex.printStackTrace();
-            return;
-        }
-
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
+                e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'");
+        databaseGargoyle.destroyConnection();
         updateEdges();
     }
 
+    /**
+     * Returns a list of all edges currently in the Java Edge Object (Not in database)
+     * @return
+     */
     public List<Edge> getAllEdges(){
         return edges;
     }
