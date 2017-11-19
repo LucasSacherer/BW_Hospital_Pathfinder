@@ -1,6 +1,6 @@
 package controller;
 
-import Entity.Astar;
+import Pathfinding.Astar;
 import Database.EdgeManager;
 import Entity.Node;
 import Database.NodeManager;

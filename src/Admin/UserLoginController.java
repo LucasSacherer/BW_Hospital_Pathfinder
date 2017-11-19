@@ -4,7 +4,11 @@ import Database.UserManager;
 import Entity.User;
 
 public class UserLoginController {
-    UserManager userManager = new UserManager();
+    final private UserManager userManager;
+
+    public UserLoginController(UserManager um){
+        userManager = um;
+    }
 
     /**
      * Validates the username and password, and then gives them to the userManager to authenticate an STAFF

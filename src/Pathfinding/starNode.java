@@ -1,4 +1,6 @@
-package Entity;
+package Pathfinding;
+
+import Entity.Node;
 
 public class starNode {
     Node node;

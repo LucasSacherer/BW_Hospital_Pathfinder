@@ -1,6 +1,6 @@
 package controller;
 
-import Entity.Astar;
+import Pathfinding.Astar;
 import Entity.Node;
 
 import java.util.ArrayList;
