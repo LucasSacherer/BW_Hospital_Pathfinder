@@ -48,12 +48,14 @@ public class DatabaseGargoyle {
      */
     public void createTables() {
         TableCreator tableCreator = new TableCreator(this.statement);
-        tableCreator.createNodeTable();
-        tableCreator.createEdgeTable();
-        tableCreator.createKioskUserTable();
+        tableCreator.createNodeTable(this.connection);
+        tableCreator.createEdgeTable(this.connection);
+        tableCreator.createKioskUserTable(this.connection);
         tableCreator.createFoodRequestTable();
         tableCreator.createInterpreterRequestTable();
         tableCreator.createCleanUpRequestTable();
+        tableCreator.createFoodOrdersTable();
+        tableCreator.createSettingsTable();
     }
 
     /**
@@ -86,5 +88,8 @@ public class DatabaseGargoyle {
 
     public Statement getStatement() {
         return statement;
+    }
+    public Connection getConnection() {
+        return connection;
     }
 }
