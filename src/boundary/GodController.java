@@ -1,6 +1,8 @@
 package boundary;
 
 
+import entity.Edge;
+import entity.Node;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Entity.Edge;
@@ -38,7 +40,7 @@ public class GodController {
     private final String adminRequestLoc = "./fxml/adminRequest.fxml";
     private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
     private final String mapEditLoc = "./fxml/adminMap.fxml";
-
+//
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
     /* Scene Controllers */
     MainSceneController mainSceneController = new MainSceneController();
@@ -67,10 +69,7 @@ public class GodController {
 
    /* Scene Panes */
     @FXML
-    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
-
-    @FXML
-    private Pane mapPane;
+    private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
     @FXML
     private Canvas canvas;

@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 public class Edge {
     final private Node startNode;
