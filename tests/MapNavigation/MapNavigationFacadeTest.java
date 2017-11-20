@@ -4,9 +4,6 @@ import Database.NodeManager;
 import Entity.Node;
 import org.junit.Test;
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
 
 import static org.junit.Assert.*;
 
@@ -69,7 +66,6 @@ public class MapNavigationFacadeTest {
         assertEquals(test.getNodeID(),nodeID2);
         assertEquals(test3.getNodeID(),nodeID3);
         assertEquals(test2.getNodeID(),nodeID4);
-
     }
 
     @Test
