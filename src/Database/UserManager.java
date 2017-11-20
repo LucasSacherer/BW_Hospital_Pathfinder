@@ -55,7 +55,7 @@ public class UserManager {
         users.clear();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM USER");
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM KIOSKUSER", databaseGargoyle.getStatement());
         try {
             while (rs.next()){
                 userID = rs.getString("USERID");

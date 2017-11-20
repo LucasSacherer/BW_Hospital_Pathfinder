@@ -22,8 +22,8 @@ public class DatabaseGargoyle {
 
         //Create connection and statement to be run
         try {
-            connection = DriverManager.getConnection(URL);
-            statement = connection.createStatement();
+            this.connection = DriverManager.getConnection(URL);
+            this.statement = connection.createStatement();
         } catch (SQLException e) {
             System.out.println("Exception thrown in createConnection()");
             e.printStackTrace();
@@ -47,10 +47,10 @@ public class DatabaseGargoyle {
      * Creates all of the tables in the database and says something if a table already exists
      */
     public void createTables() {
-        TableCreator tableCreator = new TableCreator(statement);
+        TableCreator tableCreator = new TableCreator(this.statement);
         tableCreator.createNodeTable();
         tableCreator.createEdgeTable();
-        tableCreator.createUserTable();
+        tableCreator.createKioskUserTable();
         tableCreator.createFoodRequestTable();
         tableCreator.createInterpreterRequestTable();
         tableCreator.createCleanUpRequestTable();
@@ -58,29 +58,33 @@ public class DatabaseGargoyle {
 
     /**
      * Executes a SQL update statement to the database
-     * @param sqlStatement
+     * @param sql
      */
-    public void executeUpdateOnDatabase(String sqlStatement){
+    public void executeUpdateOnDatabase(String sql, Statement statement){
         try {
-            statement.executeUpdate(sqlStatement);
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("The statement " + sqlStatement +  " failed: ");
+            System.out.println("The statement " + sql +  " failed: ");
             e.printStackTrace();
         }
     }
 
     /**
      * Executes a SQL Query on the database and returns the results
-     * @param sqlStatement
+     * @param sql
      * @return
      */
-    public ResultSet executeQueryOnDatabase(String sqlStatement){
+    public ResultSet executeQueryOnDatabase(String sql, Statement statement){
         try {
-            return statement.executeQuery(sqlStatement);
+            return statement.executeQuery(sql);
         } catch (SQLException e) {
-            System.out.println("The statement " + sqlStatement +  " failed: ");
+            System.out.println("The statement " + sql +  " failed: ");
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Statement getStatement() {
+        return statement;
     }
 }

@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class TableCreator {
     private Statement statement;
     private String defaultNodesPath = "src/DatabaseSetup/defaultNodes.txt";
-    private String defaultEdgesPath = "src/DefaultData/defaultEdges.txt";
+    private String defaultEdgesPath = "src/DatabaseSetup/defaultEdges.txt";
 
     public TableCreator(Statement statement) {
         this.statement = statement;
@@ -17,29 +17,29 @@ public class TableCreator {
      * Creates the NODE table and inserts in all the nodes in defaulNodes.txt
      */
     public void createNodeTable() {
-        //Create the table
+        //Create the table and add in the default nodes
         try {
             statement.execute("CREATE TABLE node (\n" +
                     " nodeID varchar(20) PRIMARY KEY,\n" +
                     " xcoord INTEGER NOT NULL,\n" +
                     " ycoord INTEGER NOT NULL,\n" +
-                    " floor varchar(3) NOT NULL,\n" +
+                    " floor varchar(100) NOT NULL,\n" +
                     " building varchar(250) NOT NULL,\n" +
                     " nodeType varchar(250) NOT NULL,\n" +
                     " longName varchar(250) NOT NULL,\n" +
                     " shortName varchar(250) NOT NULL,\n" +
                     " teamAssigned varchar(10) NOT NULL\n)");
             System.out.println("Node table created!");
+            //Insert all Nodes to the table
+
+            try {
+                insertCSVToDatabase(defaultNodesPath, statement, "NODE");
+            } catch (FileNotFoundException e) {
+                System.out.println("Cannot find path " + defaultNodesPath);
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             System.out.println("Node table already exists");
-        }
-
-        //Insert all Nodes to the table
-        try {
-            insertCSVToDatabase(defaultNodesPath, statement, "NODE");
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot find path " + defaultNodesPath);
-            e.printStackTrace();
         }
     }
 
@@ -47,7 +47,7 @@ public class TableCreator {
      * Creates the EDGE table
      */
     public void createEdgeTable() {
-        //Create the table
+        //Create the table and insert in all the default edges
         try {
             statement.execute("CREATE TABLE edge (\n" +
                     " edgeID VARCHAR(100) PRIMARY KEY,\n" +
@@ -56,34 +56,33 @@ public class TableCreator {
                     " CONSTRAINT startNode_FK FOREIGN KEY (startNode) REFERENCES NODE(nodeID),\n" +
                     " CONSTRAINT endNode_FK FOREIGN KEY (endNode) REFERENCES NODE(nodeID))");
             System.out.println("Edge table created!");
+            //Insert all Edges to the table
+            try {
+                insertCSVToDatabase(defaultEdgesPath, statement, "EDGE");
+            } catch (FileNotFoundException e) {
+                System.out.println("Cannot find path " + defaultEdgesPath);
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             System.out.println("Edge table already exists");
-        }
-
-        //Insert all Edges to the table
-        try {
-            insertCSVToDatabase(defaultEdgesPath, statement, "EDGE");
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot find path " + defaultEdgesPath);
-            e.printStackTrace();
         }
     }
 
     /**
-     * Creates the USER table
+     * Creates the KIOSKUSER table
      */
-    public void createUserTable() {
+    public void createKioskUserTable() {
         //Create the table
         try {
-            statement.execute("CREATE TABLE user (\n" +
+            statement.execute("CREATE TABLE kioskUser (\n" +
                     " userID VARCHAR(100) PRIMARY KEY,\n" +
                     " userName varchar(100) NOT NULL,\n" +
                     " password varchar(100) NOT NULL,\n" +
                     " department varchar(100) NOT NULL,\n" +
-                    " adminFlag varchar(10) NOT NULL");
-            System.out.println("User table created!");
+                    " adminFlag varchar(10) NOT NULL\n)");
+            System.out.println("KioskUser table created!");
         } catch (SQLException e) {
-            System.out.println("User table already exists");
+            System.out.println("KioskUser table already exists");
         }
     }
 
@@ -93,18 +92,19 @@ public class TableCreator {
     public void createFoodRequestTable() {
         try {
             statement.execute("CREATE TABLE FoodRequest (\n" +
-                    " name VARCHAR(250),\n" +
-                    " time TIMESTAMP,\n" +
-                    " type VARCHAR(250),\n" +
-                    " description VARCHAR (250),\n" +
-                    " nodeID VARCHAR(20),\n" +
-                    " userID VARCHAR(250), \n" +
-                    " CONSTRAINT request_PK PRIMARY KEY (name, time),\n" +
-                    " CONSTRAINT userID_FK FOREIGN KEY (userID) REFERENCES USER(userID),\n" +
-                    " CONSTRAINT nodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+                    " name VARCHAR(250) NOT NULL,\n" +
+                    " time TIMESTAMP NOT NULL,\n" +
+                    " type VARCHAR(250) NOT NULL,\n" +
+                    " description VARCHAR(250) NOT NULL,\n" +
+                    " nodeID VARCHAR(20) NOT NULL,\n" +
+                    " userID VARCHAR(100) NOT NULL, \n" +
+                    " CONSTRAINT foodRequest_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT foodUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
+                    " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("FoodRequest table created!");
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
+            e.printStackTrace();
         }
     }
 
@@ -114,18 +114,19 @@ public class TableCreator {
     public void createInterpreterRequestTable() {
         try {
             statement.execute("CREATE TABLE InterpreterRequest (\n" +
-                    " name VARCHAR(250),\n" +
-                    " time TIMESTAMP,\n" +
-                    " type VARCHAR(250),\n" +
-                    " description VARCHAR (250),\n" +
-                    " nodeID VARCHAR(20),\n" +
-                    " userID VARCHAR(250), \n" +
-                    " CONSTRAINT request_PK PRIMARY KEY (name, time),\n" +
-                    " CONSTRAINT userID_FK FOREIGN KEY (userID) REFERENCES USER(userID),\n" +
-                    " CONSTRAINT nodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+                    " name VARCHAR(250) NOT NULL,\n" +
+                    " time TIMESTAMP NOT NULL,\n" +
+                    " type VARCHAR(250) NOT NULL,\n" +
+                    " description VARCHAR(250) NOT NULL,\n" +
+                    " nodeID VARCHAR(20) NOT NULL,\n" +
+                    " userID VARCHAR(100) NOT NULL, \n" +
+                    " CONSTRAINT interpreterRequest_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT interpreterUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
+                    " CONSTRAINT interpreterNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("InterpreterRequest table created!");
         } catch (SQLException e) {
             System.out.println("InterpreterRequest table already exists");
+            e.printStackTrace();
         }
     }
 
@@ -135,18 +136,19 @@ public class TableCreator {
     public void createCleanUpRequestTable() {
         try {
             statement.execute("CREATE TABLE CleanUpRequest (\n" +
-                    " name VARCHAR(250),\n" +
-                    " time TIMESTAMP,\n" +
-                    " type VARCHAR(250),\n" +
-                    " description VARCHAR (250),\n" +
-                    " nodeID VARCHAR(20),\n" +
-                    " userID VARCHAR(250), \n" +
-                    " CONSTRAINT request_PK PRIMARY KEY (name, time),\n" +
-                    " CONSTRAINT userID_FK FOREIGN KEY (userID) REFERENCES USER(userID),\n" +
-                    " CONSTRAINT nodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+                    " name VARCHAR(250) NOT NULL,\n" +
+                    " time TIMESTAMP NOT NULL,\n" +
+                    " type VARCHAR(250) NOT NULL,\n" +
+                    " description VARCHAR(250) NOT NULL,\n" +
+                    " nodeID VARCHAR(20) NOT NULL,\n" +
+                    " userID VARCHAR(100) NOT NULL, \n" +
+                    " CONSTRAINT cleanUpRequest_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT cleanUpUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
+                    " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("CleanUpRequest table created!");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
+            e.printStackTrace();
         }
     }
 
@@ -170,12 +172,12 @@ public class TableCreator {
                     if (line != null){
                         String[] array = line.split(",");
                         //Execute query to database
-                        if (table == "NODE"){
+                        if (table.equals("NODE")){
                             query = "INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"')";
-                        } else if (table == "EDGE"){
+                        } else if (table.equals("EDGE")){
                             query = "INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')";
                         }
-                        dbGargoyle.executeUpdateOnDatabase(query);
+                        dbGargoyle.executeUpdateOnDatabase(query, statement);
                     }
                 } finally {
                     if (br == null) {

@@ -32,7 +32,7 @@ public class NodeManager {
         nodes.clear();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE");
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE", databaseGargoyle.getStatement());
         try {
             while(rs.next()){
                 String nodeID = rs.getString("NODEID");
@@ -95,7 +95,7 @@ public class NodeManager {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO NODE VALUES ('"+node.getNodeID()+"',"+node.getXcoord()+","+
                 node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
-                node.getLongName()+"','"+node.getShortName()+"','Team G')");
+                node.getLongName()+"','"+node.getShortName()+"','Team G')", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
 
         updateNodes();
@@ -108,7 +108,7 @@ public class NodeManager {
     public void removeNode(Node node){
         String nodeToRemove = node.getNodeID();
         databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateNodes();
     }
@@ -125,7 +125,7 @@ public class NodeManager {
                 "BUILDING = '" + node.getBuilding() + "'," +
                 "NODETYPE = '" + node.getNodeType() + "'," +
                 "LONGNAME = '" + node.getLongName() + "'," +
-                "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'");
+                "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateNodes();
     }

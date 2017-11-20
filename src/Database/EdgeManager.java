@@ -26,7 +26,7 @@ public class EdgeManager {
         edges.clear();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE");
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE", databaseGargoyle.getStatement());
         try {
             while (rs.next()){
                 startNodeID = rs.getString("STARTNODE");
@@ -48,7 +48,7 @@ public class EdgeManager {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO EDGE VALUES ('"+
                 e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
-                e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
+                e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateEdges();
     }
@@ -60,7 +60,7 @@ public class EdgeManager {
     public void removeEdge(Edge e) {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
-                e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'");
+                e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateEdges();
     }
