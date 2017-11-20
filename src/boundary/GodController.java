@@ -191,10 +191,9 @@ public class GodController {
 //
 
 
-
-
-//    ////////////////////////////////////////////////////////////
+    ////////////////
     /* Main scene */
+    ////////////////
     @FXML
     private void setLoc1(ActionEvent e) { mainSceneController.setLoc1(); }
 
@@ -247,11 +246,64 @@ public class GodController {
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(); }
 
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
+    //////////////////
+    /* Login Scene */
+    /////////////////
 
+    @FXML
+    private void switchToAdmin() throws IOException {
+        loginController.switchToAdmin();
+    }
+
+    @FXML
+    private void switchToStaff() throws IOException {
+        loginController.switchToStaff();
+    }
+
+    ///////////////////
+    /* Request Scene */
+    ///////////////////
+
+
+
+    ///////////////
+    /* Admin Hub */
+    ///////////////
+
+
+
+
+    ////////////////////
+    /* Employee Admin */
+    ////////////////////
+
+
+
+
+    ///////////////////
+    /* Request Admin */
+    ///////////////////
+
+
+
+
+    ///////////////
+    /* Map Admin */
+    ///////////////
+
+
+
+    ////////////////
+    /* Admin Logs */
+    ////////////////
+
+
+
+
+
+    /////////////////////
     /* Scene Switching */
-
+    /////////////////////
     @FXML
     private void mainToLogin() throws IOException {
         sceneSwitcher.switchScene(this, mainPane, loginLoc);
