@@ -2,10 +2,10 @@ package boundary;
 
 import Pathfinding.PathController;
 //import Request.RequestController;
-//import entity.Node;
-//import entity.Edge;
+//import Entity.Node;
+//import Entity.Edge;
 import controller.*;
-//import entity.*;
+//import Entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.io.IOException;
