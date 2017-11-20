@@ -93,12 +93,13 @@ public class TableCreator {
         try {
             statement.execute("CREATE TABLE FoodRequest (\n" +
                     " name VARCHAR(250) NOT NULL,\n" +
-                    " time TIMESTAMP NOT NULL,\n" +
+                    " timeCreated TIMESTAMP NOT NULL,\n" +
+                    " timeCompleted TIMESTAMP NOT NULL,\n" +
                     " type VARCHAR(250) NOT NULL,\n" +
                     " description VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
-                    " CONSTRAINT foodRequest_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT foodRequest_PK PRIMARY KEY (name, timeCreated),\n" +
                     " CONSTRAINT foodUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
                     " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("FoodRequest table created!");
@@ -115,12 +116,13 @@ public class TableCreator {
         try {
             statement.execute("CREATE TABLE InterpreterRequest (\n" +
                     " name VARCHAR(250) NOT NULL,\n" +
-                    " time TIMESTAMP NOT NULL,\n" +
+                    " timeCreated TIMESTAMP NOT NULL,\n" +
+                    " timeCompleted TIMESTAMP NOT NULL,\n" +
                     " type VARCHAR(250) NOT NULL,\n" +
                     " description VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
-                    " CONSTRAINT interpreterRequest_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT interpreterRequest_PK PRIMARY KEY (name, timeCreated),\n" +
                     " CONSTRAINT interpreterUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
                     " CONSTRAINT interpreterNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("InterpreterRequest table created!");
@@ -137,12 +139,13 @@ public class TableCreator {
         try {
             statement.execute("CREATE TABLE CleanUpRequest (\n" +
                     " name VARCHAR(250) NOT NULL,\n" +
-                    " time TIMESTAMP NOT NULL,\n" +
+                    " timeCreated TIMESTAMP NOT NULL,\n" +
+                    " timeCompleted TIMESTAMP NOT NULL,\n" +
                     " type VARCHAR(250) NOT NULL,\n" +
                     " description VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
-                    " CONSTRAINT cleanUpRequest_PK PRIMARY KEY (name, time),\n" +
+                    " CONSTRAINT cleanUpRequest_PK PRIMARY KEY (name, timeCreated),\n" +
                     " CONSTRAINT cleanUpUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
                     " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("CleanUpRequest table created!");
