@@ -20,5 +20,6 @@
     </orderEntry>
     <orderEntry type="library" name="derbyclient" level="project" />
     <orderEntry type="library" name="commons-csv-1.5" level="project" />
+    <orderEntry type="library" name="jfoenix" level="project" />
   </component>
 </module>
