@@ -54,6 +54,8 @@ public class DatabaseGargoyle {
         tableCreator.createFoodRequestTable();
         tableCreator.createInterpreterRequestTable();
         tableCreator.createCleanUpRequestTable();
+        tableCreator.createFoodOrdersTable();
+        tableCreator.createSettingsTable();
     }
 
     /**
