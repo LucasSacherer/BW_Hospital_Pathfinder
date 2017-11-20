@@ -68,7 +68,6 @@ public class NodeManagerTest {
     @Test
     public void testNearestNode(){
         NodeManager manager = new NodeManager();
-        manager.updateNodes();
         Node test = new Node("1",50,0,"1","building","type","lName","sName",true);
         Node test2 = new Node("2",99, 99,"1","building","type","lName","sName",true);
         Node test3 = new Node("3",2,2,"1","building","type","lName","sName",true);
@@ -77,7 +76,7 @@ public class NodeManagerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        String nodeID = manager.nearestNode(0, 0).getNodeID();
+        String nodeID = manager.nearestNode(3, 3, "1").getNodeID();
 
         manager.removeNode(test);
         manager.removeNode(test2);
@@ -99,8 +98,8 @@ public class NodeManagerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        String nearestNode = manager.nearestLoc(0,0, "bathroom").getNodeID();
-        Node nearestNull = manager.nearestLoc(0, 0, "monkey");
+        String nearestNode = manager.nearestLoc(0,0,"1", "bathroom").getNodeID();
+        Node nearestNull = manager.nearestLoc(0, 0, "1","monkey");
 
         manager.removeNode(test);
         manager.removeNode(test2);
