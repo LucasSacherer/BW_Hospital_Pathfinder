@@ -1,6 +1,7 @@
 package Entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class FoodRequest implements Request{
     final private String name;
@@ -11,7 +12,10 @@ public class FoodRequest implements Request{
     final private Node node;
     final private User user;
 
-    public FoodRequest(String name, LocalDateTime timeCreated, LocalDateTime timeCompleted, String type, String description, Node node, User user) {
+    final private List<String> order;
+
+    public FoodRequest(String name, LocalDateTime timeCreated, LocalDateTime timeCompleted, String type,
+                       String description, Node node, User user, List<String> order) {
         this.name = name;
         this.timeCreated = timeCreated;
         this.timeCompleted = timeCompleted;
@@ -19,6 +23,8 @@ public class FoodRequest implements Request{
         this.description = description;
         this.node = node;
         this.user = user;
+
+        this.order = order;
     }
 
     public String getName() {

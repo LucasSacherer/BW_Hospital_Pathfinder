@@ -3,27 +3,43 @@ package Entity;
 import java.time.LocalDateTime;
 
 public class InterpreterRequest implements Request{
-    final private String type;
     final private String name;
+    final private LocalDateTime timeCreated;
+    final private LocalDateTime timeCompleted;
+    final private String type;
     final private String description;
     final private Node node;
-    final private LocalDateTime timeStamp;
+    final private User user;
 
+    final private String language;
 
-    public InterpreterRequest (String type, String name, String description, Node node, LocalDateTime timeStamp){
-        this.type = type;
+    public InterpreterRequest (String name, LocalDateTime timeCreated, LocalDateTime timeCompleted, String type,
+                               String description, Node node, User user, String language){
         this.name = name;
+        this.timeCreated = timeCreated;
+        this.timeCompleted = timeCompleted;
+        this.type = type;
         this.description = description;
         this.node = node;
-        this.timeStamp = timeStamp;
-    }
+        this.user = user;
 
-    public String getType() {
-        return type;
+        this.language = language;
     }
 
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
+    }
+
+    public LocalDateTime getTimeCompleted() {
+        return timeCompleted;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getDescription() {
@@ -34,12 +50,16 @@ public class InterpreterRequest implements Request{
         return node;
     }
 
-    public LocalDateTime getTimeStamp() {
-        return timeStamp;
+    public User getUser() {
+        return user;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     @Override
     public String toString() {
-        return name + "    " + timeStamp.getMonth() + " " + timeStamp.getDayOfMonth() + " " + timeStamp.getHour() + ":" + timeStamp.getMinute() + ":" + timeStamp.getSecond();
+        return name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
     }
 }
