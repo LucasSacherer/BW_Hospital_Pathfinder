@@ -178,7 +178,6 @@ public class TableCreator {
             System.out.println("FoodOrder table created!");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
-            e.printStackTrace();
         }
     }
 
