@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="adminHubPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <JFXButton fx:id="employees" layoutX="88.0" layoutY="83.0" onAction="#adminHubtoEmployee" text="Manage Employees" />
+      <JFXButton fx:id="requests" layoutX="93.0" layoutY="124.0" onAction="#adminHubtoRequest" text="Manage Requests" />
+      <JFXButton fx:id="logs" layoutX="99.0" layoutY="161.0" onAction="#adminHubtoLog" text="Admin Logs" />
+      <JFXButton fx:id="maps" layoutX="92.0" layoutY="42.0" onAction="#adminHubtoMap" text="Manage Maps" />
+      <JFXButton fx:id="back" layoutX="161.0" layoutY="291.0" onAction="#adminHubToMain" text="Back to Main Scene" />
+   </children>
+</AnchorPane>
