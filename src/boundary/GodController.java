@@ -5,8 +5,6 @@ import entity.Edge;
 import entity.Node;
 import Database.EdgeManager;
 import Database.NodeManager;
-import Entity.Edge;
-import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
