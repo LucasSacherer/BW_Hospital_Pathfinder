@@ -1,8 +1,12 @@
 package boundary;
 
 
+import Database.EdgeManager;
+import Database.NodeManager;
 import Entity.Edge;
 import Entity.Node;
+import MapNavigation.MapNavigationFacade;
+import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -34,31 +38,22 @@ public class GodController {
     private final String adminRequestLoc = "./fxml/adminRequest.fxml";
     private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
     private final String mapEditLoc = "./fxml/adminMap.fxml";
-//
+
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
-//    /* Scene Controllers */
+    /* Scene Controllers */
     MainSceneController mainSceneController = new MainSceneController();
     LoginController loginController = new LoginController();
-    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
     AdminHubController adminHubController = new AdminHubController();
+    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController();
     StaffRequestController staffRequestController = new StaffRequestController();
 
     /* managers */
-//    final private NodeManager nodeManager = new NodeManager();
-//    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-//    final private RequestManager requestManager = new RequestManager(nodeManager);
-//    final private Astar aStar = new Astar(edgeManager);
-//    final private FileSelector fileSelector = new FileSelector();
-
-    /////////////////
-    /* controllers */
-    /////////////////
-//    final private MapDisplayController mapDisplayController = new MapDisplayController();
-//    final private ClickController clickController = new ClickController(nodeManager);
-//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
-//    final private PathController pathController = new PathController(aStar);
+    final private NodeManager nodeManager = new NodeManager();
+    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
+    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade();
+    final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
 
     private Node loc1;
     private Node loc2;
