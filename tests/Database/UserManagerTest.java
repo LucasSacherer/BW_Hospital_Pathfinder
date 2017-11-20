@@ -78,8 +78,6 @@ public class UserManagerTest {
         assertEquals("poPW", freshUser2.getPassword());
         assertEquals(false, freshUser2.getAdminFlag());
         assertEquals("poD", freshUser2.getDepartment());
-
-
     }
 
     @Test
