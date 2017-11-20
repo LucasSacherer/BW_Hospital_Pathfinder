@@ -15,5 +15,4 @@ public class NearestPOIController {
         Node nearest = nm.nearestLoc(x,y,floor,type);
         return nearest;
     }
-
 }

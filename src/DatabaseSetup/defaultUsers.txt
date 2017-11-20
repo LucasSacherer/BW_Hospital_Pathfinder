@@ -1,0 +1,4 @@
+tinkywinky,tinkywinkyUN,tinkywinkyPW,true,tinkywinkyD
+po,poUN,poPW,false,poD
+dipsy,dipsyUN,dipsyPW,false,dipsyD
+laalaa,laalaaUN,laalaaPW,false,laalaaD
