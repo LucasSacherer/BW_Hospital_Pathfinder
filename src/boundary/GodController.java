@@ -1,8 +1,10 @@
 package boundary;
 
+
 import Entity.Edge;
 import Entity.Node;
 import boundary.sceneControllers.*;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,33 +44,32 @@ public class GodController {
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController();
     StaffRequestController staffRequestController = new StaffRequestController();
-//
-//
-////    /* managers */
-////    final private NodeManager nodeManager = new NodeManager();
-////    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-////    final private RequestManager requestManager = new RequestManager(nodeManager);
-////    final private Astar aStar = new Astar(edgeManager);
-////    final private FileSelector fileSelector = new FileSelector();
-//
-////    /////////////////
-////    /* controllers */
-////    /////////////////
-////    final private MapDisplayController mapDisplayController = new MapDisplayController();
-////    final private ClickController clickController = new ClickController(nodeManager);
-////    final private DirectoryController directoryController = new DirectoryController(nodeManager);
-////    final private PathController pathController = new PathController(aStar);
-////
+
+    /* managers */
+//    final private NodeManager nodeManager = new NodeManager();
+//    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
+//    final private RequestManager requestManager = new RequestManager(nodeManager);
+//    final private Astar aStar = new Astar(edgeManager);
+//    final private FileSelector fileSelector = new FileSelector();
+
+    /////////////////
+    /* controllers */
+    /////////////////
+//    final private MapDisplayController mapDisplayController = new MapDisplayController();
+//    final private ClickController clickController = new ClickController(nodeManager);
+//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+//    final private PathController pathController = new PathController(aStar);
+
     private Node loc1;
     private Node loc2;
     private Node currentLoc;
     private String currentFloor;
     private List<Node> currentPath;
-////
-////    ///////////////////////
-//    /** FXML Attributes **/
-//    ///////////////////////
-//
+
+    ///////////////////////
+    /** FXML Attributes **/
+    ///////////////////////
+
    /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
@@ -93,6 +94,7 @@ public class GodController {
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
+
 //
 //    /** Organize Functions by Scene **/
 //
