@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="adminMapPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <JFXButton fx:id="backToAdminHub" layoutX="241.0" layoutY="150.0" onAction="#mapToAdminHub" text="Back to Admin Hub" />
+   </children>
+</AnchorPane>

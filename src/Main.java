@@ -1,4 +1,5 @@
 import DatabaseSetup.DatabaseGargoyle;
+import boundary.GodController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +16,10 @@ public class Main extends Application {
     }
     /*
         //Load UI
-        Parent root = FXMLLoader.load(getClass().getResource("boundary/main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/fxml/main.fxml"));
+        GodController godController = new GodController();
+        loader.setController(godController);
+        Parent root = loader.load();
         primaryStage.setTitle("B&W Path Finding");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.setFullScreen(true);
