@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DirectoryController {
     private NodeManager nm;
+    private SettingsManager settingsManager;
 
     public DirectoryController(NodeManager nm) {
         this.nm = nm;
@@ -19,7 +20,7 @@ public class DirectoryController {
      * Gets all visitable nodes from the database and returns a directory of nodes categorized by nodetype
      * @return A categorized Directory (HashMap)
      */
-    public HashMap<String, ObservableList<Node>> getDirectory(){
+     HashMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
         nm.updateNodes();
         List<Node> visitableNodes = nm.getVisitableNodes();
@@ -85,5 +86,13 @@ public class DirectoryController {
      */
     public HashMap<String, ObservableList<Node>> formatNodeListTester(List<Node> nodeList) {
         return formatNodeList(nodeList);
+    }
+
+    /**
+     * Returns the defaultNode which should be the Kiosk Location.
+     * @return a Node that is the Default Node.
+     */
+    Node getDefaultNode(){
+        return nm.getNode(settingsManager.getSettings("Default Node"));
     }
 }

@@ -10,7 +10,7 @@ public class NearestPOIController {
         this.nm = nm;
     }
 
-    public Node nearestPOI(int x, int y, String floor, String type){
+    Node nearestPOI(int x, int y, String floor, String type){
         //calls nearest location from node manager
         Node nearest = nm.nearestLoc(x,y,floor,type);
         return nearest;

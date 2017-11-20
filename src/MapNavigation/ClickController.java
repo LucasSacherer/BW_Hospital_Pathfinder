@@ -11,7 +11,7 @@ public class ClickController {
         nodemanager = nodeManager;
     }
 
-    public Node getNearestNode(int x, int y, String floor){
+    Node getNearestNode(int x, int y, String floor){
         return nodemanager.nearestNode(x,y,floor);
     }
 }
