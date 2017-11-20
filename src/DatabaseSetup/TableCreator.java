@@ -8,6 +8,7 @@ public class TableCreator {
     private Statement statement;
     private String defaultNodesPath = "src/DatabaseSetup/defaultNodes.txt";
     private String defaultEdgesPath = "src/DatabaseSetup/defaultEdges.txt";
+    private String defaultUsersPath = "src/DatabaseSetup/defaultUsers.txt";
 
     public TableCreator(Statement statement) {
         this.statement = statement;
@@ -78,9 +79,16 @@ public class TableCreator {
                     " userID VARCHAR(100) PRIMARY KEY,\n" +
                     " userName varchar(100) NOT NULL,\n" +
                     " password varchar(100) NOT NULL,\n" +
-                    " department varchar(100) NOT NULL,\n" +
-                    " adminFlag varchar(10) NOT NULL\n)");
+                    " adminFlag varchar(10) NOT NULL,\n" +
+                    " department varchar(100) NOT NULL\n)");
             System.out.println("KioskUser table created!");
+            //Insert all Users to the table
+            try {
+                insertCSVToDatabase(defaultUsersPath, statement, "KIOSKUSER");
+            } catch (FileNotFoundException e) {
+                System.out.println("Cannot find path " + defaultUsersPath);
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             System.out.println("KioskUser table already exists");
         }
@@ -176,6 +184,8 @@ public class TableCreator {
                             query = "INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"')";
                         } else if (table.equals("EDGE")){
                             query = "INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')";
+                        } else if (table.equals("KIOSKUSER")){
+                            query = "INSERT INTO KIOSKUSER VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"','"+array[3]+"','"+array[4]+"')";
                         }
                         dbGargoyle.executeUpdateOnDatabase(query, statement);
                     }
