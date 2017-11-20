@@ -204,17 +204,17 @@
                                     <Cursor fx:constant="TEXT" />
                                  </cursor>
                               </TextField>
-                              <Button mnemonicParsing="false" onAction="#setLoc1" text="Set Origin" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="120.0">
+                              <Button mnemonicParsing="false" text="Set Origin" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="120.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#setLoc2" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="120.0">
+                              <Button mnemonicParsing="false" text="Set Destination" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="120.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" onAction="#findPath" text="Navigate" AnchorPane.bottomAnchor="10.0">
+                              <Button fx:id="navigate" layoutX="90.0" layoutY="127.0" mnemonicParsing="false" text="Navigate" AnchorPane.bottomAnchor="10.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
