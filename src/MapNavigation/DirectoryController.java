@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DirectoryController {
     private NodeManager nm;
-    //private SettingsManager settingsManager;
+    private SettingsManager settingsManager;
 
     public DirectoryController(NodeManager nm) {
         this.nm = nm;
