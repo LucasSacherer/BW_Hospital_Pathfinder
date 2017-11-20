@@ -34,9 +34,9 @@ public class GodController {
     private final String adminRequestLoc = "./fxml/adminRequest.fxml";
     private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
     private final String mapEditLoc = "./fxml/adminMap.fxml";
-//
+
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
-//    /* Scene Controllers */
+    /* Scene Controllers */
     MainSceneController mainSceneController = new MainSceneController();
     LoginController loginController = new LoginController();
     AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
@@ -248,6 +248,7 @@ public class GodController {
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(); }
 
     ////////////////////////////////////////////////////////////
+
     ////////////////////////////////////////////////////////////
 
     /* Scene Switching */
@@ -264,7 +265,7 @@ public class GodController {
 
     /* Login Page */
     @FXML
-    private void goToMainScreen() throws IOException {
+    private void goToMainScene() throws IOException {
         sceneSwitcher.switchScene(this, loginPane, mainLoc);
     }
 
