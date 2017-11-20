@@ -14,7 +14,12 @@ public class MapNavigationFacade {
     private MapDisplayController mapDisplayController;
     private DirectoryController directoryController;
 
-    public MapNavigationFacade(){
+    public MapNavigationFacade(ClickController clickController, NearestPOIController nearestPOIController, MapDisplayController mapDisplayController, DirectoryController directoryController){
+        this.mapDisplayController = mapDisplayController;
+        this.clickController = clickController;
+        this.nearestPOIController = nearestPOIController;
+        this.directoryController = directoryController;
+
 
     }
 
@@ -34,8 +39,8 @@ public class MapNavigationFacade {
         return directoryController.getDirectory();
     }
 
-    public Node getDefaultNode(){
-        return directoryController.getDefaultNode();
-    }
+   // public Node getDefaultNode(){
+     //   return directoryController.getDefaultNode();
+    //}
 
 }

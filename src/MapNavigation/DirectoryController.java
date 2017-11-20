@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DirectoryController {
     private NodeManager nm;
-    private SettingsManager settingsManager;
+    //private SettingsManager settingsManager;
 
     public DirectoryController(NodeManager nm) {
         this.nm = nm;
@@ -89,10 +89,12 @@ public class DirectoryController {
     }
 
     /**
+     *
      * Returns the defaultNode which should be the Kiosk Location.
      * @return a Node that is the Default Node.
      */
-    Node getDefaultNode(){
-        return nm.getNode(settingsManager.getSettings("Default Node"));
-    }
+    //TODO Need to throw exception if Default Node doesn't exist.
+   // Node getDefaultNode(){
+        //return nm.getNode(settingsManager.getSettings("Default Node"));
+   // }
 }
