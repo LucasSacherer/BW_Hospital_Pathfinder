@@ -151,7 +151,6 @@ public class TableCreator {
             System.out.println("CleanUpRequest table created!");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
-            e.printStackTrace();
         }
     }
 
