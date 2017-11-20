@@ -2,6 +2,7 @@ package controller;
 
 import Entity.Node;
 import Database.NodeManager;
+import MapNavigation.ClickController;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
