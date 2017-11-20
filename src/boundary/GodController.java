@@ -264,7 +264,7 @@ public class GodController {
 
     /* Login Page */
     @FXML
-    private void goToMainScreen() throws IOException {
+    private void goToMainScene() throws IOException {
         sceneSwitcher.switchScene(this, loginPane, mainLoc);
     }
 
