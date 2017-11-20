@@ -1,6 +1,8 @@
 package DatabaseSetup;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -17,7 +19,7 @@ public class TableCreator {
     /**
      * Creates the NODE table and inserts in all the nodes in defaulNodes.txt
      */
-    public void createNodeTable() {
+    public void createNodeTable(Connection connection) {
         //Create the table and add in the default nodes
         try {
             statement.execute("CREATE TABLE node (\n" +
@@ -34,7 +36,7 @@ public class TableCreator {
             //Insert all Nodes to the table
 
             try {
-                insertCSVToDatabase(defaultNodesPath, statement, "NODE");
+                insertCSVToDatabase(defaultNodesPath, connection,"NODE");
             } catch (FileNotFoundException e) {
                 System.out.println("Cannot find path " + defaultNodesPath);
                 e.printStackTrace();
@@ -47,7 +49,7 @@ public class TableCreator {
     /**
      * Creates the EDGE table
      */
-    public void createEdgeTable() {
+    public void createEdgeTable(Connection connection) {
         //Create the table and insert in all the default edges
         try {
             statement.execute("CREATE TABLE edge (\n" +
@@ -59,7 +61,7 @@ public class TableCreator {
             System.out.println("Edge table created!");
             //Insert all Edges to the table
             try {
-                insertCSVToDatabase(defaultEdgesPath, statement, "EDGE");
+                insertCSVToDatabase(defaultEdgesPath, connection,"EDGE");
             } catch (FileNotFoundException e) {
                 System.out.println("Cannot find path " + defaultEdgesPath);
                 e.printStackTrace();
@@ -72,7 +74,7 @@ public class TableCreator {
     /**
      * Creates the KIOSKUSER table
      */
-    public void createKioskUserTable() {
+    public void createKioskUserTable(Connection connection) {
         //Create the table
         try {
             statement.execute("CREATE TABLE kioskUser (\n" +
@@ -84,7 +86,7 @@ public class TableCreator {
             System.out.println("KioskUser table created!");
             //Insert all Users to the table
             try {
-                insertCSVToDatabase(defaultUsersPath, statement, "KIOSKUSER");
+                insertCSVToDatabase(defaultUsersPath, connection,"KIOSKUSER");
             } catch (FileNotFoundException e) {
                 System.out.println("Cannot find path " + defaultUsersPath);
                 e.printStackTrace();
@@ -163,16 +165,16 @@ public class TableCreator {
     /**
      * Reads a csv file of type (node or edge) and creates insert statements and executes them to the database
      * @param path
-     * @param stmt
      * @param table
      * @throws FileNotFoundException
      */
-    public void insertCSVToDatabase(String path, Statement stmt, String table) throws FileNotFoundException {
+    public void insertCSVToDatabase(String path, Connection connection, String table) throws FileNotFoundException {
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
         DatabaseGargoyle dbGargoyle = new DatabaseGargoyle();
-        String line, query = "default null query, if I am called then something is wrong";
+        String line;
+        PreparedStatement query = null;
 
         try {
             while ((line = br.readLine()) != null){
@@ -180,14 +182,36 @@ public class TableCreator {
                     if (line != null){
                         String[] array = line.split(",");
                         //Execute query to database
-                        if (table.equals("NODE")){
-                            query = "INSERT INTO NODE VALUES ('"+array[0]+"',"+array[1]+","+array[2]+",'"+array[3]+"','"+array[4]+"','"+array[5]+"','"+array[6]+"','"+array[7]+"','"+array[8]+"')";
-                        } else if (table.equals("EDGE")){
-                            query = "INSERT INTO EDGE VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"')";
-                        } else if (table.equals("KIOSKUSER")){
-                            query = "INSERT INTO KIOSKUSER VALUES ('"+array[0]+"','"+array[1]+"','"+array[2]+"','"+array[3]+"','"+array[4]+"')";
+                        try {
+                            if (table.equals("NODE")){
+                                query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
+                                query.setString(1, array[0]);
+                                query.setInt(2, Integer.parseInt(array[1]));
+                                query.setInt(3, Integer.parseInt(array[2]));
+                                query.setString(4,array[3]);
+                                query.setString(5,array[4]);
+                                query.setString(6,array[5]);
+                                query.setString(7,array[6]);
+                                query.setString(8,array[7]);
+                                query.setString(9,array[8]);
+                            } else if (table.equals("EDGE")){
+                                query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
+                                query.setString(1, array[0]);
+                                query.setString(2,array[1]);
+                                query.setString(3,array[2]);
+                            } else if (table.equals("KIOSKUSER")){
+                                query = connection.prepareStatement("INSERT INTO KIOSKUSER VALUES (?,?,?,?,?)");
+                                query.setString(1, array[0]);
+                                query.setString(2,array[1]);
+                                query.setString(3,array[2]);
+                                query.setString(4,array[3]);
+                                query.setString(5,array[4]);
+                            }
+                            query.executeUpdate();
+                        } catch (SQLException e){
+                            System.out.println("Failed to execute: " + query.toString());
+                            e.printStackTrace();
                         }
-                        dbGargoyle.executeUpdateOnDatabase(query, statement);
                     }
                 } finally {
                     if (br == null) {
