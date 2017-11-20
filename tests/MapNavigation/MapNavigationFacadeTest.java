@@ -79,6 +79,20 @@ public class MapNavigationFacadeTest {
 
     @Test
     public void getDefaultNode() throws Exception {
+        SettingsManager settingsManager = new SettingsManager();
+        NodeManager manager = new NodeManager();
+        ClickController clickController = new ClickController(manager);
+        MapDisplayController mapDisplayController = new MapDisplayController();
+        DirectoryController directoryController = new DirectoryController(manager);
+        NearestPOIController nearestPOIController = new NearestPOIController(manager);
+        MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
+        manager.updateNodes();
+
+        Node defaultNode = mapNavigationFacade.getDefaultNode();
+        assertEquals(defaultNode.getNodeID(), settingsManager.getSettings("Default Node"));
+
+
+
     }
 
 }

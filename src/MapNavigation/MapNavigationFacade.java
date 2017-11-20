@@ -39,8 +39,8 @@ public class MapNavigationFacade {
         return directoryController.getDirectory();
     }
 
-   // public Node getDefaultNode(){
-     //   return directoryController.getDefaultNode();
-    //}
+    public Node getDefaultNode(){
+        return directoryController.getDefaultNode();
+    }
 
 }
