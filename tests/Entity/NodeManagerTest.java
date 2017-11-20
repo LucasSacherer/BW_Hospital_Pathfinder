@@ -21,7 +21,7 @@ public class NodeManagerTest {
     public void testGetNode(){
         NodeManager manager = new NodeManager();
         manager.updateNodes();
-        assertEquals(manager.getNode("GHALL002L2").getNodeID(),"GHALL002L2");
+        assertEquals(manager.getNode("GHALL00601").getNodeID(),"GHALL00601");
         assertNull(manager.getNode(""));
         assertNull(manager.getNode(null));
     }
