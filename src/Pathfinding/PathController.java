@@ -1,6 +1,5 @@
 package Pathfinding;
 
-import Pathfinding.Astar;
 import Entity.Node;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class PathController {
         }else {
             return true;
         }
-
     }
+
 }
 

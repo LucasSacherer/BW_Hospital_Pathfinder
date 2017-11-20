@@ -59,7 +59,7 @@ public class Astar implements PathFinder {
             //get all the edges connected to the starting node
             neighbors = edgeM.getNeighbors(current.node);
             //add all the nodes from the connected edges to the neighbors list
-
+            Boolean floorChange = false;
 
             //loop through the nieghbors
             for (int i = 0; i < neighbors.size(); i++) {
@@ -68,17 +68,19 @@ public class Astar implements PathFinder {
                     if (neighbors.get(i).getNodeID().equals(closedSet.get(j).getNodeID())) {
                         alreadfound = true;
                         break;// Ignore the neighbor which is already evaluated.
-                    } else {
+                    } else if (!(neighbors.get(i).getFloor().equals(loc1.getFloor()))) {
+                        alreadfound = false;
+                        floorChange = true;
+                        break;
+                    }else{
                         alreadfound = false;
 
                     }
                 }
 
                 if (alreadfound == true){
+
                     //if the node is in the closed set ignore it
-
-
-
                 }
                 else {
                     //if it is not in the closed set add it the priority queue allong with its parent
@@ -94,6 +96,9 @@ public class Astar implements PathFinder {
                         parentCost = current.parent.gCost;
                     }
                     double gCost = parentCost + distToNext ;
+                    if (floorChange){
+                        gCost += 100;
+                    }
                     starNode tempStar = new starNode(neighbors.get(i), current, hC, gCost);
                     astarPQ.add(tempStar);
                     //System.out.println(astarPQ.size());

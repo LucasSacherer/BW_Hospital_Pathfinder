@@ -3,6 +3,7 @@ package controller;
 import Entity.Node;
 import Database.NodeManager;
 import org.junit.Test;
+import MapNavigation.*;
 
 import static org.junit.Assert.*;
 

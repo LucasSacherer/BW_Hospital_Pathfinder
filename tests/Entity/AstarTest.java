@@ -10,9 +10,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 public class AstarTest {
 
-
-
-
     @Test
     public void sameNode() throws Exception{
         NodeManager nodeM = new NodeManager();
@@ -70,16 +67,190 @@ public class AstarTest {
     }
 
     @Test
-    public void realNodes() throws Exception{
+    public void realNodes1Connect() throws Exception{
         NodeManager nodeM = new NodeManager();
         nodeM.updateNodes();
         EdgeManager edgeM = new EdgeManager(nodeM);
         edgeM.updateEdges();
-        Node n1 = nodeM.getNode("GHALL00102");
-        Node n2 = nodeM.getNode("GHALL00902");
+        Node n1 = nodeM.getNode("GHALL01601");
+        Node n2 = nodeM.getNode("GHALL01501");
         Astar star = new Astar(edgeM);
         ArrayList<Node> answer = star.Astar(n1,n2);
-        System.out.println(answer);
+        ArrayList<Node> expected;
+        System.out.println(answer.get(0).getNodeID());
+        System.out.println(answer.get(1).getNodeID());
 
     }
+
+    @Test
+    public void realNodesSameNode() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL01601");
+        Node n2 = nodeM.getNode("GHALL01601");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<Node> expected;
+        System.out.println(answer.get(0).getNodeID());
+    }
+
+    @Test
+    public void realNodesAcrossFloor1() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL01601");
+        Node n2 = nodeM.getNode("GELEV00N01");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<Node> expected;
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+    }
+
+    @Test
+    public void realNodesAcrossFloor2() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL01602");
+        Node n2 = nodeM.getNode("GHALL01002");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<Node> expected;
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+    }
+
+    @Test
+    public void realNodesBacktoBack() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL01602");
+        Node n2 = nodeM.getNode("GHALL01002");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<Node> expected;
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+
+        n1 = nodeM.getNode("GHALL01601");
+        n2 = nodeM.getNode("GELEV00N01");
+        star = new Astar(edgeM);
+        answer = star.Astar(n1,n2);
+       ansID.clear();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+    }
+
+    @Test
+    public void realNodesbetweenElevators12() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GELEV00N01");
+        Node n2 = nodeM.getNode("GELEV00N02");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<Node> expected;
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+    }
+
+    @Test
+    public void realNodesbetweenFloors12() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL02401");
+        Node n2 = nodeM.getNode("GELEV00N02");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<Node> expected;
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+    }
+
+    @Test
+    //tests that the bumps are gone and it really does take the most direct path
+    public void realNodesFloors2() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL01002");
+        Node n2 = nodeM.getNode("GELEV00N02");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("GELEV00N02");
+        expected.add("GDEPT02402");
+        expected.add("GHALL01702");
+        expected.add("GHALL01602");
+        expected.add("GHALL01402");
+        expected.add("GHALL01202");
+        expected.add("GHALL01002");
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+        assertEquals(expected,ansID);
+    }
+
+    @Test
+    public void realNodesbetweenFloors13() throws Exception{
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL02401");
+        Node n2 = nodeM.getNode("GSERV01603");
+        Astar star = new Astar(edgeM);
+        ArrayList<Node> answer = star.Astar(n1,n2);
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("GSERV01603");
+        expected.add("GDEPT01403");
+        expected.add("GELEV00N03");
+        expected.add("GELEV00N01");
+        expected.add("GHALL02401");
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+        assertEquals(expected,ansID);
+    }
+
 }
