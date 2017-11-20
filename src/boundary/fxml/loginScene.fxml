@@ -50,7 +50,7 @@
                 <ImageView fitHeight="82.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
                 <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <children>
-                        <Hyperlink prefHeight="22.0" prefWidth="85.0" text="Domain: Admin" textFill="#2f00ff" underline="true" visible="false" StackPane.alignment="CENTER_RIGHT">
+                        <Hyperlink onAction="#switchToStaff" prefHeight="22.0" prefWidth="85.0" text="Domain: Admin" textFill="#2f00ff" underline="true" visible="false" StackPane.alignment="CENTER_RIGHT">
                             <font>
                                 <Font size="11.0" />
                             </font>
@@ -58,7 +58,7 @@
                                 <Insets />
                             </opaqueInsets>
                         </Hyperlink>
-                        <Hyperlink layoutX="125.0" layoutY="10.0" prefHeight="22.0" prefWidth="85.0" text="Domain: Staff" textFill="#2f00ff" underline="true" StackPane.alignment="CENTER_RIGHT">
+                        <Hyperlink layoutX="125.0" layoutY="10.0" onAction="#switchToAdmin" prefHeight="22.0" prefWidth="85.0" text="Domain: Staff" textFill="#2f00ff" underline="true" StackPane.alignment="CENTER_RIGHT">
                             <font>
                                 <Font size="11.0" />
                             </font>
