@@ -105,7 +105,6 @@ public class TableCreator {
             System.out.println("FoodRequest table created!");
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
-            e.printStackTrace();
         }
     }
 
@@ -120,6 +119,7 @@ public class TableCreator {
                     " timeCompleted TIMESTAMP NOT NULL,\n" +
                     " type VARCHAR(250) NOT NULL,\n" +
                     " description VARCHAR(250) NOT NULL,\n" +
+                    " language VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
                     " CONSTRAINT interpreterRequest_PK PRIMARY KEY (name, timeCreated),\n" +
@@ -128,7 +128,6 @@ public class TableCreator {
             System.out.println("InterpreterRequest table created!");
         } catch (SQLException e) {
             System.out.println("InterpreterRequest table already exists");
-            e.printStackTrace();
         }
     }
 
@@ -151,7 +150,39 @@ public class TableCreator {
             System.out.println("CleanUpRequest table created!");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
+        }
+    }
+
+    /**
+     * Creates the FOODORDER table
+     */
+    public void createFoodOrdersTable() {
+        try {
+            statement.execute("CREATE TABLE foodOrder (\n" +
+                    " requestName VARCHAR(250) NOT NULL,\n" +
+                    " timeCreated TIMESTAMP NOT NULL,\n" +
+                    " foodItem VARCHAR(250) NOT NULL,\n" +
+                    " quantity INTEGER NOT NULL,\n" +
+                    " CONSTRAINT foodOrder_PK PRIMARY KEY(requestName, foodItem),\n" +
+                    " CONSTRAINT foodOrder_FK FOREIGN KEY (requestName, timeCreated) REFERENCES FoodRequest(name, timeCreated))");
+            System.out.println("FoodOrder table created!");
+        } catch (SQLException e) {
+            System.out.println("FoodOrder table already exists");
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create SETTINGS table
+     */
+    public void createSettingsTable() {
+        try {
+            statement.execute("CREATE TABLE settings (\n" +
+                    " string1 VARCHAR(250) PRIMARY KEY,\n" +
+                    " string2 VARCHAR(250) NOT NULL\n)");
+            System.out.println("Settings table created!");
+        } catch (SQLException e) {
+            System.out.println("Settings table already exists");
         }
     }
 
