@@ -1,5 +1,4 @@
 package boundary;
-
 import entity.Node;
 import entity.Edge;
 import controller.*;
@@ -36,6 +35,7 @@ public class FXMLController {
     final private RequestManager requestManager = new RequestManager(nodeManager);
     final private Astar aStar = new Astar(edgeManager);
     final private FileSelector fileSelector = new FileSelector();
+    final private ErrorScreen errorScreen = new ErrorScreen();
 
     //    /* controllers */
     final private MapManager mapManager = new MapManager();
