@@ -3,6 +3,9 @@ package Entity;
 //Is this the right import for image?
 import javafx.scene.image.Image;
 
+import java.io.InputStream;
+import java.net.URL;
+
 public class ImageProxy {
     private final String path;
     private Image image;
@@ -16,7 +19,8 @@ public class ImageProxy {
 
     public Image getImage() {
         if (image == null){
-            image = new Image(getClass().getResource(path).toString());
+            InputStream stream = ImageProxy.class.getResourceAsStream(path);
+            image = new Image(stream);
         }
         return  image;
     }
