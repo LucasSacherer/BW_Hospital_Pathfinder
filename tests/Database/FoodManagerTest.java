@@ -4,15 +4,14 @@ import Entity.FoodRequest;
 import Entity.Node;
 import Entity.User;
 import org.junit.Test;
-
 import java.time.LocalDateTime;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class FoodManagerTest {
     @Test
     public void testUpdateRequests() {
         FoodManager foodManager = new FoodManager();
+
         //Check if the user is there before update
         assertEquals(null, foodManager.getFoodRequest("food1"));
 
@@ -24,6 +23,8 @@ public class FoodManagerTest {
         assertEquals("description1", req.getDescription());
         assertEquals("GRETL03501", req.getNode().getNodeID());
         assertEquals("admin1", req.getUser().getUserID());
-        assertEquals(null, req.getOrder());
+        assertEquals(3, req.getOrder().size());
+        assertTrue(req.getOrder().contains("cheeseburger"));
+        assertTrue(req.getOrder().contains("lasagna"));
     }
 }

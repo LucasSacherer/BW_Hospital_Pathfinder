@@ -6,6 +6,7 @@ import Entity.Node;
 import Entity.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,13 @@ public class FoodManager {
         LocalDateTime timeCreated, timeCompleted;
         Node node;
         User user;
+        List<String> order;
         nodeManager.updateNodes();
         userManager.updateUsers();
         requests.clear();
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST",
+                databaseGargoyle.getStatement());
         try {
             while (rs.next()){
                 name = rs.getString("NAME");
@@ -44,14 +47,38 @@ public class FoodManager {
                 userID = rs.getString("USERID");
                 node = nodeManager.getNode(nodeID);
                 user = userManager.getUser(userID);
-                requests.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, null));
-                //TODO: change this so that order is not null
+                order = getFoodOrders(name, Timestamp.valueOf(timeCreated));
+                requests.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, order));
             }
         } catch (SQLException e) {
-            System.out.println("Failed to get users from database!");
+            System.out.println("Failed to get food requests from database!");
             e.printStackTrace();
         }
         databaseGargoyle.destroyConnection();
+    }
+
+    /**
+     * Helper function for updateRequests()
+     * Gets all food items that are in the database for the given request
+     * @param requestName
+     * @param timeCreated
+     * @return
+     */
+    private ArrayList<String> getFoodOrders(String requestName, Timestamp timeCreated){
+        DatabaseGargoyle dbg = new DatabaseGargoyle();
+        dbg.createConnection();
+        ArrayList<String> result = new ArrayList<>();
+        ResultSet orders = dbg.executeQueryOnDatabase("SELECT * FROM FOODORDER " +
+                "WHERE REQUESTNAME = '" + requestName + "' AND TIMECREATED = '" +timeCreated+ "'", dbg.getStatement());
+        try {
+            while (orders.next()){
+                result.add(orders.getString("FOODITEM"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dbg.destroyConnection();
+        return result;
     }
 
     /**
