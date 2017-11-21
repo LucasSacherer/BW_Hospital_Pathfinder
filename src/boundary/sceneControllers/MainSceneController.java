@@ -166,7 +166,7 @@ public class MainSceneController {
 
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
-        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){ return; }
+        if(pathToDraw == null || pathToDraw.size() == 0){ return; }
 
         /** Testing Only **
          ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing

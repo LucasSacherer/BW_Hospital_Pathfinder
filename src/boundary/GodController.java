@@ -124,7 +124,6 @@ public class GodController {
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
-
     //Login Screen
     @FXML
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
@@ -149,7 +148,7 @@ public class GodController {
     StaffRequestController staffRequestController = new StaffRequestController();
 
 //    /** Organize Functions by Scene **/
-//
+
     @FXML
     private void initialize(){
         nodeManager.updateNodes();
