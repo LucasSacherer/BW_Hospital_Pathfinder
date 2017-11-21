@@ -31,6 +31,6 @@ public class NodeEditController {
     }
 
     public void setKioskLocation(Node defaultNode){
-        settingsManager.setSetting("Default Node", defaultNode.getNodeID());
+        settingsManager.setSetting("Default Node", defaultNode.getNodeID().toString());
     }
 }
