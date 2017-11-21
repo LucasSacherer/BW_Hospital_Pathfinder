@@ -110,8 +110,8 @@ public class MainSceneController {
 
     private void refreshCanvas() {
         clearCanvas();
-        if (origin != null && origin.getFloor().equals(currentFloor)) drawNode(origin, Color.RED);
-        if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.GREEN);
+        if (origin != null && origin.getFloor().equals(currentFloor)) drawNode(origin, Color.GREEN);
+        if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.RED);
         if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
         drawPath();
     }
