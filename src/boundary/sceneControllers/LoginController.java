@@ -13,6 +13,9 @@ import java.io.IOException;
 public class LoginController {
 
     public void switchToAdmin() {
+
+
+
     }
 
     public void switchToStaff() {
