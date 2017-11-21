@@ -7,16 +7,18 @@ import java.util.HashMap;
 
 public class SettingsManager {
 
-    private Node node;
     private HashMap<String, String> settings;
     private NodeEditController nodeEditControler;
+
+    public SettingsManager(HashMap<String, String> settings){
+        this.settings = settings;
+    }
 
     public String getSetting(String string){
         return settings.get(string);
     }
 
-    public void setSetting(String setting){
-    //can this take just a string? What's the second value then? Is this the key or the value?
-        settings.put(node.getNodeID(), setting);
+    public void setSetting(String setting, String nodeID){
+        settings.put(setting, nodeID);
     }
 }

@@ -13,15 +13,11 @@ import static org.junit.Assert.*;
 public class EdgeEditControllerTest {
 
     @Test
-    public void testGetAllEdges() throws Exception {
-    /*  Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
-        Node n2 = new Node("2", 1, 1, "1", "test","type", "lName", "sName");
-        Node n3 = new Node("3", 1, 1, "1", "test","type", "lName", "sName");
-        Node n4 = new Node("4", 1, 1, "1", "test", "type", "lName", "sName");
+    public void testAddRemoveGetAllEdges() throws Exception {
+        //Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        //Node n2 = new Node("2", 1, 1, "1", "test","type", "lName", "sName");
+        //Node n3 = new Node("3", 1, 1, "1", "test","type", "lName", "sName");
 
-        Edge e1 = new Edge(n2, n4);
-        Edge e2 = new Edge(n1, n3);
-    */
         NodeManager manager = new NodeManager();
         manager.updateNodes();
 
@@ -48,7 +44,7 @@ public class EdgeEditControllerTest {
         test.addEdge(e1);
         test.addEdge(e2);
 
-        assertTrue(test.getAllEdges().size() == 140);
+        assertTrue(test.getAllEdges().size() == startingSize + 2);
 
         List<Edge> result = test.getAllEdges();
 
@@ -57,16 +53,14 @@ public class EdgeEditControllerTest {
         //doesn't work rn, since update edges actually creates a new object and there's no way to get an individual edge
         //assertTrue(test.getAllEdges().contains(e1) && result.contains(e2));
 
-        testMan.removeEdge(e1);
-        testMan.removeEdge(e2);
-        /*
-        manager.removeNode(n1);
-        manager.removeNode(n2);
-        manager.removeNode(n3);
-        manager.removeNode(n4);
-        */
+        test.deleteEdge(e1);
+        test.deleteEdge(e2);
 
-        assertTrue(test.getAllEdges().size() == 138);
+        //manager.removeNode(n1);
+        //manager.removeNode(n2);
+        //manager.removeNode(n3);
+
+        assertTrue(test.getAllEdges().size() == startingSize);
 
         System.out.println(result);
         System.out.println(result.size());

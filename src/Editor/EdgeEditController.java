@@ -9,7 +9,7 @@ public class EdgeEditController {
 
     EdgeManager edgeManager;
 
-    EdgeEditController(EdgeManager edgem){
+    public EdgeEditController(EdgeManager edgem){
         this.edgeManager = edgem;
     }
 

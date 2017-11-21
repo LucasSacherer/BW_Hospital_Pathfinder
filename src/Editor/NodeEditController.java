@@ -10,6 +10,11 @@ public class NodeEditController {
     NodeManager nodeManager;
     SettingsManager settingsManager;
 
+    public NodeEditController(NodeManager nodeM, SettingsManager setM){
+        this.nodeManager = nodeM;
+        this.settingsManager = setM;
+    }
+
     // adds a new node to the lists of all nodes
     public void addNode(Node node) {
         nodeManager.addNode(node);
@@ -26,6 +31,6 @@ public class NodeEditController {
     }
 
     public void setKioskLocation(Node defaultNode){
-        settingsManager.setSetting("Default Node");
+        settingsManager.setSetting("Default Node", defaultNode.getNodeID());
     }
 }

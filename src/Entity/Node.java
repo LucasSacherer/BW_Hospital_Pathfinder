@@ -12,8 +12,6 @@ public class Node {
     final private String longName;
     final private String shortName;
     private int weight;
-    //final private? Should this be here?
-    private SettingsManager settingsManager;
 
     public Node(String nodeID, int xcoord, int ycoord, String floor, String building, String nodeType, String longName, String shortName) {
         this.nodeID = nodeID;
