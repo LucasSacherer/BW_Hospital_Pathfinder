@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MainSceneController {
     private Canvas canvas;
-    private String currentFloor;
+    private String currentFloor = "G";
     private GraphicsContext gc;
     private Pane mapPane;
     private List currentPath;
@@ -75,7 +75,7 @@ public class MainSceneController {
         int y = (int) m.getY();
         currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
         drawCurrentNode();
-        System.out.println(currentLoc);
+        System.out.println(x + " " + y + " " + currentFloor + " " + currentLoc);
     }
 
     public void drawPath() {
