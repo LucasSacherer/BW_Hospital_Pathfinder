@@ -1,6 +1,5 @@
-package entity;
+package Entity;
 
-import entity.Node;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

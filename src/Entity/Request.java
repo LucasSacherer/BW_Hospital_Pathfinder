@@ -1,6 +1,4 @@
-package entity;
-
-import entity.Node;
+package Entity;
 
 import java.time.LocalDateTime;
 

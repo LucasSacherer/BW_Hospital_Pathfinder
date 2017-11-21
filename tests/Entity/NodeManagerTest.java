@@ -1,7 +1,6 @@
 package Entity;
 
 import Database.NodeManager;
-import entity.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
