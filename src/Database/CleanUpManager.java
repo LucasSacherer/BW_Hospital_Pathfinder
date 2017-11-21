@@ -125,4 +125,19 @@ public class CleanUpManager {
     public List<CleanUpRequest> getCompleted(){
         return null;
     }
+
+    /**
+     * FOR TESTING ONLY
+     * @param name
+     * @param date
+     * @return
+     */
+    public CleanUpRequest getCleanUpRequest(String name, LocalDateTime date){
+        for (CleanUpRequest req: requests){
+            if (req.getName().equals(name) && req.getTimeCreated().equals(date)){
+                return req;
+            }
+        }
+        return null;
+    }
 }

@@ -14,7 +14,7 @@ public class FoodManagerTest {
     public void testUpdateRequests() {
         FoodManager foodManager = new FoodManager();
         //Check if the user is there before update
-        assertEquals(null, foodManager.getFoodRequest("spill"));
+        assertEquals(null, foodManager.getFoodRequest("food1"));
 
         //Check if the user is there after update
         foodManager.updateRequests();
