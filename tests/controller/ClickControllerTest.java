@@ -1,6 +1,7 @@
 package controller;
 
 import Entity.Node;
+import MapNavigation.ClickController;
 import Database.NodeManager;
 import MapNavigation.ClickController;
 import org.junit.Test;
