@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 public class FoodManagerTest {
-    //Quinn currently working on
-    /*
     @Test
     public void testUpdateRequests() {
         FoodManager foodManager = new FoodManager();
@@ -20,17 +18,12 @@ public class FoodManagerTest {
 
         //Check if the user is there after update
         foodManager.updateRequests();
-        LocalDateTime now = LocalDateTime.now();
-        Node node = new Node("1", 1, 1, "1", "1", "1", "1", "1");
-        User user = new User("po", "un1", "pw1", true, "dep");
-        FoodRequest spill = new FoodRequest("spill", now, null, "spill", "spill blood", node, user);
-
-        User po = userManager.getUser("po");
-        assertEquals("po", po.getUserID());
-        assertEquals("poUN", po.getUsername());
-        assertEquals("poPW", po.getPassword());
-        assertEquals(false, po.getAdminFlag());
-        assertEquals("poD", po.getDepartment());
+        FoodRequest req = foodManager.getFoodRequest("food1");
+        assertEquals("food1", req.getName());
+        assertEquals("type1", req.getType());
+        assertEquals("description1", req.getDescription());
+        assertEquals("GRETL03501", req.getNode().getNodeID());
+        assertEquals("admin1", req.getUser().getUserID());
+        assertEquals(null, req.getOrder());
     }
-    */
 }

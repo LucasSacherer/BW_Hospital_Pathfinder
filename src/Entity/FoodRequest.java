@@ -11,7 +11,6 @@ public class FoodRequest implements Request{
     final private String description;
     final private Node node;
     final private User user;
-
     final private List<String> order;
 
     public FoodRequest(String name, LocalDateTime timeCreated, LocalDateTime timeCompleted, String type,
@@ -23,7 +22,6 @@ public class FoodRequest implements Request{
         this.description = description;
         this.node = node;
         this.user = user;
-
         this.order = order;
     }
 
@@ -53,6 +51,10 @@ public class FoodRequest implements Request{
 
     public User getUser() {
         return user;
+    }
+
+    public List<String> getOrder() {
+        return order;
     }
 
     @Override

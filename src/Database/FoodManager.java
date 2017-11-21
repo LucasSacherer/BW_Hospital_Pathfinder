@@ -4,11 +4,8 @@ import DatabaseSetup.DatabaseGargoyle;
 import Entity.FoodRequest;
 import Entity.Node;
 import Entity.User;
-import sun.awt.FontDescriptor;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +15,6 @@ public class FoodManager {
     private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
     private NodeManager nodeManager = new NodeManager();
     private UserManager userManager = new UserManager();
-
 
     public FoodManager(){
         requests = new ArrayList<>();
@@ -32,7 +28,8 @@ public class FoodManager {
         LocalDateTime timeCreated, timeCompleted;
         Node node;
         User user;
-
+        nodeManager.updateNodes();
+        userManager.updateUsers();
         requests.clear();
         databaseGargoyle.createConnection();
         ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST", databaseGargoyle.getStatement());
