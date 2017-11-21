@@ -3,8 +3,6 @@ package boundary;
 
 import Admin.UserLoginController;
 import Database.UserManager;
-import Entity.Edge;
-import Entity.Node;
 import Database.EdgeManager;
 import Database.NodeManager;
 import MapNavigation.*;
@@ -21,7 +19,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,7 +28,6 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class GodController {
     private final String mainLoc = "./fxml/main.fxml";
@@ -68,7 +64,7 @@ public class GodController {
     private StackPane menuARStackPane;
 
     @FXML
-    private Canvas canvas;
+    private Canvas canvas, mapEditCanvas;
 
     @FXML
     private Label currentFloorNum;
@@ -77,7 +73,7 @@ public class GodController {
     private TextField originField, destinationField;
 
     @FXML
-    private ImageView imageView;
+    private ImageView imageView, mapEditImageView;
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
@@ -139,18 +135,17 @@ public class GodController {
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
 
-
-    //Scene Switcher
     ObservableList<String> nodeTypeList, buildingList;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
+
     /* Scene Controllers */
     MainSceneController mainSceneController;
     LoginController loginController;
     AdminHubController adminHubController = new AdminHubController();
     AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
     AdminLogController adminLogController = new AdminLogController();
-    AdminMapController adminMapController = new AdminMapController();
+    AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
     StaffRequestController staffRequestController = new StaffRequestController();
 
 //    /** Organize Functions by Scene **/
@@ -269,11 +264,11 @@ public class GodController {
     /* Main scene */
     ////////////////
     @FXML
-    private void setLoc1(ActionEvent e) { mainSceneController.setLoc1(originField); }
+    private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(originField); }
 
     //sets loc2 to nearest node to click location
     @FXML
-    private void setLoc2(ActionEvent e) { mainSceneController.setLoc2(destinationField); }
+    private void setLoc2(ActionEvent e) { mainSceneController.setDestination(destinationField); }
 
     // finds the path from loc1 to loc2
     @FXML
@@ -433,6 +428,7 @@ public class GodController {
         sceneSwitcher.switchScene(this, adminHubPane, mapEditLoc);
         nodetypeCombo.setItems(nodeTypeList);
         buildingCombo.setItems(buildingList);
+        adminMapController.initializeScene();
     }
 
     @FXML

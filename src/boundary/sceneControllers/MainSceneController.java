@@ -27,7 +27,7 @@ public class MainSceneController {
     private PathFindingFacade pathFindingFacade;
     private ImageView imageView;
 
-    private Node loc1, loc2, currentLoc;
+    private Node origin, destination, currentLoc;
 
     public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum){
         this.imageView = i;
@@ -39,26 +39,64 @@ public class MainSceneController {
         this.currentFloorNum = currentFloorNum;
         currentFloor = "G";
         currentFloorNum.setText(currentFloor);
-    }
-
-    public void setLoc1(TextField originField) {
-        loc1 = currentLoc;
-        System.out.println(loc1);
-        originField.setText(loc1.getShortName());
-        drawCurrentNode();
+      // todo set origin:  this.origin = mapNavigationFacade.getDefaultNode(); //todo change the origin when the floor changes
     }
 
 
-    public void setLoc2(TextField destinationField) {
-        loc2 = currentLoc;
-        destinationField.setText(loc2.getShortName());
+    public void clickOnMap(MouseEvent m) {
+        if (origin == null ) {//TODO replace this code with real origin
+            origin = mapNavigationFacade.getNearestNode((int) m.getX(), (int) m.getY(),currentFloor);
+        }
+        snapToNode(m);
+    }
+
+    public void snapToNode(MouseEvent m) {
+        int x = (int) m.getX();
+        int y = (int) m.getY();
+        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
+        refreshCanvas();
+    }
+
+    private void refreshCanvas() {
+        clearCanvas();
+        if (origin != null && origin.getFloor().equals(currentFloor)) drawNode(origin, Color.RED);
+        if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.GREEN);
+        if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
+        drawPath();
+    }
+
+    public void clearCanvas() { gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight()); }
+
+    private void drawNode(Node n, Color c) {
+        if (n == null) return;
+        gc.setFill(c);
+        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
+    }
+
+    public void drawCurrentNode() {
+        if(currentLoc == null || !currentLoc.getFloor().equals(currentFloor)){ return; }
+        gc.setFill(Color.BLUE);
+        gc.fillOval(currentLoc.getXcoord()-5,currentLoc.getYcoord()-5,10,10);
+    }
+
+    public void setOrigin(TextField originField) {
+        currentPath = null;
+        origin = currentLoc;
+        System.out.println(origin);
+        originField.setText(origin.getNodeID());
+        refreshCanvas();
+    }
+
+    public void setDestination(TextField destinationField) {
+        currentPath = null;
+        destination = currentLoc;
+        destinationField.setText(destination.getNodeID());
+        refreshCanvas();
     }
 
     public void findPath() {
-        currentPath = pathFindingFacade.getPath(loc1,loc2);
-        clearCanvas();
-        drawPath();
-        drawCurrentNode();
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        refreshCanvas();
     }
 
     public void zoomInMap() {
@@ -74,21 +112,10 @@ public class MainSceneController {
         mapPane.setScaleY(mapPane.getScaleY() - 0.1);
     }
 
-    public void snapToNode(MouseEvent m) {
-        clearCanvas();
-        int x = (int) m.getX();
-        int y = (int) m.getY();
-        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
-        drawCurrentNode();
-    }
 
     public void drawPath() {
-
         List<Node> pathToDraw = currentPath;
-
-        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){
-            return;
-        }
+        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){ return; }
 
         /** Testing Only **
          ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
@@ -107,44 +134,16 @@ public class MainSceneController {
         }
     }
 
-    public void drawCurrentNode() {
-        Node toDraw = currentLoc;
-        if(toDraw == null || !toDraw.getFloor().equals(currentFloor)){
-            return;
-        }
-        gc.setFill(Color.BLUE);
-        gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
-    }
+    public void bathroomClicked() { findNearest(currentLoc, "REST"); }
 
-    public void clearCanvas() {
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-    }
+    public void infoClicked() { findNearest(currentLoc, "INFO"); }
 
-    public void bathroomClicked() {
-        findNearest(currentLoc, "REST");
-    }
-
-
-    public void infoClicked() {
-        findNearest(currentLoc, "INFO");
-    }
-
-    public void elevatorClicked() {
-        findNearest(currentLoc, "ELEV");
-    }
+    public void elevatorClicked() { findNearest(currentLoc, "ELEV"); }
 
     private void findNearest(Node node, String type) {
-        //todo loc2 = mapNavigationFacade.getNearestPOI(node.getXcoord(), node.getYcoord(), type);
-        drawNode(loc2);
-        currentPath = pathFindingFacade.getPath(loc1, loc2);
-        clearCanvas();
-        drawPath();
-        drawCurrentNode();
-    }
-
-    private void drawNode(Node n) {
-        gc.setFill(Color.BLUE);
-        gc.fillOval(n.getXcoord(), n.getYcoord(), 20, 20);
+        destination = mapNavigationFacade.getNearestPOI(node.getXcoord(), node.getYcoord(), type);
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        refreshCanvas();
     }
 
     public void floorDown() throws IOException, SQLException {
@@ -152,70 +151,49 @@ public class MainSceneController {
             case "L2" :
                 return;
             case "L1" :
-                imageView.setImage(mapNavigationFacade.getFloorMap("L2"));
                 currentFloor = "L2";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "G" :
-                imageView.setImage(mapNavigationFacade.getFloorMap("L1"));
                 currentFloor = "L1";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "1" :
-                imageView.setImage(mapNavigationFacade.getFloorMap("G"));
                 currentFloor = "G";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "2" :
-                imageView.setImage(mapNavigationFacade.getFloorMap("1"));
                 currentFloor = "1";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "3" :
-                imageView.setImage(mapNavigationFacade.getFloorMap("2"));
                 currentFloor = "2";
-                currentFloorNum.setText(currentFloor);
                 break;
         }
-        clearCanvas();
-        drawPath();
-        drawCurrentNode();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        currentFloorNum.setText(currentFloor);
+        refreshCanvas();
     }
 
     public void floorUp() throws IOException, SQLException {
         switch (currentFloor) {
+            case "3":
+                return;
             case "L2":
-                imageView.setImage(mapNavigationFacade.getFloorMap("L1"));
                 currentFloor = "L1";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "L1":
-                imageView.setImage(mapNavigationFacade.getFloorMap("G"));
                 currentFloor = "G";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "G":
-                imageView.setImage(mapNavigationFacade.getFloorMap("1"));
                 currentFloor = "1";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "1":
-                imageView.setImage(mapNavigationFacade.getFloorMap("2"));
                 currentFloor = "2";
-                currentFloorNum.setText(currentFloor);
                 break;
             case "2":
-                imageView.setImage(mapNavigationFacade.getFloorMap("3"));
                 currentFloor = "3";
-                currentFloorNum.setText(currentFloor);
                 break;
         }
-        clearCanvas();
-        drawPath();
-        drawCurrentNode();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        currentFloorNum.setText(currentFloor);
+        refreshCanvas();
     }
 
-    public void clickOnMap(MouseEvent m) {
-        snapToNode(m);
-    }
 }

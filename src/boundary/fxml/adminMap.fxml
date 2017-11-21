@@ -182,8 +182,8 @@
                                  <content>
                                     <Pane prefHeight="980.0" prefWidth="1651.0">
                                        <children>
-                                          <ImageView fitHeight="3400.0" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Canvas height="3400.0" width="5000.0" />
+                                          <ImageView fx:id="mapImageView" fitHeight="3400.0" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Canvas fx:id="mapEditCanvas" height="3400.0" width="5000.0" />
                                        </children>
                                     </Pane>
                                  </content>
