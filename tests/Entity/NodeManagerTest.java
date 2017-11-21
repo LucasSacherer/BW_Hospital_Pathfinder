@@ -99,8 +99,8 @@ public class NodeManagerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        String nearestNode = manager.nearestLoc(0,0,"1", "bathroom").getNodeID();
-        Node nearestNull = manager.nearestLoc(0, 0, "1","monkey");
+        String nearestNode = manager.nearestLoc(0,0, "bathroom").getNodeID();
+        Node nearestNull = manager.nearestLoc(0, 0,"monkey");
 
         manager.removeNode(test);
         manager.removeNode(test2);

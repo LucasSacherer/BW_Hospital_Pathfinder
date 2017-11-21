@@ -19,8 +19,6 @@ public class MapNavigationFacade {
         this.clickController = clickController;
         this.nearestPOIController = nearestPOIController;
         this.directoryController = directoryController;
-
-
     }
 
     public Node getNearestNode(int x, int y, String floor){
@@ -28,7 +26,7 @@ public class MapNavigationFacade {
     }
 
     public Node getNearestPOI(int x, int y, String floor, String type){
-        return nearestPOIController.nearestPOI(x,y,floor,type);
+        return nearestPOIController.nearestPOI(x,y,type);
     }
 
     public Image getFloorMap(String floor) throws IOException, SQLException{
@@ -39,8 +37,8 @@ public class MapNavigationFacade {
         return directoryController.getDirectory();
     }
 
-    public Node getDefaultNode(){
-        return directoryController.getDefaultNode();
-    }
+    //public Node getDefaultNode(){
+    //    return directoryController.getDefaultNode();
+    //}
 
 }
