@@ -146,6 +146,8 @@ public class GodController {
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
     StaffRequestController staffRequestController = new StaffRequestController();
+    AdminRequestController adminRequestController = new AdminRequestController();
+
 
 //    /** Organize Functions by Scene **/
 
@@ -156,6 +158,7 @@ public class GodController {
         pathFindingFacade.setPathfinder(astar);
         initializeLoginScene(staffPasswordText, staffLoginText);
         initializeMapAdminScene();
+        initializeAdminRequestScene();
         Image groundFloor = null;
         groundFloor = mapNavigationFacade.getFloorMap("G");
         imageView.setImage(groundFloor);
@@ -191,6 +194,11 @@ public class GodController {
         exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
+    }
+
+    private void initializeAdminRequestScene(){
+        adminRequestController = new AdminRequestController(
+        );
     }
 
 
@@ -262,6 +270,16 @@ public class GodController {
     /* Request Scene */
     ///////////////////
 
+    //Spills
+    @FXML
+    private void displaySpillsOnMap(MouseEvent e) throws IOException {
+        adminRequestController.displaySpillsOnMap();
+    }
+    @FXML
+    private void displaySpillsOnMap() throws IOException {
+        adminRequestController.displaySpillsOnMap();
+    }
+
 
 
     ///////////////
@@ -281,7 +299,6 @@ public class GodController {
     ///////////////////
     /* Request Admin */
     ///////////////////
-
 
 
 
