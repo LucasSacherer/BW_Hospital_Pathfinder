@@ -9,7 +9,8 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.List;
 
-public class Astar implements PathFinder {
+
+ class Astar implements PathFinder {
     EdgeManager edgeM;
     // The set of nodes already evaluated
     ArrayList<Node> closedSet = new ArrayList<Node>();
@@ -28,11 +29,15 @@ public class Astar implements PathFinder {
         }
     };
 
-    public Astar(EdgeManager e){
+    Astar(EdgeManager e){
         this.edgeM = e;
     }
 
-    public ArrayList<Node> Astar(Node loc1, Node loc2) {
+     public ArrayList<Node> pathFind(Node loc1, Node loc2){
+        return Astar(loc1, loc2);
+    }
+
+    private ArrayList<Node> Astar(Node loc1, Node loc2) {
         //define starting edge, just to get weight
         Edge tempEdge = new Edge(loc1,loc2);
         double hCost = (double)(tempEdge.getWeight());

@@ -1,6 +1,6 @@
 package controller;
 
-import Pathfinding.Astar;
+//import Pathfinding.Astar;
 import Database.EdgeManager;
 import Entity.Node;
 import Database.NodeManager;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PathControllerTest {
-
+/*
     @Test
     public void findPathTest(){
         NodeManager nodeM = new NodeManager();
@@ -49,7 +49,7 @@ public class PathControllerTest {
         assertEquals(false, pathController.validatePath(nodeA, nodeD));
         assertEquals(true, pathController.validatePath(nodeA, nodeE));
         assertEquals(true, pathController.validatePath(nodeA, nodeF));
-        */
+
     }
 
     @Test
@@ -73,6 +73,6 @@ public class PathControllerTest {
         System.out.println(ansID);
     }
 
-
+*/
 
 }
