@@ -4,7 +4,7 @@ import Entity.Node;
 import Database.NodeManager;
 import MapNavigation.DirectoryController;
 import org.junit.Test;
-
+import MapNavigation.*;
 import java.util.ArrayList;
 import java.util.List;
 

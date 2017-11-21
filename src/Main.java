@@ -8,12 +8,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
         databaseGargoyle.createTables();
         databaseGargoyle.destroyConnection();
-
+    }
+    /*
         //Load UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/fxml/main.fxml"));
         GodController godController = new GodController();
@@ -27,5 +28,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
+    }*/
 }
