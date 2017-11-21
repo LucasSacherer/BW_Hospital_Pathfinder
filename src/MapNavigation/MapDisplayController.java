@@ -23,7 +23,7 @@ public class MapDisplayController {
      * @throws IOException
      * @throws SQLException
      */
-    protected Image getMap(String floor) throws IOException, SQLException {
+    protected Image getMap(String floor) {
         return imageManager.getImage(floor);
     }
 }

@@ -165,13 +165,7 @@ public class GodController {
         initializeMapAdminScene();
 
         Image groundFloor = null;
-        try {
-            groundFloor = mapNavigationFacade.getFloorMap("G");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        groundFloor = mapNavigationFacade.getFloorMap("G");
         imageView.setImage(groundFloor);
 //        initializeDirectory();
 //        initializeDirectoryListeners();
