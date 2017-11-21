@@ -14,8 +14,8 @@ public class SettingsManager {
     private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
 
-    public SettingsManager(HashMap<String, String> settings){
-        this.settings = settings;
+    public SettingsManager(){
+        settings = new HashMap<>();
     }
 
 
