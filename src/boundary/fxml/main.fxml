@@ -493,7 +493,7 @@
                                           </Group>
                                           <Group onMouseClicked="#mainToLogin">
                                              <children>
-                                                <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" onMouseClicked="#mainToLogin" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/ic_account_circle_black_24dp.png" />
                                                    </image>

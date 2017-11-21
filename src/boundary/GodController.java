@@ -366,5 +366,4 @@ public class GodController {
     private void employeeToAdminHub() throws IOException {
         sceneSwitcher.switchScene(this, adminEmployeePane, adminHubLoc);
     }
-
 }
