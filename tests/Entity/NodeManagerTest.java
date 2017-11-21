@@ -3,6 +3,8 @@ package Entity;
 import Database.NodeManager;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -22,23 +24,6 @@ public class NodeManagerTest {
         assertEquals(manager.getNode("GHALL00601").getNodeID(),"GHALL00601");
         assertNull(manager.getNode(""));
         assertNull(manager.getNode(null));
-    }
-
-    @Test
-    public void testGetVisitableNodes(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
-        /*List<Node> visitable = manager.getVisitableNodes();
-        boolean ok = true;
-        if (visitable.size() == 0){
-            ok = false;
-        }
-        for (Node node: visitable){
-            if (!node.isVisitable()){
-                ok = false;
-            }
-        }
-        assertTrue(ok);*/
     }
 
     @Test
@@ -97,8 +82,8 @@ public class NodeManagerTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        String nearestNode = manager.nearestLoc(0,0,"1", "bathroom").getNodeID();
-        Node nearestNull = manager.nearestLoc(0, 0, "1","monkey");
+        String nearestNode = manager.nearestLoc(0,0, "bathroom").getNodeID();
+        Node nearestNull = manager.nearestLoc(0, 0,"monkey");
 
         manager.removeNode(test);
         manager.removeNode(test2);

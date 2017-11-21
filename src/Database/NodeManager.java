@@ -79,15 +79,6 @@ public class NodeManager {
     }
 
     /**
-     * Returns a list of all nodes marked with the visitable flag
-     * @return the list of visitable nodes
-     */
-    public List<Node> getVisitableNodes(){
-        //filters to nodes that are only visitable
-        return nodes.stream().filter(Node::isVisitable).collect(Collectors.toList());
-    }
-
-    /**
      * Adds the given node to the database and updates the node manager
      * @param node - node to be added to the database
      */
@@ -168,18 +159,20 @@ public class NodeManager {
 
     /**
      * Finds the node of a given type nearest to the given coordinate
+     * However it will currently go to the nearest only based on coordinates but
+     * it does not take into account the distance to stairs/elevators
      * @param x the x coordinate to search from
      * @param y the y coordinate to search from
      * @param type the type of node to search for
      * @return result the closest node of the specified type
      */
-    public Node nearestLoc(int x, int y, String floor, String type){
+    public Node nearestLoc(int x, int y, String type){
         double newDistance;
         double nodeDistance = 10000000000.0;
         Node result = null;
 
         for (Node node: nodes){
-            if(node.getNodeType().equals(type) && node.getFloor().equals(floor)) {
+            if(node.getNodeType().equals(type)) {
                 newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
                         (y - node.getYcoord()) * (y - node.getYcoord())));
                 if (newDistance < nodeDistance) {
