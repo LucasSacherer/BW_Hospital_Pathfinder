@@ -179,13 +179,12 @@ public class TableCreator {
                     " requestName VARCHAR(250) NOT NULL,\n" +
                     " timeCreated TIMESTAMP NOT NULL,\n" +
                     " foodItem VARCHAR(250) NOT NULL,\n" +
-                    " quantity INTEGER NOT NULL,\n" +
-                    " CONSTRAINT foodOrder_PK PRIMARY KEY (requestName, foodItem),\n" +
                     " CONSTRAINT foodOrder_FK FOREIGN KEY (requestName, timeCreated) REFERENCES FoodRequest(name, timeCreated))");
             System.out.println("FoodOrder table created!");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger', 2)");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna', 10)");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk', 1)");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
             //e.printStackTrace();
