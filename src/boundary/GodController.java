@@ -11,7 +11,10 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,8 +74,29 @@ public class GodController {
     @FXML
     private TextField staffLoginText, staffPasswordText;
 
+
+    //// MAP ADMIN FXML
     @FXML
-    private JFXComboBox nodetypeCombo, buildingCombo;
+    private Tab addNode, editNode, removeNode, nodesTab, edgesTab;
+
+    @FXML
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3;
+
+    @FXML
+    private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
+
+    @FXML
+    private JFXTextField xPosAdd, yPossAdd, xPosEdit, yPossEdit, xPosRemove, yPossRemove,
+            shortNameAdd, shortNameEdit, shortNameRemove,
+            longNameAdd, longNameEdit, longNameRemove;
+    @FXML
+    private JFXButton addNodeButton, resetNodeButtonAdd,
+            editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove;
+    @FXML
+    private JFXListView nodesListView;
+
+
+
 
     ObservableList<String> nodeTypeList, buildingList;
 

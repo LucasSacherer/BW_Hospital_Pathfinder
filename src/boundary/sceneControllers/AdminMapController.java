@@ -12,16 +12,6 @@ public class AdminMapController {
 
 
 
-    @FXML
-    private Tab nodesTab, edgesTab, addNode, editNode, removeNode, addEdge, removeEdge;
-
-    @FXML
-    private TextField xNode, yNode, nodeShortName,nodeLongName ;
-
-    @FXML
-    private Button addNodeButton;
-
-
     public void drawNode(Node n) {
       //  gc.setFill(Color.BLUE);
       //  gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
