@@ -53,6 +53,7 @@ public class NodeEditControllerTest {
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
 
         NodeManager nManager = new NodeManager();
+        nManager.updateNodes();
         HashMap<String, String> settings = new HashMap<>();
         SettingsManager sManager = new SettingsManager(settings);
         NodeEditController editor = new NodeEditController(nManager, sManager);
@@ -60,5 +61,6 @@ public class NodeEditControllerTest {
         editor.setKioskLocation(test);
 
         assertEquals(editor.settingsManager.getSetting("Default Node"), test.getNodeID());
+        editor.setKioskLocation(nManager.getNode("GHALL03802"));
     }
 }
