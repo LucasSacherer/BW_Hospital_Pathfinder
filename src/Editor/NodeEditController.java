@@ -4,8 +4,9 @@ import Database.NodeManager;
 import Database.SettingsManager;
 import Entity.Node;
 
-public class NodeEditControler {
+public class NodeEditController {
 
+    //should these be private? Or is package private fine?
     NodeManager nodeManager;
     SettingsManager settingsManager;
 

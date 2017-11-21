@@ -9,6 +9,10 @@ public class EdgeEditController {
 
     EdgeManager edgeManager;
 
+    EdgeEditController(EdgeManager edgem){
+        this.edgeManager = edgem;
+    }
+
     //returns all the edges
     public List<Edge> getAllEdges() {
         return edgeManager.getAllEdges();
