@@ -145,6 +145,8 @@ public class GodController {
 //
     @FXML
     private void initialize(){
+        nodeManager.updateNodes();
+        edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
         initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade);
         initializeLoginScene(staffPasswordText, staffLoginText);

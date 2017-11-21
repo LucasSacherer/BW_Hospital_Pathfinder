@@ -22,8 +22,6 @@ public class MapNavigationFacade {
     }
 
     public Node getNearestNode(int x, int y, String floor){
-
-        System.out.println("made it");
         return clickController.getNearestNode(x,y,floor);
     }
 
