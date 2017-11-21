@@ -149,7 +149,7 @@ public class GodController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade);
+        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
         initializeLoginScene(staffPasswordText, staffLoginText);
         initializeMapAdminScene();
 
@@ -175,9 +175,11 @@ public class GodController {
         loginController = new LoginController();
     }
 
-    private void initializeMainScene(ImageView imageView, Pane mapPane, Canvas canvas,
-                                     MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade) {
-       mainSceneController = new MainSceneController(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade);
+    private void initializeMainScene(
+            ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
+            PathFindingFacade pathFindingFacade, Label currentFloorNum) {
+        mainSceneController = new MainSceneController(
+                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
     }
 //
 //    private void initializeDirectory() {
