@@ -47,7 +47,8 @@ public class FoodManager {
                 userID = rs.getString("USERID");
                 node = nodeManager.getNode(nodeID);
                 user = userManager.getUser(userID);
-                requests.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user));
+                requests.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, null));
+                //TODO: change this so that order is not null
             }
         } catch (SQLException e) {
             System.out.println("Failed to get users from database!");
