@@ -1,17 +1,16 @@
 package boundary.sceneControllers;
 
 
+        import Entity.Node;
         import javafx.collections.FXCollections;
         import javafx.collections.ObservableList;
         import javafx.fxml.FXML;
         import javafx.scene.control.*;
+        import javafx.scene.paint.Color;
 
 public class AdminMapController {
 
-    ObservableList<String> nodeTypeList = FXCollections
-            .observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
-    ObservableList<String> buildingList = FXCollections
-            .observableArrayList("Shapiro", "Non-Shapiro");
+
 
     @FXML
     private Tab nodesTab, edgesTab, addNode, editNode, removeNode, addEdge, removeEdge;
@@ -20,19 +19,25 @@ public class AdminMapController {
     private TextField xNode, yNode, nodeShortName,nodeLongName ;
 
     @FXML
-    private ComboBox nodetypeCombo, buildingCombo;
-
-    @FXML
     private Button addNodeButton;
 
-    @FXML
-    private void initiliaze(){
 
-        nodetypeCombo.setItems(nodeTypeList);
-
-        buildingCombo.setItems(buildingList);
-
+    public void drawNode(Node n) {
+      //  gc.setFill(Color.BLUE);
+      //  gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
+      //  gc.setFill(Color.BLACK);
     }
 
+    public void drawEdge() {
+//        Node startNode = edge.getStartNode();
+//        int sx = startNode.getXcoord();
+//        int sy = startNode.getYcoord();
+//        Node endNode = edge.getEndNode();
+//        int ex = endNode.getXcoord();
+//        int ey = endNode.getYcoord();
+//
+//        gc.setLineWidth(3);
+//        gc.strokeLine(sx,sy,ex,ey);
+    }
 
 }

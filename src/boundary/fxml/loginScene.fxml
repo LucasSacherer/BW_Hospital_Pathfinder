@@ -40,8 +40,8 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </JFXButton>
-                <JFXPasswordField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                <JFXTextField fx:id="admin" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <JFXPasswordField fx:id="staffPasswordText" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                <JFXTextField fx:id="staffLoginText" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <ImageView fitHeight="160.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                     <image>
                         <Image url="@../images/other%20images/BWH.jpg" />

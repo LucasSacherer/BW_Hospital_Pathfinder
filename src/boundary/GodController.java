@@ -1,13 +1,19 @@
 package boundary;
 
 
+import Admin.UserLoginController;
+import Database.UserManager;
 import Entity.Edge;
 import Entity.Node;
 import Database.EdgeManager;
 import Database.NodeManager;
 import MapNavigation.MapNavigationFacade;
+import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -30,28 +36,14 @@ public class GodController {
     private final String adminRequestLoc = "./fxml/adminRequest.fxml";
     private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
     private final String mapEditLoc = "./fxml/adminMap.fxml";
-//
-    SceneSwitcher sceneSwitcher = new SceneSwitcher();
-    /* Scene Controllers */
-    MainSceneController mainSceneController = new MainSceneController();
-    LoginController loginController = new LoginController();
-    AdminHubController adminHubController = new AdminHubController();
-    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
-    AdminLogController adminLogController = new AdminLogController();
-    AdminMapController adminMapController = new AdminMapController();
-    StaffRequestController staffRequestController = new StaffRequestController();
 
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade();
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
-
-    private Node loc1;
-    private Node loc2;
-    private Node currentLoc;
-    private String currentFloor;
-    private List<Node> currentPath;
+    final private Astar astar = new Astar(edgeManager);
+    final private UserLoginController userLoginController = new UserLoginController(new UserManager());
 
     ///////////////////////
     /** FXML Attributes **/
@@ -74,16 +66,35 @@ public class GodController {
     private ImageView imageView;
 
     @FXML
-    GraphicsContext gc;
-
-    @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-//
+    @FXML
+    private TextField staffLoginText, staffPasswordText;
+
+    @FXML
+    private JFXComboBox nodetypeCombo, buildingCombo;
+
+    ObservableList<String> nodeTypeList, buildingList;
+
+    SceneSwitcher sceneSwitcher = new SceneSwitcher();
+    /* Scene Controllers */
+    MainSceneController mainSceneController;
+    LoginController loginController;
+    AdminHubController adminHubController = new AdminHubController();
+    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
+    AdminLogController adminLogController = new AdminLogController();
+    AdminMapController adminMapController = new AdminMapController();
+    StaffRequestController staffRequestController = new StaffRequestController();
+
 //    /** Organize Functions by Scene **/
 //
-//    @FXML
-//    private void initialize(){
+    @FXML
+    private void initialize(){
+        pathFindingFacade.setPathfinder(astar);
+        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade);
+        initializeLoginScene(staffPasswordText, staffLoginText);
+        initializeMapAdminScene();
+
 //        nodeManager.updateNodes();
 //        edgeManager.updateEdges();
 //
@@ -96,12 +107,25 @@ public class GodController {
 //            e.printStackTrace();
 //        }
 //        imageView.setImage(groundFloor);
-//        gc = canvas.getGraphicsContext2D();
 //        currentFloor = "G";
 //        currentFloorNum.setText(currentFloor);
 //        initializeDirectory();
 //        initializeDirectoryListeners();
-//    }
+    }
+
+    private void initializeMapAdminScene() {
+        nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
+        buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
+    }
+
+    private void initializeLoginScene(TextField staffPasswordText, TextField staffLoginText) {
+        loginController = new LoginController();
+    }
+
+    private void initializeMainScene(ImageView imageView, Pane mapPane, Canvas canvas,
+                                     MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade) {
+       mainSceneController = new MainSceneController(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade);
+    }
 //
 //    private void initializeDirectory() {
 //        elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
@@ -179,11 +203,11 @@ public class GodController {
     /* Main scene */
     ////////////////
     @FXML
-    private void setLoc1(ActionEvent e) { mainSceneController.setLoc1(); }
+    private void setLoc1(ActionEvent e) { mainSceneController.setLoc1(originField); }
 
     //sets loc2 to nearest node to click location
     @FXML
-    private void setLoc2(ActionEvent e) { mainSceneController.setLoc2(); }
+    private void setLoc2(ActionEvent e) { mainSceneController.setLoc2(destinationField); }
 
     // finds the path from loc1 to loc2
     @FXML
@@ -197,17 +221,12 @@ public class GodController {
     @FXML
     private void zoomOutMap(MouseEvent e) { mainSceneController.zoomOutMap(); }
 
-    private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(); }
+    @FXML
+    private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
 
     private void drawPath() { mainSceneController.drawPath(); }
 
     private void drawCurrentNode(){ mainSceneController.drawCurrentNode(); }
-
-    @FXML
-    private void drawEdge(Edge edge){ mainSceneController.drawEdge(); }
-
-    @FXML
-    private void drawNode(Node n) { mainSceneController.drawNode(); }
 
     @FXML
     private void clearCanvas(){ mainSceneController.clearCanvas(); }
@@ -228,7 +247,7 @@ public class GodController {
     private void floorUp(MouseEvent e) throws IOException, SQLException { mainSceneController.floorUp(); }
 
     @FXML
-    private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(); }
+    private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
 
     //////////////////
     /* Login Scene */
@@ -271,11 +290,16 @@ public class GodController {
 
 
 
+
     ///////////////
     /* Map Admin */
     ///////////////
 
+    @FXML
+    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
 
+//    @FXML
+//    private void drawNode(Node n) { mainSceneController.drawNode(); }
 
     ////////////////
     /* Admin Logs */
@@ -306,7 +330,9 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
-        sceneSwitcher.switchScene(this, loginPane, requestLoc);
+        if (staffLoginText.getText().equals("admin")) {
+            sceneSwitcher.switchScene(this, loginPane, requestLoc);
+        }
     }
 
     @FXML
@@ -337,6 +363,8 @@ public class GodController {
     @FXML
     private void adminHubtoMap() throws IOException {
         sceneSwitcher.switchScene(this, adminHubPane, mapEditLoc);
+        nodetypeCombo.setItems(nodeTypeList);
+        buildingCombo.setItems(buildingList);
     }
 
     @FXML
