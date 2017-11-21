@@ -3,16 +3,20 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane layoutX="160.0" layoutY="145.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -20,22 +24,50 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="160.0" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="160.0" minHeight="0.0" prefHeight="55.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <JFXButton onAction="#goToRequests" prefHeight="31.0" prefWidth="78.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <JFXButton onAction="#goToRequests" prefHeight="31.0" prefWidth="78.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
-                        <Font name="Arial" size="15.0" />
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </JFXButton>
-                <JFXButton onAction="#goToMainScreen" prefHeight="31.0" prefWidth="84.0" ripplerFill="WHITE" style="-fx-background-color: #ff716a;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                <JFXButton fx:id="cancel1" onAction="#goToMainScene" prefHeight="31.0" prefWidth="84.0" ripplerFill="WHITE" style="-fx-background-color: #ff716a;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </JFXButton>
                 <JFXPasswordField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                <JFXTextField promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <ImageView fitHeight="82.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <JFXTextField fx:id="admin" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <ImageView fitHeight="160.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../images/other%20images/BWH.jpg" />
+                    </image>
+                </ImageView>
                 <ImageView fitHeight="82.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
-            <JFXButton contentDisplay="CENTER" onAction="#goToAdminHub" text="Go to Admin Hub" textAlignment="CENTER" GridPane.columnIndex="1" />
+                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <Hyperlink onAction="#switchToStaff" prefHeight="22.0" prefWidth="85.0" text="Domain: Admin" textFill="#2f00ff" underline="true" visible="false" StackPane.alignment="CENTER_RIGHT">
+                            <font>
+                                <Font size="11.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Hyperlink>
+                        <Hyperlink layoutX="125.0" layoutY="10.0" onAction="#switchToAdmin" prefHeight="22.0" prefWidth="85.0" text="Domain: Staff" textFill="#2f00ff" underline="true" StackPane.alignment="CENTER_RIGHT">
+                            <font>
+                                <Font size="11.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Hyperlink>
+                    </children>
+                </StackPane>
             </children>
         </GridPane>
     </children>

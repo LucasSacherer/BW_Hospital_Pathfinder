@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 public class Node {
     final private String nodeID;
