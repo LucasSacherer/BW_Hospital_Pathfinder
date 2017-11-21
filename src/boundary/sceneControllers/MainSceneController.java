@@ -185,8 +185,12 @@ public class MainSceneController {
                 gc.setLineWidth(3);
                 gc.strokeLine(x1, y1, x2, y2);
             }
-            else if (pathToDraw.get(i).getFloor().equals(currentFloor) || pathToDraw.get(i+1).equals(currentFloor)) {
-                // todo This is a connection, draw an up/down elevator
+            else if (pathToDraw.get(i).getFloor().equals(currentFloor)) {
+
+            }
+            else if (pathToDraw.get(i+1).equals(currentFloor)) {
+                if (next is up) draw an up arrow;
+                else (write "down");
             }
         }
     }
