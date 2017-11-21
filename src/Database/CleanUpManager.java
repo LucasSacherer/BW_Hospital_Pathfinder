@@ -112,7 +112,13 @@ public class CleanUpManager {
      * @return
      */
     public List<CleanUpRequest> getRequests(){
-        return requests;
+        List<CleanUpRequest> list = new ArrayList<>();
+        for (CleanUpRequest req: requests){
+            if (req.getTimeCreated().equals(req.getTimeCompleted())){
+                list.add(req);
+            }
+        }
+        return list;
     }
 
     /**
@@ -152,7 +158,7 @@ public class CleanUpManager {
     }
 
     /**
-     * FOR TESTING ONLY
+     * Returns the request with the given name and date
      * @param name
      * @param date
      * @return
