@@ -201,6 +201,7 @@ public class TableCreator {
                     " string1 VARCHAR(250) PRIMARY KEY,\n" +
                     " string2 VARCHAR(250) NOT NULL\n)");
             System.out.println("Settings table created!");
+            statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Default Node','GHALL03802')");
         } catch (SQLException e) {
             System.out.println("Settings table already exists");
         }
