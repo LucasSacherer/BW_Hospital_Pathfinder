@@ -2,6 +2,7 @@ package boundary;
 
 
 import Admin.UserLoginController;
+import Database.SettingsManager;
 import Database.UserManager;
 import Database.EdgeManager;
 import Database.NodeManager;
@@ -42,10 +43,11 @@ public class GodController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
+    final private SettingsManager settingsManager = new SettingsManager();
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
-    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+    final private DirectoryController directoryController = new DirectoryController(nodeManager,settingsManager);
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();

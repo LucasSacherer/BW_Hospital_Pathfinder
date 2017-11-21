@@ -17,9 +17,10 @@ public class MapNavigationFacadeTest {
     @Test
     public void getNearestNode() throws Exception {
         NodeManager manager = new NodeManager();
+        SettingsManager sm = new SettingsManager();
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
-        DirectoryController directoryController = new DirectoryController(manager);
+        DirectoryController directoryController = new DirectoryController(manager,sm);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
         manager.updateNodes();
@@ -44,9 +45,10 @@ public class MapNavigationFacadeTest {
     @Test
     public void getNearestPOI() throws Exception {
         NodeManager manager = new NodeManager();
+        SettingsManager sm = new SettingsManager();
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
-        DirectoryController directoryController = new DirectoryController(manager);
+        DirectoryController directoryController = new DirectoryController(manager,sm);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
         manager.updateNodes();
@@ -86,15 +88,14 @@ public class MapNavigationFacadeTest {
     @Test
     public void getDirectory() throws Exception {
     }
-/*
+
     @Test
     public void getDefaultNode() throws Exception {
-        HashMap<String,String> settings = new HashMap<>();
-        SettingsManager settingsManager = new SettingsManager(settings);
+        SettingsManager settingsManager = new SettingsManager();
         NodeManager manager = new NodeManager();
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
-        DirectoryController directoryController = new DirectoryController(manager);
+        DirectoryController directoryController = new DirectoryController(manager,settingsManager);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
         manager.updateNodes();
@@ -104,5 +105,5 @@ public class MapNavigationFacadeTest {
 
         assertEquals("GHALL03802", mapNavigationFacade.getDefaultNode().getNodeID());
     }
-*/
+
 }
