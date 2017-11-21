@@ -67,7 +67,17 @@ public class CleanUpManager {
      * @param cReq
      */
     public void updateRequest(CleanUpRequest cReq){
-
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
+                "TIMECOMPLETED = '" + Timestamp.valueOf(cReq.getTimeCompleted()) + "', " +
+                "TYPE = '" + cReq.getType() + "', " +
+                "DESCRIPTION = '" + cReq.getDescription() + "', " +
+                "NODEID = '" + cReq.getNode().getNodeID() + "', " +
+                "USERID = '" + cReq.getUser().getUserID() + "' " +
+                "WHERE NAME = '" + cReq.getName() + "' " +
+                "AND TIMECREATED = '" + Timestamp.valueOf(cReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
+        databaseGargoyle.destroyConnection();
+        updateRequests();
     }
 
     /**
@@ -75,7 +85,13 @@ public class CleanUpManager {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
-
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
+                "TIMECOMPLETED = '" + Timestamp.valueOf(cReq.getTimeCompleted()) + "' " +
+                "WHERE NAME = '" + cReq.getName() + "' " +
+                "AND TIMECREATED = '" + Timestamp.valueOf(cReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
+        databaseGargoyle.destroyConnection();
+        updateRequests();
     }
 
     /**
@@ -116,14 +132,23 @@ public class CleanUpManager {
                 creationTime + "," + completionTime + ",'" + cReq.getType() + "','" + cReq.getDescription() + "','" +
                 cReq.getNode().getNodeID() + "','" + cReq.getUser().getUserID() + "')",databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
+        updateRequests();
     }
 
     /**
      * Returns a list of the completed request directly from the database
      * @return
      */
-    public List<CleanUpRequest> getCompleted(){
-        return null;
+    public ArrayList<CleanUpRequest> getCompleted(){
+        ArrayList<CleanUpRequest> completed = new ArrayList<>();
+        updateRequests();
+
+        for (CleanUpRequest req: requests){
+            if (!req.getTimeCreated().equals(req.getTimeCompleted())){
+                completed.add(req);
+            }
+        }
+        return completed;
     }
 
     /**
