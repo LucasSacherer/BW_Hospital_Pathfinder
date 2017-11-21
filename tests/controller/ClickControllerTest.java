@@ -1,5 +1,13 @@
 package controller;
 
+import Entity.Node;
+import Database.NodeManager;
+import MapNavigation.ClickController;
+import org.junit.Test;
+import MapNavigation.*;
+
+import static org.junit.Assert.*;
+
 public class ClickControllerTest {
 //    @Test
 //    public void getNearestNode(){
