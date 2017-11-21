@@ -270,15 +270,7 @@ public class GodController {
     /* Request Scene */
     ///////////////////
 
-    //Spills
-    @FXML
-    private void displaySpillsOnMap(MouseEvent e) throws IOException {
-        adminRequestController.displaySpillsOnMap();
-    }
-    @FXML
-    private void displaySpillsOnMap() throws IOException {
-        adminRequestController.displaySpillsOnMap();
-    }
+
 
 
 
@@ -300,7 +292,15 @@ public class GodController {
     /* Request Admin */
     ///////////////////
 
-
+    //Spills
+    @FXML
+    private void displaySpillsOnMap(MouseEvent e) throws IOException {
+        adminRequestController.displaySpillsOnMap();
+    }
+    @FXML
+    private void displaySpillsOnMap() throws IOException {
+        adminRequestController.displaySpillsOnMap();
+    }
 
 
     ///////////////
