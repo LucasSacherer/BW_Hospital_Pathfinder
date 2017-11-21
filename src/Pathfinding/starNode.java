@@ -1,6 +1,6 @@
 package Pathfinding;
 
-import entity.Node;
+import Entity.Node;
 
 public class starNode {
     Node node;

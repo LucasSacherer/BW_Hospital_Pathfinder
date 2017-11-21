@@ -1,7 +1,6 @@
 package Pathfinding;
 
-import Pathfinding.Astar;
-import entity.Node;
+import Entity.Node;
 
 import java.util.ArrayList;
 import java.util.List;

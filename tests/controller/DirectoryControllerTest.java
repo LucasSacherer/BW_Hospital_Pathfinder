@@ -1,6 +1,6 @@
 package controller;
 
-import entity.Node;
+import Entity.Node;
 import Database.NodeManager;
 import MapNavigation.DirectoryController;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package controller;
 
 import Pathfinding.Astar;
 import Database.EdgeManager;
-import entity.Node;
+import Entity.Node;
 import Database.NodeManager;
 import Pathfinding.PathController;
 import org.junit.Test;

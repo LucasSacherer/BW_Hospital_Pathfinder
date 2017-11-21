@@ -2,10 +2,9 @@ package Editor;
 
 import Database.EdgeManager;
 import Database.NodeManager;
-import Entity.*;
 import Iteration1CodeWeMayNotNeed.MapManager;
-import entity.Edge;
-import entity.Node;
+import Entity.Edge;
+import Entity.Node;
 
 import java.awt.*;
 import java.util.List;

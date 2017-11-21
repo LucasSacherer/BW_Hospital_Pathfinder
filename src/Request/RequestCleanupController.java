@@ -1,7 +1,7 @@
 package Request;
 
 import Database.CleanUpManager;
-import entity.CleanUpRequest;
+import Entity.CleanUpRequest;
 
 import java.util.List;
 
