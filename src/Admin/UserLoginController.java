@@ -18,16 +18,11 @@ public class UserLoginController {
      */
     public Boolean authenticateStaff(String username, String password){
         //no comma, '. " .
-        if ((username.contains(","))|| username.contains(".") || username.contains("'") || username.contains("/")){
-            return false;
-        }
-        else if ((password.contains(","))|| password.contains(".") || password.contains("'") || password.contains("/")) {
-            return false;
-        }
-        else {
-            //If correct, authenticate them with the UserManager
+        boolean formatted = checkFormat(username,password);
+        if(formatted) {
             return userManager.authenticateStaff(username, password);
         }
+        else return false;
     }
     /**
      * Validates the username and password, and then gives them to the userManager to authenticate an ADMIN
@@ -36,11 +31,11 @@ public class UserLoginController {
      * @return
      */
     public Boolean authenticateAdmin(String username, String password){
-        //Check that the username and password are formatted correctly
-
-
-        //If correct, authenticate them with the UserManager
-        return userManager.authenticateAdmin(username, password);
+        boolean formatted = checkFormat(username,password);
+        if(formatted) {
+            return userManager.authenticateAdmin(username, password);
+        }
+        else return false;
     }
     /**
      * Passes the new user to the userManager to add it to the database
@@ -63,5 +58,15 @@ public class UserLoginController {
      */
     public void modifyUser(User updatedUser){
         userManager.modifyUser(updatedUser);
+    }
+
+    public boolean checkFormat(String username, String password){
+        if ((username.contains(","))|| username.contains(".") || username.contains("'") || username.contains("/")){
+            return false;
+        }
+        else if ((password.contains(","))|| password.contains(".") || password.contains("'") || password.contains("/")) {
+            return false;
+        }
+        else return true;
     }
 }
