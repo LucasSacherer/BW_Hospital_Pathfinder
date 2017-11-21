@@ -1,5 +1,6 @@
 package MapNavigation;
 
+import Database.ImageManager;
 import Iteration1CodeWeMayNotNeed.MapManager;
 import javafx.scene.image.Image;
 import java.io.File;
@@ -9,10 +10,10 @@ import java.sql.SQLException;
 
 public class MapDisplayController {
 
-    private final MapManager mapManager;
+    private final ImageManager imageManager;
 
     public MapDisplayController() {
-        mapManager = new MapManager();
+        imageManager = new ImageManager();
     }
 
     /**
@@ -22,7 +23,7 @@ public class MapDisplayController {
      * @throws IOException
      * @throws SQLException
      */
-    protected Image getMap(String floor) throws IOException, SQLException {
-        return new Image(new FileInputStream(new File(this.mapManager.getMap(floor))));
+    protected Image getMap(String floor) {
+        return imageManager.getImage(floor);
     }
 }

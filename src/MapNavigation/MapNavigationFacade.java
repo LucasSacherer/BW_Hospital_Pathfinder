@@ -29,7 +29,7 @@ public class MapNavigationFacade {
         return nearestPOIController.nearestPOI(x,y,type);
     }
 
-    public Image getFloorMap(String floor) throws IOException, SQLException{
+    public Image getFloorMap(String floor){
         return mapDisplayController.getMap(floor);
     }
 
