@@ -17,11 +17,17 @@ public class UserLoginController {
      * @return
      */
     public Boolean authenticateStaff(String username, String password){
-        //Check that the username and password are formatted correctly
-        //TODO
-
-        //If correct, authenticate them with the UserManager
-        return userManager.authenticateStaff(username, password);
+        //no comma, '. " .
+        if ((username.contains(","))|| username.contains(".") || username.contains("'") || username.contains("/")){
+            return false;
+        }
+        else if ((password.contains(","))|| password.contains(".") || password.contains("'") || password.contains("/")) {
+            return false;
+        }
+        else {
+            //If correct, authenticate them with the UserManager
+            return userManager.authenticateStaff(username, password);
+        }
     }
     /**
      * Validates the username and password, and then gives them to the userManager to authenticate an ADMIN
@@ -31,7 +37,7 @@ public class UserLoginController {
      */
     public Boolean authenticateAdmin(String username, String password){
         //Check that the username and password are formatted correctly
-        //TODO
+
 
         //If correct, authenticate them with the UserManager
         return userManager.authenticateAdmin(username, password);
