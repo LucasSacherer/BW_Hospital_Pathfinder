@@ -150,7 +150,7 @@ public class GodController {
     AdminHubController adminHubController = new AdminHubController();
     AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
     AdminLogController adminLogController = new AdminLogController();
-    AdminMapController adminMapController = new AdminMapController();
+    AdminMapController adminMapController;
     StaffRequestController staffRequestController = new StaffRequestController();
 
 //    /** Organize Functions by Scene **/
@@ -360,6 +360,8 @@ public class GodController {
     ///////////////
     /* Map Admin */
     ///////////////
+
+
 
 //    @FXML
 //    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }

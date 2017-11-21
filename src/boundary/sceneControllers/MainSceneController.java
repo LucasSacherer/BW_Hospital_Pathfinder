@@ -37,7 +37,8 @@ public class MainSceneController {
         this.gc = canvas.getGraphicsContext2D();
         this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
-       // todo currentFloorNum.setText(currentFloor);
+        currentFloor = "G";
+        currentFloorNum.setText(currentFloor);
     }
 
     public void setLoc1(TextField originField) {
@@ -101,7 +102,7 @@ public class MainSceneController {
             int y1 = pathToDraw.get(i).getYcoord();
             int x2 = pathToDraw.get(i+1).getXcoord();
             int y2 = pathToDraw.get(i+1).getYcoord();
-            gc.setLineWidth(5);
+            gc.setLineWidth(3);
             gc.strokeLine(x1,y1,x2,y2);
         }
     }
