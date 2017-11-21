@@ -1,5 +1,7 @@
 package Entity;
 
+import Database.SettingsManager;
+
 public class Node {
     final private String nodeID;
     final private int xcoord;
