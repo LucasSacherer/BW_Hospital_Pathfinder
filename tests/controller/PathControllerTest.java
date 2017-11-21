@@ -1,6 +1,6 @@
 package controller;
 
-import Pathfinding.Astar;
+//import Pathfinding.Astar;
 import Database.EdgeManager;
 import Entity.Node;
 import Database.NodeManager;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PathControllerTest {
-
+/*
     @Test
     public void findPathTest(){
         NodeManager nodeM = new NodeManager();
@@ -43,19 +43,36 @@ public class PathControllerTest {
         Astar astar = new Astar(edgeManager);
         PathController pathController = new PathController(astar);
 
-        /*
+                /*
         assertEquals(false, pathController.validatePath(nodeA, nodeB));
         assertEquals(false, pathController.validatePath(nodeA, nodeC));
         assertEquals(false, pathController.validatePath(nodeA, nodeD));
         assertEquals(true, pathController.validatePath(nodeA, nodeE));
         assertEquals(true, pathController.validatePath(nodeA, nodeF));
-        */
-
-
-
 
     }
 
+    @Test
+    public void realNodes() throws Exception{
 
+        NodeManager nodeM = new NodeManager();
+        nodeM.updateNodes();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("GHALL01602");
+        Node n2 = nodeM.getNode("GHALL01002");
+        Astar star = new Astar(edgeM);
+        PathController pathController = new PathController(star);
+        List<Node> answer = pathController.findPath(n1,n2);
+        ArrayList<Node> expected;
+        //System.out.println(answer);
+        ArrayList<String> ansID = new ArrayList<>();
+        for(int i = 0; i < answer.size(); i++){
+            ansID.add(answer.get(i).getNodeID());
+        }
+        System.out.println(ansID);
+    }
+
+*/
 
 }
