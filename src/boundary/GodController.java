@@ -319,8 +319,8 @@ public class GodController {
     /* Map Admin */
     ///////////////
 
-    @FXML
-    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
+//    @FXML
+//    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
 
 //    @FXML
 //    private void drawNode(Node n) { mainSceneController.drawNode(); }
