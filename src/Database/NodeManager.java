@@ -79,15 +79,6 @@ public class NodeManager {
     }
 
     /**
-     * Returns a list of all nodes marked with the visitable flag
-     * @return the list of visitable nodes
-     */
-    public List<Node> getVisitableNodes(){
-        //filters to nodes that are only visitable
-        return nodes.stream().filter(Node::isVisitable).collect(Collectors.toList());
-    }
-
-    /**
      * Adds the given node to the database and updates the node manager
      * @param node - node to be added to the database
      */

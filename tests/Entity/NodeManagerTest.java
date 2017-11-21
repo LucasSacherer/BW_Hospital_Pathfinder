@@ -27,23 +27,6 @@ public class NodeManagerTest {
     }
 
     @Test
-    public void testGetVisitableNodes(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
-        List<Node> visitable = manager.getVisitableNodes();
-        boolean ok = true;
-        if (visitable.size() == 0){
-            ok = false;
-        }
-        for (Node node: visitable){
-            if (!node.isVisitable()){
-                ok = false;
-            }
-        }
-        assertTrue(ok);
-    }
-
-    @Test
     public void testAddDeleteNode(){
         NodeManager manager = new NodeManager();
         manager.updateNodes();

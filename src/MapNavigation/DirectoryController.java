@@ -5,6 +5,7 @@ import Database.NodeManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,7 +24,13 @@ public class DirectoryController {
      HashMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
         nm.updateNodes();
-        List<Node> visitableNodes = nm.getVisitableNodes();
+        List<Node> visitableNodes = new ArrayList<Node>();
+
+        for (int i = 0; nm.getAllNodes().size() > i; i++ ){
+            if (!nm.getAllNodes().get(i).getNodeType().equals("HALL")){
+                visitableNodes.add(nm.getAllNodes().get(i));
+            }
+        }
 
         //Return the categorized directory
         return formatNodeList(visitableNodes);
