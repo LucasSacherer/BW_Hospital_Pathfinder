@@ -1,5 +1,6 @@
 package boundary.sceneControllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import java.io.IOException;
 
 public class LoginController {
 
-    private TextField staffLogin, staffPassword;
+    private JFXTextField staffLogin, staffPassword;
 
     public void switchToAdmin() {
 
@@ -23,11 +24,11 @@ public class LoginController {
 
     }
 
-    public void setStaffLogin(TextField staffLogin) {
+    public void setStaffLogin(JFXTextField staffLogin) {
         this.staffLogin = staffLogin;
     }
 
-    public void setStaffPassword(TextField staffPassword) {
+    public void setStaffPassword(JFXTextField staffPassword) {
         this.staffPassword = staffPassword;
     }
 }

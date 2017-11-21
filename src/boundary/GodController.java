@@ -74,7 +74,7 @@ public class GodController {
     private Label currentFloorNum;
 
     @FXML
-    private TextField originField, destinationField, staffLoginText, staffPasswordText;
+    private TextField originField, destinationField;
 
     @FXML
     private ImageView imageView;
@@ -127,6 +127,17 @@ public class GodController {
 
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
+
+
+    //Login Screen
+    @FXML
+    private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
+
+    @FXML
+    private JFXTextField staffLoginText, adminLoginText;
+
+    @FXML
+    private JFXPasswordField staffPasswordText, adminPasswordText;
 
 
     //Scene Switcher
