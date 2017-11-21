@@ -208,13 +208,27 @@ public class FoodManager {
     }
 
     /**
-     * FOR TESTING ONLY
+     * Returns the foodrequest from the given primary keys
      * @param name
      * @return
      */
     public FoodRequest getFoodRequest(String name, LocalDateTime date) {
         for (FoodRequest req: requests){
             if (req.getName().equals(name) && req.getTimeCreated().equals(date)){
+                return req;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * FOR TESTING ONLY
+     * @param name
+     * @return
+     */
+    public FoodRequest getFoodRequest(String name) {
+        for (FoodRequest req: requests){
+            if (req.getName().equals(name)){
                 return req;
             }
         }

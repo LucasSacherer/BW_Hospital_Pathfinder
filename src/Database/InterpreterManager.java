@@ -156,4 +156,19 @@ public class InterpreterManager {
         }
         return completed;
     }
+
+    /**
+     * Returns the request with the given name and date
+     * @param name
+     * @param date
+     * @return
+     */
+    public InterpreterRequest getInterpreterRequest(String name, LocalDateTime date){
+        for (InterpreterRequest req: requests){
+            if (req.getName().equals(name) && req.getTimeCreated().equals(date)){
+                return req;
+            }
+        }
+        return null;
+    }
 }
