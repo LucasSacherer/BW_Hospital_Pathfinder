@@ -1,16 +1,15 @@
 package Pathfinding;
 
-import Pathfinding.Astar;
 import Entity.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PathController {
-    final private Astar astar;
+    final private PathFinder pF;
 
-    public PathController(Astar astar){
-        this.astar = astar;
+    public PathController(PathFinder pF){
+        this.pF = pF;
     }
 
     /**
@@ -21,7 +20,7 @@ public class PathController {
      */
     public List<Node> findPath(Node start, Node end){
         if (validatePath(start,end)){
-            return astar.Astar(start,end);
+            return pF.pathFind(start,end);
         }else{
             return new ArrayList<>();
         }
@@ -52,7 +51,7 @@ public class PathController {
         }else {
             return true;
         }
-
     }
+
 }
 

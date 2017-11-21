@@ -3,23 +3,19 @@ package boundary;
 
 import Entity.Edge;
 import Entity.Node;
+import Database.EdgeManager;
+import Database.NodeManager;
+import MapNavigation.MapNavigationFacade;
+import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,29 +32,20 @@ public class GodController {
     private final String mapEditLoc = "./fxml/adminMap.fxml";
 //
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
-//    /* Scene Controllers */
+    /* Scene Controllers */
     MainSceneController mainSceneController = new MainSceneController();
     LoginController loginController = new LoginController();
-    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
     AdminHubController adminHubController = new AdminHubController();
+    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController();
     StaffRequestController staffRequestController = new StaffRequestController();
 
     /* managers */
-//    final private NodeManager nodeManager = new NodeManager();
-//    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-//    final private RequestManager requestManager = new RequestManager(nodeManager);
-//    final private Astar aStar = new Astar(edgeManager);
-//    final private FileSelector fileSelector = new FileSelector();
-
-    /////////////////
-    /* controllers */
-    /////////////////
-//    final private MapDisplayController mapDisplayController = new MapDisplayController();
-//    final private ClickController clickController = new ClickController(nodeManager);
-//    final private DirectoryController directoryController = new DirectoryController(nodeManager);
-//    final private PathController pathController = new PathController(aStar);
+    final private NodeManager nodeManager = new NodeManager();
+    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
+    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade();
+    final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
 
     private Node loc1;
     private Node loc2;
@@ -72,10 +59,7 @@ public class GodController {
 
    /* Scene Panes */
     @FXML
-    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
-
-    @FXML
-    private Pane mapPane;
+    private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
     @FXML
     private Canvas canvas;
@@ -191,10 +175,9 @@ public class GodController {
 //
 
 
-
-
-//    ////////////////////////////////////////////////////////////
+    ////////////////
     /* Main scene */
+    ////////////////
     @FXML
     private void setLoc1(ActionEvent e) { mainSceneController.setLoc1(); }
 
@@ -247,11 +230,64 @@ public class GodController {
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(); }
 
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
+    //////////////////
+    /* Login Scene */
+    /////////////////
 
+    @FXML
+    private void switchToAdmin() throws IOException {
+        loginController.switchToAdmin();
+    }
+
+    @FXML
+    private void switchToStaff() throws IOException {
+        loginController.switchToStaff();
+    }
+
+    ///////////////////
+    /* Request Scene */
+    ///////////////////
+
+
+
+    ///////////////
+    /* Admin Hub */
+    ///////////////
+
+
+
+
+    ////////////////////
+    /* Employee Admin */
+    ////////////////////
+
+
+
+
+    ///////////////////
+    /* Request Admin */
+    ///////////////////
+
+
+
+
+    ///////////////
+    /* Map Admin */
+    ///////////////
+
+
+
+    ////////////////
+    /* Admin Logs */
+    ////////////////
+
+
+
+
+
+    /////////////////////
     /* Scene Switching */
-
+    /////////////////////
     @FXML
     private void mainToLogin() throws IOException {
         sceneSwitcher.switchScene(this, mainPane, loginLoc);
@@ -264,7 +300,7 @@ public class GodController {
 
     /* Login Page */
     @FXML
-    private void goToMainScreen() throws IOException {
+    private void goToMainScene() throws IOException {
         sceneSwitcher.switchScene(this, loginPane, mainLoc);
     }
 
@@ -322,5 +358,4 @@ public class GodController {
     private void employeeToAdminHub() throws IOException {
         sceneSwitcher.switchScene(this, adminEmployeePane, adminHubLoc);
     }
-
 }
