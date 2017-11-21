@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
- class Astar implements PathFinder {
+ public class Astar implements PathFinder {
     EdgeManager edgeM;
     // The set of nodes already evaluated
     ArrayList<Node> closedSet = new ArrayList<Node>();
@@ -29,7 +29,7 @@ import java.util.List;
         }
     };
 
-    Astar(EdgeManager e){
+    public Astar(EdgeManager e){
         this.edgeM = e;
     }
 

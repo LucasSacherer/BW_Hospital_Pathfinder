@@ -2,83 +2,145 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" prefHeight="775.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.22899353647276086" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" prefHeight="752.0" prefWidth="1109.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <AnchorPane prefHeight="675.0" prefWidth="217.0" SplitPane.resizableWithParent="false">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
+            <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="275.0">
                <children>
-                  <JFXTabPane layoutY="163.0" prefHeight="610.0" prefWidth="244.0">
+                  <JFXTabPane layoutY="305.0" prefHeight="773.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="305.0">
                      <tabs>
                         <Tab fx:id="nodesTab" text="NODES">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXTabPane prefHeight="575.0" prefWidth="244.0">
+                                    <JFXTabPane prefHeight="826.0" prefWidth="275.0">
                                        <tabs>
                                           <Tab fx:id="addNode" text="Add">
-                                            <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="23.0" prefHeight="41.0" prefWidth="141.0" style="-fx-background-color: white;" text="NODE LOCATION" />
-                                                      <Label layoutX="39.0" layoutY="56.0" text="X:" />
-                                                      <Label layoutX="122.0" layoutY="56.0" text="Y:" />
-                                                      <TextField layoutX="52.0" layoutY="51.0" prefHeight="26.0" prefWidth="46.0" fx:id="xNode" />
-                                                      <TextField fx:id="yNode" layoutX="141.0" layoutY="51.0" prefHeight="26.0" prefWidth="43.0" />
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="82.0" prefHeight="41.0" prefWidth="141.0" style="-fx-background-color: white;" text="NODE TYPE" />
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="258.0" prefHeight="41.0" prefWidth="141.0" style="-fx-background-color: white;" text="NODE SHORT NAME" />
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="320.0" prefHeight="41.0" prefWidth="141.0" style="-fx-background-color: white;" text="NODE LONG NAME" />
-                                                      <JFXTextField fx:id="nodeShortName" layoutX="33.0" layoutY="294.0" />
-                                                      <JFXTextField fx:id="nodeLongName" layoutX="34.0" layoutY="361.0" />
-                                                      <JFXButton fx:id="addNodeButton" layoutX="53.0" layoutY="432.0" prefHeight="61.0" prefWidth="115.0" text="ADD" />
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="150.0" prefHeight="41.0" prefWidth="141.0" style="-fx-background-color: white;" text="BUILDING" />
-                                                      <JFXComboBox fx:id="nodetypeCombo" layoutX="90.0" layoutY="119.0" />
-                                                      <JFXComboBox fx:id="buildingCombo" layoutX="90.0" layoutY="191.0" />
+                                                      <JFXButton fx:id="addNodeButton" layoutX="55.0" layoutY="540.0" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Add Node" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <JFXTextField fx:id="shortNameAdd" alignment="CENTER" layoutX="54.0" layoutY="275.0" promptText="Short Name" />
+                                                      <JFXTextField fx:id="longNameAdd" alignment="CENTER" layoutX="55.0" layoutY="323.0" promptText="Long Name" />
+                                                      <JFXButton fx:id="resetNodeButtonAdd" layoutX="55.0" layoutY="595.0" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <JFXComboBox fx:id="nodetypeCombo" layoutX="86.0" layoutY="136.0" promptText="Node Type" />
+                                                      <Label fx:id="nodeLocation1" contentDisplay="CENTER" layoutX="71.0" layoutY="34.0" text="Node Location">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXTextField layoutX="55.0" layoutY="69.0" prefHeight="26.0" prefWidth="75.0" promptText="X Position" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="145.0" fx:id="xPosAdd" />
+                                                      <JFXTextField fx:id="yPossAdd" layoutX="157.0" layoutY="70.0" prefHeight="26.0" prefWidth="75.0" promptText="Y Position" />
+                                                      <JFXComboBox fx:id="buildingCombo" layoutX="89.0" layoutY="206.0" promptText="Building" />
                                                    </children>
                                                 </AnchorPane>
-                                            </content>
+                                             </content>
                                           </Tab>
                                           <Tab fx:id="editNode" text="Edit">
-                                            <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                            </content>
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <JFXButton fx:id="editNodeButton" layoutX="52.0" layoutY="555.0" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Edit Node" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <JFXTextField fx:id="shortNameEdit" alignment="CENTER" layoutX="54.0" layoutY="192.0" promptText="Short Name" />
+                                                      <JFXTextField fx:id="longNameEdit" alignment="CENTER" layoutX="54.0" layoutY="236.0" promptText="Long Name" />
+                                                      <JFXButton fx:id="resetNodeButtonEdit" layoutX="52.0" layoutY="611.0" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <JFXComboBox fx:id="nodetypeComboEdit" layoutX="86.0" layoutY="136.0" promptText="Node Type" />
+                                                      <Label fx:id="nodeLocation2" contentDisplay="CENTER" layoutX="71.0" layoutY="34.0" text="Node Location">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXTextField layoutX="55.0" layoutY="69.0" prefHeight="26.0" prefWidth="75.0" promptText="X Position" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="145.0" fx:id="xPosEdit" />
+                                                      <JFXTextField fx:id="yPosEdit" layoutX="157.0" layoutY="70.0" prefHeight="26.0" prefWidth="75.0" promptText="Y Position" />
+                                                      <JFXListView fx:id="nodesListView" layoutX="15.0" layoutY="313.0" prefHeight="220.0" prefWidth="250.0" style="-fx-background-color: #87cefa;" />
+                                                      <Label fx:id="nodeListText" contentDisplay="CENTER" layoutX="93.0" layoutY="274.0" text="Node List">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
                                           </Tab>
                                           <Tab fx:id="removeNode" text="Remove">
-                                            <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                            </content>
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <JFXButton fx:id="removeNodeButton" layoutX="55.0" layoutY="540.0" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Remove Node" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <JFXButton fx:id="resetNodeButtonRemove" layoutX="52.0" layoutY="611.0" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <Label fx:id="nodeLocation" contentDisplay="CENTER" layoutX="71.0" layoutY="34.0" text="Node Location">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXTextField layoutX="55.0" layoutY="69.0" prefHeight="26.0" prefWidth="75.0" promptText="X Position" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="145.0" fx:id="xPosRemove" />
+                                                      <JFXTextField fx:id="yPosRemove" layoutX="157.0" layoutY="70.0" prefHeight="26.0" prefWidth="75.0" promptText="Y Position" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
                                           </Tab>
                                        </tabs>
                                     </JFXTabPane>
-                                 </children></AnchorPane>
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </Tab>
                         <Tab fx:id="edgesTab" text="EDGES">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="204.0">
                                  <children>
-                                    <JFXTabPane prefHeight="575.0" prefWidth="244.0">
+                                    <JFXTabPane prefHeight="843.0" prefWidth="277.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <tabs>
                                           <Tab fx:id="addEdge" text="Add">
                                              <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <AnchorPane layoutX="64.0" layoutY="-340.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </children>
+                                                </AnchorPane>
                                              </content>
                                           </Tab>
                                           <Tab fx:id="removeEdge" text="Remove">
@@ -88,42 +150,103 @@
                                           </Tab>
                                        </tabs>
                                     </JFXTabPane>
-                                 </children></AnchorPane>
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </Tab>
                      </tabs>
                   </JFXTabPane>
-                  <JFXTextField alignment="CENTER" focusColor="#003da6" layoutX="38.0" layoutY="126.0" style="-fx-background-color: white;" text="MAP EDIT" unFocusColor="WHITE">
+                  <ImageView fitHeight="221.0" fitWidth="188.0" layoutX="46.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/other%20images/BWH.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="mapEditText" contentDisplay="CENTER" layoutX="64.0" layoutY="261.0" text="Map Editor">
                      <font>
-                        <Font name="Arial Black" size="15.0" />
+                        <Font name="System Bold" size="30.0" />
                      </font>
-                  </JFXTextField>
+                  </Label>
+                  <JFXButton fx:id="backToAdminHub" layoutX="-1.0" onAction="#mapToAdminHub" text="Back to Admin Hub" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="773.0" prefWidth="934.0" SplitPane.resizableWithParent="false">
+            <AnchorPane prefHeight="741.0" prefWidth="1635.0">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
                <children>
-                  <SplitPane dividerPositions="0.8521400778210116" layoutX="-24.0" orientation="VERTICAL" prefHeight="773.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.8521400778210116" layoutX="-3.0" orientation="VERTICAL" prefHeight="1095.0" prefWidth="1638.0" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <AnchorPane prefHeight="773.0" prefWidth="756.0" SplitPane.resizableWithParent="false">
                            <children>
                               <ScrollPane hbarPolicy="NEVER" hvalue="0.29" layoutX="-2.0" pannable="true" prefHeight="660.0" prefWidth="803.0" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <Pane prefHeight="651.0" prefWidth="802.0">
+                                    <Pane prefHeight="980.0" prefWidth="1651.0">
                                        <children>
                                           <ImageView fitHeight="3400.0" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true" />
                                           <Canvas height="3400.0" width="5000.0" />
                                        </children>
                                     </Pane>
-                                 </content></ScrollPane>
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane maxHeight="-Infinity" prefHeight="112.0" prefWidth="801.0" SplitPane.resizableWithParent="false" />
+                        <AnchorPane maxHeight="-Infinity" prefHeight="112.0" prefWidth="1633.0" SplitPane.resizableWithParent="false">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="140.0" prefWidth="1334.0" style="-fx-background-color: white; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Group />
+                                    <Group fx:id="zoomIn" onKeyPressed="#zoomInMap" onMouseClicked="#zoomInMap" />
+                                    <Group onMouseClicked="#zoomOutMap" />
+                                    <Group onMouseClicked="#floorDown">
+                                       <children>
+                                          <ImageView fitHeight="119.0" fitWidth="109.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/down_arrow.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Group>
+                                    <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" prefHeight="119.0" prefWidth="87.0" style="-fx-background-color: #DBBD9B; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
+                                       <children>
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="currentFloorNum">
+                                             <font>
+                                                <Font name="System Bold" size="60.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <Group onMouseClicked="#floorUp">
+                                       <children>
+                                          <ImageView fitHeight="114.0" fitWidth="116.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/up_arrow.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Group>
+                                    <Group />
+                                    <Group onMouseClicked="#mainToLogin" />
+                                    <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                       <image>
+                                          <Image url="@../images/ic_account_circle_black_24dp.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children></AnchorPane>
                      </items>
                   </SplitPane>
                </children>
             </AnchorPane>
          </items>
       </SplitPane>
-      <JFXTextField />
    </children>
 </AnchorPane>

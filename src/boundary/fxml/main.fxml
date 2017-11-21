@@ -279,7 +279,7 @@
                            </children>
                         </StackPane>
                         <Separator minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" />
-                        <AnchorPane prefHeight="297.0" prefWidth="275.0">
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="275.0">
                            <children>
                               <GridPane prefHeight="169.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnConstraints>
@@ -325,12 +325,12 @@
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton fx:id="navigate" onAction="#findPath" style="-fx-background-color: #CCCCCC;" text="Navagate" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                    <JFXButton fx:id="navigate" onAction="#findPath" style="-fx-background-color: #CCCCCC;" text="Navigate" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton style="-fx-background-color: #CCCCCC;" text="Text Dircections" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                    <JFXButton style="-fx-background-color: #CCCCCC;" text="Text Directions" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -484,7 +484,7 @@
                                           </MenuButton>
                                           <Group>
                                              <children>
-                                                <ImageView fitHeight="98.0" fitWidth="106.0" layoutY="63.97477332036942" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" rotate="-53.1">
+                                                <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/home.png" />
                                                    </image>
