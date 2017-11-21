@@ -37,21 +37,20 @@ public class AdminMapController {
     private String shortName = "";
     private String nodeID = "";
 
-
-
     public AdminMapController(ImageView i, Pane mapPane, Canvas canvas){
         this.imageView = i;
         this.canvas = canvas;
-        this.gc = canvas.getGraphicsContext2D();
-        System.out.println(gc);
         this.mapPane = mapPane;
     }
 
-//    public void setLoc1(TextField originField) {
-//        loc1 = currentLoc;
-//        originField.setText(loc1.getShortName());
-//        drawNode();
-//    }
+    public void initializeScene() {
+        this.gc = canvas.getGraphicsContext2D();
+    }
+
+    public void setLoc1(TextField originField) {
+        loc1 = currentLoc;
+        originField.setText(loc1.getShortName());
+    }
 
 
     public void setLoc2(TextField destinationField) {
