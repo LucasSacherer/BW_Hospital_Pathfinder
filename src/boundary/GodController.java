@@ -11,7 +11,7 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
-import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -54,13 +55,16 @@ public class GodController {
     private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
     @FXML
+    private StackPane menuARStackPane;
+
+    @FXML
     private Canvas canvas;
 
     @FXML
     private Label currentFloorNum;
 
     @FXML
-    private TextField originField, destinationField;
+    private TextField originField, destinationField, staffLoginText, staffPasswordText;
 
     @FXML
     private ImageView imageView;
@@ -69,10 +73,19 @@ public class GodController {
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
     @FXML
-    private TextField staffLoginText, staffPasswordText;
+    private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription, foodARNode, foodARTimestamp, foodARDescription, interpreterARNode,interpreterARTimestamp, interpreterARDescription, menuARName,menuARDescription,menuARCost;
 
     @FXML
-    private JFXComboBox nodetypeCombo, buildingCombo;
+    private JFXComboBox nodetypeCombo, buildingCombo, spillsARType, spillsARName, foodARType, foodARName, interpreterARType, interpreterARName;
+
+    @FXML
+    private JFXToggleButton spillsARDisplayToggle, foodARDisplayToggle, interpreterARDisplayToggle;
+
+    @FXML
+    private JFXButton spillsARAdd, spillsARCancel, spillsAREdit, spillsARDelete,spillsARDeleteAll,foodARAdd, foodARCancel, foodAREdit, foodARDelete,foodARDeleteAll,interpreterARAdd, interpreterARCancel, interpreterAREdit, interpreterARDelete,interpreterARDeleteAll, menuARAdd, menuARCancel, menuAREdit, menuARDelete,menuARDeleteAll;
+
+    @FXML
+    private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
     ObservableList<String> nodeTypeList, buildingList;
 
