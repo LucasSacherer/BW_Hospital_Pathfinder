@@ -2,7 +2,7 @@ package boundary.sceneControllers;
 
 
         import entity.Edge;
-        import Entity.Node;
+        import entity.Node;
         import boundary.sceneControllers.*;
         import com.jfoenix.controls.JFXButton;
         import javafx.collections.FXCollections;

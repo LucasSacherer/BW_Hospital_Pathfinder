@@ -3,7 +3,7 @@ package Admin;
 import Database.CleanUpManager;
 import Database.FoodManager;
 import Database.InterpreterManager;
-import Entity.Request;
+import entity.Request;
 
 import java.util.List;
 

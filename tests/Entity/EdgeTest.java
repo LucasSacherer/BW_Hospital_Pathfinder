@@ -1,5 +1,7 @@
-package Entity;
+package entity;
 
+import entity.Edge;
+import entity.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

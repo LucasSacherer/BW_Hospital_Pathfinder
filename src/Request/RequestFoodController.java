@@ -1,7 +1,7 @@
 package Request;
 
 import Database.FoodManager;
-import Entity.FoodRequest;
+import entity.FoodRequest;
 
 import java.util.List;
 

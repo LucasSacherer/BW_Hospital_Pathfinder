@@ -1,6 +1,6 @@
 package Database;
 
-import Entity.CleanUpRequest;
+import entity.CleanUpRequest;
 
 import java.util.ArrayList;
 import java.util.List;

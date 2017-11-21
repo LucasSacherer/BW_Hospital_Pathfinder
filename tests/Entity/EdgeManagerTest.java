@@ -2,6 +2,8 @@ package Entity;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import entity.Edge;
+import entity.Node;
 import org.junit.Test;
 
 import java.util.List;

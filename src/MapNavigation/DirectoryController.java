@@ -1,6 +1,6 @@
 package MapNavigation;
 
-import Entity.Node;
+import entity.Node;
 import Database.NodeManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

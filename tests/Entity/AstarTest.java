@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Pathfinding.Astar;
+import entity.Edge;
+import entity.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;

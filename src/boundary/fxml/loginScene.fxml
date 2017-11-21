@@ -68,6 +68,11 @@
                         </Hyperlink>
                     </children>
                 </StackPane>
+            <JFXButton layoutX="210.0" layoutY="363.0" onAction="#goToAdminHub" prefHeight="31.0" prefWidth="189.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Temporary Admin Hub" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
             </children>
         </GridPane>
     </children>

@@ -1,6 +1,6 @@
 package MapNavigation;
 
-import Entity.Node;
+import entity.Node;
 import Database.NodeManager;
 
 public class ClickController {

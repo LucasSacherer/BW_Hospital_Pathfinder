@@ -1,7 +1,7 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
-import Entity.Node;
+import entity.Node;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

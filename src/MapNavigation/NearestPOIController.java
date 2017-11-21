@@ -1,7 +1,7 @@
 package MapNavigation;
 
 import Database.NodeManager;
-import Entity.Node;
+import entity.Node;
 
 public class NearestPOIController {
     private NodeManager nm;

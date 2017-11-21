@@ -1,7 +1,7 @@
 package Request;
 
 import Database.InterpreterManager;
-import Entity.InterpreterRequest;
+import entity.InterpreterRequest;
 
 import java.util.List;
 

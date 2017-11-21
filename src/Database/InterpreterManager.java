@@ -1,6 +1,6 @@
 package Database;
 
-import Entity.InterpreterRequest;
+import entity.InterpreterRequest;
 
 import java.util.ArrayList;
 import java.util.List;

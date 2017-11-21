@@ -1,8 +1,8 @@
 package Pathfinding;
 
 import Database.EdgeManager;
-import Entity.Edge;
-import Entity.Node;
+import entity.Edge;
+import entity.Node;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;

@@ -1,6 +1,6 @@
 package Database;
 
-import Entity.FoodRequest;
+import entity.FoodRequest;
 
 import java.util.ArrayList;
 import java.util.List;
