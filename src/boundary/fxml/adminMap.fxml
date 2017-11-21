@@ -231,7 +231,7 @@
                                     </Group>
                                     <Group />
                                     <Group onMouseClicked="#mainToLogin" />
-                                    <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                    <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" onMouseClicked="#goToAdminHub" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                                        <image>
                                           <Image url="@../images/ic_account_circle_black_24dp.png" />
                                        </image>
