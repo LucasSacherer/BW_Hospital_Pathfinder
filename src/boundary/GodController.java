@@ -330,7 +330,7 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
-        if (staffLoginText.getText().equals("admin")) {
+       if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.switchScene(this, loginPane, requestLoc);
         }
     }
@@ -368,7 +368,7 @@ public class GodController {
     }
 
     @FXML
-    private void requestToAdminHub() throws IOException {
+    private void requestToAdminHub() throws IOException { //TODO this one is broken
         sceneSwitcher.switchScene(this, adminRequestPane, adminHubLoc);
     }
 

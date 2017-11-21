@@ -23,6 +23,8 @@ public class MainSceneController {
     private PathFindingFacade pathFindingFacade;
     private ImageView imageView;
 
+    private Node loc1, loc2, currentLoc;
+
     public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p){
         this.imageView = i;
         this.mapNavigationFacade = m;
@@ -33,7 +35,7 @@ public class MainSceneController {
         this.mapPane = mapPane;
     }
 
-    private Node loc1, loc2, currentLoc;
+
 
     public void setLoc1(TextField originField) {
         loc1 = currentLoc;
