@@ -155,15 +155,13 @@ public class GodController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
         initializeLoginScene(staffPasswordText, staffLoginText);
         initializeMapAdminScene();
-
         Image groundFloor = null;
         groundFloor = mapNavigationFacade.getFloorMap("G");
         imageView.setImage(groundFloor);
-//        initializeDirectory();
-//        initializeDirectoryListeners();
+        initializeDirectory();
+        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
     }
 
     private void initializeMapAdminScene() {
@@ -179,79 +177,22 @@ public class GodController {
             ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
             PathFindingFacade pathFindingFacade, Label currentFloorNum) {
         mainSceneController = new MainSceneController(
-                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
+                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+                elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
     }
-//
-//    private void initializeDirectory() {
-//        elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
-//        restroomDir.setItems(directoryController.getDirectory().get("Restrooms"));
-//        stairsDir.setItems(directoryController.getDirectory().get("Stairs"));
-//        labDir.setItems(directoryController.getDirectory().get("Departments"));
-//        deptDir.setItems(directoryController.getDirectory().get("Labs"));
-//        infoDeskDir.setItems(directoryController.getDirectory().get("Information Desks"));
-//        conferenceDir.setItems(directoryController.getDirectory().get("Conference Rooms"));
-//        exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
-//        shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
-//        nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
-//    }
-//
-//    private void initializeDirectoryListeners(){
-//        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//    }
-//
+
+    private void initializeDirectory() {
+        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
+        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
+        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
+        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
+        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
+        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
+        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
+        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
+        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
+        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
+    }
 
 
     ////////////////
