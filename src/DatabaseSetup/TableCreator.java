@@ -90,6 +90,7 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'department')");
         } catch (SQLException e) {
             System.out.println("KioskUser table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -111,9 +112,10 @@ public class TableCreator {
                     " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("FoodRequest table created!");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
-            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1961-01-01 23:03:20',null,'type2', 'description1','GSTAI00501', 'admin2')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1961-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -136,9 +138,10 @@ public class TableCreator {
                     " CONSTRAINT interpreterNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("InterpreterRequest table created!");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','spanish','GCONF02001', 'admin1')");
-            statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('not completed','1960-01-01 23:03:20',null,'type2', 'description1','japanese','GDEPT01901', 'admin2')");
+            statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'admin2')");
         } catch (SQLException e) {
             System.out.println("InterpreterRequest table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -160,9 +163,10 @@ public class TableCreator {
                     " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("CleanUpRequest table created!");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
-            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('not completed','1960-01-01 23:03:20',null,'type2', 'description2','GDEPT00403', 'janitor1')");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -184,7 +188,7 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk', 1)");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

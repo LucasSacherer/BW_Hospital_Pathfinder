@@ -74,12 +74,12 @@ public class UserManagerTest {
         //Reset the changed user and confirm its back to normal
         User originalUser = new User("admin1", "admin1", "admin1", true, "department");
         userManager.modifyUser(originalUser);
-        User freshUser2 = userManager.getUser("po");
-        assertEquals("po", freshUser2.getUserID());
-        assertEquals("poUN", freshUser2.getUsername());
-        assertEquals("poPW", freshUser2.getPassword());
-        assertEquals(false, freshUser2.getAdminFlag());
-        assertEquals("poD", freshUser2.getDepartment());
+        User freshUser2 = userManager.getUser("admin1");
+        assertEquals("admin1", freshUser2.getUserID());
+        assertEquals("admin1", freshUser2.getUsername());
+        assertEquals("admin1", freshUser2.getPassword());
+        assertEquals(true, freshUser2.getAdminFlag());
+        assertEquals("department", freshUser2.getDepartment());
     }
 
     @Test
