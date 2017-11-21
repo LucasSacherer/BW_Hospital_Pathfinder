@@ -7,7 +7,7 @@ import Entity.Edge;
 import Entity.Node;
 import Database.EdgeManager;
 import Database.NodeManager;
-import MapNavigation.MapNavigationFacade;
+import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
@@ -45,7 +45,12 @@ public class GodController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade();
+    final private ClickController clickController = new ClickController(nodeManager);
+    final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
+    final private MapDisplayController mapDisplayController = new MapDisplayController();
+    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(
+            clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());

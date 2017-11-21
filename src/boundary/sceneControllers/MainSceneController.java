@@ -31,14 +31,12 @@ public class MainSceneController {
         this.pathFindingFacade = p;
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
-        System.out.println(gc);
         this.mapPane = mapPane;
     }
 
-
-
     public void setLoc1(TextField originField) {
         loc1 = currentLoc;
+        System.out.println(loc1);
         originField.setText(loc1.getShortName());
         drawCurrentNode();
     }
@@ -70,12 +68,14 @@ public class MainSceneController {
     }
 
     public void snapToNode(MouseEvent m) {
+        clearCanvas();
+        gc.setFill(Color.BLACK);
+        gc.fillOval(m.getX()-10,m.getY()-10,20,20); //TODO remove
         int x = (int) m.getX();
         int y = (int) m.getY();
-        // todo currentLoc = m.getNearestNode(x,y,currentFloor);
-        clearCanvas();
+        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
         drawCurrentNode();
-        drawPath();
+        System.out.println(currentLoc);
     }
 
     public void drawPath() {
