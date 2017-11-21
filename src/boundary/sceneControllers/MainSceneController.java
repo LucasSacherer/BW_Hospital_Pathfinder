@@ -176,7 +176,6 @@ public class MainSceneController {
          /** testing over **/
 
         for(int i=0;i<pathToDraw.size()-1;i++) {
-
             if (pathToDraw.get(i).getFloor().equals(currentFloor) && pathToDraw.get(i+1).getFloor().equals(currentFloor)) {
                 int x1 = pathToDraw.get(i).getXcoord();
                 int y1 = pathToDraw.get(i).getYcoord();
@@ -189,8 +188,7 @@ public class MainSceneController {
 
             }
             else if (pathToDraw.get(i+1).equals(currentFloor)) {
-                if (next is up) draw an up arrow;
-                else (write "down");
+
             }
         }
     }
