@@ -484,7 +484,7 @@
                                           </MenuButton>
                                           <Group>
                                              <children>
-                                                <ImageView fitHeight="98.0" fitWidth="106.0" layoutY="63.97477332036942" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" rotate="-53.1">
+                                                <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/home.png" />
                                                    </image>
