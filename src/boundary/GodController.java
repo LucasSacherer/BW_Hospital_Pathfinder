@@ -5,7 +5,7 @@ import Entity.Edge;
 import Entity.Node;
 import Database.EdgeManager;
 import Database.NodeManager;
-import MapNavigation.MapNavigationFacade;
+import MapNavigation.*;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
 import javafx.event.ActionEvent;
@@ -40,11 +40,16 @@ public class GodController {
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController();
     StaffRequestController staffRequestController = new StaffRequestController();
+    MapDisplayController mapDisplayController = new MapDisplayController();
 
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
+    ClickController clickController = new ClickController(nodeManager);
+    DirectoryController directoryController = new DirectoryController(nodeManager);
+    NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
+
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade();
+    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
 
     private Node loc1;

@@ -18,9 +18,7 @@ public class SettingsManager {
         this.settings = settings;
     }
 
-    public String getSetting(String string){
-        return settings.get(string);
-    }
+
 
     public void setSetting(String setting, String nodeID){
         databaseGargoyle.createConnection();
@@ -45,5 +43,9 @@ public class SettingsManager {
             e.printStackTrace();
         }
         databaseGargoyle.destroyConnection();
+    }
+
+    public String getSetting(String string){
+        return settings.get(string);
     }
 }

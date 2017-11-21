@@ -1,6 +1,7 @@
 package MapNavigation;
 
 import Database.NodeManager;
+import Database.SettingsManager;
 import Entity.Node;
 import javafx.scene.image.Image;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -56,10 +58,10 @@ public class MapNavigationFacadeTest {
         manager.addNode(test2);
         manager.addNode(test3);
         manager.addNode(test4);
-        String nodeID1 = mapNavigationFacade.getNearestPOI(8, 8, "1", "Rest").getNodeID();
-        String nodeID2 = mapNavigationFacade.getNearestPOI(14, 14, "1", "Rest").getNodeID();
-        String nodeID3 = mapNavigationFacade.getNearestPOI(15, 15, "1", "Elev").getNodeID();
-        String nodeID4 = mapNavigationFacade.getNearestPOI(11, 11, "2", "Rest").getNodeID();
+        String nodeID1 = mapNavigationFacade.getNearestPOI(8, 8, "Rest").getNodeID();
+        String nodeID2 = mapNavigationFacade.getNearestPOI(14, 14, "Rest").getNodeID();
+        String nodeID3 = mapNavigationFacade.getNearestPOI(15, 15, "Elev").getNodeID();
+        String nodeID4 = mapNavigationFacade.getNearestPOI(11, 11,"Rest").getNodeID();
 
         manager.removeNode(test);
         manager.removeNode(test2);
@@ -84,10 +86,11 @@ public class MapNavigationFacadeTest {
     @Test
     public void getDirectory() throws Exception {
     }
-/*
+
     @Test
     public void getDefaultNode() throws Exception {
-        SettingsManager settingsManager = new SettingsManager();
+        HashMap<String,String> settings = new HashMap<>();
+        SettingsManager settingsManager = new SettingsManager(settings);
         NodeManager manager = new NodeManager();
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
@@ -95,9 +98,11 @@ public class MapNavigationFacadeTest {
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
         manager.updateNodes();
+        settingsManager.updateSettings();
+        System.out.println(settingsManager.getSetting("Default Node"));
+        System.out.println(manager.getNode(settingsManager.getSetting("Default Node")));
 
-        Node defaultNode = mapNavigationFacade.getDefaultNode();
-        assertEquals(defaultNode.getNodeID(), settingsManager.getSettings("Default Node"));
+        assertEquals("GHALL03802", mapNavigationFacade.getDefaultNode().getNodeID());
     }
-*/
+
 }

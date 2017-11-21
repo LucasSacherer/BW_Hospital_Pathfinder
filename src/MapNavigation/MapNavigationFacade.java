@@ -25,7 +25,7 @@ public class MapNavigationFacade {
         return clickController.getNearestNode(x,y,floor);
     }
 
-    public Node getNearestPOI(int x, int y, String floor, String type){
+    public Node getNearestPOI(int x, int y, String type){
         return nearestPOIController.nearestPOI(x,y,type);
     }
 
@@ -37,8 +37,8 @@ public class MapNavigationFacade {
         return directoryController.getDirectory();
     }
 
-    //public Node getDefaultNode(){
-    //    return directoryController.getDefaultNode();
-    //}
+    public Node getDefaultNode(){
+        return directoryController.getDefaultNode();
+    }
 
 }
