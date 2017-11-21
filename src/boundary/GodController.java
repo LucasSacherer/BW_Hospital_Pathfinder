@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -62,22 +64,22 @@ public class GodController {
     private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
     @FXML
+    private StackPane menuARStackPane;
+
+    @FXML
     private Canvas canvas;
 
     @FXML
     private Label currentFloorNum;
 
     @FXML
-    private TextField originField, destinationField;
+    private TextField originField, destinationField, staffLoginText, staffPasswordText;
 
     @FXML
     private ImageView imageView;
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
-
-    @FXML
-    private TextField staffLoginText, staffPasswordText;
 
 
     //// MAP ADMIN FXML
@@ -101,8 +103,32 @@ public class GodController {
     private JFXListView nodesListView;
 
 
+    //// Requests ADMIN FXML
+    @FXML
+    private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription,
+            foodARNode, foodARTimestamp, foodARDescription,
+            interpreterARNode,interpreterARTimestamp, interpreterARDescription,
+            menuARName,menuARDescription,menuARCost;
+
+    @FXML
+    private JFXComboBox spillsARType, spillsARName,
+            foodARType, foodARName,
+            interpreterARType, interpreterARName;
+
+    @FXML
+    private JFXToggleButton spillsARDisplayToggle, foodARDisplayToggle, interpreterARDisplayToggle;
+
+    @FXML
+    private JFXButton spillsARAdd, spillsARCancel, spillsAREdit, spillsARDelete,spillsARDeleteAll,
+            foodARAdd, foodARCancel, foodAREdit, foodARDelete,foodARDeleteAll,
+            interpreterARAdd, interpreterARCancel, interpreterAREdit, interpreterARDelete,interpreterARDeleteAll,
+            menuARAdd, menuARCancel, menuAREdit, menuARDelete,menuARDeleteAll;
+
+    @FXML
+    private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
 
+    //Scene Switcher
     ObservableList<String> nodeTypeList, buildingList;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
