@@ -3,8 +3,9 @@ package Editor;
 import Database.EdgeManager;
 import Database.ImageManager;
 import Database.NodeManager;
-import Entity.*;
 import Iteration1CodeWeMayNotNeed.MapManager;
+import Entity.Edge;
+import Entity.Node;
 
 import javax.swing.*;
 import java.awt.*;
