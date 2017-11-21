@@ -81,9 +81,6 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-    @FXML
-    private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription, foodARNode, foodARTimestamp, foodARDescription, interpreterARNode,interpreterARTimestamp, interpreterARDescription, menuARName,menuARDescription,menuARCost;
-
 
     //// MAP ADMIN FXML
     @FXML
@@ -106,18 +103,32 @@ public class GodController {
     private JFXListView nodesListView;
 
 
+    //// Requests ADMIN FXML
+    @FXML
+    private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription,
+            foodARNode, foodARTimestamp, foodARDescription,
+            interpreterARNode,interpreterARTimestamp, interpreterARDescription,
+            menuARName,menuARDescription,menuARCost;
 
-    private JFXComboBox nodetypeCombo, buildingCombo, spillsARType, spillsARName, foodARType, foodARName, interpreterARType, interpreterARName;
+    @FXML
+    private JFXComboBox spillsARType, spillsARName,
+            foodARType, foodARName,
+            interpreterARType, interpreterARName;
 
     @FXML
     private JFXToggleButton spillsARDisplayToggle, foodARDisplayToggle, interpreterARDisplayToggle;
 
     @FXML
-    private JFXButton spillsARAdd, spillsARCancel, spillsAREdit, spillsARDelete,spillsARDeleteAll,foodARAdd, foodARCancel, foodAREdit, foodARDelete,foodARDeleteAll,interpreterARAdd, interpreterARCancel, interpreterAREdit, interpreterARDelete,interpreterARDeleteAll, menuARAdd, menuARCancel, menuAREdit, menuARDelete,menuARDeleteAll;
+    private JFXButton spillsARAdd, spillsARCancel, spillsAREdit, spillsARDelete,spillsARDeleteAll,
+            foodARAdd, foodARCancel, foodAREdit, foodARDelete,foodARDeleteAll,
+            interpreterARAdd, interpreterARCancel, interpreterAREdit, interpreterARDelete,interpreterARDeleteAll,
+            menuARAdd, menuARCancel, menuAREdit, menuARDelete,menuARDeleteAll;
 
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
+
+    //Scene Switcher
     ObservableList<String> nodeTypeList, buildingList;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
