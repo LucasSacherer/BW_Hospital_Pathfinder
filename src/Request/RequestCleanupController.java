@@ -54,7 +54,11 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void deleteRequest(CleanUpRequest cReq){
-        cleanUpManager.deleteRequest(cReq);
+        cleanUpManager.updateRequests();
+        //First make sure the request exists, then delete it
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.deleteRequest(cReq);
+        } else errorscreen.displayError("The request you want to delete does not exist");
     }
 
     /**
@@ -75,6 +79,11 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
-        cleanUpManager.completeRequest(cReq);
+        cleanUpManager.updateRequests();
+        //First confiurm that the request exists
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.completeRequest(cReq);
+        }
+        else errorscreen.displayError("This request does not already exist in the database");
     }
 }

@@ -212,9 +212,9 @@ public class FoodManager {
      * @param name
      * @return
      */
-    public FoodRequest getFoodRequest(String name) {
+    public FoodRequest getFoodRequest(String name, LocalDateTime date) {
         for (FoodRequest req: requests){
-            if (req.getName().equals(name)){
+            if (req.getName().equals(name) && req.getTimeCreated().equals(date)){
                 return req;
             }
         }
