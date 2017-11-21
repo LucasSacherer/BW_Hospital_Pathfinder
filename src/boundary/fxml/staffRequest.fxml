@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,7 +20,24 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;">
                <children>
-                  <JFXButton fx:id="back" onAction="#requestToMain" text="Back to Main Scene" />
+                  <JFXButton fx:id="back" buttonType="RAISED" layoutX="63.0" layoutY="439.0" onAction="#requestToMain" style="-fx-background-color: #003da5;" text="Back to Main Scene" textFill="WHITE" />
+                  <JFXListView layoutX="-1.0" layoutY="23.0" prefHeight="142.0" prefWidth="248.0" />
+                  <JFXListView layoutX="-1.0" layoutY="231.0" prefHeight="142.0" prefWidth="248.0" />
+                  <Label layoutX="76.0" style="-fx-background-color: white;" text="Request Queue" textFill="#003da6">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="174.0" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="63.0" layoutY="174.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE" />
+                  <JFXButton layoutX="142.0" layoutY="174.0" style="-fx-background-color: #003da6;" text="Generate Report" textFill="WHITE" />
+                  <Label layoutX="76.0" layoutY="211.0" style="-fx-background-color: white;" text="My Request Queue" textFill="#003da6">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton buttonType="RAISED" layoutX="63.0" layoutY="394.0" style="-fx-background-color: #003da6;" text="Edit" textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="135.0" layoutY="394.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -37,21 +58,56 @@
                            <children>
                               <HBox prefHeight="73.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <VBox prefHeight="73.0" prefWidth="69.0">
                                        <children>
                                           <Group />
+                                          <ImageView fitHeight="39.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/blueUpArrow.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label text="Floor Up" textFill="#003da6">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <VBox prefHeight="73.0" prefWidth="65.0" style="-fx-border-color: #003da6;">
                                        <children>
-                                          <Group />
+                                          <Group>
+                                             <children>
+                                                <Label layoutX="8.0" layoutY="37.0" prefHeight="20.0" prefWidth="96.0" textFill="#003da6">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="28.0" prefWidth="101.0" text="Current Floor:" textFill="#003da6">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children></Group>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <VBox prefHeight="73.0" prefWidth="84.0">
                                        <children>
-                                          <Group />
+                                          <Group>
+                                             <children>
+                                                <ImageView fitHeight="39.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/blueDownArrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children></Group>
+                                          <Label text="Floor Down" textFill="#003da6">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </VBox>
+                                    <JFXButton fx:id="back1" buttonType="RAISED" onAction="#requestToMain" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: green;" text="Navigate to request" textFill="WHITE" />
                                  </children>
                               </HBox>
                            </children>
