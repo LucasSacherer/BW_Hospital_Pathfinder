@@ -47,11 +47,11 @@ public class AdminMapController {
         this.mapPane = mapPane;
     }
 
-    public void setLoc1(TextField originField) {
-        loc1 = currentLoc;
-        originField.setText(loc1.getShortName());
-        drawNode();
-    }
+//    public void setLoc1(TextField originField) {
+//        loc1 = currentLoc;
+//        originField.setText(loc1.getShortName());
+//        drawNode();
+//    }
 
 
     public void setLoc2(TextField destinationField) {
