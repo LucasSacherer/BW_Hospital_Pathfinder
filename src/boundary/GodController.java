@@ -400,7 +400,9 @@ public class GodController {
 
     @FXML
     private void goToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, loginPane, adminHubLoc);
+        if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
+            sceneSwitcher.switchScene(this, loginPane, adminHubLoc);
+        }
     }
 
     @FXML

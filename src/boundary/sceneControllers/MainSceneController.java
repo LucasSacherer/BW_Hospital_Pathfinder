@@ -125,12 +125,18 @@ public class MainSceneController {
          /** testing over **/
 
         for(int i=0;i<pathToDraw.size()-1;i++) {
-            int x1 = pathToDraw.get(i).getXcoord();
-            int y1 = pathToDraw.get(i).getYcoord();
-            int x2 = pathToDraw.get(i+1).getXcoord();
-            int y2 = pathToDraw.get(i+1).getYcoord();
-            gc.setLineWidth(3);
-            gc.strokeLine(x1,y1,x2,y2);
+
+            if (pathToDraw.get(i).getFloor().equals(currentFloor) && pathToDraw.get(i+1).getFloor().equals(currentFloor)) {
+                int x1 = pathToDraw.get(i).getXcoord();
+                int y1 = pathToDraw.get(i).getYcoord();
+                int x2 = pathToDraw.get(i + 1).getXcoord();
+                int y2 = pathToDraw.get(i + 1).getYcoord();
+                gc.setLineWidth(3);
+                gc.strokeLine(x1, y1, x2, y2);
+            }
+            else if (pathToDraw.get(i).getFloor().equals(currentFloor) || pathToDraw.get(i+1).equals(currentFloor)) {
+                // todo This is a connection, draw an up/down elevator
+            }
         }
     }
 
