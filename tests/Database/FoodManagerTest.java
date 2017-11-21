@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class FoodManagerTest {
-    /*
+
     @Test
     public void testUpdateRequests() {
         FoodManager foodManager = new FoodManager();
@@ -133,5 +133,4 @@ public class FoodManagerTest {
         ArrayList<FoodRequest> completed = foodManager.getCompleted();
         assertTrue(completed.get(0).getName().equals("food2"));
     }
-    */
 }
