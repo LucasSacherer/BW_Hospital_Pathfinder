@@ -17,7 +17,7 @@ public class ImageManager {
         images.put("L2", new ImageProxy("/boundary/images/DefaultMaps/00_thelowerlevel2.png","L2"));
         images.put("1", new ImageProxy("/boundary/images/DefaultMaps/01_thefirstfloor.png","1"));
         images.put("2", new ImageProxy("/boundary/images/DefaultMaps/02_thesecondfloor.png","2"));
-        images.put("3", new ImageProxy("/boundary/images/DefaultMaps/00_thethirdfloor.png","3"));
+        images.put("3", new ImageProxy("/boundary/images/DefaultMaps/03_thethirdfloor.png","3"));
     }
 
     public Image getImage(String floor){
