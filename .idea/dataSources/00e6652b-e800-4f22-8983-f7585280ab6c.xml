@@ -3,10 +3,10 @@
   <database-model serializer="dbm" rdbms="DERBY" format-version="4.4">
     <root id="1"/>
     <schema id="2" parent="1" name="APP">
-      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="GRANITE_GARGOYLE">
+      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="4" parent="1" name="NULLID"/>
@@ -71,14 +71,14 @@ TIMECREATED</ColNames>
       <ColNames>NODEID</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>NODE</RefTableName>
-      <RefKeyName>SQL171120220840390</RefKeyName>
+      <RefKeyName>SQL171120212916500</RefKeyName>
       <RefColNames>NODEID</RefColNames>
     </foreign-key>
     <foreign-key id="31" parent="14" name="CLEANUPUSERID_FK">
       <ColNames>USERID</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>KIOSKUSER</RefTableName>
-      <RefKeyName>SQL171120220840550</RefKeyName>
+      <RefKeyName>SQL171120212916590</RefKeyName>
       <RefColNames>USERID</RefColNames>
     </foreign-key>
     <column id="32" parent="15" name="EDGEID">
@@ -96,7 +96,7 @@ TIMECREATED</ColNames>
       <DataType>VARCHAR(20)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="35" parent="15" name="SQL171120220930920">
+    <key id="35" parent="15" name="SQL171120213301420">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>EDGEID</ColNames>
       <Primary>1</Primary>
@@ -105,14 +105,14 @@ TIMECREATED</ColNames>
       <ColNames>STARTNODE</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>NODE</RefTableName>
-      <RefKeyName>SQL171120220840390</RefKeyName>
+      <RefKeyName>SQL171120212916500</RefKeyName>
       <RefColNames>NODEID</RefColNames>
     </foreign-key>
     <foreign-key id="37" parent="15" name="ENDNODE_FK">
       <ColNames>ENDNODE</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>NODE</RefTableName>
-      <RefKeyName>SQL171120220840390</RefKeyName>
+      <RefKeyName>SQL171120212916500</RefKeyName>
       <RefColNames>NODEID</RefColNames>
     </foreign-key>
     <column id="38" parent="16" name="REQUESTNAME">
@@ -135,7 +135,7 @@ TIMECREATED</ColNames>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="42" parent="16" name="SQL171120220932421">
+    <index id="42" parent="16" name="SQL171120213303111">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>REQUESTNAME
 TIMECREATED</ColNames>
@@ -195,14 +195,14 @@ TIMECREATED</ColNames>
       <ColNames>NODEID</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>NODE</RefTableName>
-      <RefKeyName>SQL171120220840390</RefKeyName>
+      <RefKeyName>SQL171120212916500</RefKeyName>
       <RefColNames>NODEID</RefColNames>
     </foreign-key>
     <foreign-key id="54" parent="17" name="FOODUSERID_FK">
       <ColNames>USERID</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>KIOSKUSER</RefTableName>
-      <RefKeyName>SQL171120220840550</RefKeyName>
+      <RefKeyName>SQL171120212916590</RefKeyName>
       <RefColNames>USERID</RefColNames>
     </foreign-key>
     <column id="55" parent="18" name="NAME">
@@ -254,14 +254,14 @@ TIMECREATED</ColNames>
       <ColNames>NODEID</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>NODE</RefTableName>
-      <RefKeyName>SQL171120220840390</RefKeyName>
+      <RefKeyName>SQL171120212916500</RefKeyName>
       <RefColNames>NODEID</RefColNames>
     </foreign-key>
     <foreign-key id="65" parent="18" name="INTERPRETERUSERID_FK">
       <ColNames>USERID</ColNames>
       <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
       <RefTableName>KIOSKUSER</RefTableName>
-      <RefKeyName>SQL171120220840550</RefKeyName>
+      <RefKeyName>SQL171120212916590</RefKeyName>
       <RefColNames>USERID</RefColNames>
     </foreign-key>
     <column id="66" parent="19" name="USERID">
@@ -289,7 +289,7 @@ TIMECREATED</ColNames>
       <DataType>VARCHAR(100)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="71" parent="19" name="SQL171120220840550">
+    <key id="71" parent="19" name="SQL171120212916590">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USERID</ColNames>
       <Primary>1</Primary>
@@ -339,7 +339,7 @@ TIMECREATED</ColNames>
       <DataType>VARCHAR(10)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="81" parent="20" name="SQL171120220840390">
+    <key id="81" parent="20" name="SQL171120212916500">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>NODEID</ColNames>
       <Primary>1</Primary>
@@ -354,7 +354,7 @@ TIMECREATED</ColNames>
       <DataType>VARCHAR(250)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="84" parent="21" name="SQL171120220932460">
+    <key id="84" parent="21" name="SQL171120213303150">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>STRING1</ColNames>
       <Primary>1</Primary>
