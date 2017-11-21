@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import java.util.List;
 
 public class MainSceneController {
+
+        private int currentFloorNum;
+
     private Canvas canvas;
     private String currentFloor = "G";
     private GraphicsContext gc;
@@ -32,6 +35,7 @@ public class MainSceneController {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.mapPane = mapPane;
+       // todo currentFloorNum.setText(currentFloor);
     }
 
     public void setLoc1(TextField originField) {

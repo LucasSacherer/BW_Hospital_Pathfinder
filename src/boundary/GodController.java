@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -152,20 +153,15 @@ public class GodController {
         initializeLoginScene(staffPasswordText, staffLoginText);
         initializeMapAdminScene();
 
-//        nodeManager.updateNodes();
-//        edgeManager.updateEdges();
-//
-//        Image groundFloor = null;
-//        try {
-//            groundFloor = mapDisplayController.getMap("G");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        imageView.setImage(groundFloor);
-//        currentFloor = "G";
-//        currentFloorNum.setText(currentFloor);
+        Image groundFloor = null;
+        try {
+            groundFloor = mapNavigationFacade.getFloorMap("2");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        imageView.setImage(groundFloor);
 //        initializeDirectory();
 //        initializeDirectoryListeners();
     }
