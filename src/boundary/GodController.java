@@ -11,6 +11,10 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,7 +79,29 @@ public class GodController {
     @FXML
     private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription, foodARNode, foodARTimestamp, foodARDescription, interpreterARNode,interpreterARTimestamp, interpreterARDescription, menuARName,menuARDescription,menuARCost;
 
+
+    //// MAP ADMIN FXML
     @FXML
+    private Tab addNode, editNode, removeNode, nodesTab, edgesTab;
+
+    @FXML
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3;
+
+    @FXML
+    private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
+
+    @FXML
+    private JFXTextField xPosAdd, yPossAdd, xPosEdit, yPossEdit, xPosRemove, yPossRemove,
+            shortNameAdd, shortNameEdit, shortNameRemove,
+            longNameAdd, longNameEdit, longNameRemove;
+    @FXML
+    private JFXButton addNodeButton, resetNodeButtonAdd,
+            editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove;
+    @FXML
+    private JFXListView nodesListView;
+
+
+
     private JFXComboBox nodetypeCombo, buildingCombo, spillsARType, spillsARName, foodARType, foodARName, interpreterARType, interpreterARName;
 
     @FXML
@@ -308,8 +334,8 @@ public class GodController {
     /* Map Admin */
     ///////////////
 
-    @FXML
-    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
+//    @FXML
+//    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
 
 //    @FXML
 //    private void drawNode(Node n) { mainSceneController.drawNode(); }
