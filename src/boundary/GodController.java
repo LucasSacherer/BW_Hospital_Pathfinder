@@ -155,7 +155,7 @@ public class GodController {
 
         Image groundFloor = null;
         try {
-            groundFloor = mapNavigationFacade.getFloorMap("2");
+            groundFloor = mapNavigationFacade.getFloorMap("G");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
