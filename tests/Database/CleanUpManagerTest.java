@@ -123,13 +123,15 @@ public class CleanUpManagerTest {
         databaseGargoyle.createConnection();
 
         //Update the request and make sure it is changed in the database
-        CleanUpRequest completedRequest = new CleanUpRequest("not complete", created.toLocalDateTime(),
+        CleanUpRequest completedRequest = new CleanUpRequest("not completed", created.toLocalDateTime(),
                 completed.toLocalDateTime(),"type1","description1",
                 nodeManager.getNode("GLABS015L2"), userManager.getUser("admin1"));
         cleanUpManager.completeRequest(completedRequest);
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
         try {
-            assertTrue(rs.getTimestamp("timecompleted").equals(completed));
+            if (rs.next()){
+                assertTrue(rs.getTimestamp("timecompleted").equals(completed));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -137,10 +139,12 @@ public class CleanUpManagerTest {
         //Revert changes and confirm they are good now
         databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
                 "TIMECOMPLETED = '" + created + "' " +
-                "WHERE NAME = 'not complete' AND TIMECREATED = '" + created + "'", databaseGargoyle.getStatement());
-        ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+                "WHERE NAME = 'not completed' AND TIMECREATED = '" + created + "'", databaseGargoyle.getStatement());
+        ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
         try {
-            assertTrue(rs2.getTimestamp("timecompleted").equals(created));
+            if (rs2.next()){
+                assertTrue(rs2.getTimestamp("timecompleted").equals(created));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
