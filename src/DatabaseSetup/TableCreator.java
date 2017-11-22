@@ -113,7 +113,7 @@ public class TableCreator {
                     " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("FoodRequest table created!");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
-            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1961-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
             //e.printStackTrace();
@@ -180,13 +180,12 @@ public class TableCreator {
                     " requestName VARCHAR(250) NOT NULL,\n" +
                     " timeCreated TIMESTAMP NOT NULL,\n" +
                     " foodItem VARCHAR(250) NOT NULL,\n" +
-                    " quantity INTEGER NOT NULL,\n" +
-                    " CONSTRAINT foodOrder_PK PRIMARY KEY (requestName, foodItem),\n" +
                     " CONSTRAINT foodOrder_FK FOREIGN KEY (requestName, timeCreated) REFERENCES FoodRequest(name, timeCreated))");
             System.out.println("FoodOrder table created!");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger', 2)");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna', 10)");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk', 1)");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
             //e.printStackTrace();

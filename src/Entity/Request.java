@@ -8,7 +8,7 @@ public interface Request {
     public String getType();
     public String getDescription();
     public Node getNode();
-    public LocalDateTime getTimeStamp();
-
-
+    public User getUser();
+    public LocalDateTime getTimeCreated();
+    public LocalDateTime getTimeCompleted();
 }

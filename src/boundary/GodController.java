@@ -296,14 +296,95 @@ public class GodController {
 
     //Spills
     @FXML
-    private void displaySpillsOnMap(MouseEvent e) throws IOException {
-        adminRequestController.displaySpillsOnMap();
+    private void displayARSpillsOnMap() throws IOException {
+        adminRequestController.displayARSpillsOnMap();
     }
     @FXML
-    private void displaySpillsOnMap() throws IOException {
-        adminRequestController.displaySpillsOnMap();
+    private void displayARSpillsType() throws IOException {
+        adminRequestController.displayARSpillsType();
+    }
+    @FXML
+    private void displayARSpillsName() throws IOException {
+        adminRequestController.displayARSpillsName();
+    }
+    @FXML
+    private void displayARSpillsNode() throws IOException {
+        adminRequestController.displayARSpillsNode();
+    }
+    @FXML
+    private void displayARSpillsTimestamp() throws IOException {
+        adminRequestController.displayARSpillsTimestamp();
+    }
+    @FXML
+    private void displayARSpillsDescription() throws IOException {
+        adminRequestController.displayARSpillsDescription();
+    }
+    @FXML
+    private void addARSpills() throws IOException {
+        adminRequestController.addARSpills();
+    }
+    @FXML
+    private void cancelARSpills() throws IOException {
+        adminRequestController.cancelARSpills();
+    }
+    @FXML
+    private void editARSpills() throws IOException {
+        adminRequestController.editARSpills();
+    }
+    @FXML
+    private void deleteARSpills() throws IOException {
+        adminRequestController.deleteARSpills();
+    }
+    @FXML
+    private void deleteAllARSpills() throws IOException {
+        adminRequestController.deleteAllARSpills();
     }
 
+    //Food
+    @FXML
+    private void displayARFoodOnMap(MouseEvent e) throws IOException {
+        adminRequestController.displayARFoodOnMap();
+    }
+    @FXML
+    private void displayARFoodType(MouseEvent e) throws IOException {
+        adminRequestController.displayARFoodType();
+    }
+    @FXML
+    private void displayARFoodName() throws IOException {
+        adminRequestController.displayARFoodName();
+    }
+    @FXML
+    private void displayARFoodNode() throws IOException {
+        adminRequestController.displayARFoodNode();
+    }
+    @FXML
+    private void displayARFoodTimestamp() throws IOException {
+        adminRequestController.displayARFoodTimestamp();
+    }
+    @FXML
+    private void displayARFoodDescription() throws IOException {
+        adminRequestController.displayARFoodDescription();
+    }
+    @FXML
+    private void addARFood() throws IOException {
+        adminRequestController.addARFood();
+    }
+    @FXML
+    private void cancelARFood() throws IOException {
+        adminRequestController.cancelARFood();
+    }
+    @FXML
+    private void editARFood() throws IOException {
+        adminRequestController.editARFood();
+    }
+    @FXML
+    private void deleteARFood() throws IOException {
+        adminRequestController.deleteARFood();
+    }
+    @FXML
+    private void deleteAllARFood() throws IOException {
+        adminRequestController.deleteAllARFood();
+    }
 
     ///////////////
     /* Map Admin */

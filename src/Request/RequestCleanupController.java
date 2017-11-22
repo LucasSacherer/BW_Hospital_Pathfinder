@@ -2,12 +2,13 @@ package Request;
 
 import Database.CleanUpManager;
 import Entity.CleanUpRequest;
-
+import Entity.ErrorScreen;
 import java.util.List;
 
 public class RequestCleanupController {
 
     private final CleanUpManager cleanUpManager;
+    private ErrorScreen errorscreen;
 
     public RequestCleanupController(CleanUpManager cm){
         cleanUpManager = cm;
@@ -17,8 +18,12 @@ public class RequestCleanupController {
      * Takes a request, checks if it's valid, and then gives it to the manager to be added
      * @param cReq
      */
-    public void addRequest(CleanUpRequest cReq){
-
+    public void addRequest(CleanUpRequest cReq) {
+        //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
+        cleanUpManager.updateRequests();
+        if (validateRequest(cReq)){
+                cleanUpManager.addRequest(cReq);
+        }else errorscreen.displayError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
     }
 
     /**
@@ -27,7 +32,13 @@ public class RequestCleanupController {
      * @return
      */
     private boolean validateRequest(CleanUpRequest cReq){
-       return false;
+        //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
+        cleanUpManager.updateRequests();
+        if (cReq.getName() != null && cReq.getTimeCreated() != null && cReq.getNode()!=null){
+            if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+                return true;
+            } else return false;
+        } else return false;
     }
 
     /**
@@ -35,7 +46,7 @@ public class RequestCleanupController {
      * @return
      */
     public List<CleanUpRequest> getRequests(){
-        return null;
+        return cleanUpManager.getRequests();
     }
 
     /**
@@ -43,7 +54,11 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void deleteRequest(CleanUpRequest cReq){
-
+        cleanUpManager.updateRequests();
+        //First make sure the request exists, then delete it
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.deleteRequest(cReq);
+        } else errorscreen.displayError("The request you want to delete does not exist");
     }
 
     /**
@@ -51,7 +66,12 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void updateRequest(CleanUpRequest cReq){
-
+        //Confirm that this already exists
+        cleanUpManager.updateRequests();
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.updateRequest(cReq);
+        }
+        else errorscreen.displayError("This request does not already exist in the database");
     }
 
     /**
@@ -59,6 +79,11 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
-
+        cleanUpManager.updateRequests();
+        //First confiurm that the request exists
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.completeRequest(cReq);
+        }
+        else errorscreen.displayError("This request does not already exist in the database");
     }
 }
