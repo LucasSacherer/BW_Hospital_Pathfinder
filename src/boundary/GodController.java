@@ -83,7 +83,9 @@ public class GodController {
 
     //// MAP ADMIN FXML
     @FXML
-    private Tab addNode, editNode, removeNode, nodesTab, edgesTab;
+    private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
+
+
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3;
@@ -92,12 +94,17 @@ public class GodController {
     private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
 
     @FXML
-    private JFXTextField xPosAdd, yPossAdd, xPosEdit, yPossEdit, xPosRemove, yPossRemove,
-            shortNameAdd, shortNameEdit, shortNameRemove,
-            longNameAdd, longNameEdit, longNameRemove, requestName, requestDescription;
+    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
+            xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
+            setKioskX, setKioskY,
+            shortNameAdd, shortNameEdit,
+            longNameAdd, longNameEdit, requestName, requestDescription,
+            edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
+            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove;
     @FXML
     private JFXButton addNodeButton, resetNodeButtonAdd,
-            editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove;
+            editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove,
+            removeEdgeButton,resetEdgeButtonRemove,addEdgeButton,resetEdgeButtonAdd;
     @FXML
     private JFXListView nodesListView;
 
@@ -468,6 +475,7 @@ public class GodController {
     ///////////////
     /* Map Admin */
     ///////////////
+
 
 
 
