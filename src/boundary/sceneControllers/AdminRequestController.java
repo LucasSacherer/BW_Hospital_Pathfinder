@@ -40,6 +40,20 @@ public class AdminRequestController {
 
 
     //Interpreter
+    public void displayARInterpreterOnMap(){}
+    public void displayARInterpreterType(){}
+    public void displayARInterpreterName(){}
+    public void displayARInterpreterNode(){}
+    public void displayARInterpreterTimestamp(){}
+    public void displayARInterpreterDescription(){}
+    public void addARInterpreter(){}
+    public void cancelARInterpreter(){}
+    public void editARInterpreter(){}
+    public void deleteARInterpreter(){}
+    public void deleteAllARInterpreter(){}
 
-    
+
+
+
+
 }
