@@ -85,15 +85,14 @@ public abstract class AbstractMapController {
     public void setOrigin(TextField originField) {
         currentPath = null;
         origin = currentLoc;
-        System.out.println(origin);
         originField.setText(origin.getNodeID());
         refreshCanvas();
     }
 
-    public void setDestination(TextField destinationField) {
+    public void setDestination() {
         currentPath = null;
         destination = currentLoc;
-        destinationField.setText(destination.getNodeID());
+        //destinationField.setText(destination.getNodeID()); //TODO add a listener here instead
         refreshCanvas();
     }
 

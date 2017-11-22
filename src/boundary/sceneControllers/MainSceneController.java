@@ -12,7 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.WindowEvent;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -98,4 +100,14 @@ public class MainSceneController extends AbstractMapController{
         refreshCanvas();
     }
 
+    public void navigateToHere() {
+        setDestination();
+        findPath();
+    }
+
+    public void setAsOrigin() { //TODO why doesn't this work?
+        currentPath = null;
+        origin = currentLoc;
+        refreshCanvas();
+    }
 }

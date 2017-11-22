@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -210,7 +211,7 @@ public class GodController {
 
     //sets loc2 to nearest node to click location
     @FXML
-    private void setLoc2(ActionEvent e) { mainSceneController.setDestination(destinationField); }
+    private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
 
     // finds the path from loc1 to loc2
     @FXML
@@ -251,6 +252,12 @@ public class GodController {
 
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
+
+    @FXML
+    private void navigateToHere() {mainSceneController.navigateToHere();}
+
+    @FXML
+    private void setAsOrigin() {mainSceneController.setAsOrigin();}
 
 
     ///////////////////
