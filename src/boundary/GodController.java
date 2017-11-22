@@ -289,7 +289,6 @@ public class GodController {
 
 
 
-
     ///////////////////
     /* Request Admin */
     ///////////////////
@@ -385,6 +384,86 @@ public class GodController {
     private void deleteAllARFood() throws IOException {
         adminRequestController.deleteAllARFood();
     }
+    @FXML
+    private void displayARMenuFoodName() throws IOException {
+        adminRequestController.displayARMenuFoodName();
+    }
+    @FXML
+    private void displayARMenuFoodDescription() throws IOException {
+        adminRequestController.displayARMenuFoodDescription();
+    }
+    @FXML
+    private void displayARMenuFoodCost() throws IOException {
+        adminRequestController.displayARMenuFoodCost();
+    }
+    @FXML
+    private void addARMenuFood() throws IOException {
+        adminRequestController.addARMenuFood();
+    }
+    @FXML
+    private void cancelARMenuFood() throws IOException {
+        adminRequestController.cancelARMenuFood();
+    }
+    @FXML
+    private void editARMenuFood() throws IOException {
+        adminRequestController.editARMenuFood();
+    }
+    @FXML
+    private void deleteARMenuFood() throws IOException {
+        adminRequestController.deleteARMenuFood();
+    }
+    @FXML
+    private void deleteAllARMenuFood() throws IOException {
+        adminRequestController.deleteAllARMenuFood();
+    }
+
+    //Interpreter
+
+    @FXML
+    private void displayARInterpreterOnMap() throws IOException {
+        adminRequestController.displayARInterpreterOnMap();
+    }
+    @FXML
+    private void displayARInterpreterType() throws IOException {
+        adminRequestController.displayARInterpreterType();
+    }
+    @FXML
+    private void displayARInterpreterName() throws IOException {
+        adminRequestController.displayARInterpreterName();
+    }
+    @FXML
+    private void displayARInterpreterNode() throws IOException {
+        adminRequestController.displayARInterpreterNode();
+    }
+    @FXML
+    private void displayARInterpreterTimestamp() throws IOException {
+        adminRequestController.displayARInterpreterTimestamp();
+    }
+    @FXML
+    private void displayARInterpreterDescription() throws IOException {
+        adminRequestController.displayARInterpreterDescription();
+    }
+    @FXML
+    private void addARInterpreter() throws IOException {
+        adminRequestController.addARInterpreter();
+    }
+    @FXML
+    private void cancelARInterpreter() throws IOException {
+        adminRequestController.cancelARInterpreter();
+    }
+    @FXML
+    private void editARInterpreter() throws IOException {
+        adminRequestController.editARInterpreter();
+    }
+    @FXML
+    private void deleteARInterpreter() throws IOException {
+        adminRequestController.deleteARInterpreter();
+    }
+    @FXML
+    private void deleteAllARInterpreter() throws IOException {
+        adminRequestController.deleteAllARInterpreter();
+    }
+
 
     ///////////////
     /* Map Admin */
