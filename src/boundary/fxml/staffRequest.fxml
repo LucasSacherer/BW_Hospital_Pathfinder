@@ -48,7 +48,7 @@
                      <children>
                         <JFXButton fx:id="back" buttonType="RAISED" onAction="#requestToMain" prefHeight="42.0" prefWidth="173.0" style="-fx-background-color: #003da5;" text="Back to Main Scene" textFill="WHITE" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="8" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
                         <JFXListView prefHeight="119.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-                        <JFXListView prefHeight="95.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <JFXListView fx:id="allStaffRequests" prefHeight="95.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label style="-fx-background-color: white;" text="Request Queue" textFill="#003da6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="14.0" />
@@ -88,14 +88,14 @@
                                        <children>
                                           <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <content>
-                                                <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
+                                                <Pane fx:id="requestMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                                                    <children>
-                                                      <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="requestImageView" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../images/other%20images/BWH.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="canvas" height="3400.0" layoutX="-14.0" layoutY="14.0" onMouseClicked="#clickOnMap" width="5000.0" />
+                                                      <Canvas fx:id="requestCanvas" height="3400.0" layoutX="-14.0" layoutY="14.0" onMouseClicked="#clickOnRequestMap" width="5000.0" />
                                                    </children>
                                                 </Pane>
                                              </content>
@@ -123,7 +123,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group fx:id="zoomIn" onKeyPressed="#zoomInMap" onMouseClicked="#zoomInMap">
+                                          <Group onMouseClicked="#zoomInRequestMap">
                                              <children>
                                                 <ImageView fitHeight="125.0" fitWidth="136.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -132,7 +132,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group onMouseClicked="#zoomOutMap">
+                                          <Group onMouseClicked="#zoomOutRequestMap">
                                              <children>
                                                 <ImageView fitHeight="122.0" fitWidth="124.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -141,7 +141,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group onMouseClicked="#floorDown">
+                                          <Group onMouseClicked="#floorDownRequest">
                                              <children>
                                                 <ImageView fitHeight="119.0" fitWidth="109.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -150,21 +150,21 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group>
+                                          <VBox alignment="TOP_CENTER" style="-fx-background-color: light cyan; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
-                                                <Label layoutX="8.0" layoutY="37.0" prefHeight="20.0" prefWidth="96.0" textFill="#003da6">
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
                                                    <font>
-                                                      <Font name="System Bold" size="14.0" />
+                                                      <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label prefHeight="28.0" prefWidth="101.0" text="Current Floor:" textFill="#003da6">
+                                                <Label fx:id="currentFloorNumRequest">
                                                    <font>
-                                                      <Font name="System Bold" size="14.0" />
+                                                      <Font name="System Bold" size="60.0" />
                                                    </font>
                                                 </Label>
                                              </children>
-                                          </Group>
-                                          <Group onMouseClicked="#floorUp">
+                                          </VBox>
+                                          <Group onMouseClicked="#floorUpRequest">
                                              <children>
                                                 <ImageView fitHeight="114.0" fitWidth="116.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>

@@ -432,7 +432,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" prefHeight="119.0" prefWidth="87.0" style="-fx-background-color: #DBBD9B; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
+                                          <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
                                                 <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
                                                    <font>

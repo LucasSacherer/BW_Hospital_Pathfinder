@@ -19,10 +19,18 @@ import java.util.ArrayList;
 
 public class StaffRequestController extends AbstractMapController{
     private RequestCleanupController requestCleanupController;
+    private JFXListView allStaffRequests;
 
-    public StaffRequestController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, RequestCleanupController r) {
+    public StaffRequestController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+                                  Label currentFloorNum, RequestCleanupController r, JFXListView allStaffRequests) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
+        this.allStaffRequests = allStaffRequests;
         this.requestCleanupController = r;
+    }
+
+    public void initializeScene(){
+        super.initializeScene();
+        allStaffRequests.setItems(requestCleanupController.getRequests());
     }
 
     public void addRequest(JFXTextField name, JFXTextField description) {

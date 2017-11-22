@@ -23,7 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -61,9 +60,6 @@ public class GodController {
     private Canvas canvas, mapEditCanvas, requestCanvas;
 
     @FXML
-    private Label currentFloorNum;
-
-    @FXML
     private TextField originField, destinationField; //TODO change to JFXTextField and in scenebuilder
 
     @FXML
@@ -77,7 +73,7 @@ public class GodController {
     private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
 
     @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNumRequest;
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest;
 
     @FXML
     private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
@@ -152,43 +148,24 @@ public class GodController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
-        initializeDirectory();
-        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
-        initializeRequestScene(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
+        initializeMainScene();
+        initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
 
     }
 
-    private void initializeDirectory() {
-        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
-        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
-        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
-        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
-        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
-        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
-        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
-        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
-        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
-        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
+//    imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum
+    private void initializeMainScene() {
+        mainSceneController = new MainSceneController(imageView, mapPane, canvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
+                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
+        mainSceneController.initializeScene();
     }
 
-    private void initializeMainScene(
-            ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
-            PathFindingFacade pathFindingFacade, Label currentFloorNum) {
-        mainSceneController = new MainSceneController(
-                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
-        mainSceneController.initializeCanvas();
-    }
-
-    private void initializeRequestScene(
-            ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
-            MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade, Label currentFloorNum) {
-        staffRequestController = new StaffRequestController(
-                requestImageView, requestMapPane, requestCanvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, requestCleanupController);
+    private void initializeRequestScene() {
+        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController, allStaffRequests);
     }
 
     private void initializeMapAdminScene() {
@@ -551,9 +528,7 @@ public class GodController {
     private void goToRequests() throws IOException {
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
-            requestImageView.setImage(mapNavigationFacade.getFloorMap("G"));
-            staffRequestController.initializeCanvas();
-            allStaffRequests.setItems(requestCleanupController.getRequests());
+            staffRequestController.initializeScene();
         }
     }
 
