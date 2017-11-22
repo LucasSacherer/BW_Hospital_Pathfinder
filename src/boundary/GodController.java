@@ -49,7 +49,7 @@ public class GodController {
     /** FXML Attributes **/
     ///////////////////////
 
-   /* Scene Panes */
+    /* Scene Panes */
     @FXML
     private Pane requestMapPane, mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
@@ -60,7 +60,7 @@ public class GodController {
     private Canvas canvas, mapEditCanvas, requestCanvas;
 
     @FXML
-    private TextField originField, destinationField; //TODO change to JFXTextField and in scenebuilder
+    private JFXTextField originField, destinationField;
 
     @FXML
     private ImageView imageView, mapEditImageView, requestImageView;
@@ -68,7 +68,7 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-    //// MAP ADMIN FXML
+    /* MAP ADMIN FXML */
     @FXML
     private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
 
@@ -94,7 +94,7 @@ public class GodController {
     private JFXListView nodesListView, allStaffRequests;
 
 
-    //// Requests ADMIN FXML
+    /* Requests ADMIN FXML */
     @FXML
     private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription,
             foodARNode, foodARTimestamp, foodARDescription,
@@ -118,7 +118,7 @@ public class GodController {
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
-    //Login Screen
+    /* Login Screen */
     @FXML
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
 
@@ -135,13 +135,10 @@ public class GodController {
     /* Scene Commandments */
     MainSceneController mainSceneController;
     AdminEmployeeController adminEmployeeController;
-    AdminLogController adminLogController = new AdminLogController();
+    AdminLogController adminLogController;
     AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
     StaffRequestController staffRequestController;
-    AdminRequestController adminRequestController = new AdminRequestController();
-
-
-    /** Organize Functions by Scene **/
+    AdminRequestController adminRequestController;
 
     @FXML
     private void initialize(){
@@ -152,10 +149,8 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
-
     }
 
-//    imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(imageView, mapPane, canvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
@@ -175,17 +170,17 @@ public class GodController {
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
+    /** Organize Functions by Scene **/
+
     ////////////////
     /* Main scene */
     ////////////////
     @FXML
     private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(originField); }
 
-    //sets loc2 to nearest node to click location
     @FXML
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
 
-    // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) { mainSceneController.findPath(); }
 
@@ -199,10 +194,6 @@ public class GodController {
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
-
-    private void drawPath() { mainSceneController.drawPath(); }
-
-    private void drawCurrentNode(){ mainSceneController.drawCurrentNode(); }
 
     @FXML
     private void clearCanvas(){ mainSceneController.clearCanvas(); }
@@ -231,46 +222,30 @@ public class GodController {
     @FXML
     private void setAsOrigin() {mainSceneController.setAsOrigin();}
 
-
     ///////////////////
     /* Request Scene */
     ///////////////////
 
+    @FXML
+    private void navigateToRequest() { staffRequestController.findPath(); }
 
     @FXML
-    private void navigateToRequest() {
-        staffRequestController.findPath();
-    }
+    private void addStaffRequest() { staffRequestController.addRequest(requestName, requestDescription); }
 
     @FXML
-    private void addStaffRequest() {
-        staffRequestController.addRequest(requestName, requestDescription);
-    }
+    private void completeStaffRequest() { staffRequestController.completeRequest(); }
 
     @FXML
-    private void completeStaffRequest() {
-        staffRequestController.completeRequest();
-    }
+    private void editStaffRequest() { staffRequestController.editRequest(); }
 
     @FXML
-    private void editStaffRequest() {
-        staffRequestController.editRequest();
-    }
+    private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
 
     @FXML
-    private void deleteStaffRequest() {
-        staffRequestController.deleteRequest();
-    }
+    private void zoomInRequestMap() { staffRequestController.zoomInMap(); }
 
     @FXML
-    private void zoomInRequestMap() {
-        staffRequestController.zoomInMap();
-    }
-
-    @FXML
-    private void zoomOutRequestMap() {
-        staffRequestController.zoomOutMap();
-    }
+    private void zoomOutRequestMap() { staffRequestController.zoomOutMap(); }
 
     @FXML
     private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
@@ -279,22 +254,14 @@ public class GodController {
     private void floorUpRequest() throws IOException, SQLException { staffRequestController.floorUp(); }
 
     @FXML
-    private void clickOnRequestMap(MouseEvent m) {
-        staffRequestController.clickOnMap(m);
-    }
-
-
-    ///////////////
-    /* Admin Hub */
-    ///////////////
-
-
-
+    private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
 
     ////////////////////
     /* Employee Admin */
     ////////////////////
 
+
+   //TODO
 
 
     ///////////////////
@@ -303,226 +270,163 @@ public class GodController {
 
     //Spills
     @FXML
-    private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap();
-    }
+    private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap(); }
+
     @FXML
-    private void displayARSpillsType() throws IOException {
-        adminRequestController.displayARSpillsType();
-    }
+    private void displayARSpillsType() throws IOException { adminRequestController.displayARSpillsType(); }
+
     @FXML
-    private void displayARSpillsName() throws IOException {
-        adminRequestController.displayARSpillsName();
-    }
+    private void displayARSpillsName() throws IOException { adminRequestController.displayARSpillsName(); }
+
     @FXML
-    private void displayARSpillsNode() throws IOException {
-        adminRequestController.displayARSpillsNode();
-    }
+    private void displayARSpillsNode() throws IOException { adminRequestController.displayARSpillsNode(); }
+
     @FXML
-    private void displayARSpillsTimestamp() throws IOException {
-        adminRequestController.displayARSpillsTimestamp();
-    }
+    private void displayARSpillsTimestamp() throws IOException { adminRequestController.displayARSpillsTimestamp(); }
+
     @FXML
-    private void displayARSpillsDescription() throws IOException {
-        adminRequestController.displayARSpillsDescription();
-    }
+    private void displayARSpillsDescription() throws IOException { adminRequestController.displayARSpillsDescription(); }
+
     @FXML
-    private void addARSpills() throws IOException {
-        adminRequestController.addARSpills();
-    }
+    private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
+
     @FXML
-    private void cancelARSpills() throws IOException {
-        adminRequestController.cancelARSpills();
-    }
+    private void cancelARSpills() throws IOException { adminRequestController.cancelARSpills(); }
+
     @FXML
-    private void editARSpills() throws IOException {
-        adminRequestController.editARSpills();
-    }
+    private void editARSpills() throws IOException { adminRequestController.editARSpills(); }
+
     @FXML
-    private void deleteARSpills() throws IOException {
-        adminRequestController.deleteARSpills();
-    }
+    private void deleteARSpills() throws IOException { adminRequestController.deleteARSpills(); }
+
     @FXML
-    private void deleteAllARSpills() throws IOException {
-        adminRequestController.deleteAllARSpills();
-    }
+    private void deleteAllARSpills() throws IOException { adminRequestController.deleteAllARSpills(); }
 
     //Food
     @FXML
-    private void displayARFoodOnMap(MouseEvent e) throws IOException {
-        adminRequestController.displayARFoodOnMap();
-    }
+    private void displayARFoodOnMap(MouseEvent e) throws IOException { adminRequestController.displayARFoodOnMap(); }
+
     @FXML
-    private void displayARFoodType(MouseEvent e) throws IOException {
-        adminRequestController.displayARFoodType();
-    }
+    private void displayARFoodType(MouseEvent e) throws IOException { adminRequestController.displayARFoodType(); }
+
     @FXML
-    private void displayARFoodName() throws IOException {
-        adminRequestController.displayARFoodName();
-    }
+    private void displayARFoodName() throws IOException { adminRequestController.displayARFoodName(); }
+
     @FXML
-    private void displayARFoodNode() throws IOException {
-        adminRequestController.displayARFoodNode();
-    }
+    private void displayARFoodNode() throws IOException { adminRequestController.displayARFoodNode(); }
+
     @FXML
-    private void displayARFoodTimestamp() throws IOException {
-        adminRequestController.displayARFoodTimestamp();
-    }
+    private void displayARFoodTimestamp() throws IOException { adminRequestController.displayARFoodTimestamp(); }
+
     @FXML
-    private void displayARMenuFoodTimestamp() throws IOException {
-        adminRequestController.displayARMenuFoodTimestamp();
-    }
+    private void displayARMenuFoodTimestamp() throws IOException { adminRequestController.displayARMenuFoodTimestamp(); }
+
     @FXML
-    private void displayARFoodDescription() throws IOException {
-        adminRequestController.displayARFoodDescription();
-    }
+    private void displayARFoodDescription() throws IOException { adminRequestController.displayARFoodDescription(); }
+
     @FXML
-    private void addARFood() throws IOException {
-        adminRequestController.addARFood();
-    }
+    private void addARFood() throws IOException { adminRequestController.addARFood(); }
+
     @FXML
-    private void cancelARFood() throws IOException {
-        adminRequestController.cancelARFood();
-    }
+    private void cancelARFood() throws IOException { adminRequestController.cancelARFood(); }
+
     @FXML
-    private void editARFood() throws IOException {
-        adminRequestController.editARFood();
-    }
+    private void editARFood() throws IOException { adminRequestController.editARFood(); }
+
     @FXML
-    private void deleteARFood() throws IOException {
-        adminRequestController.deleteARFood();
-    }
+    private void deleteARFood() throws IOException { adminRequestController.deleteARFood(); }
+
     @FXML
-    private void deleteAllARFood() throws IOException {
-        adminRequestController.deleteAllARFood();
-    }
+    private void deleteAllARFood() throws IOException { adminRequestController.deleteAllARFood(); }
+
     @FXML
-    public void editARMenuFoodPopUp() throws  IOException {
-        adminRequestController.editARMenuFoodPopUp();
-    }
+    public void editARMenuFoodPopUp() throws  IOException { adminRequestController.editARMenuFoodPopUp(); }
+
     @FXML
-    private void displayARMenuFoodName() throws IOException {
-        adminRequestController.displayARMenuFoodName();
-    }
+    private void displayARMenuFoodName() throws IOException { adminRequestController.displayARMenuFoodName(); }
+
     @FXML
-    private void displayARMenuFoodNode() throws IOException {
-        //TODO
-    }
+    private void displayARMenuFoodNode() throws IOException { System.out.println("Haven't made this"); } //TODO
+
     @FXML
-    private void displayARMenuFoodDescription() throws IOException {
-        adminRequestController.displayARMenuFoodDescription();
-    }
+    private void displayARMenuFoodDescription() throws IOException { adminRequestController.displayARMenuFoodDescription(); }
+
     @FXML
-    private void displayARMenuFoodCost() throws IOException {
-        adminRequestController.displayARMenuFoodCost();
-    }
+    private void displayARMenuFoodCost() throws IOException { adminRequestController.displayARMenuFoodCost(); }
+
     @FXML
-    private void addARMenuFood() throws IOException {
-        adminRequestController.addARMenuFood();
-    }
+    private void addARMenuFood() throws IOException { adminRequestController.addARMenuFood(); }
+
     @FXML
-    private void cancelARMenuFood() throws IOException {
-        adminRequestController.cancelARMenuFood();
-    }
+    private void cancelARMenuFood() throws IOException { adminRequestController.cancelARMenuFood(); }
+
     @FXML
-    private void editARMenuFood() throws IOException {
-        adminRequestController.editARMenuFood();
-    }
+    private void editARMenuFood() throws IOException { adminRequestController.editARMenuFood(); }
+
     @FXML
-    private void deleteARMenuFood() throws IOException {
-        adminRequestController.deleteARMenuFood();
-    }
+    private void deleteARMenuFood() throws IOException { adminRequestController.deleteARMenuFood(); }
+
     @FXML
-    private void deleteAllARMenuFood() throws IOException {
-        adminRequestController.deleteAllARMenuFood();
-    }
+    private void deleteAllARMenuFood() throws IOException { adminRequestController.deleteAllARMenuFood(); }
 
     //Interpreter
 
     @FXML
-    private void displayARInterpreterOnMap() throws IOException {
-        adminRequestController.displayARInterpreterOnMap();
-    }
-    @FXML
-    private void displayARInterpreterType() throws IOException {
-        adminRequestController.displayARInterpreterType();
-    }
-    @FXML
-    private void displayARInterpreterName() throws IOException {
-        adminRequestController.displayARInterpreterName();
-    }
-    @FXML
-    private void displayARInterpreterNode() throws IOException {
-        adminRequestController.displayARInterpreterNode();
-    }
-    @FXML
-    private void displayARInterpreterTimestamp() throws IOException {
-        adminRequestController.displayARInterpreterTimestamp();
-    }
-    @FXML
-    private void displayARInterpreterDescription() throws IOException {
-        adminRequestController.displayARInterpreterDescription();
-    }
-    @FXML
-    private void addARInterpreter() throws IOException {
-        adminRequestController.addARInterpreter();
-    }
-    @FXML
-    private void cancelARInterpreter() throws IOException {
-        adminRequestController.cancelARInterpreter();
-    }
-    @FXML
-    private void editARInterpreter() throws IOException {
-        adminRequestController.editARInterpreter();
-    }
-    @FXML
-    private void deleteARInterpreter() throws IOException {
-        adminRequestController.deleteARInterpreter();
-    }
-    @FXML
-    private void deleteAllARInterpreter() throws IOException {
-        adminRequestController.deleteAllARInterpreter();
-    }
+    private void displayARInterpreterOnMap() throws IOException { adminRequestController.displayARInterpreterOnMap(); }
 
+    @FXML
+    private void displayARInterpreterType() throws IOException { adminRequestController.displayARInterpreterType(); }
+
+    @FXML
+    private void displayARInterpreterName() throws IOException { adminRequestController.displayARInterpreterName(); }
+
+    @FXML
+    private void displayARInterpreterNode() throws IOException { adminRequestController.displayARInterpreterNode(); }
+
+    @FXML
+    private void displayARInterpreterTimestamp() throws IOException { adminRequestController.displayARInterpreterTimestamp(); }
+
+    @FXML
+    private void displayARInterpreterDescription() throws IOException { adminRequestController.displayARInterpreterDescription(); }
+
+    @FXML
+    private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
+
+    @FXML
+    private void cancelARInterpreter() throws IOException { adminRequestController.cancelARInterpreter(); }
+
+    @FXML
+    private void editARInterpreter() throws IOException { adminRequestController.editARInterpreter(); }
+
+    @FXML
+    private void deleteARInterpreter() throws IOException { adminRequestController.deleteARInterpreter(); }
+
+    @FXML
+    private void deleteAllARInterpreter() throws IOException { adminRequestController.deleteAllARInterpreter(); }
 
     ///////////////
     /* Map Admin */
     ///////////////
 
-
-
-
-//    @FXML
-//    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
-
-//    @FXML
-//    private void drawNode(Node n) { mainSceneController.drawNode(); }
+    //TODO
 
     ////////////////
     /* Admin Logs */
     ////////////////
 
-
-
-
+    //TODO
 
     /////////////////////
     /* Scene Switching */
     /////////////////////
     @FXML
-    private void mainToLogin() throws IOException {
-        sceneSwitcher.toLogin(this, mainPane);
-    }
+    private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
     @FXML
-    private void requestToMain() throws IOException {
-        sceneSwitcher.toMain(this, requestPane);
-    }
+    private void requestToMain() throws IOException { sceneSwitcher.toMain(this, requestPane); }
 
-    /* Login Page */
     @FXML
-    private void goToMainScene() throws IOException {
-        sceneSwitcher.toMain(this, loginPane);
-    }
+    private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
 
     @FXML
     private void goToRequests() throws IOException {
@@ -530,6 +434,7 @@ public class GodController {
             sceneSwitcher.toStaffRequests(this, loginPane);
             staffRequestController.initializeScene();
         }
+        //TODO error screen
     }
 
     @FXML
@@ -537,27 +442,20 @@ public class GodController {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
             sceneSwitcher.toAdminHub(this, loginPane);
         }
+        //TODO Error screen
     }
 
     @FXML
-    private void adminHubToMain() throws IOException {
-        sceneSwitcher.toMain(this, adminHubPane);
-    }
+    private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoLog() throws IOException {
-        sceneSwitcher.toAdminLog(this, adminHubPane);
-    }
+    private void adminHubtoLog() throws IOException { sceneSwitcher.toAdminLog(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoRequest() throws IOException {
-        sceneSwitcher.toAdminRequests(this, adminHubPane);
-    }
+    private void adminHubtoRequest() throws IOException { sceneSwitcher.toAdminRequests(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoEmployee() throws IOException {
-        sceneSwitcher.toAdminEmployee(this, adminHubPane);
-    }
+    private void adminHubtoEmployee() throws IOException { sceneSwitcher.toAdminEmployee(this, adminHubPane); }
 
     @FXML
     private void adminHubtoMap() throws IOException {
@@ -571,17 +469,11 @@ public class GodController {
     private void requestToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminRequestPane); }
 
     @FXML
-    private void mapToAdminHub() throws IOException {
-        sceneSwitcher.toAdminHub(this, adminMapPane);
-    }
+    private void mapToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminMapPane); }
 
     @FXML
-    private void logToAdminHub() throws IOException {
-        sceneSwitcher.toAdminHub(this, adminLogPane);
-    }
+    private void logToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminLogPane); }
 
     @FXML
-    private void employeeToAdminHub() throws IOException {
-        sceneSwitcher.toAdminHub(this, adminEmployeePane);
-    }
+    private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
 }
