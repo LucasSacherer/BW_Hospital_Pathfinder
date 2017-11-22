@@ -324,8 +324,7 @@ public class GodController {
 
     //Spills
     @FXML
-    private void displayARSpillsOnMap() throws IOException {
-        adminRequestController.displayARSpillsOnMap();
+    private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap();
     }
     @FXML
     private void displayARSpillsType() throws IOException {
@@ -388,6 +387,10 @@ public class GodController {
     @FXML
     private void displayARFoodTimestamp() throws IOException {
         adminRequestController.displayARFoodTimestamp();
+    }
+    @FXML
+    private void displayARMenuFoodTimestamp() throws IOException {
+        adminRequestController.displayARMenuFoodTimestamp();
     }
     @FXML
     private void displayARFoodDescription() throws IOException {

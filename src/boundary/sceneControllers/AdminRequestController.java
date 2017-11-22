@@ -53,7 +53,5 @@ public class AdminRequestController {
     public void deleteAllARInterpreter(){}
 
 
-
-
-
+    public void displayARMenuFoodTimestamp() { }
 }
