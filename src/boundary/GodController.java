@@ -7,7 +7,6 @@ import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
 import Request.RequestCleanupController;
-import Request.RequestFoodController;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -20,7 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -30,14 +28,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class GodController {
-    private final String mainLoc = "./fxml/main.fxml";
-    private final String loginLoc = "/boundary/fxml/loginScene.fxml";
-    private final String adminHubLoc = "./fxml/adminHub.fxml";
-    private final String requestLoc = "./fxml/staffRequest.fxml";
-    private final String adminLogLoc = "./fxml/adminLog.fxml";
-    private final String adminRequestLoc = "./fxml/adminRequest.fxml";
-    private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
-    private final String mapEditLoc = "./fxml/adminMap.fxml";
 
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
@@ -150,8 +140,6 @@ public class GodController {
 
     /* Scene Commandments */
     MainSceneController mainSceneController;
-    LoginController loginController;
-    AdminHubController adminHubController;
     AdminEmployeeController adminEmployeeController;
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
@@ -166,39 +154,15 @@ public class GodController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-        initializeLoginScene(staffPasswordText, staffLoginText);
-        initializeMapAdminScene();
-        initializeAdminRequestScene();
+       // initializeLoginScene(staffPasswordText, staffLoginText);
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
+
         initializeDirectory();
         initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
         initializeRequestScene(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
-    }
+        initializeMapAdminScene();
+        initializeAdminRequestScene();
 
-    private void initializeRequestScene(
-            ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
-            MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade, Label currentFloorNum) {
-        staffRequestController = new StaffRequestController(
-                requestImageView, requestMapPane, requestCanvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, requestCleanupController);
-    }
-
-    private void initializeMapAdminScene() {
-        nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
-        buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
-    }
-
-    private void initializeLoginScene(TextField staffPasswordText, TextField staffLoginText) {
-        loginController = new LoginController();
-    }
-
-    private void initializeMainScene(
-            ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
-            PathFindingFacade pathFindingFacade, Label currentFloorNum) {
-        mainSceneController = new MainSceneController(
-                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
-        mainSceneController.initializeCanvas();
     }
 
     private void initializeDirectory() {
@@ -212,6 +176,28 @@ public class GodController {
         exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
         shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
+    }
+
+    private void initializeMainScene(
+            ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
+            PathFindingFacade pathFindingFacade, Label currentFloorNum) {
+        mainSceneController = new MainSceneController(
+                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+                elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
+        mainSceneController.initializeCanvas();
+    }
+
+    private void initializeRequestScene(
+            ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
+            MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade, Label currentFloorNum) {
+        staffRequestController = new StaffRequestController(
+                requestImageView, requestMapPane, requestCanvas, mapNavigationFacade,
+                pathFindingFacade, currentFloorNum, requestCleanupController);
+    }
+
+    private void initializeMapAdminScene() {
+        nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
+        buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
@@ -266,19 +252,6 @@ public class GodController {
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
 
-    //////////////////
-    /* Login Scene */
-    /////////////////
-
-    @FXML
-    private void switchToAdmin() throws IOException {
-        loginController.switchToAdmin();
-    }
-
-    @FXML
-    private void switchToStaff() throws IOException {
-        loginController.switchToStaff();
-    }
 
     ///////////////////
     /* Request Scene */
@@ -321,14 +294,10 @@ public class GodController {
     }
 
     @FXML
-    private void floorDownRequest() throws IOException, SQLException {
-        staffRequestController.floorDown();
-    }
+    private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
 
     @FXML
-    private void floorUpRequest() throws IOException, SQLException {
-        staffRequestController.floorUp();
-    }
+    private void floorUpRequest() throws IOException, SQLException { staffRequestController.floorUp(); }
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) {
@@ -453,6 +422,10 @@ public class GodController {
         adminRequestController.displayARMenuFoodName();
     }
     @FXML
+    private void displayARMenuFoodNode() throws IOException {
+        //TODO
+    }
+    @FXML
     private void displayARMenuFoodDescription() throws IOException {
         adminRequestController.displayARMenuFoodDescription();
     }
@@ -555,24 +528,24 @@ public class GodController {
     /////////////////////
     @FXML
     private void mainToLogin() throws IOException {
-        sceneSwitcher.switchScene(this, mainPane, loginLoc);
+        sceneSwitcher.toLogin(this, mainPane);
     }
 
     @FXML
     private void requestToMain() throws IOException {
-        sceneSwitcher.switchScene(this, requestPane, mainLoc);
+        sceneSwitcher.toMain(this, requestPane);
     }
 
     /* Login Page */
     @FXML
     private void goToMainScene() throws IOException {
-        sceneSwitcher.switchScene(this, loginPane, mainLoc);
+        sceneSwitcher.toMain(this, loginPane);
     }
 
     @FXML
     private void goToRequests() throws IOException {
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.switchScene(this, loginPane, requestLoc);
+            sceneSwitcher.toStaffRequests(this, loginPane);
             requestImageView.setImage(mapNavigationFacade.getFloorMap("G"));
             staffRequestController.initializeCanvas();
             allStaffRequests.setItems(requestCleanupController.getRequests());
@@ -582,55 +555,53 @@ public class GodController {
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
-            sceneSwitcher.switchScene(this, loginPane, adminHubLoc);
+            sceneSwitcher.toAdminHub(this, loginPane);
         }
     }
 
     @FXML
     private void adminHubToMain() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, mainLoc);
+        sceneSwitcher.toMain(this, adminHubPane);
     }
 
     @FXML
     private void adminHubtoLog() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, adminLogLoc);
+        sceneSwitcher.toAdminLog(this, adminHubPane);
     }
 
     @FXML
     private void adminHubtoRequest() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, adminRequestLoc);
+        sceneSwitcher.toAdminRequests(this, adminHubPane);
     }
 
     @FXML
     private void adminHubtoEmployee() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, adminEmployeeLoc);
+        sceneSwitcher.toAdminEmployee(this, adminHubPane);
     }
 
     @FXML
     private void adminHubtoMap() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, mapEditLoc);
+        sceneSwitcher.toAdminMap(this, adminHubPane);
         nodetypeCombo.setItems(nodeTypeList);
         buildingCombo.setItems(buildingList);
         adminMapController.initializeScene();
     }
 
     @FXML
-    private void requestToAdminHub() throws IOException { //TODO this one is broken
-        sceneSwitcher.switchScene(this, adminRequestPane, adminHubLoc);
-    }
+    private void requestToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminRequestPane); }
 
     @FXML
     private void mapToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, adminMapPane, adminHubLoc);
+        sceneSwitcher.toAdminHub(this, adminMapPane);
     }
 
     @FXML
     private void logToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, adminLogPane, adminHubLoc);
+        sceneSwitcher.toAdminHub(this, adminLogPane);
     }
 
     @FXML
     private void employeeToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, adminEmployeePane, adminHubLoc);
+        sceneSwitcher.toAdminHub(this, adminEmployeePane);
     }
 }

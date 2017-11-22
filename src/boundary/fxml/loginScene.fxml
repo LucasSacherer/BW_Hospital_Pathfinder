@@ -45,8 +45,8 @@
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </JFXButton>
-                                        <JFXPasswordField fx:id="staffPasswordText" layoutX="174.0" layoutY="187.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
                                         <JFXTextField fx:id="staffLoginText" layoutX="174.0" layoutY="149.0" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
+                                        <JFXPasswordField fx:id="staffPasswordText" layoutX="174.0" layoutY="187.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
                                         <ImageView fitHeight="135.0" fitWidth="84.0" layoutX="258.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/other%20images/BWH.jpg" />

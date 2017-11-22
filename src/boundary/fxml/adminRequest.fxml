@@ -51,7 +51,7 @@
                                           </ContextMenu>
                                        </contextMenu>
                                     </JFXListView>
-                                    <JFXToggleButton fx:id="spillsARDisplayToggle" layoutX="33.0" onAction="#displaySpillsOnMap" text="Display on Map" />
+                                    <JFXToggleButton fx:id="spillsARDisplayToggle" layoutX="33.0" onAction="#displayARSpillsOnMap" text="Display on Map" />
                                     <JFXButton fx:id="spillsAREdit" layoutX="14.0" layoutY="308.0" onAction="#editARSpills" prefHeight="31.0" prefWidth="95.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="Edit" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />

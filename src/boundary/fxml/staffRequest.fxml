@@ -68,8 +68,8 @@
                         </Label>
                         <JFXButton buttonType="RAISED" prefHeight="44.0" prefWidth="66.0" style="-fx-background-color: #003da6;" text="Edit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
                         <JFXButton buttonType="RAISED" prefHeight="42.0" prefWidth="71.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-                        <JFXTextField fx:id="requestDescription" prefHeight="43.0" prefWidth="275.0" text="Description" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <JFXTextField fx:id="requestName" prefHeight="46.0" prefWidth="275.0" text="Name" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <JFXTextField fx:id="requestDescription" prefHeight="43.0" prefWidth="275.0" promptText="Description" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <JFXTextField fx:id="requestName" prefHeight="46.0" prefWidth="275.0" promptText="Name" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>
