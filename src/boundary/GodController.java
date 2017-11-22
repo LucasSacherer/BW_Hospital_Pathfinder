@@ -58,7 +58,7 @@ public class GodController {
 
    /* Scene Panes */
     @FXML
-    private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+    private Pane requestMapPane, mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
     @FXML
     private StackPane menuARStackPane;
@@ -92,7 +92,7 @@ public class GodController {
     @FXML
     private JFXTextField xPosAdd, yPossAdd, xPosEdit, yPossEdit, xPosRemove, yPossRemove,
             shortNameAdd, shortNameEdit, shortNameRemove,
-            longNameAdd, longNameEdit, longNameRemove;
+            longNameAdd, longNameEdit, longNameRemove, requestName, requestDescription;
     @FXML
     private JFXButton addNodeButton, resetNodeButtonAdd,
             editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove;
@@ -149,7 +149,7 @@ public class GodController {
     AdminRequestController adminRequestController = new AdminRequestController();
 
 
-//    /** Organize Functions by Scene **/
+    /** Organize Functions by Scene **/
 
     @FXML
     private void initialize(){
@@ -196,11 +196,7 @@ public class GodController {
         nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
     }
 
-    private void initializeAdminRequestScene(){
-        adminRequestController = new AdminRequestController(
-        );
-    }
-
+    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
     ////////////////
     /* Main scene */
@@ -272,6 +268,10 @@ public class GodController {
 
 
 
+    @FXML
+    private void navigateToRequest() {
+
+    }
 
 
     ///////////////
