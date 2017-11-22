@@ -1,12 +1,14 @@
 package Request;
 
 import Database.FoodManager;
+import Entity.ErrorScreen;
 import Entity.FoodRequest;
 
 import java.util.List;
 
 public class RequestFoodController {
     private final FoodManager foodManager;
+    private ErrorScreen errorscreen;
 
     public RequestFoodController(FoodManager fm){
         foodManager = fm;
@@ -17,7 +19,11 @@ public class RequestFoodController {
      * @param fReq
      */
     public void addRequest(FoodRequest fReq){
-
+        //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
+        foodManager.updateRequests();
+        if (validateRequest(fReq)){
+            foodManager.addRequest(fReq);
+        }else errorscreen.displayError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
     }
 
     /**
@@ -26,7 +32,13 @@ public class RequestFoodController {
      * @return
      */
     private boolean validateRequest(FoodRequest fReq){
-        return false;
+        //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
+        foodManager.updateRequests();
+        if (fReq.getName() != null && fReq.getTimeCreated() != null && fReq.getNode()!=null){
+            if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
+                return true;
+            } else return false;
+        } else return false;
     }
 
     /**
@@ -34,7 +46,7 @@ public class RequestFoodController {
      * @return
      */
     public List<FoodRequest> getRequests(){
-        return null;
+        return foodManager.getRequests();
     }
 
     /**
@@ -42,7 +54,11 @@ public class RequestFoodController {
      * @param fReq
      */
     public void deleteRequest(FoodRequest fReq){
-
+        foodManager.updateRequests();
+        //Check to make sure the request exists
+        if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
+            foodManager.deleteRequest(fReq);
+        } else errorscreen.displayError("The request you want to delete does not exist");
     }
 
     /**
@@ -50,7 +66,12 @@ public class RequestFoodController {
      * @param fReq
      */
     public void updateRequest(FoodRequest fReq){
-
+        //Confirm that this already exists
+        foodManager.updateRequests();
+        if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
+            foodManager.updateRequest(fReq);
+        }
+        else errorscreen.displayError("This request does not already exist in the database");
     }
 
     /**
@@ -58,6 +79,11 @@ public class RequestFoodController {
      * @param fReq
      */
     public void completeRequest(FoodRequest fReq){
-
+        foodManager.updateRequests();
+        //First confiurm that the request exists
+        if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
+            foodManager.completeRequest(fReq);
+        }
+        else errorscreen.displayError("This request does not already exist in the database");
     }
 }
