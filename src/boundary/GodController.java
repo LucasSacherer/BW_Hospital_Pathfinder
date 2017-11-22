@@ -2,13 +2,12 @@ package boundary;
 
 
 import Admin.UserLoginController;
-import Database.SettingsManager;
-import Database.UserManager;
-import Database.EdgeManager;
-import Database.NodeManager;
+import Database.*;
 import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
+import Request.RequestCleanupController;
+import Request.RequestFoodController;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -53,6 +52,8 @@ public class GodController {
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
+    final private UserManager userManager = new UserManager();
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
 
     ///////////////////////
     /** FXML Attributes **/
@@ -66,7 +67,7 @@ public class GodController {
     private StackPane menuARStackPane;
 
     @FXML
-    private Canvas canvas, mapEditCanvas;
+    private Canvas canvas, mapEditCanvas, requestCanvas;
 
     @FXML
     private Label currentFloorNum;
@@ -75,7 +76,7 @@ public class GodController {
     private TextField originField, destinationField;
 
     @FXML
-    private ImageView imageView, mapEditImageView;
+    private ImageView imageView, mapEditImageView, requestImageView;
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
@@ -88,7 +89,7 @@ public class GodController {
 
 
     @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3;
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNumRequest;
 
     @FXML
     private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
@@ -106,7 +107,7 @@ public class GodController {
             editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove,
             removeEdgeButton,resetEdgeButtonRemove,addEdgeButton,resetEdgeButtonAdd;
     @FXML
-    private JFXListView nodesListView;
+    private JFXListView nodesListView, allStaffRequests;
 
 
     //// Requests ADMIN FXML
@@ -147,14 +148,14 @@ public class GodController {
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
-    /* Scene Controllers */
+    /* Scene Commandments */
     MainSceneController mainSceneController;
     LoginController loginController;
-    AdminHubController adminHubController = new AdminHubController();
-    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
+    AdminHubController adminHubController;
+    AdminEmployeeController adminEmployeeController;
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
-    StaffRequestController staffRequestController = new StaffRequestController();
+    StaffRequestController staffRequestController;
     AdminRequestController adminRequestController = new AdminRequestController();
 
 
@@ -168,11 +169,18 @@ public class GodController {
         initializeLoginScene(staffPasswordText, staffLoginText);
         initializeMapAdminScene();
         initializeAdminRequestScene();
-        Image groundFloor = null;
-        groundFloor = mapNavigationFacade.getFloorMap("G");
-        imageView.setImage(groundFloor);
+        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         initializeDirectory();
         initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
+        initializeRequestScene(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
+    }
+
+    private void initializeRequestScene(
+            ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
+            MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade, Label currentFloorNum) {
+        staffRequestController = new StaffRequestController(
+                requestImageView, requestMapPane, requestCanvas, mapNavigationFacade,
+                pathFindingFacade, currentFloorNum, requestCleanupController);
     }
 
     private void initializeMapAdminScene() {
@@ -190,6 +198,7 @@ public class GodController {
         mainSceneController = new MainSceneController(
                 imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum,
                 elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
+        mainSceneController.initializeCanvas();
     }
 
     private void initializeDirectory() {
@@ -276,10 +285,54 @@ public class GodController {
     ///////////////////
 
 
-
     @FXML
     private void navigateToRequest() {
+        staffRequestController.findPath();
+    }
 
+    @FXML
+    private void addStaffRequest() {
+        staffRequestController.addRequest(requestName, requestDescription);
+    }
+
+    @FXML
+    private void completeStaffRequest() {
+        staffRequestController.completeRequest();
+    }
+
+    @FXML
+    private void editStaffRequest() {
+        staffRequestController.editRequest();
+    }
+
+    @FXML
+    private void deleteStaffRequest() {
+        staffRequestController.deleteRequest();
+    }
+
+    @FXML
+    private void zoomInRequestMap() {
+        staffRequestController.zoomInMap();
+    }
+
+    @FXML
+    private void zoomOutRequestMap() {
+        staffRequestController.zoomOutMap();
+    }
+
+    @FXML
+    private void floorDownRequest() throws IOException, SQLException {
+        staffRequestController.floorDown();
+    }
+
+    @FXML
+    private void floorUpRequest() throws IOException, SQLException {
+        staffRequestController.floorUp();
+    }
+
+    @FXML
+    private void clickOnRequestMap(MouseEvent m) {
+        staffRequestController.clickOnMap(m);
     }
 
 
@@ -390,6 +443,10 @@ public class GodController {
     @FXML
     private void deleteAllARFood() throws IOException {
         adminRequestController.deleteAllARFood();
+    }
+    @FXML
+    public void editARMenuFoodPopUp() throws  IOException {
+        adminRequestController.editARMenuFoodPopUp();
     }
     @FXML
     private void displayARMenuFoodName() throws IOException {
@@ -516,6 +573,9 @@ public class GodController {
     private void goToRequests() throws IOException {
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.switchScene(this, loginPane, requestLoc);
+            requestImageView.setImage(mapNavigationFacade.getFloorMap("G"));
+            staffRequestController.initializeCanvas();
+            allStaffRequests.setItems(requestCleanupController.getRequests());
         }
     }
 

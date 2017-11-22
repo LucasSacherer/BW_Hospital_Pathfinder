@@ -3,6 +3,9 @@ package Request;
 import Database.CleanUpManager;
 import Entity.CleanUpRequest;
 import Entity.ErrorScreen;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 public class RequestCleanupController {
@@ -35,7 +38,7 @@ public class RequestCleanupController {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         cleanUpManager.updateRequests();
         if (cReq.getName() != null && cReq.getTimeCreated() != null && cReq.getNode()!=null){
-            if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) == null){
                 return true;
             } else return false;
         } else return false;
@@ -45,8 +48,11 @@ public class RequestCleanupController {
      * returns a list of uncompleted requests of this type (from the manager)
      * @return
      */
-    public List<CleanUpRequest> getRequests(){
-        return cleanUpManager.getRequests();
+    public ObservableList<CleanUpRequest> getRequests(){
+        cleanUpManager.updateRequests();
+        ObservableList requests =  FXCollections.observableArrayList();
+        requests.addAll(cleanUpManager.getRequests());
+        return requests;
     }
 
     /**
