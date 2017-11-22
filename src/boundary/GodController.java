@@ -64,7 +64,7 @@ public class GodController {
     private Label currentFloorNum;
 
     @FXML
-    private TextField originField, destinationField;
+    private TextField originField, destinationField; //TODO change to JFXTextField and in scenebuilder
 
     @FXML
     private ImageView imageView, mapEditImageView, requestImageView;
@@ -72,12 +72,9 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-
     //// MAP ADMIN FXML
     @FXML
     private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
-
-
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNumRequest;
@@ -155,9 +152,7 @@ public class GodController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-       // initializeLoginScene(staffPasswordText, staffLoginText);
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
-
         initializeDirectory();
         initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
         initializeRequestScene(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);

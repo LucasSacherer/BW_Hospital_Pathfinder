@@ -31,8 +31,6 @@ public class MainSceneController extends AbstractMapController{
     private PathFindingFacade pathFindingFacade;
     private ImageView imageView;
 
-    private Node origin, destination, currentLoc;
-
     public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir, ListView deptDir, ListView labDir, ListView infoDeskDir, ListView conferenceDir, ListView exitDir, ListView shopsDir, ListView nonMedical) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         // todo set origin:  this.origin = mapNavigationFacade.getDefaultNode(); //todo change the origin when the floor changes
@@ -105,9 +103,13 @@ public class MainSceneController extends AbstractMapController{
         findPath();
     }
 
-    public void setAsOrigin() { //TODO why doesn't this work?
+    public void setAsOrigin() {
+        System.out.println("origin" + origin);
+        System.out.println("currentLoc" + currentLoc);
         currentPath = null;
         origin = currentLoc;
+        System.out.println("origin" + origin);
+        System.out.println("currentLoc" + currentLoc);
         refreshCanvas();
     }
 }
