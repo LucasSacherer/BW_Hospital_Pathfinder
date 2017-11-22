@@ -15,8 +15,7 @@ public class NodeEditControllerTest {
     @Test
     public void AddRemoveEditNode() throws Exception {
         NodeManager nManager = new NodeManager();
-        HashMap<String, String> settings = new HashMap<>();
-        SettingsManager sManager = new SettingsManager(settings);
+        SettingsManager sManager = new SettingsManager();
         NodeEditController editor = new NodeEditController(nManager, sManager);
 
         nManager.updateNodes();
@@ -54,8 +53,7 @@ public class NodeEditControllerTest {
 
         NodeManager nManager = new NodeManager();
         nManager.updateNodes();
-        HashMap<String, String> settings = new HashMap<>();
-        SettingsManager sManager = new SettingsManager(settings);
+        SettingsManager sManager = new SettingsManager();
         NodeEditController editor = new NodeEditController(nManager, sManager);
 
         editor.setKioskLocation(test);
