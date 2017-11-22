@@ -49,6 +49,7 @@ public class RequestCleanupController {
      * @return
      */
     public ObservableList<CleanUpRequest> getRequests(){
+        cleanUpManager.updateRequests();
         ObservableList requests =  FXCollections.observableArrayList();
         requests.addAll(cleanUpManager.getRequests());
         return requests;

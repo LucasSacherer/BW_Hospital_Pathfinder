@@ -34,7 +34,7 @@ public class RequestInterpreterController {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         interpreterManager.updateRequests();
         if (iReq.getName() != null && iReq.getTimeCreated() != null && iReq.getNode()!=null && iReq.getLanguage()!=null){
-            if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
+            if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) == null){
                 return true;
             } else return false;
         } else return false;
