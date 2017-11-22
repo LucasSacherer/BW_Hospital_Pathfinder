@@ -445,6 +445,10 @@ public class GodController {
         adminRequestController.deleteAllARFood();
     }
     @FXML
+    public void editARMenuFoodPopUp() throws  IOException {
+        adminRequestController.editARMenuFoodPopUp();
+    }
+    @FXML
     private void displayARMenuFoodName() throws IOException {
         adminRequestController.displayARMenuFoodName();
     }
