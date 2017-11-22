@@ -60,7 +60,7 @@ public class GodController {
 
    /* Scene Panes */
     @FXML
-    private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+    private Pane requestMapPane, mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
 
     @FXML
     private StackPane menuARStackPane;
@@ -94,7 +94,7 @@ public class GodController {
     @FXML
     private JFXTextField xPosAdd, yPossAdd, xPosEdit, yPossEdit, xPosRemove, yPossRemove,
             shortNameAdd, shortNameEdit, shortNameRemove,
-            longNameAdd, longNameEdit, longNameRemove;
+            longNameAdd, longNameEdit, longNameRemove, requestName, requestDescription;
     @FXML
     private JFXButton addNodeButton, resetNodeButtonAdd,
             editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove;
@@ -126,7 +126,6 @@ public class GodController {
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
-
     //Login Screen
     @FXML
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
@@ -149,23 +148,24 @@ public class GodController {
     AdminLogController adminLogController = new AdminLogController();
     AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
     StaffRequestController staffRequestController = new StaffRequestController();
+    AdminRequestController adminRequestController = new AdminRequestController();
 
-//    /** Organize Functions by Scene **/
-//
+
+    /** Organize Functions by Scene **/
+
     @FXML
     private void initialize(){
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
         initializeLoginScene(staffPasswordText, staffLoginText);
         initializeMapAdminScene();
-
+        initializeAdminRequestScene();
         Image groundFloor = null;
         groundFloor = mapNavigationFacade.getFloorMap("G");
         imageView.setImage(groundFloor);
-//        initializeDirectory();
-//        initializeDirectoryListeners();
+        initializeDirectory();
+        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
     }
 
     private void initializeMapAdminScene() {
@@ -181,80 +181,24 @@ public class GodController {
             ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
             PathFindingFacade pathFindingFacade, Label currentFloorNum) {
         mainSceneController = new MainSceneController(
-                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
+                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+                elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
     }
-//
-//    private void initializeDirectory() {
-//        elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
-//        restroomDir.setItems(directoryController.getDirectory().get("Restrooms"));
-//        stairsDir.setItems(directoryController.getDirectory().get("Stairs"));
-//        labDir.setItems(directoryController.getDirectory().get("Departments"));
-//        deptDir.setItems(directoryController.getDirectory().get("Labs"));
-//        infoDeskDir.setItems(directoryController.getDirectory().get("Information Desks"));
-//        conferenceDir.setItems(directoryController.getDirectory().get("Conference Rooms"));
-//        exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
-//        shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
-//        nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
-//    }
-//
-//    private void initializeDirectoryListeners(){
-//        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//    }
-//
 
+    private void initializeDirectory() {
+        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
+        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
+        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
+        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
+        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
+        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
+        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
+        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
+        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
+        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
+    }
+
+    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
     ////////////////
     /* Main scene */
@@ -326,6 +270,12 @@ public class GodController {
 
 
 
+    @FXML
+    private void navigateToRequest() {
+
+    }
+
+
     ///////////////
     /* Admin Hub */
     ///////////////
@@ -344,9 +294,97 @@ public class GodController {
     /* Request Admin */
     ///////////////////
 
+    //Spills
+    @FXML
+    private void displayARSpillsOnMap() throws IOException {
+        adminRequestController.displayARSpillsOnMap();
+    }
+    @FXML
+    private void displayARSpillsType() throws IOException {
+        adminRequestController.displayARSpillsType();
+    }
+    @FXML
+    private void displayARSpillsName() throws IOException {
+        adminRequestController.displayARSpillsName();
+    }
+    @FXML
+    private void displayARSpillsNode() throws IOException {
+        adminRequestController.displayARSpillsNode();
+    }
+    @FXML
+    private void displayARSpillsTimestamp() throws IOException {
+        adminRequestController.displayARSpillsTimestamp();
+    }
+    @FXML
+    private void displayARSpillsDescription() throws IOException {
+        adminRequestController.displayARSpillsDescription();
+    }
+    @FXML
+    private void addARSpills() throws IOException {
+        adminRequestController.addARSpills();
+    }
+    @FXML
+    private void cancelARSpills() throws IOException {
+        adminRequestController.cancelARSpills();
+    }
+    @FXML
+    private void editARSpills() throws IOException {
+        adminRequestController.editARSpills();
+    }
+    @FXML
+    private void deleteARSpills() throws IOException {
+        adminRequestController.deleteARSpills();
+    }
+    @FXML
+    private void deleteAllARSpills() throws IOException {
+        adminRequestController.deleteAllARSpills();
+    }
 
-
-
+    //Food
+    @FXML
+    private void displayARFoodOnMap(MouseEvent e) throws IOException {
+        adminRequestController.displayARFoodOnMap();
+    }
+    @FXML
+    private void displayARFoodType(MouseEvent e) throws IOException {
+        adminRequestController.displayARFoodType();
+    }
+    @FXML
+    private void displayARFoodName() throws IOException {
+        adminRequestController.displayARFoodName();
+    }
+    @FXML
+    private void displayARFoodNode() throws IOException {
+        adminRequestController.displayARFoodNode();
+    }
+    @FXML
+    private void displayARFoodTimestamp() throws IOException {
+        adminRequestController.displayARFoodTimestamp();
+    }
+    @FXML
+    private void displayARFoodDescription() throws IOException {
+        adminRequestController.displayARFoodDescription();
+    }
+    @FXML
+    private void addARFood() throws IOException {
+        adminRequestController.addARFood();
+    }
+    @FXML
+    private void cancelARFood() throws IOException {
+        adminRequestController.cancelARFood();
+    }
+    @FXML
+    private void editARFood() throws IOException {
+        adminRequestController.editARFood();
+    }
+    @FXML
+    private void deleteARFood() throws IOException {
+        adminRequestController.deleteARFood();
+    }
+    @FXML
+    private void deleteAllARFood() throws IOException {
+        adminRequestController.deleteAllARFood();
+    }
 
     ///////////////
     /* Map Admin */
@@ -396,7 +434,9 @@ public class GodController {
 
     @FXML
     private void goToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, loginPane, adminHubLoc);
+        if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
+            sceneSwitcher.switchScene(this, loginPane, adminHubLoc);
+        }
     }
 
     @FXML
