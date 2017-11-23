@@ -35,6 +35,8 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
+                                        <JFXTextField fx:id="staffLoginText" layoutX="174.0" layoutY="149.0" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
+                                        <JFXPasswordField fx:id="staffPasswordText" layoutX="174.0" layoutY="187.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
                                         <JFXButton fx:id="staffLogin" layoutX="175.0" layoutY="239.0" onAction="#goToRequests" prefHeight="31.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
@@ -45,8 +47,6 @@
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </JFXButton>
-                                        <JFXTextField fx:id="staffLoginText" layoutX="174.0" layoutY="149.0" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
-                                        <JFXPasswordField fx:id="staffPasswordText" layoutX="174.0" layoutY="187.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
                                         <ImageView fitHeight="135.0" fitWidth="84.0" layoutX="258.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/other%20images/BWH.jpg" />
@@ -60,6 +60,8 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
+                                    <JFXTextField fx:id="adminLoginText" layoutX="174.0" layoutY="147.0" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
+                                    <JFXPasswordField fx:id="adminPasswordText" layoutX="174.0" layoutY="188.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
                                     <JFXButton fx:id="adminLogin" layoutX="174.0" layoutY="241.0" onAction="#goToAdminHub" prefHeight="31.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
@@ -70,8 +72,6 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXPasswordField fx:id="adminPasswordText" layoutX="174.0" layoutY="188.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
-                                    <JFXTextField fx:id="adminLoginText" layoutX="174.0" layoutY="147.0" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
                                     <ImageView fitHeight="135.0" fitWidth="84.0" layoutX="257.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/other%20images/BWH.jpg" />

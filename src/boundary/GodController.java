@@ -51,7 +51,11 @@ public class GodController {
 
     /* Scene Panes */
     @FXML
-    private Pane requestMapPane, mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+
+    /* Map Panes */
+    @FXML
+    private Pane mapEditMapPane, mapPane, requestMapPane;
 
     @FXML
     private StackPane menuARStackPane;
@@ -73,7 +77,7 @@ public class GodController {
     private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
 
     @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest;
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
 
     @FXML
     private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
@@ -86,10 +90,7 @@ public class GodController {
             longNameAdd, longNameEdit, requestName, requestDescription,
             edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
             edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove;
-    @FXML
-    private JFXButton addNodeButton, resetNodeButtonAdd,
-            editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove,
-            removeEdgeButton,resetEdgeButtonRemove,addEdgeButton,resetEdgeButtonAdd;
+
     @FXML
     private JFXListView nodesListView, allStaffRequests, requestsIMade;
 
@@ -136,7 +137,7 @@ public class GodController {
     MainSceneController mainSceneController;
     AdminEmployeeController adminEmployeeController;
     AdminLogController adminLogController;
-    AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
+    AdminMapController adminMapController;
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
 
@@ -167,6 +168,8 @@ public class GodController {
     private void initializeMapAdminScene() {
         nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
         buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
+        adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit);
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
@@ -264,9 +267,7 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-
    //TODO
-
 
     ///////////////////
     /* Request Admin */
@@ -408,11 +409,54 @@ public class GodController {
     @FXML
     private void deleteAllARInterpreter() throws IOException { adminRequestController.deleteAllARInterpreter(); }
 
-    ///////////////
-    /* Map Admin */
-    ///////////////
+    /////////////////
+    /* Map Editing */
+    /////////////////
 
-    //TODO
+    @FXML
+    private void addNodeButton() { adminMapController.addNodeButton(); }
+
+    @FXML
+    private void removeNodeButton() { adminMapController.removeNodeButton(); }
+
+    @FXML
+    private void resetNodeButtonAdd() { adminMapController.resetNodeButtonAdd(); }
+
+    @FXML
+    private void editNode() { adminMapController.editNode(); }
+
+    @FXML
+    private void resetNodeButtonEdit() { adminMapController.resetNodeButtonEdit(); }
+
+    @FXML
+    private void resetNodeButtonRemove() { adminMapController.resetNodeButtonRemove(); }
+
+    @FXML
+    private void removeEdgeButton() { adminMapController.removeEdgeButton(); }
+
+    @FXML
+    private void resetEdgeButtonRemove() { adminMapController.resetEdgeButtonRemove(); }
+
+    @FXML
+    private void addEdgeButton() { adminMapController.addEdgeButton(); }
+
+    @FXML
+    private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
+
+    @FXML
+    private void zoomInMapEdit() { adminMapController.zoomInMap(); }
+
+    @FXML
+    private void zoomOutMapEdit() { adminMapController.zoomOutMap(); }
+
+    @FXML
+    private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
+
+    @FXML
+    private void floorUpMapEdit() throws IOException, SQLException { adminMapController.floorUp(); }
+
+    @FXML
+    private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     ////////////////
     /* Admin Logs */

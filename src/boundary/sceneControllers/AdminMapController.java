@@ -1,70 +1,31 @@
 package boundary.sceneControllers;
+import Editor.NodeEditController;
+import Entity.Node;
+import MapNavigation.MapNavigationFacade;
+import Pathfinding.PathFindingFacade;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 
-        import Database.EdgeManager;
-        import Database.NodeManager;
-        import Editor.NodeEditController;
-        import Entity.Edge;
-        import Entity.Node;
-        import MapNavigation.MapNavigationFacade;
-        import Pathfinding.PathFindingFacade;
-        import com.jfoenix.controls.JFXTextField;
-        import javafx.collections.FXCollections;
-        import javafx.collections.ObservableList;
-        import javafx.fxml.FXML;
-        import javafx.scene.canvas.Canvas;
-        import javafx.scene.canvas.GraphicsContext;
-        import javafx.scene.control.*;
-        import javafx.scene.image.ImageView;
-        import javafx.scene.layout.Pane;
-        import javafx.scene.paint.Color;
-
-        import java.util.List;
-
-public class AdminMapController {
-
+public class AdminMapController extends AbstractMapController{
     private NodeEditController nodeEditController;
-    private Canvas canvas;
-    private String currentFloor;
-    private GraphicsContext gc;
-    private Pane mapPane;
-    private ImageView imageView;
-
 
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
 
-    public AdminMapController(ImageView imageView, Pane mapPane, Canvas canvas){
-        this.imageView = imageView;
-        this.mapPane = mapPane;
-        this.canvas = canvas;
+    public AdminMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+                              Label currentFloorNum) {
+        super(i, mapPane, canvas, m, p, currentFloorNum);
         this.nodeEditController = nodeEditController;
-
-
     }
 
 
-    public void initializeScene() {
-        this.gc = canvas.getGraphicsContext2D();
-    }
-
-
-
-    public void clearCanvas() {
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-    }
-
-
-
-
-    public void drawNode(Node n) {
-        gc.setFill(Color.BLUE);
-        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
-        gc.setFill(Color.BLACK);
-    }
-
-//    public void drawEdge() {
+    public void drawEdge() {
 //        Node startNode = edge.getStartNode();
 //        int sx = startNode.getXcoord();
 //        int sy = startNode.getYcoord();
@@ -74,24 +35,50 @@ public class AdminMapController {
 //
 //        gc.setLineWidth(3);
 //        gc.strokeLine(sx,sy,ex,ey);
-//    }
-    public void addNode(Node n){
+    }
+
+    public void addNode(){
 
     }
 
-    public void editNode(Node n){
+    public void editNode(){
 
     }
 
-    public void deleteNode(Node n){
+    public void deleteNode(){
 
     }
-    public void setKioskLocation(Node n){
+    public void setKioskLocation(){
 
     }
 
 
-
+    public void addNodeButton() {
     }
+
+    public void resetNodeButtonAdd() {
+    }
+
+    public void resetNodeButtonEdit() {
+    }
+
+    public void resetNodeButtonRemove() {
+    }
+
+    public void removeEdgeButton() {
+    }
+
+    public void resetEdgeButtonRemove() {
+    }
+
+    public void addEdgeButton() {
+    }
+
+    public void resetEdgeButtonAdd() {
+    }
+
+    public void removeNodeButton() {
+    }
+}
 
 
