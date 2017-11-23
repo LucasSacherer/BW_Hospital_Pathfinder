@@ -38,7 +38,7 @@ public abstract class AbstractMapController {
         this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
         currentFloor = "G";
-        this.origin = mapNavigationFacade.getDefaultNode();
+        this.origin = mapNavigationFacade.getDefaultNode(); //TODO doesn't work
     }
 
     public void initializeScene() {

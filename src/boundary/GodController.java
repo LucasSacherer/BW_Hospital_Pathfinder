@@ -91,7 +91,7 @@ public class GodController {
             editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove,
             removeEdgeButton,resetEdgeButtonRemove,addEdgeButton,resetEdgeButtonAdd;
     @FXML
-    private JFXListView nodesListView, allStaffRequests;
+    private JFXListView nodesListView, allStaffRequests, requestsIMade;
 
 
     /* Requests ADMIN FXML */
@@ -123,7 +123,7 @@ public class GodController {
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
 
     @FXML
-    private JFXTextField staffLoginText, adminLoginText;
+    private JFXTextField staffLoginText, adminLoginText, selectedRequestNode;
 
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
@@ -160,7 +160,8 @@ public class GodController {
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController, allStaffRequests);
+                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
+                allStaffRequests, requestsIMade, selectedRequestNode);
     }
 
     private void initializeMapAdminScene() {
@@ -227,13 +228,16 @@ public class GodController {
     ///////////////////
 
     @FXML
-    private void navigateToRequest() { staffRequestController.findPath(); }
+    private void navigateToRequest() { staffRequestController.navigateToRequest(); } //TODO
 
     @FXML
     private void addStaffRequest() { staffRequestController.addRequest(requestName, requestDescription); }
 
     @FXML
-    private void completeStaffRequest() { staffRequestController.completeRequest(); }
+    private void completeStaffRequest() { staffRequestController.completeRequest(); } //TODO
+
+    @FXML
+    private void generateStaffReport() {} //TODO
 
     @FXML
     private void editStaffRequest() { staffRequestController.editRequest(); }

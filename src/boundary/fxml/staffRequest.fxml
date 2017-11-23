@@ -40,36 +40,39 @@
                         <RowConstraints maxHeight="81.0" minHeight="6.0" prefHeight="40.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="278.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#requestToMain" prefHeight="42.0" prefWidth="173.0" style="-fx-background-color: #003da5;" text="Back to Main Scene" textFill="WHITE" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="8" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-                        <JFXListView prefHeight="119.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
                         <JFXListView fx:id="allStaffRequests" prefHeight="95.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label style="-fx-background-color: white;" text="Request Queue" textFill="#003da6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <JFXButton buttonType="RAISED" prefHeight="40.0" prefWidth="66.0" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton buttonType="RAISED" onAction="#addStaffRequest" prefHeight="40.0" prefWidth="66.0" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" prefHeight="39.0" prefWidth="84.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXButton prefHeight="37.0" prefWidth="130.0" style="-fx-background-color: #003da6;" text="Generate Report" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Label style="-fx-background-color: white;" text="My Request Queue" textFill="#003da6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <JFXButton buttonType="RAISED" onAction="#completeStaffRequest" prefHeight="39.0" prefWidth="84.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXButton onAction="#generateStaffReport" prefHeight="37.0" prefWidth="130.0" style="-fx-background-color: #003da6;" text="Generate Report" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Label style="-fx-background-color: white;" text="My Request Queue" textFill="#003da6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <JFXButton buttonType="RAISED" prefHeight="44.0" prefWidth="66.0" style="-fx-background-color: #003da6;" text="Edit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-                        <JFXButton buttonType="RAISED" prefHeight="42.0" prefWidth="71.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-                        <JFXTextField fx:id="requestDescription" prefHeight="43.0" prefWidth="275.0" promptText="Description" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <JFXTextField fx:id="requestName" prefHeight="46.0" prefWidth="275.0" promptText="Name" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <JFXTextField fx:id="requestDescription" prefHeight="46.0" prefWidth="275.0" promptText="Description" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <JFXTextField editable="false" prefHeight="46.0" text="Request Location:" GridPane.rowIndex="5" />
+                        <JFXTextField fx:id="selectedRequestNode" prefHeight="46.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                        <JFXListView fx:id="requestsIMade" prefHeight="119.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+                        <JFXButton buttonType="RAISED" onAction="#editStaffRequest" prefHeight="44.0" prefWidth="66.0" style="-fx-background-color: #003da6;" text="Edit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                        <JFXButton buttonType="RAISED" onAction="#deleteStaffRequest" prefHeight="42.0" prefWidth="71.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#requestToMain" prefHeight="42.0" prefWidth="173.0" style="-fx-background-color: #003da5;" text="Back to Main Scene" textFill="WHITE" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="9" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
                      </children>
                   </GridPane>
                </children>
@@ -150,7 +153,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <VBox alignment="TOP_CENTER" style="-fx-background-color: light cyan; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
+                                          <VBox alignment="TOP_CENTER" style="-fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
                                                 <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
                                                    <font>
