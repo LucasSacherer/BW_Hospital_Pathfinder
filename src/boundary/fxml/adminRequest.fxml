@@ -280,7 +280,7 @@
                   </Label>
                   <ImageView fitHeight="113.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
-                        <Image url="@../images/other%20images/BWH.jpg" />
+                        <Image url="@../images/other%20images/BWH.png" />
                      </image>
                   </ImageView>
                </children>

@@ -3,6 +3,8 @@ import Editor.NodeEditController;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -17,13 +19,28 @@ public class AdminMapController extends AbstractMapController{
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
+    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
+    xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
+    setKioskX, setKioskY,
+    shortNameAdd, shortNameEdit,
+    longNameAdd, longNameEdit, requestName, requestDescription,
+    edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
+    edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove;
+    private JFXComboBox nodeTypeCombo, buildingCombo;
 
     public AdminMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
-                              Label currentFloorNum) {
+                              Label currentFloorNum, JFXTextField xPosAddNode, JFXTextField yPosAddNode,
+                              JFXTextField xPosEdit, JFXTextField yPosEdit, JFXTextField xPosRemoveNode,
+                              JFXTextField yPosRemoveNode, JFXTextField xPosAddEdge, JFXTextField yPosAddEdge,
+                              JFXTextField xPosRemoveEdge, JFXTextField yPosRemoveEdge, JFXTextField setKioskX,
+                              JFXTextField setKioskY, JFXTextField shortNameAdd, JFXTextField shortNameEdit,
+                              JFXTextField longNameAdd, JFXTextField longNameEdit, JFXTextField requestName,
+                              JFXTextField requestDescription, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
+                              JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd, JFXTextField edgeXStartRemove,
+                              JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove, JFXComboBox nodetypeCombo, JFXComboBox buildingCombo) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         this.nodeEditController = nodeEditController;
     }
-
 
     public void drawEdge() {
 //        Node startNode = edge.getStartNode();

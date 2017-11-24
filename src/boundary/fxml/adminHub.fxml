@@ -31,22 +31,28 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></JFXButton>
-            <JFXButton fx:id="employees" buttonType="RAISED" onAction="#adminHubtoEmployee" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #003da6;" text="Manage Employees" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <JFXButton fx:id="employees" buttonType="RAISED" onAction="#adminHubtoEmployee" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #003da6;" text="Manage Employees" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
-               </font></JFXButton>
-            <JFXButton fx:id="logs" buttonType="RAISED" onAction="#adminHubtoLog" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #003da6;" text="Admin Logs" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></JFXButton>
-            <JFXButton fx:id="requests" buttonType="RAISED" onAction="#adminHubtoRequest" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #003da6;" text="Manage Requests" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               </font>
                <GridPane.margin>
-                  <Insets />
+                  <Insets right="25.0" />
+               </GridPane.margin></JFXButton>
+            <JFXButton fx:id="logs" buttonType="RAISED" onAction="#adminHubtoLog" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #003da6;" text="Admin Logs" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin></JFXButton>
+            <JFXButton fx:id="requests" buttonType="RAISED" onAction="#adminHubtoRequest" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #003da6;" text="Manage Requests" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="25.0" />
                </GridPane.margin>
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></JFXButton>
-            <JFXButton fx:id="maps" buttonType="RAISED" onAction="#adminHubtoMap" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="Manage Maps" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <JFXButton fx:id="maps" buttonType="RAISED" onAction="#adminHubtoMap" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="Manage Maps" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -56,13 +62,19 @@
                         <DropShadow />
                      </input>
                   </DropShadow>
-               </effect></JFXButton>
+               </effect>
+               <GridPane.margin>
+                  <Insets right="25.0" />
+               </GridPane.margin></JFXButton>
             <ImageView fitHeight="114.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <image>
-                  <Image url="@../images/other%20images/BWH.jpg" />
+                  <Image url="@../images/other%20images/BWH.png" />
                </image>
+               <GridPane.margin>
+                  <Insets left="5.0" top="5.0" />
+               </GridPane.margin>
             </ImageView>
-            <Label alignment="CENTER" text="Admin Controller Hub" textFill="#003da6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label alignment="CENTER" text="Admin Controller Hub" textFill="#003da6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Italic" size="29.0" />
                </font>
