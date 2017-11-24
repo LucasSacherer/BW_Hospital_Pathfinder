@@ -26,12 +26,12 @@
          <items>
             <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="275.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="-1.0" prefHeight="1078.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="TOP_CENTER" layoutX="-1.0" prefHeight="1078.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <JFXButton fx:id="backToAdminHub" onAction="#mapToAdminHub" text="Back to Admin Hub" />
                         <ImageView fitHeight="221.0" fitWidth="188.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/other%20images/BWH.jpg" />
+                              <Image url="@../images/other%20images/BWH.png" />
                            </image>
                         </ImageView>
                         <Label contentDisplay="CENTER" text="Map Editor">
