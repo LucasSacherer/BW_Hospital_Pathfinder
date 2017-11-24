@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -19,6 +20,7 @@ public class AdminMapController extends AbstractMapController{
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
+
     private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
     xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
     setKioskX, setKioskY,
@@ -26,6 +28,7 @@ public class AdminMapController extends AbstractMapController{
     longNameAdd, longNameEdit, requestName, requestDescription,
     edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
     edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove;
+
     private JFXComboBox nodeTypeCombo, buildingCombo;
 
     public AdminMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
@@ -40,6 +43,13 @@ public class AdminMapController extends AbstractMapController{
                               JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove, JFXComboBox nodetypeCombo, JFXComboBox buildingCombo) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         this.nodeEditController = nodeEditController;
+    }
+
+    public void clickOnMap(MouseEvent m) {
+        // if node tool is selected:
+        refreshCanvas();
+        gc.setFill(Color.GREEN);
+        gc.fillOval(m.getX() - 10, m.getY() - 10, 20, 20);
     }
 
     public void drawEdge() {
