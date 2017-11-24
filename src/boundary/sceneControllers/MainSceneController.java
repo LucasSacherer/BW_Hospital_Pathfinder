@@ -12,24 +12,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.WindowEvent;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
-    private Label currentFloorNum;
-    private Canvas canvas;
-    private String currentFloor = "G";
-    private GraphicsContext gc;
-    private Pane mapPane;
-    private List currentPath;
-    private MapNavigationFacade mapNavigationFacade;
-    private PathFindingFacade pathFindingFacade;
-    private ImageView imageView;
-
-    private Node origin, destination, currentLoc;
 
     public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir, ListView deptDir, ListView labDir, ListView infoDeskDir, ListView conferenceDir, ListView exitDir, ListView shopsDir, ListView nonMedical) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
@@ -44,7 +35,21 @@ public class MainSceneController extends AbstractMapController{
         this.exitDir = exitDir;
         this.shopsDir = shopsDir;
         this.nonMedical = nonMedical;
+        initializeDirectory();
         initializeDirectoryListeners();
+    }
+
+    private void initializeDirectory() {
+        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
+        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
+        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
+        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
+        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
+        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
+        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
+        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
+        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
+        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
     }
 
     private void initializeDirectoryListeners(){
@@ -98,4 +103,18 @@ public class MainSceneController extends AbstractMapController{
         refreshCanvas();
     }
 
+    public void navigateToHere() {
+        setDestination();
+        findPath();
+    }
+
+    public void setAsOrigin() {
+        System.out.println("origin" + origin);
+        System.out.println("currentLoc" + currentLoc);
+        currentPath = null;
+        origin = currentLoc;
+        System.out.println("origin" + origin);
+        System.out.println("currentLoc" + currentLoc);
+        refreshCanvas();
+    }
 }

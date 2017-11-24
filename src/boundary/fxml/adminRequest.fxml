@@ -51,7 +51,7 @@
                                           </ContextMenu>
                                        </contextMenu>
                                     </JFXListView>
-                                    <JFXToggleButton fx:id="spillsARDisplayToggle" layoutX="33.0" onAction="#displaySpillsOnMap" text="Display on Map" />
+                                    <JFXToggleButton fx:id="spillsARDisplayToggle" layoutX="33.0" onAction="#displayARSpillsOnMap" text="Display on Map" />
                                     <JFXButton fx:id="spillsAREdit" layoutX="14.0" layoutY="308.0" onAction="#editARSpills" prefHeight="31.0" prefWidth="95.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="Edit" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
@@ -280,7 +280,7 @@
                   </Label>
                   <ImageView fitHeight="113.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
-                        <Image url="@../images/other%20images/BWH.jpg" />
+                        <Image url="@../images/other%20images/BWH.png" />
                      </image>
                   </ImageView>
                </children>

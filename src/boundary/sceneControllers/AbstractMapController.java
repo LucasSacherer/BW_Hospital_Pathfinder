@@ -38,12 +38,13 @@ public abstract class AbstractMapController {
         this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
         currentFloor = "G";
-        currentFloorNum.setText(currentFloor);
-        // todo set origin:  this.origin = mapNavigationFacade.getDefaultNode(); //todo change the origin when the floor changes
+        this.origin = mapNavigationFacade.getDefaultNode(); //TODO doesn't work
     }
 
-    public void initializeCanvas() {
+    public void initializeScene() {
+        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         this.gc = canvas.getGraphicsContext2D();
+        currentFloorNum.setText(currentFloor);
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -85,15 +86,14 @@ public abstract class AbstractMapController {
     public void setOrigin(TextField originField) {
         currentPath = null;
         origin = currentLoc;
-        System.out.println(origin);
         originField.setText(origin.getNodeID());
         refreshCanvas();
     }
 
-    public void setDestination(TextField destinationField) {
+    public void setDestination() {
         currentPath = null;
         destination = currentLoc;
-        destinationField.setText(destination.getNodeID());
+        //destinationField.setText(destination.getNodeID()); //TODO add a listener here instead
         refreshCanvas();
     }
 
@@ -128,21 +128,35 @@ public abstract class AbstractMapController {
          /** testing over **/
 
         for(int i=0;i<pathToDraw.size()-1;i++) {
-            if (pathToDraw.get(i).getFloor().equals(currentFloor) && pathToDraw.get(i+1).getFloor().equals(currentFloor)) {
-                int x1 = pathToDraw.get(i).getXcoord();
-                int y1 = pathToDraw.get(i).getYcoord();
-                int x2 = pathToDraw.get(i + 1).getXcoord();
-                int y2 = pathToDraw.get(i + 1).getYcoord();
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i+1);
+            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
+                int x1 = current.getXcoord();
+                int y1 = current.getYcoord();
+                int x2 = next.getXcoord();
+                int y2 = next.getYcoord();
                 gc.setLineWidth(3);
                 gc.strokeLine(x1, y1, x2, y2);
             }
-            else if (pathToDraw.get(i).getFloor().equals(currentFloor)) {
-
-            }
-            else if (pathToDraw.get(i+1).equals(currentFloor)) {
-
+            else if (current.getFloor().equals(currentFloor)) {
+                int currentFloor = floorStringToInt(current.getFloor());
+                int nextFloor = floorStringToInt(next.getFloor());
+                String direction;
+                if (currentFloor < nextFloor) direction = "UP";
+                else direction = "DOWN";
+                gc.setStroke(Color.BLUE);
+                gc.strokeText(direction, current.getXcoord(), current.getYcoord() - 10);
             }
         }
+    }
+
+    private int floorStringToInt(String floor) {
+        if (floor.equals("L2")) return -2;
+        if (floor.equals("L1")) return -1;
+        if (floor.equals("G")) return 0;
+        if (floor.equals("1")) return 1;
+        if (floor.equals("2")) return 2;
+        return 3;
     }
 
     public void floorDown() throws IOException, SQLException {

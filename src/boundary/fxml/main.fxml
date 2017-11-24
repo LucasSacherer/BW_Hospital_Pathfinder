@@ -7,6 +7,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
@@ -372,6 +373,14 @@
                                                    </children>
                                                 </Pane>
                                              </content>
+                                             <contextMenu>
+                                                <ContextMenu>
+                                                  <items>
+                                                    <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#setAsOrigin" text="Set as origin" />
+                                                  </items>
+                                                </ContextMenu>
+                                             </contextMenu>
                                           </ScrollPane>
                                        </children>
                                     </AnchorPane>
@@ -423,7 +432,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" prefHeight="119.0" prefWidth="87.0" style="-fx-background-color: #DBBD9B; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
+                                          <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
                                                 <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
                                                    <font>
@@ -520,7 +529,7 @@
                               </AnchorPane>
                            </children>
                         </VBox>
-                        <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" style="-fx-background-image: url('/boundary/images/other%20images/halfShadow.png');" minWidth="-Infinity" mouseTransparent="true" prefHeight="112.0" prefWidth="22.0" StackPane.alignment="BOTTOM_LEFT" />
+                        <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="112.0" prefWidth="22.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadow.png');" StackPane.alignment="BOTTOM_LEFT" />
                      </children>
                   </StackPane>
                </children>
