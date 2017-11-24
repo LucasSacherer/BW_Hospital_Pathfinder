@@ -1,10 +1,14 @@
 package boundary.sceneControllers;
 import Editor.NodeEditController;
+import Entity.CleanUpRequest;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -20,6 +24,9 @@ public class AdminMapController extends AbstractMapController{
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
+    private String building, nodeType;
+    private int addNodeX, addNodeY, ID=999;
+    private ObservableList<String> nodeTypeList, buildingList;
 
     private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
     xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
@@ -40,16 +47,48 @@ public class AdminMapController extends AbstractMapController{
                               JFXTextField longNameAdd, JFXTextField longNameEdit, JFXTextField requestName,
                               JFXTextField requestDescription, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
                               JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd, JFXTextField edgeXStartRemove,
-                              JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove, JFXComboBox nodetypeCombo, JFXComboBox buildingCombo) {
+                              JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove,
+                              JFXComboBox nodeTypeCombo, JFXComboBox buildingCombo, JFXTabPane edgeTab,
+                              JFXTabPane kioskTab, JFXTabPane addNodeTab, JFXTabPane editNodeTab,
+                              JFXTabPane removeNodeTab, JFXTabPane addEdgeTab, JFXTabPane removeEdgeTab) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         this.nodeEditController = nodeEditController;
+        this.xPosAddNode = xPosAddNode;
+        this.yPosAddNode = yPosAddNode;
+        this.buildingCombo = buildingCombo;
+        this.nodeTypeCombo = nodeTypeCombo;
+
+    }
+
+    public void initializeScene(){
+        super.initializeScene();
+        nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
+        buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
+        nodeTypeCombo.setItems(nodeTypeList);
+        buildingCombo.setItems(buildingList);
+        buildingCombo.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            building = (String) buildingCombo.getItems().get(newValue.intValue());
+        });
+        nodeTypeCombo.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            nodeType = (String) nodeTypeCombo.getItems().get(newValue.intValue());
+        });
+    }
+
+    public void refreshCanvas() {
+        super.refreshCanvas();
+        // drawAllNodes;
+        // drawAllEdges;
     }
 
     public void clickOnMap(MouseEvent m) {
         // if node tool is selected:
         refreshCanvas();
+        addNodeX = (int) m.getX();
+        addNodeY = (int) m.getY();
         gc.setFill(Color.GREEN);
-        gc.fillOval(m.getX() - 10, m.getY() - 10, 20, 20);
+        gc.fillOval(addNodeX - 10, addNodeY - 10, 20, 20);
+        xPosAddNode.setText("" + addNodeX);
+        yPosAddNode.setText("" + addNodeY);
     }
 
     public void drawEdge() {
@@ -65,7 +104,12 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void addNode(){
-
+        String longName = "What should go here?";
+        String shortName = "How about here?";
+        String nodeID = "G" + nodeType + ID-- + currentFloor;
+        // Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName, shortName);
+        // nodeEditController.addNode(n);
+        System.out.println(building + " " + nodeType + " " + nodeID + " " + currentFloor + " " + longName + " " + shortName);
     }
 
     public void editNode(){
@@ -77,10 +121,6 @@ public class AdminMapController extends AbstractMapController{
     }
     public void setKioskLocation(){
 
-    }
-
-
-    public void addNodeButton() {
     }
 
     public void resetNodeButtonAdd() {

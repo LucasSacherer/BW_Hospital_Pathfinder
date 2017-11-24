@@ -129,7 +129,8 @@ public class GodController {
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
 
-    ObservableList<String> nodeTypeList, buildingList;
+    @FXML
+    private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -166,8 +167,6 @@ public class GodController {
     }
 
     private void initializeMapAdminScene() {
-        nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
-        buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
         adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
                 xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
@@ -176,7 +175,8 @@ public class GodController {
                 shortNameAdd, shortNameEdit,
                 longNameAdd, longNameEdit, requestName, requestDescription,
                 edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
-                edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, nodeTypeCombo, buildingCombo);
+                edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, nodeTypeCombo, buildingCombo,
+                edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab);
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
@@ -421,7 +421,7 @@ public class GodController {
     /////////////////
 
     @FXML
-    private void addNodeButton() { adminMapController.addNodeButton(); }
+    private void addNodeButton() { adminMapController.addNode(); }
 
     @FXML
     private void removeNodeButton() { adminMapController.removeNodeButton(); }
@@ -521,8 +521,6 @@ public class GodController {
     @FXML
     private void adminHubtoMap() throws IOException {
         sceneSwitcher.toAdminMap(this, adminHubPane);
-        nodeTypeCombo.setItems(nodeTypeList);
-        buildingCombo.setItems(buildingList);
         adminMapController.initializeScene();
     }
 

@@ -28,7 +28,6 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="-1.0" prefHeight="1078.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <JFXButton fx:id="backToAdminHub" onAction="#mapToAdminHub" text="Back to Admin Hub" />
                         <ImageView fitHeight="221.0" fitWidth="188.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/other%20images/BWH.png" />
@@ -62,7 +61,7 @@
                                                                      <children>
                                                                         <JFXTextField prefHeight="26.0" prefWidth="75.0" promptText="X Position" fx:id="xPosAddNode" />
                                                                         <Region prefHeight="0.0" prefWidth="29.0" />
-                                                                        <JFXTextField fx:id="yPossAddNode" prefHeight="26.0" prefWidth="75.0" promptText="Y Position" />
+                                                                        <JFXTextField fx:id="yPosAddNode" prefHeight="26.0" prefWidth="75.0" promptText="Y Position" />
                                                                      </children>
                                                                   </HBox>
                                                                   <JFXComboBox fx:id="nodeTypeCombo" promptText="Node Type" />
@@ -313,6 +312,9 @@
                            </tabs>
                         </JFXTabPane>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
@@ -341,7 +343,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0">
                                  <children>
-                                    <Group onKeyPressed="#zoomInMapEdit" onMouseClicked="#zoomInMap">
+                                    <Group onKeyPressed="#zoomInMapEdit" onMouseClicked="#zoomInMapEdit">
                                        <children>
                                           <ImageView fitHeight="125.0" fitWidth="136.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -391,7 +393,7 @@
                                           </ImageView>
                                        </children>
                                     </Group>
-                                    <Group>
+                                    <Group onMouseClicked="#mapToAdminHub">
                                        <children>
                                           <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
