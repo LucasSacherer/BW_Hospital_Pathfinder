@@ -40,17 +40,18 @@ public class AdminMapController extends AbstractMapController{
 
     public AdminMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                               Label currentFloorNum, JFXTextField xPosAddNode, JFXTextField yPosAddNode,
-                              JFXTextField xPosEdit, JFXTextField yPosEdit, JFXTextField xPosRemoveNode,
-                              JFXTextField yPosRemoveNode, JFXTextField xPosAddEdge, JFXTextField yPosAddEdge,
-                              JFXTextField xPosRemoveEdge, JFXTextField yPosRemoveEdge, JFXTextField setKioskX,
-                              JFXTextField setKioskY, JFXTextField shortNameAdd, JFXTextField shortNameEdit,
-                              JFXTextField longNameAdd, JFXTextField longNameEdit, JFXTextField requestName,
-                              JFXTextField requestDescription, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
-                              JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd, JFXTextField edgeXStartRemove,
-                              JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove,
-                              JFXComboBox nodeTypeCombo, JFXComboBox buildingCombo, JFXTabPane edgeTab,
-                              JFXTabPane kioskTab, JFXTabPane addNodeTab, JFXTabPane editNodeTab,
-                              JFXTabPane removeNodeTab, JFXTabPane addEdgeTab, JFXTabPane removeEdgeTab) {
+                              JFXComboBox nodeTypeCombo, JFXComboBox buildingCombo) {
+//                              JFXTextField xPosEdit, JFXTextField yPosEdit, JFXTextField xPosRemoveNode,
+//                              JFXTextField yPosRemoveNode, JFXTextField xPosAddEdge, JFXTextField yPosAddEdge,
+//                              JFXTextField xPosRemoveEdge, JFXTextField yPosRemoveEdge, JFXTextField setKioskX,
+//                              JFXTextField setKioskY, JFXTextField shortNameAdd, JFXTextField shortNameEdit,
+//                              JFXTextField longNameAdd, JFXTextField longNameEdit, JFXTextField requestName,
+//                              JFXTextField requestDescription, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
+//                              JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd, JFXTextField edgeXStartRemove,
+//                              JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove,
+//                               JFXComboBox buildingCombo, JFXTabPane edgeTab,
+//                              JFXTabPane kioskTab, JFXTabPane addNodeTab, JFXTabPane editNodeTab,
+//                              JFXTabPane removeNodeTab, JFXTabPane addEdgeTab, JFXTabPane removeEdgeTab) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         this.nodeEditController = nodeEditController;
         this.xPosAddNode = xPosAddNode;

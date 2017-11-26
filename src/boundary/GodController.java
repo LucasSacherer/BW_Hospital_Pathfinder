@@ -74,7 +74,7 @@ public class GodController {
 
     /* MAP ADMIN FXML */
     @FXML
-    private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
+    private Tab addNode, editNode, removeNode, edgesTab, setKioskTab, addEdge, removeEdge;
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
@@ -168,15 +168,8 @@ public class GodController {
 
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
-                xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
-                xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
-                setKioskX, setKioskY,
-                shortNameAdd, shortNameEdit,
-                longNameAdd, longNameEdit, requestName, requestDescription,
-                edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
-                edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, nodeTypeCombo, buildingCombo,
-                edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab);
+                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, xPosAddNode, yPosAddNode,
+                nodeTypeCombo, buildingCombo);
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
@@ -274,7 +267,7 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   //TODO
+   // TODO
 
     ///////////////////
     /* Request Admin */
