@@ -124,13 +124,13 @@ public class CleanUpManagerTest {
 
         //Update the request and make sure it is changed in the database
         CleanUpRequest completedRequest = new CleanUpRequest("not completed", created.toLocalDateTime(),
-                completed.toLocalDateTime(),"type1","description1",
+                created.toLocalDateTime(),"type1","description1",
                 nodeManager.getNode("GLABS015L2"), userManager.getUser("admin1"));
         cleanUpManager.completeRequest(completedRequest);
         ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
         try {
             if (rs.next()){
-                assertTrue(rs.getTimestamp("timecompleted").equals(completed));
+                assertFalse(rs.getTimestamp("timecompleted").equals(created));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package Editor;
 
 import Database.EdgeManager;
 import Entity.Edge;
+import Entity.Node;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class EdgeEditController {
     }
 
     // deletes an already existing edge
-    public void deleteEdge(Edge edge) {
-        edgeManager.removeEdge(edge);
+    public void deleteEdge(Node start, Node end) {
+        edgeManager.removeEdge(edgeManager.getEdge(start,end));
     }
 }
