@@ -53,8 +53,8 @@ public class EdgeEditControllerTest {
         //doesn't work rn, since update edges actually creates a new object and there's no way to get an individual edge
         //assertTrue(test.getAllEdges().contains(e1) && result.contains(e2));
 
-        //test.deleteEdge(e1);
-        //test.deleteEdge(e2);
+        test.deleteEdge(e1.getStartNode(),e1.getEndNode());
+        test.deleteEdge(e2.getStartNode(),e2.getEndNode());
 
         //manager.removeNode(n1);
         //manager.removeNode(n2);

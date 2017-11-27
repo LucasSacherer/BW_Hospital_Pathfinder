@@ -6,6 +6,7 @@
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="GRANITE_GARGOYLE">
+      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="4" parent="1" name="NULLID"/>
