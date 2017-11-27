@@ -3,10 +3,7 @@ package Request;
 import Database.CleanUpManager;
 import Database.FoodManager;
 import Database.InterpreterManager;
-import Entity.Request;
-import Entity.CleanUpRequest;
-import Entity.FoodRequest;
-import Entity.InterpreterRequest;
+import Entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +24,12 @@ public class GenericRequestController {
      * Returns a list of all the requests in the system as a list of the Request Interface
      * @return
      */
-    public List<Request> getAllRequests(){
-
-        return null;
+    public List<Request> getAllRequestsByUser(User user){
+        List<Request> results = new ArrayList<>();
+        results.addAll(cleanUpManager.getRequestsBy(user));
+        results.addAll(foodManager.getRequestsBy(user));
+        results.addAll(interpreterManager.getRequestsBy(user));
+        return results;
     }
 
     /**
