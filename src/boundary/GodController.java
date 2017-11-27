@@ -72,6 +72,10 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
+    /* Request Scene */
+    @FXML
+    private JFXTextField selectedRequestTextField;
+
     /* MAP ADMIN FXML */
     @FXML
     private Tab addNode, editNode, removeNode, edgesTab, setKioskTab, addEdge, removeEdge;
@@ -124,7 +128,7 @@ public class GodController {
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
 
     @FXML
-    private JFXTextField staffLoginText, adminLoginText, selectedRequestNode;
+    private JFXTextField staffLoginText, adminLoginText;
 
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
@@ -164,7 +168,7 @@ public class GodController {
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
-                allStaffRequests, requestsIMade, selectedRequestNode);
+                allStaffRequests, requestsIMade, selectedRequestTextField);
     }
 
     private void initializeMapAdminScene() {
