@@ -136,7 +136,27 @@ public class GodController {
     @FXML
     private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
 
+    /* Admin Logs */
+
+    @FXML
+    private JFXTreeTableView adminLogs;
+
+    @FXML
+    private TreeTableColumn logID, dateLogged,adminLogged, logContent;
+
+    @FXML
+    private ImageView logImage;
+
+    @FXML
+    private Label logLabel;
+
+    @FXML
+    private JFXButton printLog, sendLog, clearLog, backAdminHub;
+
+
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
+
+
 
     /* Scene Commandments */
     MainSceneController mainSceneController;
