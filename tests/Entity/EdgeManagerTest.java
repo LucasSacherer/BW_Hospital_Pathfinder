@@ -99,4 +99,40 @@ public class EdgeManagerTest {
         assertEquals(weight, 2.0, .1);
         assertEquals(weight2, 2.0, .1);
     }
+    @Test
+    public void testRemoveNeighborEdges() throws Exception {
+
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 2, 1, "1", "test","type", "lName", "sName");
+        Node n3 = new Node("3", 1, 2, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1, n2);
+        Edge e2 = new Edge(n1, n3);
+
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager edgeManager = new EdgeManager(manager);
+        edgeManager.updateEdges();
+
+        manager.addNode(n1);
+        manager.addNode(n2);
+        manager.addNode(n3);
+        edgeManager.addEdge(e1);
+        edgeManager.addEdge(e2);
+
+        List<Node> n1NeighborsBefore = edgeManager.getNeighbors(n1);
+
+        edgeManager.removeNeighborEdges(n1);
+
+        List<Node> n1Neighbors = edgeManager.getNeighbors(n1);
+
+        assertEquals(n1Neighbors.isEmpty(),true);
+
+        edgeManager.removeEdge(e1);
+        edgeManager.removeEdge(e2);
+        manager.removeNode(n1);
+        manager.removeNode(n2);
+        manager.removeNode(n3);
+
+
+    }
 }
