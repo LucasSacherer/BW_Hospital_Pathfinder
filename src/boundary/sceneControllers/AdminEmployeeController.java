@@ -1,6 +1,7 @@
 package boundary.sceneControllers;
 
 import Database.UserManager;
+import Entity.User;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
@@ -13,6 +14,8 @@ public class AdminEmployeeController {
     private JFXTextField userID, userName, password;
     private JFXComboBox departmentMenu;
     private ObservableList departmentList;
+    private boolean isAdmin;
+    private User selectedUser;
 
     public AdminEmployeeController(UserManager u, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
                                    JFXTextField password, JFXComboBox department) {
@@ -31,8 +34,18 @@ public class AdminEmployeeController {
         userManager.updateUsers();
     }
 
-    public void addEmployeeAE(){}
+    public void addEmployeeAE(){
+        User newUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
+                departmentMenu.getSelectionModel().getSelectedItem().toString());
+        userManager.addUser(newUser);
+        userManager.updateUsers();
+    }
+
     public void cancelEmployeeAE(){}
+
     public void editEmployeeAE(){}
-    public void deleteEmployeeAE(){}
+
+    public void deleteEmployeeAE(){
+        userManager.removeUser(selectedUser);
+    }
 }
