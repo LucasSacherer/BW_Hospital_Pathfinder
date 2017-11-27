@@ -13,6 +13,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -121,19 +123,6 @@ public class GodController {
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
-    /* Employee ADMIN FXML */
-    @FXML
-    private JFXTextField employeeUserNameAE, employeeUserIDAE, employeePasswordAE, employeeAdminAE, employeeTimestampAE;
-
-    @FXML
-    private JFXComboBox employeeTypeAE;
-
-    @FXML
-    private JFXButton employeeAddAE, employeeEditAE, employeeCancelAE, employeeDeleteAE, backToAdminHub;
-
-    @FXML
-    private JFXListView employeeListAE;
-
     /* Login Screen */
     @FXML
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
@@ -166,9 +155,7 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
-        initializeAdminEmployeeScene();
     }
-
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(imageView, mapPane, canvas,
@@ -191,10 +178,6 @@ public class GodController {
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
-
-
-    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            employeeListAE, employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE); }
 
     /** Organize Functions by Scene **/
 
@@ -293,17 +276,7 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-    @FXML
-    private void addEmployeeAE() throws IOException { adminEmployeeController.addEmployeeAE(); }
-
-    @FXML
-    private void cancelEmployeeAE() throws IOException { adminEmployeeController.cancelEmployeeAE(); }
-
-    @FXML
-    private void editEmployeeAE() throws IOException { adminEmployeeController.editEmployeeAE(); }
-
-    @FXML
-    private void deleteEmployeeAE() throws IOException { adminEmployeeController.deleteEmployeeAE(); }
+   // TODO
 
     ///////////////////
     /* Request Admin */
@@ -504,10 +477,7 @@ public class GodController {
     private void adminHubtoRequest() throws IOException { sceneSwitcher.toAdminRequests(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoEmployee() throws IOException {
-        sceneSwitcher.toAdminEmployee(this, adminHubPane);
-        adminEmployeeController.initializeScene();
-    }
+    private void adminHubtoEmployee() throws IOException { sceneSwitcher.toAdminEmployee(this, adminHubPane); }
 
     @FXML
     private void adminHubtoMap() throws IOException {
