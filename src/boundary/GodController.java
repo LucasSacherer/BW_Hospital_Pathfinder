@@ -155,7 +155,9 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
+        initializeAdminEmployeeScene();
     }
+
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(imageView, mapPane, canvas,
@@ -178,6 +180,9 @@ public class GodController {
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+
+
+    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(); }
 
     /** Organize Functions by Scene **/
 
