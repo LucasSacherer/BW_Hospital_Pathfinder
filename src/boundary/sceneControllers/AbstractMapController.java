@@ -48,9 +48,6 @@ public abstract class AbstractMapController {
     }
 
     public void clickOnMap(MouseEvent m) {
-        if (origin == null ) {//TODO replace this code with real origin
-            origin = mapNavigationFacade.getNearestNode((int) m.getX(), (int) m.getY(),currentFloor);
-        }
         snapToNode(m);
     }
 
@@ -83,10 +80,9 @@ public abstract class AbstractMapController {
         gc.fillOval(currentLoc.getXcoord()-5,currentLoc.getYcoord()-5,10,10);
     }
 
-    public void setOrigin(TextField originField) {
+    public void setOrigin() {
         currentPath = null;
         origin = currentLoc;
-        originField.setText(origin.getNodeID());
         refreshCanvas();
     }
 

@@ -377,7 +377,7 @@
                                                 <ContextMenu>
                                                   <items>
                                                     <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
-                                                      <MenuItem mnemonicParsing="false" onAction="#setAsOrigin" text="Set as origin" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
                                                   </items>
                                                 </ContextMenu>
                                              </contextMenu>

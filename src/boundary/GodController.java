@@ -156,7 +156,8 @@ public class GodController {
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(imageView, mapPane, canvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
-                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
+                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical,
+                originField, destinationField);
         mainSceneController.initializeScene();
     }
 
@@ -180,7 +181,11 @@ public class GodController {
     /* Main scene */
     ////////////////
     @FXML
-    private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(originField); }
+    private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
+
+
+    @FXML
+    private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(); }
 
     @FXML
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
