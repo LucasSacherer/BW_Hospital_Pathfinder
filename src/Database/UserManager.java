@@ -132,4 +132,20 @@ public class UserManager {
         }
         return null;
     }
+
+    /**
+     * Returns the user from the given userName
+     * @param userName
+     * @return
+     */
+    public User getUserByName(String userName){
+        for (User user: this.users){
+            if (user.getUsername().equals(userName)){
+                return user;
+            }
+        }
+        return null;
+    }
+
 }
+

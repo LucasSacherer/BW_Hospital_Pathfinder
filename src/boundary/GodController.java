@@ -72,9 +72,13 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
+    /* Request Scene */
+    @FXML
+    private JFXTextField selectedRequestTextField;
+
     /* MAP ADMIN FXML */
     @FXML
-    private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
+    private Tab addNode, editNode, removeNode, edgesTab, setKioskTab, addEdge, removeEdge;
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
@@ -124,13 +128,16 @@ public class GodController {
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
 
     @FXML
-    private JFXTextField staffLoginText, adminLoginText, selectedRequestNode;
+    private JFXTextField staffLoginText, adminLoginText;
 
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
 
     @FXML
     private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
+
+    /* Employee Admin */
+    private JFXListView employeeList;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -143,7 +150,7 @@ public class GodController {
     AdminRequestController adminRequestController;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
@@ -151,35 +158,34 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
+        initializeAdminEmployeeScene();
     }
+
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(imageView, mapPane, canvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
-                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
+                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical,
+                originField, destinationField);
         mainSceneController.initializeScene();
     }
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
-                allStaffRequests, requestsIMade, selectedRequestNode);
+                allStaffRequests, requestsIMade, selectedRequestTextField);
     }
 
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
-                xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
-                xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
-                setKioskX, setKioskY,
-                shortNameAdd, shortNameEdit,
-                longNameAdd, longNameEdit, requestName, requestDescription,
-                edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
-                edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, nodeTypeCombo, buildingCombo,
-                edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab);
+                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, xPosAddNode, yPosAddNode,
+                nodeTypeCombo, buildingCombo);
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+
+
+    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(employeeList); }
 
     /** Organize Functions by Scene **/
 
@@ -187,7 +193,11 @@ public class GodController {
     /* Main scene */
     ////////////////
     @FXML
-    private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(originField); }
+    private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
+
+
+    @FXML
+    private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(); }
 
     @FXML
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
@@ -274,7 +284,7 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   //TODO
+   // TODO
 
     ///////////////////
     /* Request Admin */
@@ -289,15 +299,6 @@ public class GodController {
 
     @FXML
     private void displayARSpillsName() throws IOException { adminRequestController.displayARSpillsName(); }
-
-    @FXML
-    private void displayARSpillsNode() throws IOException { adminRequestController.displayARSpillsNode(); }
-
-    @FXML
-    private void displayARSpillsTimestamp() throws IOException { adminRequestController.displayARSpillsTimestamp(); }
-
-    @FXML
-    private void displayARSpillsDescription() throws IOException { adminRequestController.displayARSpillsDescription(); }
 
     @FXML
     private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
@@ -325,18 +326,6 @@ public class GodController {
     private void displayARFoodName() throws IOException { adminRequestController.displayARFoodName(); }
 
     @FXML
-    private void displayARFoodNode() throws IOException { adminRequestController.displayARFoodNode(); }
-
-    @FXML
-    private void displayARFoodTimestamp() throws IOException { adminRequestController.displayARFoodTimestamp(); }
-
-    @FXML
-    private void displayARMenuFoodTimestamp() throws IOException { adminRequestController.displayARMenuFoodTimestamp(); }
-
-    @FXML
-    private void displayARFoodDescription() throws IOException { adminRequestController.displayARFoodDescription(); }
-
-    @FXML
     private void addARFood() throws IOException { adminRequestController.addARFood(); }
 
     @FXML
@@ -353,18 +342,6 @@ public class GodController {
 
     @FXML
     public void editARMenuFoodPopUp() throws  IOException { adminRequestController.editARMenuFoodPopUp(); }
-
-    @FXML
-    private void displayARMenuFoodName() throws IOException { adminRequestController.displayARMenuFoodName(); }
-
-    @FXML
-    private void displayARMenuFoodNode() throws IOException { System.out.println("Haven't made this"); } //TODO
-
-    @FXML
-    private void displayARMenuFoodDescription() throws IOException { adminRequestController.displayARMenuFoodDescription(); }
-
-    @FXML
-    private void displayARMenuFoodCost() throws IOException { adminRequestController.displayARMenuFoodCost(); }
 
     @FXML
     private void addARMenuFood() throws IOException { adminRequestController.addARMenuFood(); }
@@ -391,15 +368,6 @@ public class GodController {
 
     @FXML
     private void displayARInterpreterName() throws IOException { adminRequestController.displayARInterpreterName(); }
-
-    @FXML
-    private void displayARInterpreterNode() throws IOException { adminRequestController.displayARInterpreterNode(); }
-
-    @FXML
-    private void displayARInterpreterTimestamp() throws IOException { adminRequestController.displayARInterpreterTimestamp(); }
-
-    @FXML
-    private void displayARInterpreterDescription() throws IOException { adminRequestController.displayARInterpreterDescription(); }
 
     @FXML
     private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
@@ -491,9 +459,10 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
+
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
-            staffRequestController.initializeScene();
+            staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
         }
         //TODO error screen
     }

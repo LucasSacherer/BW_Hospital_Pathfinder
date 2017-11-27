@@ -66,7 +66,7 @@
                               <JFXTextField fx:id="requestName" prefHeight="46.0" prefWidth="275.0" promptText="Name" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                               <JFXTextField fx:id="requestDescription" prefHeight="46.0" prefWidth="275.0" promptText="Description" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                               <Label text="Request Location:" GridPane.rowIndex="5" />
-                              <JFXTextField fx:id="selectedRequestNode" prefHeight="46.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                              <JFXTextField fx:id="selectedRequestTextField" prefHeight="46.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
                               <Label style="-fx-background-color: white;" text="My Request Queue" textFill="#003da6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
@@ -169,7 +169,7 @@
                                           </Group>
                                           <VBox alignment="TOP_CENTER" style="-fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
-                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor:" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>

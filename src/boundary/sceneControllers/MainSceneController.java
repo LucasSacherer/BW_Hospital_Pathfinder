@@ -3,6 +3,7 @@ package boundary.sceneControllers;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -20,9 +21,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
+    private JFXTextField originField, destinationField;
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-    public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir, ListView deptDir, ListView labDir, ListView infoDeskDir, ListView conferenceDir, ListView exitDir, ListView shopsDir, ListView nonMedical) {
+    public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+                               Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir,
+                               ListView deptDir, ListView labDir, ListView infoDeskDir, ListView conferenceDir,
+                               ListView exitDir, ListView shopsDir, ListView nonMedical, JFXTextField originField,
+                               JFXTextField destinationField) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         // todo set origin:  this.origin = mapNavigationFacade.getDefaultNode(); //todo change the origin when the floor changes
         this.elevatorDir = elevatorDir;
@@ -35,6 +41,8 @@ public class MainSceneController extends AbstractMapController{
         this.exitDir = exitDir;
         this.shopsDir = shopsDir;
         this.nonMedical = nonMedical;
+        this.originField = originField;
+        this.destinationField = destinationField;
         initializeDirectory();
         initializeDirectoryListeners();
     }
@@ -91,6 +99,14 @@ public class MainSceneController extends AbstractMapController{
         });
     }
 
+    public void clickOnMap(MouseEvent m) {
+        super.clickOnMap(m);
+
+        if (origin == null ) {//TODO replace this code with real origin
+            origin = mapNavigationFacade.getNearestNode((int) m.getX(), (int) m.getY(),currentFloor);
+            originField.setText(origin.getNodeID());
+        }
+    }
     public void bathroomClicked() { findNearest(currentLoc, "REST"); }
 
     public void infoClicked() { findNearest(currentLoc, "INFO"); }
@@ -106,6 +122,24 @@ public class MainSceneController extends AbstractMapController{
     public void navigateToHere() {
         setDestination();
         findPath();
+    }
+
+    public void setOrigin() {
+        super.setOrigin();
+        originField.setText(origin.getNodeID());
+    }
+
+    public void setOrigin(MouseEvent m) {
+        snapToNode(m);
+        currentPath = null;
+        origin = currentLoc;
+        originField.setText(origin.getNodeID());
+        refreshCanvas();
+    }
+
+    public void setDestination() {
+        super.setDestination();
+        destinationField.setText(destination.getNodeID());
     }
 
     public void setAsOrigin() {
