@@ -136,6 +136,9 @@ public class GodController {
     @FXML
     private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
 
+    /* Employee Admin */
+    private JFXListView employeeList;
+
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
     /* Scene Commandments */
@@ -182,7 +185,7 @@ public class GodController {
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
 
-    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(); }
+    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(employeeList); }
 
     /** Organize Functions by Scene **/
 
