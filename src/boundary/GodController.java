@@ -125,7 +125,7 @@ public class GodController {
 
     /* Employee ADMIN FXML */
     @FXML
-    private JFXTextField employeeUserIDAE, employeePasswordAE, employeeAdminAE, employeeTimestampAE;
+    private JFXTextField employeeUserNameAE, employeeUserIDAE, employeePasswordAE, employeeAdminAE, employeeTimestampAE;
 
     @FXML
     private JFXComboBox employeeTypeAE;
@@ -195,7 +195,8 @@ public class GodController {
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
 
-    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(employeeList); }
+    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(employeeList,
+            employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE); }
 
     /** Organize Functions by Scene **/
 
