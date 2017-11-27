@@ -66,6 +66,24 @@ public class EdgeManager {
     }
 
     /**
+     *
+     * @param start The starting node of the edge you want to remove
+     * @param end The end node of the edge you want to remove
+     * @return The cooresponding Edge that matches the starting and ending node given.
+     */
+    public Edge getEdge(Node start, Node end){
+        for (Edge edge : edges){
+            if (edge.getStartNode().getNodeID().equals(start.getNodeID()) && edge.getEndNode().getNodeID().equals(end.getNodeID())){
+                return edge;
+            }
+            else if(edge.getEndNode().getNodeID().equals(start.getNodeID()) && edge.getStartNode().getNodeID().equals(end.getNodeID())){
+                return edge;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Returns a list of all edges currently in the Java Edge Object (Not in database)
      * @return
      */
@@ -108,4 +126,20 @@ public class EdgeManager {
                         p.getEndNode().getNodeID().equals(start.getNodeID()))).findFirst()).get();
         return (double)target.getWeight();
     }
+
+    /**
+     * Uses a similar structure for getNeighbors() to get a list of all connecting edges from a given
+     * input node and deletes them from the database.
+     * @param node the node that will be deleted in future
+     */
+    public void removeNeighborEdges(Node node){
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+                p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
+
+        for (int i = 0; connectedEdges.size() > i; i++){
+            removeEdge(connectedEdges.get(i));
+            updateEdges();
+        }
+    }
+
 }
