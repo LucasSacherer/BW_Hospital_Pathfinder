@@ -48,6 +48,12 @@ public class StaffRequestController extends AbstractMapController{
         this.user = user;
     }
 
+    public void refreshCanvas() {
+        super.refreshCanvas();
+//        drawAllRequests; TODO
+//        drawSelectedRequest; TODO
+    }
+
     public void addRequest(JFXTextField requestName, JFXTextField description) {
         LocalDateTime l = LocalDateTime.now();
         User user = new User("staff1", "staff1", "staff1", false, "yay");
