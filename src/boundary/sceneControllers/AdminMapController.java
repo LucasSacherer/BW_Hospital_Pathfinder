@@ -86,8 +86,10 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
         addNodeX = (int) m.getX();
         addNodeY = (int) m.getY();
-        gc.setFill(Color.GREEN);
-        gc.fillOval(addNodeX - 10, addNodeY - 10, 20, 20);
+        gc.setFill(Color.BLUE);
+        gc.fillOval(addNodeX - 7, addNodeY - 7, 14, 14);
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(addNodeX - 3, addNodeY - 3, 6, 6);
         xPosAddNode.setText("" + addNodeX);
         yPosAddNode.setText("" + addNodeY);
     }
