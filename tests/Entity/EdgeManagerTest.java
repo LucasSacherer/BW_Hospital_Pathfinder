@@ -62,6 +62,26 @@ public class EdgeManagerTest {
     }
 
     @Test
+    public void testGetEdge(){
+        NodeManager nodeManager = new NodeManager();
+        EdgeManager edgeManager = new EdgeManager(nodeManager);
+        nodeManager.updateNodes();
+        edgeManager.updateEdges();
+
+        Node testnode1 = nodeManager.getNode("GHALL001L2");
+        Node testnode2 = nodeManager.getNode("GLABS003L2");
+        Edge testEdge1 = edgeManager.getEdge(testnode1,testnode2);
+        Edge testEdge2 = edgeManager.getEdge(testnode2,testnode1);
+
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("GHALL001L2") && testEdge1.getEndNode().getNodeID().equals("GLABS003L2"), true);
+        assertEquals(testEdge2.getStartNode().getNodeID().equals("GHALL001L2") && testEdge2.getEndNode().getNodeID().equals("GLABS003L2"), true);
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("GLABS003L2") && testEdge1.getEndNode().getNodeID().equals("GHALL001L2"),false);
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("Wrong") && testEdge1.getEndNode().getNodeID().equals("GLABS003L2"), false);
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("GHALL001L2") && testEdge1.getEndNode().getNodeID().equals("Wrong"), false);
+
+    }
+
+    @Test
     public void testEdgeWeight() throws Exception {
 
         Node n1 = new Node("1", 1, 1, "1", "test","type", "lName", "sName");

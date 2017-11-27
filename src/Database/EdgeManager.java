@@ -76,6 +76,9 @@ public class EdgeManager {
             if (edge.getStartNode().getNodeID().equals(start.getNodeID()) && edge.getEndNode().getNodeID().equals(end.getNodeID())){
                 return edge;
             }
+            else if(edge.getEndNode().getNodeID().equals(start.getNodeID()) && edge.getStartNode().getNodeID().equals(end.getNodeID())){
+                return edge;
+            }
         }
         return null;
     }
