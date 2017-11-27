@@ -3,6 +3,8 @@ package Request;
 import Database.FoodManager;
 import Entity.ErrorScreen;
 import Entity.FoodRequest;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class RequestFoodController {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         foodManager.updateRequests();
         if (fReq.getName() != null && fReq.getTimeCreated() != null && fReq.getNode()!=null){
-            if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
+            if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) == null){
                 return true;
             } else return false;
         } else return false;
@@ -45,8 +47,10 @@ public class RequestFoodController {
      * returns a list of uncompleted requests of this type (from the manager)
      * @return
      */
-    public List<FoodRequest> getRequests(){
-        return foodManager.getRequests();
+    public ObservableList<FoodRequest> getRequests(){
+        ObservableList requests =  FXCollections.observableArrayList();
+        requests.addAll(foodManager.getRequests());
+        return requests;
     }
 
     /**

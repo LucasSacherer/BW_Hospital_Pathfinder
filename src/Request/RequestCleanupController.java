@@ -3,6 +3,9 @@ package Request;
 import Database.CleanUpManager;
 import Entity.CleanUpRequest;
 import Entity.ErrorScreen;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 public class RequestCleanupController {
@@ -31,22 +34,28 @@ public class RequestCleanupController {
      * @param cReq
      * @return
      */
-    private boolean validateRequest(CleanUpRequest cReq){
+    private boolean validateRequest(CleanUpRequest cReq) {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         cleanUpManager.updateRequests();
-        if (cReq.getName() != null && cReq.getTimeCreated() != null && cReq.getNode()!=null){
-            if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+        if (cReq.getName() != null && cReq.getTimeCreated() != null && cReq.getNode() != null) {
+            if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) == null) {
                 return true;
             } else return false;
-        } else return false;
+        } else {
+            System.out.println("WHY?");
+            return false;
+        }
     }
 
     /**
      * returns a list of uncompleted requests of this type (from the manager)
      * @return
      */
-    public List<CleanUpRequest> getRequests(){
-        return cleanUpManager.getRequests();
+    public ObservableList<CleanUpRequest> getRequests(){
+        cleanUpManager.updateRequests();
+        ObservableList requests =  FXCollections.observableArrayList();
+        requests.addAll(cleanUpManager.getRequests());
+        return requests;
     }
 
     /**
@@ -80,7 +89,7 @@ public class RequestCleanupController {
      */
     public void completeRequest(CleanUpRequest cReq){
         cleanUpManager.updateRequests();
-        //First confiurm that the request exists
+        //First confirm that the request exists
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.completeRequest(cReq);
         }

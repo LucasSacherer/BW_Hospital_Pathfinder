@@ -14,13 +14,11 @@ public class SettingsManager {
     private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
 
-    public SettingsManager(HashMap<String, String> settings){
-        this.settings = settings;
+    public SettingsManager(){
+        settings = new HashMap<>();
     }
 
-    public String getSetting(String string){
-        return settings.get(string);
-    }
+
 
     public void setSetting(String setting, String nodeID){
         databaseGargoyle.createConnection();
@@ -45,5 +43,9 @@ public class SettingsManager {
             e.printStackTrace();
         }
         databaseGargoyle.destroyConnection();
+    }
+
+    public String getSetting(String string){
+        return settings.get(string);
     }
 }

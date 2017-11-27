@@ -85,9 +85,10 @@ public class CleanUpManager {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
+        LocalDateTime timeCompleted = LocalDateTime.now();
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
-                "TIMECOMPLETED = '" + Timestamp.valueOf(cReq.getTimeCompleted()) + "' " +
+                "TIMECOMPLETED = '" + Timestamp.valueOf(timeCompleted) + "' " +
                 "WHERE NAME = '" + cReq.getName() + "' " +
                 "AND TIMECREATED = '" + Timestamp.valueOf(cReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();

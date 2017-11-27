@@ -5,12 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class TableCreator {
     private Statement statement;
-    private String defaultNodesPath = "src/DatabaseSetup/defaultNodes.txt";
-    private String defaultEdgesPath = "src/DatabaseSetup/defaultEdges.txt";
-    private String defaultUsersPath = "src/DatabaseSetup/defaultUsers.txt";
+    private String defaultNodesPath = "/DatabaseSetup/defaultNodes.txt";
+    private String defaultEdgesPath = "/DatabaseSetup/defaultEdges.txt";
+    private String defaultUsersPath = "/DatabaseSetup/defaultUsers.txt";
 
     public TableCreator(Statement statement) {
         this.statement = statement;
@@ -213,55 +214,45 @@ public class TableCreator {
      * @throws FileNotFoundException
      */
     public void insertCSVToDatabase(String path, Connection connection, String table) throws FileNotFoundException {
+        /*
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
-        DatabaseGargoyle dbGargoyle = new DatabaseGargoyle();
+        */
+        InputStream file = TableCreator.class.getResourceAsStream(path);
+        Scanner br = new Scanner(file);
         String line;
         PreparedStatement query = null;
 
-        try {
-            while ((line = br.readLine()) != null){
-                try {
-                    if (line != null){
-                        String[] array = line.split(",");
-                        //Execute query to database
-                        try {
-                            if (table.equals("NODE")){
-                                query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setInt(2, Integer.parseInt(array[1]));
-                                query.setInt(3, Integer.parseInt(array[2]));
-                                query.setString(4,array[3]);
-                                query.setString(5,array[4]);
-                                query.setString(6,array[5]);
-                                query.setString(7,array[6]);
-                                query.setString(8,array[7]);
-                                query.setString(9,array[8]);
-                            } else if (table.equals("EDGE")) {
-                                query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setString(2, array[1]);
-                                query.setString(3, array[2]);
-                            }
-                            query.executeUpdate();
-                        } catch (SQLException e){
-                            System.out.println("Failed to execute: " + query.toString());
-                            e.printStackTrace();
-                        }
-                    }
-                } finally {
-                    if (br == null) {
-                        try {
-                            br.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+        while (br.hasNext()){
+            line = br.nextLine();
+            String[] array = line.split(",");
+            //Execute query to database
+            try {
+                if (table.equals("NODE")){
+                    query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
+                    query.setString(1, array[0]);
+                    query.setInt(2, Integer.parseInt(array[1]));
+                    query.setInt(3, Integer.parseInt(array[2]));
+                    query.setString(4,array[3]);
+                    query.setString(5,array[4]);
+                    query.setString(6,array[5]);
+                    query.setString(7,array[6]);
+                    query.setString(8,array[7]);
+                    query.setString(9,array[8]);
+                } else if (table.equals("EDGE")) {
+                    query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
+                    query.setString(1, array[0]);
+                    query.setString(2, array[1]);
+                    query.setString(3, array[2]);
                 }
+                query.executeUpdate();
+            } catch (SQLException e){
+                System.out.println("Failed to execute: " + query.toString());
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+
     }
 }

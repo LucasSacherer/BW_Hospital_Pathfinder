@@ -10,10 +10,10 @@ import java.util.Comparator;
 import java.util.List;
 
 
- class Astar implements PathFinder {
+ public class Astar implements PathFinder {
     EdgeManager edgeM;
     // The set of nodes already evaluated
-    ArrayList<Node> closedSet = new ArrayList<Node>();
+    ArrayList<String> closedSet = new ArrayList<String>();
     List<Node> neighbors = new ArrayList<Node>();
     List<Node> connected = new ArrayList<Node>();
     // The set of currently discovered nodes that are not evaluated yet.
@@ -29,7 +29,7 @@ import java.util.List;
         }
     };
 
-    Astar(EdgeManager e){
+    public Astar(EdgeManager e){
         this.edgeM = e;
     }
 
@@ -59,7 +59,8 @@ import java.util.List;
                 return reconstruct_path(current);
             }
             //add the current path to the closedSet(Explored)
-            closedSet.add(current.node);
+            closedSet.add(current.node.getNodeID());
+
             neighbors.clear();
             //get all the edges connected to the starting node
             neighbors = edgeM.getNeighbors(current.node);
@@ -70,14 +71,10 @@ import java.util.List;
             for (int i = 0; i < neighbors.size(); i++) {
                 //check if the node is in the closed set
                 for (int j = 0; j < closedSet.size(); j++) {
-                    if (neighbors.get(i).getNodeID().equals(closedSet.get(j).getNodeID())) {
+                    if (neighbors.get(i).getNodeID().equals(closedSet.get(j))) {
                         alreadfound = true;
                         break;// Ignore the neighbor which is already evaluated.
-                    } else if (!(neighbors.get(i).getFloor().equals(loc1.getFloor()))) {
-                        alreadfound = false;
-                        floorChange = true;
-                        break;
-                    }else{
+                    } else{
                         alreadfound = false;
 
                     }
@@ -101,8 +98,10 @@ import java.util.List;
                         parentCost = current.parent.gCost;
                     }
                     double gCost = parentCost + distToNext ;
-                    if (floorChange){
-                        gCost += 100;
+                    if (!(loc2.getBuilding().equals(neighbors.get(i)))){
+                        if (!(neighbors.get(i).getFloor().equals("2"))){
+                            gCost += 100;
+                        }
                     }
                     starNode tempStar = new starNode(neighbors.get(i), current, hC, gCost);
                     astarPQ.add(tempStar);
