@@ -41,7 +41,7 @@
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <JFXTabPane fx:id="nodesTab" prefHeight="773.0" prefWidth="275.0">
+                        <JFXTabPane>
                            <tabs>
                               <Tab text="NODES">
                                  <content>

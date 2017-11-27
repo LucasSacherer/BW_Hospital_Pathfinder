@@ -143,7 +143,7 @@ public class GodController {
     AdminRequestController adminRequestController;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
