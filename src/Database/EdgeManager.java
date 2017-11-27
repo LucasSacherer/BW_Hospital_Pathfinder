@@ -108,4 +108,13 @@ public class EdgeManager {
                         p.getEndNode().getNodeID().equals(start.getNodeID()))).findFirst()).get();
         return (double)target.getWeight();
     }
+    public void removeNeighborEdges(Node node){
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+                p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
+
+        for (int i = 0; connectedEdges.size() > 0; i++){
+            removeEdge(connectedEdges.get(i));
+        }
+    }
+
 }
