@@ -294,7 +294,17 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   // TODO
+    @FXML
+    private void addEmployeeAE() throws IOException { adminEmployeeController.addEmployeeAE(); }
+
+    @FXML
+    private void cancelEmployeeAE() throws IOException { adminEmployeeController.cancelEmployeeAE(); }
+
+    @FXML
+    private void editEmployeeAE() throws IOException { adminEmployeeController.editEmployeeAE(); }
+
+    @FXML
+    private void deleteEmployeeAE() throws IOException { adminEmployeeController.deleteEmployeeAE(); }
 
     ///////////////////
     /* Request Admin */

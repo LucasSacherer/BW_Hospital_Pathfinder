@@ -13,5 +13,8 @@ public class AdminEmployeeController {
     public void initializeAdminEmployeeScene() {
 
     }
-
+    public void addEmployeeAE(){}
+    public void cancelEmployeeAE(){}
+    public void editEmployeeAE(){}
+    public void deleteEmployeeAE(){}
 }
