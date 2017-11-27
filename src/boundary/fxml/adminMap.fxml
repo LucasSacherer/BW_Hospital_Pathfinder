@@ -321,7 +321,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </VBox>
-                        <JFXButton fx:id="back" alignment="CENTER" onAction="#adminHubToMain" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <JFXButton fx:id="back" alignment="CENTER" onAction="#mapToAdminHub" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -447,7 +447,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group onMouseClicked="#mapToAdminHub">
+                                          <Group>
                                              <children>
                                                 <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
