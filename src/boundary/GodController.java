@@ -284,15 +284,6 @@ public class GodController {
     private void displayARSpillsName() throws IOException { adminRequestController.displayARSpillsName(); }
 
     @FXML
-    private void displayARSpillsNode() throws IOException { adminRequestController.displayARSpillsNode(); }
-
-    @FXML
-    private void displayARSpillsTimestamp() throws IOException { adminRequestController.displayARSpillsTimestamp(); }
-
-    @FXML
-    private void displayARSpillsDescription() throws IOException { adminRequestController.displayARSpillsDescription(); }
-
-    @FXML
     private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
 
     @FXML
@@ -318,18 +309,6 @@ public class GodController {
     private void displayARFoodName() throws IOException { adminRequestController.displayARFoodName(); }
 
     @FXML
-    private void displayARFoodNode() throws IOException { adminRequestController.displayARFoodNode(); }
-
-    @FXML
-    private void displayARFoodTimestamp() throws IOException { adminRequestController.displayARFoodTimestamp(); }
-
-    @FXML
-    private void displayARMenuFoodTimestamp() throws IOException { adminRequestController.displayARMenuFoodTimestamp(); }
-
-    @FXML
-    private void displayARFoodDescription() throws IOException { adminRequestController.displayARFoodDescription(); }
-
-    @FXML
     private void addARFood() throws IOException { adminRequestController.addARFood(); }
 
     @FXML
@@ -346,18 +325,6 @@ public class GodController {
 
     @FXML
     public void editARMenuFoodPopUp() throws  IOException { adminRequestController.editARMenuFoodPopUp(); }
-
-    @FXML
-    private void displayARMenuFoodName() throws IOException { adminRequestController.displayARMenuFoodName(); }
-
-    @FXML
-    private void displayARMenuFoodNode() throws IOException { System.out.println("Haven't made this"); } //TODO
-
-    @FXML
-    private void displayARMenuFoodDescription() throws IOException { adminRequestController.displayARMenuFoodDescription(); }
-
-    @FXML
-    private void displayARMenuFoodCost() throws IOException { adminRequestController.displayARMenuFoodCost(); }
 
     @FXML
     private void addARMenuFood() throws IOException { adminRequestController.addARMenuFood(); }
@@ -384,15 +351,6 @@ public class GodController {
 
     @FXML
     private void displayARInterpreterName() throws IOException { adminRequestController.displayARInterpreterName(); }
-
-    @FXML
-    private void displayARInterpreterNode() throws IOException { adminRequestController.displayARInterpreterNode(); }
-
-    @FXML
-    private void displayARInterpreterTimestamp() throws IOException { adminRequestController.displayARInterpreterTimestamp(); }
-
-    @FXML
-    private void displayARInterpreterDescription() throws IOException { adminRequestController.displayARInterpreterDescription(); }
 
     @FXML
     private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
