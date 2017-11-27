@@ -335,21 +335,21 @@
                                        <children>
                                           <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <content>
-                                                <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
+                                                <Pane fx:id="mapEditmapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                                                    <children>
-                                                      <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="mapEditImageView" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../images/other%20images/BWH.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
+                                                      <Canvas fx:id="mapEditCanvas" height="3400.0" onMouseClicked="#clickOnMapEdit" width="5000.0" />
                                                    </children>
                                                 </Pane>
                                              </content>
                                              <contextMenu>
                                                 <ContextMenu>
                                                   <items>
-                                                    <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
+                                                    <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="What should go here?" />
                                                       <MenuItem mnemonicParsing="false" onAction="#setAsOrigin" text="Set as origin" />
                                                   </items>
                                                 </ContextMenu>
@@ -360,7 +360,7 @@
                                     <AnchorPane mouseTransparent="true" prefHeight="200.0" prefWidth="200.0">
                                        <children>
                                           <Region mouseTransparent="true" prefHeight="955.0" prefWidth="44.0" style="-fx-background-image: url('/boundary/images/other%20images/shadow.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                          <Region fx:id="topshad" mouseTransparent="true" prefHeight="22.0" prefWidth="1645.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadowTop.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                          <Region mouseTransparent="true" prefHeight="22.0" prefWidth="1645.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadowTop.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -378,7 +378,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group fx:id="zoomIn" onKeyPressed="#zoomInMap" onMouseClicked="#zoomInMap">
+                                          <Group fx:id="zoomInMapEdit" onKeyPressed="#zoomInMap" onMouseClicked="#zoomInMapEdit">
                                              <children>
                                                 <ImageView fitHeight="125.0" fitWidth="136.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -387,7 +387,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group onMouseClicked="#zoomOutMap">
+                                          <Group onMouseClicked="#zoomOutMapEdit">
                                              <children>
                                                 <ImageView fitHeight="122.0" fitWidth="124.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -396,7 +396,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group onMouseClicked="#floorDown">
+                                          <Group onMouseClicked="#floorDownMapEdit">
                                              <children>
                                                 <ImageView fitHeight="119.0" fitWidth="109.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -412,14 +412,14 @@
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="currentFloorNum">
+                                                <Label fx:id="currentFloorNumMapEdit">
                                                    <font>
                                                       <Font name="System Bold" size="60.0" />
                                                    </font>
                                                 </Label>
                                              </children>
                                           </VBox>
-                                          <Group onMouseClicked="#floorUp">
+                                          <Group onMouseClicked="#floorUpMapEdit">
                                              <children>
                                                 <ImageView fitHeight="114.0" fitWidth="116.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -428,7 +428,7 @@
                                                 </ImageView>
                                              </children>
                                           </Group>
-                                          <Group>
+                                          <Group onMouseClicked="#mapToAdminHub">
                                              <children>
                                                 <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
