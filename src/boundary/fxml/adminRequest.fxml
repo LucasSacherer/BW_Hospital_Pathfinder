@@ -32,7 +32,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="382.0" minHeight="10.0" prefHeight="160.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="382.0" minHeight="160.0" prefHeight="160.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="716.0" minHeight="10.0" prefHeight="613.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -255,7 +255,7 @@
                         </Tab>
                      </tabs>
                   </JFXTabPane>
-                  <Label contentDisplay="CENTER" text="Admin Request" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                  <Label contentDisplay="CENTER" text="Manage Requests" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
