@@ -115,7 +115,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <JFXListView layoutX="114.0" layoutY="202.0" prefHeight="400.0" prefWidth="510.0" style="-fx-border-color: #003da6;" />
+                  <JFXListView fx:id="employeeList" layoutX="114.0" layoutY="202.0" prefHeight="400.0" prefWidth="510.0" style="-fx-border-color: #003da6;" />
                </children>
             </AnchorPane>
          </items>
