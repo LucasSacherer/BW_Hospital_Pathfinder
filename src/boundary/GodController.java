@@ -2,12 +2,11 @@ package boundary;
 
 
 import Admin.UserLoginController;
-import Database.UserManager;
-import Database.EdgeManager;
-import Database.NodeManager;
+import Database.*;
 import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
+import Request.RequestCleanupController;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -20,7 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -30,77 +28,74 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class GodController {
-    private final String mainLoc = "./fxml/main.fxml";
-    private final String loginLoc = "/boundary/fxml/loginScene.fxml";
-    private final String adminHubLoc = "./fxml/adminHub.fxml";
-    private final String requestLoc = "./fxml/staffRequest.fxml";
-    private final String adminLogLoc = "./fxml/adminLog.fxml";
-    private final String adminRequestLoc = "./fxml/adminRequest.fxml";
-    private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
-    private final String mapEditLoc = "./fxml/adminMap.fxml";
 
     /* managers */
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
+    final private SettingsManager settingsManager = new SettingsManager();
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
-    final private DirectoryController directoryController = new DirectoryController(nodeManager);
+    final private DirectoryController directoryController = new DirectoryController(nodeManager,settingsManager);
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
+    final private UserManager userManager = new UserManager();
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
 
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
 
-   /* Scene Panes */
+    /* Scene Panes */
     @FXML
-    private Pane mapPane, mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+
+    /* Map Panes */
+    @FXML
+    private Pane mapEditMapPane, mapPane, requestMapPane;
 
     @FXML
     private StackPane menuARStackPane;
 
     @FXML
-    private Canvas canvas, mapEditCanvas;
+    private Canvas canvas, mapEditCanvas, requestCanvas;
 
     @FXML
-    private Label currentFloorNum;
+    private JFXTextField originField, destinationField;
 
     @FXML
-    private TextField originField, destinationField;
-
-    @FXML
-    private ImageView imageView, mapEditImageView;
+    private ImageView imageView, mapEditImageView, requestImageView;
 
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-
-    //// MAP ADMIN FXML
+    /* MAP ADMIN FXML */
     @FXML
-    private Tab addNode, editNode, removeNode, nodesTab, edgesTab;
-
-    @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3;
+    private Tab addNode, editNode, removeNode, nodesTab, edgesTab, setKioskTab, addEdge, removeEdge;
 
     @FXML
-    private JFXComboBox nodetypeCombo, buildingCombo, nodetypeComboEdit;
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
 
     @FXML
-    private JFXTextField xPosAdd, yPossAdd, xPosEdit, yPossEdit, xPosRemove, yPossRemove,
-            shortNameAdd, shortNameEdit, shortNameRemove,
-            longNameAdd, longNameEdit, longNameRemove;
+    private JFXComboBox nodeTypeCombo, buildingCombo, nodeTypeComboEdit;
+
     @FXML
-    private JFXButton addNodeButton, resetNodeButtonAdd,
-            editNodeButton, resetNodeButtonEdit, resetNodeButtonRemove;
+    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
+            xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
+            setKioskX, setKioskY,
+            shortNameAdd, shortNameEdit,
+            longNameAdd, longNameEdit, requestName, requestDescription,
+            edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
+            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove;
+
     @FXML
-    private JFXListView nodesListView;
+    private JFXListView nodesListView, allStaffRequests, requestsIMade;
 
 
-    //// Requests ADMIN FXML
+    /* Requests ADMIN FXML */
     @FXML
     private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription,
             foodARNode, foodARTimestamp, foodARDescription,
@@ -124,135 +119,69 @@ public class GodController {
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
-
-    //Login Screen
+    /* Login Screen */
     @FXML
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
 
     @FXML
-    private JFXTextField staffLoginText, adminLoginText;
+    private JFXTextField staffLoginText, adminLoginText, selectedRequestNode;
 
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
 
-    ObservableList<String> nodeTypeList, buildingList;
+    @FXML
+    private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
-    /* Scene Controllers */
+    /* Scene Commandments */
     MainSceneController mainSceneController;
-    LoginController loginController;
-    AdminHubController adminHubController = new AdminHubController();
-    AdminEmployeeController adminEmployeeController = new AdminEmployeeController();
-    AdminLogController adminLogController = new AdminLogController();
-    AdminMapController adminMapController = new AdminMapController(mapEditImageView, adminMapPane, mapEditCanvas);
-    StaffRequestController staffRequestController = new StaffRequestController();
+    AdminEmployeeController adminEmployeeController;
+    AdminLogController adminLogController;
+    AdminMapController adminMapController;
+    StaffRequestController staffRequestController;
+    AdminRequestController adminRequestController;
 
-//    /** Organize Functions by Scene **/
-//
     @FXML
     private void initialize(){
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
-        initializeMainScene(imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
-        initializeLoginScene(staffPasswordText, staffLoginText);
+        initializeMainScene();
+        initializeRequestScene();
         initializeMapAdminScene();
+        initializeAdminRequestScene();
+    }
 
-        Image groundFloor = null;
-        groundFloor = mapNavigationFacade.getFloorMap("G");
-        imageView.setImage(groundFloor);
-//        initializeDirectory();
-//        initializeDirectoryListeners();
+    private void initializeMainScene() {
+        mainSceneController = new MainSceneController(imageView, mapPane, canvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
+                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical);
+        mainSceneController.initializeScene();
+    }
+
+    private void initializeRequestScene() {
+        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
+                allStaffRequests, requestsIMade, selectedRequestNode);
     }
 
     private void initializeMapAdminScene() {
-        nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
-        buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
+        adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
+                xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
+                xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
+                setKioskX, setKioskY,
+                shortNameAdd, shortNameEdit,
+                longNameAdd, longNameEdit, requestName, requestDescription,
+                edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
+                edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, nodeTypeCombo, buildingCombo,
+                edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab);
     }
 
-    private void initializeLoginScene(TextField staffPasswordText, TextField staffLoginText) {
-        loginController = new LoginController();
-    }
+    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
-    private void initializeMainScene(
-            ImageView imageView, Pane mapPane, Canvas canvas, MapNavigationFacade mapNavigationFacade,
-            PathFindingFacade pathFindingFacade, Label currentFloorNum) {
-        mainSceneController = new MainSceneController(
-                imageView, mapPane, canvas, mapNavigationFacade, pathFindingFacade, currentFloorNum);
-    }
-//
-//    private void initializeDirectory() {
-//        elevatorDir.setItems(directoryController.getDirectory().get("Elevators"));
-//        restroomDir.setItems(directoryController.getDirectory().get("Restrooms"));
-//        stairsDir.setItems(directoryController.getDirectory().get("Stairs"));
-//        labDir.setItems(directoryController.getDirectory().get("Departments"));
-//        deptDir.setItems(directoryController.getDirectory().get("Labs"));
-//        infoDeskDir.setItems(directoryController.getDirectory().get("Information Desks"));
-//        conferenceDir.setItems(directoryController.getDirectory().get("Conference Rooms"));
-//        exitDir.setItems(directoryController.getDirectory().get("Exits/Entrances"));
-//        shopsDir.setItems(directoryController.getDirectory().get("Shops, Food, Phones"));
-//        nonMedical.setItems(directoryController.getDirectory().get("Non-Medical Services"));
-//    }
-//
-//    private void initializeDirectoryListeners(){
-//        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
-//            clearCanvas();
-//            drawPath();
-//            drawCurrentNode();
-//        });
-//    }
-//
-
+    /** Organize Functions by Scene **/
 
     ////////////////
     /* Main scene */
@@ -260,11 +189,9 @@ public class GodController {
     @FXML
     private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(originField); }
 
-    //sets loc2 to nearest node to click location
     @FXML
-    private void setLoc2(ActionEvent e) { mainSceneController.setDestination(destinationField); }
+    private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
 
-    // finds the path from loc1 to loc2
     @FXML
     private void findPath(ActionEvent e) { mainSceneController.findPath(); }
 
@@ -278,10 +205,6 @@ public class GodController {
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
-
-    private void drawPath() { mainSceneController.drawPath(); }
-
-    private void drawCurrentNode(){ mainSceneController.drawCurrentNode(); }
 
     @FXML
     private void clearCanvas(){ mainSceneController.clearCanvas(); }
@@ -304,144 +227,312 @@ public class GodController {
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
 
-    //////////////////
-    /* Login Scene */
-    /////////////////
+    @FXML
+    private void navigateToHere() {mainSceneController.navigateToHere();}
 
     @FXML
-    private void switchToAdmin() throws IOException {
-        loginController.switchToAdmin();
-    }
-
-    @FXML
-    private void switchToStaff() throws IOException {
-        loginController.switchToStaff();
-    }
+    private void setAsOrigin() {mainSceneController.setAsOrigin();}
 
     ///////////////////
     /* Request Scene */
     ///////////////////
 
+    @FXML
+    private void navigateToRequest() { staffRequestController.navigateToRequest(); } //TODO
 
+    @FXML
+    private void addStaffRequest() { staffRequestController.addRequest(requestName, requestDescription); }
 
-    ///////////////
-    /* Admin Hub */
-    ///////////////
+    @FXML
+    private void completeStaffRequest() { staffRequestController.completeRequest(); } //TODO
 
+    @FXML
+    private void generateStaffReport() {} //TODO
 
+    @FXML
+    private void editStaffRequest() { staffRequestController.editRequest(); }
 
+    @FXML
+    private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
+
+    @FXML
+    private void zoomInRequestMap() { staffRequestController.zoomInMap(); }
+
+    @FXML
+    private void zoomOutRequestMap() { staffRequestController.zoomOutMap(); }
+
+    @FXML
+    private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
+
+    @FXML
+    private void floorUpRequest() throws IOException, SQLException { staffRequestController.floorUp(); }
+
+    @FXML
+    private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
 
     ////////////////////
     /* Employee Admin */
     ////////////////////
 
-
-
+   //TODO
 
     ///////////////////
     /* Request Admin */
     ///////////////////
 
+    //Spills
+    @FXML
+    private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap(); }
 
+    @FXML
+    private void displayARSpillsType() throws IOException { adminRequestController.displayARSpillsType(); }
 
+    @FXML
+    private void displayARSpillsName() throws IOException { adminRequestController.displayARSpillsName(); }
 
+    @FXML
+    private void displayARSpillsNode() throws IOException { adminRequestController.displayARSpillsNode(); }
 
-    ///////////////
-    /* Map Admin */
-    ///////////////
+    @FXML
+    private void displayARSpillsTimestamp() throws IOException { adminRequestController.displayARSpillsTimestamp(); }
 
+    @FXML
+    private void displayARSpillsDescription() throws IOException { adminRequestController.displayARSpillsDescription(); }
 
+    @FXML
+    private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
 
-//    @FXML
-//    private void drawEdge(Edge edge){ adminMapController.drawEdge(); }
+    @FXML
+    private void cancelARSpills() throws IOException { adminRequestController.cancelARSpills(); }
 
-//    @FXML
-//    private void drawNode(Node n) { mainSceneController.drawNode(); }
+    @FXML
+    private void editARSpills() throws IOException { adminRequestController.editARSpills(); }
+
+    @FXML
+    private void deleteARSpills() throws IOException { adminRequestController.deleteARSpills(); }
+
+    @FXML
+    private void deleteAllARSpills() throws IOException { adminRequestController.deleteAllARSpills(); }
+
+    //Food
+    @FXML
+    private void displayARFoodOnMap(MouseEvent e) throws IOException { adminRequestController.displayARFoodOnMap(); }
+
+    @FXML
+    private void displayARFoodType(MouseEvent e) throws IOException { adminRequestController.displayARFoodType(); }
+
+    @FXML
+    private void displayARFoodName() throws IOException { adminRequestController.displayARFoodName(); }
+
+    @FXML
+    private void displayARFoodNode() throws IOException { adminRequestController.displayARFoodNode(); }
+
+    @FXML
+    private void displayARFoodTimestamp() throws IOException { adminRequestController.displayARFoodTimestamp(); }
+
+    @FXML
+    private void displayARMenuFoodTimestamp() throws IOException { adminRequestController.displayARMenuFoodTimestamp(); }
+
+    @FXML
+    private void displayARFoodDescription() throws IOException { adminRequestController.displayARFoodDescription(); }
+
+    @FXML
+    private void addARFood() throws IOException { adminRequestController.addARFood(); }
+
+    @FXML
+    private void cancelARFood() throws IOException { adminRequestController.cancelARFood(); }
+
+    @FXML
+    private void editARFood() throws IOException { adminRequestController.editARFood(); }
+
+    @FXML
+    private void deleteARFood() throws IOException { adminRequestController.deleteARFood(); }
+
+    @FXML
+    private void deleteAllARFood() throws IOException { adminRequestController.deleteAllARFood(); }
+
+    @FXML
+    public void editARMenuFoodPopUp() throws  IOException { adminRequestController.editARMenuFoodPopUp(); }
+
+    @FXML
+    private void displayARMenuFoodName() throws IOException { adminRequestController.displayARMenuFoodName(); }
+
+    @FXML
+    private void displayARMenuFoodNode() throws IOException { System.out.println("Haven't made this"); } //TODO
+
+    @FXML
+    private void displayARMenuFoodDescription() throws IOException { adminRequestController.displayARMenuFoodDescription(); }
+
+    @FXML
+    private void displayARMenuFoodCost() throws IOException { adminRequestController.displayARMenuFoodCost(); }
+
+    @FXML
+    private void addARMenuFood() throws IOException { adminRequestController.addARMenuFood(); }
+
+    @FXML
+    private void cancelARMenuFood() throws IOException { adminRequestController.cancelARMenuFood(); }
+
+    @FXML
+    private void editARMenuFood() throws IOException { adminRequestController.editARMenuFood(); }
+
+    @FXML
+    private void deleteARMenuFood() throws IOException { adminRequestController.deleteARMenuFood(); }
+
+    @FXML
+    private void deleteAllARMenuFood() throws IOException { adminRequestController.deleteAllARMenuFood(); }
+
+    //Interpreter
+
+    @FXML
+    private void displayARInterpreterOnMap() throws IOException { adminRequestController.displayARInterpreterOnMap(); }
+
+    @FXML
+    private void displayARInterpreterType() throws IOException { adminRequestController.displayARInterpreterType(); }
+
+    @FXML
+    private void displayARInterpreterName() throws IOException { adminRequestController.displayARInterpreterName(); }
+
+    @FXML
+    private void displayARInterpreterNode() throws IOException { adminRequestController.displayARInterpreterNode(); }
+
+    @FXML
+    private void displayARInterpreterTimestamp() throws IOException { adminRequestController.displayARInterpreterTimestamp(); }
+
+    @FXML
+    private void displayARInterpreterDescription() throws IOException { adminRequestController.displayARInterpreterDescription(); }
+
+    @FXML
+    private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
+
+    @FXML
+    private void cancelARInterpreter() throws IOException { adminRequestController.cancelARInterpreter(); }
+
+    @FXML
+    private void editARInterpreter() throws IOException { adminRequestController.editARInterpreter(); }
+
+    @FXML
+    private void deleteARInterpreter() throws IOException { adminRequestController.deleteARInterpreter(); }
+
+    @FXML
+    private void deleteAllARInterpreter() throws IOException { adminRequestController.deleteAllARInterpreter(); }
+
+    /////////////////
+    /* Map Editing */
+    /////////////////
+
+    @FXML
+    private void addNodeButton() { adminMapController.addNode(); }
+
+    @FXML
+    private void removeNodeButton() { adminMapController.removeNodeButton(); }
+
+    @FXML
+    private void resetNodeButtonAdd() { adminMapController.resetNodeButtonAdd(); }
+
+    @FXML
+    private void editNode() { adminMapController.editNode(); }
+
+    @FXML
+    private void resetNodeButtonEdit() { adminMapController.resetNodeButtonEdit(); }
+
+    @FXML
+    private void resetNodeButtonRemove() { adminMapController.resetNodeButtonRemove(); }
+
+    @FXML
+    private void removeEdgeButton() { adminMapController.removeEdgeButton(); }
+
+    @FXML
+    private void resetEdgeButtonRemove() { adminMapController.resetEdgeButtonRemove(); }
+
+    @FXML
+    private void addEdgeButton() { adminMapController.addEdgeButton(); }
+
+    @FXML
+    private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
+
+    @FXML
+    private void zoomInMapEdit() { adminMapController.zoomInMap(); }
+
+    @FXML
+    private void zoomOutMapEdit() { adminMapController.zoomOutMap(); }
+
+    @FXML
+    private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
+
+    @FXML
+    private void floorUpMapEdit() throws IOException, SQLException { adminMapController.floorUp(); }
+
+    @FXML
+    private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
+
+    @FXML
+    private void setDefaultNode() { } //TODO
+
+    @FXML
+    private void resetDefaultNode() { } //TODO
 
     ////////////////
     /* Admin Logs */
     ////////////////
 
-
-
-
+    //TODO
 
     /////////////////////
     /* Scene Switching */
     /////////////////////
     @FXML
-    private void mainToLogin() throws IOException {
-        sceneSwitcher.switchScene(this, mainPane, loginLoc);
-    }
+    private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
     @FXML
-    private void requestToMain() throws IOException {
-        sceneSwitcher.switchScene(this, requestPane, mainLoc);
-    }
+    private void requestToMain() throws IOException { sceneSwitcher.toMain(this, requestPane); }
 
-    /* Login Page */
     @FXML
-    private void goToMainScene() throws IOException {
-        sceneSwitcher.switchScene(this, loginPane, mainLoc);
-    }
+    private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
 
     @FXML
     private void goToRequests() throws IOException {
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.switchScene(this, loginPane, requestLoc);
+            sceneSwitcher.toStaffRequests(this, loginPane);
+            staffRequestController.initializeScene();
         }
+        //TODO error screen
     }
 
     @FXML
     private void goToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, loginPane, adminHubLoc);
+        if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
+            sceneSwitcher.toAdminHub(this, loginPane);
+        }
+        //TODO Error screen
     }
 
     @FXML
-    private void adminHubToMain() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, mainLoc);
-    }
+    private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoLog() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, adminLogLoc);
-    }
+    private void adminHubtoLog() throws IOException { sceneSwitcher.toAdminLog(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoRequest() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, adminRequestLoc);
-    }
+    private void adminHubtoRequest() throws IOException { sceneSwitcher.toAdminRequests(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoEmployee() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, adminEmployeeLoc);
-    }
+    private void adminHubtoEmployee() throws IOException { sceneSwitcher.toAdminEmployee(this, adminHubPane); }
 
     @FXML
     private void adminHubtoMap() throws IOException {
-        sceneSwitcher.switchScene(this, adminHubPane, mapEditLoc);
-        nodetypeCombo.setItems(nodeTypeList);
-        buildingCombo.setItems(buildingList);
+        sceneSwitcher.toAdminMap(this, adminHubPane);
         adminMapController.initializeScene();
     }
 
     @FXML
-    private void requestToAdminHub() throws IOException { //TODO this one is broken
-        sceneSwitcher.switchScene(this, adminRequestPane, adminHubLoc);
-    }
+    private void requestToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminRequestPane); }
 
     @FXML
-    private void mapToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, adminMapPane, adminHubLoc);
-    }
+    private void mapToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminMapPane); }
 
     @FXML
-    private void logToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, adminLogPane, adminHubLoc);
-    }
+    private void logToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminLogPane); }
 
     @FXML
-    private void employeeToAdminHub() throws IOException {
-        sceneSwitcher.switchScene(this, adminEmployeePane, adminHubLoc);
-    }
+    private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
 }

@@ -5,12 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class TableCreator {
     private Statement statement;
-    private String defaultNodesPath = "src/DatabaseSetup/defaultNodes.txt";
-    private String defaultEdgesPath = "src/DatabaseSetup/defaultEdges.txt";
-    private String defaultUsersPath = "src/DatabaseSetup/defaultUsers.txt";
+    private String defaultNodesPath = "/DatabaseSetup/defaultNodes.txt";
+    private String defaultEdgesPath = "/DatabaseSetup/defaultEdges.txt";
+    private String defaultUsersPath = "/DatabaseSetup/defaultUsers.txt";
 
     public TableCreator(Statement statement) {
         this.statement = statement;
@@ -112,7 +113,7 @@ public class TableCreator {
                     " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("FoodRequest table created!");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
-            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1961-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
             //e.printStackTrace();
@@ -179,13 +180,12 @@ public class TableCreator {
                     " requestName VARCHAR(250) NOT NULL,\n" +
                     " timeCreated TIMESTAMP NOT NULL,\n" +
                     " foodItem VARCHAR(250) NOT NULL,\n" +
-                    " quantity INTEGER NOT NULL,\n" +
-                    " CONSTRAINT foodOrder_PK PRIMARY KEY (requestName, foodItem),\n" +
                     " CONSTRAINT foodOrder_FK FOREIGN KEY (requestName, timeCreated) REFERENCES FoodRequest(name, timeCreated))");
             System.out.println("FoodOrder table created!");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger', 2)");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna', 10)");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk', 1)");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
             //e.printStackTrace();
@@ -214,55 +214,45 @@ public class TableCreator {
      * @throws FileNotFoundException
      */
     public void insertCSVToDatabase(String path, Connection connection, String table) throws FileNotFoundException {
+        /*
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
-        DatabaseGargoyle dbGargoyle = new DatabaseGargoyle();
+        */
+        InputStream file = TableCreator.class.getResourceAsStream(path);
+        Scanner br = new Scanner(file);
         String line;
         PreparedStatement query = null;
 
-        try {
-            while ((line = br.readLine()) != null){
-                try {
-                    if (line != null){
-                        String[] array = line.split(",");
-                        //Execute query to database
-                        try {
-                            if (table.equals("NODE")){
-                                query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setInt(2, Integer.parseInt(array[1]));
-                                query.setInt(3, Integer.parseInt(array[2]));
-                                query.setString(4,array[3]);
-                                query.setString(5,array[4]);
-                                query.setString(6,array[5]);
-                                query.setString(7,array[6]);
-                                query.setString(8,array[7]);
-                                query.setString(9,array[8]);
-                            } else if (table.equals("EDGE")) {
-                                query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setString(2, array[1]);
-                                query.setString(3, array[2]);
-                            }
-                            query.executeUpdate();
-                        } catch (SQLException e){
-                            System.out.println("Failed to execute: " + query.toString());
-                            e.printStackTrace();
-                        }
-                    }
-                } finally {
-                    if (br == null) {
-                        try {
-                            br.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+        while (br.hasNext()){
+            line = br.nextLine();
+            String[] array = line.split(",");
+            //Execute query to database
+            try {
+                if (table.equals("NODE")){
+                    query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
+                    query.setString(1, array[0]);
+                    query.setInt(2, Integer.parseInt(array[1]));
+                    query.setInt(3, Integer.parseInt(array[2]));
+                    query.setString(4,array[3]);
+                    query.setString(5,array[4]);
+                    query.setString(6,array[5]);
+                    query.setString(7,array[6]);
+                    query.setString(8,array[7]);
+                    query.setString(9,array[8]);
+                } else if (table.equals("EDGE")) {
+                    query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
+                    query.setString(1, array[0]);
+                    query.setString(2, array[1]);
+                    query.setString(3, array[2]);
                 }
+                query.executeUpdate();
+            } catch (SQLException e){
+                System.out.println("Failed to execute: " + query.toString());
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+
     }
 }
