@@ -153,6 +153,15 @@ public class GodController {
     @FXML
     private JFXButton printLog, sendLog, clearLog, backAdminHub;
 
+    /* Employee Editing */
+    @FXML
+    private JFXListView employeeListAE;
+
+    @FXML
+    private JFXTextField employeeUserIDAE, employeeUserNameAE, employeePasswordAE;
+
+    @FXML
+    private JFXComboBox employeeTypeAE;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -175,6 +184,7 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
+        initializeAdminEmployeeScene();
     }
 
     private void initializeMainScene() {
@@ -197,6 +207,12 @@ public class GodController {
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+
+
+    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
+            employeeListAE, employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE);
+    }
+
 
     /** Organize Functions by Scene **/
 
@@ -295,7 +311,17 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   // TODO
+   @FXML
+   private void addEmployeeAE() {adminEmployeeController.addEmployeeAE();}
+
+   @FXML
+   private void cancelEmployeeAE() {adminEmployeeController.cancelEmployeeAE();}
+
+    @FXML
+    private void editEmployeeAE() {adminEmployeeController.editEmployeeAE();}
+
+    @FXML
+    private void deleteEmployeeAE() {adminEmployeeController.deleteEmployeeAE();}
 
     ///////////////////
     /* Request Admin */
@@ -493,10 +519,16 @@ public class GodController {
     private void adminHubtoLog() throws IOException { sceneSwitcher.toAdminLog(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoRequest() throws IOException { sceneSwitcher.toAdminRequests(this, adminHubPane); }
+    private void adminHubtoRequest() throws IOException {
+        sceneSwitcher.toAdminRequests(this, adminHubPane);
+        adminRequestController.initializeScene();
+    }
 
     @FXML
-    private void adminHubtoEmployee() throws IOException { sceneSwitcher.toAdminEmployee(this, adminHubPane); }
+    private void adminHubtoEmployee() throws IOException {
+        sceneSwitcher.toAdminEmployee(this, adminHubPane);
+        adminEmployeeController.initializeScene();
+    }
 
     @FXML
     private void adminHubtoMap() throws IOException {

@@ -41,4 +41,7 @@ public class AdminRequestController {
     public void deleteAllARInterpreter(){}
 
 
+    public void initializeScene() {
+        //TODO
+    }
 }

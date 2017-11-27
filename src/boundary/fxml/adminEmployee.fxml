@@ -46,7 +46,7 @@
                                     <JFXComboBox fx:id="employeeTypeAE" prefHeight="31.0" prefWidth="151.0" promptText="Department" />
                                     <JFXTextField fx:id="employeeUsernameAE" promptText="Username" />
                                     <JFXTextField fx:id="employeePasswordAE" promptText="Password" />
-                                    <JFXToggleButton fx:id="spillsARDisplayToggle" onAction="#displayARSpillsOnMap" text="Admin?" />
+                                    <JFXToggleButton fx:id="spillsARDisplayToggle" text="Admin?" />
                                     <HBox alignment="CENTER" spacing="25.0">
                                        <children>
                                           <JFXButton fx:id="employeeAddAE" onAction="#addEmployeeAE" prefHeight="31.0" prefWidth="95.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Add" textAlignment="CENTER" textFill="WHITE">
