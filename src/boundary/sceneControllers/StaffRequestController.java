@@ -49,8 +49,7 @@ public class StaffRequestController extends AbstractMapController{
         LocalDateTime l = LocalDateTime.now();
         User user = new User("staff1", "staff1", "staff1", false, "yay");
         requestCleanupController.addRequest(new CleanUpRequest(requestName.getText(), l, l, "Cleanup", description.getText(), origin, user));
-        requestCleanupController.getRequests();
-    }
+        allStaffRequests.setItems(requestCleanupController.getRequests());    }
 
     public void completeRequest() {
         if (selectedRequest != null) requestCleanupController.completeRequest(selectedRequest);
