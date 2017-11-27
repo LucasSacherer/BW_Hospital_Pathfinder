@@ -134,7 +134,7 @@ public class GodController {
     private JFXButton employeeAddAE, employeeEditAE, employeeCancelAE, employeeDeleteAE, backToAdminHub;
 
     @FXML
-    private JFXListView employeeListAE;
+    private JFXListView employeeList;
 
     /* Login Screen */
     @FXML
@@ -148,9 +148,6 @@ public class GodController {
 
     @FXML
     private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
-
-    /* Employee Admin */
-    private JFXListView employeeList;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
