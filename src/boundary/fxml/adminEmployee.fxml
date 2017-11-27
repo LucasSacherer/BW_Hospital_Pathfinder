@@ -32,7 +32,7 @@
                      <children>
                         <ImageView fitHeight="167.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                            <image>
-                              <Image url="@../images/other%20images/BWH.jpg" />
+                              <Image url="@../images/other%20images/BWH.png" />
                            </image>
                         </ImageView>
                         <AnchorPane prefHeight="773.0" prefWidth="359.0" GridPane.rowIndex="1">
@@ -52,12 +52,12 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </JFXButton>
-                              <JFXTextField fx:id="spillsARTimestamp" layoutX="40.0" layoutY="205.0" onAction="#displayARSpillsTimestamp" text="Admin?" />
-                              <JFXComboBox fx:id="spillsARName" layoutX="39.0" layoutY="84.0" onAction="#displayARSpillsName" prefHeight="31.0" prefWidth="170.0" promptText="Department" />
+                              <JFXTextField fx:id="spillsARTimestamp" layoutX="40.0" layoutY="205.0" text="Admin?" />
+                              <JFXComboBox fx:id="spillsARName" layoutX="39.0" layoutY="84.0" prefHeight="31.0" prefWidth="151.0" promptText="Department" />
                               <StackPane layoutX="1.0" layoutY="236.0" prefHeight="70.0" prefWidth="244.0" />
-                              <JFXTextField fx:id="spillsARTimestamp1" layoutX="39.0" layoutY="125.0" onAction="#displayARSpillsTimestamp" text="Username" />
-                              <JFXTextField fx:id="spillsARTimestamp11" layoutX="39.0" layoutY="44.0" onAction="#displayARSpillsTimestamp" text="User ID" />
-                              <JFXTextField fx:id="spillsARTimestamp12" layoutX="39.0" layoutY="167.0" onAction="#displayARSpillsTimestamp" text="Password" />
+                              <JFXTextField fx:id="spillsARTimestamp1" layoutX="39.0" layoutY="125.0" text="Username" />
+                              <JFXTextField fx:id="spillsARTimestamp11" layoutX="39.0" layoutY="44.0" text="User ID" />
+                              <JFXTextField fx:id="spillsARTimestamp12" layoutX="39.0" layoutY="167.0" text="Password" />
                               <GridPane layoutY="273.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="108.0" />
@@ -82,7 +82,7 @@
                                     </JFXButton>
                                  </children>
                               </GridPane>
-                              <JFXTextField fx:id="spillsARTimestamp2" layoutX="38.0" layoutY="248.0" onAction="#displayARSpillsTimestamp" text="Time Stamp" />
+                              <JFXTextField fx:id="spillsARTimestamp2" layoutX="38.0" layoutY="248.0" text="Time Stamp" />
                            </children>
                         </AnchorPane>
                      </children>
