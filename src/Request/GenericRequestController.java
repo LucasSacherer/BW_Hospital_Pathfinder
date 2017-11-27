@@ -1,30 +1,26 @@
-package Admin;
+package Request;
 
 import Database.CleanUpManager;
 import Database.FoodManager;
 import Database.InterpreterManager;
 import Entity.Request;
+import Entity.CleanUpRequest;
+import Entity.FoodRequest;
+import Entity.InterpreterRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdminRequestController {
+public class GenericRequestController {
 
     private final CleanUpManager cleanUpManager;
     private final FoodManager foodManager;
     private final InterpreterManager interpreterManager;
 
-    public AdminRequestController (CleanUpManager cl, FoodManager fm, InterpreterManager im){
+    public GenericRequestController(CleanUpManager cl, FoodManager fm, InterpreterManager im){
         cleanUpManager = cl;
         foodManager = fm;
         interpreterManager = im;
-    }
-
-    /**
-     * Deletes all the request of a specific type ("InterpreterRequest",...), a type of null deletes everything
-     * @param type
-     */
-    public void clearAllRequests(String type){
-
     }
 
     /**
@@ -32,15 +28,8 @@ public class AdminRequestController {
      * @return
      */
     public List<Request> getAllRequests(){
+
         return null;
-    }
-
-    /**
-     * Takes any of the three request types and updates it with the correct manager
-     * @param req
-     */
-    public void editRequest(Request req){
-
     }
 
     /**
