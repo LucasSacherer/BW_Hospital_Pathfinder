@@ -68,12 +68,12 @@ public class InterpreterManagerTest {
         iManager.updateRequest(updatedRequest);
         iManager.updateRequests();
 
-        assertEquals(iManager.getRequests().get(2).getType(), "NewType");
+        assertEquals(iManager.getRequests().get(1).getType(), "NewType");
 
         iManager.updateRequest(request);
         iManager.updateRequests();
 
-        assertEquals(iManager.getRequests().get(2).getType(), "type");
+        assertEquals(iManager.getRequests().get(1).getType(), "type");
 
         iManager.deleteRequest(updatedRequest);
     }
