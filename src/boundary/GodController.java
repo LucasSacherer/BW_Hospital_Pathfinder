@@ -123,6 +123,19 @@ public class GodController {
     @FXML
     private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
 
+    /* Employee ADMIN FXML */
+    @FXML
+    private JFXTextField employeeUserIDAE, employeePasswordAE, employeeAdminAE, employeeTimestampAE;
+
+    @FXML
+    private JFXComboBox employeeTypeAE;
+
+    @FXML
+    private JFXButton employeeAddAE, employeeEditAE, employeeCancelAE, employeeDeleteAE, backToAdminHub;
+
+    @FXML
+    private JFXListView employeeListAE;
+
     /* Login Screen */
     @FXML
     private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
