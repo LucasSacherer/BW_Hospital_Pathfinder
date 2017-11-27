@@ -42,7 +42,7 @@
                               <VBox alignment="TOP_CENTER" prefHeight="597.0" prefWidth="359.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <JFXTextField fx:id="employeeUserIDAE" text="User ID" />
-                                    <JFXComboBox fx:id="employeeTypeAE" onAction="#displayEmployeeTypeListAE" prefHeight="31.0" prefWidth="151.0" promptText="Department" />
+                                    <JFXComboBox fx:id="employeeTypeAE" prefHeight="31.0" prefWidth="151.0" promptText="Department" />
                                     <JFXTextField fx:id="employeeUsernameAE" text="Username" />
                                     <JFXTextField fx:id="employeePasswordAE" text="Password" />
                                     <JFXTextField fx:id="employeeAdminAE" text="Admin?" />
