@@ -57,7 +57,9 @@ public class InterpreterManager {
                 user = userManager.getUser(rs.getString("USERID"));
                 language = rs.getString("LANGUAGE");
 
-                requests.add(new InterpreterRequest(name, timeCreated, timeCompleted, type, description, node, user, language));
+                if(timeCreated.equals(timeCompleted)) {
+                    requests.add(new InterpreterRequest(name, timeCreated, timeCompleted, type, description, node, user, language));
+                }
             }
         }catch (SQLException ex){
             System.out.println("Failed to update the list of interpreter requests!");
@@ -167,21 +169,6 @@ public class InterpreterManager {
             }
         }
         return userRequests;
-    }
-
-    /**
-     * Returns the request with the given name and date
-     * @param name
-     * @param date
-     * @return
-     */
-    public InterpreterRequest getInterpreterRequest(String name, LocalDateTime date){
-        for (InterpreterRequest req: requests){
-            if (req.getName().equals(name) && req.getTimeCreated().equals(date)){
-                return req;
-            }
-        }
-        return null;
     }
 
     /**
