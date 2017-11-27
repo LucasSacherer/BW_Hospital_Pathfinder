@@ -27,4 +27,9 @@ public class User {
     public String getDepartment() {
         return department;
     }
+
+    @Override
+    public String toString() {
+        return "UserID: " + userID + ", Username: " + username  + ", Department: "+ department + (adminFlag ? " [Administrator]" : "");
+    }
 }
