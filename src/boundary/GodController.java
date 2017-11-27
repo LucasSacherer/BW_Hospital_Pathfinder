@@ -13,7 +13,11 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -139,10 +144,19 @@ public class GodController {
     /* Admin Logs */
 
     @FXML
-    private JFXTreeTableView adminLogs;
+    private TreeTableView<Log> adminLogs = new TreeTableView<Log>();
 
     @FXML
-    private TreeTableColumn logID, dateLogged,adminLogged, logContent;
+    private TreeTableColumn<Log,Number> logID =  new TreeTableColumn<Log,Number>();
+
+    @FXML
+    private TreeTableColumn<Log,String> dateLogged = new TreeTableColumn<Log,String>();
+
+    @FXML
+    private TreeTableColumn<Log,String> adminLogged = new TreeTableColumn<Log,String>();
+
+    @FXML
+    private TreeTableColumn<Log,String> logContent = new TreeTableColumn<Log,String>();
 
     @FXML
     private ImageView logImage;
@@ -152,6 +166,14 @@ public class GodController {
 
     @FXML
     private JFXButton printLog, sendLog, clearLog, backAdminHub;
+
+    TreeItem<Log> log1 = new TreeItem<>(new Log(1,"11/27/2017","admin1","added Node"));
+    TreeItem<Log> log2 = new TreeItem<>(new Log(2,"11/27/2017","admin1","logged in"));
+    TreeItem<Log> log3 = new TreeItem<>(new Log(3,"11/27/2017","admin1","added Node"));
+    TreeItem<Log> log4 = new TreeItem<>(new Log(4,"11/27/2017","admin1","added Node"));
+
+    TreeItem<Log> logRoot = new TreeItem<>(new Log(0,"11/27/2017","admin1","root"));
+
 
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
@@ -175,6 +197,7 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
+        initializeAdminLogScene();
     }
 
     private void initializeMainScene() {
@@ -195,6 +218,22 @@ public class GodController {
         adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, xPosAddNode, yPosAddNode,
                 nodeTypeCombo, buildingCombo);
+    }
+
+    private void initializeAdminLogScene() {
+        logRoot.getChildren().setAll(log1,log2,log3,log4);
+
+        logID.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Log,Number> param) -> param.getValue().getValue().getLogIDProperty());
+        dateLogged.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getDateLoggedProperty());
+        adminLogged.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getAdminLoggedProperty());
+        logContent.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getLogContentProperty());
+
+        adminLogs.setRoot(logRoot);
+        adminLogs.setShowRoot(false);
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
@@ -454,6 +493,21 @@ public class GodController {
     ////////////////
     /* Admin Logs */
     ////////////////
+
+    //TODO
+
+    @FXML
+    public void printLogButton(){}
+
+    //TODO
+    @FXML
+    public void sendLogButton(){}
+
+    //TODO
+    @FXML
+    public void clearLogButton() throws IOException{
+        logRoot.getChildren().clear();
+    }
 
     //TODO
 
