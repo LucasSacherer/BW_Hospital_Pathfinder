@@ -18,6 +18,47 @@ public class EdgeManagerTest {
         assertFalse(false);
     }
 
+
+
+    @Test
+    public void testAddEdge(){
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1,n2);
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager test = new EdgeManager(manager);
+        test.updateEdges();
+        manager.addNode(n1);
+        manager.addNode(n2);
+
+        int startingsize = test.getAllEdges().size();
+
+        test.addEdge(e1);
+        assertEquals(startingsize + 1, test.getAllEdges().size());
+
+        test.removeEdge(e1);
+
+    }
+    @Test
+    public void testRemoveEdge(){
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1,n2);
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager test = new EdgeManager(manager);
+        test.updateEdges();
+        manager.addNode(n1);
+        manager.addNode(n2);
+        test.addEdge(e1);
+
+        int startingsize = test.getAllEdges().size();
+        test.removeEdge(e1);
+        assertEquals(startingsize - 1, test.getAllEdges().size());
+
+
+    }
     @Test
     public void testGetNeighbors() throws Exception {
 
