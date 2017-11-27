@@ -9,6 +9,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -132,5 +133,40 @@ public class FoodManagerTest {
         FoodManager foodManager = new FoodManager();
         ArrayList<FoodRequest> completed = foodManager.getCompleted();
         assertTrue(completed.get(0).getName().equals("food2"));
+    }
+
+    @Test
+    public void testGetRequestsBy() {
+        NodeManager nodeManager = new NodeManager();
+        UserManager userManager = new UserManager();
+        FoodManager fManager = new FoodManager(nodeManager, userManager);
+
+        userManager.updateUsers();
+        fManager.updateRequests();
+
+        Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+        ArrayList<String> order = new ArrayList<>();
+        order.add("food1");
+        order.add("food2");
+        FoodRequest request = new FoodRequest("name", time.toLocalDateTime(),
+                time.toLocalDateTime(), "type", "description", nodeManager.getNode("IHALL01303"), userManager.getUser("admin1"), order);
+
+        fManager.addRequest(request);
+
+        List<FoodRequest> requestsByUser = fManager.getRequestsBy(userManager.getUser("admin1"));
+
+        System.out.println(fManager.getRequests());
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 1);
+        assertTrue(requestsByUser.get(0).getUser().getUserID().equals("admin1"));
+
+        requestsByUser = fManager.getRequestsBy(userManager.getUser("staff1"));
+
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 0);
+
+        fManager.deleteRequest(request);
     }
 }

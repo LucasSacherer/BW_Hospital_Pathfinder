@@ -53,7 +53,9 @@ public class CleanUpManager {
                 node = nodeManager.getNode(rs.getString("NODEID"));
                 user = userManager.getUser(rs.getString("USERID"));
 
-                requests.add(new CleanUpRequest(name, timeCreated, timeCompleted, type, description, node, user));
+                if(timeCreated.equals(timeCompleted)) {
+                    requests.add(new CleanUpRequest(name, timeCreated, timeCompleted, type, description, node, user));
+                }
             }
         }catch (SQLException ex){
             System.out.println("Failed to update the list of clean-up requests!");
@@ -171,5 +173,17 @@ public class CleanUpManager {
             }
         }
         return null;
+    }
+
+    public List<CleanUpRequest> getRequestsBy(User user){
+        ArrayList<CleanUpRequest> userRequests = new ArrayList<>();
+        updateRequests();
+
+        for (CleanUpRequest req : requests){
+            if(req.getUser().getUserID().equals(user.getUserID())){
+                userRequests.add(req);
+            }
+        }
+        return userRequests;
     }
 }

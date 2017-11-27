@@ -147,18 +147,7 @@ public class InterpreterManagerTest {
         userManager.updateUsers();
         iManager.updateRequests();
 
-
-        Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
-        /*
-        InterpreterRequest testNotComplete = new InterpreterRequest("not complete", created.toLocalDateTime(),
-                created.toLocalDateTime(),"typeTest","descriptionTest",
-                nodeManager.getNode("GLABS015L2"), userManager.getUser("staff1"), "English");
-
-        iManager.addRequest(testNotComplete);
-        */
         List<InterpreterRequest> requestsByUser = iManager.getRequestsBy(userManager.getUser("admin2"));
-
-        //iManager.deleteRequest(testNotComplete);
 
         System.out.println(iManager.getRequests());
         System.out.println(requestsByUser);

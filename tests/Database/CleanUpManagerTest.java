@@ -165,4 +165,27 @@ public class CleanUpManagerTest {
         assertTrue(completed.get(0).getName().equals("completed"));
     }
 
+    @Test
+    public void testGetRequestsBy() {
+        NodeManager nodeManager = new NodeManager();
+        UserManager userManager = new UserManager();
+        CleanUpManager cManager = new CleanUpManager(nodeManager, userManager);
+
+        userManager.updateUsers();
+        cManager.updateRequests();
+
+        List<CleanUpRequest> requestsByUser = cManager.getRequestsBy(userManager.getUser("janitor1"));
+
+        System.out.println(cManager.getRequests());
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 1);
+        assertTrue(requestsByUser.get(0).getUser().getUserID().equals("janitor1"));
+
+        requestsByUser = cManager.getRequestsBy(userManager.getUser("staff1"));
+
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 0);
+    }
 }
