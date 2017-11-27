@@ -1,5 +1,6 @@
 package boundary.sceneControllers;
 
+import Database.UserManager;
 import Entity.CleanUpRequest;
 import Entity.FoodRequest;
 import Entity.Node;
@@ -24,6 +25,7 @@ public class StaffRequestController extends AbstractMapController{
     private JFXListView allStaffRequests, requestsIMade;
     private CleanUpRequest selectedRequest;
     private JFXTextField selectedRequestNode;
+    private User user;
 
 
     public StaffRequestController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
@@ -36,13 +38,14 @@ public class StaffRequestController extends AbstractMapController{
         this.selectedRequestNode = selectedRequestNode;
     }
 
-    public void initializeScene(){
+    public void initializeScene(User user){
         super.initializeScene();
         allStaffRequests.setItems(requestCleanupController.getRequests());
         allStaffRequests.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             selectedRequest = (CleanUpRequest) allStaffRequests.getItems().get(newValue.intValue());
             refreshCanvas();
         });
+        this.user = user;
     }
 
     public void addRequest(JFXTextField requestName, JFXTextField description) {

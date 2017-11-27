@@ -447,9 +447,10 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
+
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
-            staffRequestController.initializeScene();
+            staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
         }
         //TODO error screen
     }
