@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -32,7 +33,7 @@
                         <RowConstraints maxHeight="600.3333435058594" minHeight="10.0" prefHeight="591.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="167.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <ImageView fitHeight="113.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <image>
                               <Image url="@../images/other%20images/BWH.png" />
                            </image>
@@ -41,12 +42,11 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="597.0" prefWidth="359.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <JFXTextField fx:id="employeeUserIDAE" text="User ID" />
+                                    <JFXTextField fx:id="employeeUserIDAE" promptText="User ID" />
                                     <JFXComboBox fx:id="employeeTypeAE" prefHeight="31.0" prefWidth="151.0" promptText="Department" />
-                                    <JFXTextField fx:id="employeeUsernameAE" text="Username" />
-                                    <JFXTextField fx:id="employeePasswordAE" text="Password" />
-                                    <JFXTextField fx:id="employeeAdminAE" text="Admin?" />
-                                    <JFXTextField fx:id="employeeAdminAE" text="Time Stamp" />
+                                    <JFXTextField fx:id="employeeUsernameAE" promptText="Username" />
+                                    <JFXTextField fx:id="employeePasswordAE" promptText="Password" />
+                                    <JFXToggleButton fx:id="spillsARDisplayToggle" onAction="#displayARSpillsOnMap" text="Admin?" />
                                     <HBox alignment="CENTER" spacing="25.0">
                                        <children>
                                           <JFXButton fx:id="employeeAddAE" onAction="#addEmployeeAE" prefHeight="31.0" prefWidth="95.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Add" textAlignment="CENTER" textFill="WHITE">
@@ -82,6 +82,11 @@
                               </VBox>
                            </children>
                         </AnchorPane>
+                        <JFXButton fx:id="backToAdminHub" onAction="#employeeToAdminHub" style="-fx-background-color: #003da6;" text="&lt;- Back" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </GridPane>
                </children>
@@ -98,11 +103,6 @@
                         <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton fx:id="backToAdminHub" onAction="#employeeToAdminHub" style="-fx-background-color: #003da6;" text="Back to Admin Hub" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
                         <Label style="-fx-background-color: white;" text="Employee Management" textFill="#003da6" underline="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <font>
                               <Font name="System Italic" size="22.0" />

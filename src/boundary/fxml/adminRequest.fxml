@@ -67,9 +67,9 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXTextField fx:id="spillsARNode" layoutX="40.0" layoutY="121.0" onAction="#displayARSpillsNode" text="Node" />
-                                    <JFXTextField fx:id="spillsARTimestamp" layoutX="40.0" layoutY="161.0" onAction="#displayARSpillsTimestamp" text="Time stamp" />
-                                    <JFXTextField fx:id="spillsARDescription" layoutX="40.0" layoutY="201.0" onAction="#displayARSpillsDescription" text="Description" />
+                                    <JFXTextField fx:id="spillsARNode" layoutX="40.0" layoutY="121.0" onAction="#displayARSpillsNode" promptText="Node" />
+                                    <JFXTextField fx:id="spillsARTimestamp" layoutX="40.0" layoutY="161.0" onAction="#displayARSpillsTimestamp" promptText="Timestamp" />
+                                    <JFXTextField fx:id="spillsARDescription" layoutX="40.0" layoutY="201.0" onAction="#displayARSpillsDescription" promptText="Description" />
                                     <JFXComboBox fx:id="spillsARName" layoutX="39.0" layoutY="84.0" onAction="#displayARSpillsName" prefHeight="31.0" prefWidth="170.0" promptText="Name" />
                                     <JFXComboBox fx:id="spillsARType" layoutX="39.0" layoutY="45.0" onAction="#displayARSpillsType" prefHeight="31.0" prefWidth="170.0" promptText="Type" />
                                     <JFXButton fx:id="spillsARAdd" layoutX="14.0" layoutY="258.0" onAction="#addARSpills" prefHeight="31.0" prefWidth="95.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Add" textAlignment="CENTER" textFill="WHITE">
@@ -115,9 +115,9 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXTextField fx:id="foodARNode" layoutX="40.0" layoutY="121.0" onAction="#displayARFoodNode" text="Node" />
-                                    <JFXTextField fx:id="foodARTimestamp" layoutX="40.0" layoutY="161.0" onAction="#displayARFoodTimestamp" text="Time stamp" />
-                                    <JFXTextField fx:id="foodARDescription" layoutX="40.0" layoutY="201.0" onAction="#displayARFoodDescription" text="Description" />
+                                    <JFXTextField fx:id="foodARNode" layoutX="40.0" layoutY="121.0" onAction="#displayARFoodNode" promptText="Node" />
+                                    <JFXTextField fx:id="foodARTimestamp" layoutX="40.0" layoutY="161.0" onAction="#displayARFoodTimestamp" promptText="Timestamp" />
+                                    <JFXTextField fx:id="foodARDescription" layoutX="40.0" layoutY="201.0" onAction="#displayARFoodDescription" promptText="Description" />
                                     <JFXComboBox fx:id="foodARType" layoutX="39.0" layoutY="45.0" onAction="#displayARFoodType" prefHeight="31.0" prefWidth="170.0" promptText="Type" />
                                     <JFXComboBox fx:id="foodARName" layoutX="39.0" layoutY="84.0" onAction="#displayARFoodName" prefHeight="31.0" prefWidth="170.0" promptText="Name" />
                                     <StackPane layoutX="1.0" layoutY="236.0" prefHeight="70.0" prefWidth="244.0">
@@ -216,9 +216,9 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXTextField fx:id="interpreterARNode" layoutX="40.0" layoutY="121.0" text="Node" />
-                                    <JFXTextField fx:id="interpreterARTimestamp" layoutX="40.0" layoutY="161.0" text="Time stamp" />
-                                    <JFXTextField fx:id="interpreterARDescription" layoutX="40.0" layoutY="201.0" text="Description" />
+                                    <JFXTextField fx:id="interpreterARNode" layoutX="40.0" layoutY="121.0" promptText="Node" />
+                                    <JFXTextField fx:id="interpreterARTimestamp" layoutX="40.0" layoutY="161.0" promptText="Timestamp" />
+                                    <JFXTextField fx:id="interpreterARDescription" layoutX="40.0" layoutY="201.0" promptText="Description" />
                                     <JFXComboBox fx:id="interpreterARType" layoutX="39.0" layoutY="45.0" prefHeight="31.0" prefWidth="170.0" promptText="Type" />
                                     <JFXComboBox fx:id="interpreterARName" layoutX="39.0" layoutY="84.0" prefHeight="31.0" prefWidth="170.0" promptText="Name" />
                                     <StackPane layoutX="1.0" layoutY="236.0" prefHeight="70.0" prefWidth="244.0">
@@ -265,6 +265,11 @@
                         <Image url="@../images/other%20images/BWH.png" />
                      </image>
                   </ImageView>
+                  <JFXButton fx:id="backToAdminHub" onAction="#requestToAdminHub" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </GridPane>
             <AnchorPane prefHeight="773.0" prefWidth="934.0" SplitPane.resizableWithParent="false">
@@ -305,9 +310,9 @@
                                           <JFXListView fx:id="menuARList" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="574.0" prefWidth="222.0" GridPane.rowIndex="1">
                                              <children>
-                                                <JFXTextField fx:id="descriptionARName" layoutX="28.0" layoutY="198.0" onAction="#displayARMenuFoodNode" text="Description" />
-                                                <JFXTextField fx:id="menuARName" layoutX="28.0" layoutY="160.0" onAction="#displayARMenuFoodName" text="Name" />
-                                                <JFXTextField fx:id="costARName" layoutX="28.0" layoutY="237.0" onAction="#displayARMenuFoodTimestamp" text="Cost" />
+                                                <JFXTextField fx:id="descriptionARName" layoutX="28.0" layoutY="198.0" onAction="#displayARMenuFoodNode" promptText="Description" />
+                                                <JFXTextField fx:id="menuARName" layoutX="28.0" layoutY="160.0" onAction="#displayARMenuFoodName" promptText="Name" />
+                                                <JFXTextField fx:id="costARName" layoutX="28.0" layoutY="237.0" onAction="#displayARMenuFoodTimestamp" promptText="Cost" />
                                                 <JFXButton fx:id="menuAREdit" layoutX="14.0" layoutY="360.0" onAction="#editARMenuFood" prefHeight="31.0" prefWidth="95.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="Edit" textAlignment="CENTER" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
@@ -348,6 +353,5 @@
             </AnchorPane>
          </items>
       </SplitPane>
-      <JFXButton fx:id="backToAdminHub" onAction="#requestToAdminHub" text="Back to Admin Hub" />
    </children>
 </AnchorPane>
