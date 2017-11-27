@@ -369,7 +369,7 @@
                                                             <Image url="@../images/other%20images/BWH.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="canvas" height="3400.0" layoutY="14.0" onMouseClicked="#clickOnMap" width="5000.0" />
+                                                      <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
                                                    </children>
                                                 </Pane>
                                              </content>
