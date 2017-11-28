@@ -70,5 +70,7 @@ public class NodeEditor {
         nodeTypeCombo.setItems(nodeTypeList);
         shortName.clear();
         longName.clear();
+        nodeID.clear();
+        editNodeTypeField.clear();
     }
 }

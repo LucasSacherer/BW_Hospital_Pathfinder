@@ -148,6 +148,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void resetNodeButtonEdit() {
+        nodeEditor.reset();
     }
 
     public void resetNodeButtonRemove() {
