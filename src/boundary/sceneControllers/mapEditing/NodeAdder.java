@@ -16,7 +16,6 @@ import java.util.HashSet;
 public class NodeAdder {
     private NodeManager nodeManager;
     private int addNodeX, addNodeY;
-    private HashSet<Integer> usedNumbers;
 
     private JFXTextField xPos, yPos, shortName, longName;
     private JFXComboBox nodeTypeCombo, buildingCombo;
