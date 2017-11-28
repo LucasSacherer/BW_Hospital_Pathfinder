@@ -151,11 +151,36 @@ public class InterpreterManager {
         ArrayList<InterpreterRequest> completed = new ArrayList<>();
         updateRequests();
 
-        for (InterpreterRequest req : requests){
-            if(!req.getTimeCreated().equals(req.getTimeCompleted())){
-                completed.add(req);
+        String name, type, description;
+        LocalDateTime timeCreated, timeCompleted;
+        Node node;
+        User user;
+        String language;
+
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST",
+                databaseGargoyle.getStatement());
+        try {
+            while (rs.next()) {
+                name = rs.getString("NAME");
+                type = rs.getString("TYPE");
+                description = rs.getString("DESCRIPTION");
+                timeCreated = rs.getTimestamp("TIMECREATED").toLocalDateTime();
+                timeCompleted = rs.getTimestamp("TIMECOMPLETED").toLocalDateTime();
+                node = nodeManager.getNode(rs.getString("NODEID"));
+                user = userManager.getUser(rs.getString("USERID"));
+                language = rs.getString("LANGUAGE");
+
+                if(!(timeCreated.equals(timeCompleted))) {
+                    completed.add(new InterpreterRequest(name, timeCreated, timeCompleted, type, description, node, user, language));
+                }
             }
+        }catch (SQLException ex){
+            System.out.println("Failed to get completed interpreter requests!");
+            ex.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
+
         return completed;
     }
 
