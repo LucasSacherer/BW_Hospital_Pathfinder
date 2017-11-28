@@ -4,7 +4,7 @@ import Entity.Node;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class TextualDirections {
     Node startNode;
@@ -12,18 +12,18 @@ public class TextualDirections {
     Node previousNode;
     Node currentNode;
     Node nextNode;
-    //TODO: find angle values
-    int leftLow;
-    int leftHigh;
-    int rightLow;
-    int rightHigh;
-    int straightLow;
-    int straightHigh;
+    //TODO: test angle values
+    int leftLow = 150;
+    int leftHigh = 359;
+    int rightLow = 0;
+    int rightHigh = 120;
+
 
     //determines angle person is turning at currentNode by comparing angle of edges
     //between previousNode/currentNode and currentNode/nextNode
     private double findAngle(Node previous, Node current, Node next){
         //TODO
+
         return 0;
     }
 
@@ -31,10 +31,10 @@ public class TextualDirections {
     //i.e. "left", "right", "straight"
     private String findTurn(){
         double currentAngle = findAngle(previousNode, currentNode, nextNode);
-        if (currentAngle > leftLow && currentAngle < leftHigh){
+        if (currentAngle >= leftLow && currentAngle <= leftHigh){
             return "Turn left and continue";
         }
-        if (currentAngle > rightLow && currentAngle < rightHigh){
+        if (currentAngle >= rightLow && currentAngle <= rightHigh){
             return "Turn right and continue";
         }
         return "Continue";
@@ -45,6 +45,7 @@ public class TextualDirections {
         return input.getNodeID();
     }
 
+    //method that does the work creating the textual directions
     private LinkedList<String> makeTextDir(ArrayList<Node> path){
         LinkedList<String> writtenDirections = new LinkedList();
 
@@ -92,5 +93,6 @@ public class TextualDirections {
         return writtenDirections;
     }
 
+    //getter for textual directions
     public LinkedList<String> getDir(ArrayList<Node> path){return makeTextDir(path);}
 }
