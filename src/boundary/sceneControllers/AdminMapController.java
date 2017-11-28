@@ -1,4 +1,5 @@
 package boundary.sceneControllers;
+import Database.EdgeManager;
 import Database.NodeManager;
 import Editor.NodeEditController;
 import Entity.Node;
@@ -30,7 +31,7 @@ public class AdminMapController extends AbstractMapController{
     private String shortName = "";
     private String nodeID = "";
     private String building, nodeType;
-    private ObservableList<String> nodeTypeList, buildingList;
+    private ObservableList<String> nodeTypeList, buildingList; //TODO remove
 
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab;
 
@@ -62,8 +63,9 @@ public class AdminMapController extends AbstractMapController{
         this.nodeRemover = new NodeRemover(nodeEditController, xPosRemoveNode, yPosRemoveNode);
     }
 
-    public void initializeEdgeAdder() { // TODO
-        this.edgeAdder = new EdgeAdder();
+    public void initializeEdgeAdder(EdgeManager edgeManager, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
+                                    JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd) { // TODO
+        this.edgeAdder = new EdgeAdder(edgeManager, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
     }
 
     public void initializeEdgeRemove() { // TODO

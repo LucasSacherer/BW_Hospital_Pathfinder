@@ -26,6 +26,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -82,6 +83,15 @@ public class GodController {
     /* Request Scene */
     @FXML
     private JFXTextField selectedRequestTextField;
+
+    @FXML
+    private ChoiceBox requestChoiceBox;
+
+    @FXML
+    private StackPane requestStack;
+
+    @FXML
+    private AnchorPane requestAnchor1, requestAnchor2, requestAnchor3;
 
     /* MAP ADMIN FXML */
     @FXML
@@ -221,7 +231,8 @@ public class GodController {
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
+        staffRequestController = new StaffRequestController(requestAnchor1, requestAnchor2, requestAnchor3,
+                requestStack, requestChoiceBox, requestImageView, requestMapPane, requestCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
                 allStaffRequests, requestsIMade, selectedRequestTextField);
     }
@@ -593,7 +604,7 @@ public class GodController {
         adminMapController.initializeNodeAdder(nodeManager, xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
         adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit, editNodeTypeField);
         adminMapController.initializeNodeRemover(xPosRemoveNode, yPosRemoveNode);
-
+        adminMapController.initializeEdgeAdder(edgeManager, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
     }
 
     @FXML

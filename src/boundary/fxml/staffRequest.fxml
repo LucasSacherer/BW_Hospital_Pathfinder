@@ -8,9 +8,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
@@ -54,7 +52,7 @@
                               </Label>
                               <JFXTabPane prefHeight="871.0" prefWidth="425.0">
                                  <tabs>
-                                    <Tab text="Veiw">
+                                    <Tab text="View">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="423.0">
                                              <children>
@@ -102,20 +100,10 @@
                                                             <Font size="25.0" />
                                                          </font>
                                                       </Label>
-                                                      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1">
-                                                         <contextMenu>
-                                                            <ContextMenu>
-                                                              <items>
-                                                                <MenuItem mnemonicParsing="false" text="Spill" />
-                                                                  <MenuItem mnemonicParsing="false" text="Food" />
-                                                                  <MenuItem mnemonicParsing="false" text="Interpriter" />
-                                                              </items>
-                                                            </ContextMenu>
-                                                         </contextMenu>
-                                                      </ChoiceBox>
-                                                      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <ChoiceBox fx:id="requestChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                      <StackPane fx:id="requestStack" prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                                          <children>
-                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                            <AnchorPane fx:id="requestAnchor1" prefHeight="200.0" prefWidth="200.0">
                                                                <children>
                                                                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                     <columnConstraints>
@@ -148,7 +136,7 @@
                                                                   </GridPane>
                                                                </children>
                                                             </AnchorPane>
-                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                            <AnchorPane fx:id="requestAnchor2" prefHeight="200.0" prefWidth="200.0">
                                                                <children>
                                                                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <columnConstraints>
@@ -181,7 +169,7 @@
                                                                   </GridPane>
                                                                </children>
                                                             </AnchorPane>
-                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                            <AnchorPane fx:id="requestAnchor3" prefHeight="200.0" prefWidth="200.0">
                                                                <children>
                                                                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <columnConstraints>
