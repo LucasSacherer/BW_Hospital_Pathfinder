@@ -3,7 +3,9 @@ package Entity;
 import Database.EdgeManager;
 import Database.NodeManager;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -16,6 +18,47 @@ public class EdgeManagerTest {
         assertFalse(false);
     }
 
+
+
+    @Test
+    public void testAddEdge(){
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1,n2);
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager test = new EdgeManager(manager);
+        test.updateEdges();
+        manager.addNode(n1);
+        manager.addNode(n2);
+
+        int startingsize = test.getAllEdges().size();
+
+        test.addEdge(e1);
+        assertEquals(startingsize + 1, test.getAllEdges().size());
+
+        test.removeEdge(e1);
+
+    }
+    @Test
+    public void testRemoveEdge(){
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1,n2);
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager test = new EdgeManager(manager);
+        test.updateEdges();
+        manager.addNode(n1);
+        manager.addNode(n2);
+        test.addEdge(e1);
+
+        int startingsize = test.getAllEdges().size();
+        test.removeEdge(e1);
+        assertEquals(startingsize - 1, test.getAllEdges().size());
+
+
+    }
     @Test
     public void testGetNeighbors() throws Exception {
 
@@ -60,6 +103,26 @@ public class EdgeManagerTest {
     }
 
     @Test
+    public void testGetEdge(){
+        NodeManager nodeManager = new NodeManager();
+        EdgeManager edgeManager = new EdgeManager(nodeManager);
+        nodeManager.updateNodes();
+        edgeManager.updateEdges();
+
+        Node testnode1 = nodeManager.getNode("GHALL001L2");
+        Node testnode2 = nodeManager.getNode("GLABS003L2");
+        Edge testEdge1 = edgeManager.getEdge(testnode1,testnode2);
+        Edge testEdge2 = edgeManager.getEdge(testnode2,testnode1);
+
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("GHALL001L2") && testEdge1.getEndNode().getNodeID().equals("GLABS003L2"), true);
+        assertEquals(testEdge2.getStartNode().getNodeID().equals("GHALL001L2") && testEdge2.getEndNode().getNodeID().equals("GLABS003L2"), true);
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("GLABS003L2") && testEdge1.getEndNode().getNodeID().equals("GHALL001L2"),false);
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("Wrong") && testEdge1.getEndNode().getNodeID().equals("GLABS003L2"), false);
+        assertEquals(testEdge1.getStartNode().getNodeID().equals("GHALL001L2") && testEdge1.getEndNode().getNodeID().equals("Wrong"), false);
+
+    }
+
+    @Test
     public void testEdgeWeight() throws Exception {
 
         Node n1 = new Node("1", 1, 1, "1", "test","type", "lName", "sName");
@@ -96,5 +159,41 @@ public class EdgeManagerTest {
 
         assertEquals(weight, 2.0, .1);
         assertEquals(weight2, 2.0, .1);
+    }
+    @Test
+    public void testRemoveNeighborEdges() throws Exception {
+
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 2, 1, "1", "test","type", "lName", "sName");
+        Node n3 = new Node("3", 1, 2, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1, n2);
+        Edge e2 = new Edge(n1, n3);
+
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager edgeManager = new EdgeManager(manager);
+        edgeManager.updateEdges();
+
+        manager.addNode(n1);
+        manager.addNode(n2);
+        manager.addNode(n3);
+        edgeManager.addEdge(e1);
+        edgeManager.addEdge(e2);
+
+        List<Node> n1NeighborsBefore = edgeManager.getNeighbors(n1);
+
+        edgeManager.removeNeighborEdges(n1);
+
+        List<Node> n1Neighbors = edgeManager.getNeighbors(n1);
+
+        assertEquals(n1Neighbors.isEmpty(),true);
+
+        edgeManager.removeEdge(e1);
+        edgeManager.removeEdge(e2);
+        manager.removeNode(n1);
+        manager.removeNode(n2);
+        manager.removeNode(n3);
+
+
     }
 }

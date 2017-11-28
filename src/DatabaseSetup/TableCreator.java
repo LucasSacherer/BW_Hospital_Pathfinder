@@ -5,12 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class TableCreator {
     private Statement statement;
-    private String defaultNodesPath = "src/DatabaseSetup/defaultNodes.txt";
-    private String defaultEdgesPath = "src/DatabaseSetup/defaultEdges.txt";
-    private String defaultUsersPath = "src/DatabaseSetup/defaultUsers.txt";
+    private String defaultNodesPath = "/DatabaseSetup/defaultNodes.txt";
+    private String defaultEdgesPath = "/DatabaseSetup/defaultEdges.txt";
+    private String defaultUsersPath = "/DatabaseSetup/defaultUsers.txt";
 
     public TableCreator(Statement statement) {
         this.statement = statement;
@@ -84,15 +85,13 @@ public class TableCreator {
                     " adminFlag varchar(10) NOT NULL,\n" +
                     " department varchar(100) NOT NULL\n)");
             System.out.println("KioskUser table created!");
-            //Insert all Users to the table
-            try {
-                insertCSVToDatabase(defaultUsersPath, connection,"KIOSKUSER");
-            } catch (FileNotFoundException e) {
-                System.out.println("Cannot find path " + defaultUsersPath);
-                e.printStackTrace();
-            }
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin1', 'admin1', 'admin1', true, 'department')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin2', 'admin2', 'admin2', true, 'department')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('janitor1', 'janitor1', 'janitor1', false, 'department')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'department')");
         } catch (SQLException e) {
             System.out.println("KioskUser table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -113,8 +112,11 @@ public class TableCreator {
                     " CONSTRAINT foodUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
                     " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("FoodRequest table created!");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -136,8 +138,11 @@ public class TableCreator {
                     " CONSTRAINT interpreterUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
                     " CONSTRAINT interpreterNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("InterpreterRequest table created!");
+            statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','spanish','GCONF02001', 'admin1')");
+            statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'admin2')");
         } catch (SQLException e) {
             System.out.println("InterpreterRequest table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -158,8 +163,11 @@ public class TableCreator {
                     " CONSTRAINT cleanUpUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
                     " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("CleanUpRequest table created!");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
+            //e.printStackTrace();
         }
     }
 
@@ -172,13 +180,15 @@ public class TableCreator {
                     " requestName VARCHAR(250) NOT NULL,\n" +
                     " timeCreated TIMESTAMP NOT NULL,\n" +
                     " foodItem VARCHAR(250) NOT NULL,\n" +
-                    " quantity INTEGER NOT NULL,\n" +
-                    " CONSTRAINT foodOrder_PK PRIMARY KEY(requestName, foodItem),\n" +
                     " CONSTRAINT foodOrder_FK FOREIGN KEY (requestName, timeCreated) REFERENCES FoodRequest(name, timeCreated))");
             System.out.println("FoodOrder table created!");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -191,6 +201,7 @@ public class TableCreator {
                     " string1 VARCHAR(250) PRIMARY KEY,\n" +
                     " string2 VARCHAR(250) NOT NULL\n)");
             System.out.println("Settings table created!");
+            statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Default Node','GHALL03802')");
         } catch (SQLException e) {
             System.out.println("Settings table already exists");
         }
@@ -203,62 +214,45 @@ public class TableCreator {
      * @throws FileNotFoundException
      */
     public void insertCSVToDatabase(String path, Connection connection, String table) throws FileNotFoundException {
+        /*
         File file = new File(path);
         FileReader fileReader = new FileReader(file);
         BufferedReader br = new BufferedReader(fileReader);
-        DatabaseGargoyle dbGargoyle = new DatabaseGargoyle();
+        */
+        InputStream file = TableCreator.class.getResourceAsStream(path);
+        Scanner br = new Scanner(file);
         String line;
         PreparedStatement query = null;
 
-        try {
-            while ((line = br.readLine()) != null){
-                try {
-                    if (line != null){
-                        String[] array = line.split(",");
-                        //Execute query to database
-                        try {
-                            if (table.equals("NODE")){
-                                query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setInt(2, Integer.parseInt(array[1]));
-                                query.setInt(3, Integer.parseInt(array[2]));
-                                query.setString(4,array[3]);
-                                query.setString(5,array[4]);
-                                query.setString(6,array[5]);
-                                query.setString(7,array[6]);
-                                query.setString(8,array[7]);
-                                query.setString(9,array[8]);
-                            } else if (table.equals("EDGE")){
-                                query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setString(2,array[1]);
-                                query.setString(3,array[2]);
-                            } else if (table.equals("KIOSKUSER")){
-                                query = connection.prepareStatement("INSERT INTO KIOSKUSER VALUES (?,?,?,?,?)");
-                                query.setString(1, array[0]);
-                                query.setString(2,array[1]);
-                                query.setString(3,array[2]);
-                                query.setString(4,array[3]);
-                                query.setString(5,array[4]);
-                            }
-                            query.executeUpdate();
-                        } catch (SQLException e){
-                            System.out.println("Failed to execute: " + query.toString());
-                            e.printStackTrace();
-                        }
-                    }
-                } finally {
-                    if (br == null) {
-                        try {
-                            br.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+        while (br.hasNext()){
+            line = br.nextLine();
+            String[] array = line.split(",");
+            //Execute query to database
+            try {
+                if (table.equals("NODE")){
+                    query = connection.prepareStatement("INSERT INTO NODE VALUES (?,?,?,?,?,?,?,?,?)");
+                    query.setString(1, array[0]);
+                    query.setInt(2, Integer.parseInt(array[1]));
+                    query.setInt(3, Integer.parseInt(array[2]));
+                    query.setString(4,array[3]);
+                    query.setString(5,array[4]);
+                    query.setString(6,array[5]);
+                    query.setString(7,array[6]);
+                    query.setString(8,array[7]);
+                    query.setString(9,array[8]);
+                } else if (table.equals("EDGE")) {
+                    query = connection.prepareStatement("INSERT INTO EDGE VALUES (?,?,?)");
+                    query.setString(1, array[0]);
+                    query.setString(2, array[1]);
+                    query.setString(3, array[2]);
                 }
+                query.executeUpdate();
+            } catch (SQLException e){
+                System.out.println("Failed to execute: " + query.toString());
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+
     }
 }

@@ -1,198 +1,154 @@
 package boundary.sceneControllers;
 
 import Entity.Node;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import MapNavigation.MapNavigationFacade;
+import Pathfinding.PathFindingFacade;
+import com.jfoenix.controls.JFXTextField;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.WindowEvent;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
-public class MainSceneController {
+public class MainSceneController extends AbstractMapController{
+    private JFXTextField originField, destinationField;
+    private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-    public void setLoc1() {
-//        loc1 = currentLoc;
-//        originField.setText(loc1.getShortName());
+    public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+                               Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir,
+                               ListView deptDir, ListView labDir, ListView infoDeskDir, ListView conferenceDir,
+                               ListView exitDir, ListView shopsDir, ListView nonMedical, JFXTextField originField,
+                               JFXTextField destinationField) {
+        super(i, mapPane, canvas, m, p, currentFloorNum);
+        // todo set origin:  this.origin = mapNavigationFacade.getDefaultNode(); //todo change the origin when the floor changes
+        this.elevatorDir = elevatorDir;
+        this.restroomDir = restroomDir;
+        this.stairsDir = stairsDir;
+        this.labDir = labDir;
+        this.deptDir = deptDir;
+        this.infoDeskDir = infoDeskDir;
+        this.conferenceDir = conferenceDir;
+        this.exitDir = exitDir;
+        this.shopsDir = shopsDir;
+        this.nonMedical = nonMedical;
+        this.originField = originField;
+        this.destinationField = destinationField;
+        initializeDirectory();
+        initializeDirectoryListeners();
     }
 
-
-    public void setLoc2() {
-//        loc2 = currentLoc;
-//        destinationField.setText(loc2.getShortName());
+    private void initializeDirectory() {
+        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
+        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
+        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
+        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
+        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
+        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
+        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
+        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
+        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
+        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
     }
 
-    public void findPath() {
-//        currentPath = pathController.findPath(loc1,loc2);
-//        clearCanvas();
-//        drawPath();
-//        drawCurrentNode();
+    private void initializeDirectoryListeners(){
+        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
+        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
+            refreshCanvas();
+        });
     }
 
-    public void zoomInMap() {
-//        if (mapPane.getScaleX() >= 0.8 || mapPane.getScaleY() >= 0.8) return;
-//        mapPane.setScaleX(mapPane.getScaleX() + 0.1);
-//        mapPane.setScaleY(mapPane.getScaleY() + 0.1);
+    public void clickOnMap(MouseEvent m) {
+        super.clickOnMap(m);
+
+        if (origin == null ) {//TODO replace this code with real origin
+            origin = mapNavigationFacade.getNearestNode((int) m.getX(), (int) m.getY(),currentFloor);
+            originField.setText(origin.getNodeID());
+        }
+    }
+    public void bathroomClicked() { findNearest(currentLoc, "REST"); }
+
+    public void infoClicked() { findNearest(currentLoc, "INFO"); }
+
+    public void elevatorClicked() { findNearest(currentLoc, "ELEV"); }
+
+    private void findNearest(Node node, String type) {
+        destination = mapNavigationFacade.getNearestPOI(node.getXcoord(), node.getYcoord(), type);
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        refreshCanvas();
     }
 
-
-    public void zoomOutMap() {
-//        if (mapPane.getScaleX() <= 0.5 || mapPane.getScaleY() <= 0.5) return;
-//        mapPane.setScaleX(mapPane.getScaleX() - 0.1);
-//        mapPane.setScaleY(mapPane.getScaleY() - 0.1);
+    public void navigateToHere() {
+        setDestination();
+        findPath();
     }
 
-    public void snapToNode() {
-//        int x = (int) m.getX();
-//        int y = (int) m.getY();
-//        currentLoc = clickController.getNearestNode(x,y,currentFloor);
-//        clearCanvas();
-//        drawCurrentNode();
-//        drawPath();
+    public void setOrigin() {
+        super.setOrigin();
+        originField.setText(origin.getNodeID());
     }
 
-    public void drawPath() {
-//
-//        List<Node> pathToDraw = currentPath;
-//
-//        if(pathToDraw == null || pathToDraw.size() == 0||!pathToDraw.get(0).getFloor().equals(currentFloor)){
-//            return;
-//        }
-//
-//        /** Testing Only **
-//         ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
-//         pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
-//         pathToDraw.add(new Node("b",300, 300, "a","a","a","a","a",true));
-//         pathToDraw.add(new Node("c",2000, 300, "a","a","a","a","a",true));
-//         /** testing over **/
-//
-//        for(int i=0;i<pathToDraw.size()-1;i++) {
-//            int x1 = pathToDraw.get(i).getXcoord();
-//            int y1 = pathToDraw.get(i).getYcoord();
-//            int x2 = pathToDraw.get(i+1).getXcoord();
-//            int y2 = pathToDraw.get(i+1).getYcoord();
-//            gc.setLineWidth(5);
-//            gc.strokeLine(x1,y1,x2,y2);
-//        }
-//    }
-
+    public void setOrigin(MouseEvent m) {
+        snapToNode(m);
+        currentPath = null;
+        origin = currentLoc;
+        originField.setText(origin.getNodeID());
+        refreshCanvas();
     }
 
-    public void drawCurrentNode() {
-//        Node toDraw = currentLoc;
-//        if(toDraw == null || !toDraw.getFloor().equals(currentFloor)){
-//            return;
-//        }
-//        gc.fillOval(toDraw.getXcoord()-10,toDraw.getYcoord()-10,20,20);
+    public void setDestination() {
+        super.setDestination();
+        destinationField.setText(destination.getNodeID());
     }
 
-    public void drawEdge() {
-//        Node startNode = edge.getStartNode();
-//        int sx = startNode.getXcoord();
-//        int sy = startNode.getYcoord();
-//        Node endNode = edge.getEndNode();
-//        int ex = endNode.getXcoord();
-//        int ey = endNode.getYcoord();
-//
-//        gc.setLineWidth(3);
-//        gc.strokeLine(sx,sy,ex,ey);
-    }
-
-    public void drawNode() {
-//        gc.setFill(Color.BLUE);
-//        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
-//        gc.setFill(Color.BLACK);
-    }
-
-    public void clearCanvas() {
-//        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-    }
-
-
-    public void bathroomClicked() {
-//        findNearest(currentLoc, "REST");
-    }
-
-
-    public void infoClicked() {
-//        findNearest(currentLoc, "INFO");
-    }
-
-    public void elevatorClicked() {
-//        findNearest(currentLoc, "ELEV");
-    }
-
-    public void floorDown() {
-//        switch(currentFloor) {
-//            case "L2" :
-//                return;
-//            case "L1" :
-//                imageView.setImage(mapDisplayController.getMap("L2"));
-//                currentFloor = "L2";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "G" :
-//                imageView.setImage(mapDisplayController.getMap("L1"));
-//                currentFloor = "L1";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "1" :
-//                imageView.setImage(mapDisplayController.getMap("G"));
-//                currentFloor = "G";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "2" :
-//                imageView.setImage(mapDisplayController.getMap("1"));
-//                currentFloor = "1";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "3" :
-//                imageView.setImage(mapDisplayController.getMap("2"));
-//                currentFloor = "2";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//        }
-//        clearCanvas();
-//        drawPath();
-//        drawCurrentNode();
-    }
-
-    public void floorUp() {
-//        switch (currentFloor) {
-//            case "L2":
-//                imageView.setImage(mapDisplayController.getMap("L1"));
-//                currentFloor = "L1";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "L1":
-//                imageView.setImage(mapDisplayController.getMap("G"));
-//                currentFloor = "G";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "G":
-//                imageView.setImage(mapDisplayController.getMap("1"));
-//                currentFloor = "1";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "1":
-//                imageView.setImage(mapDisplayController.getMap("2"));
-//                currentFloor = "2";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//            case "2":
-//                imageView.setImage(mapDisplayController.getMap("3"));
-//                currentFloor = "3";
-//                currentFloorNum.setText(currentFloor);
-//                break;
-//        }
-//        clearCanvas();
-//        drawPath();
-//        drawCurrentNode();
-    }
-
-    public void clickOnMap() {
-        //snapToNode(m);
+    public void setAsOrigin() {
+        System.out.println("origin" + origin);
+        System.out.println("currentLoc" + currentLoc);
+        currentPath = null;
+        origin = currentLoc;
+        System.out.println("origin" + origin);
+        System.out.println("currentLoc" + currentLoc);
+        refreshCanvas();
     }
 }

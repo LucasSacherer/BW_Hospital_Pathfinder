@@ -1,6 +1,8 @@
 package controller;
 
+import Database.SettingsManager;
 import Entity.Node;
+import MapNavigation.DirectoryController;
 import Database.NodeManager;
 import MapNavigation.DirectoryController;
 import org.junit.Test;
@@ -16,7 +18,8 @@ public class DirectoryControllerTest {
     public void testFormatNodeList() throws Exception {
         List<Node> nodes = new ArrayList<>();
         NodeManager nm = new NodeManager();
-        DirectoryController dc = new DirectoryController(nm);
+        SettingsManager sm = new SettingsManager();
+        DirectoryController dc = new DirectoryController(nm,sm);
 
         Node n1 = new Node("elev1", 1, 1, "1", "1", "ELEV", "1", "1");
         Node n2 = new Node("elev2", 1, 1, "1", "1", "ELEV", "1", "1");

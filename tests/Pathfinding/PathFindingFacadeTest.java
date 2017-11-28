@@ -223,4 +223,20 @@ public class PathFindingFacadeTest {
         assertEquals(expected,ansID);
     }
 
+    @Test
+    public void realNodesAcrossHospital() throws Exception{
+        PathFindingFacade pFF = new PathFindingFacade();
+        NodeManager nodeM = new NodeManager();
+        EdgeManager edgeM = new EdgeManager(nodeM);
+        Astar astar = new Astar(edgeM);
+        pFF.setPathfinder(astar);
+        nodeM.updateNodes();
+        edgeM.updateEdges();
+        Node n1 = nodeM.getNode("ALABS001L2");
+        Node n2 = nodeM.getNode("IDEPT00903");
+        List<Node> answer = pFF.getPath(n1,n2);
+        List<Node> expected = new ArrayList<>();
+        System.out.println(answer);
+
+    }
 }

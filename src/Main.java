@@ -13,8 +13,7 @@ public class Main extends Application {
         databaseGargoyle.createConnection();
         databaseGargoyle.createTables();
         databaseGargoyle.destroyConnection();
-    }
-    /*
+
         //Load UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/fxml/main.fxml"));
         GodController godController = new GodController();
@@ -28,5 +27,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }*/
+    }
 }
