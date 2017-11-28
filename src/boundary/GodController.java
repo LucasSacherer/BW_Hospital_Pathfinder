@@ -384,12 +384,6 @@ public class GodController {
     private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap(); }
 
     @FXML
-    private void displayARSpillsType() throws IOException { adminRequestController.displayARSpillsType(); }
-
-    @FXML
-    private void displayARSpillsName() throws IOException { adminRequestController.displayARSpillsName(); }
-
-    @FXML
     private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
 
     @FXML
@@ -407,12 +401,6 @@ public class GodController {
     //Food
     @FXML
     private void displayARFoodOnMap(MouseEvent e) throws IOException { adminRequestController.displayARFoodOnMap(); }
-
-    @FXML
-    private void displayARFoodType(MouseEvent e) throws IOException { adminRequestController.displayARFoodType(); }
-
-    @FXML
-    private void displayARFoodName() throws IOException { adminRequestController.displayARFoodName(); }
 
     @FXML
     private void addARFood() throws IOException { adminRequestController.addARFood(); }
@@ -451,12 +439,6 @@ public class GodController {
 
     @FXML
     private void displayARInterpreterOnMap() throws IOException { adminRequestController.displayARInterpreterOnMap(); }
-
-    @FXML
-    private void displayARInterpreterType() throws IOException { adminRequestController.displayARInterpreterType(); }
-
-    @FXML
-    private void displayARInterpreterName() throws IOException { adminRequestController.displayARInterpreterName(); }
 
     @FXML
     private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
