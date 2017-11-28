@@ -3,6 +3,7 @@ package Request;
 import Database.CleanUpManager;
 import Entity.CleanUpRequest;
 import Entity.ErrorScreen;
+import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -94,5 +95,9 @@ public class RequestCleanupController {
             cleanUpManager.completeRequest(cReq);
         }
         else errorscreen.displayError("This request does not already exist in the database");
+    }
+
+    public List<CleanUpRequest> getRequestsBy(User user){
+        return cleanUpManager.getRequestsBy(user);
     }
 }
