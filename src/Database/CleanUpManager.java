@@ -152,11 +152,47 @@ public class CleanUpManager {
         ArrayList<CleanUpRequest> completed = new ArrayList<>();
         updateRequests();
 
+        /*
         for (CleanUpRequest req: requests){
             if (!req.getTimeCreated().equals(req.getTimeCompleted())){
                 completed.add(req);
             }
         }
+        return completed;
+        */
+
+        String name, type, description;
+        LocalDateTime timeCreated, timeCompleted;
+        Node node;
+        User user;
+
+        requests.clear();
+        nodeManager.updateNodes();
+        userManager.updateUsers();
+
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST",
+                databaseGargoyle.getStatement());
+        try {
+            while (rs.next()) {
+                name = rs.getString("NAME");
+                type = rs.getString("TYPE");
+                description = rs.getString("DESCRIPTION");
+                timeCreated = rs.getTimestamp("TIMECREATED").toLocalDateTime();
+                timeCompleted = rs.getTimestamp("TIMECOMPLETED").toLocalDateTime();
+                node = nodeManager.getNode(rs.getString("NODEID"));
+                user = userManager.getUser(rs.getString("USERID"));
+
+                if(!(timeCreated.equals(timeCompleted))) {
+                    completed.add(new CleanUpRequest(name, timeCreated, timeCompleted, type, description, node, user));
+                }
+            }
+        }catch (SQLException ex){
+            System.out.println("Failed to get the list of completed clean-up requests!");
+            ex.printStackTrace();
+        }
+        databaseGargoyle.destroyConnection();
+
         return completed;
     }
 

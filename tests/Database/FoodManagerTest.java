@@ -137,6 +137,7 @@ public class FoodManagerTest {
 
     @Test
     public void testGetRequestsBy() {
+        //Run testCompleteRequest first!
         NodeManager nodeManager = new NodeManager();
         UserManager userManager = new UserManager();
         FoodManager fManager = new FoodManager(nodeManager, userManager);
@@ -151,6 +152,8 @@ public class FoodManagerTest {
         FoodRequest request = new FoodRequest("name", time.toLocalDateTime(),
                 time.toLocalDateTime(), "type", "description", nodeManager.getNode("IHALL01303"), userManager.getUser("admin1"), order);
 
+        fManager.deleteRequest(request);
+
         fManager.addRequest(request);
 
         List<FoodRequest> requestsByUser = fManager.getRequestsBy(userManager.getUser("admin1"));
@@ -158,7 +161,7 @@ public class FoodManagerTest {
         System.out.println(fManager.getRequests());
         System.out.println(requestsByUser);
 
-        assertTrue(requestsByUser.size() == 1);
+        assertTrue(requestsByUser.size() == 2);
         assertTrue(requestsByUser.get(0).getUser().getUserID().equals("admin1"));
 
         requestsByUser = fManager.getRequestsBy(userManager.getUser("staff1"));
@@ -169,4 +172,24 @@ public class FoodManagerTest {
 
         fManager.deleteRequest(request);
     }
+/*
+    @Test
+    public void testDelete() throws Exception {
+        NodeManager nodeManager = new NodeManager();
+        UserManager userManager = new UserManager();
+        FoodManager fManager = new FoodManager(nodeManager, userManager);
+
+        userManager.updateUsers();
+        fManager.updateRequests();
+
+        Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+        ArrayList<String> order = new ArrayList<>();
+        order.add("food1");
+        order.add("food2");
+        FoodRequest request = new FoodRequest("name", time.toLocalDateTime(),
+                time.toLocalDateTime(), "type", "description", nodeManager.getNode("IHALL01303"), userManager.getUser("admin1"), order);
+
+        fManager.deleteRequest(request);
+    }
+    */
 }
