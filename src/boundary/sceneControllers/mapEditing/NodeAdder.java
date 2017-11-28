@@ -53,15 +53,40 @@ public class NodeAdder {
         if (nodeTypeCombo.getSelectionModel().getSelectedItem() == null) return; //todo error
         String building = buildingCombo.getSelectionModel().getSelectedItem().toString();
         String nodeType = nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
-        String nodeID = "G" + nodeType + getNodeNumber() + currentFloor;
+        String nodeID = getUniqueID(nodeType, currentFloor);
         Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName.getText(), shortName.getText());
         nodeEditController.addNode(n);
         System.out.println(building + " " + nodeType + " " + nodeID + " " + currentFloor + " " + longName + " " + shortName);
         reset();
     }
 
-    private String getNodeNumber() {
-        return "0"; //TODO !!
+    private String getUniqueID(String nodeType, String currentFloor) {
+        String firstNum, potential;
+        StringBuilder ID = new StringBuilder();
+        for (int i = 0; i < 999; i++) {
+            if (i < 10) firstNum = "00" + i;
+            else if (i < 100) firstNum = "0" + i;
+            else firstNum = "" + i;
+            ID.append("G");
+            ID.append(nodeType);
+            ID.append(firstNum);
+            ID.append(getFloorString(currentFloor);
+            potential = ID.toString();
+            // todo if potential is available, break and return
+        }
+        return "999";
+    }
+
+    private String getFloorString(String currentFloor) {
+        switch(currentFloor) {
+            case "2":
+                return "02";
+            case "1":
+                return "01";
+            case "G":
+                return "00";
+        }
+        return currentFloor;
     }
 
     public void reset() {
