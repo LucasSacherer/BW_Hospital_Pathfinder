@@ -13,13 +13,14 @@ import javafx.scene.paint.Color;
 public class NodeEditor {
     private Node current;
     private NodeEditController nodeEditController;
-    private JFXTextField nodeID, xPos, yPos, shortName, longName;
+    private JFXTextField nodeID, xPos, yPos, shortName, longName, editNodeTypeField;
     private JFXComboBox nodeTypeCombo;
     private ObservableList nodeTypeList = FXCollections.observableArrayList(
             "HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF");
 
     public NodeEditor(NodeEditController n, JFXTextField editNodeID, JFXTextField xPosEdit, JFXTextField yPosEdit,
-                      JFXComboBox nodeTypeComboEdit, JFXTextField shortNameEdit, JFXTextField longNameEdit) {
+                      JFXComboBox nodeTypeComboEdit, JFXTextField shortNameEdit, JFXTextField longNameEdit,
+                      JFXTextField editNodeTypeField) {
         this.nodeEditController = n;
         this.nodeID = editNodeID;
         this.xPos = xPosEdit;
@@ -27,6 +28,7 @@ public class NodeEditor {
         this.nodeTypeCombo = nodeTypeComboEdit;
         this.shortName = shortNameEdit;
         this.longName = longNameEdit;
+        this.editNodeTypeField = editNodeTypeField;
         nodeTypeCombo.setItems(nodeTypeList);
     }
 
@@ -41,14 +43,15 @@ public class NodeEditor {
         yPos.setText("" + current.getYcoord());
         shortName.setText(current.getShortName());
         longName.setText(current.getLongName());
+        editNodeTypeField.setText(current.getNodeType());
         nodeTypeCombo.setItems(null);
         nodeTypeCombo.setItems(nodeTypeList);
     }
 
     public void editNode() {
         System.out.println(current);
-        String nodeType = (nodeTypeCombo.getSelectionModel().getSelectedItem() == null) ? nodeType = "HALL" :
-                nodeTypeCombo.getSelectionModel().getSelectedItem().toString(); // TODO this is bogus
+        String nodeType = (nodeTypeCombo.getSelectionModel().getSelectedItem() == null) ? nodeType = current.getNodeType() :
+                nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
         int x = Integer.parseInt(xPos.getText());
         int y = Integer.parseInt(yPos.getText());
         // TODO check for bounds

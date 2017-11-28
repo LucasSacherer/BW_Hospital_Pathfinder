@@ -96,7 +96,7 @@ public class GodController {
     @FXML
     private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
             xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
-            setKioskX, setKioskY,
+            setKioskX, setKioskY, editNodeTypeField,
             shortNameAdd, shortNameEdit,
             longNameAdd, longNameEdit, requestName, requestDescription,
             edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
@@ -591,7 +591,7 @@ public class GodController {
         sceneSwitcher.toAdminMap(this, adminHubPane);
         adminMapController.initializeScene();
         adminMapController.initializeNodeAdder(nodeManager, xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
-        adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit);
+        adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit, editNodeTypeField);
     }
 
     @FXML

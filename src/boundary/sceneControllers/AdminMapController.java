@@ -52,8 +52,10 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void initializeNodeEditor(JFXTextField editNodeID, JFXTextField xPosEdit, JFXTextField yPosEdit,
-                                     JFXComboBox nodeTypeComboEdit, JFXTextField shortNameEdit, JFXTextField longNameEdit) {
-        this.nodeEditor = new NodeEditor(nodeEditController, editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit);
+                                     JFXComboBox nodeTypeComboEdit, JFXTextField shortNameEdit,
+                                     JFXTextField longNameEdit, JFXTextField editNodeTypeField) {
+        this.nodeEditor = new NodeEditor(nodeEditController, editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit,
+                shortNameEdit, longNameEdit, editNodeTypeField);
     }
 
     public void initializeNodeRemover() { // TODO
