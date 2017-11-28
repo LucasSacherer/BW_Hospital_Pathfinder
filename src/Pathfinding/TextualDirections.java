@@ -10,22 +10,19 @@ import java.util.LinkedList;
 public class TextualDirections {
     ErrorScreen errorScreen = new ErrorScreen();
 
-    Node startNode;
-    Node destNode;
-    Node previousNode;
-    Node currentNode;
-    Node nextNode;
-    int leftLow = 150;
-    int leftHigh = 359;
-    int rightLow = 0;
-    int rightHigh = 120;
+    private Node previousNode;
+    private Node currentNode;
+    private Node nextNode;
+    private int leftLow = 220;
+    private int leftHigh = 359;
+    private int rightLow = 0;
+    private int rightHigh = 140;
 
     public TextualDirections(){
     }
 
     //determines angle person is turning at currentNode by comparing angle of edges
     //between previousNode/currentNode and currentNode/nextNode
-    //TODO: write tests
     private double findAngle(Node previous, Node current, Node next){
         int prevX = previous.getXcoord();
         int prevY = previous.getYcoord();
@@ -36,19 +33,24 @@ public class TextualDirections {
 
 
         //handling in polar to avoid divide by zero errors
-        double angle1 = Math.atan2(prevY - currentY,
-                prevX - currentX);
-        double angle2 = Math.atan2(currentY - nextY,
-                currentX - nextX);
+        //TODO: Fix 180 degrees error. Currently puts out zero instead of 180 for connected points.
+        double angle1 = (Math.atan2(prevY - currentY,
+                prevX - currentX));
+        double angle2 = (Math.atan2(currentY - nextY,
+                currentX - nextX));
 
-        double angleDiff = Math.abs(angle1) - Math.abs(angle2);
+        double angleDiff = (angle1 - angle2);
 
         return Math.toDegrees(angleDiff);
     }
 
+    //getter for testing
+    public double getAngle(Node previous, Node current, Node next){
+        return findAngle(previous, current, next);
+    }
+
     //uses the findAngle method to output the variable bits of string instructions
     //i.e. "left", "right", "straight"
-    //TODO: write tests
     private String findTurn(){
         double currentAngle = findAngle(previousNode, currentNode, nextNode);
         if (currentAngle >= leftLow && currentAngle <= leftHigh){
@@ -83,9 +85,9 @@ public class TextualDirections {
             return writtenDirections;
         }
 
-        //updates startNode and destNode
-        startNode = path.get(0);
-        destNode = path.get(path.size() - 1);
+        //sets up startNode and destNode
+        Node startNode = path.get(0);
+        Node destNode = path.get(path.size() - 1);
 
         //inserts directions overview
         writtenDirections.add("Directions from " + nameNode(startNode) + " to "
@@ -98,14 +100,14 @@ public class TextualDirections {
             nextNode = path.get(i+1);
 
             //deviates directions text if you're taking the stairs or elevator to a different floor
-            if(currentNode.getNodeType().equals("ELEV") && currentNode.getFloor() != nextNode.getFloor()){
+            if(currentNode.getNodeType().equals("ELEV") && !currentNode.getFloor().equals(nextNode.getFloor())){
                 writtenDirections.add(Integer.toString(i) + ". Take " + nameNode(currentNode) +
                         " to floor " + nextNode.getFloor() + ".");
-            } else if(currentNode.getNodeType().equals("STAI") && currentNode.getFloor() != nextNode.getFloor()){
+            } else if(currentNode.getNodeType().equals("STAI") && !currentNode.getFloor().equals(nextNode.getFloor())){
                 writtenDirections.add(Integer.toString(i) + ". Take " + nameNode(currentNode) +
                         " to floor " + nextNode.getFloor() + ".");
             //deviates directions text if you're going to another building
-            } else if(currentNode.getBuilding() != nextNode.getBuilding()){
+            } else if (!currentNode.getBuilding().equals(nextNode.getBuilding())){
                 writtenDirections.add(Integer.toString(i) + ". Exit " + currentNode.getBuilding() + " through " +
                         nameNode(currentNode) + " and enter " + nextNode.getBuilding() + " through "
                         + nameNode(nextNode) + ".");
