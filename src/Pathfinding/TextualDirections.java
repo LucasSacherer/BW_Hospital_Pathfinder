@@ -20,15 +20,15 @@ public class TextualDirections {
     int straightLow;
     int straightHigh;
 
-
+    //determines angle person is turning at currentNode by comparing angle of edges
+    //between previousNode/currentNode and currentNode/nextNode
     private double findAngle(Node previous, Node current, Node next){
-        //determines angle person is turning at currentNode
-        //by comparing angle of edges between previousNode/currentNode
-        //and currentNode/nextNode
         //TODO
         return 0;
     }
 
+    //uses the findAngle method to output the variable bits of string instructions
+    //i.e. "left", "right", "straight"
     private String findTurn(){
         double currentAngle = findAngle(previousNode, currentNode, nextNode);
         if (currentAngle > leftLow && currentAngle < leftHigh){
@@ -40,8 +40,8 @@ public class TextualDirections {
         return "Continue";
     }
 
+    //finds and returns the Node's name to be used in directions
     private String nameNode(Node input){
-        //finds and returns the Node's usename
         return input.getNodeID();
     }
 
