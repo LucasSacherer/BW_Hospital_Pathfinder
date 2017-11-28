@@ -95,6 +95,11 @@ public class GodController {
     @FXML
     private AnchorPane requestAnchor1, requestAnchor2, requestAnchor3;
 
+    /* Request Report Scene */
+
+    @FXML
+    private JFXButton printLogSR, sendLogSR, clearLogSR;
+
     /* MAP ADMIN FXML */
     @FXML
     private Tab addNode, editNode, removeNode, edgesTab, setKioskTab, addEdge, removeEdge;
@@ -210,6 +215,7 @@ public class GodController {
     AdminMapController adminMapController;
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
+    RequestReportController requestReportController;
 
     @FXML
     private void initialize() {
@@ -218,6 +224,7 @@ public class GodController {
         pathFindingFacade.setPathfinder(astar);
         initializeMainScene();
         initializeRequestScene();
+        initializeRequestReportScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
@@ -263,6 +270,7 @@ public class GodController {
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
+    private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
             employeeListAE, employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE);
@@ -361,6 +369,19 @@ public class GodController {
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
+
+    /////////////////////
+    /* Request Reports */
+    /////////////////////
+
+    @FXML
+    private void printLogSR(MouseEvent e){}
+
+    @FXML
+    private void sendLogSR(MouseEvent e){}
+
+    @FXML
+    private void clearLogSR(MouseEvent e) throws IOException{}
 
     ////////////////////
     /* Employee Admin */
