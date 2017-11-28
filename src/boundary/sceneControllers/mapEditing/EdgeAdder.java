@@ -1,6 +1,5 @@
 package boundary.sceneControllers.mapEditing;
 
-import Database.EdgeManager;
 import Editor.EdgeEditController;
 import Entity.Edge;
 import Entity.Node;
@@ -10,15 +9,13 @@ import javafx.scene.paint.Color;
 
 public class EdgeAdder {
     private Node startNode, endNode;
-    private EdgeManager edgeManager;
     private EdgeEditController edgeEditController;
     private JFXTextField edgeXStart, edgeYStart, edgeXEnd, edgeYEnd;
     private GraphicsContext gc;
 
-    public EdgeAdder(EdgeEditController edgeEditController, EdgeManager edgeManager, JFXTextField edgeXStartAdd,
+    public EdgeAdder(EdgeEditController edgeEditController, JFXTextField edgeXStartAdd,
                      JFXTextField edgeYStartAdd, JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd, GraphicsContext gc) {
         this.edgeEditController = edgeEditController;
-        this.edgeManager = edgeManager;
         this.edgeXEnd = edgeXEndAdd;
         this.edgeYEnd = edgeYEndAdd;
         this.edgeXStart = edgeXStartAdd;
@@ -26,11 +23,9 @@ public class EdgeAdder {
         this.gc = gc;
     }
 
-    public void clickOnMap(Node currentLoc, GraphicsContext gc) {
-
-        System.out.println("EdgeAdder clickOnMap");
-        if (startNode == null) setStart(currentLoc, gc);
-        else if (endNode == null) setEnd(currentLoc, gc);
+    public void clickOnMap(Node currentLoc) {
+        if (startNode == null) setStart(currentLoc);
+        else if (endNode == null) setEnd(currentLoc);
         refreshCanvas();
     }
 
@@ -59,13 +54,13 @@ public class EdgeAdder {
         }
     }
 
-    private void setStart(Node currentLoc, GraphicsContext gc) {
+    private void setStart(Node currentLoc) {
         startNode = currentLoc;
         edgeXStart.setText("" + startNode.getXcoord());
         edgeYStart.setText("" + startNode.getYcoord());
     }
 
-    private void setEnd(Node currentLoc, GraphicsContext gc) {
+    private void setEnd(Node currentLoc) {
         endNode = currentLoc;
         edgeXEnd.setText("" + endNode.getXcoord());
         edgeYEnd.setText("" + endNode.getYcoord());

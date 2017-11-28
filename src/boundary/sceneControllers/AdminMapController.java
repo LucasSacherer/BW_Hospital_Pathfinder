@@ -58,9 +58,9 @@ public class AdminMapController extends AbstractMapController{
         this.edgeManager = em;
     }
 
-    public void initializeNodeAdder(NodeManager nodeManager, JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeType,
-                                    JFXComboBox building, JFXTextField shortName, JFXTextField longName) {
-        this.nodeAdder = new NodeAdder(nodeManager, xPos, yPos, nodeType, building, shortName, longName);
+    public void initializeNodeAdder(JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeType, JFXComboBox building,
+                                    JFXTextField shortName, JFXTextField longName) {
+        this.nodeAdder = new NodeAdder(nodeManager, xPos, yPos, nodeType, building, shortName, longName, gc);
         refreshCanvas();
     }
 
@@ -68,21 +68,24 @@ public class AdminMapController extends AbstractMapController{
                                      JFXComboBox nodeTypeComboEdit, JFXTextField shortNameEdit,
                                      JFXTextField longNameEdit, JFXTextField editNodeTypeField) {
         this.nodeEditor = new NodeEditor(nodeEditController, editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit,
-                shortNameEdit, longNameEdit, editNodeTypeField);
+                shortNameEdit, longNameEdit, editNodeTypeField, gc);
     }
 
     public void initializeNodeRemover(JFXTextField xPosRemoveNode, JFXTextField yPosRemoveNode) { // TODO
-        this.nodeRemover = new NodeRemover(nodeEditController, xPosRemoveNode, yPosRemoveNode);
+        this.nodeRemover = new NodeRemover(nodeEditController, gc, xPosRemoveNode, yPosRemoveNode);
     }
 
-    public void initializeEdgeAdder(EdgeManager edgeManager, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
+    public void initializeEdgeAdder(JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
                                     JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd) { // TODO
-        this.edgeAdder = new EdgeAdder(edgeEditController, edgeManager, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd,
-                edgeYEndAdd, gc);
+        this.edgeAdder = new EdgeAdder(edgeEditController, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd, gc);
     }
 
-    public void initializeEdgeRemove() { // TODO
-        this.edgeRemover = new EdgeRemover();
+    public void initializeEdgeRemover(JFXTextField edgeXStartRemove, JFXTextField edgeYStartRemove, JFXTextField edgeXEndRemove, JFXTextField edgeYEndRemove) { // TODO
+        this.edgeRemover = new EdgeRemover(edgeEditController, gc, edgeXStartRemove, edgeYStartRemove, edgeXEndRemove, edgeYEndRemove);
+    }
+
+    public void initializeKioskEditor(JFXTextField setKioskX, JFXTextField setKioskY) {
+        this.kioskEditor = new KioskEditor(nodeEditController, setKioskX, setKioskY);
     }
 
     public void refreshCanvas() {
@@ -114,27 +117,23 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
         if (nodesTab.isSelected()) {
             if (addNode.isSelected()) {
-                nodeAdder.clickOnMap(m, gc);
+                nodeAdder.clickOnMap(m);
             } else if (editNode.isSelected()) {
                 snapToNode(m);
-                nodeEditor.clickOnMap(currentLoc, gc);
+                nodeEditor.clickOnMap(currentLoc);
             } else if (removeNode.isSelected()) {
                 snapToNode(m);
-                nodeRemover.clickOnMap(currentLoc, gc);
+                nodeRemover.clickOnMap(currentLoc);
             }
         }
         else if (edgesTab.isSelected()) {
-            if (addEdge.isSelected()) {
-                System.out.println("in the statement");
-                snapToNode(m);
-                edgeAdder.clickOnMap(currentLoc, gc);
-            } else if (removeEdge.isSelected()) {
-                edgeRemover.clickOnMap();
-            }
+            snapToNode(m);
+            if (addEdge.isSelected()) edgeAdder.clickOnMap(currentLoc);
+            else if (removeEdge.isSelected()) edgeRemover.clickOnMap(currentLoc);
         }
         else if (kioskTab.isSelected()) {
             snapToNode(m);
-            kioskEditor.clickOnMap(currentLoc, gc);
+            kioskEditor.clickOnMap(currentLoc);
         }
     }
 
@@ -181,7 +180,10 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void removeEdgeButton() { }
+    public void removeEdgeButton() {
+        edgeRemover.remove();
+        refreshCanvas();
+    }
 
     public void resetEdgeButtonRemove() { }
 
@@ -197,8 +199,13 @@ public class AdminMapController extends AbstractMapController{
 
     public void setKioskLocation(){
         kioskEditor.setKiosk();
+        refreshCanvas();
     }
 
+    public void resetKioskScene() {
+        kioskEditor.reset();
+        refreshCanvas();
+    }
 }
 
 

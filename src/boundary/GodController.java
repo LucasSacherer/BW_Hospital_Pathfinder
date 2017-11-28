@@ -526,10 +526,10 @@ public class GodController {
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     @FXML
-    private void setDefaultNode() { } //TODO
+    private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
     @FXML
-    private void resetDefaultNode() { } //TODO
+    private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
     ////////////////
     /* Admin Logs */
@@ -604,10 +604,12 @@ public class GodController {
     private void adminHubtoMap() throws IOException {
         sceneSwitcher.toAdminMap(this, adminHubPane);
         adminMapController.initializeScene();
-        adminMapController.initializeNodeAdder(nodeManager, xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
+        adminMapController.initializeNodeAdder(xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
         adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit, editNodeTypeField);
         adminMapController.initializeNodeRemover(xPosRemoveNode, yPosRemoveNode);
-        adminMapController.initializeEdgeAdder(edgeManager, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
+        adminMapController.initializeEdgeAdder(edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
+        adminMapController.initializeEdgeRemover(edgeXStartRemove, edgeYStartRemove, edgeXEndRemove, edgeYEndRemove);
+        adminMapController.initializeKioskEditor(setKioskX, setKioskY);
     }
 
     @FXML
