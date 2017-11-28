@@ -42,9 +42,16 @@ public class AdminEmployeeController {
         employeeList.setItems(userManager.getUsers());
     }
 
-    public void cancelEmployeeAE(){}
+    public void cancelEmployeeAE(){
 
-    public void editEmployeeAE(){}
+    }
+
+
+    public void editEmployeeAE(){
+        User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
+                departmentMenu.getSelectionModel().getSelectedItem().toString());
+        userManager.modifyUser(modUser);
+    }
 
     public void deleteEmployeeAE(){
         userManager.removeUser(selectedUser);
