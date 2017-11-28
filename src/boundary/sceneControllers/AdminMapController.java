@@ -140,24 +140,21 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void deleteNode(){
-
-    }
-    public void setKioskLocation(){
-
-    }
-
     public void resetNodeButtonEdit() {
         nodeEditor.reset();
     }
 
+
     public void resetNodeButtonRemove() { nodeRemover.reset(); }
 
-    public void removeEdgeButton() {
+    public void removeNodeButton() {
+        nodeRemover.remove();
+        refreshCanvas();
     }
 
-    public void resetEdgeButtonRemove() {
-    }
+    public void removeEdgeButton() { }
+
+    public void resetEdgeButtonRemove() { }
 
     public void addEdgeButton() {
     }
@@ -165,10 +162,10 @@ public class AdminMapController extends AbstractMapController{
     public void resetEdgeButtonAdd() {
     }
 
-    public void removeNodeButton() {
-        nodeRemover.remove();
-        refreshCanvas();
-    }
+
+
+    public void setKioskLocation(){ }
+
 }
 
 
