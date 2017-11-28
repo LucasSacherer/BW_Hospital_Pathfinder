@@ -244,7 +244,7 @@ public class GodController {
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(nodeManager, nodeEditController, edgeEditController,
+        adminMapController = new AdminMapController(edgeManager, nodeManager, nodeEditController, edgeEditController,
                 mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
                 currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab);
     }

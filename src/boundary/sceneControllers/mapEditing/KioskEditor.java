@@ -5,5 +5,10 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class KioskEditor {
     public void clickOnMap(Node currentLoc, GraphicsContext gc) {
+
+    }
+
+    public void setKiosk() {
+
     }
 }

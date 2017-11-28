@@ -44,15 +44,7 @@ public abstract class AbstractMapController {
     public void initializeScene() {
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         this.gc = canvas.getGraphicsContext2D();
-//        Node startNode = edge.getStartNode();
-//        int sx = startNode.getXcoord();
-//        int sy = startNode.getYcoord();
-//        Node endNode = edge.getEndNode();
-//        int ex = endNode.getXcoord();
-//        int ey = endNode.getYcoord();
-//
-//        gc.setLineWidth(3);
-//        gc.strokeLine(sx,sy,ex,ey);        currentFloorNum.setText(currentFloor);
+        currentFloorNum.setText(currentFloor);
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -150,6 +142,7 @@ public abstract class AbstractMapController {
                 else direction = "DOWN";
                 gc.setStroke(Color.BLUE);
                 gc.strokeText(direction, current.getXcoord(), current.getYcoord() - 10);
+                gc.setStroke(Color.BLACK);
             }
         }
     }

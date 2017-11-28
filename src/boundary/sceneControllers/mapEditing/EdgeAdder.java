@@ -2,6 +2,7 @@ package boundary.sceneControllers.mapEditing;
 
 import Database.EdgeManager;
 import Editor.EdgeEditController;
+import Entity.Edge;
 import Entity.Node;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.GraphicsContext;
@@ -51,9 +52,10 @@ public class EdgeAdder {
             int sy = startNode.getYcoord();
             int ex = endNode.getXcoord();
             int ey = endNode.getYcoord();
-
+            gc.setStroke(Color.MEDIUMPURPLE);
             gc.setLineWidth(3);
             gc.strokeLine(sx,sy,ex,ey);
+            gc.setStroke(Color.BLACK);
         }
     }
 
@@ -69,10 +71,6 @@ public class EdgeAdder {
         edgeYEnd.setText("" + endNode.getYcoord());
     }
 
-    public void addNode() {
-
-    }
-
     public void reset() {
         startNode = null;
         endNode = null;
@@ -81,5 +79,10 @@ public class EdgeAdder {
         edgeYEnd.clear();
         edgeXEnd.clear();
         refreshCanvas();
+    }
+
+    public void addEdge() {
+        if (startNode != null && endNode != null)
+            edgeEditController.addEdge(new Edge(startNode, endNode));
     }
 }

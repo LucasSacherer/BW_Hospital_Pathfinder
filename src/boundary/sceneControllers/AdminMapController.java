@@ -3,6 +3,7 @@ import Database.EdgeManager;
 import Database.NodeManager;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
+import Entity.Edge;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
@@ -23,6 +24,7 @@ public class AdminMapController extends AbstractMapController{
     private NodeEditController nodeEditController;
     private EdgeEditController edgeEditController;
     private NodeManager nodeManager;
+    private EdgeManager edgeManager;
     private NodeAdder nodeAdder;
     private NodeEditor nodeEditor;
     private NodeRemover nodeRemover;
@@ -38,7 +40,7 @@ public class AdminMapController extends AbstractMapController{
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
 
 
-    public AdminMapController(NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
+    public AdminMapController(EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
                               Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
                               Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
@@ -53,6 +55,7 @@ public class AdminMapController extends AbstractMapController{
         this.kioskTab = kioskTab;
         this.edgesTab = edgesTab;
         this.nodesTab = nodesTab;
+        this.edgeManager = em;
     }
 
     public void initializeNodeAdder(NodeManager nodeManager, JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeType,
@@ -98,7 +101,14 @@ public class AdminMapController extends AbstractMapController{
         }
     }
 
-    private void drawAllEdges() { }
+    private void drawAllEdges() {
+        edgeManager.updateEdges();
+        for (Edge e : edgeManager.getAllEdges()) {
+            if (e.getStartNode().getFloor().equals(currentFloor) && e.getEndNode().getFloor().equals(currentFloor)) {
+                drawEdge(e);
+            }
+        }
+    }
 
     public void clickOnMap(MouseEvent m) {
         refreshCanvas();
@@ -128,16 +138,16 @@ public class AdminMapController extends AbstractMapController{
         }
     }
 
-    public void drawEdge() {
-//        Node startNode = edge.getStartNode();
-//        int sx = startNode.getXcoord();
-//        int sy = startNode.getYcoord();
-//        Node endNode = edge.getEndNode();
-//        int ex = endNode.getXcoord();
-//        int ey = endNode.getYcoord();
-//
-//        gc.setLineWidth(3);
-//        gc.strokeLine(sx,sy,ex,ey);
+    public void drawEdge(Edge edge) {
+        Node startNode = edge.getStartNode();
+        int sx = startNode.getXcoord();
+        int sy = startNode.getYcoord();
+        Node endNode = edge.getEndNode();
+        int ex = endNode.getXcoord();
+        int ey = endNode.getYcoord();
+
+        gc.setLineWidth(3);
+        gc.strokeLine(sx,sy,ex,ey);
     }
 
     public void addNode(){
@@ -175,14 +185,19 @@ public class AdminMapController extends AbstractMapController{
 
     public void resetEdgeButtonRemove() { }
 
-    public void addEdgeButton() { }
+    public void addEdgeButton() {
+        edgeAdder.addEdge();
+        refreshCanvas();
+    }
 
     public void resetEdgeButtonAdd() {
         edgeAdder.reset();
         refreshCanvas();
     }
 
-    public void setKioskLocation(){ }
+    public void setKioskLocation(){
+        kioskEditor.setKiosk();
+    }
 
 }
 
