@@ -174,6 +174,9 @@ public class CleanUpManagerTest {
         userManager.updateUsers();
         cManager.updateRequests();
 
+        User admin = userManager.getUser("admin1");
+        assertEquals(1, cManager.getRequestsBy(admin).size());
+
         List<CleanUpRequest> requestsByUser = cManager.getRequestsBy(userManager.getUser("janitor1"));
 
         System.out.println(cManager.getRequests());

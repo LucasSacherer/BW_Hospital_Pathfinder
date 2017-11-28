@@ -106,7 +106,6 @@ public class InterpreterManager {
      * @param iReq
      */
     public void deleteRequest(InterpreterRequest iReq){
-
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM INTERPRETERREQUEST WHERE NAME = '" + iReq.getName() +
                 "' AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) +
@@ -189,6 +188,7 @@ public class InterpreterManager {
         updateRequests();
 
         for (InterpreterRequest req : requests){
+            System.out.println(req.getName());
             if(req.getUser().getUserID().equals(user.getUserID())){
                 userRequests.add(req);
             }
@@ -205,6 +205,18 @@ public class InterpreterManager {
     public InterpreterRequest getInterpreterRequest(String name, LocalDateTime date){
         for (InterpreterRequest req: requests){
             if (req.getName().equals(name) && req.getTimeCreated().equals(date)){
+                return req;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * FOR TESTING ONLY: gets the request from the given name
+     */
+    public InterpreterRequest getRequestByName(String name){
+        for (InterpreterRequest req: requests){
+            if (req.getName().equals(name)){
                 return req;
             }
         }

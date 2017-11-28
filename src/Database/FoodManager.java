@@ -281,6 +281,7 @@ public class FoodManager {
         updateRequests();
 
         for (FoodRequest req : requests){
+            System.out.println(req.getName());
             if(req.getUser().getUserID().equals(user.getUserID())){
                 userRequests.add(req);
             }
@@ -294,6 +295,18 @@ public class FoodManager {
      * @return
      */
     public FoodRequest getFoodRequest(String name) {
+        for (FoodRequest req: requests){
+            if (req.getName().equals(name)){
+                return req;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * FOR TESTING ONLY: gets the request from the given name
+     */
+    public FoodRequest getRequestByName(String name){
         for (FoodRequest req: requests){
             if (req.getName().equals(name)){
                 return req;
