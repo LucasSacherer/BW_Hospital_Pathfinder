@@ -14,6 +14,7 @@ public class User {
         this.adminFlag = adminFlag;
         this.department = department;
     }
+    
     public String getUserID() { return userID; }
     public String getUsername() {
         return username;
