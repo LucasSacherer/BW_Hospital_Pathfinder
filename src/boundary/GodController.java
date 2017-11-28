@@ -102,7 +102,7 @@ public class GodController {
 
     /* MAP ADMIN FXML */
     @FXML
-    private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge;
+    private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab;
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
@@ -246,7 +246,7 @@ public class GodController {
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(nodeManager, nodeEditController, edgeEditController,
                 mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab);
+                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab);
     }
 
     private void initializeAdminLogScene() {

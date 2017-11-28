@@ -48,7 +48,7 @@
                               </Label>
                               <JFXTabPane>
                                  <tabs>
-                                    <Tab text="NODES">
+                                    <Tab fx:id="nodesTab" text="NODES">
                                        <content>
                                           <AnchorPane>
                                              <children>
@@ -101,11 +101,19 @@
                                                                <children>
                                                                   <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <children>
-                                                                        <Label contentDisplay="CENTER" text="Node Location">
+                                                                        <Label contentDisplay="CENTER" text="Selected Node Info">
                                                                            <font>
                                                                               <Font name="System Bold" size="20.0" />
                                                                            </font>
                                                                         </Label>
+                                                                        <HBox alignment="CENTER">
+                                                                           <children>
+                                                                              <Label text="ID:" />
+                                                                              <JFXTextField fx:id="editNodeID" prefHeight="27.0" prefWidth="100.0" />
+                                                                              <Label text="Type:" />
+                                                                              <JFXTextField fx:id="editNodeTypeField" prefHeight="27.0" prefWidth="100.0" />
+                                                                           </children>
+                                                                        </HBox>
                                                                         <HBox alignment="CENTER" spacing="25.0">
                                                                            <children>
                                                                               <JFXTextField prefHeight="26.0" prefWidth="75.0" promptText="X Position" fx:id="xPosEdit" />
@@ -179,7 +187,7 @@
                                           </AnchorPane>
                                        </content>
                                     </Tab>
-                                    <Tab text="EDGES">
+                                    <Tab fx:id="edgesTab" text="EDGES">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="204.0">
                                              <children>
@@ -210,7 +218,7 @@
                                                                         <HBox alignment="CENTER" spacing="25.0">
                                                                            <children>
                                                                               <JFXTextField fx:id="edgeXEndAdd" alignment="CENTER" prefHeight="26.0" prefWidth="80.0" promptText="X Position" />
-                                                                              <JFXTextField fx:id="edgeYEndAdd" alignment="CENTER" prefHeight="26.0" prefWidth="80.0" promptText="y" text="Y Position" />
+                                                                              <JFXTextField fx:id="edgeYEndAdd" alignment="CENTER" prefHeight="26.0" prefWidth="80.0" promptText="Y Position" />
                                                                            </children>
                                                                         </HBox>
                                                                         <JFXButton onAction="#addEdgeButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Add Edge" textFill="WHITE">
