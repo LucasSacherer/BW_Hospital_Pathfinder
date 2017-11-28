@@ -375,13 +375,13 @@ public class GodController {
     /////////////////////
 
     @FXML
-    private void printLogSR(MouseEvent e){}
+    private void printLogSR(MouseEvent e){requestReportController.printLogSR();}
 
     @FXML
-    private void sendLogSR(MouseEvent e){}
+    private void sendLogSR(MouseEvent e){requestReportController.sendLogSR();}
 
     @FXML
-    private void clearLogSR(MouseEvent e) throws IOException{}
+    private void clearLogSR(MouseEvent e){requestReportController.clearLogSR();}
 
     ////////////////////
     /* Employee Admin */
