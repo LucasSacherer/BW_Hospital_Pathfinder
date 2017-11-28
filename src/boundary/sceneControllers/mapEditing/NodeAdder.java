@@ -54,6 +54,7 @@ public class NodeAdder {
         String building = buildingCombo.getSelectionModel().getSelectedItem().toString();
         String nodeType = nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
         String nodeID = getUniqueID(nodeType, currentFloor);
+        if (nodeID == null) return; //todo error
         Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName.getText(), shortName.getText());
         nodeEditController.addNode(n);
         System.out.println(building + " " + nodeType + " " + nodeID + " " + currentFloor + " " + longName + " " + shortName);
@@ -77,7 +78,7 @@ public class NodeAdder {
                 return potential;
             }
         }
-        return "999";
+        return null;
     }
 
     private String getFloorString(String currentFloor) {
@@ -87,7 +88,7 @@ public class NodeAdder {
             case "1":
                 return "01";
             case "G":
-                return "00";
+                return "0G";
         }
         return currentFloor;
     }
