@@ -7,21 +7,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -32,17 +27,29 @@
          <left>
             <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="382.0" minHeight="160.0" prefHeight="160.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="1059.0" minHeight="10.0" prefHeight="933.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <VBox>
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="1078.0" prefWidth="275.0" GridPane.rowIndex="1">
+                        <VBox>
                            <children>
+                              <JFXButton fx:id="back" alignment="TOP_LEFT" onAction="#mapToAdminHub" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <ImageView fitHeight="113.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/other%20images/BWH.png" />
+                                 </image>
+                              </ImageView>
+                              <Label contentDisplay="CENTER" text="Manage Map">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
                               <JFXTabPane>
                                  <tabs>
                                     <Tab text="NODES">
@@ -51,7 +58,7 @@
                                              <children>
                                                 <JFXTabPane prefHeight="743.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <tabs>
-                                                      <Tab text="Add">
+                                                      <Tab fx:id="addNode" text="Add">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
@@ -92,17 +99,18 @@
                                                             </AnchorPane>
                                                          </content>
                                                       </Tab>
-                                                      <Tab text="Edit">
+                                                      <Tab fx:id="editNode" text="Edit">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
                                                                   <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <children>
-                                                                        <Label contentDisplay="CENTER" text="Node Location">
-                                                                           <font>
-                                                                              <Font name="System Bold" size="20.0" />
-                                                                           </font>
-                                                                        </Label>
+                                                                        <HBox alignment="CENTER">
+                                                                           <children>
+                                                                              <Label text="Node ID:" />
+                                                                              <JFXTextField fx:id="editNodeID" />
+                                                                           </children>
+                                                                        </HBox>
                                                                         <HBox alignment="CENTER" spacing="25.0">
                                                                            <children>
                                                                               <JFXTextField prefHeight="26.0" prefWidth="75.0" promptText="X Position" fx:id="xPosEdit" />
@@ -112,7 +120,7 @@
                                                                               <Insets top="25.0" />
                                                                            </padding>
                                                                         </HBox>
-                                                                        <JFXComboBox fx:id="nodetypeComboEdit" promptText="Node Type" />
+                                                                        <JFXComboBox fx:id="nodeTypeComboEdit" promptText="Node Type" />
                                                                         <JFXTextField fx:id="shortNameEdit" alignment="CENTER" promptText="Short Name" />
                                                                         <JFXTextField fx:id="longNameEdit" alignment="CENTER" promptText="Long Name" />
                                                                         <JFXButton onAction="#editNode" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Edit Node" textFill="WHITE">
@@ -134,7 +142,7 @@
                                                             </AnchorPane>
                                                          </content>
                                                       </Tab>
-                                                      <Tab text="Remove">
+                                                      <Tab fx:id="removeNode" text="Remove">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
@@ -321,23 +329,8 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </VBox>
-                        <JFXButton fx:id="back" alignment="CENTER" onAction="#mapToAdminHub" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <ImageView fitHeight="113.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../images/other%20images/BWH.png" />
-                           </image>
-                        </ImageView>
-                        <Label contentDisplay="CENTER" text="Manage Map" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
                      </children>
-                  </GridPane>
+                  </VBox>
                </children>
             </AnchorPane>
          </left>
@@ -361,18 +354,10 @@
                                                             <Image url="@../images/other%20images/BWH.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="mapEditCanvas" height="113.0" onMouseClicked="#clickOnMapEdit" width="245.0" />
+                                                      <Canvas fx:id="mapEditCanvas" height="3400.0" onMouseClicked="#clickOnMapEdit" width="5000.0" />
                                                    </children>
                                                 </Pane>
                                              </content>
-                                             <contextMenu>
-                                                <ContextMenu>
-                                                  <items>
-                                                    <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="What should go here?" />
-                                                      <MenuItem mnemonicParsing="false" onAction="#setAsOrigin" text="Set as origin" />
-                                                  </items>
-                                                </ContextMenu>
-                                             </contextMenu>
                                           </ScrollPane>
                                        </children>
                                     </AnchorPane>

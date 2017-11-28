@@ -3,6 +3,7 @@ package boundary;
 
 import Admin.UserLoginController;
 import Database.*;
+import Editor.NodeEditController;
 import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
@@ -38,6 +39,7 @@ public class GodController {
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private SettingsManager settingsManager = new SettingsManager();
+    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
@@ -98,7 +100,7 @@ public class GodController {
             shortNameAdd, shortNameEdit,
             longNameAdd, longNameEdit, requestName, requestDescription,
             edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
-            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove;
+            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, editNodeID;
 
     @FXML
     private JFXListView nodesListView, allStaffRequests, requestsIMade;
@@ -167,6 +169,15 @@ public class GodController {
     @FXML
     private JFXButton printLog, sendLog, clearLog, backAdminHub;
 
+    /* Employee Editing */
+    @FXML
+    private JFXListView employeeListAE;
+
+    @FXML
+    private JFXTextField employeeUserIDAE, employeeUserNameAE, employeePasswordAE;
+
+    @FXML
+    private JFXComboBox employeeTypeAE;
     TreeItem<Log> log1 = new TreeItem<>(new Log(1,"11/27/2017","admin1","added Node"));
     TreeItem<Log> log2 = new TreeItem<>(new Log(2,"11/27/2017","admin1","logged in"));
     TreeItem<Log> log3 = new TreeItem<>(new Log(3,"11/27/2017","admin1","added Node"));
@@ -197,6 +208,7 @@ public class GodController {
         initializeRequestScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
+        initializeAdminEmployeeScene();
         initializeAdminLogScene();
     }
 
@@ -215,9 +227,8 @@ public class GodController {
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(mapEditImageView, mapEditMapPane, mapEditCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, xPosAddNode, yPosAddNode,
-                nodeTypeCombo, buildingCombo);
+        adminMapController = new AdminMapController(nodeManager, nodeEditController, mapEditImageView, mapEditMapPane, mapEditCanvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, addNode, editNode, removeNode);
     }
 
     private void initializeAdminLogScene() {
@@ -237,6 +248,12 @@ public class GodController {
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+
+
+    private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
+            employeeListAE, employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE);
+    }
+
 
     /** Organize Functions by Scene **/
 
@@ -335,7 +352,17 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   // TODO
+   @FXML
+   private void addEmployeeAE() {adminEmployeeController.addEmployeeAE();}
+
+   @FXML
+   private void cancelEmployeeAE() {adminEmployeeController.cancelEmployeeAE();}
+
+    @FXML
+    private void editEmployeeAE() {adminEmployeeController.editEmployeeAE();}
+
+    @FXML
+    private void deleteEmployeeAE() {adminEmployeeController.deleteEmployeeAE();}
 
     ///////////////////
     /* Request Admin */
@@ -548,15 +575,23 @@ public class GodController {
     private void adminHubtoLog() throws IOException { sceneSwitcher.toAdminLog(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoRequest() throws IOException { sceneSwitcher.toAdminRequests(this, adminHubPane); }
+    private void adminHubtoRequest() throws IOException {
+        sceneSwitcher.toAdminRequests(this, adminHubPane);
+        adminRequestController.initializeScene();
+    }
 
     @FXML
-    private void adminHubtoEmployee() throws IOException { sceneSwitcher.toAdminEmployee(this, adminHubPane); }
+    private void adminHubtoEmployee() throws IOException {
+        sceneSwitcher.toAdminEmployee(this, adminHubPane);
+        adminEmployeeController.initializeScene();
+    }
 
     @FXML
     private void adminHubtoMap() throws IOException {
         sceneSwitcher.toAdminMap(this, adminHubPane);
         adminMapController.initializeScene();
+        adminMapController.initializeNodeAdder(nodeManager, xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
+        adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit);
     }
 
     @FXML

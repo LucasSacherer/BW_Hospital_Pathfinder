@@ -28,10 +28,10 @@ public class AdminEmployeeController {
     }
 
     public void initializeScene() {
-        employeeList.setItems(userManager.getUsers());
         departmentList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro"); //TODO what are the departments?
         departmentMenu.setItems(departmentList);
         userManager.updateUsers();
+        employeeList.setItems(userManager.getUsers());
     }
 
     public void addEmployeeAE(){
@@ -39,6 +39,7 @@ public class AdminEmployeeController {
                 departmentMenu.getSelectionModel().getSelectedItem().toString());
         userManager.addUser(newUser);
         userManager.updateUsers();
+        employeeList.setItems(userManager.getUsers());
     }
 
     public void cancelEmployeeAE(){}
