@@ -42,8 +42,7 @@ public class TextualDirections {
 
     private String nameNode(Node input){
         //finds and returns the Node's usename
-        //TODO
-        return "what is a name?";
+        return input.getNodeID();
     }
 
     private LinkedList<String> makeTextDir(ArrayList<Node> path){
