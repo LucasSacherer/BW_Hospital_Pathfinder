@@ -80,5 +80,9 @@ public class AdminEmployeeController {
         //reset departmentList
         userName.setText("");
         password.setText("");
+        departmentList = FXCollections.observableArrayList();
+        departmentMenu.setItems(departmentList);
+        departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
+        departmentMenu.setItems(departmentList);
     }
 }
