@@ -1,5 +1,6 @@
 package Pathfinding;
 
+import Entity.ErrorScreen;
 import Entity.Node;
 
 import java.util.ArrayList;
@@ -7,20 +8,24 @@ import java.util.LinkedList;
 
 
 public class TextualDirections {
+    ErrorScreen errorScreen = new ErrorScreen();
+
     Node startNode;
     Node destNode;
     Node previousNode;
     Node currentNode;
     Node nextNode;
-    //TODO: test angle values
     int leftLow = 150;
     int leftHigh = 359;
     int rightLow = 0;
     int rightHigh = 120;
 
+    public TextualDirections(){
+    }
 
     //determines angle person is turning at currentNode by comparing angle of edges
     //between previousNode/currentNode and currentNode/nextNode
+    //TODO: write tests
     private double findAngle(Node previous, Node current, Node next){
         int prevX = previous.getXcoord();
         int prevY = previous.getYcoord();
@@ -43,6 +48,7 @@ public class TextualDirections {
 
     //uses the findAngle method to output the variable bits of string instructions
     //i.e. "left", "right", "straight"
+    //TODO: write tests
     private String findTurn(){
         double currentAngle = findAngle(previousNode, currentNode, nextNode);
         if (currentAngle >= leftLow && currentAngle <= leftHigh){
@@ -64,12 +70,18 @@ public class TextualDirections {
         LinkedList<String> writtenDirections = new LinkedList();
 
         //takes care of size errors
-        if (path.size() == 0 || path.size() == 1){
-            writtenDirections.add("You are already there!");
+        if (path.size() == 0) {
+            errorScreen.displayError("ERROR: No path selected!");
             return writtenDirections;
         }
-
-        //TODO: handle the case where path size is exactly 2
+        if (path.size() == 1){
+            errorScreen.displayError("ERROR: You are already there!");
+            return writtenDirections;
+        }
+        if (path.size() == 2){
+            errorScreen.displayError("ERROR: Path too short!");
+            return writtenDirections;
+        }
 
         //updates startNode and destNode
         startNode = path.get(0);
