@@ -1,7 +1,9 @@
 package Editor;
 
+import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
+import Entity.Edge;
 import Entity.Node;
 import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import org.junit.Test;
@@ -16,7 +18,8 @@ public class NodeEditControllerTest {
     public void AddRemoveEditNode() throws Exception {
         NodeManager nManager = new NodeManager();
         SettingsManager sManager = new SettingsManager();
-        NodeEditController editor = new NodeEditController(nManager, sManager);
+        EdgeManager eManager = new EdgeManager(nManager);
+        NodeEditController editor = new NodeEditController(nManager, sManager,eManager);
 
         nManager.updateNodes();
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
@@ -54,11 +57,40 @@ public class NodeEditControllerTest {
         NodeManager nManager = new NodeManager();
         nManager.updateNodes();
         SettingsManager sManager = new SettingsManager();
-        NodeEditController editor = new NodeEditController(nManager, sManager);
+        EdgeManager eManager = new EdgeManager(nManager);
+        NodeEditController editor = new NodeEditController(nManager, sManager, eManager);
 
         editor.setKioskLocation(test);
 
         assertEquals(editor.settingsManager.getSetting("Default Node"), test.getNodeID());
         editor.setKioskLocation(nManager.getNode("GHALL03802"));
+    }
+
+    @Test
+    public void deleteNode() {
+        NodeManager nManager = new NodeManager();
+        SettingsManager sManager = new SettingsManager();
+        EdgeManager eManager = new EdgeManager(nManager);
+        NodeEditController editor = new NodeEditController(nManager, sManager,eManager);
+
+        nManager.updateNodes();
+        Node test = new Node("1",1,1,"1","building","type","lName","sName");
+        Node test2 = new Node("2",1, 2,"1","building","type","lName","sName");
+        Node test3 = new Node("3",2,1,"1","building","bathroom","lName","sName");
+        Node test4 = new Node("4",3,1,"1","building","bathroom","lName","sName");
+        editor.addNode(test);
+        editor.addNode(test2);
+        editor.addNode(test3);
+        editor.addNode(test4);
+
+        Edge e1 = new Edge(test,test2);
+        Edge e2 = new Edge(test,test3);
+        Edge e3 = new Edge(test3,test4);
+
+
+
+
+
+
     }
 }

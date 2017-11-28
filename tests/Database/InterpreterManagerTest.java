@@ -68,12 +68,12 @@ public class InterpreterManagerTest {
         iManager.updateRequest(updatedRequest);
         iManager.updateRequests();
 
-        assertEquals(iManager.getRequests().get(2).getType(), "NewType");
+        assertEquals(iManager.getRequests().get(1).getType(), "NewType");
 
         iManager.updateRequest(request);
         iManager.updateRequests();
 
-        assertEquals(iManager.getRequests().get(2).getType(), "type");
+        assertEquals(iManager.getRequests().get(1).getType(), "type");
 
         iManager.deleteRequest(updatedRequest);
     }
@@ -136,5 +136,29 @@ public class InterpreterManagerTest {
         //Test that the completed request is in there
         System.out.println(completed.get(0).getName());
         assertTrue(completed.get(0).getName().equals("completed"));
+    }
+
+    @Test
+    public void testGetRequestsBy() {
+        NodeManager nodeManager = new NodeManager();
+        UserManager userManager = new UserManager();
+        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+
+        userManager.updateUsers();
+        iManager.updateRequests();
+
+        List<InterpreterRequest> requestsByUser = iManager.getRequestsBy(userManager.getUser("admin2"));
+
+        System.out.println(iManager.getRequests());
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 1);
+        assertTrue(requestsByUser.get(0).getUser().getUserID().equals("admin2"));
+
+        requestsByUser = iManager.getRequestsBy(userManager.getUser("staff1"));
+
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 0);
     }
 }
