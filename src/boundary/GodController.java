@@ -399,6 +399,9 @@ public class GodController {
     @FXML
     private void deleteEmployeeAE() {adminEmployeeController.deleteEmployeeAE();}
 
+    @FXML
+    private void toggleAdmin(MouseEvent e) {adminEmployeeController.toggleAdmin();}
+
     ///////////////////
     /* Request Admin */
     ///////////////////

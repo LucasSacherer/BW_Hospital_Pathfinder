@@ -49,4 +49,6 @@ public class AdminEmployeeController {
     public void deleteEmployeeAE(){
         userManager.removeUser(selectedUser);
     }
+
+    public void toggleAdmin(){}
 }
