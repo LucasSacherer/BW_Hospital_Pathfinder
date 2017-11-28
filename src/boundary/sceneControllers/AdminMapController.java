@@ -107,7 +107,8 @@ public class AdminMapController extends AbstractMapController{
             nodeRemover.clickOnMap(currentLoc, gc);
         }
         else if (addEdge.isSelected()) {
-            edgeAdder.clickOnMap();
+            snapToNode(m);
+            edgeAdder.clickOnMap(currentLoc, gc);
         }
         else if (removeEdge.isSelected()) {
             edgeRemover.clickOnMap();
@@ -162,10 +163,10 @@ public class AdminMapController extends AbstractMapController{
     public void resetEdgeButtonRemove() { }
 
     public void addEdgeButton() {
+
     }
 
-    public void resetEdgeButtonAdd() {
-    }
+    public void resetEdgeButtonAdd() { edgeAdder.reset(); }
 
 
 
