@@ -1,5 +1,7 @@
 package boundary.sceneControllers;
 
+import Entity.Node;
+
 public class AdminRequestController {
 
     //Spills
@@ -40,5 +42,6 @@ public class AdminRequestController {
     public void deleteARInterpreter(){}
     public void deleteAllARInterpreter(){}
 
-
+    public void initializeScene() {
+    }
 }

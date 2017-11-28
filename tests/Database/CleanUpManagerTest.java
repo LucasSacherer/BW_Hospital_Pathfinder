@@ -61,17 +61,17 @@ public class CleanUpManagerTest {
         Timestamp stamp = Timestamp.valueOf("1960-01-01 23:03:20.00");
 
         //Check if the user is there before update
-        assertEquals(null, cleanUpManager.getCleanUpRequest("completed", stamp.toLocalDateTime()));
+        assertEquals(null, cleanUpManager.getCleanUpRequest("not completed", stamp.toLocalDateTime()));
 
         //Check if the user is there after update
         cleanUpManager.updateRequests();
-        CleanUpRequest req = cleanUpManager.getCleanUpRequest("completed", stamp.toLocalDateTime());
-        assertEquals("completed", req.getName());
+        CleanUpRequest req = cleanUpManager.getCleanUpRequest("not completed", stamp.toLocalDateTime());
+        assertEquals("not completed", req.getName());
         assertEquals(stamp.toLocalDateTime(), req.getTimeCreated());
-        assertEquals("type1", req.getType());
-        assertEquals("description1", req.getDescription());
-        assertEquals("GLABS015L2", req.getNode().getNodeID());
-        assertEquals("admin1", req.getUser().getUserID());
+        assertEquals("type2", req.getType());
+        assertEquals("description2", req.getDescription());
+        assertEquals("GDEPT00403", req.getNode().getNodeID());
+        assertEquals("janitor1", req.getUser().getUserID());
     }
 
     @Test
@@ -82,31 +82,31 @@ public class CleanUpManagerTest {
         userManager.updateUsers();
         CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
-        Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
+        //Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
 
         //Test updating an existing user
-        CleanUpRequest updatedRequest = new CleanUpRequest("completed", created.toLocalDateTime(),
-                completed.toLocalDateTime(),"type12","description12",
-                nodeManager.getNode("WELEV00K01"), userManager.getUser("admin2"));
+        CleanUpRequest updatedRequest = new CleanUpRequest("not completed", created.toLocalDateTime(),
+                created.toLocalDateTime(),"type21","description21",
+                nodeManager.getNode("GHALL013L2"), userManager.getUser("admin2"));
         cleanUpManager.updateRequest(updatedRequest);
-        CleanUpRequest freshRequest = cleanUpManager.getCleanUpRequest("completed", created.toLocalDateTime());
-        assertEquals(completed.toLocalDateTime(), freshRequest.getTimeCompleted());
-        assertEquals("type12", freshRequest.getType());
-        assertEquals("description12", freshRequest.getDescription());
-        assertEquals(nodeManager.getNode("WELEV00K01"), freshRequest.getNode());
+        CleanUpRequest freshRequest = cleanUpManager.getCleanUpRequest("not completed", created.toLocalDateTime());
+        assertEquals(created.toLocalDateTime(), freshRequest.getTimeCompleted());
+        assertEquals("type21", freshRequest.getType());
+        assertEquals("description21", freshRequest.getDescription());
+        assertEquals(nodeManager.getNode("GHALL013L2"), freshRequest.getNode());
         assertEquals(userManager.getUser("admin2"), freshRequest.getUser());
 
         //Reset the changed user and confirm its back to normal
-        CleanUpRequest original = new CleanUpRequest("completed", created.toLocalDateTime(),
-                completed.toLocalDateTime(),"type1","description1",
-                nodeManager.getNode("GLABS015L2"), userManager.getUser("admin1"));
+        CleanUpRequest original = new CleanUpRequest("not completed", created.toLocalDateTime(),
+                created.toLocalDateTime(),"type2","description2",
+                nodeManager.getNode("GDEPT00403"), userManager.getUser("janitor1"));
         cleanUpManager.updateRequest(original);
-        CleanUpRequest freshRequest2 = cleanUpManager.getCleanUpRequest("completed", created.toLocalDateTime());
-        assertEquals(completed.toLocalDateTime(), freshRequest2.getTimeCompleted());
-        assertEquals("type1", freshRequest2.getType());
-        assertEquals("description1", freshRequest2.getDescription());
-        assertEquals(nodeManager.getNode("GLABS015L2"), freshRequest2.getNode());
-        assertEquals(userManager.getUser("admin1"), freshRequest2.getUser());
+        CleanUpRequest freshRequest2 = cleanUpManager.getCleanUpRequest("not completed", created.toLocalDateTime());
+        assertEquals(created.toLocalDateTime(), freshRequest2.getTimeCompleted());
+        assertEquals("type2", freshRequest2.getType());
+        assertEquals("description2", freshRequest2.getDescription());
+        assertEquals(nodeManager.getNode("GDEPT00403"), freshRequest2.getNode());
+        assertEquals(userManager.getUser("janitor1"), freshRequest2.getUser());
     }
 
     @Test
@@ -165,4 +165,27 @@ public class CleanUpManagerTest {
         assertTrue(completed.get(0).getName().equals("completed"));
     }
 
+    @Test
+    public void testGetRequestsBy() {
+        NodeManager nodeManager = new NodeManager();
+        UserManager userManager = new UserManager();
+        CleanUpManager cManager = new CleanUpManager(nodeManager, userManager);
+
+        userManager.updateUsers();
+        cManager.updateRequests();
+
+        List<CleanUpRequest> requestsByUser = cManager.getRequestsBy(userManager.getUser("janitor1"));
+
+        System.out.println(cManager.getRequests());
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 1);
+        assertTrue(requestsByUser.get(0).getUser().getUserID().equals("janitor1"));
+
+        requestsByUser = cManager.getRequestsBy(userManager.getUser("staff1"));
+
+        System.out.println(requestsByUser);
+
+        assertTrue(requestsByUser.size() == 0);
+    }
 }

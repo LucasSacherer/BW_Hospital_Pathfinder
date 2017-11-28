@@ -3,6 +3,7 @@ package Request;
 import Database.FoodManager;
 import Entity.ErrorScreen;
 import Entity.FoodRequest;
+import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -89,5 +90,9 @@ public class RequestFoodController {
             foodManager.completeRequest(fReq);
         }
         else errorscreen.displayError("This request does not already exist in the database");
+    }
+
+    public List<FoodRequest> getRequestsBy(User user){
+        return foodManager.getRequestsBy(user);
     }
 }

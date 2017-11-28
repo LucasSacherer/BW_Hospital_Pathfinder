@@ -15,11 +15,24 @@ import java.util.List;
 public class FoodManager {
     private final List<FoodRequest> requests;
     private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-    private NodeManager nodeManager = new NodeManager();
-    private UserManager userManager = new UserManager();
+    private final NodeManager nodeManager;
+    private final UserManager userManager;
 
+    //temporary old constructor, not sure where refactoring would be needed to use the one below
     public FoodManager(){
+        nodeManager = new NodeManager();
+        userManager = new UserManager();
+
         requests = new ArrayList<>();
+        databaseGargoyle = new DatabaseGargoyle();
+    }
+
+    public FoodManager(NodeManager nodeManager, UserManager userManager){
+        this.nodeManager = nodeManager;
+        this.userManager = userManager;
+
+        requests = new ArrayList<>();
+        databaseGargoyle = new DatabaseGargoyle();
     }
 
     /**
@@ -49,7 +62,10 @@ public class FoodManager {
                 node = nodeManager.getNode(nodeID);
                 user = userManager.getUser(userID);
                 order = getFoodOrders(name, Timestamp.valueOf(timeCreated));
-                requests.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, order));
+
+                if(timeCreated.equals(timeCompleted)) {
+                    requests.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, order));
+                }
             }
         } catch (SQLException e) {
             System.out.println("Failed to get food requests from database!");
@@ -197,14 +213,53 @@ public class FoodManager {
      * @return
      */
     public ArrayList<FoodRequest> getCompleted(){
-        ArrayList<FoodRequest> list = new ArrayList<>();
+        ArrayList<FoodRequest> completed = new ArrayList<>();
         updateRequests();
+
+        /*
         for (FoodRequest req: requests){
             if (!req.getTimeCompleted().equals(req.getTimeCreated())){
                 list.add(req);
             }
         }
-        return list;
+        return list;*/
+
+        String name, type, description, nodeID, userID;
+        LocalDateTime timeCreated, timeCompleted;
+        Node node;
+        User user;
+        List<String> order;
+        nodeManager.updateNodes();
+        userManager.updateUsers();
+        requests.clear();
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST",
+                databaseGargoyle.getStatement());
+
+        try {
+            while (rs.next()){
+                name = rs.getString("NAME");
+                timeCreated = rs.getTimestamp("TIMECREATED").toLocalDateTime();
+                timeCompleted = rs.getTimestamp("TIMECOMPLETED").toLocalDateTime();
+                type = rs.getString("TYPE");
+                description = rs.getString("DESCRIPTION");
+                nodeID = rs.getString("NODEID");
+                userID = rs.getString("USERID");
+                node = nodeManager.getNode(nodeID);
+                user = userManager.getUser(userID);
+                order = getFoodOrders(name, Timestamp.valueOf(timeCreated));
+
+                if(!(timeCreated.equals(timeCompleted))) {
+                    completed.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, order));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to get completed food requests from database!");
+            e.printStackTrace();
+        }
+        databaseGargoyle.destroyConnection();
+
+        return completed;
     }
 
     /**
@@ -219,6 +274,18 @@ public class FoodManager {
             }
         }
         return null;
+    }
+
+    public List<FoodRequest> getRequestsBy(User user){
+        ArrayList<FoodRequest> userRequests = new ArrayList<>();
+        updateRequests();
+
+        for (FoodRequest req : requests){
+            if(req.getUser().getUserID().equals(user.getUserID())){
+                userRequests.add(req);
+            }
+        }
+        return userRequests;
     }
 
     /**
