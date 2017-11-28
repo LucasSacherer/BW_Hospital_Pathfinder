@@ -37,6 +37,12 @@ public class GenericRequestController {
      * @param req
      */
     public void deleteRequest(Request req){
-
+        if (req instanceof CleanUpRequest){
+            cleanUpManager.deleteRequest((CleanUpRequest) req);
+        } else if (req instanceof InterpreterRequest){
+            interpreterManager.deleteRequest((InterpreterRequest) req);
+        } else if (req instanceof FoodRequest){
+            foodManager.deleteRequest((FoodRequest) req);
+        }
     }
 }
