@@ -49,12 +49,12 @@ public class NodeAdder {
     }
 
     public void addNode(NodeEditController nodeEditController, String currentFloor) {
+        if (buildingCombo.getSelectionModel().getSelectedItem() == null) return; //todo error
+        if (nodeTypeCombo.getSelectionModel().getSelectedItem() == null) return; //todo error
         String building = buildingCombo.getSelectionModel().getSelectedItem().toString();
         String nodeType = nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
-        String longName = "What should go here?";
-        String shortName = "How about here?";
         String nodeID = "G" + nodeType + getNodeNumber() + currentFloor;
-        Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName, shortName);
+        Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName.getText(), shortName.getText());
         nodeEditController.addNode(n);
         System.out.println(building + " " + nodeType + " " + nodeID + " " + currentFloor + " " + longName + " " + shortName);
         reset();
