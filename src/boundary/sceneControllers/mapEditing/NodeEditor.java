@@ -46,18 +46,18 @@ public class NodeEditor {
     }
 
     public void editNode() {
-        nodeEditController.deleteNode(current);
-        String building = current.getBuilding();
-        String nodeType = nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
+        System.out.println(current);
+        String nodeType = (nodeTypeCombo.getSelectionModel().getSelectedItem() == null) ? nodeType = "HALL" :
+                nodeTypeCombo.getSelectionModel().getSelectedItem().toString(); // TODO this is bogus
         int x = Integer.parseInt(xPos.getText());
         int y = Integer.parseInt(yPos.getText());
         // TODO check for bounds
         // TODO add listeners to modify the x and y coordinates
         // TODO add listeners to nodeType
-        if (nodeType == null) nodeType = "HALL"; // TODO this is bogus
-        Node n = new Node(current.getNodeID(), x , y, current.getFloor(), building, nodeType, longName.getText(), shortName.getText());
-        nodeEditController.addNode(n);
-        System.out.println(n);
+
+        Node n = new Node(current.getNodeID(), x , y, current.getFloor(), current.getBuilding(), nodeType,
+                longName.getText(), shortName.getText());
+        nodeEditController.editNode(n);
         reset();
     }
 

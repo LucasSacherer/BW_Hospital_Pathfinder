@@ -75,6 +75,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     private void drawAllNodes() {
+        nodeManager.updateNodes();
         for (Node n : nodeManager.getAllNodes()){
             if (n.getFloor().equals(currentFloor)) {
                 gc.setFill(Color.GREENYELLOW);
@@ -124,14 +125,17 @@ public class AdminMapController extends AbstractMapController{
 
     public void addNode(){
         nodeAdder.addNode(nodeEditController, currentFloor);
+        refreshCanvas();
     }
 
     public void resetNodeButtonAdd() {
         nodeAdder.reset();
+        refreshCanvas();
     }
 
     public void editNode(){
-
+        nodeEditor.editNode();
+        refreshCanvas();
     }
 
     public void deleteNode(){
