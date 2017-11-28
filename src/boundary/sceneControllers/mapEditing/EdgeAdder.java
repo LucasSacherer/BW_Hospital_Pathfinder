@@ -23,6 +23,7 @@ public class EdgeAdder {
     }
 
     public void clickOnMap(Node currentLoc, GraphicsContext gc) {
+        System.out.println("EdgeAdder clickOnMap");
         if (startNode == null) setStart(currentLoc);
         else if (endNode == null) setEnd(currentLoc);
         //todo draw the node

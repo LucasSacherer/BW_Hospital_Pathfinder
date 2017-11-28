@@ -38,8 +38,9 @@ public class AdminMapController extends AbstractMapController{
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab;
 
 
-    public AdminMapController(NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
-                              Label currentFloorNum, Tab addNode, Tab editNode, Tab removeNode) {
+    public AdminMapController(NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
+                              Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
+                              Tab addNode, Tab editNode, Tab removeNode,Tab addEdge, Tab removeEdge, Tab kioskTab) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
         this.edgeEditController = e;
         this.nodeEditController = n;
@@ -47,6 +48,9 @@ public class AdminMapController extends AbstractMapController{
         this.addNode = addNode;
         this.editNode = editNode;
         this.removeNode = removeNode;
+        this.addEdge = addEdge;
+        this.removeEdge = removeEdge;
+        this.kioskTab = kioskTab;
     }
 
     public void initializeNodeAdder(NodeManager nodeManager, JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeType, JFXComboBox building,
@@ -107,6 +111,7 @@ public class AdminMapController extends AbstractMapController{
             nodeRemover.clickOnMap(currentLoc, gc);
         }
         else if (addEdge.isSelected()) {
+            System.out.println("in the statement");
             snapToNode(m);
             edgeAdder.clickOnMap(currentLoc, gc);
         }
@@ -162,13 +167,9 @@ public class AdminMapController extends AbstractMapController{
 
     public void resetEdgeButtonRemove() { }
 
-    public void addEdgeButton() {
-
-    }
+    public void addEdgeButton() { }
 
     public void resetEdgeButtonAdd() { edgeAdder.reset(); }
-
-
 
     public void setKioskLocation(){ }
 
