@@ -1,12 +1,16 @@
 package Admin;
 
 import Database.AdminLogManager;
-import Entity.User;
+import Entity.AdminLog;
 
 public class AdminLogController {
     AdminLogManager adminLogManager;
 
-    public void addLogEntry(String action, User user){
-        adminLogManager.logAction(action, user);
+    public AdminLogController(AdminLogManager adminLogManager) {
+        this.adminLogManager = adminLogManager;
+    }
+
+    public void addLogEntry(AdminLog logEntry){
+        adminLogManager.addAdminLog(logEntry);
     }
 }
