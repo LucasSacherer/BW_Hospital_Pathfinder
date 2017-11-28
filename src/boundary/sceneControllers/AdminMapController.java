@@ -1,6 +1,7 @@
 package boundary.sceneControllers;
 import Database.EdgeManager;
 import Database.NodeManager;
+import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
@@ -20,6 +21,7 @@ import javafx.scene.paint.Color;
 
 public class AdminMapController extends AbstractMapController{
     private NodeEditController nodeEditController;
+    private EdgeEditController edgeEditController;
     private NodeManager nodeManager;
     private NodeAdder nodeAdder;
     private NodeEditor nodeEditor;
@@ -36,9 +38,10 @@ public class AdminMapController extends AbstractMapController{
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab;
 
 
-    public AdminMapController(NodeManager nm, NodeEditController n, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+    public AdminMapController(NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                               Label currentFloorNum, Tab addNode, Tab editNode, Tab removeNode) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
+        this.edgeEditController = e;
         this.nodeEditController = n;
         this.nodeManager = nm;
         this.addNode = addNode;
@@ -65,7 +68,7 @@ public class AdminMapController extends AbstractMapController{
 
     public void initializeEdgeAdder(EdgeManager edgeManager, JFXTextField edgeXStartAdd, JFXTextField edgeYStartAdd,
                                     JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd) { // TODO
-        this.edgeAdder = new EdgeAdder(edgeManager, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
+        this.edgeAdder = new EdgeAdder(edgeEditController, edgeManager, edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
     }
 
     public void initializeEdgeRemove() { // TODO

@@ -3,6 +3,7 @@ package boundary;
 
 import Admin.UserLoginController;
 import Database.*;
+import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import MapNavigation.*;
 import Pathfinding.Astar;
@@ -41,6 +42,7 @@ public class GodController {
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private SettingsManager settingsManager = new SettingsManager();
     final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager);
+    final private EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
@@ -238,8 +240,9 @@ public class GodController {
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(nodeManager, nodeEditController, mapEditImageView, mapEditMapPane, mapEditCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, addNode, editNode, removeNode);
+        adminMapController = new AdminMapController(nodeManager, nodeEditController, edgeEditController,
+                mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
+                currentFloorNumMapEdit, addNode, editNode, removeNode);
     }
 
     private void initializeAdminLogScene() {
