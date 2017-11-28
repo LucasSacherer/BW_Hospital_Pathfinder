@@ -22,9 +22,23 @@ public class TextualDirections {
     //determines angle person is turning at currentNode by comparing angle of edges
     //between previousNode/currentNode and currentNode/nextNode
     private double findAngle(Node previous, Node current, Node next){
-        //TODO
+        int prevX = previous.getXcoord();
+        int prevY = previous.getYcoord();
+        int currentX = current.getXcoord();
+        int currentY = current.getYcoord();
+        int nextX = next.getXcoord();
+        int nextY = next.getYcoord();
 
-        return 0;
+
+        //handling in polar to avoid divide by zero errors
+        double angle1 = Math.atan2(prevY - currentY,
+                prevX - currentX);
+        double angle2 = Math.atan2(currentY - nextY,
+                currentX - nextX);
+
+        double angleDiff = Math.abs(angle1) - Math.abs(angle2);
+
+        return Math.toDegrees(angleDiff);
     }
 
     //uses the findAngle method to output the variable bits of string instructions
