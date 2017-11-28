@@ -70,7 +70,7 @@ public class NodeAdder {
             ID.append("G");
             ID.append(nodeType);
             ID.append(firstNum);
-            ID.append(getFloorString(currentFloor);
+            ID.append(getFloorString(currentFloor));
             potential = ID.toString();
             // todo if potential is available, break and return
         }

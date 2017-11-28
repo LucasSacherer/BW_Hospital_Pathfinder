@@ -65,5 +65,7 @@ public class NodeEditor {
         current = null;
         nodeTypeCombo.setItems(null);
         nodeTypeCombo.setItems(nodeTypeList);
+        shortName.clear();
+        longName.clear();
     }
 }
