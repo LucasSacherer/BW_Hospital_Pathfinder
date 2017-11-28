@@ -42,7 +42,7 @@ public class AdminEmployeeController {
         });
     }
 
-    //can not find admin?
+
     public void addEmployeeAE(){
         //temp until UI if fixed
         isAdmin = false;
@@ -60,10 +60,13 @@ public class AdminEmployeeController {
     }
 
     public void editEmployeeAE(){
+
         isAdmin = false;
         User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                 departmentMenu.getSelectionModel().getSelectedItem().toString());
         userManager.modifyUser(modUser);
+        userManager.updateUsers();
+        employeeList.setItems(userManager.getUsers());
     }
 
     public void deleteEmployeeAE(){
