@@ -592,6 +592,8 @@ public class GodController {
         adminMapController.initializeScene();
         adminMapController.initializeNodeAdder(nodeManager, xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
         adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit, editNodeTypeField);
+        adminMapController.initializeNodeRemover(xPosRemoveNode, yPosRemoveNode);
+
     }
 
     @FXML

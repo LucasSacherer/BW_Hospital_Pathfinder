@@ -58,8 +58,8 @@ public class AdminMapController extends AbstractMapController{
                 shortNameEdit, longNameEdit, editNodeTypeField);
     }
 
-    public void initializeNodeRemover() { // TODO
-        this.nodeRemover = new NodeRemover();
+    public void initializeNodeRemover(JFXTextField xPosRemoveNode, JFXTextField yPosRemoveNode) { // TODO
+        this.nodeRemover = new NodeRemover(nodeEditController, xPosRemoveNode, yPosRemoveNode);
     }
 
     public void initializeEdgeAdder() { // TODO
