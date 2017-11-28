@@ -2,6 +2,9 @@ package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -147,5 +150,14 @@ public class UserManager {
         return null;
     }
 
+    /**
+     * Returns the user list as an ObservableList
+     * @return
+     */
+    public ObservableList getUsers() {
+        ObservableList fxUsers = FXCollections.observableArrayList();
+        fxUsers.addAll(this.users);
+        updateUsers();
+        return fxUsers;
+    }
 }
-

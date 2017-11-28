@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminLogPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="adminLogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXButton fx:id="backToAdminHub" layoutX="251.0" layoutY="160.0" onAction="#logToAdminHub" text="Back to Admin Hub" />
+      <ImageView fx:id="logImage" fitHeight="257.0" fitWidth="349.0" layoutX="232.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/other%20images/BWH.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" text="ADMIN LOGS">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="printLog" layoutX="1426.0" layoutY="220.0" style="-fx-background-color: #5ea459;" text="Print" textFill="WHITE" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="216.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="sendLog" layoutX="1587.0" layoutY="216.0" style="-fx-background-color: #5ea459;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="216.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="clearLog" layoutX="1746.0" layoutY="211.0" onAction="#clearLogButton" style="-fx-background-color: #ff716a;" text="Clear" textFill="WHITE" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="216.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <TreeTableView fx:id="adminLogs" layoutY="320.0" prefHeight="596.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
+         <columns>
+            <TreeTableColumn fx:id="logID" prefWidth="109.66667175292969" text="Log ID" />
+            <TreeTableColumn fx:id="dateLogged" prefWidth="455.3333282470703" text="Date Logged" />
+            <TreeTableColumn fx:id="adminLogged" prefWidth="511.66668701171875" text="Admin Logged" />
+            <TreeTableColumn fx:id="logContent" prefWidth="843.3333740234375" text="Log Content" />
+         </columns>
+      </TreeTableView>
+      <JFXButton fx:id="backAdminHub" layoutX="8.0" layoutY="-1.0" onAction="#logToAdminHub" prefHeight="34.0" prefWidth="81.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
