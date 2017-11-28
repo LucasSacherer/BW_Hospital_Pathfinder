@@ -3,6 +3,7 @@ package Request;
 import Database.InterpreterManager;
 import Entity.ErrorScreen;
 import Entity.InterpreterRequest;
+import Entity.User;
 
 import java.util.List;
 
@@ -84,5 +85,9 @@ public class RequestInterpreterController {
             interpreterManager.completeRequest(iReq);
         }
         else errorscreen.displayError("This request does not already exist in the database");
+    }
+
+    public List<InterpreterRequest> getRequestsBy(User user){
+        return interpreterManager.getRequestsBy(user);
     }
 }

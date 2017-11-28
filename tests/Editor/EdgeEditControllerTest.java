@@ -53,8 +53,8 @@ public class EdgeEditControllerTest {
         //doesn't work rn, since update edges actually creates a new object and there's no way to get an individual edge
         //assertTrue(test.getAllEdges().contains(e1) && result.contains(e2));
 
-        test.deleteEdge(e1);
-        test.deleteEdge(e2);
+        test.deleteEdge(e1.getStartNode(),e1.getEndNode());
+        test.deleteEdge(e2.getStartNode(),e2.getEndNode());
 
         //manager.removeNode(n1);
         //manager.removeNode(n2);
@@ -64,5 +64,32 @@ public class EdgeEditControllerTest {
 
         System.out.println(result);
         System.out.println(result.size());
+    }
+
+    @Test
+    public void testDeleteEdge(){
+        Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
+        Node n2 = new Node("2", 2, 1, "1", "test","type", "lName", "sName");
+        Edge e1 = new Edge(n1, n2);
+
+        NodeManager manager = new NodeManager();
+        manager.updateNodes();
+        EdgeManager edgeManager = new EdgeManager(manager);
+        edgeManager.updateEdges();
+        EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
+
+        manager.addNode(n1);
+        manager.addNode(n2);
+        edgeManager.addEdge(e1);
+
+        int startingSize = edgeManager.getAllEdges().size();
+        System.out.println(startingSize);
+        edgeEditController.deleteEdge(n1,n2);
+        System.out.println(edgeManager.getAllEdges().size());
+        assertEquals(startingSize - 1,edgeManager.getAllEdges().size());
+
+        edgeManager.removeEdge(e1);
+        manager.removeNode(n1);
+        manager.removeNode(n2);
     }
 }

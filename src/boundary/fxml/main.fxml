@@ -369,7 +369,7 @@
                                                             <Image url="@../images/other%20images/BWH.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="canvas" height="3400.0" layoutY="14.0" onMouseClicked="#clickOnMap" width="5000.0" />
+                                                      <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
                                                    </children>
                                                 </Pane>
                                              </content>
@@ -377,7 +377,7 @@
                                                 <ContextMenu>
                                                   <items>
                                                     <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
-                                                      <MenuItem mnemonicParsing="false" onAction="#setAsOrigin" text="Set as origin" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
                                                   </items>
                                                 </ContextMenu>
                                              </contextMenu>
@@ -434,7 +434,7 @@
                                           </Group>
                                           <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
-                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor:" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
