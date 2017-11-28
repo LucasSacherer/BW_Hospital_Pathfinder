@@ -213,14 +213,53 @@ public class FoodManager {
      * @return
      */
     public ArrayList<FoodRequest> getCompleted(){
-        ArrayList<FoodRequest> list = new ArrayList<>();
+        ArrayList<FoodRequest> completed = new ArrayList<>();
         updateRequests();
+
+        /*
         for (FoodRequest req: requests){
             if (!req.getTimeCompleted().equals(req.getTimeCreated())){
                 list.add(req);
             }
         }
-        return list;
+        return list;*/
+
+        String name, type, description, nodeID, userID;
+        LocalDateTime timeCreated, timeCompleted;
+        Node node;
+        User user;
+        List<String> order;
+        nodeManager.updateNodes();
+        userManager.updateUsers();
+        requests.clear();
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST",
+                databaseGargoyle.getStatement());
+
+        try {
+            while (rs.next()){
+                name = rs.getString("NAME");
+                timeCreated = rs.getTimestamp("TIMECREATED").toLocalDateTime();
+                timeCompleted = rs.getTimestamp("TIMECOMPLETED").toLocalDateTime();
+                type = rs.getString("TYPE");
+                description = rs.getString("DESCRIPTION");
+                nodeID = rs.getString("NODEID");
+                userID = rs.getString("USERID");
+                node = nodeManager.getNode(nodeID);
+                user = userManager.getUser(userID);
+                order = getFoodOrders(name, Timestamp.valueOf(timeCreated));
+
+                if(!(timeCreated.equals(timeCompleted))) {
+                    completed.add(new FoodRequest(name, timeCreated, timeCompleted, type, description, node, user, order));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to get completed food requests from database!");
+            e.printStackTrace();
+        }
+        databaseGargoyle.destroyConnection();
+
+        return completed;
     }
 
     /**
