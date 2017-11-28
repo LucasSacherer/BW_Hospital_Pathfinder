@@ -64,8 +64,8 @@ public class NodeAdder {
     private String getUniqueID(String nodeType, String currentFloor) {
         nodeManager.updateNodes();
         String firstNum, potential;
-        StringBuilder ID = new StringBuilder();
         for (int i = 0; i < 999; i++) {
+            StringBuilder ID = new StringBuilder();
             if (i < 10) firstNum = "00" + i;
             else if (i < 100) firstNum = "0" + i;
             else firstNum = "" + i;
@@ -74,9 +74,7 @@ public class NodeAdder {
             ID.append(firstNum);
             ID.append(getFloorString(currentFloor));
             potential = ID.toString();
-            if (nodeManager.getNode(potential) == null) {
-                return potential;
-            }
+            if (nodeManager.getNode(potential) == null) return potential;
         }
         return null;
     }
