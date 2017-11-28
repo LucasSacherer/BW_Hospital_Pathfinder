@@ -1,4 +1,4 @@
-package boundary.sceneControllers;
+package boundary.sceneControllers.mapEditing;
 
 import Editor.NodeEditController;
 import Entity.Node;

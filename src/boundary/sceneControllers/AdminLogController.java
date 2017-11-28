@@ -29,8 +29,6 @@ public class AdminLogController {
         this.dateLogged = dateLogged;
         this.adminLogged = adminLogged;
         this.logContent = logContent;
-
-
     }
 
     public void printLogButton(){}

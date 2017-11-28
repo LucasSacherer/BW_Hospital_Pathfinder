@@ -4,6 +4,7 @@ import Editor.NodeEditController;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.sceneControllers.mapEditing.*;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
@@ -21,6 +22,10 @@ public class AdminMapController extends AbstractMapController{
     private NodeManager nodeManager;
     private NodeAdder nodeAdder;
     private NodeEditor nodeEditor;
+    private NodeRemover nodeRemover;
+    private EdgeAdder edgeAdder;
+    private EdgeRemover edgeRemover;
+    private KioskEditor kioskEditor;
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
@@ -51,12 +56,16 @@ public class AdminMapController extends AbstractMapController{
         this.nodeEditor = new NodeEditor(nodeEditController, editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit);
     }
 
-    public void initializeEdgeAdder() {
-        //TODO
+    public void initializeNodeRemover() { // TODO
+        this.nodeRemover = new NodeRemover();
     }
 
-    public void initializeEdgeEditor() {
-        //TODO
+    public void initializeEdgeAdder() { // TODO
+        this.edgeAdder = new EdgeAdder();
+    }
+
+    public void initializeEdgeRemove() { // TODO
+        this.edgeRemover = new EdgeRemover();
     }
 
     public void refreshCanvas() {
@@ -74,9 +83,7 @@ public class AdminMapController extends AbstractMapController{
         }
     }
 
-    private void drawAllEdges() {
-
-    }
+    private void drawAllEdges() { }
 
     public void clickOnMap(MouseEvent m) {
         refreshCanvas();
@@ -92,14 +99,14 @@ public class AdminMapController extends AbstractMapController{
             nodeEditor.clickOnMap(currentLoc, gc);
         }
         else if (addEdge.isSelected()) {
-//            edgeAdder.clickOnMap();
+            edgeAdder.clickOnMap();
         }
         else if (removeEdge.isSelected()) {
-//            edgeRemover.clickOnMap();
+            edgeRemover.clickOnMap();
         }
         else if (kioskTab.isSelected()) {
             snapToNode(m);
-//            kioskEditor.clickOnMap(currentLoc, gc);
+            kioskEditor.clickOnMap(currentLoc, gc);
         }
     }
 
