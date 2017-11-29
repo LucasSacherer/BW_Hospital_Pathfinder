@@ -127,13 +127,11 @@ public class StaffRequestController extends AbstractMapController{
         refreshRequestCanvas();
     }
     public void clickOnMap(MouseEvent m) {
-        refreshRequestCanvas();
-
         int x = (int) m.getX();
         int y = (int) m.getY();
         currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
-
         nodeID.setText(currentLoc.getNodeID());
+        refreshRequestCanvas();
     }
 
     public void refreshRequestCanvas() {
@@ -193,7 +191,7 @@ public class StaffRequestController extends AbstractMapController{
 //        allRequests.addAll(requestCleanupController.getRequests());
 //        allRequests.addAll(requestInterpreterController.getRequests());
 //        allRequests.addAll(requestFoodController.getRequests());
-//
+
 //        ArrayList<Request> requestsToShow = new ArrayList<>();
 //        requestsToShow.addAll(allRequests);
 //        for (Request r : requestsToShow) {
@@ -236,11 +234,13 @@ public class StaffRequestController extends AbstractMapController{
         refreshRequestCanvas();
     }
 
-    public void snapToNode(MouseEvent m) {
-        super.snapToNode(m);
-        nodeID.setText(currentLoc.getNodeID());
-        refreshRequestCanvas();
-    }
+//    public void snapToNode(MouseEvent m) {
+//        int x = (int) m.getX();
+//        int y = (int) m.getY();
+//        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
+//        nodeID.setText(currentLoc.getNodeID());
+//        refreshRequestCanvas();
+//    }
 
     public void resetCleanup() {
         requestCleanupName.clear();
