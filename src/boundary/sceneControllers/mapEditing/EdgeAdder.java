@@ -79,5 +79,6 @@ public class EdgeAdder {
     public void addEdge() {
         if (startNode != null && endNode != null)
             edgeEditController.addEdge(new Edge(startNode, endNode));
+        reset();
     }
 }

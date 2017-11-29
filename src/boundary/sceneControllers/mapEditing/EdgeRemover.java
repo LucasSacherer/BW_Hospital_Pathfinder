@@ -22,7 +22,11 @@ public class EdgeRemover {
         this.gc = gc;
     }
 
-    public void remove() { edgeEditController.deleteEdge(startNode, endNode); }
+    public void remove() {
+        System.out.println(startNode + " " + endNode);
+        edgeEditController.deleteEdge(startNode, endNode);
+        reset();
+    }
 
     public void reset() {
         edgeXStart.clear();
@@ -31,6 +35,7 @@ public class EdgeRemover {
         edgeXEnd.clear();
         startNode = null;
         endNode = null;
+        refreshCanvas();
     }
 
     public void clickOnMap(Node currentLoc) {
@@ -71,11 +76,11 @@ public class EdgeRemover {
             int ey = endNode.getYcoord();
 
             gc.setStroke(Color.RED);
-            gc.setLineWidth(4);
+            gc.setLineWidth(5);
             gc.strokeLine(sx,sy,ex,ey);
 
             gc.setStroke(Color.YELLOW);
-            gc.setLineWidth(2);
+            gc.setLineWidth(1);
             gc.strokeLine(sx,sy,ex,ey);
 
             gc.setStroke(Color.BLACK);

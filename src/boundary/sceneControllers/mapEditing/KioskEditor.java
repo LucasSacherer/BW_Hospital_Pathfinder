@@ -15,12 +15,11 @@ public class KioskEditor {
     }
 
 
-    public void clickOnMap(Node currentLoc) {
-        potential = currentLoc;
-    }
+    public void clickOnMap(Node currentLoc) { potential = currentLoc; }
 
     public void setKiosk() {
-
+        if (potential != null) nodeEditController.setKioskLocation(potential);
+        reset();
     }
 
     public void reset() {

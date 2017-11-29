@@ -1,6 +1,7 @@
 package boundary.sceneControllers;
 import Database.EdgeManager;
 import Database.NodeManager;
+import Database.SettingsManager;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.Edge;
@@ -92,14 +93,21 @@ public class AdminMapController extends AbstractMapController{
         super.refreshCanvas();
         drawAllNodes();
         drawAllEdges();
+        drawKiosk();
+    }
+
+    private void drawKiosk() {
+        Node k = mapNavigationFacade.getDefaultNode();
+        gc.setFill(Color.TEAL);
+        gc.fillOval(k.getXcoord() - 7, k.getYcoord() - 7, 14, 14);
     }
 
     private void drawAllNodes() {
         nodeManager.updateNodes();
         for (Node n : nodeManager.getAllNodes()){
             if (n.getFloor().equals(currentFloor)) {
-                gc.setFill(Color.GREENYELLOW);
-                gc.fillOval(n.getXcoord() - 5, n.getYcoord() - 5, 10, 10);
+                gc.setFill(Color.TEAL);
+                gc.fillOval(n.getXcoord() - 7, n.getYcoord() - 7, 14, 14);
             }
         }
     }
@@ -116,12 +124,12 @@ public class AdminMapController extends AbstractMapController{
     public void clickOnMap(MouseEvent m) {
         refreshCanvas();
         if (nodesTab.isSelected()) {
-            if (addNode.isSelected()) {
-                nodeAdder.clickOnMap(m);
-            } else if (editNode.isSelected()) {
+            if (addNode.isSelected()) nodeAdder.clickOnMap(m);
+            else if (editNode.isSelected()) {
                 snapToNode(m);
                 nodeEditor.clickOnMap(currentLoc);
-            } else if (removeNode.isSelected()) {
+            }
+            else if (removeNode.isSelected()) {
                 snapToNode(m);
                 nodeRemover.clickOnMap(currentLoc);
             }
@@ -185,7 +193,10 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void resetEdgeButtonRemove() { }
+    public void resetEdgeButtonRemove() {
+        edgeRemover.reset();
+        refreshCanvas();
+    }
 
     public void addEdgeButton() {
         edgeAdder.addEdge();
