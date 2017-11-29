@@ -210,8 +210,9 @@ public class StaffRequestController extends AbstractMapController{
     public void completeRequest() {
         if (requestToComplete != null) {
             genericRequestController.completeRequests(requestToComplete);
-            if (requestToComplete == requestToDelete) requestToDelete = null;
+            if (requestNodeToComplete == requestNodeToDelete) requestNodeToDelete = null;
             requestToComplete = null;
+            requestNodeToComplete = null;
             refreshLists();
             requestInfo.clear();
         }
@@ -220,7 +221,8 @@ public class StaffRequestController extends AbstractMapController{
     public void deleteRequest() {
         if (requestToDelete != null && requestToDelete.getUser().getUserID().equals(user.getUserID())) {
             genericRequestController.deleteRequest(requestToDelete);
-            if (requestToDelete == requestToComplete) requestToComplete = null;
+            if (requestNodeToDelete == requestNodeToComplete) requestNodeToComplete = null;
+            requestNodeToDelete = null;
             requestToDelete = null;
             refreshLists();
         }
