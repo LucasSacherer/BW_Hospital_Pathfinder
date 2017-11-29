@@ -10,6 +10,7 @@ public class ErrorController {
 
     public void showError(String errorMessage){
         Alert error = new Alert(AlertType.ERROR, errorMessage);
+        System.out.print("displaying error");
         error.show();
     }
 

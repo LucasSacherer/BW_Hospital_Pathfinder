@@ -165,5 +165,6 @@ public class MainSceneController extends AbstractMapController{
         }
 
         Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
+        directions.show();
     }
 }
