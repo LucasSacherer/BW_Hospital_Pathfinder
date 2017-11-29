@@ -142,6 +142,7 @@ public abstract class AbstractMapController {
                 else direction = "DOWN";
                 gc.setStroke(Color.BLUE);
                 gc.strokeText(direction, current.getXcoord(), current.getYcoord() - 10);
+                gc.setStroke(Color.BLACK);
             }
         }
     }

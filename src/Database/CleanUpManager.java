@@ -222,4 +222,16 @@ public class CleanUpManager {
         }
         return userRequests;
     }
+
+    /**
+     * FOR TESTING ONLY: gets the request from the given name
+     */
+    public CleanUpRequest getRequestByName(String name){
+        for (CleanUpRequest req: requests){
+            if (req.getName().equals(name)){
+                return req;
+            }
+        }
+        return null;
+    }
 }
