@@ -96,6 +96,9 @@ public class GodController {
     @FXML
     private JFXComboBox languageSelect;
 
+    @FXML
+    private JFXListView currentFoodOrder;
+
     /* Request Report Scene */
 
     @FXML
@@ -246,7 +249,7 @@ public class GodController {
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription, requestFoodDescription, requestInfo);
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder);
     }
 
     private void initializeMapAdminScene() {
@@ -384,6 +387,18 @@ public class GodController {
 
     @FXML
     private void completeRequest() { staffRequestController.completeRequest(); }
+
+    @FXML
+    private void resetOrder() { staffRequestController.resetCurrentOrder(); }
+
+    @FXML
+    private void addFoodItem() { staffRequestController.addFoodItem(); }
+
+    @FXML
+    private void submitFoodRequest() { staffRequestController.submitFoodRequest(); }
+
+    @FXML
+    private void resetFoodRequest() { staffRequestController.resetFoodRequest(); }
 
     /////////////////////
     /* Request Reports */

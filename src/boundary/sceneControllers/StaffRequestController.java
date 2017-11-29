@@ -40,6 +40,7 @@ public class StaffRequestController extends AbstractMapController{
     private User user;
     private ChoiceBox requestChoiceBox;
     private JFXComboBox languageSelect;
+    private JFXListView currentFoodOrder;
 
     public StaffRequestController(ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
                                   MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade,
@@ -50,7 +51,7 @@ public class StaffRequestController extends AbstractMapController{
                                   JFXListView allStaffRequests, JFXListView requestsIMade, JFXTextField requestNodeID,
                                   JFXTextField requestCleanupName, JFXTextField requestInterpreterName,
                                   JFXTextField requestFoodName, JFXTextArea cleanupDescription,
-                                  JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription, JFXTextArea requestFoodDescription, JFXTextArea requestInfo) {
+                                  JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription, JFXTextArea requestFoodDescription, JFXTextArea requestInfo, JFXListView currentFoodOrder) {
         super(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest);
         this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
@@ -67,6 +68,7 @@ public class StaffRequestController extends AbstractMapController{
         this.genericRequestController = genericRequestController;
         this.requestFoodDescription = requestFoodDescription;
         this.requestInfo = requestInfo;
+        this.currentFoodOrder = currentFoodOrder;
     }
 
     public void initializeScene(User user){

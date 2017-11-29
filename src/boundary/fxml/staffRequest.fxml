@@ -155,19 +155,25 @@
                                                                               <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                                                                  <children>
                                                                                     <Label text="Name: " />
-                                                                                    <JFXTextField />
+                                                                                    <JFXTextField fx:id="requestFoodName" />
                                                                                  </children>
                                                                               </HBox>
-                                                                              <Label text="Description" />
-                                                                              <JFXTextArea />
                                                                               <HBox alignment="CENTER" spacing="25.0">
                                                                                  <children>
-                                                                                    <JFXButton text="Add" />
-                                                                                    <JFXButton text="Reset" />
+                                                                                    <JFXButton fx:id="addFoodItem" text="Add Item" />
+                                                                                    <JFXButton fx:id="resetOrder" text="Reset Order" />
                                                                                  </children>
                                                                               </HBox>
                                                                               <Label text="Current Order:" />
-                                                                              <JFXListView />
+                                                                              <JFXListView fx:id="currentFoodOrder" prefHeight="200.0" prefWidth="423.0" />
+                                                                              <Label text="Description" />
+                                                                              <JFXTextArea fx:id="requestFoodDescription" promptText="Enter food order description" />
+                                                                              <HBox alignment="CENTER" layoutX="10.0" layoutY="106.0" spacing="25.0">
+                                                                                 <children>
+                                                                                    <JFXButton onAction="#submitFoodRequest" text="Submit Food Request" />
+                                                                                    <JFXButton onAction="#resetFoodRequest" text="Reset Food Request" />
+                                                                                 </children>
+                                                                              </HBox>
                                                                            </children>
                                                                         </VBox>
                                                                      </children>
