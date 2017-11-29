@@ -1,37 +1,52 @@
 package boundary.sceneControllers;
 
 import Entity.CleanUpRequest;
+import Entity.Node;
 import Entity.User;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import Request.RequestCleanupController;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.time.LocalDateTime;
 
 public class StaffRequestController extends AbstractMapController{
+    private ObservableList requestTypeList  = FXCollections.observableArrayList("Cleanup", "Interpreter", "Food");
     private RequestCleanupController requestCleanupController;
     private JFXListView allStaffRequests, requestsIMade;
     private CleanUpRequest selectedRequest;
     private JFXTextField selectedRequestTextField;
     private User user;
+    private ChoiceBox requestChoiceBox;
+    private AnchorPane request1, request2, request3;
+    private StackPane requestStack;
 
 
-    public StaffRequestController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+    public StaffRequestController(AnchorPane requestAnchor1, AnchorPane requestAnchor2, AnchorPane requestAnchor3, StackPane requestStack, ChoiceBox requestChoiceBox, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                                   Label currentFloorNum, RequestCleanupController r, JFXListView allStaffRequests,
                                   JFXListView requestsIMade, JFXTextField selectedRequestTextField) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
+        this.requestChoiceBox = requestChoiceBox;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;
         this.requestCleanupController = r;
         this.selectedRequestTextField = selectedRequestTextField;
+        this.request1 = requestAnchor1;
+        this.request2 = requestAnchor2;
+        this.request3 = requestAnchor3;
+        this.requestStack = requestStack;
     }
 
     public void initializeScene(User user){
@@ -50,6 +65,7 @@ public class StaffRequestController extends AbstractMapController{
         });
         this.user = user;
         drawAllRequests();
+        requestChoiceBox.setItems(requestTypeList);
     }
 
     public void clickOnMap(MouseEvent m) {

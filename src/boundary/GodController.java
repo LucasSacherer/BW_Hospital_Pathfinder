@@ -3,6 +3,7 @@ package boundary;
 
 import Admin.UserLoginController;
 import Database.*;
+import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import MapNavigation.*;
 import Pathfinding.Astar;
@@ -26,6 +27,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -40,6 +42,7 @@ public class GodController {
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private SettingsManager settingsManager = new SettingsManager();
     final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager);
+    final private EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
@@ -83,9 +86,23 @@ public class GodController {
     @FXML
     private JFXTextField selectedRequestTextField;
 
+    @FXML
+    private ChoiceBox requestChoiceBox;
+
+    @FXML
+    private StackPane requestStack;
+
+    @FXML
+    private AnchorPane requestAnchor1, requestAnchor2, requestAnchor3;
+
+    /* Request Report Scene */
+
+    @FXML
+    private JFXButton printLogSR, sendLogSR, clearLogSR;
+
     /* MAP ADMIN FXML */
     @FXML
-    private Tab addNode, editNode, removeNode, edgesTab, setKioskTab, addEdge, removeEdge;
+    private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab;
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
@@ -140,9 +157,6 @@ public class GodController {
     @FXML
     private JFXPasswordField staffPasswordText, adminPasswordText;
 
-    @FXML
-    private JFXTabPane edgeTab, kioskTab, addNodeTab, editNodeTab, removeNodeTab, addEdgeTab, removeEdgeTab;
-
     /* Admin Logs */
 
     @FXML
@@ -174,10 +188,15 @@ public class GodController {
     private JFXListView employeeListAE;
 
     @FXML
-    private JFXTextField employeeUserIDAE, employeeUserNameAE, employeePasswordAE;
+    private JFXTextField employeeUserIDAE;
+    @FXML
+    private JFXTextField employeeUsernameAE;
+    @FXML
+    private JFXTextField employeePasswordAE;
 
     @FXML
     private JFXComboBox employeeTypeAE;
+
     TreeItem<Log> log1 = new TreeItem<>(new Log(1,"11/27/2017","admin1","added Node"));
     TreeItem<Log> log2 = new TreeItem<>(new Log(2,"11/27/2017","admin1","logged in"));
     TreeItem<Log> log3 = new TreeItem<>(new Log(3,"11/27/2017","admin1","added Node"));
@@ -198,6 +217,7 @@ public class GodController {
     AdminMapController adminMapController;
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
+    RequestReportController requestReportController;
 
     @FXML
     private void initialize() {
@@ -206,6 +226,7 @@ public class GodController {
         pathFindingFacade.setPathfinder(astar);
         initializeMainScene();
         initializeRequestScene();
+        initializeRequestReportScene();
         initializeMapAdminScene();
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
@@ -221,14 +242,16 @@ public class GodController {
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
+        staffRequestController = new StaffRequestController(requestAnchor1, requestAnchor2, requestAnchor3,
+                requestStack, requestChoiceBox, requestImageView, requestMapPane, requestCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
                 allStaffRequests, requestsIMade, selectedRequestTextField);
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(nodeManager, nodeEditController, mapEditImageView, mapEditMapPane, mapEditCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit, addNode, editNode, removeNode);
+        adminMapController = new AdminMapController(edgeManager, nodeManager, nodeEditController, edgeEditController,
+                mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
+                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab);
     }
 
     private void initializeAdminLogScene() {
@@ -249,9 +272,10 @@ public class GodController {
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
+    private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            employeeListAE, employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE);
+            employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE, employeeTypeAE);
     }
 
 
@@ -348,6 +372,19 @@ public class GodController {
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
 
+    /////////////////////
+    /* Request Reports */
+    /////////////////////
+
+    @FXML
+    private void printLogSR(MouseEvent e){}
+
+    @FXML
+    private void sendLogSR(MouseEvent e){}
+
+    @FXML
+    private void clearLogSR(MouseEvent e) throws IOException{}
+
     ////////////////////
     /* Employee Admin */
     ////////////////////
@@ -373,12 +410,6 @@ public class GodController {
     private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap(); }
 
     @FXML
-    private void displayARSpillsType() throws IOException { adminRequestController.displayARSpillsType(); }
-
-    @FXML
-    private void displayARSpillsName() throws IOException { adminRequestController.displayARSpillsName(); }
-
-    @FXML
     private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
 
     @FXML
@@ -396,12 +427,6 @@ public class GodController {
     //Food
     @FXML
     private void displayARFoodOnMap(MouseEvent e) throws IOException { adminRequestController.displayARFoodOnMap(); }
-
-    @FXML
-    private void displayARFoodType(MouseEvent e) throws IOException { adminRequestController.displayARFoodType(); }
-
-    @FXML
-    private void displayARFoodName() throws IOException { adminRequestController.displayARFoodName(); }
 
     @FXML
     private void addARFood() throws IOException { adminRequestController.addARFood(); }
@@ -440,12 +465,6 @@ public class GodController {
 
     @FXML
     private void displayARInterpreterOnMap() throws IOException { adminRequestController.displayARInterpreterOnMap(); }
-
-    @FXML
-    private void displayARInterpreterType() throws IOException { adminRequestController.displayARInterpreterType(); }
-
-    @FXML
-    private void displayARInterpreterName() throws IOException { adminRequestController.displayARInterpreterName(); }
 
     @FXML
     private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
@@ -512,10 +531,10 @@ public class GodController {
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     @FXML
-    private void setDefaultNode() { } //TODO
+    private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
     @FXML
-    private void resetDefaultNode() { } //TODO
+    private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
     ////////////////
     /* Admin Logs */
@@ -590,10 +609,12 @@ public class GodController {
     private void adminHubtoMap() throws IOException {
         sceneSwitcher.toAdminMap(this, adminHubPane);
         adminMapController.initializeScene();
-        adminMapController.initializeNodeAdder(nodeManager, xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
+        adminMapController.initializeNodeAdder(xPosAddNode, yPosAddNode, nodeTypeCombo, buildingCombo, shortNameAdd, longNameAdd);
         adminMapController.initializeNodeEditor(editNodeID, xPosEdit, yPosEdit, nodeTypeComboEdit, shortNameEdit, longNameEdit, editNodeTypeField);
         adminMapController.initializeNodeRemover(xPosRemoveNode, yPosRemoveNode);
-
+        adminMapController.initializeEdgeAdder(edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
+        adminMapController.initializeEdgeRemover(edgeXStartRemove, edgeYStartRemove, edgeXEndRemove, edgeYEndRemove);
+        adminMapController.initializeKioskEditor(setKioskX, setKioskY);
     }
 
     @FXML

@@ -1,11 +1,17 @@
 package Pathfinding;
+
 import Database.EdgeManager;
+import Entity.Edge;
 import Entity.Node;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Comparator;
 import java.util.List;
 
-class BeamSearch implements PathFinder {
+
+public class BeamSearch implements PathFinder {
+
     public ArrayList<Node> pathFind(Node start, Node end){
         int beamWidth = 3;
 
@@ -16,6 +22,7 @@ class BeamSearch implements PathFinder {
         List<Node> connected = new ArrayList<Node>();
         // The set of currently discovered nodes that are not evaluated yet.
         boolean alreadfound = false;
+
 
 
 

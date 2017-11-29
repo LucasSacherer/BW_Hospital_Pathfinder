@@ -10,16 +10,18 @@ public class NodeRemover {
     private NodeEditController nodeEditController;
     private JFXTextField xPos, yPos;
     private Node current;
+    private GraphicsContext gc;
 
-    public NodeRemover(NodeEditController nodeEditController, JFXTextField xPosRemoveNode, JFXTextField yPosRemoveNode) {
+    public NodeRemover(NodeEditController nodeEditController, GraphicsContext gc, JFXTextField xPosRemoveNode, JFXTextField yPosRemoveNode) {
         this.nodeEditController = nodeEditController;
         this.xPos = xPosRemoveNode;
         this.yPos = yPosRemoveNode;
+        this.gc = gc;
     }
 
     public void remove() { if (current != null) nodeEditController.deleteNode(current); }
 
-    public void clickOnMap(Node current, GraphicsContext gc) {
+    public void clickOnMap(Node current) {
         gc.setFill(Color.BLUE);
         gc.fillOval(current.getXcoord() - 7, current.getYcoord() - 7, 14, 14);
         gc.setFill(Color.YELLOW);
