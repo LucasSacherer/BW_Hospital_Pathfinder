@@ -64,6 +64,6 @@ public class InterpreterRequest implements Request{
     }
 
     public String getRequestReport(){
-        return "Name: " + name + "\nLanguage: " + language;
+        return "Name: " + name + "\nDescription: "+ description + "\nLanguage: " + language;
     }
 }
