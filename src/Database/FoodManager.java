@@ -136,7 +136,7 @@ public class FoodManager {
         //Change the completed time of the database request
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE FOODREQUEST SET " +
-                "TIMECOMPLETED = '" + Timestamp.valueOf(fReq.getTimeCompleted()) + "' " +
+                "TIMECOMPLETED = '" + Timestamp.valueOf(LocalDateTime.now()) + "' " +
                 "WHERE NAME = '" + fReq.getName() + "' " +
                 "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
 

@@ -5,6 +5,8 @@ import Database.FoodManager;
 import Database.InterpreterManager;
 import Entity.*;
 import com.sun.org.apache.regexp.internal.RE;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class GenericRequestController {
      * Returns a list of all the requests in the system as a list of the Request Interface
      * @return
      */
-    public List<Request> getAllRequestsByUser(User user){
+    public ObservableList<Request> getAllRequestsByUser(User user){
         List<Request> results = new ArrayList<>();
 
         cleanUpManager.updateRequests();
@@ -44,7 +46,9 @@ public class GenericRequestController {
             results.add(req);
             System.out.println("Adding " + req.getName());
         }
-        return results;
+        ObservableList fxResults = FXCollections.observableArrayList();
+        fxResults.addAll(results);
+        return fxResults;
     }
 
     /**
@@ -66,7 +70,7 @@ public class GenericRequestController {
      * @param department
      * @return
      */
-    public List<Request> getAllRequestsByDepartment(String department){
+    public ObservableList<Request> getAllRequestsByDepartment(String department){
         List<Request> results = new ArrayList<>();
         cleanUpManager.updateRequests();
         foodManager.updateRequests();
@@ -85,7 +89,9 @@ public class GenericRequestController {
                 results.add(req);
             }
         }
-        return results;
+        ObservableList fxResults = FXCollections.observableArrayList();
+        fxResults.addAll(results);
+        return fxResults;
     }
 
     /**

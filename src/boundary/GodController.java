@@ -12,29 +12,24 @@ import Pathfinding.DepthSearch;
 import Pathfinding.BreadthSearch;
 import Pathfinding.BeamSearch;
 import Pathfinding.PathFindingFacade;
+import Request.GenericRequestController;
 import Request.RequestCleanupController;
+import Request.RequestFoodController;
+import Request.RequestInterpreterController;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -60,7 +55,13 @@ public class GodController {
     final private BeamSearch beamSearch = new BeamSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
-    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
+    final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
+    final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
+    final private FoodManager food = new FoodManager();
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanup);
+    final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
+    final private RequestFoodController requestFoodController = new RequestFoodController(food);
+    final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
     final private ErrorController errorController = new ErrorController();
 
     ///////////////////////
@@ -90,18 +91,21 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-    /* Request Scene */
+    /* Staff Request Scene */
     @FXML
-    private JFXTextField selectedRequestTextField;
+    private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
 
     @FXML
-    private ChoiceBox requestChoiceBox;
+    private JFXTextArea requestCleanupDescription, requestInterpreterDescription, requestFoodDescription, requestInfo;
 
     @FXML
-    private StackPane requestStack;
+    private Tab requestFoodTab, requestCleanupTab, requestInterpreterTab;
 
     @FXML
-    private AnchorPane requestAnchor1, requestAnchor2, requestAnchor3;
+    private JFXComboBox languageSelect;
+
+    @FXML
+    private JFXListView currentFoodOrder;
 
     /* Request Report Scene */
 
@@ -212,8 +216,6 @@ public class GodController {
 
     TreeItem<Log> logRoot = new TreeItem<>(new Log(0,"11/27/2017","admin1","root"));
 
-
-
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
 
@@ -231,6 +233,7 @@ public class GodController {
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
+        userManager.updateUsers();
         pathFindingFacade.setPathfinder(astar);
         //pathFindingFacade.setPathfinder(beamSearch);
         initializeMainScene();
@@ -251,10 +254,11 @@ public class GodController {
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(requestAnchor1, requestAnchor2, requestAnchor3,
-                requestStack, requestChoiceBox, requestImageView, requestMapPane, requestCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
-                allStaffRequests, requestsIMade, selectedRequestTextField);
+        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
+                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
+                requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
+                requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem);
     }
 
     private void initializeMapAdminScene() {
@@ -345,14 +349,11 @@ public class GodController {
     private void setAsOrigin() {mainSceneController.setAsOrigin();}
 
     ///////////////////
-    /* Request Scene */
+    /* Staff Request Scene */
     ///////////////////
 
     @FXML
     private void navigateToRequest() { staffRequestController.navigateToRequest(); } //TODO
-
-    @FXML
-    private void addStaffRequest() { staffRequestController.addRequest(requestName, requestDescription); }
 
     @FXML
     private void completeStaffRequest() { staffRequestController.completeRequest(); } //TODO
@@ -380,6 +381,33 @@ public class GodController {
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
+
+    @FXML
+    private void addCleanupRequest() { staffRequestController.addCleanup(); }
+
+    @FXML
+    private void resetCleanupRequest() { staffRequestController.resetCleanup(); }
+
+    @FXML
+    private void addInterpreter() { staffRequestController.addInterpreter(); }
+
+    @FXML
+    private void resetInterpreter() { staffRequestController.resetInterpreter(); }
+
+    @FXML
+    private void completeRequest() { staffRequestController.completeRequest(); }
+
+    @FXML
+    private void resetOrder() { staffRequestController.resetCurrentOrder(); }
+
+    @FXML
+    private void addFoodItem() { staffRequestController.addFoodItem(); }
+
+    @FXML
+    private void submitFoodRequest() { staffRequestController.submitFoodRequest(); }
+
+    @FXML
+    private void resetFoodRequest() { staffRequestController.resetFoodRequest(); }
 
     /////////////////////
     /* Request Reports */
@@ -586,6 +614,7 @@ public class GodController {
 
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
+            userManager.updateUsers();
             staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
     }
