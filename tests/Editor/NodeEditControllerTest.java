@@ -8,7 +8,9 @@ import Entity.Node;
 import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -71,7 +73,7 @@ public class NodeEditControllerTest {
         NodeManager nManager = new NodeManager();
         SettingsManager sManager = new SettingsManager();
         EdgeManager eManager = new EdgeManager(nManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager,eManager);
+        NodeEditController editor = new NodeEditController(nManager, sManager, eManager);
 
         nManager.updateNodes();
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
@@ -86,11 +88,28 @@ public class NodeEditControllerTest {
         Edge e1 = new Edge(test,test2);
         Edge e2 = new Edge(test,test3);
         Edge e3 = new Edge(test3,test4);
+        Edge e4 = new Edge(test4, test);
+
+        eManager.addEdge(e1);
+        eManager.addEdge(e2);
+        eManager.addEdge(e3);
+        eManager.addEdge(e4);
 
 
+        editor.deleteNode(test);
 
+        System.out.println(nManager.getNode(test.getNodeID()));
 
+        eManager.removeEdge(e1);
+        eManager.removeEdge(e2);
+        eManager.removeEdge(e3);
+        eManager.removeEdge(e4);
 
+        nManager.removeNode(test);
+        nManager.removeNode(test2);
+        nManager.removeNode(test3);
+        nManager.removeNode(test4);
 
+        //assertTrue(nManager.getNode(test.getNodeID()) == null);
     }
 }

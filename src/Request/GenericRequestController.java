@@ -4,6 +4,7 @@ import Database.CleanUpManager;
 import Database.FoodManager;
 import Database.InterpreterManager;
 import Entity.*;
+import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,23 @@ public class GenericRequestController {
      */
     public List<Request> getAllRequestsByUser(User user){
         List<Request> results = new ArrayList<>();
-        results.addAll(cleanUpManager.getRequestsBy(user));
-        results.addAll(foodManager.getRequestsBy(user));
-        results.addAll(interpreterManager.getRequestsBy(user));
+
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        for (CleanUpRequest req: cleanUpManager.getRequestsBy(user)){
+            results.add(req);
+            System.out.println("Adding " + req.getName());
+        }
+        for (FoodRequest req: foodManager.getRequestsBy(user)){
+            results.add(req);
+            System.out.println("Adding " + req.getName());
+        }
+        for (InterpreterRequest req: interpreterManager.getRequestsBy(user)) {
+            results.add(req);
+            System.out.println("Adding " + req.getName());
+        }
         return results;
     }
 

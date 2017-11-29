@@ -25,6 +25,7 @@ public class EdgeManagerTest {
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
         Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
         Edge e1 = new Edge(n1,n2);
+        Edge e2 = new Edge(n1,n2);
         NodeManager manager = new NodeManager();
         manager.updateNodes();
         EdgeManager test = new EdgeManager(manager);
@@ -35,9 +36,11 @@ public class EdgeManagerTest {
         int startingsize = test.getAllEdges().size();
 
         test.addEdge(e1);
+        test.addEdge(e2);
         assertEquals(startingsize + 1, test.getAllEdges().size());
 
         test.removeEdge(e1);
+        test.removeEdge(e2);
 
     }
     @Test
@@ -56,8 +59,6 @@ public class EdgeManagerTest {
         int startingsize = test.getAllEdges().size();
         test.removeEdge(e1);
         assertEquals(startingsize - 1, test.getAllEdges().size());
-
-
     }
     @Test
     public void testGetNeighbors() throws Exception {

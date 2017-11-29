@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class NodeEditor {
+    private GraphicsContext gc;
     private Node current;
     private NodeEditController nodeEditController;
     private JFXTextField nodeID, xPos, yPos, shortName, longName, editNodeTypeField;
@@ -20,7 +21,7 @@ public class NodeEditor {
 
     public NodeEditor(NodeEditController n, JFXTextField editNodeID, JFXTextField xPosEdit, JFXTextField yPosEdit,
                       JFXComboBox nodeTypeComboEdit, JFXTextField shortNameEdit, JFXTextField longNameEdit,
-                      JFXTextField editNodeTypeField) {
+                      JFXTextField editNodeTypeField, GraphicsContext gc) {
         this.nodeEditController = n;
         this.nodeID = editNodeID;
         this.xPos = xPosEdit;
@@ -29,10 +30,11 @@ public class NodeEditor {
         this.shortName = shortNameEdit;
         this.longName = longNameEdit;
         this.editNodeTypeField = editNodeTypeField;
+        this.gc = gc;
         nodeTypeCombo.setItems(nodeTypeList);
     }
 
-    public void clickOnMap(Node current, GraphicsContext gc) {
+    public void clickOnMap(Node current) {
         this.current = current;
         gc.setFill(Color.BLUE);
         gc.fillOval(current.getXcoord() - 7, current.getYcoord() - 7, 14, 14);

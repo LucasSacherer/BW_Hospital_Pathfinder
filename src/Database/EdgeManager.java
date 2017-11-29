@@ -45,12 +45,14 @@ public class EdgeManager {
      * @param e the edge to add
      */
     public void addEdge(Edge e){
-        databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("INSERT INTO EDGE VALUES ('"+
-                e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
-                e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')", databaseGargoyle.getStatement());
-        databaseGargoyle.destroyConnection();
-        updateEdges();
+        if (!edges.contains(getEdge(e.getStartNode(),e.getEndNode()))){
+            databaseGargoyle.createConnection();
+            databaseGargoyle.executeUpdateOnDatabase("INSERT INTO EDGE VALUES ('"+
+                    e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
+                    e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')", databaseGargoyle.getStatement());
+            databaseGargoyle.destroyConnection();
+            updateEdges();
+        }
     }
 
     /**
@@ -58,11 +60,16 @@ public class EdgeManager {
      * @param e the edge to remove
      */
     public void removeEdge(Edge e) {
+        if (e == null) return;
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
                 e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'", databaseGargoyle.getStatement());
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
+                e.getEndNode().getNodeID() + "_" + e.getStartNode().getNodeID() + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateEdges();
+
+        //AHALL00202_AHALL00302
     }
 
     /**
