@@ -98,11 +98,19 @@ import java.util.List;
                         parentCost = current.parent.gCost;
                     }
                     double gCost = parentCost + distToNext ;
-                    if (!(loc2.getBuilding().equals(neighbors.get(i)))){
-                        if (!(neighbors.get(i).getFloor().equals("2"))){
-                            gCost += 100;
+                    if(((loc2.getBuilding().equals("BTM") || loc2.getBuilding().equals("Shapiro")))||((neighbors.get(i).getBuilding().equals("BTM") || neighbors.get(i).getBuilding().equals("Shapiro")))){
+                        if (!(loc2.getBuilding().equals(neighbors.get(i)))){
+                            //if one is the tower and one is fransis ignore
+                            if (!(neighbors.get(i).getFloor().equals("2"))) {
+                                gCost += 100;
+                            }
                         }
                     }
+                    if (!(loc2.getBuilding().equals(neighbors.get(i)))){
+                        //if one is the tower and one is fransis ignore
+                            gCost += 100;
+                    }
+
                     starNode tempStar = new starNode(neighbors.get(i), current, hC, gCost);
                     astarPQ.add(tempStar);
                     //System.out.println(astarPQ.size());

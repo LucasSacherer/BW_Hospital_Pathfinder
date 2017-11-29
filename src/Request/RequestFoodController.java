@@ -1,7 +1,7 @@
 package Request;
 
 import Database.FoodManager;
-import Entity.ErrorScreen;
+import Entity.ErrorController;
 import Entity.FoodRequest;
 import Entity.User;
 import javafx.collections.FXCollections;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RequestFoodController {
     private final FoodManager foodManager;
-    private ErrorScreen errorscreen;
+    private ErrorController errorController;
 
     public RequestFoodController(FoodManager fm){
         foodManager = fm;
@@ -26,7 +26,7 @@ public class RequestFoodController {
         foodManager.updateRequests();
         if (validateRequest(fReq)){
             foodManager.addRequest(fReq);
-        }else errorscreen.displayError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
+        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
     }
 
     /**
@@ -63,7 +63,7 @@ public class RequestFoodController {
         //Check to make sure the request exists
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.deleteRequest(fReq);
-        } else errorscreen.displayError("The request you want to delete does not exist");
+        } else errorController.showError("The request you want to delete does not exist");
     }
 
     /**
@@ -76,7 +76,7 @@ public class RequestFoodController {
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.updateRequest(fReq);
         }
-        else errorscreen.displayError("This request does not already exist in the database");
+        else errorController.showError("This request does not already exist in the database");
     }
 
     /**
@@ -89,7 +89,7 @@ public class RequestFoodController {
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.completeRequest(fReq);
         }
-        else errorscreen.displayError("This request does not already exist in the database");
+        else errorController.showError("This request does not already exist in the database");
     }
 
     public List<FoodRequest> getRequestsBy(User user){

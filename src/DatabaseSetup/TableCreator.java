@@ -80,15 +80,16 @@ public class TableCreator {
         try {
             statement.execute("CREATE TABLE kioskUser (\n" +
                     " userID VARCHAR(100) PRIMARY KEY,\n" +
-                    " userName varchar(100) NOT NULL,\n" +
+                    " userName varchar(100) UNIQUE,\n" +
                     " password varchar(100) NOT NULL,\n" +
                     " adminFlag varchar(10) NOT NULL,\n" +
                     " department varchar(100) NOT NULL\n)");
             System.out.println("KioskUser table created!");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin1', 'admin1', 'admin1', true, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin2', 'admin2', 'admin2', true, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('janitor1', 'janitor1', 'janitor1', false, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'department')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin1', 'admin1', 'admin1', true, 'Interpreter')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin2', 'admin2', 'admin2', true, 'Food')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('janitor1', 'janitor1', 'janitor1', false, 'Janitorial')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'Food')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('badUser', 'badUser', 'badUser', false, 'Janitorial')");
         } catch (SQLException e) {
             System.out.println("KioskUser table already exists");
             //e.printStackTrace();
@@ -114,6 +115,8 @@ public class TableCreator {
             System.out.println("FoodRequest table created!");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type3', 'description1','GSTAI00501', 'badUser')");
+
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
             //e.printStackTrace();
@@ -140,6 +143,7 @@ public class TableCreator {
             System.out.println("InterpreterRequest table created!");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','spanish','GCONF02001', 'admin1')");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'admin2')");
+            statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'badUser')");
         } catch (SQLException e) {
             System.out.println("InterpreterRequest table already exists");
             //e.printStackTrace();
@@ -164,7 +168,9 @@ public class TableCreator {
                     " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("CleanUpRequest table created!");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed2','1960-01-01 23:03:20','1960-01-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'badUser')");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
             //e.printStackTrace();
@@ -185,7 +191,7 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1960-01-01 23:03:20','milk')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
             //e.printStackTrace();
@@ -204,6 +210,22 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Default Node','GHALL03802')");
         } catch (SQLException e) {
             System.out.println("Settings table already exists");
+        }
+    }
+
+    /**
+     * Create ADMINLOG table
+     */
+    public void createAdminLogTable() {
+        try {
+            statement.execute("CREATE TABLE adminlog (\n" +
+                    "userID VARCHAR(100) NOT NULL, \n" +
+                    "action VARCHAR(250) NOT NULL, \n" +
+                    "time TIMESTAMP NOT NULL\n)");
+            System.out.println("AdminLog table created!");
+        } catch (SQLException e) {
+            System.out.println("AdminLog table already exists");
+            //e.printStackTrace();
         }
     }
 

@@ -4,6 +4,7 @@ import Database.CleanUpManager;
 import Database.FoodManager;
 import Database.InterpreterManager;
 import Entity.*;
+import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,23 @@ public class GenericRequestController {
      */
     public List<Request> getAllRequestsByUser(User user){
         List<Request> results = new ArrayList<>();
-        results.addAll(cleanUpManager.getRequestsBy(user));
-        results.addAll(foodManager.getRequestsBy(user));
-        results.addAll(interpreterManager.getRequestsBy(user));
+
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        for (CleanUpRequest req: cleanUpManager.getRequestsBy(user)){
+            results.add(req);
+            System.out.println("Adding " + req.getName());
+        }
+        for (FoodRequest req: foodManager.getRequestsBy(user)){
+            results.add(req);
+            System.out.println("Adding " + req.getName());
+        }
+        for (InterpreterRequest req: interpreterManager.getRequestsBy(user)) {
+            results.add(req);
+            System.out.println("Adding " + req.getName());
+        }
         return results;
     }
 
@@ -44,5 +59,32 @@ public class GenericRequestController {
         } else if (req instanceof FoodRequest){
             foodManager.deleteRequest((FoodRequest) req);
         }
+    }
+
+    /**
+     * Gets all requests that line up with the specified department
+     * @param department
+     * @return
+     */
+    public List<Request> getAllRequestsByDepartment(String department){
+        List<Request> results = new ArrayList<>();
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        if (department.equalsIgnoreCase("janitorial")){
+            for (CleanUpRequest req: cleanUpManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("food")){
+            for (FoodRequest req: foodManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("interpreter")){
+            for (InterpreterRequest req: interpreterManager.getRequests()){
+                results.add(req);
+            }
+        }
+        return results;
     }
 }
