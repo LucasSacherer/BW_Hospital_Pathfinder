@@ -201,7 +201,7 @@ public class GodController {
     @FXML
     private JFXTextField employeeUsernameAE;
     @FXML
-    private JFXTextField employeePasswordAE;
+    private JFXPasswordField employeePasswordAE;
 
     @FXML
     private JFXComboBox employeeTypeAE;

@@ -4,6 +4,7 @@ import Database.UserManager;
 import Entity.User;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,14 +14,14 @@ public class AdminEmployeeController {
     private JFXListView employeeList;
     private JFXTextField userID;
     private JFXTextField userName;
-    private JFXTextField password;
+    private JFXPasswordField password;
     private JFXComboBox departmentMenu;
     private ObservableList departmentList;
     private boolean isAdmin;
     private User selectedUser;
 
     public AdminEmployeeController(UserManager u, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
-                                   JFXTextField password, JFXComboBox department) {
+                                   JFXPasswordField password, JFXComboBox department) {
         this.userManager = u;
         this.employeeList = employeeList;
         this.userID = userID;
@@ -41,7 +42,6 @@ public class AdminEmployeeController {
             selectedUser = (User) employeeList.getItems().get(newValue.intValue());
         });
     }
-
 
     public void addEmployeeAE(){
         //temp until UI if fixed
