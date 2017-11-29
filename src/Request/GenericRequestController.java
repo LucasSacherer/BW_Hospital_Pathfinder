@@ -60,4 +60,31 @@ public class GenericRequestController {
             foodManager.deleteRequest((FoodRequest) req);
         }
     }
+
+    /**
+     * Gets all requests that line up with the specified department
+     * @param department
+     * @return
+     */
+    public List<Request> getAllRequestsByDepartment(String department){
+        List<Request> results = new ArrayList<>();
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        if (department.equalsIgnoreCase("janitorial")){
+            for (CleanUpRequest req: cleanUpManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("food")){
+            for (FoodRequest req: foodManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("interpreter")){
+            for (InterpreterRequest req: interpreterManager.getRequests()){
+                results.add(req);
+            }
+        }
+        return results;
+    }
 }
