@@ -679,8 +679,8 @@ public class GodController {
 
     @FXML
     private void adminHubtoRequest() throws IOException {
-        sceneSwitcher.toAdminRequests(this, adminHubPane);
-        adminRequestController.initializeScene();
+        // sceneSwitcher.toAdminRequests(this, adminHubPane);
+        // adminRequestController.initializeScene();
     }
 
     @FXML
