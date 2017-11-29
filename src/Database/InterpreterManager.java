@@ -94,7 +94,7 @@ public class InterpreterManager {
     public void completeRequest(InterpreterRequest iReq){
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE INTERPRETERREQUEST SET " +
-                "TIMECOMPLETED = '" + Timestamp.valueOf(iReq.getTimeCompleted()) + "' " +
+                "TIMECOMPLETED = '" + Timestamp.valueOf(LocalDateTime.now()) + "' " +
                 "WHERE NAME = '" + iReq.getName() + "' " +
                 "AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();

@@ -104,7 +104,7 @@ public class InterpreterManagerTest {
         ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
         try {
             if(rs.next()) {
-                assertTrue(rs.getTimestamp("timecompleted").equals(completed));
+                assertFalse(rs.getTimestamp("timecompleted").equals(completed));
             }
         } catch (SQLException e) {
             e.printStackTrace();

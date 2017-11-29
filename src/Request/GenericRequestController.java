@@ -5,6 +5,8 @@ import Database.FoodManager;
 import Database.InterpreterManager;
 import Entity.*;
 import com.sun.org.apache.regexp.internal.RE;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class GenericRequestController {
      * Returns a list of all the requests in the system as a list of the Request Interface
      * @return
      */
-    public List<Request> getAllRequestsByUser(User user){
+    public ObservableList<Request> getAllRequestsByUser(User user){
         List<Request> results = new ArrayList<>();
 
         cleanUpManager.updateRequests();
@@ -44,20 +46,65 @@ public class GenericRequestController {
             results.add(req);
             System.out.println("Adding " + req.getName());
         }
-        return results;
+        ObservableList fxResults = FXCollections.observableArrayList();
+        fxResults.addAll(results);
+        return fxResults;
     }
 
     /**
      * Takes any of the three request types and deletes if with the correct manager
-     * @param req
+     * @param request
      */
-    public void deleteRequest(Request req){
-        if (req instanceof CleanUpRequest){
-            cleanUpManager.deleteRequest((CleanUpRequest) req);
-        } else if (req instanceof InterpreterRequest){
-            interpreterManager.deleteRequest((InterpreterRequest) req);
-        } else if (req instanceof FoodRequest){
-            foodManager.deleteRequest((FoodRequest) req);
+    public void deleteRequest(Request request){
+        if (request instanceof CleanUpRequest){
+            cleanUpManager.deleteRequest((CleanUpRequest) request);
+        } else if (request instanceof InterpreterRequest){
+            interpreterManager.deleteRequest((InterpreterRequest) request);
+        } else if (request instanceof FoodRequest){
+            foodManager.deleteRequest((FoodRequest) request);
+        }
+    }
+
+    /**
+     * Gets all requests that line up with the specified department
+     * @param department
+     * @return
+     */
+    public ObservableList<Request> getAllRequestsByDepartment(String department){
+        List<Request> results = new ArrayList<>();
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        if (department.equalsIgnoreCase("janitorial")){
+            for (CleanUpRequest req: cleanUpManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("food")){
+            for (FoodRequest req: foodManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("interpreter")){
+            for (InterpreterRequest req: interpreterManager.getRequests()){
+                results.add(req);
+            }
+        }
+        ObservableList fxResults = FXCollections.observableArrayList();
+        fxResults.addAll(results);
+        return fxResults;
+    }
+
+    /**
+     * Completes the given Request according to what type of request it is
+     * @param request
+     */
+    public void completeRequests(Request request){
+        if (request instanceof CleanUpRequest){
+            cleanUpManager.completeRequest((CleanUpRequest) request);
+        } else if (request instanceof InterpreterRequest){
+            interpreterManager.completeRequest((InterpreterRequest) request);
+        } else if (request instanceof FoodRequest){
+            foodManager.completeRequest((FoodRequest) request);
         }
     }
 }

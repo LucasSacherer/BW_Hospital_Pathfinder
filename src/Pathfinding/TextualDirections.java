@@ -101,7 +101,7 @@ public class TextualDirections {
             return writtenDirections;
         }
 
-        for(int i = 1; i < path.size() - 2; i++){
+        for(int i = 1; i < path.size() - 1; i++){
             //updates Nodes to match iteration
             previousNode = path.get(i-1);
             currentNode = path.get(i);

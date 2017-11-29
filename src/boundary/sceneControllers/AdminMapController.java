@@ -7,6 +7,9 @@ import Editor.NodeEditController;
 import Entity.Edge;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
+import Pathfinding.Astar;
+import Pathfinding.BreadthSearch;
+import Pathfinding.DepthSearch;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.mapEditing.*;
 import com.jfoenix.controls.JFXComboBox;
@@ -235,6 +238,7 @@ public class AdminMapController extends AbstractMapController{
         kioskEditor.reset();
         refreshCanvas();
     }
+
 }
 
 

@@ -30,7 +30,7 @@ public class AdminEmployeeController {
     }
 
     public void initializeScene() {
-        departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
+        departmentList = FXCollections.observableArrayList("Food", "Interpreter","Janitorial");
         departmentMenu.setItems(departmentList);
         userManager.updateUsers();
         employeeList.setItems(userManager.getUsers());
@@ -85,4 +85,6 @@ public class AdminEmployeeController {
         departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
         departmentMenu.setItems(departmentList);
     }
+
+    public void toggleAdmin(){}
 }
