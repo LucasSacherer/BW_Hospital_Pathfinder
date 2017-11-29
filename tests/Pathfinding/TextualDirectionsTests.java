@@ -13,7 +13,7 @@ public class TextualDirectionsTests {
     TextualDirections textualDirections = new TextualDirections();
 
     @Test
-    public void horizontalFindAngleTest(){
+    public void findAngleTest(){
         Node previous = new Node("one", -1, 0, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
         Node current = new Node("two", 0, 0, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
         Node next = new Node("three", 0, 1, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
@@ -21,6 +21,14 @@ public class TextualDirectionsTests {
         assertEquals(90, textualDirections.getAngle(next, current, previous), 0.0);
     }
 
+    @Test
+    public void horizontalFindAngleTest(){
+        Node previous = new Node("one", -1, 0, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
+        Node current = new Node("two", 0, 0, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
+        Node next = new Node("three", 1, 0, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
+        assertEquals(180, textualDirections.getAngle(next, current, previous), 0.0);
+
+    }
     @Test
     public void getDirTest(){
         TextualDirections textualDirections = new TextualDirections();
