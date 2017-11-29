@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 public class AdminEmployeeController {
     private UserManager userManager;
     private JFXListView employeeList;
-    private JFXTextField userID, userName, password;
+    private JFXTextField userID;
+    private JFXTextField userName;
+    private JFXTextField password;
     private JFXComboBox departmentMenu;
     private ObservableList departmentList;
     private boolean isAdmin;
@@ -28,25 +30,59 @@ public class AdminEmployeeController {
     }
 
     public void initializeScene() {
-        departmentList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro"); //TODO what are the departments?
+        departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
         departmentMenu.setItems(departmentList);
         userManager.updateUsers();
         employeeList.setItems(userManager.getUsers());
+        initializeAdminEmployeeListeners();
+    }
+    private void initializeAdminEmployeeListeners(){
+        employeeList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            selectedUser = (User) employeeList.getItems().get(newValue.intValue());
+        });
     }
 
+
     public void addEmployeeAE(){
+        //temp until UI if fixed
+        isAdmin = false;
         User newUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                 departmentMenu.getSelectionModel().getSelectedItem().toString());
         userManager.addUser(newUser);
         userManager.updateUsers();
         employeeList.setItems(userManager.getUsers());
+        resetScene();
     }
 
-    public void cancelEmployeeAE(){}
+    //resets scene
+    public void cancelEmployeeAE(){
+        resetScene();
+    }
 
-    public void editEmployeeAE(){}
+    public void editEmployeeAE(){
+
+        isAdmin = false;
+        User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
+                departmentMenu.getSelectionModel().getSelectedItem().toString());
+        userManager.modifyUser(modUser);
+        userManager.updateUsers();
+        employeeList.setItems(userManager.getUsers());
+    }
 
     public void deleteEmployeeAE(){
         userManager.removeUser(selectedUser);
+        userManager.updateUsers();
+        employeeList.setItems(userManager.getUsers());
+    }
+
+    private void resetScene(){
+        userID.setText("");
+        //reset departmentList
+        userName.setText("");
+        password.setText("");
+        departmentList = FXCollections.observableArrayList();
+        departmentMenu.setItems(departmentList);
+        departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
+        departmentMenu.setItems(departmentList);
     }
 }
