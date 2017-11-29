@@ -8,11 +8,7 @@ import Editor.NodeEditController;
 import Entity.AdminLog;
 import Entity.ErrorController;
 import MapNavigation.*;
-import Pathfinding.Astar;
-import Pathfinding.DepthSearch;
-import Pathfinding.BreadthSearch;
-import Pathfinding.BeamSearch;
-import Pathfinding.PathFindingFacade;
+import Pathfinding.*;
 import Request.GenericRequestController;
 import Request.RequestCleanupController;
 import Request.RequestFoodController;
@@ -52,9 +48,9 @@ public class GodController {
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
-    final private BreadthSearch bs = new BreadthSearch(edgeManager);
-    final private DepthSearch ds = new DepthSearch(edgeManager);
-    final private BeamSearch beamSearch = new BeamSearch(edgeManager);
+    final private BeamSearch beam = new BeamSearch(edgeManager);
+    final private BreadthSearch breadth = new BreadthSearch(edgeManager);
+    final private DepthSearch depth = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
@@ -225,13 +221,15 @@ public class GodController {
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
 
+
+    boolean firstTime = true;
     @FXML
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         userManager.updateUsers();
-        pathFindingFacade.setPathfinder(astar);
         //pathFindingFacade.setPathfinder(beamSearch);
+        if (firstTime){ pathFindingFacade.setPathfinder(astar);}
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -239,6 +237,7 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
+        firstTime = false;
     }
 
     private void initializeMainScene() {
@@ -593,6 +592,19 @@ public class GodController {
     private void setDefaultNode() {
         adminMapController.setKioskLocation();
         adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Changed Kiosk Default Node", LocalDateTime.now()));
+    }
+
+    @FXML
+    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
+
+    @FXML
+    private void selectBeam() { pathFindingFacade.setPathfinder(beam); } //todo
+
+    @FXML
+    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
+
+    @FXML
+    private void selectDepth() { pathFindingFacade.setPathfinder(depth);
     }
 
     @FXML
