@@ -116,11 +116,15 @@ public class StaffRequestController extends AbstractMapController{
 
     public void drawAllRequests() {
         if (requestToComplete != null && requestToComplete.getNode() != null && currentFloor.equals(requestToComplete.getNode().getFloor())) {
+            gc.setFill(Color.BLACK);
+            gc.fillOval(requestToComplete.getNode().getXcoord() - 11, requestToComplete.getNode().getYcoord() - 11, 22, 22);
             gc.setFill(Color.YELLOW);
             gc.fillOval(requestToComplete.getNode().getXcoord() - 10, requestToComplete.getNode().getYcoord() - 10, 20, 20);
         }
         for (Request r : genericRequestController.getAllRequestsByDepartment(user.getDepartment())) {
             if (r.getNode().getFloor().equals(currentFloor)) {
+                gc.setFill(Color.BLACK);
+                gc.fillOval(requestToComplete.getNode().getXcoord() - 6, requestToComplete.getNode().getYcoord() - 6, 12, 12);
                 gc.setFill(Color.MEDIUMPURPLE);
                 gc.fillOval(r.getNode().getXcoord() - 5, r.getNode().getYcoord() - 5, 10, 10);
             }
@@ -134,6 +138,7 @@ public class StaffRequestController extends AbstractMapController{
                 requestCleanupDescription.getText(), currentLoc, user));
         refreshLists();
         refreshCanvas();
+        resetCleanup();
     }
 
     private void refreshLists() {
@@ -152,18 +157,21 @@ public class StaffRequestController extends AbstractMapController{
 //        allStaffRequestsList.addAll(allRequests); //todo this needs to check the user's dept.
     }
 
-    public void completeRequest() { //TODO
+    public void completeRequest() {
         if (requestToComplete != null) {
             genericRequestController.completeRequests(requestToComplete);
+            if (requestToComplete == requestToDelete) requestToDelete = null;
+            requestToComplete = null;
             refreshCanvas();
             refreshLists();
             requestInfo.clear();
         }
     }
 
-    public void deleteRequest() { //TODO
+    public void deleteRequest() {
         if (requestToDelete != null && requestToDelete.getUser().getUserID().equals(user.getUserID())) {
             genericRequestController.deleteRequest(requestToDelete);
+            if (requestToDelete == requestToComplete) requestToComplete = null;
             requestToDelete = null;
             refreshCanvas();
             refreshLists();
@@ -175,11 +183,13 @@ public class StaffRequestController extends AbstractMapController{
             destination = requestToComplete.getNode();
             findPath();
         }
+        refreshCanvas();
     }
 
     public void snapToNode(MouseEvent m) {
         super.snapToNode(m);
         nodeID.setText(currentLoc.getNodeID());
+        refreshCanvas();
     }
 
     public void resetCleanup() {
@@ -202,6 +212,7 @@ public class StaffRequestController extends AbstractMapController{
         requestInterpreterController.addRequest(iReq);
         refreshLists();
         refreshCanvas();
+        resetInterpreter();
     }
 
     public void submitFoodRequest() {
@@ -213,6 +224,7 @@ public class StaffRequestController extends AbstractMapController{
                 requestFoodDescription.getText(), currentLoc, user, order);
         requestFoodController.addRequest(fReq);
         resetFoodRequest();
+        refreshCanvas();
         refreshLists();
     }
 
