@@ -2,6 +2,7 @@ package boundary.sceneControllers;
 
 import Database.AdminLogManager;
 import Database.UserManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.AdminLog;
 import Entity.User;
 import boundary.SceneSwitcher;
@@ -95,6 +96,12 @@ public class AdminLogController {
 
     public void clearLogButton(){
 //        adminLogManager.getAdminLogs().clear();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM ADMINLOG", databaseGargoyle.getStatement());
+        databaseGargoyle.destroyConnection();
+        adminLogManager.updateAdminLogs();
+        logRoot.getChildren().clear();
     }
 
     //TODO
