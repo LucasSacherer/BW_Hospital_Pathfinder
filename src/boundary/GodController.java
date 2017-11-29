@@ -225,8 +225,8 @@ public class GodController {
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
-        //pathFindingFacade.setPathfinder(astar);
-        pathFindingFacade.setPathfinder(beamSearch);
+        pathFindingFacade.setPathfinder(astar);
+        //pathFindingFacade.setPathfinder(beamSearch);
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();

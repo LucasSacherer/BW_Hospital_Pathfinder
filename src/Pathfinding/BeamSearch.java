@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.List;
 
-import static jdk.nashorn.internal.objects.NativeMath.min;
+import static java.lang.Math.min;
 
 
 public class BeamSearch implements PathFinder {
@@ -57,14 +57,14 @@ public class BeamSearch implements PathFinder {
         // Initially, only the start node is known.
         beamPQ.add(start);
 
-        System.out.println("start: " + start.node.getNodeID());
+        //System.out.println("start: " + start.node.getNodeID());
 
         pathNode current = null;
 
         while(!(beamPQ.isEmpty())){
             current = beamPQ.poll();
 
-            System.out.println("current: " + current.node.getNodeID());
+            //System.out.println("current: " + current.node.getNodeID());
             //Check if the goal has been reached yet
             if (current.node.getNodeID().equals(loc2.getNodeID())) {
                 System.out.println("you just got beamed!");
@@ -75,8 +75,8 @@ public class BeamSearch implements PathFinder {
             }
             //add the current path to the closedSet(Explored)
             closedSet.add(current.node.getNodeID());
-            System.out.println("sdding to Closed");
-            System.out.println(current.node.getNodeID());
+            //System.out.println("sdding to Closed");
+            //System.out.println(current.node.getNodeID());
             neighbors.clear();
             //get all the edges connected to the starting node
             neighbors = edgeM.getNeighbors(current.node);
@@ -84,7 +84,7 @@ public class BeamSearch implements PathFinder {
 
             //loop through the neighbors
             for (int i = 0; i < neighbors.size(); i++) {
-                System.out.println("neighbor #" + i + ": " + neighbors.get(i).getNodeID());
+                //System.out.println("neighbor #" + i + ": " + neighbors.get(i).getNodeID());
                 //check if the node is in the closed set
                 for (int j = 0; j < closedSet.size(); j++) {
                     if (neighbors.get(i).getNodeID().equals(closedSet.get(j))) {
@@ -103,8 +103,8 @@ public class BeamSearch implements PathFinder {
 
                     pathNode tempNode = new pathNode(neighbors.get(i), current, hC);
                     beamPQ.add(tempNode);
-                    System.out.println("added node: " + tempNode.node.getNodeID());
-                    //System.out.println(astarPQ.size());
+                    //System.out.println("added node: " + tempNode.node.getNodeID());
+                    //System.out.println(beamPQ.size());
                 }
             }
 
@@ -112,6 +112,7 @@ public class BeamSearch implements PathFinder {
             //this seems sloppy, is there a better way?
 
             System.out.println("holder size: " + min(beamWidth, beamPQ.size()));
+            System.out.println("beam width: " + beamWidth);
             holder.clear();
             size = beamPQ.size();
             for(int i = 0; i < min(beamWidth, size); i++){
@@ -122,7 +123,7 @@ public class BeamSearch implements PathFinder {
             beamPQ.clear();
             size = holder.size();
             for(int i = 0; i < size; i++){
-                System.out.println("Returning to beam: " + holder.get(i).node.getNodeID());
+                //System.out.println("Returning to beam: " + holder.get(i).node.getNodeID());
                 beamPQ.add(holder.get(i));
             }
             holder.clear();
