@@ -85,4 +85,6 @@ public class AdminEmployeeController {
         departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
         departmentMenu.setItems(departmentList);
     }
+
+    public void toggleAdmin(){}
 }

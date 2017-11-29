@@ -54,7 +54,7 @@ public class UserManagerTest {
         assertEquals("admin1", po.getUsername());
         assertEquals("admin1", po.getPassword());
         assertEquals(true, po.getAdminFlag());
-        assertEquals("department", po.getDepartment());
+        assertEquals("Interpreter", po.getDepartment());
     }
 
     @Test
@@ -72,14 +72,14 @@ public class UserManagerTest {
         assertEquals("dep", freshUser.getDepartment());
 
         //Reset the changed user and confirm its back to normal
-        User originalUser = new User("admin1", "admin1", "admin1", true, "department");
+        User originalUser = new User("admin1", "admin1", "admin1", true, "Interpreter");
         userManager.modifyUser(originalUser);
         User freshUser2 = userManager.getUser("admin1");
         assertEquals("admin1", freshUser2.getUserID());
         assertEquals("admin1", freshUser2.getUsername());
         assertEquals("admin1", freshUser2.getPassword());
         assertEquals(true, freshUser2.getAdminFlag());
-        assertEquals("department", freshUser2.getDepartment());
+        assertEquals("Interpreter", freshUser2.getDepartment());
     }
 
     @Test
