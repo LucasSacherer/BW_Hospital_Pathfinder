@@ -59,7 +59,7 @@ public class StaffRequestController extends AbstractMapController{
             nodeID.setText(currentLoc.getNodeID());
             refreshCanvas();
         });
-        requestsIMade.setItems(requestCleanupController.getRequests());
+        requestsIMade.setItems(requestCleanupController.getRequestsBy(this.user));
         requestsIMade.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             selectedRequest = (CleanUpRequest) requestsIMade.getItems().get(newValue.intValue());
             refreshCanvas();
