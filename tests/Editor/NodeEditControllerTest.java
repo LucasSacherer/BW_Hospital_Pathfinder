@@ -112,31 +112,4 @@ public class NodeEditControllerTest {
 
         //assertTrue(nManager.getNode(test.getNodeID()) == null);
     }
-
-    @Test
-    public void deleteProblematicNode() {
-
-        NodeManager nManager = new NodeManager();
-        SettingsManager sManager = new SettingsManager();
-        EdgeManager eManager = new EdgeManager(nManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager, eManager);
-
-        nManager.updateNodes();
-        eManager.updateEdges();
-
-        nManager.updateNodes();
-        Node backupNode = nManager.getNode("ACONF0010G");
-        List<Node> backupNeighbors = eManager.getNeighbors(nManager.getNode("ACONF0010G"));
-
-
-        System.out.println(nManager.getNode("ACONF0010G"));
-        System.out.println(backupNeighbors);
-        System.out.println(backupNode);
-
-        editor.deleteNode(nManager.getNode("ACONF0010G"));
-
-
-
-        //assertTrue(nManager.getNode(test.getNodeID()) == null);
-    }
 }
