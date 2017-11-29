@@ -32,14 +32,17 @@ public class TextualDirections {
         int nextY = next.getYcoord();
 
 
-        //handling in polar to avoid divide by zero errors
-        //TODO: Fix 180 degrees error. Currently puts out zero instead of 180 for connected points.
+        //handling in polar to avoid divide-by-zero errors
         double angle1 = (Math.atan2(prevY - currentY,
                 prevX - currentX));
         double angle2 = (Math.atan2(currentY - nextY,
                 currentX - nextX));
 
         double angleDiff = (angle1 - angle2);
+
+        if(angleDiff == 0){
+            return 180;
+        }
 
         return Math.toDegrees(angleDiff);
     }
