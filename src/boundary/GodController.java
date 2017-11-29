@@ -88,7 +88,7 @@ public class GodController {
     private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName;
 
     @FXML
-    private JFXTextArea requestCleanupDescription, requestInterpreterDescription;
+    private JFXTextArea requestCleanupDescription, requestInterpreterDescription, requestFoodDescription, requestInfo;
 
     @FXML
     private Tab requestFoodTab, requestCleanupTab, requestInterpreterTab;
@@ -205,8 +205,6 @@ public class GodController {
 
     TreeItem<Log> logRoot = new TreeItem<>(new Log(0,"11/27/2017","admin1","root"));
 
-
-
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
 
@@ -248,7 +246,7 @@ public class GodController {
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription);
+                requestInterpreterDescription, requestFoodDescription, requestInfo);
     }
 
     private void initializeMapAdminScene() {
@@ -383,6 +381,9 @@ public class GodController {
 
     @FXML
     private void resetInterpreter() { staffRequestController.resetInterpreter(); }
+
+    @FXML
+    private void completeRequest() { staffRequestController.completeRequest(); }
 
     /////////////////////
     /* Request Reports */
