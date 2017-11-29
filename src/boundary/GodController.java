@@ -10,6 +10,7 @@ import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.DepthSearch;
 import Pathfinding.BreadthSearch;
+import Pathfinding.BeamSearch;
 import Pathfinding.PathFindingFacade;
 import Request.RequestCleanupController;
 import boundary.sceneControllers.*;
@@ -56,6 +57,7 @@ public class GodController {
     final private Astar astar = new Astar(edgeManager);
     final private BreadthSearch bs = new BreadthSearch(edgeManager);
     final private DepthSearch ds = new DepthSearch(edgeManager);
+    final private BeamSearch beamSearch = new BeamSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
@@ -230,6 +232,7 @@ public class GodController {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         pathFindingFacade.setPathfinder(astar);
+        //pathFindingFacade.setPathfinder(beamSearch);
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
