@@ -7,6 +7,8 @@ import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import MapNavigation.*;
 import Pathfinding.Astar;
+import Pathfinding.DepthSearch;
+import Pathfinding.BreadthSearch;
 import Pathfinding.PathFindingFacade;
 import Request.RequestCleanupController;
 import boundary.sceneControllers.*;
@@ -51,6 +53,8 @@ public class GodController {
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
+    final private BreadthSearch bs = new BreadthSearch(edgeManager);
+    final private DepthSearch ds = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
