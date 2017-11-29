@@ -63,7 +63,6 @@ public class GodController {
     final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
     final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
     final private FoodManager food = new FoodManager();
-    final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanup);
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
     final private RequestFoodController requestFoodController = new RequestFoodController(food);
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
@@ -649,8 +648,6 @@ public class GodController {
             sceneSwitcher.toAdminHub(this, loginPane);
             adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
             adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Logged in", LocalDateTime.now()));
-        }
-        //TODO Error screen
         } else errorController.showError("Invalid credentials! Please try again.");
 
     }
