@@ -4,18 +4,41 @@ import Editor.NodeEditController;
 import Entity.Node;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class KioskEditor {
     private NodeEditController nodeEditController;
     private JFXTextField kioskX, kioskY;
     private Node potential;
+    private GraphicsContext gc;
 
-    public KioskEditor(NodeEditController nodeEditController, JFXTextField setKioskX, JFXTextField setKioskY) {
+    public KioskEditor(GraphicsContext gc, NodeEditController nodeEditController, JFXTextField setKioskX, JFXTextField setKioskY) {
         this.nodeEditController = nodeEditController;
+        this.gc = gc;
+        this.kioskY = setKioskY;
+        this.kioskX = setKioskX;
     }
 
 
-    public void clickOnMap(Node currentLoc) { potential = currentLoc; }
+    public void clickOnMap(Node currentLoc) {
+        potential = currentLoc;
+        kioskX.setText("" + potential.getXcoord());
+        kioskY.setText("" + potential.getYcoord());
+
+        gc.setFill(Color.RED);
+        gc.fillOval(potential.getXcoord() - 12, potential.getYcoord() - 12, 24, 24);
+
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(potential.getXcoord() - 10, potential.getYcoord() - 10, 20, 20);
+
+        gc.setFill(Color.BLUE);
+        gc.fillOval(potential.getXcoord() - 8, potential.getYcoord() - 8, 16, 16);
+
+        gc.setFill(Color.GREEN);
+        gc.fillOval(potential.getXcoord() - 4, potential.getYcoord() - 4, 8, 8);
+
+        gc.setFill(Color.BLACK);
+    }
 
     public void setKiosk() {
         if (potential != null) nodeEditController.setKioskLocation(potential);
@@ -23,6 +46,7 @@ public class KioskEditor {
     }
 
     public void reset() {
+        nodeEditController.setKioskLocation(null);
         kioskX.clear();
         kioskY.clear();
         potential = null;

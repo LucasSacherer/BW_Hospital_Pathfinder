@@ -21,7 +21,7 @@ public class NodeAdder {
     private JFXTextField xPos, yPos, shortName, longName;
     private JFXComboBox nodeTypeCombo, buildingCombo;
     private ObservableList nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF"),
-    buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
+    buildingList = FXCollections.observableArrayList("Shapiro", "BTM", "Tower", "15 Francis", "45 Francis");
 
     public NodeAdder(NodeManager n, JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeTypeCombo,
                      JFXComboBox buildingCombo, JFXTextField shortName, JFXTextField longName, GraphicsContext gc) {

@@ -86,7 +86,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void initializeKioskEditor(JFXTextField setKioskX, JFXTextField setKioskY) {
-        this.kioskEditor = new KioskEditor(nodeEditController, setKioskX, setKioskY);
+        this.kioskEditor = new KioskEditor(gc, nodeEditController, setKioskX, setKioskY);
     }
 
     public void refreshCanvas() {
@@ -98,8 +98,26 @@ public class AdminMapController extends AbstractMapController{
 
     private void drawKiosk() {
         Node k = mapNavigationFacade.getDefaultNode();
-        gc.setFill(Color.TEAL);
-        gc.fillOval(k.getXcoord() - 7, k.getYcoord() - 7, 14, 14);
+        if (k == null) return;
+
+        gc.setFill(Color.PURPLE);
+        gc.fillOval(k.getXcoord() - 18, k.getYcoord() - 18, 36, 36);
+
+        gc.setFill(Color.GOLD);
+        gc.fillOval(k.getXcoord() - 15, k.getYcoord() - 15, 30, 30);
+
+
+        gc.setFill(Color.RED);
+        gc.fillOval(k.getXcoord() - 12, k.getYcoord() - 12, 24, 24);
+
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(k.getXcoord() - 10, k.getYcoord() - 10, 20, 20);
+
+        gc.setFill(Color.BLUE);
+        gc.fillOval(k.getXcoord() - 8, k.getYcoord() - 8, 16, 16);
+
+        gc.setFill(Color.GREEN);
+        gc.fillOval(k.getXcoord() - 4, k.getYcoord() - 4, 8, 8);
     }
 
     private void drawAllNodes() {
