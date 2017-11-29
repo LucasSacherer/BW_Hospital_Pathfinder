@@ -5,6 +5,7 @@ import Admin.UserLoginController;
 import Database.*;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
+import Entity.ErrorController;
 import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.DepthSearch;
@@ -58,6 +59,7 @@ public class GodController {
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
+    final private ErrorController errorController = new ErrorController();
 
     ///////////////////////
     /** FXML Attributes **/
@@ -582,16 +584,15 @@ public class GodController {
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
             staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
-        }
-        //TODO error screen
+        } else errorController.showError("Invalid credentials! Please try again.");
     }
 
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
             sceneSwitcher.toAdminHub(this, loginPane);
-        }
-        //TODO Error screen
+        } else errorController.showError("Invalid credentials! Please try again.");
+
     }
 
     @FXML
