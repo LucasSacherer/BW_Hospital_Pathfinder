@@ -189,7 +189,7 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
-            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1961-01-01 23:03:20','milk')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1960-01-01 23:03:20','milk')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
             //e.printStackTrace();
@@ -208,6 +208,22 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Default Node','GHALL03802')");
         } catch (SQLException e) {
             System.out.println("Settings table already exists");
+        }
+    }
+
+    /**
+     * Create ADMINLOG table
+     */
+    public void createAdminLogTable() {
+        try {
+            statement.execute("CREATE TABLE adminlog (\n" +
+                    "userID VARCHAR(100) NOT NULL, \n" +
+                    "action VARCHAR(250) NOT NULL, \n" +
+                    "time TIMESTAMP NOT NULL\n)");
+            System.out.println("AdminLog table created!");
+        } catch (SQLException e) {
+            System.out.println("AdminLog table already exists");
+            //e.printStackTrace();
         }
     }
 

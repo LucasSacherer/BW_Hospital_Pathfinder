@@ -99,8 +99,14 @@ import java.util.List;
                     }
                     double gCost = parentCost + distToNext ;
                     if (!(loc2.getBuilding().equals(neighbors.get(i)))){
-                        if (!(neighbors.get(i).getFloor().equals("2"))){
-                            gCost += 100;
+                        //if one is the tower and one is fransis ignore
+                        if ((loc2.getBuilding().equals("45 Francis")||loc2.getBuilding().equals("Tower")) && (neighbors.get(i).getBuilding().equals("45 Francis") || neighbors.get(i).getBuilding().equals("Tower"))){
+                            //ignore change in floors
+                        }
+                        else {
+                            if (!(neighbors.get(i).getFloor().equals("2"))) {
+                                gCost += 100;
+                            }
                         }
                     }
                     starNode tempStar = new starNode(neighbors.get(i), current, hC, gCost);
