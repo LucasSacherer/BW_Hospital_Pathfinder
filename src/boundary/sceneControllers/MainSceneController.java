@@ -6,15 +6,12 @@ import Pathfinding.PathFindingFacade;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.awt.event.ActionEvent;
@@ -158,12 +155,16 @@ public class MainSceneController extends AbstractMapController{
         currentPath = pathFindingFacade.getPath(origin, destination);
         List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
         String dirMessage = "";
-
+        findPath();
+        if(writtenDir.isEmpty()){
+            return;
+        }
         for(int i = 0; i < writtenDir.size(); i++){
             dirMessage += writtenDir.get(i);
             dirMessage += "\n";
         }
 
         Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
+        directions.show();
     }
 }
