@@ -158,7 +158,9 @@ public class MainSceneController extends AbstractMapController{
         currentPath = pathFindingFacade.getPath(origin, destination);
         List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
         String dirMessage = "";
-
+        if(writtenDir.isEmpty()){
+            return;
+        }
         for(int i = 0; i < writtenDir.size(); i++){
             dirMessage += writtenDir.get(i);
             dirMessage += "\n";
