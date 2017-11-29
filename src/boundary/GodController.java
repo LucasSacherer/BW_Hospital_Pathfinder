@@ -213,6 +213,7 @@ public class GodController {
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
+        userManager.updateUsers();
         pathFindingFacade.setPathfinder(astar);
         initializeMainScene();
         initializeRequestScene();
@@ -567,6 +568,7 @@ public class GodController {
 
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
+            userManager.updateUsers();
             staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
         }
         //TODO error screen

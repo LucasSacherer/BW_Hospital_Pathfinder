@@ -98,7 +98,13 @@ public class StaffRequestController extends AbstractMapController{
         LocalDateTime l = LocalDateTime.now();
         requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
                 requestCleanupDescription.getText(), currentLoc, user));
+        refreshLists();
         refreshCanvas();
+    }
+
+    private void refreshLists() {
+        requestsIMade.setItems(null);
+        allStaffRequests.setItems(null);
     }
 
     public void completeRequest() {
