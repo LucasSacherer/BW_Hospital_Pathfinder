@@ -2,7 +2,7 @@ package Request;
 
 import Database.CleanUpManager;
 import Entity.CleanUpRequest;
-import Entity.ErrorScreen;
+import Entity.ErrorController;
 import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +12,7 @@ import java.util.List;
 public class RequestCleanupController {
 
     private final CleanUpManager cleanUpManager;
-    private ErrorScreen errorscreen;
+    private ErrorController errorController;
 
     public RequestCleanupController(CleanUpManager cm){
         cleanUpManager = cm;
@@ -27,7 +27,7 @@ public class RequestCleanupController {
         cleanUpManager.updateRequests();
         if (validateRequest(cReq)){
                 cleanUpManager.addRequest(cReq);
-        }else errorscreen.displayError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
+        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
     }
 
     /**
@@ -68,7 +68,7 @@ public class RequestCleanupController {
         //First make sure the request exists, then delete it
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.deleteRequest(cReq);
-        } else errorscreen.displayError("The request you want to delete does not exist");
+        } else errorController.showError("The request you want to delete does not exist");
     }
 
     /**
@@ -81,7 +81,7 @@ public class RequestCleanupController {
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.updateRequest(cReq);
         }
-        else errorscreen.displayError("This request does not already exist in the database");
+        else errorController.showError("This request does not already exist in the database");
     }
 
     /**
@@ -94,7 +94,7 @@ public class RequestCleanupController {
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.completeRequest(cReq);
         }
-        else errorscreen.displayError("This request does not already exist in the database");
+        else errorController.showError("This request does not already exist in the database");
     }
 
     public List<CleanUpRequest> getRequestsBy(User user){
