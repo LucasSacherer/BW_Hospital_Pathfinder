@@ -80,7 +80,7 @@ public class TableCreator {
         try {
             statement.execute("CREATE TABLE kioskUser (\n" +
                     " userID VARCHAR(100) PRIMARY KEY,\n" +
-                    " userName varchar(100) NOT NULL,\n" +
+                    " userName varchar(100) UNIQUE,\n" +
                     " password varchar(100) NOT NULL,\n" +
                     " adminFlag varchar(10) NOT NULL,\n" +
                     " department varchar(100) NOT NULL\n)");
