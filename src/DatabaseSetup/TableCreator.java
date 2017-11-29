@@ -85,11 +85,11 @@ public class TableCreator {
                     " adminFlag varchar(10) NOT NULL,\n" +
                     " department varchar(100) NOT NULL\n)");
             System.out.println("KioskUser table created!");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin1', 'admin1', 'admin1', true, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin2', 'admin2', 'admin2', true, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('janitor1', 'janitor1', 'janitor1', false, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'department')");
-            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('badUser', 'badUser', 'badUser', false, 'department')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin1', 'admin1', 'admin1', true, 'Interpreter')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin2', 'admin2', 'admin2', true, 'Food')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('janitor1', 'janitor1', 'janitor1', false, 'Janitorial')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'Food')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('badUser', 'badUser', 'badUser', false, 'Janitorial')");
         } catch (SQLException e) {
             System.out.println("KioskUser table already exists");
             //e.printStackTrace();
