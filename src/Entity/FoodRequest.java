@@ -61,4 +61,12 @@ public class FoodRequest implements Request{
     public String toString() {
         return name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
     }
+
+    public String getRequestReport(){
+        String result = "Name: " + name + "\nOrder: ";
+        for (String order: order){
+            result += order + ", ";
+        }
+        return result.substring(0, result.length() - 1);
+    }
 }

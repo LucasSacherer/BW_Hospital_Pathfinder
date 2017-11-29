@@ -5,8 +5,11 @@ import Admin.UserLoginController;
 import Database.*;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
+import Entity.ErrorController;
 import MapNavigation.*;
 import Pathfinding.Astar;
+import Pathfinding.DepthSearch;
+import Pathfinding.BreadthSearch;
 import Pathfinding.PathFindingFacade;
 import Request.GenericRequestController;
 import Request.RequestCleanupController;
@@ -46,6 +49,8 @@ public class GodController {
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
+    final private BreadthSearch bs = new BreadthSearch(edgeManager);
+    final private DepthSearch ds = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
@@ -55,6 +60,8 @@ public class GodController {
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
     final private RequestFoodController requestFoodController = new RequestFoodController(food);
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
+    final private ErrorController errorController = new ErrorController();
 
     ///////////////////////
     /** FXML Attributes **/
@@ -405,13 +412,13 @@ public class GodController {
     /////////////////////
 
     @FXML
-    private void printLogSR(MouseEvent e){}
+    private void printLogSR(MouseEvent e){requestReportController.printLogSR();}
 
     @FXML
-    private void sendLogSR(MouseEvent e){}
+    private void sendLogSR(MouseEvent e){requestReportController.sendLogSR();}
 
     @FXML
-    private void clearLogSR(MouseEvent e) throws IOException{}
+    private void clearLogSR(MouseEvent e){requestReportController.clearLogSR();}
 
     ////////////////////
     /* Employee Admin */
@@ -428,6 +435,9 @@ public class GodController {
 
     @FXML
     private void deleteEmployeeAE() {adminEmployeeController.deleteEmployeeAE();}
+
+    @FXML
+    private void toggleAdmin(MouseEvent e) {adminEmployeeController.toggleAdmin();}
 
     ///////////////////
     /* Request Admin */
@@ -604,16 +614,15 @@ public class GodController {
             sceneSwitcher.toStaffRequests(this, loginPane);
             userManager.updateUsers();
             staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
-        }
-        //TODO error screen
+        } else errorController.showError("Invalid credentials! Please try again.");
     }
 
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
             sceneSwitcher.toAdminHub(this, loginPane);
-        }
-        //TODO Error screen
+        } else errorController.showError("Invalid credentials! Please try again.");
+
     }
 
     @FXML
@@ -657,4 +666,7 @@ public class GodController {
 
     @FXML
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
+
+    @FXML
+    private void getTextDirections() {mainSceneController.displayTextDir();}
 }

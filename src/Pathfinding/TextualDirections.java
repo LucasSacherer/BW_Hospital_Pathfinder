@@ -1,15 +1,14 @@
 package Pathfinding;
 
-import Entity.ErrorScreen;
+import Entity.ErrorController;
 import Entity.Node;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class TextualDirections {
-    ErrorScreen errorScreen = new ErrorScreen();
+    ErrorController errorController = new ErrorController();
 
     private Node previousNode;
     private Node currentNode;
@@ -77,11 +76,11 @@ public class TextualDirections {
 
         //takes care of size errors
         if (path.size() == 0) {
-            errorScreen.displayError("ERROR: No path selected!");
+            errorController.showError("ERROR: No path selected!");
             return writtenDirections;
         }
         if (path.size() == 1){
-            errorScreen.displayError("ERROR: You are already there!");
+            errorController.showError("ERROR: You are already there!");
             return writtenDirections;
         }
 
@@ -95,14 +94,14 @@ public class TextualDirections {
                 + nameNode(destNode) + ".");
 
         //adds first step
-        writtenDirections.add("Proceed to " + nameNode(path.get(1)));
+        writtenDirections.add("1. Proceed to " + nameNode(path.get(1)));
 
         //accounts for the case where path size is 2
         if (path.size() == 2){
             return writtenDirections;
         }
 
-        for(int i = 1; i < path.size() - 2; i++){
+        for(int i = 1; i < path.size() - 1; i++){
             //updates Nodes to match iteration
             previousNode = path.get(i-1);
             currentNode = path.get(i);
@@ -131,5 +130,5 @@ public class TextualDirections {
     }
 
     //getter for textual directions
-    public List<String> getDir(List<Node> path){return makeTextDir(path);}
+    protected List<String> getDir(List<Node> path){return makeTextDir(path);}
 }
