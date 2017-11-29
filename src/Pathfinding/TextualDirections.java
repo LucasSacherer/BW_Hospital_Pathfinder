@@ -95,7 +95,7 @@ public class TextualDirections {
                 + nameNode(destNode) + ".");
 
         //adds first step
-        writtenDirections.add("Proceed to " + nameNode(path.get(1)));
+        writtenDirections.add("1. Proceed to " + nameNode(path.get(1)));
 
         //accounts for the case where path size is 2
         if (path.size() == 2){
