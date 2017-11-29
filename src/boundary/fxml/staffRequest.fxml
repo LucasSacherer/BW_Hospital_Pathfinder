@@ -130,13 +130,13 @@
                                                                                     <JFXTextField fx:id="requestInterpreterName" />
                                                                                  </children>
                                                                               </HBox>
-                                                                              <JFXComboBox promptText="Language" />
+                                                                              <JFXComboBox fx:id="languageSelect" promptText="Language" />
                                                                               <Label text="Description" />
-                                                                              <JFXTextArea />
+                                                                              <JFXTextArea fx:id="requestInterpreterDescription" />
                                                                               <HBox alignment="CENTER" spacing="25.0">
                                                                                  <children>
-                                                                                    <JFXButton text="Add" />
-                                                                                    <JFXButton text="Reset" />
+                                                                                    <JFXButton onAction="#addInterpreter" text="Add" />
+                                                                                    <JFXButton onAction="#resetInterpreter" text="Reset" />
                                                                                  </children>
                                                                               </HBox>
                                                                            </children>

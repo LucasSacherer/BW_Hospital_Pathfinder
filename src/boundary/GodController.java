@@ -8,7 +8,10 @@ import Editor.NodeEditController;
 import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
+import Request.GenericRequestController;
 import Request.RequestCleanupController;
+import Request.RequestFoodController;
+import Request.RequestInterpreterController;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -45,7 +48,13 @@ public class GodController {
     final private Astar astar = new Astar(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
-    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
+    final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
+    final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
+    final private FoodManager food = new FoodManager();
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanup);
+    final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
+    final private RequestFoodController requestFoodController = new RequestFoodController(food);
+    final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
 
     ///////////////////////
     /** FXML Attributes **/
@@ -74,16 +83,18 @@ public class GodController {
     @FXML
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
 
-    /* Request Scene */
+    /* Staff Request Scene */
     @FXML
     private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName;
 
     @FXML
-    private JFXTextArea requestCleanupDescription;
-
+    private JFXTextArea requestCleanupDescription, requestInterpreterDescription;
 
     @FXML
     private Tab requestFoodTab, requestCleanupTab, requestInterpreterTab;
+
+    @FXML
+    private JFXComboBox languageSelect;
 
     /* Request Report Scene */
 
@@ -234,9 +245,10 @@ public class GodController {
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
-                allStaffRequests, requestsIMade, requestNodeID, requestCleanupName, requestInterpreterName,
-                requestFoodName, requestCleanupDescription);
+                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
+                requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
+                requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
+                requestInterpreterDescription);
     }
 
     private void initializeMapAdminScene() {
@@ -327,7 +339,7 @@ public class GodController {
     private void setAsOrigin() {mainSceneController.setAsOrigin();}
 
     ///////////////////
-    /* Request Scene */
+    /* Staff Request Scene */
     ///////////////////
 
     @FXML
@@ -365,6 +377,12 @@ public class GodController {
 
     @FXML
     private void resetCleanupRequest() { staffRequestController.resetCleanup(); }
+
+    @FXML
+    private void addInterpreter() { staffRequestController.addInterpreter(); }
+
+    @FXML
+    private void resetInterpreter() { staffRequestController.resetInterpreter(); }
 
     /////////////////////
     /* Request Reports */
