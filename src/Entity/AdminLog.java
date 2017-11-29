@@ -1,5 +1,7 @@
 package Entity;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.time.LocalDateTime;
 
 public class AdminLog {
@@ -12,16 +14,25 @@ public class AdminLog {
         this.action = action;
         this.time = time;
     }
+//    public AdminLog(LocalDateTime time, String admin ,String content) {
+//        this.time = time;
+//        this.user = new SimpleStringProperty(admin);
+//        this.action = new SimpleStringProperty(content);
+//
+//    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
 
     public User getUser() {
         return user;
     }
 
+
     public String getAction() {
         return action;
     }
 
-    public LocalDateTime getTime() {
-        return time;
-    }
 }
