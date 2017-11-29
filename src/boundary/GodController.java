@@ -5,6 +5,7 @@ import Admin.UserLoginController;
 import Database.*;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
+import Entity.AdminLog;
 import MapNavigation.*;
 import Pathfinding.Astar;
 import Pathfinding.PathFindingFacade;
@@ -53,6 +54,7 @@ public class GodController {
     final private Astar astar = new Astar(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
+    final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
 
     ///////////////////////
@@ -160,19 +162,16 @@ public class GodController {
     /* Admin Logs */
 
     @FXML
-    private TreeTableView<Log> adminLogs = new TreeTableView<Log>();
+    private TreeTableView<AdminLog> adminLogs = new TreeTableView<AdminLog>();
 
     @FXML
-    private TreeTableColumn<Log,Number> logID =  new TreeTableColumn<Log,Number>();
+    private TreeTableColumn<AdminLog,String> dateLogged = new TreeTableColumn<AdminLog,String>();
 
     @FXML
-    private TreeTableColumn<Log,String> dateLogged = new TreeTableColumn<Log,String>();
+    private TreeTableColumn<AdminLog,String> adminLogged = new TreeTableColumn<AdminLog,String>();
 
     @FXML
-    private TreeTableColumn<Log,String> adminLogged = new TreeTableColumn<Log,String>();
-
-    @FXML
-    private TreeTableColumn<Log,String> logContent = new TreeTableColumn<Log,String>();
+    private TreeTableColumn<AdminLog,String> logContent = new TreeTableColumn<AdminLog,String>();
 
     @FXML
     private ImageView logImage;
@@ -196,13 +195,6 @@ public class GodController {
 
     @FXML
     private JFXComboBox employeeTypeAE;
-
-    TreeItem<Log> log1 = new TreeItem<>(new Log(1,"11/27/2017","admin1","added Node"));
-    TreeItem<Log> log2 = new TreeItem<>(new Log(2,"11/27/2017","admin1","logged in"));
-    TreeItem<Log> log3 = new TreeItem<>(new Log(3,"11/27/2017","admin1","added Node"));
-    TreeItem<Log> log4 = new TreeItem<>(new Log(4,"11/27/2017","admin1","added Node"));
-
-    TreeItem<Log> logRoot = new TreeItem<>(new Log(0,"11/27/2017","admin1","root"));
 
 
 
@@ -255,22 +247,18 @@ public class GodController {
     }
 
     private void initializeAdminLogScene() {
-        logRoot.getChildren().setAll(log1,log2,log3,log4);
-
-        logID.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,Number> param) -> param.getValue().getValue().getLogIDProperty());
-        dateLogged.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getDateLoggedProperty());
-        adminLogged.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getAdminLoggedProperty());
-        logContent.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getLogContentProperty());
-
-        adminLogs.setRoot(logRoot);
-        adminLogs.setShowRoot(false);
+        adminLogController = new AdminLogController (adminLogs, dateLogged,
+                 adminLogged, logContent, adminLogManager);
     }
 
-    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+    private void initializeAdminRequestScene(){
+        adminRequestController = new AdminRequestController();
+//        TreeItem<Log> log1 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+//        TreeItem<Log> log2 = new TreeItem<>(new Log("11/27/2017","admin1","logged in"));
+//        TreeItem<Log> log3 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+//        TreeItem<Log> log4 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+//        TreeItem<Log> log5 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+    }
 
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
@@ -551,9 +539,7 @@ public class GodController {
 
     //TODO
     @FXML
-    public void clearLogButton() throws IOException{
-        logRoot.getChildren().clear();
-    }
+    public void clearLogButton() throws IOException{ adminLogController.clearLogButton(); }
 
     //TODO
 
