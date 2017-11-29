@@ -21,7 +21,7 @@ public class Main extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("B&W Path Finding");
         primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.setFullScreen(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
