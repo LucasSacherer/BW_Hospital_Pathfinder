@@ -3,6 +3,7 @@ package boundary.sceneControllers;
 import Database.AdminLogManager;
 import Database.UserManager;
 import Entity.AdminLog;
+import Entity.User;
 import boundary.SceneSwitcher;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -24,6 +25,8 @@ import java.util.List;
 
 public class AdminLogController {
 
+
+
     private TreeTableView<AdminLog> adminLogs;
 
     private TreeTableColumn<AdminLog,String> dateLogged;
@@ -34,40 +37,28 @@ public class AdminLogController {
 
     private AdminLogManager adminLogManager;
 
-//    TreeItem<Log> log1 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-//    TreeItem<Log> log2 = new TreeItem<>(new Log("11/27/2017","admin1","logged in"));
-//    TreeItem<Log> log3 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-//    TreeItem<Log> log4 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-//    TreeItem<Log> log5 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+    private UserManager userManager;
 
+    private User user;
+
+    TreeItem<AdminLog> logRoot = new TreeItem<>();
 
     public AdminLogController ( TreeTableView adminLogs, TreeTableColumn dateLogged,
-                                 TreeTableColumn adminLogged, TreeTableColumn logContent, AdminLogManager adminLogManager){
+                                 TreeTableColumn adminLogged, TreeTableColumn logContent, AdminLogManager adminLogManager,UserManager userManager){
         this.adminLogs = adminLogs;
         this.dateLogged = dateLogged;
         this.adminLogged = adminLogged;
         this.logContent = logContent;
         this.adminLogManager = adminLogManager;
-        initializeScene();
     }
 
-    private void initializeScene(){
+    public void initializeScene(User user ){
+        this.user = user;
         adminLogManager.updateAdminLogs();
-        TreeItem<AdminLog> logRoot = new TreeItem<>();
+
         for (AdminLog log: adminLogManager.getAdminLogs()){
             logRoot.getChildren().add(new TreeItem<>(log));
         }
-
-
-
-//        logs.add(log1);
-//        logs.add(log2);
-//        logs.add(log3);
-//        logs.add(log4);
-//        logs.add(log5);
-//
-//        logRoot.getChildren().setAll(log1, log2, log3, log4, log5);
-
         dateLogged.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<AdminLog, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getTime().toString()));
         adminLogged.setCellValueFactory(
@@ -92,7 +83,7 @@ public class AdminLogController {
 
 //        adminLogs.setEditable(true);
         adminLogs.setRoot(logRoot);
-        adminLogs.setShowRoot(true);
+        adminLogs.setShowRoot(false);
     }
     public void printLogButton(){}
 
@@ -103,7 +94,7 @@ public class AdminLogController {
     //TODO
 
     public void clearLogButton(){
-//        logRoot.getChildren().clear();
+//        adminLogManager.getAdminLogs().clear();
     }
 
     //TODO

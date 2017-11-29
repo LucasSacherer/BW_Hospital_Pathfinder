@@ -35,6 +35,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class GodController {
 
@@ -56,7 +57,7 @@ public class GodController {
     final private UserManager userManager = new UserManager();
     final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
-
+    String currentUser;
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
@@ -248,7 +249,7 @@ public class GodController {
 
     private void initializeAdminLogScene() {
         adminLogController = new AdminLogController (adminLogs, dateLogged,
-                 adminLogged, logContent, adminLogManager);
+                 adminLogged, logContent, adminLogManager,userManager);
     }
 
     private void initializeAdminRequestScene(){
@@ -378,16 +379,26 @@ public class GodController {
     ////////////////////
 
    @FXML
-   private void addEmployeeAE() {adminEmployeeController.addEmployeeAE();}
+   private void addEmployeeAE() {
+       adminEmployeeController.addEmployeeAE();
+       adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Employee", LocalDateTime.now()));
+   }
 
    @FXML
    private void cancelEmployeeAE() {adminEmployeeController.cancelEmployeeAE();}
 
     @FXML
-    private void editEmployeeAE() {adminEmployeeController.editEmployeeAE();}
+    private void editEmployeeAE() {
+       adminEmployeeController.editEmployeeAE();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Edited a Employee", LocalDateTime.now()));
+   }
 
     @FXML
-    private void deleteEmployeeAE() {adminEmployeeController.deleteEmployeeAE();}
+    private void deleteEmployeeAE() {
+        adminEmployeeController.deleteEmployeeAE();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed an Employee", LocalDateTime.now()));
+
+    }
 
     ///////////////////
     /* Request Admin */
@@ -474,16 +485,27 @@ public class GodController {
     /////////////////
 
     @FXML
-    private void addNodeButton() { adminMapController.addNode(); }
+    private void addNodeButton() {
+        adminMapController.addNode();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Node", LocalDateTime.now()));
+    }
 
     @FXML
-    private void removeNodeButton() { adminMapController.removeNodeButton(); }
+    private void removeNodeButton() {
+        adminMapController.removeNodeButton();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed a Node", LocalDateTime.now()));
+    }
 
     @FXML
-    private void resetNodeButtonAdd() { adminMapController.resetNodeButtonAdd(); }
+    private void resetNodeButtonAdd() {
+        adminMapController.resetNodeButtonAdd();
+    }
 
     @FXML
-    private void editNode() { adminMapController.editNode(); }
+    private void editNode() {
+        adminMapController.editNode();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Edited a Node", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetNodeButtonEdit() { adminMapController.resetNodeButtonEdit(); }
@@ -492,13 +514,19 @@ public class GodController {
     private void resetNodeButtonRemove() { adminMapController.resetNodeButtonRemove(); }
 
     @FXML
-    private void removeEdgeButton() { adminMapController.removeEdgeButton(); }
+    private void removeEdgeButton() {
+        adminMapController.removeEdgeButton();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed a Node", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetEdgeButtonRemove() { adminMapController.resetEdgeButtonRemove(); }
 
     @FXML
-    private void addEdgeButton() { adminMapController.addEdgeButton(); }
+    private void addEdgeButton() {
+        adminMapController.addEdgeButton();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Edge", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
@@ -519,7 +547,10 @@ public class GodController {
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     @FXML
-    private void setDefaultNode() { adminMapController.setKioskLocation(); }
+    private void setDefaultNode() {
+        adminMapController.setKioskLocation();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Changed Kiosk Default Node", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
@@ -567,8 +598,13 @@ public class GodController {
 
     @FXML
     private void goToAdminHub() throws IOException {
+        userManager.updateUsers();
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
+            currentUser = adminLoginText.getText();
+            System.out.println(currentUser);
             sceneSwitcher.toAdminHub(this, loginPane);
+            adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
+            adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Logged in", LocalDateTime.now()));
         }
         //TODO Error screen
     }
@@ -577,7 +613,10 @@ public class GodController {
     private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoLog() throws IOException { sceneSwitcher.toAdminLog(this, adminHubPane); }
+    private void adminHubtoLog() throws IOException {
+        sceneSwitcher.toAdminLog(this, adminHubPane);
+        adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
+    }
 
     @FXML
     private void adminHubtoRequest() throws IOException {

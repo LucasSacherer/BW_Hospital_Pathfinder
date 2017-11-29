@@ -29,8 +29,12 @@ public class AdminLogManager {
     public void addAdminLog(AdminLog logEntry){
         databaseGargoyle.createConnection();
         //Add the request to the ADMINLOG table
+        System.out.println("INSERT INTO ADMINLOG VALUES (" +
+                "'" + logEntry.getUser().getUserID() + "'," +
+                "'" + logEntry.getAction() + "'," +
+                "'" + Timestamp.valueOf(logEntry.getTime()) + "')");
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO ADMINLOG VALUES (" +
-                "'" + logEntry.getUser() + "'," +
+                "'" + logEntry.getUser().getUserID() + "'," +
                 "'" + logEntry.getAction() + "'," +
                 "'" + Timestamp.valueOf(logEntry.getTime()) + "')", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
