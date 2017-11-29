@@ -3,17 +3,16 @@ package Pathfinding;
 import Database.EdgeManager;
 import Entity.Edge;
 import Entity.Node;
+import java.util.HashMap;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 public class BreadthSearch implements PathFinder {
     EdgeManager edgeM;
-    ArrayList<String> closedSet = new ArrayList<String>();
+    //ArrayList<String> closedSet = new ArrayList<String>();
+    HashMap<String,String> closedSet = new HashMap<String,String>();
     List<Node> neighbors = new ArrayList<Node>();
     List<Node> openList = new ArrayList<>();
-    Queue<pathNode> breadthQ = new PriorityQueue<pathNode>();
+    Queue<pathNode> breadthQ = new LinkedList<pathNode>();
     pathNode current;
 
     public BreadthSearch(EdgeManager e){
@@ -24,25 +23,22 @@ public class BreadthSearch implements PathFinder {
     }
     private ArrayList<Node> breadthSearch(Node start, Node end){
         pathNode sNode = new pathNode(start, null , 0);
+        closedSet.clear();
         breadthQ.add(sNode);
         boolean found = false;
-        while ( !openList.isEmpty())
+        pathNode cNode;
+        while ( !breadthQ.isEmpty())
         {
             current = breadthQ.poll();
             neighbors.clear();
-            if(current.node.equals(start)){
+            if(current.node.getNodeID().equals(end.getNodeID())){
                 return reconstruct_path(current);
             }
+
             //get all the edges connected to the starting node
             neighbors = edgeM.getNeighbors(current.node);
             for(int i = 0; i < neighbors.size(); i++){
-                for (int j = 0; j < closedSet.size(); j++){
-                    if (neighbors.get(i).equals(closedSet.get(j))){
-                        found = true;
-                        break;
-                    }
-                    else found = true;
-                }
+                found = closedSet.containsKey(neighbors.get(i).getNodeID());
                 if (!found){
                     //cost is parent cost + cost to neighbor
                     Edge edge= new Edge(current.node,neighbors.get(i));
@@ -56,11 +52,13 @@ public class BreadthSearch implements PathFinder {
                     }
                     double cost = parentCost + distToNext ;
                     //add to queue
-                    pathNode cNode = new pathNode(neighbors.get(i),current,cost);
-                    breadthQ.add(cNode);
+                    //cNode = new pathNode(neighbors.get(i),current,cost);
+                    breadthQ.add(new pathNode(neighbors.get(i),current,0));
+                    System.out.println(breadthQ);
                 }
 
             }
+            closedSet.put(current.node.getNodeID(),"0");
         }
         ArrayList<Node> failed = new ArrayList<>();
         return failed;
@@ -72,6 +70,7 @@ public class BreadthSearch implements PathFinder {
             current = current.parent;
             total_path.add(current.node);
         }
+        System.out.print(total_path);
         return total_path;
     }
 }
