@@ -63,10 +63,15 @@ public class FoodRequest implements Request{
     }
 
     public String getRequestReport(){
-        String result = "Name: " + name + "\nOrder: ";
+        String result = "Name: " + name + "\nDescription: " + description + "\nOrder: ";
+        int length = order.size();
+        int i = 1;
         for (String order: order){
-            result += order + ", ";
+            result += order;
+            if (i < length){
+                result += ", ";
+            }
         }
-        return result.substring(0, result.length() - 1);
+        return result;
     }
 }
