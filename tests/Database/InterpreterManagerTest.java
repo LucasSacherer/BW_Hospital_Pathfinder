@@ -61,19 +61,23 @@ public class InterpreterManagerTest {
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
         LocalDateTime createdDate = LocalDateTime.now();
 
-        InterpreterRequest request = new InterpreterRequest("test", createdDate, createdDate, "type", "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"), "English");
+        InterpreterRequest request = new InterpreterRequest("test", createdDate, createdDate,
+                "type", "description", nodeManager.getNode("GINFO01902"),
+                userManager.getUser("admin1"), "English");
         iManager.addRequest(request);
 
-        InterpreterRequest updatedRequest = new InterpreterRequest("test", createdDate, createdDate, "NewType", "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"), "English");
+        InterpreterRequest updatedRequest = new InterpreterRequest("test", createdDate, createdDate,
+                "NewType", "description", nodeManager.getNode("GINFO01902"),
+                userManager.getUser("admin1"), "English");
         iManager.updateRequest(updatedRequest);
         iManager.updateRequests();
 
-        assertEquals(iManager.getRequests().get(1).getType(), "NewType");
+        assertEquals(iManager.getRequests().get(2).getType(), "NewType");
 
         iManager.updateRequest(request);
         iManager.updateRequests();
 
-        assertEquals(iManager.getRequests().get(1).getType(), "type");
+        assertEquals(iManager.getRequests().get(2).getType(), "type");
 
         iManager.deleteRequest(updatedRequest);
     }
