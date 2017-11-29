@@ -6,10 +6,7 @@ import Database.*;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import MapNavigation.*;
-import Pathfinding.Astar;
-import Pathfinding.DepthSearch;
-import Pathfinding.BreadthSearch;
-import Pathfinding.PathFindingFacade;
+import Pathfinding.*;
 import Request.RequestCleanupController;
 import boundary.sceneControllers.*;
 import com.jfoenix.controls.JFXButton;
@@ -53,6 +50,7 @@ public class GodController {
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
+    final private BeamSearch beam = new BeamSearch(edgeManager);
     final private BreadthSearch breadth = new BreadthSearch(edgeManager);
     final private DepthSearch depth = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
@@ -544,19 +542,16 @@ public class GodController {
     private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
     @FXML
-    private void selectAstar() {System.out.println("astar");
-    pathFindingFacade.setPathfinder(astar); }
+    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
 
     @FXML
-    private void selectBeam() { } //todo
+    private void selectBeam() { pathFindingFacade.setPathfinder(beam); } //todo
 
     @FXML
-    private void selectBreadth() { System.out.println("breadth");
-    pathFindingFacade.setPathfinder(breadth); }
+    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
 
     @FXML
-    private void selectDepth() {System.out.println("depth");
-        pathFindingFacade.setPathfinder(depth);
+    private void selectDepth() { pathFindingFacade.setPathfinder(depth);
     }
 
     @FXML
