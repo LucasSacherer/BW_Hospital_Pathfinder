@@ -88,6 +88,10 @@ public class GenericRequestController {
         return results;
     }
 
+    /**
+     * Completes the given Request according to what type of request it is
+     * @param request
+     */
     public void completeRequests(Request request){
         if (request instanceof CleanUpRequest){
             cleanUpManager.completeRequest((CleanUpRequest) request);
