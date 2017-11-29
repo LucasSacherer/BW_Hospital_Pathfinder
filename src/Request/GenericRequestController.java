@@ -49,15 +49,56 @@ public class GenericRequestController {
 
     /**
      * Takes any of the three request types and deletes if with the correct manager
-     * @param req
+     * @param request
      */
-    public void deleteRequest(Request req){
-        if (req instanceof CleanUpRequest){
-            cleanUpManager.deleteRequest((CleanUpRequest) req);
-        } else if (req instanceof InterpreterRequest){
-            interpreterManager.deleteRequest((InterpreterRequest) req);
-        } else if (req instanceof FoodRequest){
-            foodManager.deleteRequest((FoodRequest) req);
+    public void deleteRequest(Request request){
+        if (request instanceof CleanUpRequest){
+            cleanUpManager.deleteRequest((CleanUpRequest) request);
+        } else if (request instanceof InterpreterRequest){
+            interpreterManager.deleteRequest((InterpreterRequest) request);
+        } else if (request instanceof FoodRequest){
+            foodManager.deleteRequest((FoodRequest) request);
+        }
+    }
+
+    /**
+     * Gets all requests that line up with the specified department
+     * @param department
+     * @return
+     */
+    public List<Request> getAllRequestsByDepartment(String department){
+        List<Request> results = new ArrayList<>();
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        if (department.equalsIgnoreCase("janitorial")){
+            for (CleanUpRequest req: cleanUpManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("food")){
+            for (FoodRequest req: foodManager.getRequests()){
+                results.add(req);
+            }
+        } else if (department.equalsIgnoreCase("interpreter")){
+            for (InterpreterRequest req: interpreterManager.getRequests()){
+                results.add(req);
+            }
+        }
+        return results;
+    }
+
+    /**
+     * Completes the given Request according to what type of request it is
+     * @param request
+     */
+    public void completeRequests(Request request){
+        if (request instanceof CleanUpRequest){
+            cleanUpManager.completeRequest((CleanUpRequest) request);
+        } else if (request instanceof InterpreterRequest){
+            interpreterManager.completeRequest((InterpreterRequest) request);
+        } else if (request instanceof FoodRequest){
+            foodManager.completeRequest((FoodRequest) request);
         }
     }
 }

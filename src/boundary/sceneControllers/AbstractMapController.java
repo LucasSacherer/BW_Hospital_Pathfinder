@@ -138,8 +138,19 @@ public abstract class AbstractMapController {
                 int currentFloor = floorStringToInt(current.getFloor());
                 int nextFloor = floorStringToInt(next.getFloor());
                 String direction;
-                if (currentFloor < nextFloor) direction = "UP";
-                else direction = "DOWN";
+                if (currentFloor < nextFloor) {
+                    direction = "UP";
+                    //and draw solid dot
+                    gc.setFill(Color.BLUE);
+                    gc.fillOval(current.getXcoord() - 10, current.getYcoord() - 10, 20, 20);
+                }
+                else {
+                    direction = "DOWN";
+                    //and draw outlined dot
+                    gc.setStroke(Color.BLUE);
+                    gc.strokeOval(current.getXcoord() - 10, current.getYcoord() - 10, 20, 20);
+                    gc.setStroke(Color.BLACK);
+                }
                 gc.setStroke(Color.BLUE);
                 gc.strokeText(direction, current.getXcoord(), current.getYcoord() - 10);
                 gc.setStroke(Color.BLACK);

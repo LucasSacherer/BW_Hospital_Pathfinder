@@ -1,7 +1,7 @@
 package Request;
 
 import Database.InterpreterManager;
-import Entity.ErrorScreen;
+import Entity.ErrorController;
 import Entity.InterpreterRequest;
 import Entity.User;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RequestInterpreterController {
     private final InterpreterManager interpreterManager;
-    private ErrorScreen errorscreen;
+    private ErrorController errorController;
     public RequestInterpreterController(InterpreterManager im){
         interpreterManager = im;
     }
@@ -23,7 +23,7 @@ public class RequestInterpreterController {
         interpreterManager.updateRequests();
         if (validateRequest(iReq)){
             interpreterManager.addRequest(iReq);
-        }else errorscreen.displayError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
+        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
     }
 
     /**
@@ -58,7 +58,7 @@ public class RequestInterpreterController {
         //First make sure the request exists, then delete it
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.deleteRequest(iReq);
-        } else errorscreen.displayError("The request you want to delete does not exist");
+        } else errorController.showError("The request you want to delete does not exist");
     }
 
     /**
@@ -71,7 +71,7 @@ public class RequestInterpreterController {
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.updateRequest(iReq);
         }
-        else errorscreen.displayError("This request does not already exist in the database");
+        else errorController.showError("This request does not already exist in the database");
     }
 
     /**
@@ -84,7 +84,7 @@ public class RequestInterpreterController {
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.completeRequest(iReq);
         }
-        else errorscreen.displayError("This request does not already exist in the database");
+        else errorController.showError("This request does not already exist in the database");
     }
 
     public List<InterpreterRequest> getRequestsBy(User user){

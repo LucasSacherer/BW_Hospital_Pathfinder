@@ -62,4 +62,8 @@ public class InterpreterRequest implements Request{
     public String toString() {
         return name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
     }
+
+    public String getRequestReport(){
+        return "Name: " + name + "\nLanguage: " + language;
+    }
 }
