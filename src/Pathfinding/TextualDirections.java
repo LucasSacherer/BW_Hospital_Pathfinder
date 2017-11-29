@@ -81,10 +81,7 @@ public class TextualDirections {
             errorScreen.displayError("ERROR: You are already there!");
             return writtenDirections;
         }
-        if (path.size() == 2){
-            errorScreen.displayError("ERROR: Path too short!");
-            return writtenDirections;
-        }
+
 
         //sets up startNode and destNode
         Node startNode = path.get(0);
@@ -94,6 +91,14 @@ public class TextualDirections {
         writtenDirections.add("Directions from " + nameNode(startNode) + " to "
                 + nameNode(destNode) + ".");
 
+        //adds first step
+        writtenDirections.add("Proceed to " + nameNode(path.get(1)));
+
+        //accounts for the case where path size is 2
+        if (path.size() == 2){
+            return writtenDirections;
+        }
+
         for(int i = 1; i < path.size() - 2; i++){
             //updates Nodes to match iteration
             previousNode = path.get(i-1);
@@ -102,19 +107,19 @@ public class TextualDirections {
 
             //deviates directions text if you're taking the stairs or elevator to a different floor
             if(currentNode.getNodeType().equals("ELEV") && !currentNode.getFloor().equals(nextNode.getFloor())){
-                writtenDirections.add(Integer.toString(i) + ". Take " + nameNode(currentNode) +
+                writtenDirections.add(Integer.toString(i+1) + ". Take " + nameNode(currentNode) +
                         " to floor " + nextNode.getFloor() + ".");
             } else if(currentNode.getNodeType().equals("STAI") && !currentNode.getFloor().equals(nextNode.getFloor())){
-                writtenDirections.add(Integer.toString(i) + ". Take " + nameNode(currentNode) +
+                writtenDirections.add(Integer.toString(i+1) + ". Take " + nameNode(currentNode) +
                         " to floor " + nextNode.getFloor() + ".");
             //deviates directions text if you're going to another building
             } else if (!currentNode.getBuilding().equals(nextNode.getBuilding())){
-                writtenDirections.add(Integer.toString(i) + ". Exit " + currentNode.getBuilding() + " through " +
+                writtenDirections.add(Integer.toString(i+1) + ". Exit " + currentNode.getBuilding() + " through " +
                         nameNode(currentNode) + " and enter " + nextNode.getBuilding() + " through "
                         + nameNode(nextNode) + ".");
             //default directions text
             } else{
-                writtenDirections.add(Integer.toString(i) + ". " + findTurn() + " until you reach " +
+                writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " until you reach " +
                         nameNode(nextNode) + ".");
             }
         }
