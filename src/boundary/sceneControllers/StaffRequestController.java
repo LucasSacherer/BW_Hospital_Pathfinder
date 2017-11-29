@@ -84,7 +84,7 @@ public class StaffRequestController extends AbstractMapController{
             selectedRequest = (Request) allStaffRequests.getItems().get(newValue.intValue());
             currentLoc = selectedRequest.getNode();
             nodeID.setText(currentLoc.getNodeID());
-            requestInfo.setText(selectedRequest.getDescription());
+            requestInfo.setText(selectedRequest.getRequestReport());
             refreshCanvas();
         });
         requestsIMade.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
@@ -135,24 +135,22 @@ public class StaffRequestController extends AbstractMapController{
         requestsIMade.setItems(genericRequestController.getAllRequestsByUser(user));
         ObservableList allRequests = FXCollections.observableArrayList();
 
-        allRequests.addAll(requestCleanupController.getRequests());
-        allRequests.addAll(requestInterpreterController.getRequests());
-        allRequests.addAll(requestFoodController.getRequests());
+        /* for testing */
+//        allRequests.addAll(requestCleanupController.getRequests());
+//        allRequests.addAll(requestInterpreterController.getRequests());
+//        allRequests.addAll(requestFoodController.getRequests());
+//
+//        allStaffRequests.setItems(allRequests); //todo this needs to check the user's dept.
 
-        allStaffRequests.setItems(allRequests); //todo this needs to check the user's dept.
-        // allStaffRequests.setItems(genericRequestController.getAllRequestsByDepartment(user.getDepartment));
+        allStaffRequests.setItems(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
     }
 
     public void completeRequest() { //TODO
         if (selectedRequest != null) {
-         //   genericRequestController.completeRequest(selectedRequest);
+            genericRequestController.completeRequests(selectedRequest);
             refreshCanvas();
             refreshLists();
         }
-    }
-
-    public void editRequest() {
-        //TODO
     }
 
     public void deleteRequest() { //TODO
@@ -205,7 +203,9 @@ public class StaffRequestController extends AbstractMapController{
         order.addAll(foodOrderList);
         FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
                 requestFoodDescription.getText(), currentLoc, user, order);
+        requestFoodController.addRequest(fReq);
         resetFoodRequest();
+        refreshLists();
     }
 
     public void resetCurrentOrder() {

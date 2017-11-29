@@ -60,7 +60,6 @@ public class GodController {
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
     final private RequestFoodController requestFoodController = new RequestFoodController(food);
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
-    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
     final private ErrorController errorController = new ErrorController();
 
     ///////////////////////

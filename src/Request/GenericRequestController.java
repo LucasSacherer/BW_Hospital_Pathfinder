@@ -70,7 +70,7 @@ public class GenericRequestController {
      * @param department
      * @return
      */
-    public List<Request> getAllRequestsByDepartment(String department){
+    public ObservableList<Request> getAllRequestsByDepartment(String department){
         List<Request> results = new ArrayList<>();
         cleanUpManager.updateRequests();
         foodManager.updateRequests();
@@ -89,7 +89,9 @@ public class GenericRequestController {
                 results.add(req);
             }
         }
-        return results;
+        ObservableList fxResults = FXCollections.observableArrayList();
+        fxResults.addAll(results);
+        return fxResults;
     }
 
     /**
