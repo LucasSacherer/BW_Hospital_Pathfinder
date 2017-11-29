@@ -15,22 +15,14 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -84,16 +76,14 @@ public class GodController {
 
     /* Request Scene */
     @FXML
-    private JFXTextField selectedRequestTextField;
+    private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName;
 
     @FXML
-    private ChoiceBox requestChoiceBox;
+    private JFXTextArea requestCleanupDescription;
+
 
     @FXML
-    private StackPane requestStack;
-
-    @FXML
-    private AnchorPane requestAnchor1, requestAnchor2, requestAnchor3;
+    private Tab requestFoodTab, requestCleanupTab, requestInterpreterTab;
 
     /* Request Report Scene */
 
@@ -242,10 +232,10 @@ public class GodController {
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(requestAnchor1, requestAnchor2, requestAnchor3,
-                requestStack, requestChoiceBox, requestImageView, requestMapPane, requestCanvas,
+        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, requestCleanupController,
-                allStaffRequests, requestsIMade, selectedRequestTextField);
+                allStaffRequests, requestsIMade, requestNodeID, requestCleanupName, requestInterpreterName,
+                requestFoodName, requestCleanupDescription);
     }
 
     private void initializeMapAdminScene() {
@@ -343,9 +333,6 @@ public class GodController {
     private void navigateToRequest() { staffRequestController.navigateToRequest(); } //TODO
 
     @FXML
-    private void addStaffRequest() { staffRequestController.addRequest(requestName, requestDescription); }
-
-    @FXML
     private void completeStaffRequest() { staffRequestController.completeRequest(); } //TODO
 
     @FXML
@@ -371,6 +358,12 @@ public class GodController {
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
+
+    @FXML
+    private void addCleanupRequest() { staffRequestController.addCleanup(); }
+
+    @FXML
+    private void resetCleanupRequest() { staffRequestController.resetCleanup(); }
 
     /////////////////////
     /* Request Reports */

@@ -7,6 +7,7 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import Request.RequestCleanupController;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,30 +24,30 @@ import javafx.scene.paint.Color;
 import java.time.LocalDateTime;
 
 public class StaffRequestController extends AbstractMapController{
+    private JFXTextArea requestCleanupDescription;
     private ObservableList requestTypeList  = FXCollections.observableArrayList("Cleanup", "Interpreter", "Food");
     private RequestCleanupController requestCleanupController;
     private JFXListView allStaffRequests, requestsIMade;
     private CleanUpRequest selectedRequest;
-    private JFXTextField selectedRequestTextField;
+    private JFXTextField nodeID, requestCleanupName, requestInterpreterName, requestFoodName;
     private User user;
     private ChoiceBox requestChoiceBox;
-    private AnchorPane request1, request2, request3;
-    private StackPane requestStack;
 
-
-    public StaffRequestController(AnchorPane requestAnchor1, AnchorPane requestAnchor2, AnchorPane requestAnchor3, StackPane requestStack, ChoiceBox requestChoiceBox, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
-                                  Label currentFloorNum, RequestCleanupController r, JFXListView allStaffRequests,
-                                  JFXListView requestsIMade, JFXTextField selectedRequestTextField) {
-        super(i, mapPane, canvas, m, p, currentFloorNum);
-        this.requestChoiceBox = requestChoiceBox;
+    public StaffRequestController(ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
+                                  MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade,
+                                  Label currentFloorNumRequest, RequestCleanupController requestCleanupController,
+                                  JFXListView allStaffRequests, JFXListView requestsIMade, JFXTextField requestNodeID,
+                                  JFXTextField requestCleanupName, JFXTextField requestInterpreterName,
+                                  JFXTextField requestFoodName, JFXTextArea requestCleanupDescription) {
+        super(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest);
+        this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;
-        this.requestCleanupController = r;
-        this.selectedRequestTextField = selectedRequestTextField;
-        this.request1 = requestAnchor1;
-        this.request2 = requestAnchor2;
-        this.request3 = requestAnchor3;
-        this.requestStack = requestStack;
+        this.nodeID = requestNodeID;
+        this.requestCleanupName = requestCleanupName;
+        this.requestInterpreterName = requestInterpreterName;
+        this.requestFoodName = requestFoodName;
+        this.requestCleanupDescription = requestCleanupDescription;
     }
 
     public void initializeScene(User user){
@@ -55,7 +56,7 @@ public class StaffRequestController extends AbstractMapController{
         allStaffRequests.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             selectedRequest = (CleanUpRequest) allStaffRequests.getItems().get(newValue.intValue());
             currentLoc = selectedRequest.getNode();
-            selectedRequestTextField.setText(currentLoc.getNodeID());
+            nodeID.setText(currentLoc.getNodeID());
             refreshCanvas();
         });
         requestsIMade.setItems(requestCleanupController.getRequests());
@@ -64,13 +65,14 @@ public class StaffRequestController extends AbstractMapController{
             refreshCanvas();
         });
         this.user = user;
+        System.out.println(user);
         drawAllRequests();
-        requestChoiceBox.setItems(requestTypeList);
+        // requestChoiceBox.setItems(requestTypeList);
     }
 
     public void clickOnMap(MouseEvent m) {
         super.clickOnMap(m);
-        selectedRequestTextField.setText(currentLoc.getNodeID());
+        nodeID.setText(currentLoc.getNodeID());
     }
 
     public void refreshCanvas() {
@@ -91,11 +93,11 @@ public class StaffRequestController extends AbstractMapController{
         }
     }
 
-    public void addRequest(JFXTextField requestName, JFXTextField description) {
+    public void addCleanup() {
+        System.out.println(currentLoc + " " + user + requestCleanupDescription.getText() + requestCleanupName.getText());
         LocalDateTime l = LocalDateTime.now();
-        requestCleanupController.addRequest(new CleanUpRequest(requestName.getText(), l, l, "Cleanup",
-                description.getText(), currentLoc, user));
-        allStaffRequests.setItems(requestCleanupController.getRequests());
+        requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
+                requestCleanupDescription.getText(), currentLoc, user));
         refreshCanvas();
     }
 
@@ -129,6 +131,11 @@ public class StaffRequestController extends AbstractMapController{
 
     public void snapToNode(MouseEvent m) {
         super.snapToNode(m);
-        selectedRequestTextField.setText(currentLoc.getNodeID());
+        nodeID.setText(currentLoc.getNodeID());
+    }
+
+    public void resetCleanup() {
+        requestCleanupName.clear();
+        requestCleanupDescription.clear();
     }
 }
