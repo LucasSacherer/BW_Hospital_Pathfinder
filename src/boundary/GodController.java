@@ -85,7 +85,7 @@ public class GodController {
 
     /* Staff Request Scene */
     @FXML
-    private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName;
+    private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
 
     @FXML
     private JFXTextArea requestCleanupDescription, requestInterpreterDescription, requestFoodDescription, requestInfo;
@@ -249,7 +249,7 @@ public class GodController {
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder);
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem);
     }
 
     private void initializeMapAdminScene() {

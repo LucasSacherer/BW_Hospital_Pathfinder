@@ -36,11 +36,12 @@ public class StaffRequestController extends AbstractMapController{
     private RequestFoodController requestFoodController;
     private JFXListView allStaffRequests, requestsIMade;
     private Request selectedRequest;
-    private JFXTextField nodeID, requestCleanupName, requestInterpreterName, requestFoodName;
+    private JFXTextField nodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
     private User user;
     private ChoiceBox requestChoiceBox;
     private JFXComboBox languageSelect;
     private JFXListView currentFoodOrder;
+    private ObservableList foodOrderList = FXCollections.observableArrayList();
 
     public StaffRequestController(ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
                                   MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade,
@@ -51,7 +52,9 @@ public class StaffRequestController extends AbstractMapController{
                                   JFXListView allStaffRequests, JFXListView requestsIMade, JFXTextField requestNodeID,
                                   JFXTextField requestCleanupName, JFXTextField requestInterpreterName,
                                   JFXTextField requestFoodName, JFXTextArea cleanupDescription,
-                                  JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription, JFXTextArea requestFoodDescription, JFXTextArea requestInfo, JFXListView currentFoodOrder) {
+                                  JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription,
+                                  JFXTextArea requestFoodDescription, JFXTextArea requestInfo,
+                                  JFXListView currentFoodOrder, JFXTextField foodItem) {
         super(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest);
         this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
@@ -69,6 +72,7 @@ public class StaffRequestController extends AbstractMapController{
         this.requestFoodDescription = requestFoodDescription;
         this.requestInfo = requestInfo;
         this.currentFoodOrder = currentFoodOrder;
+        this.foodItem = foodItem;
     }
 
     public void initializeScene(User user){
@@ -194,14 +198,34 @@ public class StaffRequestController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void addFood() {
+    public void submitFoodRequest() {
         if (currentLoc == null) return;
         LocalDateTime l = LocalDateTime.now();
         ArrayList<String> order = new ArrayList<>();
-        FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food", requestFoodDescription.getText(), currentLoc, user, order);
+        order.addAll(foodOrderList);
+        FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
+                requestFoodDescription.getText(), currentLoc, user, order);
+        resetFoodRequest();
     }
 
-    public void resetFood() {
-
+    public void resetCurrentOrder() {
+        foodOrderList.clear();
+        currentFoodOrder.setItems(foodOrderList);
     }
+
+    public void addFoodItem() {
+        System.out.println("made it");
+        foodOrderList.add(foodItem.getText());
+        currentFoodOrder.setItems(foodOrderList);
+        foodItem.clear();
+    }
+
+    public void resetFoodRequest() {
+        foodOrderList.clear();
+        currentFoodOrder.setItems(foodOrderList);
+        requestFoodDescription.clear();
+        requestFoodName.clear();
+        foodItem.clear();
+    }
+
 }
