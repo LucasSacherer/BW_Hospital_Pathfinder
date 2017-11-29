@@ -167,6 +167,7 @@ public class TableCreator {
                     " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
             System.out.println("CleanUpRequest table created!");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed2','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
         } catch (SQLException e) {
