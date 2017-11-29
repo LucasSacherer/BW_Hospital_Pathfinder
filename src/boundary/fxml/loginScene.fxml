@@ -49,7 +49,7 @@
                                         </JFXButton>
                                         <ImageView fitHeight="135.0" fitWidth="84.0" layoutX="258.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/other%20images/BWH.jpg" />
+                                                <Image url="@../images/other%20images/BWH.png" />
                                             </image>
                                         </ImageView>
                                  </children>

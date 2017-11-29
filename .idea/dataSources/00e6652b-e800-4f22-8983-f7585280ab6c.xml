@@ -3,10 +3,10 @@
   <database-model serializer="dbm" rdbms="DERBY" format-version="4.4">
     <root id="1"/>
     <schema id="2" parent="1" name="APP">
-      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="GRANITE_GARGOYLE">
+      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="4" parent="1" name="NULLID"/>
@@ -19,5 +19,351 @@
     <schema id="11" parent="1" name="SYSIBM"/>
     <schema id="12" parent="1" name="SYSPROC"/>
     <schema id="13" parent="1" name="SYSSTAT"/>
+    <table id="14" parent="3" name="ADMINLOG"/>
+    <table id="15" parent="3" name="CLEANUPREQUEST"/>
+    <table id="16" parent="3" name="EDGE"/>
+    <table id="17" parent="3" name="FOODORDER"/>
+    <table id="18" parent="3" name="FOODREQUEST"/>
+    <table id="19" parent="3" name="INTERPRETERREQUEST"/>
+    <table id="20" parent="3" name="KIOSKUSER"/>
+    <table id="21" parent="3" name="NODE"/>
+    <table id="22" parent="3" name="SETTINGS"/>
+    <column id="23" parent="14" name="USERID">
+      <Position>1</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="24" parent="14" name="ACTION">
+      <Position>2</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="14" name="TIME">
+      <Position>3</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="15" name="NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="15" name="TIMECREATED">
+      <Position>2</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="15" name="TIMECOMPLETED">
+      <Position>3</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="15" name="TYPE">
+      <Position>4</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="15" name="DESCRIPTION">
+      <Position>5</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="15" name="NODEID">
+      <Position>6</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="15" name="USERID">
+      <Position>7</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="33" parent="15" name="CLEANUPREQUEST_PK">
+      <ColNames>NAME
+TIMECREATED</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="34" parent="15" name="CLEANUPNODEID_FK">
+      <ColNames>NODEID</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>NODE</RefTableName>
+      <RefKeyName>SQL171128221440250</RefKeyName>
+      <RefColNames>NODEID</RefColNames>
+    </foreign-key>
+    <foreign-key id="35" parent="15" name="CLEANUPUSERID_FK">
+      <ColNames>USERID</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>KIOSKUSER</RefTableName>
+      <RefKeyName>SQL171128221442010</RefKeyName>
+      <RefColNames>USERID</RefColNames>
+    </foreign-key>
+    <column id="36" parent="16" name="EDGEID">
+      <Position>1</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="16" name="STARTNODE">
+      <Position>2</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="16" name="ENDNODE">
+      <Position>3</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="39" parent="16" name="SQL171128221441030">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>EDGEID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="40" parent="16" name="STARTNODE_FK">
+      <ColNames>STARTNODE</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>NODE</RefTableName>
+      <RefKeyName>SQL171128221440250</RefKeyName>
+      <RefColNames>NODEID</RefColNames>
+    </foreign-key>
+    <foreign-key id="41" parent="16" name="ENDNODE_FK">
+      <ColNames>ENDNODE</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>NODE</RefTableName>
+      <RefKeyName>SQL171128221440250</RefKeyName>
+      <RefColNames>NODEID</RefColNames>
+    </foreign-key>
+    <column id="42" parent="17" name="REQUESTNAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="17" name="TIMECREATED">
+      <Position>2</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="17" name="FOODITEM">
+      <Position>3</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="45" parent="17" name="SQL171128221442250">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>REQUESTNAME
+TIMECREATED</ColNames>
+    </index>
+    <foreign-key id="46" parent="17" name="FOODORDER_FK">
+      <ColNames>TIMECREATED</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>FOODREQUEST</RefTableName>
+      <RefColNames>TIMECREATED</RefColNames>
+    </foreign-key>
+    <column id="47" parent="18" name="NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="18" name="TIMECREATED">
+      <Position>2</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="49" parent="18" name="TIMECOMPLETED">
+      <Position>3</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="18" name="TYPE">
+      <Position>4</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="51" parent="18" name="DESCRIPTION">
+      <Position>5</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="18" name="NODEID">
+      <Position>6</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="18" name="USERID">
+      <Position>7</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="54" parent="18" name="FOODREQUEST_PK">
+      <ColNames>NAME
+TIMECREATED</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="55" parent="18" name="FOODNODEID_FK">
+      <ColNames>NODEID</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>NODE</RefTableName>
+      <RefKeyName>SQL171128221440250</RefKeyName>
+      <RefColNames>NODEID</RefColNames>
+    </foreign-key>
+    <foreign-key id="56" parent="18" name="FOODUSERID_FK">
+      <ColNames>USERID</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>KIOSKUSER</RefTableName>
+      <RefKeyName>SQL171128221442010</RefKeyName>
+      <RefColNames>USERID</RefColNames>
+    </foreign-key>
+    <column id="57" parent="19" name="NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="58" parent="19" name="TIMECREATED">
+      <Position>2</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="59" parent="19" name="TIMECOMPLETED">
+      <Position>3</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="19" name="TYPE">
+      <Position>4</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="19" name="DESCRIPTION">
+      <Position>5</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="19" name="LANGUAGE">
+      <Position>6</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="19" name="NODEID">
+      <Position>7</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="19" name="USERID">
+      <Position>8</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="65" parent="19" name="INTERPRETERREQUEST_PK">
+      <ColNames>NAME
+TIMECREATED</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="66" parent="19" name="INTERPRETERNODEID_FK">
+      <ColNames>NODEID</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>NODE</RefTableName>
+      <RefKeyName>SQL171128221440250</RefKeyName>
+      <RefColNames>NODEID</RefColNames>
+    </foreign-key>
+    <foreign-key id="67" parent="19" name="INTERPRETERUSERID_FK">
+      <ColNames>USERID</ColNames>
+      <RefSchemaName>GRANITE_GARGOYLE</RefSchemaName>
+      <RefTableName>KIOSKUSER</RefTableName>
+      <RefKeyName>SQL171128221442010</RefKeyName>
+      <RefColNames>USERID</RefColNames>
+    </foreign-key>
+    <column id="68" parent="20" name="USERID">
+      <Position>1</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="69" parent="20" name="USERNAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="20" name="PASSWORD">
+      <Position>3</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="71" parent="20" name="ADMINFLAG">
+      <Position>4</Position>
+      <DataType>VARCHAR(10)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="72" parent="20" name="DEPARTMENT">
+      <Position>5</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="73" parent="20" name="SQL171128221442010">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>USERID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="74" parent="21" name="NODEID">
+      <Position>1</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="21" name="XCOORD">
+      <Position>2</Position>
+      <DataType>INTEGER(10)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="21" name="YCOORD">
+      <Position>3</Position>
+      <DataType>INTEGER(10)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="77" parent="21" name="FLOOR">
+      <Position>4</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="78" parent="21" name="BUILDING">
+      <Position>5</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="79" parent="21" name="NODETYPE">
+      <Position>6</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="80" parent="21" name="LONGNAME">
+      <Position>7</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="81" parent="21" name="SHORTNAME">
+      <Position>8</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="82" parent="21" name="TEAMASSIGNED">
+      <Position>9</Position>
+      <DataType>VARCHAR(10)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="83" parent="21" name="SQL171128221440250">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>NODEID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="84" parent="22" name="STRING1">
+      <Position>1</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="85" parent="22" name="STRING2">
+      <Position>2</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="86" parent="22" name="SQL171128221442290">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>STRING1</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

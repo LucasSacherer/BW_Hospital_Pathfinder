@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -150,5 +152,18 @@ public class MainSceneController extends AbstractMapController{
         System.out.println("origin" + origin);
         System.out.println("currentLoc" + currentLoc);
         refreshCanvas();
+    }
+
+    public void displayTextDir(){
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
+        String dirMessage = "";
+
+        for(int i = 0; i < writtenDir.size(); i++){
+            dirMessage += writtenDir.get(i);
+            dirMessage += "\n";
+        }
+
+        Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
     }
 }

@@ -14,17 +14,17 @@ import javafx.scene.paint.Color;
 import java.util.HashSet;
 
 public class NodeAdder {
+    private GraphicsContext gc;
     private NodeManager nodeManager;
     private int addNodeX, addNodeY;
-    private HashSet<Integer> usedNumbers;
 
     private JFXTextField xPos, yPos, shortName, longName;
     private JFXComboBox nodeTypeCombo, buildingCombo;
     private ObservableList nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF"),
-    buildingList = FXCollections.observableArrayList("Shapiro", "Non-Shapiro");
+    buildingList = FXCollections.observableArrayList("Shapiro", "BTM", "Tower", "15 Francis", "45 Francis");
 
-    public NodeAdder(NodeManager n, JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeTypeCombo, JFXComboBox buildingCombo,
-                     JFXTextField shortName, JFXTextField longName) {
+    public NodeAdder(NodeManager n, JFXTextField xPos, JFXTextField yPos, JFXComboBox nodeTypeCombo,
+                     JFXComboBox buildingCombo, JFXTextField shortName, JFXTextField longName, GraphicsContext gc) {
         this.nodeManager = n;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -32,12 +32,13 @@ public class NodeAdder {
         this.buildingCombo = buildingCombo;
         this.shortName = shortName;
         this.longName = longName;
+        this.gc = gc;
 
         this.nodeTypeCombo.setItems(nodeTypeList);
         this.buildingCombo.setItems(buildingList);
     }
 
-    public void clickOnMap(MouseEvent m, GraphicsContext gc) {
+    public void clickOnMap(MouseEvent m) {
         addNodeX = (int) m.getX();
         addNodeY = (int) m.getY();
         gc.setFill(Color.BLUE);
