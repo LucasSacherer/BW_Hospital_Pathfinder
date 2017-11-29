@@ -24,6 +24,7 @@ public class BreadthSearch implements PathFinder {
     private ArrayList<Node> breadthSearch(Node start, Node end){
         pathNode sNode = new pathNode(start, null , 0);
         closedSet.clear();
+        breadthQ.clear();
         breadthQ.add(sNode);
         boolean found = false;
         pathNode cNode;
@@ -40,21 +41,10 @@ public class BreadthSearch implements PathFinder {
             for(int i = 0; i < neighbors.size(); i++){
                 found = closedSet.containsKey(neighbors.get(i).getNodeID());
                 if (!found){
-                    //cost is parent cost + cost to neighbor
-                    Edge edge= new Edge(current.node,neighbors.get(i));
-                    double distToNext = edge.getWeight();
-                    double parentCost;
-                    if (current.parent == null){
-                        parentCost = 0;
-                    }
-                    else {
-                        parentCost = current.parent.cost;
-                    }
-                    double cost = parentCost + distToNext ;
                     //add to queue
                     //cNode = new pathNode(neighbors.get(i),current,cost);
                     breadthQ.add(new pathNode(neighbors.get(i),current,0));
-                    System.out.println(breadthQ);
+                    //System.out.println(breadthQ);
                 }
 
             }
@@ -70,7 +60,7 @@ public class BreadthSearch implements PathFinder {
             current = current.parent;
             total_path.add(current.node);
         }
-        System.out.print(total_path);
+        //System.out.print(total_path);
         return total_path;
     }
 }

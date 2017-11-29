@@ -51,6 +51,7 @@ public class GodController {
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
     final private BreadthSearch bs = new BreadthSearch(edgeManager);
+    final private DepthSearch ds = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
@@ -211,7 +212,7 @@ public class GodController {
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
-        pathFindingFacade.setPathfinder(bs);
+        pathFindingFacade.setPathfinder(ds);
         initializeMainScene();
         initializeRequestScene();
         initializeMapAdminScene();
