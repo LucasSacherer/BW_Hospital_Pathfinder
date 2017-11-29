@@ -4,6 +4,9 @@ import Database.*;
 import Entity.*;
 import org.junit.Test;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -29,20 +32,34 @@ public class GenericRequestControllerTest {
         InterpreterRequest interp = interpreterManager.getRequestByName("deleteme");
 
         //Test deleting a CleanUpRequest
-        assertEquals(2, cleanUpManager.getRequests().size());
+        assertEquals(3, cleanUpManager.getRequests().size());
         genericRequestController.deleteRequest(clean);
-        assertEquals(1, cleanUpManager.getRequests().size());
+        assertEquals(2, cleanUpManager.getRequests().size());
 
         //Test deleting a FoodRequest
-        assertEquals(1, foodManager.getRequests().size());
+        assertEquals(2, foodManager.getRequests().size());
         genericRequestController.deleteRequest(food);
-        assertEquals(0, foodManager.getRequests().size());
+        assertEquals(1, foodManager.getRequests().size());
 
         //Test deleting a InterpreterRequest
         assertEquals(2, interpreterManager.getRequests().size());
         genericRequestController.deleteRequest(interp);
         assertEquals(1, interpreterManager.getRequests().size());
 
+        LocalDateTime time = Timestamp.valueOf("1960-01-01 23:03:20").toLocalDateTime();
+        CleanUpRequest oldClean = new CleanUpRequest("deleteme",time,time,"type2",
+                "description2",nodeManager.getNode("GDEPT00403"), userManager.getUser("badUser"));
+        FoodRequest oldFood = new FoodRequest("deleteme",time,time,"type2",
+                "description2",nodeManager.getNode("GSTAI00501"), userManager.getUser("badUser"), null);
+        InterpreterRequest oldInterp = new InterpreterRequest("deleteme",time,time,"type2",
+                "description1",nodeManager.getNode("GDEPT01901"), userManager.getUser("badUser"), "japanese");
+
+        cleanUpManager.addRequest(oldClean);
+        assertEquals(3, cleanUpManager.getRequests().size());
+        foodManager.addRequest(oldFood);
+        assertEquals(2, foodManager.getRequests().size());
+        interpreterManager.addRequest(oldInterp);
+        assertEquals(2, interpreterManager.getRequests().size());
     }
 
     @Test

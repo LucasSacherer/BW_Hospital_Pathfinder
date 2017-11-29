@@ -216,7 +216,6 @@ public class CleanUpManager {
         updateRequests();
 
         for (CleanUpRequest req : requests){
-            System.out.println(req.getName());
             if(req.getUser().getUserID().equals(user.getUserID())){
                 userRequests.add(req);
             }

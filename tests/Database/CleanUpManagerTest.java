@@ -140,7 +140,8 @@ public class CleanUpManagerTest {
         databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
                 "TIMECOMPLETED = '" + created + "' " +
                 "WHERE NAME = 'not completed' AND TIMECREATED = '" + created + "'", databaseGargoyle.getStatement());
-        ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+        ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = " +
+                "'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
         try {
             if (rs2.next()){
                 assertTrue(rs2.getTimestamp("timecompleted").equals(created));
@@ -182,7 +183,7 @@ public class CleanUpManagerTest {
         System.out.println(cManager.getRequests());
         System.out.println(requestsByUser);
 
-        assertTrue(requestsByUser.size() == 1);
+        assertEquals(1, requestsByUser.size());
         assertTrue(requestsByUser.get(0).getUser().getUserID().equals("janitor1"));
 
         requestsByUser = cManager.getRequestsBy(userManager.getUser("staff1"));

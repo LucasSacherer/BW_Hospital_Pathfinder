@@ -199,10 +199,12 @@ public class FoodManager {
                 "'" + fReq.getNode().getNodeID() + "'," +
                 "'" + fReq.getUser().getUserID() + "')", databaseGargoyle.getStatement());
         //Add all food items to the FOODORDER table
-        for (String item: fReq.getOrder()){
-            databaseGargoyle.executeUpdateOnDatabase("INSERT INTO FOODORDER VALUES (" +
-                            "'" + fReq.getName() + "','"+ Timestamp.valueOf(fReq.getTimeCreated()) + "','" + item + "')",
-                    databaseGargoyle.getStatement());
+        if (fReq.getOrder() != null) {
+            for (String item : fReq.getOrder()) {
+                databaseGargoyle.executeUpdateOnDatabase("INSERT INTO FOODORDER VALUES (" +
+                                "'" + fReq.getName() + "','" + Timestamp.valueOf(fReq.getTimeCreated()) + "','" + item + "')",
+                        databaseGargoyle.getStatement());
+            }
         }
         databaseGargoyle.destroyConnection();
         updateRequests();
