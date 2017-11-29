@@ -53,8 +53,8 @@ public class GodController {
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
-    final private BreadthSearch bs = new BreadthSearch(edgeManager);
-    final private DepthSearch ds = new DepthSearch(edgeManager);
+    final private BreadthSearch breadth = new BreadthSearch(edgeManager);
+    final private DepthSearch depth = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
@@ -223,11 +223,13 @@ public class GodController {
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
 
+
+    boolean firstTime = true;
     @FXML
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
-        pathFindingFacade.setPathfinder(astar);
+        if (firstTime){ pathFindingFacade.setPathfinder(astar);}
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -235,6 +237,7 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
+        firstTime = false;
     }
 
     private void initializeMainScene() {
@@ -539,6 +542,22 @@ public class GodController {
 
     @FXML
     private void setDefaultNode() { adminMapController.setKioskLocation(); }
+
+    @FXML
+    private void selectAstar() {System.out.println("astar");
+    pathFindingFacade.setPathfinder(astar); }
+
+    @FXML
+    private void selectBeam() { } //todo
+
+    @FXML
+    private void selectBreadth() { System.out.println("breadth");
+    pathFindingFacade.setPathfinder(breadth); }
+
+    @FXML
+    private void selectDepth() {System.out.println("depth");
+        pathFindingFacade.setPathfinder(depth);
+    }
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
