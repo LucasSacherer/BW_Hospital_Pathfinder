@@ -20,6 +20,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -105,18 +107,46 @@ public class StaffRequestController extends AbstractMapController{
         // requestChoiceBox.setItems(requestTypeList);
     }
 
-    public void clickOnMap(MouseEvent m) {
-        super.clickOnMap(m);
-        nodeID.setText(currentLoc.getNodeID());
+    public void zoomInMap() {
+        super.zoomInMap();
         refreshRequestCanvas();
     }
 
+    public void zoomOutMap() {
+        super.zoomOutMap();
+        refreshRequestCanvas();
+    }
+
+    public void floorDown() throws IOException, SQLException {
+        super.floorDown();
+        refreshRequestCanvas();
+    }
+
+    public void floorUp() throws IOException, SQLException {
+        super.floorUp();
+        refreshRequestCanvas();
+    }
+    public void clickOnMap(MouseEvent m) {
+        refreshRequestCanvas();
+
+        int x = (int) m.getX();
+        int y = (int) m.getY();
+        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
+
+        nodeID.setText(currentLoc.getNodeID());
+    }
+
     public void refreshRequestCanvas() {
-        super.refreshCanvas();
+//        super.refreshCanvas();
+        clearCanvas();
         drawAllRequests();
     }
 
     public void drawAllRequests() {
+        if(currentLoc != null && currentLoc.getFloor().equals(currentFloor)) {
+            gc.setFill(Color.BLUE);
+            gc.fillOval(currentLoc.getXcoord() - 5, currentLoc.getYcoord() - 5, 10, 10);
+        }
         if (requestNodeToComplete != null && currentFloor.equals(requestNodeToComplete.getFloor())) {
             gc.setFill(Color.BLACK);
             gc.fillOval(requestNodeToComplete.getXcoord() - 11, requestNodeToComplete.getYcoord() - 11, 22, 22);
@@ -146,7 +176,6 @@ public class StaffRequestController extends AbstractMapController{
         requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
                 requestCleanupDescription.getText(), currentLoc, user));
         refreshLists();
-        refreshRequestCanvas();
         resetCleanup();
     }
 
@@ -156,14 +185,28 @@ public class StaffRequestController extends AbstractMapController{
         requestsIMadeList.clear();
         allStaffRequestsList.clear();
         requestsIMadeList.addAll(genericRequestController.getAllRequestsByUser(user));
-//        allStaffRequestsList.addAll(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
+        allStaffRequestsList.addAll(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
+        refreshRequestCanvas();
 
-        ObservableList allRequests = FXCollections.observableArrayList();
-        allRequests.addAll(requestCleanupController.getRequests());
-        allRequests.addAll(requestInterpreterController.getRequests());
-        allRequests.addAll(requestFoodController.getRequests());
-
-        allStaffRequestsList.addAll(allRequests); //todo this needs to check the user's dept.
+        /* start test */
+//        ObservableList allRequests = FXCollections.observableArrayList();
+//        allRequests.addAll(requestCleanupController.getRequests());
+//        allRequests.addAll(requestInterpreterController.getRequests());
+//        allRequests.addAll(requestFoodController.getRequests());
+//
+//        ArrayList<Request> requestsToShow = new ArrayList<>();
+//        requestsToShow.addAll(allRequests);
+//        for (Request r : requestsToShow) {
+//            if (r.getNode().getFloor().equals(currentFloor)) {
+//                gc.setFill(Color.BLACK);
+//                gc.fillOval(r.getNode().getXcoord() - 6, r.getNode().getYcoord() - 6, 12, 12);
+//                gc.setFill(Color.MEDIUMPURPLE);
+//                gc.fillOval(r.getNode().getXcoord() - 5, r.getNode().getYcoord() - 5, 10, 10);
+//            }
+//        }
+//
+//        allStaffRequestsList.addAll(allRequests);
+        /* end test */
     }
 
     public void completeRequest() {
@@ -171,7 +214,6 @@ public class StaffRequestController extends AbstractMapController{
             genericRequestController.completeRequests(requestToComplete);
             if (requestToComplete == requestToDelete) requestToDelete = null;
             requestToComplete = null;
-            refreshRequestCanvas();
             refreshLists();
             requestInfo.clear();
         }
@@ -182,7 +224,6 @@ public class StaffRequestController extends AbstractMapController{
             genericRequestController.deleteRequest(requestToDelete);
             if (requestToDelete == requestToComplete) requestToComplete = null;
             requestToDelete = null;
-            refreshRequestCanvas();
             refreshLists();
         }
     }
@@ -220,7 +261,6 @@ public class StaffRequestController extends AbstractMapController{
                 languageSelect.getSelectionModel().getSelectedItem().toString());
         requestInterpreterController.addRequest(iReq);
         refreshLists();
-        refreshRequestCanvas();
         resetInterpreter();
     }
 
@@ -233,7 +273,6 @@ public class StaffRequestController extends AbstractMapController{
                 requestFoodDescription.getText(), currentLoc, user, order);
         requestFoodController.addRequest(fReq);
         resetFoodRequest();
-        refreshRequestCanvas();
         refreshLists();
     }
 
