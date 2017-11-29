@@ -53,6 +53,10 @@ public class CleanUpRequest implements Request{
 
     @Override
     public String toString() {
-        return name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
+        return "Clean Up:    " + name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
+    }
+
+    public String getRequestReport(){
+        return "Name: " + name + "\n\nDescription: " + description;
     }
 }

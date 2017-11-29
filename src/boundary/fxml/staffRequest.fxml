@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
@@ -69,11 +70,12 @@
                                                   </rowConstraints>
                                                    <children>
                                                       <JFXListView fx:id="allStaffRequests" prefHeight="138.0" prefWidth="422.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-                                                      <JFXButton buttonType="RAISED" prefHeight="51.0" prefWidth="146.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                                      <JFXButton buttonType="RAISED" onAction="#completeRequest" prefHeight="51.0" prefWidth="146.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
                                                       </JFXButton>
+                                                      <JFXTextArea fx:id="requestInfo" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                                    </children>
                                                 </GridPane>
                                              </children>
@@ -84,128 +86,116 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <columnConstraints>
-                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                  </columnConstraints>
-                                                  <rowConstraints>
-                                                    <RowConstraints maxHeight="284.0" minHeight="0.0" prefHeight="111.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints maxHeight="584.0" minHeight="10.0" prefHeight="342.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints maxHeight="448.0" minHeight="10.0" prefHeight="421.0" vgrow="SOMETIMES" />
-                                                  </rowConstraints>
+                                                <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <Label text="Request Type:" GridPane.halignment="CENTER">
-                                                         <font>
-                                                            <Font size="25.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ChoiceBox fx:id="requestChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
-                                                      <StackPane fx:id="requestStack" prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <JFXTabPane prefHeight="801.0" prefWidth="423.0">
+                                                         <tabs>
+                                                            <Tab fx:id="requestCleanupTab" text="Clean-Up">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="771.0" prefWidth="423.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                           <children>
+                                                                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                                                                 <children>
+                                                                                    <Label text="Name: " />
+                                                                                    <JFXTextField fx:id="requestCleanupName" promptText="Enter Name of Request" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <Label text="Description" />
+                                                                              <JFXTextArea fx:id="requestCleanupDescription" promptText="Enter Description Here" />
+                                                                              <HBox alignment="CENTER" spacing="25.0">
+                                                                                 <children>
+                                                                                    <JFXButton onAction="#addCleanupRequest" text="Add" />
+                                                                                    <JFXButton onAction="#resetCleanupRequest" text="Reset" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                           </children>
+                                                                           <padding>
+                                                                              <Insets left="25.0" right="25.0" />
+                                                                           </padding>
+                                                                        </VBox>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                              </content>
+                                                            </Tab>
+                                                            <Tab fx:id="requestInterpreterTab" text="Interpreter">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="771.0" prefWidth="423.0" spacing="25.0">
+                                                                           <children>
+                                                                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                                                                 <children>
+                                                                                    <Label text="Name: " />
+                                                                                    <JFXTextField fx:id="requestInterpreterName" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <JFXComboBox fx:id="languageSelect" promptText="Language" />
+                                                                              <Label text="Description" />
+                                                                              <JFXTextArea fx:id="requestInterpreterDescription" />
+                                                                              <HBox alignment="CENTER" spacing="25.0">
+                                                                                 <children>
+                                                                                    <JFXButton onAction="#addInterpreter" text="Add" />
+                                                                                    <JFXButton onAction="#resetInterpreter" text="Reset" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                           </children>
+                                                                        </VBox>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                              </content>
+                                                            </Tab>
+                                                            <Tab fx:id="requestFoodTab" text="Food">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="721.0" prefWidth="423.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                           <children>
+                                                                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
+                                                                                 <children>
+                                                                                    <Label text="Request Name: " />
+                                                                                    <JFXTextField fx:id="requestFoodName" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
+                                                                                 <children>
+                                                                                    <Label text="Food Item:" />
+                                                                                    <JFXTextField fx:id="foodItem" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <HBox alignment="CENTER" spacing="25.0">
+                                                                                 <children>
+                                                                                    <JFXButton onAction="#addFoodItem" text="Add Item" />
+                                                                                    <JFXButton onAction="#resetOrder" text="Reset Order" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <Label text="Current Order:" />
+                                                                              <JFXListView fx:id="currentFoodOrder" prefHeight="200.0" prefWidth="423.0" />
+                                                                              <Label text="Description" />
+                                                                              <JFXTextArea fx:id="requestFoodDescription" promptText="Enter food order description" />
+                                                                              <HBox alignment="CENTER" layoutX="10.0" layoutY="106.0" spacing="25.0">
+                                                                                 <children>
+                                                                                    <JFXButton onAction="#submitFoodRequest" text="Submit Food Request" />
+                                                                                    <JFXButton onAction="#resetFoodRequest" text="Reset Food Request" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                           </children>
+                                                                        </VBox>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                              </content>
+                                                            </Tab>
+                                                         </tabs>
+                                                      </JFXTabPane>
+                                                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                          <children>
-                                                            <AnchorPane fx:id="requestAnchor1" prefHeight="200.0" prefWidth="200.0">
-                                                               <children>
-                                                                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <columnConstraints>
-                                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                    </columnConstraints>
-                                                                    <rowConstraints>
-                                                                        <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="234.0" vgrow="SOMETIMES" />
-                                                                      <RowConstraints maxHeight="571.0" minHeight="10.0" prefHeight="286.0" vgrow="SOMETIMES" />
-                                                                      <RowConstraints maxHeight="542.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
-                                                                      <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                                                                    </rowConstraints>
-                                                                     <children>
-                                                                        <JFXButton buttonType="RAISED" prefHeight="51.0" prefWidth="104.0" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXButton>
-                                                                        <JFXTextField fx:id="spillsARNode" text="Node" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="spillsARDescription" text="Description" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </GridPane>
-                                                               </children>
-                                                            </AnchorPane>
-                                                            <AnchorPane fx:id="requestAnchor2" prefHeight="200.0" prefWidth="200.0">
-                                                               <children>
-                                                                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                     <columnConstraints>
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                     </columnConstraints>
-                                                                     <rowConstraints>
-                                                                        <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="234.0" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="571.0" minHeight="10.0" prefHeight="286.0" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="542.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                                                                     </rowConstraints>
-                                                                     <children>
-                                                                        <JFXButton buttonType="RAISED" prefHeight="51.0" prefWidth="104.0" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXButton>
-                                                                        <JFXTextField fx:id="spillsARNode1" text="Node" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="spillsARDescription1" text="Description" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </GridPane>
-                                                               </children>
-                                                            </AnchorPane>
-                                                            <AnchorPane fx:id="requestAnchor3" prefHeight="200.0" prefWidth="200.0">
-                                                               <children>
-                                                                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                     <columnConstraints>
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                     </columnConstraints>
-                                                                     <rowConstraints>
-                                                                        <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="234.0" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="571.0" minHeight="10.0" prefHeight="286.0" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="542.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                                                                     </rowConstraints>
-                                                                     <children>
-                                                                        <JFXButton buttonType="RAISED" prefHeight="51.0" prefWidth="104.0" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXButton>
-                                                                        <JFXTextField fx:id="spillsARNode2" text="Node" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="spillsARDescription2" text="Description" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                                                           <font>
-                                                                              <Font size="24.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </GridPane>
-                                                               </children>
-                                                            </AnchorPane>
+                                                            <Label text="Node ID:" />
+                                                            <JFXTextField fx:id="requestNodeID" />
                                                          </children>
-                                                      </StackPane>
+                                                      </HBox>
                                                    </children>
-                                                </GridPane>
+                                                </VBox>
                                              </children>
                                           </AnchorPane>
                                       </content>

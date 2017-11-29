@@ -81,4 +81,32 @@ public class GenericRequestControllerTest {
         results = genericRequestController.getAllRequestsByUser(janitor1);
         assertEquals(1, results.size());
     }
+
+    @Test
+    public void getAllRequestsByDepartmentTest(){
+        NodeManager nodeManager = new NodeManager();
+        nodeManager.updateNodes();
+        UserManager userManager = new UserManager();
+        userManager.updateUsers();
+        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(nodeManager, userManager);
+        FoodManager foodManager = new FoodManager(nodeManager, userManager);
+        GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
+
+        //make sure it works for food requests
+        List<Request> food = genericRequestController.getAllRequestsByDepartment("food");
+        assertTrue(food.contains(foodManager.getRequestByName("food1")));
+        assertTrue(food.contains(foodManager.getRequestByName("deleteme")));
+
+        //make sure it works for Interpreter requests
+        List<Request> interpreter = genericRequestController.getAllRequestsByDepartment("interpreter");
+        assertTrue(interpreter.contains(interpreterManager.getRequestByName("deleteme")));
+        assertTrue(interpreter.contains(interpreterManager.getRequestByName("not completed")));
+
+        //make sure it works for CleanUp requests
+        List<Request> clean = genericRequestController.getAllRequestsByDepartment("janitorial");
+        assertTrue(clean.contains(cleanUpManager.getRequestByName("completed2")));
+        assertTrue(clean.contains(cleanUpManager.getRequestByName("not completed")));
+
+    }
 }
