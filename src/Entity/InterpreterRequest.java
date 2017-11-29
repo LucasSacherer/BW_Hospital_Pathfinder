@@ -60,10 +60,10 @@ public class InterpreterRequest implements Request{
 
     @Override
     public String toString() {
-        return name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
+        return "Interpreter:    " + name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
     }
 
     public String getRequestReport(){
-        return "Name: " + name + "\nLanguage: " + language;
+        return "Name:\t" + name + "\n\nDescription: "+ description + "\n\nLanguage: " + language;
     }
 }
