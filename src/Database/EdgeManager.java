@@ -58,11 +58,16 @@ public class EdgeManager {
      * @param e the edge to remove
      */
     public void removeEdge(Edge e) {
+        if (e == null) return;
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
                 e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'", databaseGargoyle.getStatement());
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
+                e.getEndNode().getNodeID() + "_" + e.getStartNode().getNodeID() + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateEdges();
+
+        //AHALL00202_AHALL00302
     }
 
     /**
