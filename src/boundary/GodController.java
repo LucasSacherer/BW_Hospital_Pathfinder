@@ -5,13 +5,10 @@ import Admin.UserLoginController;
 import Database.*;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
+import Entity.AdminLog;
 import Entity.ErrorController;
 import MapNavigation.*;
-import Pathfinding.Astar;
-import Pathfinding.DepthSearch;
-import Pathfinding.BreadthSearch;
-import Pathfinding.BeamSearch;
-import Pathfinding.PathFindingFacade;
+import Pathfinding.*;
 import Request.GenericRequestController;
 import Request.RequestCleanupController;
 import Request.RequestFoodController;
@@ -33,6 +30,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class GodController {
 
@@ -50,15 +48,17 @@ public class GodController {
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
     final private Astar astar = new Astar(edgeManager);
-    final private BreadthSearch bs = new BreadthSearch(edgeManager);
-    final private DepthSearch ds = new DepthSearch(edgeManager);
-    final private BeamSearch beamSearch = new BeamSearch(edgeManager);
+    final private BeamSearch beam = new BeamSearch(edgeManager);
+    final private BreadthSearch breadth = new BreadthSearch(edgeManager);
+    final private DepthSearch depth = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
     final private UserManager userManager = new UserManager();
+    final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
+    String currentUser;
     final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
     final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
     final private FoodManager food = new FoodManager();
-    final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanup);
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
     final private RequestFoodController requestFoodController = new RequestFoodController(food);
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
@@ -172,19 +172,16 @@ public class GodController {
     /* Admin Logs */
 
     @FXML
-    private TreeTableView<Log> adminLogs = new TreeTableView<Log>();
+    private TreeTableView<AdminLog> adminLogs = new TreeTableView<AdminLog>();
 
     @FXML
-    private TreeTableColumn<Log,Number> logID =  new TreeTableColumn<Log,Number>();
+    private TreeTableColumn<AdminLog,String> dateLogged = new TreeTableColumn<AdminLog,String>();
 
     @FXML
-    private TreeTableColumn<Log,String> dateLogged = new TreeTableColumn<Log,String>();
+    private TreeTableColumn<AdminLog,String> adminLogged = new TreeTableColumn<AdminLog,String>();
 
     @FXML
-    private TreeTableColumn<Log,String> adminLogged = new TreeTableColumn<Log,String>();
-
-    @FXML
-    private TreeTableColumn<Log,String> logContent = new TreeTableColumn<Log,String>();
+    private TreeTableColumn<AdminLog,String> logContent = new TreeTableColumn<AdminLog,String>();
 
     @FXML
     private ImageView logImage;
@@ -209,12 +206,7 @@ public class GodController {
     @FXML
     private JFXComboBox employeeTypeAE;
 
-    TreeItem<Log> log1 = new TreeItem<>(new Log(1,"11/27/2017","admin1","added Node"));
-    TreeItem<Log> log2 = new TreeItem<>(new Log(2,"11/27/2017","admin1","logged in"));
-    TreeItem<Log> log3 = new TreeItem<>(new Log(3,"11/27/2017","admin1","added Node"));
-    TreeItem<Log> log4 = new TreeItem<>(new Log(4,"11/27/2017","admin1","added Node"));
 
-    TreeItem<Log> logRoot = new TreeItem<>(new Log(0,"11/27/2017","admin1","root"));
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -229,13 +221,15 @@ public class GodController {
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
 
+
+    boolean firstTime = true;
     @FXML
     private void initialize() {
         nodeManager.updateNodes();
         edgeManager.updateEdges();
         userManager.updateUsers();
-        pathFindingFacade.setPathfinder(astar);
         //pathFindingFacade.setPathfinder(beamSearch);
+        if (firstTime){ pathFindingFacade.setPathfinder(astar);}
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -243,6 +237,7 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
+        firstTime = false;
     }
 
     private void initializeMainScene() {
@@ -268,22 +263,18 @@ public class GodController {
     }
 
     private void initializeAdminLogScene() {
-        logRoot.getChildren().setAll(log1,log2,log3,log4);
-
-        logID.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,Number> param) -> param.getValue().getValue().getLogIDProperty());
-        dateLogged.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getDateLoggedProperty());
-        adminLogged.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getAdminLoggedProperty());
-        logContent.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Log,String> param) -> param.getValue().getValue().getLogContentProperty());
-
-        adminLogs.setRoot(logRoot);
-        adminLogs.setShowRoot(false);
+        adminLogController = new AdminLogController (adminLogs, dateLogged,
+                 adminLogged, logContent, adminLogManager,userManager);
     }
 
-    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+    private void initializeAdminRequestScene(){
+        adminRequestController = new AdminRequestController();
+//        TreeItem<Log> log1 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+//        TreeItem<Log> log2 = new TreeItem<>(new Log("11/27/2017","admin1","logged in"));
+//        TreeItem<Log> log3 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+//        TreeItem<Log> log4 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+//        TreeItem<Log> log5 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
+    }
 
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
@@ -427,16 +418,26 @@ public class GodController {
     ////////////////////
 
    @FXML
-   private void addEmployeeAE() {adminEmployeeController.addEmployeeAE();}
+   private void addEmployeeAE() {
+       adminEmployeeController.addEmployeeAE();
+       adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Employee", LocalDateTime.now()));
+   }
 
    @FXML
    private void cancelEmployeeAE() {adminEmployeeController.cancelEmployeeAE();}
 
     @FXML
-    private void editEmployeeAE() {adminEmployeeController.editEmployeeAE();}
+    private void editEmployeeAE() {
+       adminEmployeeController.editEmployeeAE();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Edited a Employee", LocalDateTime.now()));
+   }
 
     @FXML
-    private void deleteEmployeeAE() {adminEmployeeController.deleteEmployeeAE();}
+    private void deleteEmployeeAE() {
+        adminEmployeeController.deleteEmployeeAE();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed an Employee", LocalDateTime.now()));
+
+    }
 
     @FXML
     private void toggleAdmin(MouseEvent e) {adminEmployeeController.toggleAdmin();}
@@ -526,16 +527,27 @@ public class GodController {
     /////////////////
 
     @FXML
-    private void addNodeButton() { adminMapController.addNode(); }
+    private void addNodeButton() {
+        adminMapController.addNode();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Node", LocalDateTime.now()));
+    }
 
     @FXML
-    private void removeNodeButton() { adminMapController.removeNodeButton(); }
+    private void removeNodeButton() {
+        adminMapController.removeNodeButton();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed a Node", LocalDateTime.now()));
+    }
 
     @FXML
-    private void resetNodeButtonAdd() { adminMapController.resetNodeButtonAdd(); }
+    private void resetNodeButtonAdd() {
+        adminMapController.resetNodeButtonAdd();
+    }
 
     @FXML
-    private void editNode() { adminMapController.editNode(); }
+    private void editNode() {
+        adminMapController.editNode();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Edited a Node", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetNodeButtonEdit() { adminMapController.resetNodeButtonEdit(); }
@@ -544,13 +556,19 @@ public class GodController {
     private void resetNodeButtonRemove() { adminMapController.resetNodeButtonRemove(); }
 
     @FXML
-    private void removeEdgeButton() { adminMapController.removeEdgeButton(); }
+    private void removeEdgeButton() {
+        adminMapController.removeEdgeButton();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed a Node", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetEdgeButtonRemove() { adminMapController.resetEdgeButtonRemove(); }
 
     @FXML
-    private void addEdgeButton() { adminMapController.addEdgeButton(); }
+    private void addEdgeButton() {
+        adminMapController.addEdgeButton();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Edge", LocalDateTime.now()));
+    }
 
     @FXML
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
@@ -571,7 +589,23 @@ public class GodController {
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     @FXML
-    private void setDefaultNode() { adminMapController.setKioskLocation(); }
+    private void setDefaultNode() {
+        adminMapController.setKioskLocation();
+        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Changed Kiosk Default Node", LocalDateTime.now()));
+    }
+
+    @FXML
+    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
+
+    @FXML
+    private void selectBeam() { pathFindingFacade.setPathfinder(beam); } //todo
+
+    @FXML
+    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
+
+    @FXML
+    private void selectDepth() { pathFindingFacade.setPathfinder(depth);
+    }
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
@@ -591,9 +625,7 @@ public class GodController {
 
     //TODO
     @FXML
-    public void clearLogButton() throws IOException{
-        logRoot.getChildren().clear();
-    }
+    public void clearLogButton() throws IOException{ adminLogController.clearLogButton(); }
 
     //TODO
 
@@ -621,8 +653,13 @@ public class GodController {
 
     @FXML
     private void goToAdminHub() throws IOException {
+        userManager.updateUsers();
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
+            currentUser = adminLoginText.getText();
+            System.out.println(currentUser);
             sceneSwitcher.toAdminHub(this, loginPane);
+            adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
+            adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Logged in", LocalDateTime.now()));
         } else errorController.showError("Invalid credentials! Please try again.");
 
     }
@@ -631,7 +668,10 @@ public class GodController {
     private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
 
     @FXML
-    private void adminHubtoLog() throws IOException { sceneSwitcher.toAdminLog(this, adminHubPane); }
+    private void adminHubtoLog() throws IOException {
+        sceneSwitcher.toAdminLog(this, adminHubPane);
+        adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
+    }
 
     @FXML
     private void adminHubtoRequest() throws IOException {
