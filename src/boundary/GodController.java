@@ -188,10 +188,15 @@ public class GodController {
     private JFXListView employeeListAE;
 
     @FXML
-    private JFXTextField employeeUserIDAE, employeeUserNameAE, employeePasswordAE;
+    private JFXTextField employeeUserIDAE;
+    @FXML
+    private JFXTextField employeeUsernameAE;
+    @FXML
+    private JFXTextField employeePasswordAE;
 
     @FXML
     private JFXComboBox employeeTypeAE;
+
     TreeItem<Log> log1 = new TreeItem<>(new Log(1,"11/27/2017","admin1","added Node"));
     TreeItem<Log> log2 = new TreeItem<>(new Log(2,"11/27/2017","admin1","logged in"));
     TreeItem<Log> log3 = new TreeItem<>(new Log(3,"11/27/2017","admin1","added Node"));
@@ -270,7 +275,7 @@ public class GodController {
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            employeeListAE, employeeUserIDAE, employeeUserNameAE, employeePasswordAE, employeeTypeAE);
+            employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE, employeeTypeAE);
     }
 
 
