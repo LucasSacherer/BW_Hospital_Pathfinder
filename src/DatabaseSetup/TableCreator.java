@@ -114,6 +114,8 @@ public class TableCreator {
             System.out.println("FoodRequest table created!");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type3', 'description1','GSTAI00501', 'admin2')");
+
         } catch (SQLException e) {
             System.out.println("FoodRequest table already exists");
             //e.printStackTrace();
@@ -140,6 +142,7 @@ public class TableCreator {
             System.out.println("InterpreterRequest table created!");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','spanish','GCONF02001', 'admin1')");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'admin2')");
+            statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'admin2')");
         } catch (SQLException e) {
             System.out.println("InterpreterRequest table already exists");
             //e.printStackTrace();
@@ -165,6 +168,7 @@ public class TableCreator {
             System.out.println("CleanUpRequest table created!");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
+            statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description2','GDEPT00403', 'janitor1')");
         } catch (SQLException e) {
             System.out.println("CleanUpRequest table already exists");
             //e.printStackTrace();
