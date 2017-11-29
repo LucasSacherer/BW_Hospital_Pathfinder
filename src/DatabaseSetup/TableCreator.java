@@ -223,6 +223,10 @@ public class TableCreator {
                     "action VARCHAR(250) NOT NULL, \n" +
                     "time TIMESTAMP NOT NULL\n)");
             System.out.println("AdminLog table created!");
+            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('admin1','Test Logged In', '1960-01-01 23:03:20')");
+            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('admin2','Test Removed Node', '1960-01-01 23:03:20')");
+            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('janitor1','Test Added Node', '1960-01-01 23:03:20')");
+            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('staff1','Test Logged Out', '1960-01-01 23:03:20')");
         } catch (SQLException e) {
             System.out.println("AdminLog table already exists");
             //e.printStackTrace();

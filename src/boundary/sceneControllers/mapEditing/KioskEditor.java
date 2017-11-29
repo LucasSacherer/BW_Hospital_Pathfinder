@@ -46,7 +46,6 @@ public class KioskEditor {
     }
 
     public void reset() {
-        nodeEditController.setKioskLocation(null);
         kioskX.clear();
         kioskY.clear();
         potential = null;

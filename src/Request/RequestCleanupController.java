@@ -97,7 +97,7 @@ public class RequestCleanupController {
         else errorController.showError("This request does not already exist in the database");
     }
 
-    public List<CleanUpRequest> getRequestsBy(User user){
+    public ObservableList<CleanUpRequest> getRequestsBy(User user){
         return cleanUpManager.getRequestsBy(user);
     }
 }

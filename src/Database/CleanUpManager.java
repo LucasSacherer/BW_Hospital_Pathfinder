@@ -4,6 +4,8 @@ import DatabaseSetup.DatabaseGargoyle;
 import Entity.CleanUpRequest;
 import Entity.Node;
 import Entity.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -211,7 +213,7 @@ public class CleanUpManager {
         return null;
     }
 
-    public List<CleanUpRequest> getRequestsBy(User user){
+    public ObservableList<CleanUpRequest> getRequestsBy(User user){
         ArrayList<CleanUpRequest> userRequests = new ArrayList<>();
         updateRequests();
 
@@ -220,7 +222,9 @@ public class CleanUpManager {
                 userRequests.add(req);
             }
         }
-        return userRequests;
+        ObservableList fxUserRequests = FXCollections.observableArrayList();
+        fxUserRequests.addAll(userRequests);
+        return fxUserRequests;
     }
 
     /**

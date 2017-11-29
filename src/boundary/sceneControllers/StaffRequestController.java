@@ -1,12 +1,15 @@
 package boundary.sceneControllers;
 
-import Entity.CleanUpRequest;
-import Entity.Node;
-import Entity.User;
+import Entity.*;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import Request.GenericRequestController;
 import Request.RequestCleanupController;
+import Request.RequestFoodController;
+import Request.RequestInterpreterController;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,56 +24,92 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class StaffRequestController extends AbstractMapController{
+    private ObservableList languages = FXCollections.observableArrayList("Spanish", "French", "Mandarin", "Finnish");
+    private JFXTextArea requestCleanupDescription, requestInterpreterDescription, requestFoodDescription, requestInfo;
     private ObservableList requestTypeList  = FXCollections.observableArrayList("Cleanup", "Interpreter", "Food");
+    private GenericRequestController genericRequestController;
     private RequestCleanupController requestCleanupController;
+    private RequestInterpreterController requestInterpreterController;
+    private RequestFoodController requestFoodController;
     private JFXListView allStaffRequests, requestsIMade;
-    private CleanUpRequest selectedRequest;
-    private JFXTextField selectedRequestTextField;
+    private Request selectedRequest;
+    private JFXTextField nodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
     private User user;
-    private ChoiceBox requestChoiceBox;
-    private AnchorPane request1, request2, request3;
-    private StackPane requestStack;
+    private JFXComboBox languageSelect;
+    private JFXListView currentFoodOrder;
+    private ObservableList foodOrderList = FXCollections.observableArrayList();
+    private ObservableList allStaffRequestsList, requestsIMadeList;
 
-
-    public StaffRequestController(AnchorPane requestAnchor1, AnchorPane requestAnchor2, AnchorPane requestAnchor3, StackPane requestStack, ChoiceBox requestChoiceBox, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
-                                  Label currentFloorNum, RequestCleanupController r, JFXListView allStaffRequests,
-                                  JFXListView requestsIMade, JFXTextField selectedRequestTextField) {
-        super(i, mapPane, canvas, m, p, currentFloorNum);
-        this.requestChoiceBox = requestChoiceBox;
+    public StaffRequestController(ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
+                                  MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade,
+                                  Label currentFloorNumRequest, GenericRequestController genericRequestController,
+                                  RequestCleanupController requestCleanupController,
+                                  RequestInterpreterController requestInterpreterController,
+                                  RequestFoodController requestFoodController,
+                                  JFXListView allStaffRequests, JFXListView requestsIMade, JFXTextField requestNodeID,
+                                  JFXTextField requestCleanupName, JFXTextField requestInterpreterName,
+                                  JFXTextField requestFoodName, JFXTextArea cleanupDescription,
+                                  JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription,
+                                  JFXTextArea requestFoodDescription, JFXTextArea requestInfo,
+                                  JFXListView currentFoodOrder, JFXTextField foodItem) {
+        super(requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest);
+        this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;
-        this.requestCleanupController = r;
-        this.selectedRequestTextField = selectedRequestTextField;
-        this.request1 = requestAnchor1;
-        this.request2 = requestAnchor2;
-        this.request3 = requestAnchor3;
-        this.requestStack = requestStack;
+        this.nodeID = requestNodeID;
+        this.requestCleanupName = requestCleanupName;
+        this.requestInterpreterName = requestInterpreterName;
+        this.requestFoodName = requestFoodName;
+        this.requestCleanupDescription = cleanupDescription;
+        this.requestInterpreterDescription = requestInterpreterDescription;
+        this.languageSelect = languageSelect;
+        this.requestInterpreterController = requestInterpreterController;
+        this.requestFoodController = requestFoodController;
+        this.genericRequestController = genericRequestController;
+        this.requestFoodDescription = requestFoodDescription;
+        this.requestInfo = requestInfo;
+        this.currentFoodOrder = currentFoodOrder;
+        this.foodItem = foodItem;
     }
 
     public void initializeScene(User user){
+        requestsIMadeList = genericRequestController.getAllRequestsByUser(user);
+        allStaffRequestsList = genericRequestController.getAllRequestsByDepartment(user.getDepartment());
         super.initializeScene();
-        allStaffRequests.setItems(requestCleanupController.getRequests());
-        allStaffRequests.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            selectedRequest = (CleanUpRequest) allStaffRequests.getItems().get(newValue.intValue());
-            currentLoc = selectedRequest.getNode();
-            selectedRequestTextField.setText(currentLoc.getNodeID());
-            refreshCanvas();
-        });
-        requestsIMade.setItems(requestCleanupController.getRequests());
-        requestsIMade.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            selectedRequest = (CleanUpRequest) requestsIMade.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
         this.user = user;
-        drawAllRequests();
-        requestChoiceBox.setItems(requestTypeList);
+        languageSelect.setItems(languages);
+        refreshLists();
+        allStaffRequests.setItems(allStaffRequestsList);
+        requestsIMade.setItems(requestsIMadeList);
+        allStaffRequests.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue.intValue());
+            if (newValue.intValue() != -1) {
+                selectedRequest = (Request) allStaffRequests.getItems().get(newValue.intValue());
+                currentLoc = selectedRequest.getNode();
+                nodeID.setText(selectedRequest.getNode().getNodeID());
+                requestInfo.setText(selectedRequest.getRequestReport());
+                refreshCanvas();
+            }
+        });
+        requestsIMade.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() != -1) {
+                selectedRequest = (Request) requestsIMade.getItems().get(newValue.intValue());
+                currentLoc = selectedRequest.getNode();
+                nodeID.setText(selectedRequest.getNode().getNodeID());
+                requestInfo.setText(selectedRequest.getDescription());
+                refreshCanvas();
+            }
+        });
+        refreshCanvas();
+        // requestChoiceBox.setItems(requestTypeList);
     }
 
     public void clickOnMap(MouseEvent m) {
         super.clickOnMap(m);
-        selectedRequestTextField.setText(currentLoc.getNodeID());
+        nodeID.setText(currentLoc.getNodeID());
     }
 
     public void refreshCanvas() {
@@ -91,32 +130,47 @@ public class StaffRequestController extends AbstractMapController{
         }
     }
 
-    public void addRequest(JFXTextField requestName, JFXTextField description) {
+    public void addCleanup() {
+        System.out.println(currentLoc + " " + user + requestCleanupDescription.getText() + requestCleanupName.getText());
         LocalDateTime l = LocalDateTime.now();
-        requestCleanupController.addRequest(new CleanUpRequest(requestName.getText(), l, l, "Cleanup",
-                description.getText(), currentLoc, user));
-        allStaffRequests.setItems(requestCleanupController.getRequests());
+        requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
+                requestCleanupDescription.getText(), currentLoc, user));
+        refreshLists();
         refreshCanvas();
     }
 
-    public void completeRequest() {
+    private void refreshLists() {
+        allStaffRequests.getSelectionModel().clearSelection();
+        requestsIMade.getSelectionModel().clearSelection();
+        requestsIMadeList.clear();
+        allStaffRequestsList.clear();
+        requestsIMadeList = genericRequestController.getAllRequestsByUser(user);
+        ObservableList allRequests = FXCollections.observableArrayList();
+
+        /* for testing */
+        allRequests.addAll(requestCleanupController.getRequests());
+        allRequests.addAll(requestInterpreterController.getRequests());
+        allRequests.addAll(requestFoodController.getRequests());
+
+        allStaffRequestsList.addAll(allRequests); //todo this needs to check the user's dept.
+
+//        allStaffRequests.setItems(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
+    }
+
+    public void completeRequest() { //TODO
         if (selectedRequest != null) {
-            requestCleanupController.completeRequest(selectedRequest);
+            genericRequestController.completeRequests(selectedRequest);
             refreshCanvas();
+            refreshLists();
         }
     }
 
-    public void editRequest() {
+    public void deleteRequest() { //TODO
         if (selectedRequest != null && selectedRequest.getUser().getUserID().equals(user.getUserID())) {
-            // edit request
+            genericRequestController.deleteRequest(selectedRequest);
+            selectedRequest = null;
             refreshCanvas();
-        }
-    }
-
-    public void deleteRequest() {
-        if (selectedRequest != null && selectedRequest.getUser().getUserID().equals(user.getUserID())) {
-            requestCleanupController.deleteRequest(selectedRequest);
-            refreshCanvas();
+            refreshLists();
         }
     }
 
@@ -129,6 +183,63 @@ public class StaffRequestController extends AbstractMapController{
 
     public void snapToNode(MouseEvent m) {
         super.snapToNode(m);
-        selectedRequestTextField.setText(currentLoc.getNodeID());
+        nodeID.setText(currentLoc.getNodeID());
+    }
+
+    public void resetCleanup() {
+        requestCleanupName.clear();
+        requestCleanupDescription.clear();
+    }
+
+    public void resetInterpreter() {
+        requestInterpreterName.clear();
+        requestInterpreterDescription.clear();
+        languageSelect.setItems(languages);
+    }
+
+    public void addInterpreter() {
+        if (currentLoc == null) return;
+        LocalDateTime l = LocalDateTime.now();
+        InterpreterRequest iReq = new InterpreterRequest(requestInterpreterName.getText(), l, l, "interpreter",
+                requestInterpreterDescription.getText(), currentLoc, user,
+                languageSelect.getSelectionModel().getSelectedItem().toString());
+        requestInterpreterController.addRequest(iReq);
+        refreshLists();
+        refreshCanvas();
+    }
+
+    public void submitFoodRequest() {
+        if (currentLoc == null) return;
+        LocalDateTime l = LocalDateTime.now();
+        ArrayList<String> order = new ArrayList<>();
+        order.addAll(foodOrderList);
+        FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
+                requestFoodDescription.getText(), currentLoc, user, order);
+        requestFoodController.addRequest(fReq);
+        resetFoodRequest();
+        refreshLists();
+    }
+
+    public void resetCurrentOrder() {
+        foodOrderList.clear();
+        currentFoodOrder.setItems(foodOrderList);
+    }
+
+    public void addFoodItem() {
+        System.out.println("made it");
+        foodOrderList.add(foodItem.getText());
+        currentFoodOrder.setItems(foodOrderList);
+        foodItem.clear();
+    }
+
+    public void resetFoodRequest() {
+        foodOrderList.clear();
+        currentFoodOrder.setItems(foodOrderList);
+        requestFoodDescription.clear();
+        requestFoodName.clear();
+        foodItem.clear();
+    }
+
+    public void editRequest() {
     }
 }
