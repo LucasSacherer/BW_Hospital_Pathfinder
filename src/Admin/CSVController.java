@@ -45,12 +45,21 @@ public class CSVController {
      * @throws SQLException
      * @throws IOException
      */
-    public void saveEdge(String filePath) throws SQLException, IOException{
+    public void saveEdges(String filePath) throws SQLException, IOException{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        ResultSet rsNode = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE", databaseGargoyle.getStatement());
-        saveCSVFile(rsNode, filePath);
-        rsNode.close();
+        ResultSet rsEdge = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE", databaseGargoyle.getStatement());
+        saveCSVFile(rsEdge, filePath);
+        rsEdge.close();
+        databaseGargoyle.destroyConnection();
+    }
+
+    public void saveAdminLogs(String filePath) throws SQLException, IOException{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        databaseGargoyle.createConnection();
+        ResultSet rsAdminLog = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM ADMINLOG", databaseGargoyle.getStatement());
+        saveCSVFile(rsAdminLog, filePath);
+        rsAdminLog.close();
         databaseGargoyle.destroyConnection();
     }
 }
