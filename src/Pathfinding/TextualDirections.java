@@ -5,6 +5,7 @@ import Entity.Node;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class TextualDirections {
@@ -68,8 +69,8 @@ public class TextualDirections {
     }
 
     //method that does the work creating the textual directions
-    private LinkedList<String> makeTextDir(ArrayList<Node> path){
-        LinkedList<String> writtenDirections = new LinkedList();
+    private List<String> makeTextDir(List<Node> path){
+        List<String> writtenDirections = new LinkedList();
 
         //takes care of size errors
         if (path.size() == 0) {
@@ -122,5 +123,5 @@ public class TextualDirections {
     }
 
     //getter for textual directions
-    public LinkedList<String> getDir(ArrayList<Node> path){return makeTextDir(path);}
+    public List<String> getDir(List<Node> path){return makeTextDir(path);}
 }
