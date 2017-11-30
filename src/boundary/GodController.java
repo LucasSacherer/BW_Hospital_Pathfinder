@@ -630,8 +630,6 @@ public class GodController {
     @FXML
     public void clearLogButton() throws IOException{ adminLogController.clearLogButton(); }
 
-    //TODO
-
     /////////////////////
     /* Scene Switching */
     /////////////////////
