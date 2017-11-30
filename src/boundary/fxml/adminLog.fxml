@@ -21,12 +21,7 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Label>
-      <JFXButton fx:id="printLog" layoutX="1426.0" layoutY="220.0" prefHeight="65.0" prefWidth="122.0" style="-fx-background-color: #5ea459;" text="Print" textFill="WHITE" AnchorPane.rightAnchor="446.0" AnchorPane.topAnchor="216.0">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="sendLog" layoutX="1520.0" layoutY="216.0" prefHeight="65.0" prefWidth="122.0" style="-fx-background-color: #5ea459;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="283.0" AnchorPane.topAnchor="216.0">
+      <JFXButton fx:id="exportLogs" layoutX="1364.0" layoutY="216.0" onAction="#exportLogs" prefHeight="65.0" prefWidth="246.0" style="-fx-background-color: #5ea459;" text="Export to CSV" textFill="WHITE" AnchorPane.rightAnchor="235.0" AnchorPane.topAnchor="216.0">
          <font>
             <Font size="30.0" />
          </font>
