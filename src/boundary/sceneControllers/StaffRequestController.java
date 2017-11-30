@@ -169,12 +169,27 @@ public class StaffRequestController extends AbstractMapController{
         }
     }
 
+
     public void addCleanup() {
         LocalDateTime l = LocalDateTime.now();
-        requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
-                requestCleanupDescription.getText(), currentLoc, user));
-        refreshLists();
-        resetCleanup();
+        boolean success = true;
+        try {
+            currentLoc.equals("");
+            user.equals("");
+            if(requestCleanupName.getText().equals("")||requestCleanupDescription.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill in request information");
+            success = false;
+        }
+        if(success) {
+            requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
+                    requestCleanupDescription.getText(), currentLoc, user));
+            refreshLists();
+            resetCleanup();
+        }
     }
 
     private void refreshLists() {
@@ -256,26 +271,54 @@ public class StaffRequestController extends AbstractMapController{
     }
 
     public void addInterpreter() {
-        if (currentLoc == null) return;
-        LocalDateTime l = LocalDateTime.now();
-        InterpreterRequest iReq = new InterpreterRequest(requestInterpreterName.getText(), l, l, "interpreter",
-                requestInterpreterDescription.getText(), currentLoc, user,
-                languageSelect.getSelectionModel().getSelectedItem().toString());
-        requestInterpreterController.addRequest(iReq);
-        refreshLists();
-        resetInterpreter();
+        boolean success = true;
+        try {
+            currentLoc.equals("");
+            user.equals("");
+            if(requestInterpreterName.getText().equals("")||requestInterpreterDescription.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill in request information");
+            success = false;
+        }
+        if(success) {
+            if (currentLoc == null) return;
+            LocalDateTime l = LocalDateTime.now();
+            InterpreterRequest iReq = new InterpreterRequest(requestInterpreterName.getText(), l, l, "interpreter",
+                    requestInterpreterDescription.getText(), currentLoc, user,
+                    languageSelect.getSelectionModel().getSelectedItem().toString());
+            requestInterpreterController.addRequest(iReq);
+            refreshLists();
+            resetInterpreter();
+        }
     }
 
     public void submitFoodRequest() {
-        if (currentLoc == null) return;
-        LocalDateTime l = LocalDateTime.now();
-        ArrayList<String> order = new ArrayList<>();
-        order.addAll(foodOrderList);
-        FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
-                requestFoodDescription.getText(), currentLoc, user, order);
-        requestFoodController.addRequest(fReq);
-        resetFoodRequest();
-        refreshLists();
+        boolean success = true;
+        try {
+            currentLoc.equals("");
+            user.equals("");
+            if(requestFoodName.getText().equals("")||requestFoodDescription.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill in request information");
+            success = false;
+        }
+        if(success) {
+            if (currentLoc == null) return;
+            LocalDateTime l = LocalDateTime.now();
+            ArrayList<String> order = new ArrayList<>();
+            order.addAll(foodOrderList);
+            FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
+                    requestFoodDescription.getText(), currentLoc, user, order);
+            requestFoodController.addRequest(fReq);
+            resetFoodRequest();
+            refreshLists();
+        }
     }
 
     public void resetCurrentOrder() {
@@ -284,10 +327,23 @@ public class StaffRequestController extends AbstractMapController{
     }
 
     public void addFoodItem() {
-        System.out.println("made it");
-        foodOrderList.add(foodItem.getText());
-        currentFoodOrder.setItems(foodOrderList);
-        foodItem.clear();
+        boolean success = true;
+        try {
+
+            if(foodItem.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please type in a food item");
+            success = false;
+        }
+        if(success) {
+            //System.out.println("made it");
+            foodOrderList.add(foodItem.getText());
+            currentFoodOrder.setItems(foodOrderList);
+            foodItem.clear();
+        }
     }
 
     public void resetFoodRequest() {
