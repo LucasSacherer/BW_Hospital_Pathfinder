@@ -396,7 +396,7 @@
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#zoomInMap" style="-fx-background-radius: 100;">
+                                          <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#zoomInMap" style="-fx-background-radius: 100;">
                                              <graphic>
                                                 <ImageView fitHeight="125.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -405,7 +405,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#zoomOutMap" style="-fx-background-radius: 100;">
+                                          <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#zoomOutMap" style="-fx-background-radius: 100;">
                                              <graphic>
                                                 <ImageView fitHeight="122.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -414,7 +414,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="369.0" layoutY="-1.0" onAction="#floorDown" style="-fx-background-radius: 100;">
+                                          <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="369.0" layoutY="-1.0" onAction="#floorDown" style="-fx-background-radius: 100;">
                                              <graphic>
                                                 <ImageView fitHeight="119.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -436,7 +436,7 @@
                                                 </Label>
                                              </children>
                                           </VBox>
-                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="622.0" layoutY="53.0" onAction="#floorUp" style="-fx-background-radius: 100;">
+                                          <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="622.0" layoutY="53.0" onAction="#floorUp" style="-fx-background-radius: 100;">
                                              <graphic>
                                                 <ImageView fitHeight="114.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -495,7 +495,7 @@
                                                 </VBox>
                                              </graphic>
                                           </MenuButton>
-                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="1297.0" layoutY="53.0" onAction="#mainToLogin" style="-fx-background-radius: 100;">
+                                          <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="1297.0" layoutY="53.0" onAction="#mainToLogin" style="-fx-background-radius: 100;">
                                              <graphic>
                                                 <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
