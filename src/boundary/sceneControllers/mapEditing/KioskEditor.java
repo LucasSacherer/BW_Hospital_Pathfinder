@@ -2,6 +2,7 @@ package boundary.sceneControllers.mapEditing;
 
 import Editor.NodeEditController;
 import Entity.Node;
+import Entity.ErrorController;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -11,6 +12,7 @@ public class KioskEditor {
     private JFXTextField kioskX, kioskY;
     private Node potential;
     private GraphicsContext gc;
+    private ErrorController errorController = new ErrorController();
 
     public KioskEditor(GraphicsContext gc, NodeEditController nodeEditController, JFXTextField setKioskX, JFXTextField setKioskY) {
         this.nodeEditController = nodeEditController;
@@ -41,8 +43,17 @@ public class KioskEditor {
     }
 
     public void setKiosk() {
-        if (potential != null) nodeEditController.setKioskLocation(potential);
-        reset();
+        boolean success = true;
+        try{
+            potential.equals(potential);
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please select a node");
+        }
+        if (success) {
+            nodeEditController.setKioskLocation(potential);
+            reset();
+        }
     }
 
     public void reset() {
