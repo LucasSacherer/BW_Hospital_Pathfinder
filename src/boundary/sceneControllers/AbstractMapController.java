@@ -18,6 +18,7 @@ import javafx.scene.transform.Transform;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -31,9 +32,9 @@ public abstract class AbstractMapController {
     protected MapNavigationFacade mapNavigationFacade;
     protected PathFindingFacade pathFindingFacade;
     protected ImageView imageView;
-    protected Image uparrow = new Image("./boundary/images/up_arrow.png");
-    protected Image downarrow = new Image("./boundary/images/down_arrow.png");
-    protected Image circleoutline = new Image("./boundary/images/circle-outline.png");
+    protected Image uparrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/up_arrow.png"));//new Image("./boundary/images/up_arrow.png");
+    protected Image downarrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/down_arrow.png"));//new Image("./boundary/images/down_arrow.png");
+    protected Image circleoutline = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/circle-outline.png"));//new Image("./boundary/images/circle-outline.png");
 
     protected Node origin, destination, currentLoc;
 
@@ -178,9 +179,9 @@ public abstract class AbstractMapController {
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
             int previousFloorInt = floorStringToInt(previous.getFloor());
-            System.out.println(previous.getFloor());
-            System.out.println(next.getFloor());
-            System.out.println(current.getFloor());
+//            System.out.println(previous.getFloor());
+//            System.out.println(next.getFloor());
+//            System.out.println(current.getFloor());
             if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor) && !next.getFloor().equals(currentFloor)) {
                 if (currentFloorInt < nextFloorInt || currentFloorInt > previousFloorInt) {
                     System.out.println("Hello");
