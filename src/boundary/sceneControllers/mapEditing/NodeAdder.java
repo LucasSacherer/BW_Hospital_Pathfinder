@@ -2,6 +2,7 @@ package boundary.sceneControllers.mapEditing;
 
 import Database.NodeManager;
 import Editor.NodeEditController;
+import Entity.ErrorController;
 import Entity.Node;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -17,7 +18,7 @@ public class NodeAdder {
     private GraphicsContext gc;
     private NodeManager nodeManager;
     private int addNodeX, addNodeY;
-
+    private ErrorController errorController = new ErrorController();
     private JFXTextField xPos, yPos, shortName, longName;
     private JFXComboBox nodeTypeCombo, buildingCombo;
     private ObservableList nodeTypeList = FXCollections.observableArrayList("HALL","REST","ELEV","LABS","EXIT","STAI","DEPT","CONF"),
@@ -50,16 +51,26 @@ public class NodeAdder {
     }
 
     public void addNode(NodeEditController nodeEditController, String currentFloor) {
-        if (buildingCombo.getSelectionModel().getSelectedItem() == null) return; //todo error
-        if (nodeTypeCombo.getSelectionModel().getSelectedItem() == null) return; //todo error
-        String building = buildingCombo.getSelectionModel().getSelectedItem().toString();
-        String nodeType = nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
-        String nodeID = getUniqueID(nodeType, currentFloor);
-        if (nodeID == null) return; //todo error
-        Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName.getText(), shortName.getText());
-        nodeEditController.addNode(n);
-        System.out.println(building + " " + nodeType + " " + nodeID + " " + currentFloor + " " + longName + " " + shortName);
-        reset();
+        boolean success = true;
+        try {
+            nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
+            buildingCombo.getSelectionModel().getSelectedItem().toString();
+
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill out the node information");
+            success = false;
+        }
+        if(success) {
+            String building = buildingCombo.getSelectionModel().getSelectedItem().toString();
+            String nodeType = nodeTypeCombo.getSelectionModel().getSelectedItem().toString();
+            String nodeID = getUniqueID(nodeType, currentFloor);
+            if (nodeID == null) return; //todo error
+            Node n = new Node(nodeID, addNodeX, addNodeY, currentFloor, building, nodeType, longName.getText(), shortName.getText());
+            nodeEditController.addNode(n);
+            System.out.println(building + " " + nodeType + " " + nodeID + " " + currentFloor + " " + longName + " " + shortName);
+            reset();
+        }
     }
 
     private String getUniqueID(String nodeType, String currentFloor) {

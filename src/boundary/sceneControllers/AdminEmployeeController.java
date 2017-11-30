@@ -4,6 +4,7 @@ import Database.UserManager;
 import Entity.Request;
 import Entity.User;
 import Request.GenericRequestController;
+import Entity.ErrorController;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +21,7 @@ public class AdminEmployeeController {
     private boolean isAdmin;
     private User selectedUser;
     private JFXToggleButton adminToggle;
-
+    private ErrorController errorController = new ErrorController();
     public AdminEmployeeController(UserManager u, GenericRequestController grc, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
                                    JFXPasswordField password, JFXComboBox department, JFXToggleButton adminToggle) {
         this.userManager = u;
@@ -52,12 +53,19 @@ public class AdminEmployeeController {
     }
 
     public void addEmployeeAE(){
-        User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
-                departmentMenu.getSelectionModel().getSelectedItem().toString());
-        userManager.addUser(newUser);
-        userManager.updateUsers();
-        employeeList.setItems(userManager.getUsers());
-        resetScene();
+        if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
+            errorController.showError("Please fill out all the employee information");
+        }
+        else {
+            //temp until UI if fixed
+            User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
+                    departmentMenu.getSelectionModel().getSelectedItem().toString());
+            userManager.addUser(newUser);
+            userManager.updateUsers();
+            employeeList.setItems(userManager.getUsers());
+            resetScene();
+        }
+
     }
 
     //resets scene
@@ -66,13 +74,17 @@ public class AdminEmployeeController {
     }
 
     public void editEmployeeAE(){
-
-        isAdmin = adminToggle.isSelected();
-        User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
-                departmentMenu.getSelectionModel().getSelectedItem().toString());
-        userManager.modifyUser(modUser);
-        userManager.updateUsers();
-        employeeList.setItems(userManager.getUsers());
+        if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
+            errorController.showError("Please fill out all the employee information");
+        }
+        else {
+            isAdmin = adminToggle.isSelected();
+            User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
+                    departmentMenu.getSelectionModel().getSelectedItem().toString());
+            userManager.modifyUser(modUser);
+            userManager.updateUsers();
+            employeeList.setItems(userManager.getUsers());
+        }
     }
 
     public void deleteEmployeeAE(){

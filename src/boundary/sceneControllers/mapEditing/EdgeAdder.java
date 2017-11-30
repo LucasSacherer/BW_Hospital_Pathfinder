@@ -3,6 +3,7 @@ package boundary.sceneControllers.mapEditing;
 import Editor.EdgeEditController;
 import Entity.Edge;
 import Entity.Node;
+import Entity.ErrorController;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -12,7 +13,7 @@ public class EdgeAdder {
     private EdgeEditController edgeEditController;
     private JFXTextField edgeXStart, edgeYStart, edgeXEnd, edgeYEnd;
     private GraphicsContext gc;
-
+    private ErrorController errorController = new ErrorController();
     public EdgeAdder(EdgeEditController edgeEditController, JFXTextField edgeXStartAdd,
                      JFXTextField edgeYStartAdd, JFXTextField edgeXEndAdd, JFXTextField edgeYEndAdd, GraphicsContext gc) {
         this.edgeEditController = edgeEditController;
@@ -53,17 +54,34 @@ public class EdgeAdder {
             gc.setStroke(Color.BLACK);
         }
     }
-
+    private boolean checkNodeNull(Node node){
+        boolean success = true;
+        try {
+            node.getXcoord();
+            node.getYcoord();
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill out the node information");
+            success = false;
+        }
+        return success;
+    }
     private void setStart(Node currentLoc) {
-        startNode = currentLoc;
-        edgeXStart.setText("" + startNode.getXcoord());
-        edgeYStart.setText("" + startNode.getYcoord());
+        boolean success = checkNodeNull(startNode);
+        if(success) {
+            startNode = currentLoc;
+            edgeXStart.setText("" + startNode.getXcoord());
+            edgeYStart.setText("" + startNode.getYcoord());
+        }
     }
 
     private void setEnd(Node currentLoc) {
-        endNode = currentLoc;
-        edgeXEnd.setText("" + endNode.getXcoord());
-        edgeYEnd.setText("" + endNode.getYcoord());
+        boolean success = checkNodeNull(endNode);
+        if(success) {
+            endNode = currentLoc;
+            edgeXEnd.setText("" + endNode.getXcoord());
+            edgeYEnd.setText("" + endNode.getYcoord());
+        }
     }
 
     public void reset() {
@@ -77,8 +95,18 @@ public class EdgeAdder {
     }
 
     public void addEdge() {
-        if (startNode != null && endNode != null)
+        boolean success = true;
+        try{
+            startNode.equals(endNode);
+            endNode.equals(startNode);
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please pick two nodes");
+            success = false;
+        }
+        if (success) {
             edgeEditController.addEdge(new Edge(startNode, endNode));
+        }
         reset();
     }
 }
