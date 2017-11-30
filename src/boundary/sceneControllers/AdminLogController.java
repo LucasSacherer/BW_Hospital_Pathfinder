@@ -1,9 +1,11 @@
 package boundary.sceneControllers;
 
+import Admin.CSVController;
 import Database.AdminLogManager;
 import Database.UserManager;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.AdminLog;
+import Entity.FileSelector;
 import Entity.User;
 import boundary.SceneSwitcher;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -21,11 +23,13 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.util.Callback;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminLogController {
-
+    final private FileSelector fileSelector = new FileSelector();
     private TreeTableView<AdminLog> adminLogs;
     private TreeTableColumn<AdminLog,String> dateLogged;
     private TreeTableColumn<AdminLog,String> adminLogged;
@@ -34,6 +38,7 @@ public class AdminLogController {
     private UserManager userManager;
     private User user;
     TreeItem<AdminLog> logRoot = new TreeItem<>();
+    CSVController csvController = new CSVController();
 
     public AdminLogController ( TreeTableView adminLogs, TreeTableColumn dateLogged,
                                  TreeTableColumn adminLogged, TreeTableColumn logContent, AdminLogManager adminLogManager,UserManager userManager){
@@ -77,13 +82,6 @@ public class AdminLogController {
         adminLogs.setRoot(logRoot);
         adminLogs.setShowRoot(false);
     }
-    public void printLogButton(){}
-
-    //TODO
-
-    public void sendLogButton(){}
-
-    //TODO
 
     public void clearLogButton(){
 //        adminLogManager.getAdminLogs().clear();
@@ -96,11 +94,14 @@ public class AdminLogController {
     }
 
     public void exportLogs() {
-
+        String path = fileSelector.selectFile();
+        try {
+            csvController.saveAdminLogs(path);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-    //TODO
-
-
 }
 
