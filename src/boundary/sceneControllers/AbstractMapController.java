@@ -13,8 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Transform;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -69,6 +73,7 @@ public abstract class AbstractMapController {
         if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.RED);
         if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
         drawPath();
+        gc.setTransform(1, 0, 0, 1, 0, 0);
         drawPathNodes();
     }
 
@@ -139,9 +144,25 @@ public abstract class AbstractMapController {
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
                 gc.setLineWidth(3);
-                gc.strokeLine(x1, y1, x2, y2);
+                drawArrow(x1, y1, x2, y2);
             }
         }
+    }
+
+    void drawArrow(int x1, int y1, int x2, int y2) {
+        gc.setFill(Color.BLACK);
+
+        double dx = x2 - x1, dy = y2 - y1;
+        double angle = Math.atan2(dy, dx);
+        int len = (int) Math.sqrt(dx * dx + dy * dy);
+
+        Transform transform = Transform.translate(x1, y1);
+        transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
+        gc.setTransform(new Affine(transform));
+
+        gc.strokeLine(0, 0, len, 0);
+        gc.fillPolygon(new double[]{len, len - 8, len - 8, len}, new double[]{0, -8, 8, 0},
+                4);
     }
 
     private void drawPathNodes() {
@@ -149,7 +170,6 @@ public abstract class AbstractMapController {
         if (pathToDraw == null || pathToDraw.size() == 0) {
             return;
         }
-
 
         for (int i = 0; i < pathToDraw.size() - 2; i++) {
             Node next = pathToDraw.get(i);
@@ -163,10 +183,12 @@ public abstract class AbstractMapController {
                     gc.setFill(Color.WHITE);
                     gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                     gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 } else {
                     gc.setFill(Color.WHITE);
                     gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                     gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 }
             }
             if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor)) {
