@@ -72,6 +72,7 @@ public abstract class AbstractMapController {
         if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
         drawPath();
         drawPathNodes();
+        gc.setTransform(1, 0, 0, 1, 0, 0);
     }
 
     public void clearCanvas() { gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight()); }
