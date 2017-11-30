@@ -60,7 +60,7 @@ public class AdminEmployeeController {
 
     public void editEmployeeAE(){
 
-        isAdmin = false;
+        isAdmin = adminToggle.isSelected();
         User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                 departmentMenu.getSelectionModel().getSelectedItem().toString());
         userManager.modifyUser(modUser);
