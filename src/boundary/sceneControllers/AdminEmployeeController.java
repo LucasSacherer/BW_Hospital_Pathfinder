@@ -1,7 +1,9 @@
 package boundary.sceneControllers;
 
 import Database.UserManager;
+import Entity.Request;
 import Entity.User;
+import Request.GenericRequestController;
 import Entity.ErrorController;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
@@ -9,6 +11,7 @@ import javafx.collections.ObservableList;
 
 public class AdminEmployeeController {
     private UserManager userManager;
+    private GenericRequestController genericRequestController;
     private JFXListView employeeList;
     private JFXTextField userID;
     private JFXTextField userName;
@@ -19,9 +22,10 @@ public class AdminEmployeeController {
     private User selectedUser;
     private JFXToggleButton adminToggle;
     private ErrorController errorController = new ErrorController();
-    public AdminEmployeeController(UserManager u, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
+    public AdminEmployeeController(UserManager u, GenericRequestController grc, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
                                    JFXPasswordField password, JFXComboBox department, JFXToggleButton adminToggle) {
         this.userManager = u;
+        this.genericRequestController = grc;
         this.employeeList = employeeList;
         this.userID = userID;
         this.userName = userName;
@@ -84,6 +88,9 @@ public class AdminEmployeeController {
     }
 
     public void deleteEmployeeAE(){
+        for (Request req: genericRequestController.getAllRequestsByUser(selectedUser)){
+            genericRequestController.deleteRequest(req);
+        }
         userManager.removeUser(selectedUser);
         userManager.updateUsers();
         employeeList.setItems(userManager.getUsers());

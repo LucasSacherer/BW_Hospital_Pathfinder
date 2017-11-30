@@ -18,15 +18,6 @@ public class FoodManager {
     private final NodeManager nodeManager;
     private final UserManager userManager;
 
-    //temporary old constructor, not sure where refactoring would be needed to use the one below
-    public FoodManager(){
-        nodeManager = new NodeManager();
-        userManager = new UserManager();
-
-        requests = new ArrayList<>();
-        databaseGargoyle = new DatabaseGargoyle();
-    }
-
     public FoodManager(NodeManager nodeManager, UserManager userManager){
         this.nodeManager = nodeManager;
         this.userManager = userManager;
