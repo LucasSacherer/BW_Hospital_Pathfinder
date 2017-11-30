@@ -108,7 +108,6 @@ public class GodController {
     private JFXListView currentFoodOrder;
 
     /* Request Report Scene */
-
     @FXML
     private JFXButton printLogSR, sendLogSR, clearLogSR;
 
@@ -198,13 +197,18 @@ public class GodController {
 
     @FXML
     private JFXTextField employeeUserIDAE;
+
     @FXML
     private JFXTextField employeeUsernameAE;
+
     @FXML
-    private JFXTextField employeePasswordAE;
+    private JFXPasswordField employeePasswordAE;
 
     @FXML
     private JFXComboBox employeeTypeAE;
+
+    @FXML
+    private JFXToggleButton adminToggle;
 
 
 
@@ -279,7 +283,7 @@ public class GodController {
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE, employeeTypeAE);
+            employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE, employeeTypeAE, adminToggle);
     }
 
 
@@ -675,8 +679,8 @@ public class GodController {
 
     @FXML
     private void adminHubtoRequest() throws IOException {
-        sceneSwitcher.toAdminRequests(this, adminHubPane);
-        adminRequestController.initializeScene();
+        // sceneSwitcher.toAdminRequests(this, adminHubPane);
+        // adminRequestController.initializeScene();
     }
 
     @FXML

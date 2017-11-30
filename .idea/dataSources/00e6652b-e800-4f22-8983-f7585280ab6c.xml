@@ -3,10 +3,10 @@
   <database-model serializer="dbm" rdbms="DERBY" format-version="4.4">
     <root id="1"/>
     <schema id="2" parent="1" name="APP">
+      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="GRANITE_GARGOYLE">
-      <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="4" parent="1" name="NULLID"/>
