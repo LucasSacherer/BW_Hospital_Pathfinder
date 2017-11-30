@@ -13,10 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -73,8 +75,8 @@ public abstract class AbstractMapController {
         if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.RED);
         if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
         drawPath();
-        drawPathNodes();
         gc.setTransform(1, 0, 0, 1, 0, 0);
+        drawPathNodes();
     }
 
     public void clearCanvas() { gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight()); }
@@ -144,12 +146,12 @@ public abstract class AbstractMapController {
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
                 gc.setLineWidth(3);
-                drawArrow(x1,y1,x2,y2);
-                //gc.strokeLine(x1, y1, x2, y2);
+                drawArrow(x1, y1, x2, y2);
             }
         }
     }
-    private void drawArrow(int x1, int y1, int x2, int y2) {
+
+    void drawArrow(int x1, int y1, int x2, int y2) {
         gc.setFill(Color.BLACK);
 
         double dx = x2 - x1, dy = y2 - y1;
@@ -171,7 +173,6 @@ public abstract class AbstractMapController {
             return;
         }
 
-
         for (int i = 0; i < pathToDraw.size() - 2; i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i + 1);
@@ -179,19 +180,17 @@ public abstract class AbstractMapController {
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
             int previousFloorInt = floorStringToInt(previous.getFloor());
-//            System.out.println(previous.getFloor());
-//            System.out.println(next.getFloor());
-//            System.out.println(current.getFloor());
             if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor) && !next.getFloor().equals(currentFloor)) {
                 if (currentFloorInt < nextFloorInt || currentFloorInt > previousFloorInt) {
-                    System.out.println("Hello");
                     gc.setFill(Color.WHITE);
                     gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                     gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 } else {
                     gc.setFill(Color.WHITE);
                     gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                     gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 }
             }
             if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor)) {
