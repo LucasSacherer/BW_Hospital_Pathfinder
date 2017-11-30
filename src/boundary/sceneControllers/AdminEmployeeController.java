@@ -2,9 +2,7 @@ package boundary.sceneControllers;
 
 import Database.UserManager;
 import Entity.User;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,20 +11,22 @@ public class AdminEmployeeController {
     private JFXListView employeeList;
     private JFXTextField userID;
     private JFXTextField userName;
-    private JFXTextField password;
+    private JFXPasswordField password;
     private JFXComboBox departmentMenu;
     private ObservableList departmentList;
     private boolean isAdmin;
     private User selectedUser;
+    private JFXToggleButton adminToggle;
 
     public AdminEmployeeController(UserManager u, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
-                                   JFXTextField password, JFXComboBox department) {
+                                   JFXPasswordField password, JFXComboBox department, JFXToggleButton adminToggle) {
         this.userManager = u;
         this.employeeList = employeeList;
         this.userID = userID;
         this.userName = userName;
         this.password = password;
         this.departmentMenu = department;
+        this.adminToggle = adminToggle;
     }
 
     public void initializeScene() {
@@ -42,10 +42,9 @@ public class AdminEmployeeController {
         });
     }
 
-
     public void addEmployeeAE(){
         //temp until UI if fixed
-        isAdmin = false;
+        isAdmin = adminToggle.isSelected();
         User newUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                 departmentMenu.getSelectionModel().getSelectedItem().toString());
         userManager.addUser(newUser);
@@ -61,7 +60,7 @@ public class AdminEmployeeController {
 
     public void editEmployeeAE(){
 
-        isAdmin = false;
+        isAdmin = adminToggle.isSelected();
         User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                 departmentMenu.getSelectionModel().getSelectedItem().toString());
         userManager.modifyUser(modUser);
