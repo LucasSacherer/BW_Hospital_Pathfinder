@@ -109,9 +109,7 @@ public class TableCreator {
                     " description VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
-                    " CONSTRAINT foodRequest_PK PRIMARY KEY (name, timeCreated),\n" +
-                    " CONSTRAINT foodUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
-                    " CONSTRAINT foodNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+                    " CONSTRAINT foodRequest_PK PRIMARY KEY (name, timeCreated))");
             System.out.println("FoodRequest table created!");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
@@ -137,9 +135,7 @@ public class TableCreator {
                     " language VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
-                    " CONSTRAINT interpreterRequest_PK PRIMARY KEY (name, timeCreated),\n" +
-                    " CONSTRAINT interpreterUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
-                    " CONSTRAINT interpreterNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+                    " CONSTRAINT interpreterRequest_PK PRIMARY KEY (name, timeCreated))\n");
             System.out.println("InterpreterRequest table created!");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','spanish','GCONF02001', 'admin1')");
             statement.executeUpdate("INSERT INTO INTERPRETERREQUEST VALUES ('not completed','1960-01-01 23:03:20','1960-01-01 23:03:20','type2', 'description1','japanese','GDEPT01901', 'admin2')");
@@ -163,9 +159,7 @@ public class TableCreator {
                     " description VARCHAR(250) NOT NULL,\n" +
                     " nodeID VARCHAR(20) NOT NULL,\n" +
                     " userID VARCHAR(100) NOT NULL, \n" +
-                    " CONSTRAINT cleanUpRequest_PK PRIMARY KEY (name, timeCreated),\n" +
-                    " CONSTRAINT cleanUpUserID_FK FOREIGN KEY (userID) REFERENCES KIOSKUSER(userID),\n" +
-                    " CONSTRAINT cleanUpNodeID_FK FOREIGN KEY (nodeID) REFERENCES NODE(nodeID))");
+                    " CONSTRAINT cleanUpRequest_PK PRIMARY KEY (name, timeCreated))");
             System.out.println("CleanUpRequest table created!");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
             statement.executeUpdate("INSERT INTO CLEANUPREQUEST VALUES ('completed2','1960-01-01 23:03:20','1960-01-01 23:03:20','type1', 'description1','GLABS015L2', 'admin1')");
