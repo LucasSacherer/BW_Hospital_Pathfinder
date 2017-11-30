@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -153,6 +154,7 @@ public abstract class AbstractMapController {
                     gc.setStroke(Color.BLACK);
                 }
                 gc.setStroke(Color.BLUE);
+//              gc.setFont(); //TODO
                 gc.strokeText(direction, current.getXcoord(), current.getYcoord() - 10);
                 gc.setStroke(Color.BLACK);
             }
