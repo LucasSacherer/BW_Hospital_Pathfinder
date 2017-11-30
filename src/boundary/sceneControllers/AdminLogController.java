@@ -26,22 +26,13 @@ import java.util.List;
 
 public class AdminLogController {
 
-
-
     private TreeTableView<AdminLog> adminLogs;
-
     private TreeTableColumn<AdminLog,String> dateLogged;
-
     private TreeTableColumn<AdminLog,String> adminLogged;
-
     private TreeTableColumn<AdminLog,String> logContent;
-
     private AdminLogManager adminLogManager;
-
     private UserManager userManager;
-
     private User user;
-
     TreeItem<AdminLog> logRoot = new TreeItem<>();
 
     public AdminLogController ( TreeTableView adminLogs, TreeTableColumn dateLogged,

@@ -40,7 +40,7 @@ public class CSVController {
     }
 
     /**
-     *
+     * Gets all Edges and calls saveCSVFile with the result set
      * @param filePath
      * @throws SQLException
      * @throws IOException
@@ -54,6 +54,12 @@ public class CSVController {
         databaseGargoyle.destroyConnection();
     }
 
+    /**
+     * Gets all AdminLogs and calls saveCSVFile with the result set
+     * @param filePath
+     * @throws SQLException
+     * @throws IOException
+     */
     public void saveAdminLogs(String filePath) throws SQLException, IOException{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
