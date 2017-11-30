@@ -4,6 +4,7 @@ import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
 import Entity.Node;
+import Request.GenericRequestController;
 
 public class NodeEditController {
 
@@ -11,11 +12,13 @@ public class NodeEditController {
     NodeManager nodeManager;
     SettingsManager settingsManager;
     EdgeManager edgeManager;
+    GenericRequestController genericRequestController;
 
-    public NodeEditController(NodeManager nodeM, SettingsManager setM, EdgeManager edgeM){
+    public NodeEditController(NodeManager nodeM, SettingsManager setM, EdgeManager edgeM, GenericRequestController grm){
         this.nodeManager = nodeM;
         this.settingsManager = setM;
         this.edgeManager = edgeM;
+        this.genericRequestController = grm;
     }
 
     // adds a new node to the lists of all nodes
@@ -31,6 +34,7 @@ public class NodeEditController {
     // deletes an already existing node
     public void deleteNode(Node node) {
         edgeManager.removeNeighborEdges(node);
+        genericRequestController.deleteNodeRequests(node);
         nodeManager.removeNode(node);
     }
 

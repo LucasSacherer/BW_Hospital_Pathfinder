@@ -2,6 +2,7 @@ package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.User;
+import Request.GenericRequestController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -116,6 +117,8 @@ public class UserManager {
      * @param oldUser
      */
     public void removeUser(User oldUser){
+
+
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();

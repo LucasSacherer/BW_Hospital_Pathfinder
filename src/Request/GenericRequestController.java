@@ -107,4 +107,34 @@ public class GenericRequestController {
             foodManager.completeRequest((FoodRequest) request);
         }
     }
+
+    public void deleteNodeRequests(Node node){
+        cleanUpManager.updateRequests();
+        foodManager.updateRequests();
+        interpreterManager.updateRequests();
+
+        List<Request> toRemove = new ArrayList<>();
+
+        for (CleanUpRequest req: cleanUpManager.getRequests()){
+            if (req.getNode().getNodeID().equals(node.getNodeID())){
+                toRemove.add(req);
+            }
+        }
+
+        for (FoodRequest req: foodManager.getRequests()){
+            if (req.getNode().getNodeID().equals(node.getNodeID())){
+                toRemove.add(req);
+            }
+        }
+
+        for (InterpreterRequest req: interpreterManager.getRequests()){
+            if (req.getNode().getNodeID().equals(node.getNodeID())){
+                toRemove.add(req);
+            }
+        }
+
+        for (Request req: toRemove){
+            deleteRequest(req);
+        }
+    }
 }
