@@ -106,9 +106,9 @@ import java.util.List;
                             }
                         }
                     }
-                    if (!(loc2.getBuilding().equals(neighbors.get(i)))){
+                    if (!(loc2.getFloor().equals(neighbors.get(i).getFloor()))){
                         //if one is the tower and one is fransis ignore
-                            gCost += 100;
+                            gCost += 200;
                     }
 
                     starNode tempStar = new starNode(neighbors.get(i), current, hC, gCost);
