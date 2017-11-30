@@ -95,6 +95,10 @@ public class AdminLogController {
         logRoot.getChildren().clear();
     }
 
+    public void exportLogs() {
+
+    }
+
     //TODO
 
 

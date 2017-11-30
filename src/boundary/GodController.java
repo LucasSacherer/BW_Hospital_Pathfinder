@@ -292,6 +292,7 @@ public class GodController {
     ////////////////
     /* Main scene */
     ////////////////
+
     @FXML
     private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
 
@@ -343,9 +344,9 @@ public class GodController {
     @FXML
     private void setAsOrigin() {mainSceneController.setAsOrigin();}
 
-    ///////////////////
+    /////////////////////////
     /* Staff Request Scene */
-    ///////////////////
+    /////////////////////////
 
     @FXML
     private void navigateToRequest() { staffRequestController.navigateToRequest(); } //TODO
@@ -614,6 +615,13 @@ public class GodController {
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
+    @FXML
+    private void exportNodes() { adminMapController.exportNodes(); }
+
+    @FXML
+    private void exportEdges() { adminMapController.exportEdges(); }
+
+
     ////////////////
     /* Admin Logs */
     ////////////////
@@ -630,6 +638,9 @@ public class GodController {
     //TODO
     @FXML
     public void clearLogButton() throws IOException{ adminLogController.clearLogButton(); }
+
+    @FXML
+    public void exportLogs() {adminLogController.exportLogs(); }
 
     //TODO
 

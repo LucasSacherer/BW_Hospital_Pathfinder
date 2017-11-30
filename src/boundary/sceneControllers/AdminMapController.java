@@ -239,6 +239,12 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
+    public void exportNodes() {
+
+    }
+
+    public void exportEdges() {
+    }
 }
 
 
