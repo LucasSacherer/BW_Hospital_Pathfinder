@@ -1,5 +1,7 @@
 package boundary.sceneControllers;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import Admin.CSVController;
 import Database.AdminLogManager;
 import Database.UserManager;
@@ -30,6 +32,7 @@ import java.util.List;
 
 public class AdminLogController {
     final private FileSelector fileSelector = new FileSelector();
+    CSVController csvController = new CSVController();
     private TreeTableView<AdminLog> adminLogs;
     private TreeTableColumn<AdminLog,String> dateLogged;
     private TreeTableColumn<AdminLog,String> adminLogged;
@@ -38,7 +41,7 @@ public class AdminLogController {
     private UserManager userManager;
     private User user;
     TreeItem<AdminLog> logRoot = new TreeItem<>();
-    CSVController csvController = new CSVController();
+
 
     public AdminLogController ( TreeTableView adminLogs, TreeTableColumn dateLogged,
                                  TreeTableColumn adminLogged, TreeTableColumn logContent, AdminLogManager adminLogManager,UserManager userManager){
@@ -97,6 +100,11 @@ public class AdminLogController {
         String path = fileSelector.selectFile();
         try {
             csvController.saveAdminLogs(path);
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("CSV File Populated");
+            alert.setHeaderText(null);
+            alert.setContentText("The CSV file " + path + " has been populated with all Admin Logs!");
+            alert.showAndWait();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
