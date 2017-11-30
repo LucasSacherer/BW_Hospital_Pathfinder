@@ -40,6 +40,11 @@ public class AdminEmployeeController {
     private void initializeAdminEmployeeListeners(){
         employeeList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             selectedUser = (User) employeeList.getItems().get(newValue.intValue());
+            userID.setText(selectedUser.getUserID());
+            userName.setText(selectedUser.getUsername());
+            password.setText(selectedUser.getPassword());
+            adminToggle.setSelected(selectedUser.getAdminFlag());
+            departmentMenu.getSelectionModel().select(selectedUser.getDepartment());
         });
     }
 
@@ -49,14 +54,14 @@ public class AdminEmployeeController {
         }
         else {
             //temp until UI if fixed
-            isAdmin = adminToggle.isSelected();
-            User newUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
+            User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.addUser(newUser);
             userManager.updateUsers();
             employeeList.setItems(userManager.getUsers());
             resetScene();
         }
+
     }
 
     //resets scene
