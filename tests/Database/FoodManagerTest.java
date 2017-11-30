@@ -17,7 +17,9 @@ public class FoodManagerTest {
 
     @Test
     public void testUpdateRequests() {
-        FoodManager foodManager = new FoodManager();
+        NodeManager nm = new NodeManager();
+        UserManager us = new UserManager();
+        FoodManager foodManager = new FoodManager(nm,us);
 
         //Check if the user is there before update
         assertEquals(null, foodManager.getFoodRequest("food2"));
@@ -41,7 +43,7 @@ public class FoodManagerTest {
         nm.updateNodes();
         UserManager um = new UserManager();
         um.updateUsers();
-        FoodManager foodManager = new FoodManager();
+        FoodManager foodManager = new FoodManager(nm,um);
         Timestamp time = Timestamp.valueOf("1960-01-01 23:03:20.000000000");
         ArrayList<String> originalOrder = new ArrayList<>();
         originalOrder.add("cheeseburger");
@@ -74,11 +76,13 @@ public class FoodManagerTest {
 
     @Test
     public void testCompleteRequest() {
-        FoodManager foodManager = new FoodManager();
+
         NodeManager nm = new NodeManager();
         nm.updateNodes();
         UserManager um = new UserManager();
         um.updateUsers();
+        FoodManager foodManager = new FoodManager(nm,um);
+
         ArrayList<String> originalOrder = new ArrayList<>();
         originalOrder.add("cheeseburger");
         originalOrder.add("cheeseburger");
@@ -106,11 +110,13 @@ public class FoodManagerTest {
 
     @Test
     public void testAddDeleteRequest() {
-        FoodManager foodManager = new FoodManager();
+
         NodeManager nm = new NodeManager();
         nm.updateNodes();
         UserManager um = new UserManager();
         um.updateUsers();
+        FoodManager foodManager = new FoodManager(nm,um);
+
         Timestamp time = Timestamp.valueOf(LocalDateTime.now());
         ArrayList<String> order = new ArrayList<>();
         order.add("food1");
@@ -133,7 +139,9 @@ public class FoodManagerTest {
 
     @Test
     public void testGetCompleted() {
-        FoodManager foodManager = new FoodManager();
+        NodeManager nm = new NodeManager();
+        UserManager um = new UserManager();
+        FoodManager foodManager = new FoodManager(nm, um);
         ArrayList<FoodRequest> completed = foodManager.getCompleted();
         assertTrue(completed.get(0).getName().equals("food2"));
     }

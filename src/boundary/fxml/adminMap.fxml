@@ -355,6 +355,24 @@
                                                             </AnchorPane>
                                                         </content>
                                                       </Tab>
+                                                      <Tab text="EXPORT CSV">
+                                                        <content>
+                                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <JFXButton onAction="#exportNodes" prefHeight="44.0" prefWidth="218.0" style="-fx-background-color: #5ea459;" text="Export Nodes" textFill="WHITE" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="20.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                                  <JFXButton layoutX="60.0" layoutY="64.0" onAction="#exportEdges" prefHeight="44.0" prefWidth="218.0" style="-fx-background-color: #5ea459;" text="Export Edges" textFill="WHITE" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="20.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </children>
+                                                            </AnchorPane>
+                                                        </content>
+                                                      </Tab>
                                                    </tabs>
                                                 </JFXTabPane>
                                              </children>
