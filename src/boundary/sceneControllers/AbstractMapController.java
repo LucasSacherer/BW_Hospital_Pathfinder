@@ -9,13 +9,19 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Transform;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,6 +35,9 @@ public abstract class AbstractMapController {
     protected MapNavigationFacade mapNavigationFacade;
     protected PathFindingFacade pathFindingFacade;
     protected ImageView imageView;
+    protected Image uparrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/up_arrow.png"));//new Image("./boundary/images/up_arrow.png");
+    protected Image downarrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/down_arrow.png"));//new Image("./boundary/images/down_arrow.png");
+    protected Image circleoutline = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/circle-outline.png"));//new Image("./boundary/images/circle-outline.png");
 
     protected Node origin, destination, currentLoc;
     protected ErrorController errorController = new ErrorController();
@@ -68,6 +77,8 @@ public abstract class AbstractMapController {
         if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.RED);
         if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
         drawPath();
+        gc.setTransform(1, 0, 0, 1, 0, 0);
+        drawPathNodes();
     }
 
     public void clearCanvas() { gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight()); }
@@ -141,35 +152,75 @@ public abstract class AbstractMapController {
         for(int i=0;i<pathToDraw.size()-1;i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i+1);
+            int x1 = current.getXcoord();
+            int y1 = current.getYcoord();
+            int x2 = next.getXcoord();
+            int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-                int x1 = current.getXcoord();
-                int y1 = current.getYcoord();
-                int x2 = next.getXcoord();
-                int y2 = next.getYcoord();
+
                 gc.setLineWidth(3);
-                gc.strokeLine(x1, y1, x2, y2);
+                drawArrow(x1, y1, x2, y2);
             }
-            else if (current.getFloor().equals(currentFloor)) {
-                int currentFloor = floorStringToInt(current.getFloor());
-                int nextFloor = floorStringToInt(next.getFloor());
-                String direction;
-                if (currentFloor < nextFloor) {
-                    direction = "UP";
-                    //and draw solid dot
-                    gc.setFill(Color.BLUE);
-                    gc.fillOval(current.getXcoord() - 10, current.getYcoord() - 10, 20, 20);
+        }
+    }
+
+    void drawArrow(int x1, int y1, int x2, int y2) {
+        gc.setFill(Color.BLACK);
+
+        double dx = x2 - x1, dy = y2 - y1;
+        double angle = Math.atan2(dy, dx);
+        int len = (int) Math.sqrt(dx * dx + dy * dy);
+
+        Transform transform = Transform.translate(x1, y1);
+        transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
+        gc.setTransform(new Affine(transform));
+
+        gc.strokeLine(0, 0, len, 0);
+        gc.fillPolygon(new double[]{len, len - 8, len - 8, len}, new double[]{0, -8, 8, 0},
+                4);
+    }
+
+    private void drawPathNodes() {
+        List<Node> pathToDraw = currentPath;
+        if (pathToDraw == null || pathToDraw.size() == 0) {
+            return;
+        }
+
+        for (int i = 0; i < pathToDraw.size() - 2; i++) {
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i + 1);
+            Node previous = pathToDraw.get(i + 2);
+            int currentFloorInt = floorStringToInt(current.getFloor());
+            int nextFloorInt = floorStringToInt(next.getFloor());
+            int previousFloorInt = floorStringToInt(previous.getFloor());
+            if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor) && !next.getFloor().equals(currentFloor)) {
+                if (currentFloorInt < nextFloorInt || currentFloorInt > previousFloorInt) {
+                    gc.setFill(Color.WHITE);
+                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
+                } else {
+                    gc.setFill(Color.WHITE);
+                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 }
-                else {
-                    direction = "DOWN";
-                    //and draw outlined dot
-                    gc.setStroke(Color.BLUE);
-                    gc.strokeOval(current.getXcoord() - 10, current.getYcoord() - 10, 20, 20);
-                    gc.setStroke(Color.BLACK);
+            }
+            if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor)) {
+                gc.setFill(Color.WHITE);
+                gc.fillOval(current.getXcoord() - 12, current.getYcoord() - 12, 24, 24);
+                gc.drawImage(circleoutline, current.getXcoord() - 12, current.getYcoord() - 12, 24, 24);
+            }
+            if (current.getFloor().equals(currentFloor) && !next.getFloor().equals(currentFloor)) {
+                if (currentFloorInt < nextFloorInt) {
+                    gc.setFill(Color.WHITE);
+                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                } else {
+                    gc.setFill(Color.WHITE);
+                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                 }
-                gc.setStroke(Color.BLUE);
-//              gc.setFont(); //TODO
-                gc.strokeText(direction, current.getXcoord(), current.getYcoord() - 10);
-                gc.setStroke(Color.BLACK);
             }
         }
     }
