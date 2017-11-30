@@ -20,7 +20,7 @@ public class FoodManagerTest {
         FoodManager foodManager = new FoodManager();
 
         //Check if the user is there before update
-        assertEquals(null, foodManager.getFoodRequest("food1"));
+        assertEquals(null, foodManager.getFoodRequest("food2"));
 
         //Check if the user is there after update
         foodManager.updateRequests();
@@ -85,15 +85,18 @@ public class FoodManagerTest {
         originalOrder.add("lasagna");
         Timestamp time = Timestamp.valueOf("1960-01-01 23:03:20.000000000");
 
+        //Test that before completing the request, the times are equal
+        foodManager.updateRequests();
+        FoodRequest testReq1 = foodManager.getFoodRequest("food1");
+        assertEquals(testReq1.getTimeCreated(), testReq1.getTimeCompleted());
+        assertTrue(testReq1.getOrder().contains("lasagna"));
+
+        //Complete the request, and then check that it has been completed and removed from the list
         FoodRequest completedRequest = new FoodRequest("food1", time.toLocalDateTime(),time.toLocalDateTime(),
                 "type1", "description1", nm.getNode("GRETL03501"), um.getUser("admin1"), originalOrder);
         foodManager.completeRequest(completedRequest);
-        FoodRequest testReq = foodManager.getFoodRequest("food1");
-        assertEquals("type1", testReq.getType());
-        assertEquals("description1", testReq.getDescription());
-        assertEquals("GRETL03501", testReq.getNode().getNodeID());
-        assertEquals("admin1", testReq.getUser().getUserID());
-        assertEquals(0, testReq.getOrder().size());
+        foodManager.updateRequests();
+        assertEquals(null, foodManager.getFoodRequest("food1"));
 
         //Revert changes
         FoodRequest original = new FoodRequest("food1", time.toLocalDateTime(),time.toLocalDateTime(),
