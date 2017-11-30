@@ -14,15 +14,14 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -35,7 +34,8 @@ public class StaffRequestController extends AbstractMapController{
     private RequestInterpreterController requestInterpreterController;
     private RequestFoodController requestFoodController;
     private JFXListView allStaffRequests, requestsIMade;
-    private Request selectedRequest;
+    private Request requestToComplete, requestToDelete;
+    private Node requestNodeToComplete, requestNodeToDelete;
     private JFXTextField nodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
     private User user;
     private JFXComboBox languageSelect;
@@ -87,56 +87,109 @@ public class StaffRequestController extends AbstractMapController{
         allStaffRequests.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(newValue.intValue());
             if (newValue.intValue() != -1) {
-                selectedRequest = (Request) allStaffRequests.getItems().get(newValue.intValue());
-                currentLoc = selectedRequest.getNode();
-                nodeID.setText(selectedRequest.getNode().getNodeID());
-                requestInfo.setText(selectedRequest.getRequestReport());
-                refreshCanvas();
+                requestToComplete = (Request) allStaffRequests.getItems().get(newValue.intValue());
+                requestNodeToComplete = requestToComplete.getNode();
+                nodeID.setText(requestToComplete.getNode().getNodeID());
+                requestInfo.setText(requestToComplete.getRequestReport());
+                refreshRequestCanvas();
             }
         });
         requestsIMade.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() != -1) {
-                selectedRequest = (Request) requestsIMade.getItems().get(newValue.intValue());
-                currentLoc = selectedRequest.getNode();
-                nodeID.setText(selectedRequest.getNode().getNodeID());
-                requestInfo.setText(selectedRequest.getDescription());
-                refreshCanvas();
+                requestToDelete = (Request) requestsIMade.getItems().get(newValue.intValue());
+                requestNodeToDelete = requestToDelete.getNode();
+                nodeID.setText(requestToDelete.getNode().getNodeID());
+                requestInfo.setText(requestToDelete.getDescription());
+                refreshRequestCanvas();
             }
         });
-        refreshCanvas();
+        refreshRequestCanvas();
         // requestChoiceBox.setItems(requestTypeList);
     }
 
-    public void clickOnMap(MouseEvent m) {
-        super.clickOnMap(m);
-        nodeID.setText(currentLoc.getNodeID());
+    public void zoomInMap() {
+        super.zoomInMap();
+        refreshRequestCanvas();
     }
 
-    public void refreshCanvas() {
-        super.refreshCanvas();
+    public void zoomOutMap() {
+        super.zoomOutMap();
+        refreshRequestCanvas();
+    }
+
+    public void floorDown() throws IOException, SQLException {
+        super.floorDown();
+        refreshRequestCanvas();
+    }
+
+    public void floorUp() throws IOException, SQLException {
+        super.floorUp();
+        refreshRequestCanvas();
+    }
+    public void clickOnMap(MouseEvent m) {
+        int x = (int) m.getX();
+        int y = (int) m.getY();
+        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
+        nodeID.setText(currentLoc.getNodeID());
+        refreshRequestCanvas();
+    }
+
+    public void refreshRequestCanvas() {
+//        super.refreshCanvas();
+        clearCanvas();
         drawAllRequests();
     }
 
     public void drawAllRequests() {
-        if (selectedRequest != null && selectedRequest.getNode() != null && currentFloor.equals(selectedRequest.getNode().getFloor())) {
-            gc.setFill(Color.YELLOW);
-            gc.fillOval(selectedRequest.getNode().getXcoord() - 10, selectedRequest.getNode().getYcoord() - 10, 20, 20);
+        if(currentLoc != null && currentLoc.getFloor().equals(currentFloor)) {
+            gc.setFill(Color.BLUE);
+            gc.fillOval(currentLoc.getXcoord() - 5, currentLoc.getYcoord() - 5, 10, 10);
         }
-        for (CleanUpRequest c : requestCleanupController.getRequests()) {
-            if (c.getNode().getFloor().equals(currentFloor)) {
+        if (requestNodeToComplete != null && currentFloor.equals(requestNodeToComplete.getFloor())) {
+            gc.setFill(Color.BLACK);
+            gc.fillOval(requestNodeToComplete.getXcoord() - 11, requestNodeToComplete.getYcoord() - 11, 22, 22);
+            gc.setFill(Color.YELLOW);
+            gc.fillOval(requestNodeToComplete.getXcoord() - 10, requestNodeToComplete.getYcoord() - 10, 20, 20);
+        }
+        if (requestNodeToDelete != null && currentFloor.equals(requestNodeToDelete.getFloor())) {
+            gc.setFill(Color.BLACK);
+            gc.fillOval(requestNodeToDelete.getXcoord() - 11, requestNodeToDelete.getYcoord() - 11, 22, 22);
+            gc.setFill(Color.ORANGE);
+            gc.fillOval(requestNodeToDelete.getXcoord() - 10, requestNodeToDelete.getYcoord() - 10, 20, 20);
+        }
+        ArrayList<Request> requestsToShow = new ArrayList<>();
+        requestsToShow.addAll(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
+        for (Request r : requestsToShow) {
+            if (r.getNode().getFloor().equals(currentFloor)) {
+                gc.setFill(Color.BLACK);
+                gc.fillOval(r.getNode().getXcoord() - 6, r.getNode().getYcoord() - 6, 12, 12);
                 gc.setFill(Color.MEDIUMPURPLE);
-                gc.fillOval(c.getNode().getXcoord() - 5, c.getNode().getYcoord() - 5, 10, 10);
+                gc.fillOval(r.getNode().getXcoord() - 5, r.getNode().getYcoord() - 5, 10, 10);
             }
         }
     }
 
+
     public void addCleanup() {
-        System.out.println(currentLoc + " " + user + requestCleanupDescription.getText() + requestCleanupName.getText());
         LocalDateTime l = LocalDateTime.now();
-        requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
-                requestCleanupDescription.getText(), currentLoc, user));
-        refreshLists();
-        refreshCanvas();
+        boolean success = true;
+        try {
+            currentLoc.equals("");
+            user.equals("");
+            if(requestCleanupName.getText().equals("")||requestCleanupDescription.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill in request information");
+            success = false;
+        }
+        if(success) {
+            requestCleanupController.addRequest(new CleanUpRequest(requestCleanupName.getText(), l, l, "Cleanup",
+                    requestCleanupDescription.getText(), currentLoc, user));
+            refreshLists();
+            resetCleanup();
+        }
     }
 
     private void refreshLists() {
@@ -144,47 +197,67 @@ public class StaffRequestController extends AbstractMapController{
         requestsIMade.getSelectionModel().clearSelection();
         requestsIMadeList.clear();
         allStaffRequestsList.clear();
-        requestsIMadeList = genericRequestController.getAllRequestsByUser(user);
-        ObservableList allRequests = FXCollections.observableArrayList();
+        requestsIMadeList.addAll(genericRequestController.getAllRequestsByUser(user));
+        allStaffRequestsList.addAll(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
+        refreshRequestCanvas();
 
-        /* for testing */
-        allRequests.addAll(requestCleanupController.getRequests());
-        allRequests.addAll(requestInterpreterController.getRequests());
-        allRequests.addAll(requestFoodController.getRequests());
+        /* start test */
+//        ObservableList allRequests = FXCollections.observableArrayList();
+//        allRequests.addAll(requestCleanupController.getRequests());
+//        allRequests.addAll(requestInterpreterController.getRequests());
+//        allRequests.addAll(requestFoodController.getRequests());
 
-        allStaffRequestsList.addAll(allRequests); //todo this needs to check the user's dept.
-
-//        allStaffRequests.setItems(genericRequestController.getAllRequestsByDepartment(user.getDepartment()));
+//        ArrayList<Request> requestsToShow = new ArrayList<>();
+//        requestsToShow.addAll(allRequests);
+//        for (Request r : requestsToShow) {
+//            if (r.getNode().getFloor().equals(currentFloor)) {
+//                gc.setFill(Color.BLACK);
+//                gc.fillOval(r.getNode().getXcoord() - 6, r.getNode().getYcoord() - 6, 12, 12);
+//                gc.setFill(Color.MEDIUMPURPLE);
+//                gc.fillOval(r.getNode().getXcoord() - 5, r.getNode().getYcoord() - 5, 10, 10);
+//            }
+//        }
+//
+//        allStaffRequestsList.addAll(allRequests);
+        /* end test */
     }
 
-    public void completeRequest() { //TODO
-        if (selectedRequest != null) {
-            genericRequestController.completeRequests(selectedRequest);
-            refreshCanvas();
+    public void completeRequest() {
+        if (requestToComplete != null) {
+            genericRequestController.completeRequests(requestToComplete);
+            if (requestNodeToComplete == requestNodeToDelete) requestNodeToDelete = null;
+            requestToComplete = null;
+            requestNodeToComplete = null;
             refreshLists();
+            requestInfo.clear();
         }
     }
 
-    public void deleteRequest() { //TODO
-        if (selectedRequest != null && selectedRequest.getUser().getUserID().equals(user.getUserID())) {
-            genericRequestController.deleteRequest(selectedRequest);
-            selectedRequest = null;
-            refreshCanvas();
+    public void deleteRequest() {
+        if (requestToDelete != null && requestToDelete.getUser().getUserID().equals(user.getUserID())) {
+            genericRequestController.deleteRequest(requestToDelete);
+            if (requestNodeToDelete == requestNodeToComplete) requestNodeToComplete = null;
+            requestNodeToDelete = null;
+            requestToDelete = null;
             refreshLists();
         }
     }
 
     public void navigateToRequest() {
-        if (origin != null && selectedRequest != null && selectedRequest.getNode() != null) {
-            destination = selectedRequest.getNode();
+        if (origin != null && requestNodeToComplete != null) {
+            destination = requestNodeToComplete;
             findPath();
         }
+        refreshRequestCanvas();
     }
 
-    public void snapToNode(MouseEvent m) {
-        super.snapToNode(m);
-        nodeID.setText(currentLoc.getNodeID());
-    }
+//    public void snapToNode(MouseEvent m) {
+//        int x = (int) m.getX();
+//        int y = (int) m.getY();
+//        currentLoc = mapNavigationFacade.getNearestNode(x,y,currentFloor);
+//        nodeID.setText(currentLoc.getNodeID());
+//        refreshRequestCanvas();
+//    }
 
     public void resetCleanup() {
         requestCleanupName.clear();
@@ -198,26 +271,54 @@ public class StaffRequestController extends AbstractMapController{
     }
 
     public void addInterpreter() {
-        if (currentLoc == null) return;
-        LocalDateTime l = LocalDateTime.now();
-        InterpreterRequest iReq = new InterpreterRequest(requestInterpreterName.getText(), l, l, "interpreter",
-                requestInterpreterDescription.getText(), currentLoc, user,
-                languageSelect.getSelectionModel().getSelectedItem().toString());
-        requestInterpreterController.addRequest(iReq);
-        refreshLists();
-        refreshCanvas();
+        boolean success = true;
+        try {
+            currentLoc.equals("");
+            user.equals("");
+            if(requestInterpreterName.getText().equals("")||requestInterpreterDescription.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill in request information");
+            success = false;
+        }
+        if(success) {
+            if (currentLoc == null) return;
+            LocalDateTime l = LocalDateTime.now();
+            InterpreterRequest iReq = new InterpreterRequest(requestInterpreterName.getText(), l, l, "interpreter",
+                    requestInterpreterDescription.getText(), currentLoc, user,
+                    languageSelect.getSelectionModel().getSelectedItem().toString());
+            requestInterpreterController.addRequest(iReq);
+            refreshLists();
+            resetInterpreter();
+        }
     }
 
     public void submitFoodRequest() {
-        if (currentLoc == null) return;
-        LocalDateTime l = LocalDateTime.now();
-        ArrayList<String> order = new ArrayList<>();
-        order.addAll(foodOrderList);
-        FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
-                requestFoodDescription.getText(), currentLoc, user, order);
-        requestFoodController.addRequest(fReq);
-        resetFoodRequest();
-        refreshLists();
+        boolean success = true;
+        try {
+            currentLoc.equals("");
+            user.equals("");
+            if(requestFoodName.getText().equals("")||requestFoodDescription.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please fill in request information");
+            success = false;
+        }
+        if(success) {
+            if (currentLoc == null) return;
+            LocalDateTime l = LocalDateTime.now();
+            ArrayList<String> order = new ArrayList<>();
+            order.addAll(foodOrderList);
+            FoodRequest fReq = new FoodRequest(requestFoodName.getText(), l, l, "food",
+                    requestFoodDescription.getText(), currentLoc, user, order);
+            requestFoodController.addRequest(fReq);
+            resetFoodRequest();
+            refreshLists();
+        }
     }
 
     public void resetCurrentOrder() {
@@ -226,10 +327,23 @@ public class StaffRequestController extends AbstractMapController{
     }
 
     public void addFoodItem() {
-        System.out.println("made it");
-        foodOrderList.add(foodItem.getText());
-        currentFoodOrder.setItems(foodOrderList);
-        foodItem.clear();
+        boolean success = true;
+        try {
+
+            if(foodItem.getText().equals("")){
+                throw new NullPointerException();
+            }
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please type in a food item");
+            success = false;
+        }
+        if(success) {
+            //System.out.println("made it");
+            foodOrderList.add(foodItem.getText());
+            currentFoodOrder.setItems(foodOrderList);
+            foodItem.clear();
+        }
     }
 
     public void resetFoodRequest() {

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.3896321070234114" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="400.0" style="-fx-background-color: white;">
+               <children>
+                  <JFXButton buttonType="RAISED" layoutX="63.0" layoutY="439.0" onAction="#requestToMain" style="-fx-background-color: #003da5;" text="Back to Main Scene" textFill="WHITE" />
+                  <JFXListView fx:id="allStaffRequests" layoutX="-1.0" layoutY="23.0" prefHeight="119.0" prefWidth="248.0" />
+                  <JFXListView layoutX="-1.0" layoutY="296.0" prefHeight="95.0" prefWidth="248.0" />
+                  <Label layoutX="76.0" style="-fx-background-color: white;" text="Request Queue" textFill="#003da6">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="154.0" onAction="#addStaffRequest" style="-fx-background-color: #003da6;" text="Add " textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="63.0" layoutY="154.0" onAction="#completeStaffRequest" style="-fx-background-color: green;" text="Complete" textFill="WHITE" />
+                  <JFXButton layoutX="142.0" layoutY="154.0" style="-fx-background-color: #003da6;" text="Generate Report" textFill="WHITE" />
+                  <Label layoutX="57.0" layoutY="271.0" style="-fx-background-color: white;" text="My Request Queue" textFill="#003da6">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton buttonType="RAISED" layoutX="63.0" layoutY="403.0" onAction="#editStaffRequest" style="-fx-background-color: #003da6;" text="Edit" textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="135.0" layoutY="403.0" onAction="#deleteStaffRequest" style="-fx-background-color: red;" text="Delete" textFill="WHITE" />
+                  <JFXTextField fx:id="requestDescription" layoutX="62.0" layoutY="233.0" prefHeight="18.0" prefWidth="117.0" text="Description" />
+                  <JFXTextField fx:id="requestName" layoutX="62.0" layoutY="197.0" prefHeight="27.0" prefWidth="117.0" text="Name" />
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="398.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                           <children>
+                              <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="396.0" prefWidth="383.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <Pane fx:id="requestMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
+                                       <children>
+                                          <ImageView fx:id="requestImageView" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/other%20images/BWH.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Canvas fx:id="requestCanvas" height="3400.0" layoutY="14.0" onMouseClicked="#clickOnRequestMap" width="5000.0" />
+                                       </children>
+                                    </Pane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="112.0" prefWidth="877.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <JFXButton fx:id="back1" buttonType="RAISED" onAction="#navigateToRequest" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: green;" text="Navigate to request" textFill="WHITE" />
+                                    <Group fx:id="zoomIn" onMouseClicked="#zoomInRequestMap">
+                                       <children>
+                                          <ImageView fitHeight="125.0" fitWidth="136.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Black%20Plus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Group>
+                                    <Group onMouseClicked="#zoomOutRequestMap">
+                                       <children>
+                                          <ImageView fitHeight="122.0" fitWidth="124.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Black%20Minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Group>
+                                    <Group onMouseClicked="#floorDownRequest">
+                                       <children>
+                                          <ImageView fitHeight="119.0" fitWidth="109.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../boundary/images/down_arrow.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Group>
+                                    <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" prefHeight="119.0" prefWidth="87.0" style="-fx-background-color: #DBBD9B; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
+                                       <children>
+                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Current Floor:" textAlignment="CENTER" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="currentFloorNumRequest">
+                                             <font>
+                                                <Font name="System Bold" size="60.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <Group onMouseClicked="#floorUpRequest">
+                                       <children>
+                                          <ImageView fitHeight="114.0" fitWidth="116.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../boundary/images/up_arrow.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Group>
+                                    <Group />
+                                    <Group onMouseClicked="#mainToLogin" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

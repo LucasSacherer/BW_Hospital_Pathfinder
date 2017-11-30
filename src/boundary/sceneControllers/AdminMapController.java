@@ -1,4 +1,5 @@
 package boundary.sceneControllers;
+import Admin.CSVController;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
@@ -16,12 +17,16 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import Entity.FileSelector;
+import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class AdminMapController extends AbstractMapController{
@@ -40,7 +45,8 @@ public class AdminMapController extends AbstractMapController{
     private String nodeID = "";
     private String building, nodeType;
     private ObservableList<String> nodeTypeList, buildingList; //TODO remove
-
+    final private FileSelector fileSelector = new FileSelector();
+    CSVController csvController = new CSVController();
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
 
 
@@ -205,6 +211,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void removeNodeButton() {
+
         nodeRemover.remove();
         refreshCanvas();
     }
@@ -239,6 +246,37 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
+    public void exportNodes() {
+        String path = fileSelector.selectFile();
+        try {
+            csvController.saveNodes(path);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("CSV File Populated");
+            alert.setHeaderText(null);
+            alert.setContentText("The CSV file " + path + " has been populated with all Nodes!");
+            alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportEdges() {
+        String path = fileSelector.selectFile();
+        try {
+            csvController.saveEdges(path);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("CSV File Populated");
+            alert.setHeaderText(null);
+            alert.setContentText("The CSV file " + path + " has been populated with all Edges!");
+            alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

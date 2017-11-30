@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import javafx.scene.control.Alert.AlertType;
-
+import Entity.ErrorController;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +22,7 @@ import java.util.List;
 public class MainSceneController extends AbstractMapController{
     private JFXTextField originField, destinationField;
     private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
+    private ErrorController errorController = new ErrorController();
 
     public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                                Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir,
@@ -58,7 +59,18 @@ public class MainSceneController extends AbstractMapController{
         shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
         nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
     }
-
+    private boolean checkNullLocations(){
+        boolean success = true;
+        try {
+            origin.equals("");
+            destination.equals("");
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please set a start and end location");
+            success = false;
+        }
+        return success;
+    }
     private void initializeDirectoryListeners(){
         elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
@@ -98,14 +110,6 @@ public class MainSceneController extends AbstractMapController{
         });
     }
 
-    public void clickOnMap(MouseEvent m) {
-        super.clickOnMap(m);
-
-        if (origin == null ) {//TODO replace this code with real origin
-            origin = mapNavigationFacade.getNearestNode((int) m.getX(), (int) m.getY(),currentFloor);
-            originField.setText(origin.getNodeID());
-        }
-    }
     public void bathroomClicked() { findNearest(currentLoc, "REST"); }
 
     public void infoClicked() { findNearest(currentLoc, "INFO"); }
@@ -119,8 +123,11 @@ public class MainSceneController extends AbstractMapController{
     }
 
     public void navigateToHere() {
-        setDestination();
-        findPath();
+        boolean success = checkNullLocations();
+        if(success) {
+            setDestination();
+            findPath();
+        }
     }
 
     public void setOrigin() {
@@ -141,30 +148,23 @@ public class MainSceneController extends AbstractMapController{
         destinationField.setText(destination.getNodeID());
     }
 
-    public void setAsOrigin() {
-        System.out.println("origin" + origin);
-        System.out.println("currentLoc" + currentLoc);
-        currentPath = null;
-        origin = currentLoc;
-        System.out.println("origin" + origin);
-        System.out.println("currentLoc" + currentLoc);
-        refreshCanvas();
-    }
-
     public void displayTextDir(){
-        currentPath = pathFindingFacade.getPath(origin, destination);
-        List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
-        String dirMessage = "";
-        findPath();
-        if(writtenDir.isEmpty()){
-            return;
-        }
-        for(int i = 0; i < writtenDir.size(); i++){
-            dirMessage += writtenDir.get(i);
-            dirMessage += "\n";
-        }
+        boolean success = checkNullLocations();
+        if(success) {
+            currentPath = pathFindingFacade.getPath(origin, destination);
+            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
+            String dirMessage = "";
+            findPath();
+            if (writtenDir.isEmpty()) {
+                return;
+            }
+            for (int i = 0; i < writtenDir.size(); i++) {
+                dirMessage += writtenDir.get(i);
+                dirMessage += "\n";
+            }
 
-        Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
-        directions.show();
+            Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
+            directions.show();
+        }
     }
 }
