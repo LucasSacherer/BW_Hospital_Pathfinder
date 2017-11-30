@@ -70,13 +70,17 @@ public class AdminEmployeeController {
     }
 
     public void editEmployeeAE(){
-
-        isAdmin = adminToggle.isSelected();
-        User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
-                departmentMenu.getSelectionModel().getSelectedItem().toString());
-        userManager.modifyUser(modUser);
-        userManager.updateUsers();
-        employeeList.setItems(userManager.getUsers());
+        if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
+            errorController.showError("Please fill out all the employee information");
+        }
+        else {
+            isAdmin = adminToggle.isSelected();
+            User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
+                    departmentMenu.getSelectionModel().getSelectedItem().toString());
+            userManager.modifyUser(modUser);
+            userManager.updateUsers();
+            employeeList.setItems(userManager.getUsers());
+        }
     }
 
     public void deleteEmployeeAE(){
