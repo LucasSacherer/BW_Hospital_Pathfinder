@@ -396,42 +396,32 @@
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Group>
-                                             <children>
-                                                <ImageView fitHeight="116.0" fitWidth="215.0" layoutX="3.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/location.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group fx:id="zoomIn" onKeyPressed="#zoomInMap" onMouseClicked="#zoomInMap">
-                                             <children>
-                                                <ImageView fitHeight="125.0" fitWidth="136.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#zoomInMap" style="-fx-background-radius: 100;">
+                                             <graphic>
+                                                <ImageView fitHeight="125.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/Black%20Plus.png" />
                                                    </image>
                                                 </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group onMouseClicked="#zoomOutMap">
-                                             <children>
-                                                <ImageView fitHeight="122.0" fitWidth="124.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#zoomOutMap" style="-fx-background-radius: 100;">
+                                             <graphic>
+                                                <ImageView fitHeight="122.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/Black%20Minus.png" />
                                                    </image>
                                                 </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group onMouseClicked="#floorDown">
-                                             <children>
-                                                <ImageView fitHeight="119.0" fitWidth="109.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="369.0" layoutY="-1.0" onAction="#floorDown" style="-fx-background-radius: 100;">
+                                             <graphic>
+                                                <ImageView fitHeight="119.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/down_arrow.png" />
                                                    </image>
                                                 </ImageView>
-                                             </children>
-                                          </Group>
+                                             </graphic></JFXButton>
                                           <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                              <children>
                                                 <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor:" textAlignment="CENTER" wrapText="true">
@@ -446,15 +436,15 @@
                                                 </Label>
                                              </children>
                                           </VBox>
-                                          <Group onMouseClicked="#floorUp">
-                                             <children>
-                                                <ImageView fitHeight="114.0" fitWidth="116.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="622.0" layoutY="53.0" onAction="#floorUp" style="-fx-background-radius: 100;">
+                                             <graphic>
+                                                <ImageView fitHeight="114.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/up_arrow.png" />
                                                    </image>
                                                 </ImageView>
-                                             </children>
-                                          </Group>
+                                             </graphic>
+                                          </JFXButton>
                                           <MenuButton mnemonicParsing="false">
                                              <items>
                                                 <MenuItem mnemonicParsing="false" onAction="#infoClicked" text="Info">
@@ -505,24 +495,15 @@
                                                 </VBox>
                                              </graphic>
                                           </MenuButton>
-                                          <Group>
-                                             <children>
-                                                <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/home.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group onMouseClicked="#mainToLogin">
-                                             <children>
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="1297.0" layoutY="53.0" onAction="#mainToLogin" style="-fx-background-radius: 100;">
+                                             <graphic>
                                                 <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/ic_account_circle_black_24dp.png" />
                                                    </image>
                                                 </ImageView>
-                                             </children>
-                                          </Group>
+                                             </graphic>
+                                          </JFXButton>
                                        </children>
                                     </HBox>
                                  </children>
