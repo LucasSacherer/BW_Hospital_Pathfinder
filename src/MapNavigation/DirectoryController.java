@@ -104,6 +104,8 @@ public class DirectoryController {
      */
     //TODO Need to throw exception if Default Node doesn't exist.
     Node getDefaultNode(){
+        settingsManager.updateSettings();
+        nm.updateNodes();
         String defaultNode = settingsManager.getSetting("Default Node");
         return nm.getNode(defaultNode);
     }
