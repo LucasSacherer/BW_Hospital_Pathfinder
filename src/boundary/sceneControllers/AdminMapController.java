@@ -205,6 +205,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void removeNodeButton() {
+
         nodeRemover.remove();
         refreshCanvas();
     }

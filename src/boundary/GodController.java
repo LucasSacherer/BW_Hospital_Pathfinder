@@ -38,7 +38,12 @@ public class GodController {
     final private NodeManager nodeManager = new NodeManager();
     final private EdgeManager edgeManager = new EdgeManager(nodeManager);
     final private SettingsManager settingsManager = new SettingsManager();
-    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager);
+    final private UserManager userManager = new UserManager();
+    final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
+    final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
+    final private FoodManager food = new FoodManager(nodeManager, userManager);
+    final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
+    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager, genericRequestController);
     final private EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
@@ -52,16 +57,11 @@ public class GodController {
     final private BreadthSearch breadth = new BreadthSearch(edgeManager);
     final private DepthSearch depth = new DepthSearch(edgeManager);
     final private UserLoginController userLoginController = new UserLoginController(new UserManager());
-    final private UserManager userManager = new UserManager();
     final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
     String currentUser;
-    final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
-    final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
-    final private FoodManager food = new FoodManager();
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
     final private RequestFoodController requestFoodController = new RequestFoodController(food);
-    final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
     final private ErrorController errorController = new ErrorController();
 
     ///////////////////////
@@ -283,7 +283,8 @@ public class GodController {
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE, employeeTypeAE, adminToggle);
+            genericRequestController,employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
+            employeeTypeAE, adminToggle);
     }
 
 

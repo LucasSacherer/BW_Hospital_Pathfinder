@@ -1,10 +1,9 @@
 package Editor;
 
-import Database.EdgeManager;
-import Database.NodeManager;
-import Database.SettingsManager;
+import Database.*;
 import Entity.Edge;
 import Entity.Node;
+import Request.GenericRequestController;
 import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import org.junit.Test;
 
@@ -21,7 +20,9 @@ public class NodeEditControllerTest {
         NodeManager nManager = new NodeManager();
         SettingsManager sManager = new SettingsManager();
         EdgeManager eManager = new EdgeManager(nManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager,eManager);
+        UserManager userManager = new UserManager();
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(nManager,userManager),new FoodManager(nManager,userManager),new InterpreterManager(nManager,userManager));
+        NodeEditController editor = new NodeEditController(nManager, sManager,eManager,genericRequestController);
 
         nManager.updateNodes();
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
@@ -60,7 +61,9 @@ public class NodeEditControllerTest {
         nManager.updateNodes();
         SettingsManager sManager = new SettingsManager();
         EdgeManager eManager = new EdgeManager(nManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager, eManager);
+        UserManager um = new UserManager();
+        GenericRequestController genericRequestController= new GenericRequestController(new CleanUpManager(nManager,um), new FoodManager(nManager,um), new InterpreterManager(nManager,um));
+        NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
 
         editor.setKioskLocation(test);
 
@@ -73,7 +76,9 @@ public class NodeEditControllerTest {
         NodeManager nManager = new NodeManager();
         SettingsManager sManager = new SettingsManager();
         EdgeManager eManager = new EdgeManager(nManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager, eManager);
+        UserManager um = new UserManager();
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(nManager,um), new FoodManager(nManager,um), new InterpreterManager(nManager,um));
+        NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
 
         nManager.updateNodes();
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
