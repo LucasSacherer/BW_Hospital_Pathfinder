@@ -626,16 +626,6 @@ public class GodController {
     /* Admin Logs */
     ////////////////
 
-    //TODO
-
-    @FXML
-    public void printLogButton(){}
-
-    //TODO
-    @FXML
-    public void sendLogButton(){}
-
-    //TODO
     @FXML
     public void clearLogButton() throws IOException{ adminLogController.clearLogButton(); }
 
