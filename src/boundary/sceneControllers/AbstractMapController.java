@@ -1,6 +1,7 @@
 package boundary.sceneControllers;
 
 import Entity.Node;
+import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import javafx.scene.canvas.Canvas;
@@ -30,6 +31,7 @@ public abstract class AbstractMapController {
     protected ImageView imageView;
 
     protected Node origin, destination, currentLoc;
+    protected ErrorController errorController = new ErrorController();
 
     public AbstractMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum) {
         this.imageView = i;
@@ -96,8 +98,19 @@ public abstract class AbstractMapController {
     }
 
     public void findPath() {
-        currentPath = pathFindingFacade.getPath(origin, destination);
-        refreshCanvas();
+        boolean success = true;
+        try {
+            origin.equals("");
+            destination.equals("");
+        }
+        catch(NullPointerException e){
+            errorController.showError("Please set a start and end location");
+            success = false;
+        }
+        if (success) {
+            currentPath = pathFindingFacade.getPath(origin, destination);
+            refreshCanvas();
+        }
     }
 
     public void zoomInMap() {
