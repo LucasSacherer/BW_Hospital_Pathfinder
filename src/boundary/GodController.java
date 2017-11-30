@@ -336,8 +336,7 @@ public class GodController {
     @FXML
     private void navigateToHere() {mainSceneController.navigateToHere();}
 
-    @FXML
-    private void setAsOrigin() {mainSceneController.setAsOrigin();}
+
 
     ///////////////////
     /* Staff Request Scene */

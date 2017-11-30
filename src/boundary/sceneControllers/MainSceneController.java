@@ -98,14 +98,6 @@ public class MainSceneController extends AbstractMapController{
         });
     }
 
-    public void clickOnMap(MouseEvent m) {
-        super.clickOnMap(m);
-
-        if (origin == null ) {//TODO replace this code with real origin
-            origin = mapNavigationFacade.getNearestNode((int) m.getX(), (int) m.getY(),currentFloor);
-            originField.setText(origin.getNodeID());
-        }
-    }
     public void bathroomClicked() { findNearest(currentLoc, "REST"); }
 
     public void infoClicked() { findNearest(currentLoc, "INFO"); }
@@ -139,16 +131,6 @@ public class MainSceneController extends AbstractMapController{
     public void setDestination() {
         super.setDestination();
         destinationField.setText(destination.getNodeID());
-    }
-
-    public void setAsOrigin() {
-        System.out.println("origin" + origin);
-        System.out.println("currentLoc" + currentLoc);
-        currentPath = null;
-        origin = currentLoc;
-        System.out.println("origin" + origin);
-        System.out.println("currentLoc" + currentLoc);
-        refreshCanvas();
     }
 
     public void displayTextDir(){

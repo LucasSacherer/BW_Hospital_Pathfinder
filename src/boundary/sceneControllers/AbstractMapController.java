@@ -38,13 +38,14 @@ public abstract class AbstractMapController {
         this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
         currentFloor = "G";
-        this.origin = mapNavigationFacade.getDefaultNode(); //TODO doesn't work
     }
 
     public void initializeScene() {
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         this.gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
+        this.origin = mapNavigationFacade.getDefaultNode(); //TODO doesn't work
+        System.out.println(mapNavigationFacade.getDefaultNode());
     }
 
     public void clickOnMap(MouseEvent m) {
