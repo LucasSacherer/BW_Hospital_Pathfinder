@@ -123,11 +123,11 @@ public class MainSceneController extends AbstractMapController{
     }
 
     public void navigateToHere() {
-        boolean success = checkNullLocations();
-        if(success) {
+//        boolean success = checkNullLocations();
+//        if(success) {
             setDestination();
             findPath();
-        }
+//        }
     }
 
     public void setOrigin() {

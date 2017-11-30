@@ -67,21 +67,21 @@ public class EdgeAdder {
         return success;
     }
     private void setStart(Node currentLoc) {
-        boolean success = checkNodeNull(startNode);
-        if(success) {
+//        boolean success = checkNodeNull(startNode);
+//        if(success) {
             startNode = currentLoc;
             edgeXStart.setText("" + startNode.getXcoord());
             edgeYStart.setText("" + startNode.getYcoord());
-        }
+//        }
     }
 
     private void setEnd(Node currentLoc) {
-        boolean success = checkNodeNull(endNode);
-        if(success) {
+//        boolean success = checkNodeNull(endNode);
+//        if(success) {
             endNode = currentLoc;
             edgeXEnd.setText("" + endNode.getXcoord());
             edgeYEnd.setText("" + endNode.getYcoord());
-        }
+//        }
     }
 
     public void reset() {
