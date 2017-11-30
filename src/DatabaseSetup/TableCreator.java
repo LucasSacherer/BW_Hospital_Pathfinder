@@ -111,7 +111,7 @@ public class TableCreator {
                     " userID VARCHAR(100) NOT NULL, \n" +
                     " CONSTRAINT foodRequest_PK PRIMARY KEY (name, timeCreated))");
             System.out.println("FoodRequest table created!");
-            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-02-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
+            statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food1','1960-01-01 23:03:20','1960-01-01 23:03:20','type1', 'description1','GRETL03501', 'admin1')");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('food2','1960-01-01 23:03:20','1961-01-01 23:03:20','type2', 'description1','GSTAI00501', 'admin2')");
             statement.executeUpdate("INSERT INTO FOODREQUEST VALUES ('deleteme','1960-01-01 23:03:20','1960-01-01 23:03:20','type3', 'description1','GSTAI00501', 'badUser')");
 
@@ -186,6 +186,7 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','cheeseburger')");
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food1','1960-01-01 23:03:20','lasagna')");
             statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1960-01-01 23:03:20','milk')");
+            statement.executeUpdate("INSERT INTO FOODORDER VALUES ('food2','1960-01-01 23:03:20','cheese')");
         } catch (SQLException e) {
             System.out.println("FoodOrder table already exists");
             //e.printStackTrace();
@@ -217,10 +218,6 @@ public class TableCreator {
                     "action VARCHAR(250) NOT NULL, \n" +
                     "time TIMESTAMP NOT NULL\n)");
             System.out.println("AdminLog table created!");
-            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('admin1','Test Logged In', '1960-01-01 23:03:20')");
-            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('admin2','Test Removed Node', '1960-01-01 23:03:20')");
-            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('janitor1','Test Added Node', '1960-01-01 23:03:20')");
-            statement.executeUpdate("INSERT INTO ADMINLOG VALUES ('staff1','Test Logged Out', '1960-01-01 23:03:20')");
         } catch (SQLException e) {
             System.out.println("AdminLog table already exists");
             //e.printStackTrace();
