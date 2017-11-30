@@ -186,41 +186,28 @@ public abstract class AbstractMapController {
             return;
         }
 
-        for (int i = 0; i < pathToDraw.size() - 2; i++) {
+        for (int i = 0; i < pathToDraw.size() - 1; i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i + 1);
-            Node previous = pathToDraw.get(i + 2);
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
-            int previousFloorInt = floorStringToInt(previous.getFloor());
-            if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor) && !next.getFloor().equals(currentFloor)) {
-                if (currentFloorInt < nextFloorInt || currentFloorInt > previousFloorInt) {
-                    gc.setFill(Color.WHITE);
-                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.setFill(Color.BLACK);
-                } else {
-                    gc.setFill(Color.WHITE);
-                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.setFill(Color.BLACK);
-                }
-            }
-            if (current.getFloor().equals(currentFloor) && !previous.getFloor().equals(currentFloor)) {
-                gc.setFill(Color.WHITE);
-                gc.fillOval(current.getXcoord() - 12, current.getYcoord() - 12, 24, 24);
-                gc.drawImage(circleoutline, current.getXcoord() - 12, current.getYcoord() - 12, 24, 24);
-            }
-            if (current.getFloor().equals(currentFloor) && !next.getFloor().equals(currentFloor)) {
+            if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
                 if (currentFloorInt < nextFloorInt) {
                     gc.setFill(Color.WHITE);
                     gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                     gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 } else {
                     gc.setFill(Color.WHITE);
-                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
                     gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
+                    gc.setFill(Color.BLACK);
                 }
+            }
+            if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
+                gc.drawImage(circleoutline, next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
             }
         }
     }
