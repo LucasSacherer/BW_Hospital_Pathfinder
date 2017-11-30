@@ -124,7 +124,7 @@ public class BeamSearch implements PathFinder {
             //clear the PQ, except for the top <beamWidth> nodes
             //this seems sloppy, is there a better way?
 
-            System.out.println("holder size: " + min(beamWidth, beamPQ.size()));
+            //System.out.println("holder size: " + min(beamWidth, beamPQ.size()));
             holder.clear();
             size = beamPQ.size();
             for(int i = 0; i < min(beamWidth, size); i++){
