@@ -9,14 +9,14 @@ import java.io.IOException;
 
 public class SceneSwitcher {
 
-    private final String mainLoc = "./fxml/main.fxml";
+    private final String mainLoc = "/boundary/fxml/main.fxml";
     private final String loginLoc = "/boundary/fxml/loginScene.fxml";
-    private final String adminHubLoc = "./fxml/adminHub.fxml";
-    private final String requestLoc = "./fxml/staffRequest.fxml";
-    private final String adminLogLoc = "./fxml/adminLog.fxml";
-    private final String adminRequestLoc = "./fxml/adminRequest.fxml";
-    private final String adminEmployeeLoc = "./fxml/adminEmployee.fxml";
-    private final String mapEditLoc = "./fxml/adminMap.fxml";
+    private final String adminHubLoc = "/boundary/fxml/adminHub.fxml";
+    private final String requestLoc = "/boundary/fxml/staffRequest.fxml";
+    private final String adminLogLoc = "/boundary/fxml/adminLog.fxml";
+    private final String adminRequestLoc = "/boundary/fxml/adminRequest.fxml";
+    private final String adminEmployeeLoc = "/boundary/fxml/adminEmployee.fxml";
+    private final String mapEditLoc = "/boundary/fxml/adminMap.fxml";
 
     public void switchScene(GodController g, Pane from, String to) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(to));

@@ -25,6 +25,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -67,7 +68,6 @@ public class GodController {
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
-
     /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
@@ -309,11 +309,11 @@ public class GodController {
 
     //zooms in by 0.1 on click of zoom in button
     @FXML
-    private void zoomInMap(MouseEvent e) { mainSceneController.zoomInMap(); }
+    private void zoomInMap() { mainSceneController.zoomInMap(); }
 
     //zooms out by 0.1 on click of zoom out button
     @FXML
-    private void zoomOutMap(MouseEvent e) { mainSceneController.zoomOutMap(); }
+    private void zoomOutMap() { mainSceneController.zoomOutMap(); }
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
@@ -331,10 +331,10 @@ public class GodController {
     private void elevatorClicked(ActionEvent e){ mainSceneController.elevatorClicked(); }
 
     @FXML
-    private void floorDown(MouseEvent e) throws IOException, SQLException { mainSceneController.floorDown(); }
+    private void floorDown() throws IOException, SQLException { mainSceneController.floorDown(); }
 
     @FXML
-    private void floorUp(MouseEvent e) throws IOException, SQLException { mainSceneController.floorUp(); }
+    private void floorUp() throws IOException, SQLException { mainSceneController.floorUp(); }
 
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
@@ -631,8 +631,6 @@ public class GodController {
 
     @FXML
     public void exportLogs() {adminLogController.exportLogs(); }
-
-    //TODO
 
     /////////////////////
     /* Scene Switching */
