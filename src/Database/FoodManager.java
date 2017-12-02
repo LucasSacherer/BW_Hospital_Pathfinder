@@ -164,14 +164,7 @@ public class FoodManager {
      * @return
      */
     public List<FoodRequest> getRequests(){
-        ArrayList<FoodRequest> list = new ArrayList<>();
-        updateRequests();
-        for (FoodRequest req: requests){
-            if (req.getTimeCompleted().equals(req.getTimeCreated())){
-                list.add(req);
-            }
-        }
-        return list;
+        return requests;
     }
 
     /**
@@ -208,15 +201,6 @@ public class FoodManager {
     public ArrayList<FoodRequest> getCompleted(){
         ArrayList<FoodRequest> completed = new ArrayList<>();
         updateRequests();
-
-        /*
-        for (FoodRequest req: requests){
-            if (!req.getTimeCompleted().equals(req.getTimeCreated())){
-                list.add(req);
-            }
-        }
-        return list;*/
-
         String name, type, description, nodeID, userID;
         LocalDateTime timeCreated, timeCompleted;
         Node node;
@@ -224,7 +208,7 @@ public class FoodManager {
         List<String> order;
         nodeManager.updateNodes();
         userManager.updateUsers();
-        requests.clear();
+
         databaseGargoyle.createConnection();
         ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST",
                 databaseGargoyle.getStatement());
@@ -269,6 +253,11 @@ public class FoodManager {
         return null;
     }
 
+    /**
+     * Gets all the requests that were made by the specified user
+     * @param user
+     * @return
+     */
     public List<FoodRequest> getRequestsBy(User user){
         ArrayList<FoodRequest> userRequests = new ArrayList<>();
         updateRequests();

@@ -73,7 +73,6 @@ public class CleanUpManager {
     public void updateRequest(CleanUpRequest cReq){
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
-                "TIMECOMPLETED = '" + Timestamp.valueOf(cReq.getTimeCompleted()) + "', " +
                 "TYPE = '" + cReq.getType() + "', " +
                 "DESCRIPTION = '" + cReq.getDescription() + "', " +
                 "NODEID = '" + cReq.getNode().getNodeID() + "', " +
@@ -89,10 +88,9 @@ public class CleanUpManager {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
-        LocalDateTime timeCompleted = LocalDateTime.now();
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
-                "TIMECOMPLETED = '" + Timestamp.valueOf(timeCompleted) + "' " +
+                "TIMECOMPLETED = '" + Timestamp.valueOf(LocalDateTime.now()) + "' " +
                 "WHERE NAME = '" + cReq.getName() + "' " +
                 "AND TIMECREATED = '" + Timestamp.valueOf(cReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
@@ -117,13 +115,7 @@ public class CleanUpManager {
      * @return
      */
     public List<CleanUpRequest> getRequests(){
-        List<CleanUpRequest> list = new ArrayList<>();
-        for (CleanUpRequest req: requests){
-            if (req.getTimeCreated().equals(req.getTimeCompleted())){
-                list.add(req);
-            }
-        }
-        return list;
+        return requests;
     }
 
     /**
@@ -133,14 +125,8 @@ public class CleanUpManager {
     public void addRequest(CleanUpRequest cReq){
         databaseGargoyle.createConnection();
         String creationTime = "'"+Timestamp.valueOf(cReq.getTimeCreated()).toString()+"'";
-        String completionTime;
-        if (cReq.getTimeCompleted() == null){
-            completionTime = "NULL";
-        }else{
-            completionTime = "'"+Timestamp.valueOf(cReq.getTimeCompleted()).toString()+"'";
-        }
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO CLEANUPREQUEST VALUES ('"+cReq.getName()+"'," +
-                creationTime + "," + completionTime + ",'" + cReq.getType() + "','" + cReq.getDescription() + "','" +
+                creationTime + "," + creationTime + ",'" + cReq.getType() + "','" + cReq.getDescription() + "','" +
                 cReq.getNode().getNodeID() + "','" + cReq.getUser().getUserID() + "')",databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateRequests();
@@ -153,22 +139,11 @@ public class CleanUpManager {
     public ArrayList<CleanUpRequest> getCompleted(){
         ArrayList<CleanUpRequest> completed = new ArrayList<>();
         updateRequests();
-
-        /*
-        for (CleanUpRequest req: requests){
-            if (!req.getTimeCreated().equals(req.getTimeCompleted())){
-                completed.add(req);
-            }
-        }
-        return completed;
-        */
-
         String name, type, description;
         LocalDateTime timeCreated, timeCompleted;
         Node node;
         User user;
 
-        requests.clear();
         nodeManager.updateNodes();
         userManager.updateUsers();
 
@@ -213,6 +188,11 @@ public class CleanUpManager {
         return null;
     }
 
+    /**
+     * Gets all requests that were made by a specified user
+     * @param user
+     * @return
+     */
     public ObservableList<CleanUpRequest> getRequestsBy(User user){
         ArrayList<CleanUpRequest> userRequests = new ArrayList<>();
         updateRequests();

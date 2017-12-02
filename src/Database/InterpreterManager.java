@@ -75,7 +75,6 @@ public class InterpreterManager {
     public void updateRequest(InterpreterRequest iReq){
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE INTERPRETERREQUEST SET " +
-                "TIMECOMPLETED = '" + Timestamp.valueOf(iReq.getTimeCompleted()) + "', " +
                 "TYPE = '" + iReq.getType() + "', " +
                 "DESCRIPTION = '" + iReq.getDescription() + "', " +
                 "LANGUAGE = '" + iReq.getLanguage() + "', " +
@@ -129,14 +128,8 @@ public class InterpreterManager {
     public void addRequest(InterpreterRequest iReq){
         databaseGargoyle.createConnection();
         String creationTime = "'"+Timestamp.valueOf(iReq.getTimeCreated()).toString()+"'";
-        String completionTime;
-        if (iReq.getTimeCompleted() == null){
-            completionTime = "NULL";
-        }else{
-            completionTime = "'"+Timestamp.valueOf(iReq.getTimeCompleted()).toString()+"'";
-        }
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO INTERPRETERREQUEST VALUES ('"+iReq.getName()+"'," +
-                creationTime + "," + completionTime + ",'" + iReq.getType() + "','" + iReq.getDescription() + "','" +
+                creationTime + "," + creationTime + ",'" + iReq.getType() + "','" + iReq.getDescription() + "','" +
                 iReq.getLanguage() + "','" + iReq.getNode().getNodeID() + "','" + iReq.getUser().getUserID() + "')",databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
         updateRequests();
@@ -183,6 +176,11 @@ public class InterpreterManager {
         return completed;
     }
 
+    /**
+     * Returns a list of requests that were made by the specified user
+     * @param user
+     * @return
+     */
     public List<InterpreterRequest> getRequestsBy(User user){
         ArrayList<InterpreterRequest> userRequests = new ArrayList<>();
         updateRequests();

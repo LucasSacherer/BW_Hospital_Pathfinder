@@ -80,7 +80,7 @@ public class RequestInterpreterController {
      */
     public void completeRequest(InterpreterRequest iReq){
         interpreterManager.updateRequests();
-        //First confiurm that the request exists
+        //First confirm that the request exists
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.completeRequest(iReq);
         }
