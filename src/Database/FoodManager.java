@@ -18,12 +18,12 @@ public class FoodManager {
     private final NodeManager nodeManager;
     private final UserManager userManager;
 
-    public FoodManager(NodeManager nodeManager, UserManager userManager){
+    public FoodManager(DatabaseGargoyle dbG, NodeManager nodeManager, UserManager userManager){
         this.nodeManager = nodeManager;
         this.userManager = userManager;
 
         requests = new ArrayList<>();
-        databaseGargoyle = new DatabaseGargoyle();
+        databaseGargoyle = dbG;
     }
 
     /**

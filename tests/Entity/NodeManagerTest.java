@@ -1,6 +1,7 @@
 package Entity;
 
 import Database.NodeManager;
+import DatabaseSetup.DatabaseGargoyle;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,16 +11,17 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class NodeManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void checkUpdateNodes(){
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
     }
 
     @Test
     public void testGetNode(){
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
         assertEquals(manager.getNode("GHALL00601").getNodeID(),"GHALL00601");
         assertNull(manager.getNode(""));
@@ -28,7 +30,7 @@ public class NodeManagerTest {
 
     @Test
     public void testAddDeleteNode(){
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
         Node test = new Node("1",2,3,"1","building","type","lName","sName");
         manager.addNode(test);
@@ -39,7 +41,7 @@ public class NodeManagerTest {
 
     @Test
     public void testUpdateNode(){
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
         Node test = new Node("1",2,3,"1","building","type","lName","sName");
         manager.addNode(test);
@@ -51,7 +53,7 @@ public class NodeManagerTest {
 
     @Test
     public void testNearestNode(){
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         Node test = new Node("1",50,0,"1","building","type","lName","sName");
         Node test2 = new Node("2",99, 99,"1","building","type","lName","sName");
         Node test3 = new Node("3",2,2,"1","building","type","lName","sName");
@@ -72,7 +74,7 @@ public class NodeManagerTest {
 
     @Test
     public void testNearestLoc(){
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
         Node test2 = new Node("2",2, 2,"1","building","type","lName","sName");

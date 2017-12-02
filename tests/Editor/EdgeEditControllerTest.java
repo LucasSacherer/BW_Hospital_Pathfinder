@@ -2,6 +2,7 @@ package Editor;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Edge;
 import Entity.Node;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class EdgeEditControllerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testAddRemoveGetAllEdges() throws Exception {
@@ -18,7 +20,7 @@ public class EdgeEditControllerTest {
         //Node n2 = new Node("2", 1, 1, "1", "test","type", "lName", "sName");
         //Node n3 = new Node("3", 1, 1, "1", "test","type", "lName", "sName");
 
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
 
         Node n1 = manager.getNode("GHALL001L2");
@@ -27,7 +29,7 @@ public class EdgeEditControllerTest {
         Edge e1 = new Edge(n1, n2);
         Edge e2 = new Edge(n1, n3);
 
-        EdgeManager testMan = new EdgeManager(manager);
+        EdgeManager testMan = new EdgeManager(databaseGargoyle, manager);
         EdgeEditController test = new EdgeEditController(testMan);
         testMan.updateEdges();
 
@@ -72,9 +74,9 @@ public class EdgeEditControllerTest {
         Node n2 = new Node("2", 2, 1, "1", "test","type", "lName", "sName");
         Edge e1 = new Edge(n1, n2);
 
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
-        EdgeManager edgeManager = new EdgeManager(manager);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager);
         edgeManager.updateEdges();
         EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
 

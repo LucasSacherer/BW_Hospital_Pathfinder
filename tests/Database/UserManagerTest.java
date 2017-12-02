@@ -4,6 +4,7 @@ import DatabaseSetup.DatabaseGargoyle;
 import Entity.User;
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,10 +13,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class UserManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testAuthenticateAdmin() {
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         //Test an actual admin
         assertTrue(userManager.authenticateAdmin("admin1", "admin1"));
         //Test a non admin
@@ -30,7 +32,7 @@ public class UserManagerTest {
 
     @Test
     public void testAuthenticateStaff() {
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         //Test an actual admin
         assertFalse(userManager.authenticateStaff("admin1", "admin1"));
         //Test a non admin
@@ -43,7 +45,7 @@ public class UserManagerTest {
 
     @Test
     public void testUpdateUsers() {
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         //Check if the user is there before update
         assertEquals(null, userManager.getUser("admin1"));
 
@@ -59,7 +61,7 @@ public class UserManagerTest {
 
     @Test
     public void testModifyUser() {
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
 
         //Test updating an existing user
         User modifiedUser = new User("admin1", "un1", "pw1", false, "dep");
@@ -84,7 +86,7 @@ public class UserManagerTest {
 
     @Test
     public void testAddRemoveUser() {
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         User user = new User ("1", "username", "password", true, "department");
         userManager.addUser(user);
 

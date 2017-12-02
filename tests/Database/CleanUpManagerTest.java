@@ -16,14 +16,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CleanUpManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testAddAndDelete(){
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         LocalDateTime createdDate = LocalDateTime.now();
 
         CleanUpRequest request = new CleanUpRequest("test", createdDate, createdDate, "type", "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"));
@@ -55,9 +56,9 @@ public class CleanUpManagerTest {
 
     @Test
     public void testUpdateRequests() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         Timestamp stamp = Timestamp.valueOf("1960-01-01 23:03:20.00");
 
         //Check if the user is there before update
@@ -76,11 +77,11 @@ public class CleanUpManagerTest {
 
     @Test
     public void testUpdateRequest() {
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         //Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
 
@@ -112,11 +113,11 @@ public class CleanUpManagerTest {
     @Test
     public void testCompleteRequest() {
         //Create what is needed to run the tests
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
@@ -155,9 +156,9 @@ public class CleanUpManagerTest {
 
     @Test
     public void testGetCompleted() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
 
         List<CleanUpRequest> completed = cleanUpManager.getCompleted();
         //Test that there is only one item in the list returned
@@ -168,9 +169,9 @@ public class CleanUpManagerTest {
 
     @Test
     public void testGetRequestsBy() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        CleanUpManager cManager = new CleanUpManager(nodeManager, userManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
 
         userManager.updateUsers();
         cManager.updateRequests();

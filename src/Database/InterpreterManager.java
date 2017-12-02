@@ -21,12 +21,11 @@ public class InterpreterManager {
     private final NodeManager nodeManager;
     private final UserManager userManager;
 
-    public InterpreterManager(NodeManager nodeManager, UserManager userManager){
+    public InterpreterManager(DatabaseGargoyle dbG, NodeManager nodeManager, UserManager userManager){
         this.nodeManager = nodeManager;
         this.userManager = userManager;
-
         requests = new ArrayList<>();
-        databaseGargoyle = new DatabaseGargoyle();
+        databaseGargoyle = dbG;
     }
 
     /**

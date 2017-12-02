@@ -1,6 +1,7 @@
 package Editor;
 
 import Database.*;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Edge;
 import Entity.Node;
 import Request.GenericRequestController;
@@ -14,14 +15,18 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class NodeEditControllerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void AddRemoveEditNode() throws Exception {
-        NodeManager nManager = new NodeManager();
-        SettingsManager sManager = new SettingsManager();
-        EdgeManager eManager = new EdgeManager(nManager);
-        UserManager userManager = new UserManager();
-        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(nManager,userManager),new FoodManager(nManager,userManager),new InterpreterManager(nManager,userManager));
+        NodeManager nManager = new NodeManager(databaseGargoyle);
+        SettingsManager sManager = new SettingsManager(databaseGargoyle);
+        EdgeManager eManager = new EdgeManager(databaseGargoyle,  nManager);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager,userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager,userManager);
+        GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
         NodeEditController editor = new NodeEditController(nManager, sManager,eManager,genericRequestController);
 
         nManager.updateNodes();
@@ -57,12 +62,15 @@ public class NodeEditControllerTest {
     public void setKioskTest() throws Exception {
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
 
-        NodeManager nManager = new NodeManager();
+        NodeManager nManager = new NodeManager(databaseGargoyle);
         nManager.updateNodes();
-        SettingsManager sManager = new SettingsManager();
-        EdgeManager eManager = new EdgeManager(nManager);
-        UserManager um = new UserManager();
-        GenericRequestController genericRequestController= new GenericRequestController(new CleanUpManager(nManager,um), new FoodManager(nManager,um), new InterpreterManager(nManager,um));
+        SettingsManager sManager = new SettingsManager(databaseGargoyle);
+        EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
+        UserManager um = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,um);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager,um);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager,um);
+        GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
         NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
 
         editor.setKioskLocation(test);
@@ -73,11 +81,14 @@ public class NodeEditControllerTest {
 
     @Test
     public void deleteNode() {
-        NodeManager nManager = new NodeManager();
-        SettingsManager sManager = new SettingsManager();
-        EdgeManager eManager = new EdgeManager(nManager);
-        UserManager um = new UserManager();
-        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(nManager,um), new FoodManager(nManager,um), new InterpreterManager(nManager,um));
+        NodeManager nManager = new NodeManager(databaseGargoyle);
+        SettingsManager sManager = new SettingsManager(databaseGargoyle);
+        EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
+        UserManager um = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,um);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager,um);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager,um);
+        GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
         NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
 
         nManager.updateNodes();

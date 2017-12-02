@@ -2,6 +2,7 @@ package MapNavigation;
 
 import Database.NodeManager;
 import Database.SettingsManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 import javafx.scene.image.Image;
 import org.junit.Test;
@@ -14,10 +15,12 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class MapNavigationFacadeTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+
     @Test
     public void getNearestNode() throws Exception {
-        NodeManager manager = new NodeManager();
-        SettingsManager sm = new SettingsManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        SettingsManager sm = new SettingsManager(databaseGargoyle);
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
         DirectoryController directoryController = new DirectoryController(manager,sm);
@@ -44,8 +47,8 @@ public class MapNavigationFacadeTest {
 
     @Test
     public void getNearestPOI() throws Exception {
-        NodeManager manager = new NodeManager();
-        SettingsManager sm = new SettingsManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        SettingsManager sm = new SettingsManager(databaseGargoyle);
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
         DirectoryController directoryController = new DirectoryController(manager,sm);
@@ -91,8 +94,8 @@ public class MapNavigationFacadeTest {
 
     @Test
     public void getDefaultNode() throws Exception {
-        SettingsManager settingsManager = new SettingsManager();
-        NodeManager manager = new NodeManager();
+        SettingsManager settingsManager = new SettingsManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle);
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
         DirectoryController directoryController = new DirectoryController(manager,settingsManager);

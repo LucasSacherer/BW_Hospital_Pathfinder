@@ -1,9 +1,11 @@
 package Request;
 
 import Database.*;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.*;
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,17 +15,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class GenericRequestControllerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+
     @Test
     public void deleteRequestTest(){
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         cleanUpManager.updateRequests();
-        InterpreterManager interpreterManager = new InterpreterManager(nodeManager, userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         interpreterManager.updateRequests();
-        FoodManager foodManager = new FoodManager(nodeManager, userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
         foodManager.updateRequests();
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
 
@@ -64,13 +68,13 @@ public class GenericRequestControllerTest {
 
     @Test
     public void getAllRequestsByUserTest(){
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
-        InterpreterManager interpreterManager = new InterpreterManager(nodeManager, userManager);
-        FoodManager foodManager = new FoodManager(nodeManager, userManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
         User admin2 = userManager.getUser("admin2");
         User janitor1 = userManager.getUser("janitor1");
@@ -84,13 +88,13 @@ public class GenericRequestControllerTest {
 
     @Test
     public void getAllRequestsByDepartmentTest(){
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
-        InterpreterManager interpreterManager = new InterpreterManager(nodeManager, userManager);
-        FoodManager foodManager = new FoodManager(nodeManager, userManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
 
         //make sure it works for food requests

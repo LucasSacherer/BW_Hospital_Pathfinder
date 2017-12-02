@@ -3,6 +3,7 @@ package boundary;
 
 import Admin.UserLoginController;
 import Database.*;
+import DatabaseSetup.DatabaseGargoyle;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.AdminLog;
@@ -34,36 +35,47 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class GodController {
+    /* Database Gargoyle */
+    final private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     /* managers */
-    final private NodeManager nodeManager = new NodeManager();
-    final private EdgeManager edgeManager = new EdgeManager(nodeManager);
-    final private SettingsManager settingsManager = new SettingsManager();
-    final private UserManager userManager = new UserManager();
-    final private CleanUpManager cleanup = new CleanUpManager(nodeManager, userManager);
-    final private InterpreterManager interpreter = new InterpreterManager(nodeManager, userManager);
-    final private FoodManager food = new FoodManager(nodeManager, userManager);
-    final private GenericRequestController genericRequestController = new GenericRequestController(cleanup, food, interpreter);
+    final private NodeManager nodeManager = new NodeManager(databaseGargoyle);
+    final private EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager);
+    final private SettingsManager settingsManager = new SettingsManager(databaseGargoyle);
+    final private UserManager userManager = new UserManager(databaseGargoyle);
+    final private CleanUpManager cleanupManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+    final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+    final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
+
+    /* Controllers */
+    final private GenericRequestController genericRequestController = new GenericRequestController(cleanupManager, foodManager, interpreterManager);
     final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager, genericRequestController);
     final private EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
     final private DirectoryController directoryController = new DirectoryController(nodeManager,settingsManager);
+    final private UserLoginController userLoginController = new UserLoginController(userManager);
+    final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
+    final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanupManager);
+    final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreterManager);
+    final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
+    final private ErrorController errorController = new ErrorController();
+
+    /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(
             clickController, nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
+
+    /* Entities */
     final private Astar astar = new Astar(edgeManager);
     final private BeamSearch beam = new BeamSearch(edgeManager);
     final private BreadthSearch breadth = new BreadthSearch(edgeManager);
     final private DepthSearch depth = new DepthSearch(edgeManager);
-    final private UserLoginController userLoginController = new UserLoginController(new UserManager());
-    final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
-    final private RequestCleanupController requestCleanupController = new RequestCleanupController(new CleanUpManager(nodeManager, userManager));
+
+    /* Current user that is logged in */
     String currentUser;
-    final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreter);
-    final private RequestFoodController requestFoodController = new RequestFoodController(food);
-    final private ErrorController errorController = new ErrorController();
+
 
     ///////////////////////
     /** FXML Attributes **/

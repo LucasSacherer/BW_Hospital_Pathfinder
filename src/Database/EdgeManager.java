@@ -11,9 +11,10 @@ import java.util.stream.Collectors;
 public class EdgeManager {
     final private NodeManager nodeManager;
     private List<Edge> edges;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
 
-    public EdgeManager(NodeManager nodeManager){
+    public EdgeManager(DatabaseGargoyle dbG, NodeManager nodeManager){
+        databaseGargoyle = dbG;
         this.nodeManager = nodeManager;
         edges = new ArrayList<>();
     }

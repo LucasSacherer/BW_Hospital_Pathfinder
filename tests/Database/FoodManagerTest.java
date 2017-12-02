@@ -1,5 +1,6 @@
 package Database;
 
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.FoodRequest;
 import Entity.Node;
 import Entity.User;
@@ -14,12 +15,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class FoodManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testUpdateRequests() {
-        NodeManager nm = new NodeManager();
-        UserManager us = new UserManager();
-        FoodManager foodManager = new FoodManager(nm,us);
+        NodeManager nm = new NodeManager(databaseGargoyle);
+        UserManager us = new UserManager(databaseGargoyle);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,us);
 
         //Check if the user is there before update
         assertEquals(null, foodManager.getFoodRequest("food2"));
@@ -39,11 +41,11 @@ public class FoodManagerTest {
 
     @Test
     public void testUpdateRequest() {
-        NodeManager nm = new NodeManager();
+        NodeManager nm = new NodeManager(databaseGargoyle);
         nm.updateNodes();
-        UserManager um = new UserManager();
+        UserManager um = new UserManager(databaseGargoyle);
         um.updateUsers();
-        FoodManager foodManager = new FoodManager(nm,um);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
         Timestamp time = Timestamp.valueOf("1960-01-01 23:03:20.000000000");
         ArrayList<String> originalOrder = new ArrayList<>();
         originalOrder.add("cheeseburger");
@@ -77,11 +79,11 @@ public class FoodManagerTest {
     @Test
     public void testCompleteRequest() {
 
-        NodeManager nm = new NodeManager();
+        NodeManager nm = new NodeManager(databaseGargoyle);
         nm.updateNodes();
-        UserManager um = new UserManager();
+        UserManager um = new UserManager(databaseGargoyle);
         um.updateUsers();
-        FoodManager foodManager = new FoodManager(nm,um);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
 
         ArrayList<String> originalOrder = new ArrayList<>();
         originalOrder.add("cheeseburger");
@@ -111,11 +113,11 @@ public class FoodManagerTest {
     @Test
     public void testAddDeleteRequest() {
 
-        NodeManager nm = new NodeManager();
+        NodeManager nm = new NodeManager(databaseGargoyle);
         nm.updateNodes();
-        UserManager um = new UserManager();
+        UserManager um = new UserManager(databaseGargoyle);
         um.updateUsers();
-        FoodManager foodManager = new FoodManager(nm,um);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
 
         Timestamp time = Timestamp.valueOf(LocalDateTime.now());
         ArrayList<String> order = new ArrayList<>();
@@ -139,9 +141,9 @@ public class FoodManagerTest {
 
     @Test
     public void testGetCompleted() {
-        NodeManager nm = new NodeManager();
-        UserManager um = new UserManager();
-        FoodManager foodManager = new FoodManager(nm, um);
+        NodeManager nm = new NodeManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm, um);
         ArrayList<FoodRequest> completed = foodManager.getCompleted();
         assertTrue(completed.get(0).getName().equals("food2"));
     }
@@ -149,9 +151,9 @@ public class FoodManagerTest {
     @Test
     public void testGetRequestsBy() {
         //Run testCompleteRequest first!
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        FoodManager fManager = new FoodManager(nodeManager, userManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        FoodManager fManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
 
         userManager.updateUsers();
         fManager.updateRequests();

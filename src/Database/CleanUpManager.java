@@ -17,16 +17,15 @@ import java.util.List;
 public class CleanUpManager {
     private final List<CleanUpRequest> requests;
     private final DatabaseGargoyle databaseGargoyle;
-
     private final NodeManager nodeManager;
     private final UserManager userManager;
 
-    public CleanUpManager(NodeManager nodeManager, UserManager userManager){
+    public CleanUpManager(DatabaseGargoyle dbG, NodeManager nodeManager, UserManager userManager){
         this.nodeManager = nodeManager;
         this.userManager = userManager;
 
         requests = new ArrayList<>();
-        databaseGargoyle = new DatabaseGargoyle();
+        databaseGargoyle = dbG;
     }
 
     /**

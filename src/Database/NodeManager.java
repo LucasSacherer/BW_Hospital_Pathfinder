@@ -9,9 +9,10 @@ import java.util.stream.Collectors;
 
 public class NodeManager {
     private List<Node> nodes;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
 
-    public NodeManager(){
+    public NodeManager(DatabaseGargoyle dbG){
+        databaseGargoyle = dbG;
         nodes = new ArrayList<>();
     }
 

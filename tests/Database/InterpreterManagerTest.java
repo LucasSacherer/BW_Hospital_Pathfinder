@@ -14,13 +14,15 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class InterpreterManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+
     @Test
     public void TestAddandDelete() {
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         LocalDateTime createdDate = LocalDateTime.now();
 
         InterpreterRequest request = new InterpreterRequest("test", createdDate, createdDate, "type", "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"), "English");
@@ -52,11 +54,11 @@ public class InterpreterManagerTest {
 
     @Test
     public void TestUpdateRequest() throws Exception {
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
         LocalDateTime createdDate = LocalDateTime.now();
@@ -85,11 +87,11 @@ public class InterpreterManagerTest {
     @Test
     public void testCompleteRequest() {
         //Create what is needed to run the tests
-        NodeManager nodeManager = new NodeManager();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
         nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
@@ -130,9 +132,9 @@ public class InterpreterManagerTest {
 
     @Test
     public void testGetCompleted() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
 
         List<InterpreterRequest> completed = iManager.getCompleted();
         //Test that there is only one item in the list returned
@@ -144,9 +146,9 @@ public class InterpreterManagerTest {
 
     @Test
     public void testGetRequestsBy() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
 
         userManager.updateUsers();
         iManager.updateRequests();

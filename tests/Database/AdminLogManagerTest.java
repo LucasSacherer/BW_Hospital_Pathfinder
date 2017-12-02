@@ -4,6 +4,7 @@ import DatabaseSetup.DatabaseGargoyle;
 import Entity.AdminLog;
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -11,9 +12,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AdminLogManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+
     @Test
     public void testAddAdminLogAndUpdateAdminLogsAndDeleteAdminLog() {
-        UserManager userManager = new UserManager();
+        UserManager userManager = new UserManager(databaseGargoyle);
         userManager.updateUsers();
         AdminLogManager adminLogManager = new AdminLogManager(userManager);
         Timestamp time = Timestamp.valueOf("1960-01-01 23:03:20.00");

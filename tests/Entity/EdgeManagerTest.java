@@ -2,15 +2,18 @@ package Entity;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import DatabaseSetup.DatabaseGargoyle;
 import org.junit.Test;
 import org.junit.experimental.theories.suppliers.TestedOn;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class EdgeManagerTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testValidity() throws Exception {
@@ -26,9 +29,9 @@ public class EdgeManagerTest {
         Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
         Edge e1 = new Edge(n1,n2);
         Edge e2 = new Edge(n1,n2);
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
-        EdgeManager test = new EdgeManager(manager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
         test.updateEdges();
         manager.addNode(n1);
         manager.addNode(n2);
@@ -48,9 +51,9 @@ public class EdgeManagerTest {
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
         Node n2 = new Node("2", 10, 10, "1", "test","type", "lName", "sName");
         Edge e1 = new Edge(n1,n2);
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
-        EdgeManager test = new EdgeManager(manager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
         test.updateEdges();
         manager.addNode(n1);
         manager.addNode(n2);
@@ -70,12 +73,12 @@ public class EdgeManagerTest {
         Edge e1 = new Edge(n2, n4);
         Edge e2 = new Edge(n1, n3);
 
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
 
         Node n0 = manager.getNode("GHALL00402");
 
-        EdgeManager test = new EdgeManager(manager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
         test.updateEdges();
 
         manager.addNode(n1);
@@ -105,8 +108,8 @@ public class EdgeManagerTest {
 
     @Test
     public void testGetEdge(){
-        NodeManager nodeManager = new NodeManager();
-        EdgeManager edgeManager = new EdgeManager(nodeManager);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager);
         nodeManager.updateNodes();
         edgeManager.updateEdges();
 
@@ -134,9 +137,9 @@ public class EdgeManagerTest {
         Edge e2 = new Edge(n1, n3);
         Edge e3 = new Edge(n2, n4);
 
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
-        EdgeManager test = new EdgeManager(manager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
         test.updateEdges();
 
         manager.addNode(n1);
@@ -170,9 +173,9 @@ public class EdgeManagerTest {
         Edge e1 = new Edge(n1, n2);
         Edge e2 = new Edge(n1, n3);
 
-        NodeManager manager = new NodeManager();
+        NodeManager manager = new NodeManager(databaseGargoyle);
         manager.updateNodes();
-        EdgeManager edgeManager = new EdgeManager(manager);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager);
         edgeManager.updateEdges();
 
         manager.addNode(n1);

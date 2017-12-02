@@ -11,10 +11,11 @@ import java.util.HashMap;
 public class SettingsManager {
 
     private HashMap<String, String> settings;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
 
 
-    public SettingsManager(){
+    public SettingsManager(DatabaseGargoyle dbG){
+        databaseGargoyle = dbG;
         settings = new HashMap<>();
     }
 

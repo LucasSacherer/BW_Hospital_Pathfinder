@@ -11,8 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserManager {
-    private ArrayList<User> users = new ArrayList<>();
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private ArrayList<User> users;
+    private DatabaseGargoyle databaseGargoyle;
+
+    public UserManager(DatabaseGargoyle dbG) {
+        this.databaseGargoyle = dbG;
+        this.users = new ArrayList<>();
+    }
 
     /**
      * Returns true if there exists an ADMIN with the given credentials, false if there is no user.
@@ -117,8 +122,6 @@ public class UserManager {
      * @param oldUser
      */
     public void removeUser(User oldUser){
-
-
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'", databaseGargoyle.getStatement());
         databaseGargoyle.destroyConnection();
