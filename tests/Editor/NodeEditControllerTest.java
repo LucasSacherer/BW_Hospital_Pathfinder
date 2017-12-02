@@ -117,4 +117,18 @@ public class NodeEditControllerTest {
 
         //assertTrue(nManager.getNode(test.getNodeID()) == null);
     }
+
+
+    @Test
+    public void alignNodesTest(){
+        System.out.println(Math.toDegrees(Math.atan2(0,0)));
+        System.out.println(Math.toDegrees(Math.atan2(1,1)));
+        System.out.println(Math.toDegrees(Math.atan2(1,0)));
+        System.out.println(Math.toDegrees(Math.atan2(1,-1)));
+        System.out.println(Math.toDegrees(Math.atan2(0,-1)));
+        System.out.println(Math.toDegrees(Math.atan2(-1,-1)));
+        System.out.println(Math.toDegrees(Math.atan2(-1,0)));
+        System.out.println(Math.toDegrees(Math.atan2(-1,1)));
+
+    }
 }
