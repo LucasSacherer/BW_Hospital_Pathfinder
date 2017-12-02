@@ -11,7 +11,6 @@ public class TableCreator {
     private Statement statement;
     private String defaultNodesPath = "/DatabaseSetup/defaultNodes.txt";
     private String defaultEdgesPath = "/DatabaseSetup/defaultEdges.txt";
-    private String defaultUsersPath = "/DatabaseSetup/defaultUsers.txt";
 
     public TableCreator(Statement statement) {
         this.statement = statement;
@@ -75,7 +74,7 @@ public class TableCreator {
     /**
      * Creates the KIOSKUSER table
      */
-    public void createKioskUserTable(Connection connection) {
+    public void createKioskUserTable() {
         //Create the table
         try {
             statement.execute("CREATE TABLE kioskUser (\n" +
@@ -236,7 +235,7 @@ public class TableCreator {
      * @param table
      * @throws FileNotFoundException
      */
-    public void insertCSVToDatabase(String path, Connection connection, String table) throws FileNotFoundException {
+    private void insertCSVToDatabase(String path, Connection connection, String table) throws FileNotFoundException {
         /*
         File file = new File(path);
         FileReader fileReader = new FileReader(file);

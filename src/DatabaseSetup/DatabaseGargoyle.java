@@ -50,7 +50,7 @@ public class DatabaseGargoyle {
         TableCreator tableCreator = new TableCreator(this.statement);
         tableCreator.createNodeTable(this.connection);
         tableCreator.createEdgeTable(this.connection);
-        tableCreator.createKioskUserTable(this.connection);
+        tableCreator.createKioskUserTable();
         tableCreator.createFoodRequestTable();
         tableCreator.createInterpreterRequestTable();
         tableCreator.createCleanUpRequestTable();
