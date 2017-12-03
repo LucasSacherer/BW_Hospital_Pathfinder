@@ -167,6 +167,8 @@ public class NodeEditControllerTest {
         Node test6 = new Node("6",5, -5,"1","building","type","lName","sName");
         Node test7 = new Node("7",5, 15,"1","building","type","lName","sName");
         Node test8 = new Node("8",-5, 15,"1","building","type","lName","sName");
+        Node test9 = new Node("9",0, -5,"1","building","type","lName","sName");
+        Node test10 = new Node("10",0, 15,"1","building","type","lName","sName");
 
 
 
@@ -179,6 +181,9 @@ public class NodeEditControllerTest {
         nodes.add(test6);
         nodes.add(test7);
         nodes.add(test8);
+        nodes.add(test9);
+        nodes.add(test10);
+
 
         editor.alignNodes(nodes);
 

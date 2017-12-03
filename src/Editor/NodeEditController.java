@@ -66,15 +66,21 @@ public class NodeEditController {
             double outOfPlaceYDistance = nodes.get(i).getYcoord() - startNode.getYcoord();
             double outOfPlaceLineAngle = (180* Math.atan2(outOfPlaceYDistance,outOfPlaceXDistance)) / Math.PI;
 
+            //makes angle 0-360 not negative values.
             if (outOfPlaceLineAngle < 0){
                 outOfPlaceLineAngle = 360 + outOfPlaceLineAngle;
             }
             System.out.println(outOfPlaceLineAngle);
 
-
+            //angle between start and end line and out of place node. Made positive and between 0-90
             double bacAngle = (abLineAngle - outOfPlaceLineAngle);
-
+            bacAngle = Math.abs(bacAngle);
+            if (bacAngle > 90){
+                bacAngle = bacAngle % 90;
+            }
             System.out.println(bacAngle);
+
+
 
             double xComponentToMove;
             double yComponentToMove;
