@@ -7,6 +7,9 @@ import Entity.Node;
 import Request.GenericRequestController;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class NodeEditControllerTest {
@@ -148,11 +151,12 @@ public class NodeEditControllerTest {
 
     @Test
     public void alignNodesTest(){
-        NodeManager nManager = new NodeManager();
-        SettingsManager sManager = new SettingsManager();
-        EdgeManager eManager = new EdgeManager(nManager);
-        UserManager um = new UserManager();
-        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(nManager,um), new FoodManager(nManager,um), new InterpreterManager(nManager,um));
+        DatabaseGargoyle dbG = new DatabaseGargoyle();
+        NodeManager nManager = new NodeManager(dbG);
+        SettingsManager sManager = new SettingsManager(dbG);
+        EdgeManager eManager = new EdgeManager(dbG, nManager);
+        UserManager um = new UserManager(dbG);
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG,nManager,um), new FoodManager(dbG, nManager,um), new InterpreterManager(dbG, nManager,um));
         NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
 
         Node test = new Node("1",0,0,"1","building","type","lName","sName");
