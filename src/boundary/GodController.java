@@ -26,7 +26,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -46,6 +45,7 @@ public class GodController {
     final private CleanUpManager cleanupManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
     final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
+    final private AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle, userManager);
 
     /* Controllers */
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanupManager, foodManager, interpreterManager);
@@ -56,7 +56,6 @@ public class GodController {
     final private MapDisplayController mapDisplayController = new MapDisplayController();
     final private DirectoryController directoryController = new DirectoryController(nodeManager,settingsManager);
     final private UserLoginController userLoginController = new UserLoginController(userManager);
-    final private AdminLogManager adminLogManager = new AdminLogManager(userManager);
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanupManager);
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreterManager);
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
@@ -241,9 +240,6 @@ public class GodController {
     boolean firstTime = true;
     @FXML
     private void initialize() {
-        nodeManager.updateNodes();
-        edgeManager.updateEdges();
-        userManager.updateUsers();
         //pathFindingFacade.setPathfinder(beamSearch);
         if (firstTime){ pathFindingFacade.setPathfinder(astar);}
         initializeMainScene();
@@ -273,13 +269,13 @@ public class GodController {
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(edgeManager, nodeManager, nodeEditController, edgeEditController,
+        adminMapController = new AdminMapController(databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
                 mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
                 currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab);
     }
 
     private void initializeAdminLogScene() {
-        adminLogController = new AdminLogController (adminLogs, dateLogged,
+        adminLogController = new AdminLogController (databaseGargoyle, adminLogs, dateLogged,
                  adminLogged, logContent, adminLogManager,userManager);
     }
 
@@ -661,14 +657,12 @@ public class GodController {
 
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequests(this, loginPane);
-            userManager.updateUsers();
             staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
     }
 
     @FXML
     private void goToAdminHub() throws IOException {
-        userManager.updateUsers();
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
             currentUser = adminLoginText.getText();
             System.out.println(currentUser);
@@ -726,4 +720,15 @@ public class GodController {
 
     @FXML
     private void getTextDirections() {mainSceneController.displayTextDir();}
+
+    public void initializeObservers(){
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(edgeManager);
+        databaseGargoyle.attachManager(cleanupManager);
+        databaseGargoyle.attachManager(interpreterManager);
+        databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
+        databaseGargoyle.notifyManagers();
+    }
 }

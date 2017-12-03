@@ -6,41 +6,37 @@ import Entity.Node;
 import Entity.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodManager {
+public class FoodManager implements EntityManager{
     private final List<FoodRequest> requests;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
     private final NodeManager nodeManager;
     private final UserManager userManager;
 
     public FoodManager(DatabaseGargoyle dbG, NodeManager nodeManager, UserManager userManager){
         this.nodeManager = nodeManager;
         this.userManager = userManager;
-
-        requests = new ArrayList<>();
         databaseGargoyle = dbG;
+        requests = new ArrayList<>();
     }
 
     /**
      * Updates the internal list of uncompleted FoodRequests to match the database
      */
-    public void updateRequests(){
+    public void update(){
         String name, type, description, nodeID, userID;
         LocalDateTime timeCreated, timeCompleted;
         Node node;
         User user;
         List<String> order;
-        nodeManager.updateNodes();
-        userManager.updateUsers();
         requests.clear();
+
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST",
-                databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST");
         try {
             while (rs.next()){
                 name = rs.getString("NAME");
@@ -66,18 +62,18 @@ public class FoodManager {
     }
 
     /**
-     * Helper function for updateRequests()
+     * Helper function for update()
      * Gets all food items that are in the database for the given request
      * @param requestName
      * @param timeCreated
      * @return
      */
     private ArrayList<String> getFoodOrders(String requestName, Timestamp timeCreated){
-        DatabaseGargoyle dbg = new DatabaseGargoyle();
-        dbg.createConnection();
         ArrayList<String> result = new ArrayList<>();
-        ResultSet orders = dbg.executeQueryOnDatabase("SELECT * FROM FOODORDER " +
-                "WHERE REQUESTNAME = '" + requestName + "' AND TIMECREATED = '" +timeCreated+ "'", dbg.getStatement());
+
+        databaseGargoyle.createConnection();
+        ResultSet orders = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODORDER " +
+                "WHERE REQUESTNAME = '" + requestName + "' AND TIMECREATED = '" +timeCreated+ "'");
         try {
             while (orders.next()){
                 result.add(orders.getString("FOODITEM"));
@@ -85,7 +81,8 @@ public class FoodManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        dbg.destroyConnection();
+        databaseGargoyle.destroyConnection();
+
         return result;
     }
 
@@ -103,20 +100,21 @@ public class FoodManager {
                 "NODEID = '" + fReq.getNode().getNodeID() + "', " +
                 "USERID = '" + fReq.getUser().getUserID() + "' " +
                 "WHERE NAME = '" + fReq.getName() + "' " +
-                "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
+                "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'");
+        databaseGargoyle.destroyConnection();
 
         //Remove all FOODORERS of this request in the DB and add the new ones
+        databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM FOODORDER " +
                 "WHERE REQUESTNAME = '" + fReq.getName() +"' " +
-                "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'",
-                databaseGargoyle.getStatement());
-        for (String item: fReq.getOrder()){
-            databaseGargoyle.executeUpdateOnDatabase("INSERT INTO FOODORDER VALUES (" +
-                    "'" + fReq.getName() + "','"+ Timestamp.valueOf(fReq.getTimeCreated()) + "','" + item + "')",
-                    databaseGargoyle.getStatement());
-        }
+                "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'");
         databaseGargoyle.destroyConnection();
-        updateRequests();
+        for (String item: fReq.getOrder()){
+            databaseGargoyle.createConnection();
+            databaseGargoyle.executeUpdateOnDatabase("INSERT INTO FOODORDER VALUES (" +
+                    "'" + fReq.getName() + "','"+ Timestamp.valueOf(fReq.getTimeCreated()) + "','" + item + "')");
+            databaseGargoyle.destroyConnection();
+        }
     }
 
     /**
@@ -129,14 +127,15 @@ public class FoodManager {
         databaseGargoyle.executeUpdateOnDatabase("UPDATE FOODREQUEST SET " +
                 "TIMECOMPLETED = '" + Timestamp.valueOf(LocalDateTime.now()) + "' " +
                 "WHERE NAME = '" + fReq.getName() + "' " +
-                "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
+                "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'");
+        databaseGargoyle.destroyConnection();
 
         //Remove all food orders of this request
+        databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM FOODORDER " +
                         "WHERE REQUESTNAME = '" + fReq.getName() +"' " +
-                        "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'",
-                databaseGargoyle.getStatement());
-        updateRequests();
+                        "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'");
+        databaseGargoyle.destroyConnection();
     }
 
     /**
@@ -148,19 +147,19 @@ public class FoodManager {
         //Remove all food orders of this request from the database
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM FOODORDER " +
                         "WHERE REQUESTNAME = '" + fReq.getName() +"' " +
-                        "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'",
-                databaseGargoyle.getStatement());
+                        "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'");
+        databaseGargoyle.destroyConnection();
+
         //Remove the request from the database
+        databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM FOODREQUEST " +
                         "WHERE NAME = '" + fReq.getName() +"' " +
-                        "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'",
-                databaseGargoyle.getStatement());
+                        "AND TIMECREATED = '" + Timestamp.valueOf(fReq.getTimeCreated()) + "'");
         databaseGargoyle.destroyConnection();
-        updateRequests();
     }
 
     /**
-     * Returns the list of unfinished FoodRequest (Since the last updateRequests() call)
+     * Returns the list of unfinished FoodRequest (Since the last update() call)
      * @return
      */
     public List<FoodRequest> getRequests(){
@@ -181,17 +180,17 @@ public class FoodManager {
                 "'" + fReq.getType() + "'," +
                 "'" + fReq.getDescription() + "'," +
                 "'" + fReq.getNode().getNodeID() + "'," +
-                "'" + fReq.getUser().getUserID() + "')", databaseGargoyle.getStatement());
+                "'" + fReq.getUser().getUserID() + "')");
+        databaseGargoyle.destroyConnection();
         //Add all food items to the FOODORDER table
         if (fReq.getOrder() != null) {
             for (String item : fReq.getOrder()) {
+                databaseGargoyle.createConnection();
                 databaseGargoyle.executeUpdateOnDatabase("INSERT INTO FOODORDER VALUES (" +
-                                "'" + fReq.getName() + "','" + Timestamp.valueOf(fReq.getTimeCreated()) + "','" + item + "')",
-                        databaseGargoyle.getStatement());
+                                "'" + fReq.getName() + "','" + Timestamp.valueOf(fReq.getTimeCreated()) + "','" + item + "')");
+                databaseGargoyle.destroyConnection();
             }
         }
-        databaseGargoyle.destroyConnection();
-        updateRequests();
     }
 
     /**
@@ -200,19 +199,14 @@ public class FoodManager {
      */
     public ArrayList<FoodRequest> getCompleted(){
         ArrayList<FoodRequest> completed = new ArrayList<>();
-        updateRequests();
         String name, type, description, nodeID, userID;
         LocalDateTime timeCreated, timeCompleted;
         Node node;
         User user;
         List<String> order;
-        nodeManager.updateNodes();
-        userManager.updateUsers();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST",
-                databaseGargoyle.getStatement());
-
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM FOODREQUEST");
         try {
             while (rs.next()){
                 name = rs.getString("NAME");
@@ -260,8 +254,6 @@ public class FoodManager {
      */
     public List<FoodRequest> getRequestsBy(User user){
         ArrayList<FoodRequest> userRequests = new ArrayList<>();
-        updateRequests();
-
         for (FoodRequest req : requests){
             System.out.println(req.getName());
             if(req.getUser().getUserID().equals(user.getUserID())){

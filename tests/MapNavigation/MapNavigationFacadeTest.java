@@ -4,29 +4,27 @@ import Database.NodeManager;
 import Database.SettingsManager;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
-import javafx.scene.image.Image;
 import org.junit.Test;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class MapNavigationFacadeTest {
-    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void getNearestNode() throws Exception {
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
         SettingsManager sm = new SettingsManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
         DirectoryController directoryController = new DirectoryController(manager,sm);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
-        manager.updateNodes();
+
         Node test = new Node("1",50,0,"1","building","type","lName","sName");
         Node test2 = new Node("2",99, 99,"1","building","type","lName","sName");
         Node test3 = new Node("3",2,2,"1","building","type","lName","sName");
@@ -47,14 +45,18 @@ public class MapNavigationFacadeTest {
 
     @Test
     public void getNearestPOI() throws Exception {
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
         SettingsManager sm = new SettingsManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
         DirectoryController directoryController = new DirectoryController(manager,sm);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
-        manager.updateNodes();
+
         Node test = new Node("1",10,10,"1","building","Rest","lName","sName");
         Node test2 = new Node("2",15, 15,"2","building","Rest","lName","sName");
         Node test3 = new Node("3",9,9,"1","building","Elev","lName","sName");
@@ -94,14 +96,18 @@ public class MapNavigationFacadeTest {
 
     @Test
     public void getDefaultNode() throws Exception {
-        SettingsManager settingsManager = new SettingsManager(databaseGargoyle);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
+        SettingsManager settingsManager = new SettingsManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
         DirectoryController directoryController = new DirectoryController(manager,settingsManager);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
-        manager.updateNodes();
+
         settingsManager.updateSettings();
         System.out.println(settingsManager.getSetting("Default Node"));
         System.out.println(manager.getNode(settingsManager.getSetting("Default Node")));

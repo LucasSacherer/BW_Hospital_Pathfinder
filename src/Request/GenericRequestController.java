@@ -4,7 +4,6 @@ import Database.CleanUpManager;
 import Database.FoodManager;
 import Database.InterpreterManager;
 import Entity.*;
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,10 +28,6 @@ public class GenericRequestController {
      */
     public ObservableList<Request> getAllRequestsByUser(User user){
         List<Request> results = new ArrayList<>();
-
-        cleanUpManager.updateRequests();
-        foodManager.updateRequests();
-        interpreterManager.updateRequests();
 
         for (CleanUpRequest req: cleanUpManager.getRequestsBy(user)){
             results.add(req);
@@ -72,9 +67,6 @@ public class GenericRequestController {
      */
     public ObservableList<Request> getAllRequestsByDepartment(String department){
         List<Request> results = new ArrayList<>();
-        cleanUpManager.updateRequests();
-        foodManager.updateRequests();
-        interpreterManager.updateRequests();
 
         if (department.equalsIgnoreCase("janitorial")){
             for (CleanUpRequest req: cleanUpManager.getRequests()){
@@ -109,9 +101,6 @@ public class GenericRequestController {
     }
 
     public void deleteNodeRequests(Node node){
-        cleanUpManager.updateRequests();
-        foodManager.updateRequests();
-        interpreterManager.updateRequests();
 
         List<Request> toRemove = new ArrayList<>();
 

@@ -9,30 +9,18 @@ import DatabaseSetup.DatabaseGargoyle;
 import Entity.AdminLog;
 import Entity.FileSelector;
 import Entity.User;
-import boundary.SceneSwitcher;
-import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.TextFieldTreeTableCell;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminLogController {
     final private FileSelector fileSelector = new FileSelector();
-    CSVController csvController = new CSVController();
+    private DatabaseGargoyle databaseGargoyle;
+    CSVController csvController;
     private TreeTableView<AdminLog> adminLogs;
     private TreeTableColumn<AdminLog,String> dateLogged;
     private TreeTableColumn<AdminLog,String> adminLogged;
@@ -43,18 +31,20 @@ public class AdminLogController {
     TreeItem<AdminLog> logRoot = new TreeItem<>();
 
 
-    public AdminLogController ( TreeTableView adminLogs, TreeTableColumn dateLogged,
+    public AdminLogController ( DatabaseGargoyle dbG, TreeTableView adminLogs, TreeTableColumn dateLogged,
                                  TreeTableColumn adminLogged, TreeTableColumn logContent, AdminLogManager adminLogManager,UserManager userManager){
+        this.databaseGargoyle = dbG;
         this.adminLogs = adminLogs;
         this.dateLogged = dateLogged;
         this.adminLogged = adminLogged;
         this.logContent = logContent;
         this.adminLogManager = adminLogManager;
+        csvController = new CSVController(databaseGargoyle);
     }
 
     public void initializeScene(User user ){
         this.user = user;
-        adminLogManager.updateAdminLogs();
+        adminLogManager.update();
 
         for (AdminLog log: adminLogManager.getAdminLogs()){
             logRoot.getChildren().add(new TreeItem<>(log));
@@ -90,9 +80,9 @@ public class AdminLogController {
 //        adminLogManager.getAdminLogs().clear();
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM ADMINLOG", databaseGargoyle.getStatement());
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM ADMINLOG");
         databaseGargoyle.destroyConnection();
-        adminLogManager.updateAdminLogs();
+        adminLogManager.update();
         logRoot.getChildren().clear();
     }
 

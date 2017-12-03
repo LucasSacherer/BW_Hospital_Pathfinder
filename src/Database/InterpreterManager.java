@@ -5,7 +5,6 @@ import Entity.InterpreterRequest;
 import Entity.Node;
 import Entity.User;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -13,11 +12,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterpreterManager {
+public class InterpreterManager implements EntityManager {
 
     private final List<InterpreterRequest> requests;
     private final DatabaseGargoyle databaseGargoyle;
-
     private final NodeManager nodeManager;
     private final UserManager userManager;
 
@@ -31,7 +29,7 @@ public class InterpreterManager {
     /**
      * Updates the internal list of uncompleted InterpreterRequests to match the database
      */
-    public void updateRequests(){
+    public void update(){
         String name, type, description;
         LocalDateTime timeCreated, timeCompleted;
         Node node;
@@ -39,12 +37,9 @@ public class InterpreterManager {
         String language;
 
         requests.clear();
-        nodeManager.updateNodes();
-        userManager.updateUsers();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST",
-                databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST");
         try {
             while (rs.next()) {
                 name = rs.getString("NAME");
@@ -80,9 +75,8 @@ public class InterpreterManager {
                 "NODEID = '" + iReq.getNode().getNodeID() + "', " +
                 "USERID = '" + iReq.getUser().getUserID() + "' " +
                 "WHERE NAME = '" + iReq.getName() + "' " +
-                "AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
+                "AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) + "'");
         databaseGargoyle.destroyConnection();
-        updateRequests();
     }
 
     /**
@@ -94,9 +88,8 @@ public class InterpreterManager {
         databaseGargoyle.executeUpdateOnDatabase("UPDATE INTERPRETERREQUEST SET " +
                 "TIMECOMPLETED = '" + Timestamp.valueOf(LocalDateTime.now()) + "' " +
                 "WHERE NAME = '" + iReq.getName() + "' " +
-                "AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) + "'", databaseGargoyle.getStatement());
+                "AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) + "'");
         databaseGargoyle.destroyConnection();
-        updateRequests();
     }
 
     /**
@@ -106,14 +99,12 @@ public class InterpreterManager {
     public void deleteRequest(InterpreterRequest iReq){
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM INTERPRETERREQUEST WHERE NAME = '" + iReq.getName() +
-                "' AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) +
-                "'", databaseGargoyle.getStatement());
+                "' AND TIMECREATED = '" + Timestamp.valueOf(iReq.getTimeCreated()) + "'");
         databaseGargoyle.destroyConnection();
-        updateRequests();
     }
 
     /**
-     * Returns the list of unfinished InterpreterRequest (Since the last updateRequests() call)
+     * Returns the list of unfinished InterpreterRequest (Since the last update() call)
      * @return
      */
     public List<InterpreterRequest> getRequests(){
@@ -129,9 +120,8 @@ public class InterpreterManager {
         String creationTime = "'"+Timestamp.valueOf(iReq.getTimeCreated()).toString()+"'";
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO INTERPRETERREQUEST VALUES ('"+iReq.getName()+"'," +
                 creationTime + "," + creationTime + ",'" + iReq.getType() + "','" + iReq.getDescription() + "','" +
-                iReq.getLanguage() + "','" + iReq.getNode().getNodeID() + "','" + iReq.getUser().getUserID() + "')",databaseGargoyle.getStatement());
+                iReq.getLanguage() + "','" + iReq.getNode().getNodeID() + "','" + iReq.getUser().getUserID() + "')");
         databaseGargoyle.destroyConnection();
-        updateRequests();
     }
 
     /**
@@ -140,8 +130,6 @@ public class InterpreterManager {
      */
     public List<InterpreterRequest> getCompleted(){
         ArrayList<InterpreterRequest> completed = new ArrayList<>();
-        updateRequests();
-
         String name, type, description;
         LocalDateTime timeCreated, timeCompleted;
         Node node;
@@ -149,8 +137,7 @@ public class InterpreterManager {
         String language;
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST",
-                databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST");
         try {
             while (rs.next()) {
                 name = rs.getString("NAME");
@@ -182,8 +169,6 @@ public class InterpreterManager {
      */
     public List<InterpreterRequest> getRequestsBy(User user){
         ArrayList<InterpreterRequest> userRequests = new ArrayList<>();
-        updateRequests();
-
         for (InterpreterRequest req : requests){
             System.out.println(req.getName());
             if(req.getUser().getUserID().equals(user.getUserID())){

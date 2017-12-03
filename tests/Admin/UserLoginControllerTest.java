@@ -7,11 +7,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UserLoginControllerTest {
-    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testAdmin() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateAdmin("admin1", "admin1");
         assertEquals(true,answer);
@@ -19,7 +22,11 @@ public class UserLoginControllerTest {
 
     @Test
     public void testAdminonStaff() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateStaff("admin1", "admin1");
         assertEquals(false,answer);
@@ -27,7 +34,11 @@ public class UserLoginControllerTest {
 
     @Test
     public void testAdminBadFormat() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateAdmin("admin,1", "admin1");
         assertEquals(false,answer);
@@ -41,7 +52,11 @@ public class UserLoginControllerTest {
 
     @Test
     public void testAdminBadPass() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateAdmin("admin1", "admin2");
         assertEquals(false,answer);
@@ -51,7 +66,11 @@ public class UserLoginControllerTest {
 
     @Test
     public void testStaffBadFormat() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateStaff("sta.ff1", "staff1");
         assertEquals(false,answer);
@@ -65,7 +84,11 @@ public class UserLoginControllerTest {
 
     @Test
     public void testStaffBadPass() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateAdmin("staff1", "staff2");
         assertEquals(false,answer);
@@ -73,7 +96,11 @@ public class UserLoginControllerTest {
 
     @Test
     public void testGoodLogins() throws Exception{
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         UserManager um = new UserManager(databaseGargoyle);
+        databaseGargoyle.attachManager(um);
+        databaseGargoyle.notifyManagers();
+
         UserLoginController ulc = new UserLoginController(um);
         boolean answer = ulc.authenticateAdmin("admin1", "admin1");
         assertEquals(true,answer);

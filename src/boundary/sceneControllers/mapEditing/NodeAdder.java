@@ -12,8 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-import java.util.HashSet;
-
 public class NodeAdder {
     private GraphicsContext gc;
     private NodeManager nodeManager;
@@ -74,7 +72,7 @@ public class NodeAdder {
     }
 
     private String getUniqueID(String nodeType, String currentFloor) {
-        nodeManager.updateNodes();
+        nodeManager.update();
         String firstNum, potential;
         for (int i = 0; i < 999; i++) {
             StringBuilder ID = new StringBuilder();

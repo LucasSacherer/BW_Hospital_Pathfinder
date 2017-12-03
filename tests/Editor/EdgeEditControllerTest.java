@@ -12,16 +12,19 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class EdgeEditControllerTest {
-    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testAddRemoveGetAllEdges() throws Exception {
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        EdgeManager testMan = new EdgeManager(databaseGargoyle, manager);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(testMan);
+        databaseGargoyle.notifyManagers();
+
         //Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
         //Node n2 = new Node("2", 1, 1, "1", "test","type", "lName", "sName");
         //Node n3 = new Node("3", 1, 1, "1", "test","type", "lName", "sName");
-
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        manager.updateNodes();
 
         Node n1 = manager.getNode("GHALL001L2");
         Node n2 = manager.getNode("GELEV00QL2");
@@ -29,9 +32,7 @@ public class EdgeEditControllerTest {
         Edge e1 = new Edge(n1, n2);
         Edge e2 = new Edge(n1, n3);
 
-        EdgeManager testMan = new EdgeManager(databaseGargoyle, manager);
         EdgeEditController test = new EdgeEditController(testMan);
-        testMan.updateEdges();
 
         System.out.println(test.getAllEdges().size());
 
@@ -46,7 +47,7 @@ public class EdgeEditControllerTest {
         test.addEdge(e1);
         test.addEdge(e2);
 
-        assertTrue(test.getAllEdges().size() == startingSize + 2);
+        assertEquals(startingSize + 2, test.getAllEdges().size());
 
         List<Edge> result = test.getAllEdges();
 
@@ -70,14 +71,17 @@ public class EdgeEditControllerTest {
 
     @Test
     public void testDeleteEdge(){
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(edgeManager);
+        databaseGargoyle.notifyManagers();
+
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
         Node n2 = new Node("2", 2, 1, "1", "test","type", "lName", "sName");
         Edge e1 = new Edge(n1, n2);
 
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        manager.updateNodes();
-        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager);
-        edgeManager.updateEdges();
         EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
 
         manager.addNode(n1);
