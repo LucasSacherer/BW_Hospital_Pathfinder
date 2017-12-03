@@ -1,26 +1,30 @@
-package Entity;
+package Database;
 
 import Database.NodeManager;
+import DatabaseSetup.DatabaseGargoyle;
+import Entity.Node;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class NodeManagerTest {
 
     @Test
     public void checkUpdateNodes(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        assertTrue(manager.getAllNodes().size() == 0);
+        manager.update();
+        assertFalse(manager.getAllNodes().size() == 0);
     }
 
     @Test
     public void testGetNode(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         assertEquals(manager.getNode("GHALL00601").getNodeID(),"GHALL00601");
         assertNull(manager.getNode(""));
         assertNull(manager.getNode(null));
@@ -28,8 +32,11 @@ public class NodeManagerTest {
 
     @Test
     public void testAddDeleteNode(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         Node test = new Node("1",2,3,"1","building","type","lName","sName");
         manager.addNode(test);
         assertEquals(manager.getNode(test.getNodeID()).getNodeID(),test.getNodeID());
@@ -39,8 +46,11 @@ public class NodeManagerTest {
 
     @Test
     public void testUpdateNode(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         Node test = new Node("1",2,3,"1","building","type","lName","sName");
         manager.addNode(test);
         Node testModified = new Node("1",6,6,"1","building","type","lName","sName");
@@ -51,7 +61,11 @@ public class NodeManagerTest {
 
     @Test
     public void testNearestNode(){
-        NodeManager manager = new NodeManager();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         Node test = new Node("1",50,0,"1","building","type","lName","sName");
         Node test2 = new Node("2",99, 99,"1","building","type","lName","sName");
         Node test3 = new Node("3",2,2,"1","building","type","lName","sName");
@@ -72,8 +86,11 @@ public class NodeManagerTest {
 
     @Test
     public void testNearestLoc(){
-        NodeManager manager = new NodeManager();
-        manager.updateNodes();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager manager = new NodeManager(databaseGargoyle);
+        databaseGargoyle.attachManager(manager);
+        databaseGargoyle.notifyManagers();
+
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
         Node test2 = new Node("2",2, 2,"1","building","type","lName","sName");
         Node test3 = new Node("3",5,5,"1","building","bathroom","lName","sName");

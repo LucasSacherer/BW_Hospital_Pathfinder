@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminLogManager {
+public class AdminLogManager implements EntityManager {
 
     private final List<AdminLog> adminlogs;
     private final DatabaseGargoyle databaseGargoyle;
     private final UserManager userManager;
 
-    public AdminLogManager(UserManager userManager) {
+    public AdminLogManager(DatabaseGargoyle dbG, UserManager userManager) {
         this.adminlogs = new ArrayList<>();
-        this.databaseGargoyle = new DatabaseGargoyle();
+        this.databaseGargoyle = dbG;
         this.userManager = userManager;
     }
 
@@ -27,33 +27,26 @@ public class AdminLogManager {
      * @param logEntry
      */
     public void addAdminLog(AdminLog logEntry){
-        databaseGargoyle.createConnection();
         //Add the request to the ADMINLOG table
-        System.out.println("INSERT INTO ADMINLOG VALUES (" +
-                "'" + logEntry.getUser().getUserID() + "'," +
-                "'" + logEntry.getAction() + "'," +
-                "'" + Timestamp.valueOf(logEntry.getTime()) + "')");
+        databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO ADMINLOG VALUES (" +
                 "'" + logEntry.getUser().getUserID() + "'," +
                 "'" + logEntry.getAction() + "'," +
-                "'" + Timestamp.valueOf(logEntry.getTime()) + "')", databaseGargoyle.getStatement());
+                "'" + Timestamp.valueOf(logEntry.getTime()) + "')");
         databaseGargoyle.destroyConnection();
-        this.updateAdminLogs();
     }
 
     /**
      * Updates the list of AdminLogs in AdminLogManager to be up to date with the database
      */
-    public void updateAdminLogs(){
+    public void update(){
         String action;
         LocalDateTime time;
         User user;
-
         adminlogs.clear();
-        userManager.updateUsers();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM ADMINLOG", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM ADMINLOG");
         try {
             while (rs.next()) {
                 user = userManager.getUser(rs.getString("USERID"));
@@ -73,7 +66,6 @@ public class AdminLogManager {
      * @return the list of log entries
      */
     public List<AdminLog> getAdminLogs(){
-        this.updateAdminLogs();
         return this.adminlogs;
     }
 
@@ -87,8 +79,7 @@ public class AdminLogManager {
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM ADMINLOG WHERE USERID = " +
                 "'" + badLog.getUser().getUserID() + "' AND ACTION = " +
                 "'" + badLog.getAction() + "' AND TIME = " +
-                "'" + Timestamp.valueOf(badLog.getTime()) + "'", databaseGargoyle.getStatement());
+                "'" + Timestamp.valueOf(badLog.getTime()) + "'");
         databaseGargoyle.destroyConnection();
-        this.updateAdminLogs();
     }
 }

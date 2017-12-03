@@ -3,12 +3,20 @@ package Admin;
 import DatabaseSetup.DatabaseGargoyle;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 
 public class CSVController {
+    DatabaseGargoyle databaseGargoyle;
+
+    public CSVController(DatabaseGargoyle dbG) {
+        this.databaseGargoyle = dbG;
+    }
+
     /**
      * Takes a ResultSet and writes it to a CSV file
      * @param rs
@@ -31,9 +39,8 @@ public class CSVController {
      * @throws IOException
      */
     public void saveNodes(String filePath) throws SQLException, IOException{
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        ResultSet rsNode = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE", databaseGargoyle.getStatement());
+        ResultSet rsNode = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE");
         saveCSVFile(rsNode, filePath);
         rsNode.close();
         databaseGargoyle.destroyConnection();
@@ -46,9 +53,8 @@ public class CSVController {
      * @throws IOException
      */
     public void saveEdges(String filePath) throws SQLException, IOException{
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        ResultSet rsEdge = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE", databaseGargoyle.getStatement());
+        ResultSet rsEdge = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE");
         saveCSVFile(rsEdge, filePath);
         rsEdge.close();
         databaseGargoyle.destroyConnection();
@@ -61,9 +67,8 @@ public class CSVController {
      * @throws IOException
      */
     public void saveAdminLogs(String filePath) throws SQLException, IOException{
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        ResultSet rsAdminLog = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM ADMINLOG", databaseGargoyle.getStatement());
+        ResultSet rsAdminLog = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM ADMINLOG");
         saveCSVFile(rsAdminLog, filePath);
         rsAdminLog.close();
         databaseGargoyle.destroyConnection();

@@ -19,20 +19,26 @@ public class CleanUpManagerTest {
 
     @Test
     public void testAddAndDelete(){
-        NodeManager nodeManager = new NodeManager();
-        nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
-        userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.notifyManagers();
+
         LocalDateTime createdDate = LocalDateTime.now();
 
-        CleanUpRequest request = new CleanUpRequest("test", createdDate, createdDate, "type", "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"));
+        int originalSize = cleanUpManager.getRequests().size();
+
+        CleanUpRequest request = new CleanUpRequest("test", createdDate, createdDate, "type",
+                "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"));
         cleanUpManager.addRequest(request);
 
         //Test to see if the added request is in the database
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'test' AND TIMECREATED = '" +Timestamp.valueOf(createdDate)+"'", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'test' AND TIMECREATED = '" +Timestamp.valueOf(createdDate)+"'");
         try {
             while (rs.next()){
                 assertTrue(rs.getString("name").equals("test"));
@@ -41,30 +47,45 @@ public class CleanUpManagerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
+
+        //Test to see that it has been added to the Entity list
+        cleanUpManager.printRequests();
+        assertEquals(originalSize + 1, cleanUpManager.getRequests().size());
 
         //Test to see if after removal, the user is no longer in the database
         cleanUpManager.deleteRequest(request);
-        rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'test' AND TIMECREATED = '" +Timestamp.valueOf(createdDate)+"'", databaseGargoyle.getStatement());
+        databaseGargoyle.createConnection();
+        rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'test' AND TIMECREATED = '" +Timestamp.valueOf(createdDate)+"'");
         try {
             assertFalse(rs.next());
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        assertFalse(cleanUpManager.getRequests().contains(request));
         databaseGargoyle.destroyConnection();
     }
 
     @Test
     public void testUpdateRequests() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(cleanUpManager);
+        nodeManager.update();
+        userManager.update();
+
         Timestamp stamp = Timestamp.valueOf("1960-01-01 23:03:20.00");
 
         //Check if the user is there before update
         assertEquals(null, cleanUpManager.getCleanUpRequest("not completed", stamp.toLocalDateTime()));
 
+        cleanUpManager.update();
+
         //Check if the user is there after update
-        cleanUpManager.updateRequests();
         CleanUpRequest req = cleanUpManager.getCleanUpRequest("not completed", stamp.toLocalDateTime());
         assertEquals("not completed", req.getName());
         assertEquals(stamp.toLocalDateTime(), req.getTimeCreated());
@@ -76,11 +97,15 @@ public class CleanUpManagerTest {
 
     @Test
     public void testUpdateRequest() {
-        NodeManager nodeManager = new NodeManager();
-        nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
-        userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.notifyManagers();
+
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         //Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
 
@@ -111,23 +136,25 @@ public class CleanUpManagerTest {
 
     @Test
     public void testCompleteRequest() {
-        //Create what is needed to run the tests
-        NodeManager nodeManager = new NodeManager();
-        nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
-        userManager.updateUsers();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.notifyManagers();
+
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        databaseGargoyle.createConnection();
 
         //Update the request and make sure it is changed in the database
         CleanUpRequest completedRequest = new CleanUpRequest("not completed", created.toLocalDateTime(),
                 created.toLocalDateTime(),"type1","description1",
                 nodeManager.getNode("GLABS015L2"), userManager.getUser("admin1"));
         cleanUpManager.completeRequest(completedRequest);
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = 'not completed' AND TIMECREATED = '" +created+"'");
         try {
             if (rs.next()){
                 assertFalse(rs.getTimestamp("timecompleted").equals(created));
@@ -135,13 +162,17 @@ public class CleanUpManagerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
 
         //Revert changes and confirm they are good now
+        databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE CLEANUPREQUEST SET " +
                 "TIMECOMPLETED = '" + created + "' " +
-                "WHERE NAME = 'not completed' AND TIMECREATED = '" + created + "'", databaseGargoyle.getStatement());
+                "WHERE NAME = 'not completed' AND TIMECREATED = '" + created + "'");
+        databaseGargoyle.destroyConnection();
+        databaseGargoyle.createConnection();
         ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM CLEANUPREQUEST WHERE name = " +
-                "'not completed' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+                "'not completed' AND TIMECREATED = '" +created+"'");
         try {
             if (rs2.next()){
                 assertTrue(rs2.getTimestamp("timecompleted").equals(created));
@@ -155,9 +186,14 @@ public class CleanUpManagerTest {
 
     @Test
     public void testGetCompleted() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        CleanUpManager cleanUpManager = new CleanUpManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.notifyManagers();
 
         List<CleanUpRequest> completed = cleanUpManager.getCompleted();
         //Test that there is only one item in the list returned
@@ -168,25 +204,27 @@ public class CleanUpManagerTest {
 
     @Test
     public void testGetRequestsBy() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        CleanUpManager cManager = new CleanUpManager(nodeManager, userManager);
-
-        userManager.updateUsers();
-        cManager.updateRequests();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.notifyManagers();
 
         User admin = userManager.getUser("admin1");
-        assertEquals(1, cManager.getRequestsBy(admin).size());
+        assertEquals(1, cleanUpManager.getRequestsBy(admin).size());
 
-        List<CleanUpRequest> requestsByUser = cManager.getRequestsBy(userManager.getUser("janitor1"));
+        List<CleanUpRequest> requestsByUser = cleanUpManager.getRequestsBy(userManager.getUser("janitor1"));
 
-        System.out.println(cManager.getRequests());
+        System.out.println(cleanUpManager.getRequests());
         System.out.println(requestsByUser);
 
         assertEquals(1, requestsByUser.size());
         assertTrue(requestsByUser.get(0).getUser().getUserID().equals("janitor1"));
 
-        requestsByUser = cManager.getRequestsBy(userManager.getUser("staff1"));
+        requestsByUser = cleanUpManager.getRequestsBy(userManager.getUser("staff1"));
 
         System.out.println(requestsByUser);
 

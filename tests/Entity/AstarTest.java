@@ -71,9 +71,9 @@ public class AstarTest {
     @Test
     public void realNodes1Connect() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01501");
         Astar star = new Astar(edgeM);
@@ -87,9 +87,9 @@ public class AstarTest {
     @Test
     public void realNodesSameNode() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01601");
         Astar star = new Astar(edgeM);
@@ -101,9 +101,9 @@ public class AstarTest {
     @Test
     public void realNodesAcrossFloor1() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GELEV00N01");
         Astar star = new Astar(edgeM);
@@ -120,9 +120,9 @@ public class AstarTest {
     @Test
     public void realNodesAcrossFloor2() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         Astar star = new Astar(edgeM);
@@ -139,9 +139,9 @@ public class AstarTest {
     @Test
     public void realNodesBacktoBack() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         Astar star = new Astar(edgeM);
@@ -168,9 +168,9 @@ public class AstarTest {
     @Test
     public void realNodesbetweenElevators12() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GELEV00N01");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -187,9 +187,9 @@ public class AstarTest {
     @Test
     public void realNodesbetweenFloors12() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL02401");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -207,9 +207,9 @@ public class AstarTest {
     //tests that the bumps are gone and it really does take the most direct path
     public void realNodesFloors2() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01002");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -234,9 +234,9 @@ public class AstarTest {
     @Test
     public void realNodesbetweenFloors13() throws Exception{
         NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
+        nodeM.update();
         EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL02401");
         Node n2 = nodeM.getNode("GSERV01603");
         Astar star = new Astar(edgeM);

@@ -2,15 +2,12 @@ package boundary.sceneControllers;
 import Admin.CSVController;
 import Database.EdgeManager;
 import Database.NodeManager;
-import Database.SettingsManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.Edge;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
-import Pathfinding.Astar;
-import Pathfinding.BreadthSearch;
-import Pathfinding.DepthSearch;
 import Pathfinding.PathFindingFacade;
 import boundary.sceneControllers.mapEditing.*;
 import com.jfoenix.controls.JFXComboBox;
@@ -30,6 +27,7 @@ import java.sql.SQLException;
 
 
 public class AdminMapController extends AbstractMapController{
+    private DatabaseGargoyle databaseGargoyle;
     private NodeEditController nodeEditController;
     private EdgeEditController edgeEditController;
     private NodeManager nodeManager;
@@ -46,14 +44,15 @@ public class AdminMapController extends AbstractMapController{
     private String building, nodeType;
     private ObservableList<String> nodeTypeList, buildingList; //TODO remove
     final private FileSelector fileSelector = new FileSelector();
-    CSVController csvController = new CSVController();
+    CSVController csvController = new CSVController(databaseGargoyle);
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
 
 
-    public AdminMapController(EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
+    public AdminMapController(DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
                               Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
                               Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab) {
         super(i, mapPane, canvas, m, p, currentFloorNum);
+        this.databaseGargoyle = dbG;
         this.edgeEditController = e;
         this.nodeEditController = n;
         this.nodeManager = nm;
@@ -130,7 +129,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     private void drawAllNodes() {
-        nodeManager.updateNodes();
+        nodeManager.update();
         for (Node n : nodeManager.getAllNodes()){
             if (n.getFloor().equals(currentFloor)) {
                 gc.setFill(Color.TEAL);
@@ -140,7 +139,7 @@ public class AdminMapController extends AbstractMapController{
     }
 
     private void drawAllEdges() {
-        edgeManager.updateEdges();
+        edgeManager.update();
         for (Edge e : edgeManager.getAllEdges()) {
             if (e.getStartNode().getFloor().equals(currentFloor) && e.getEndNode().getFloor().equals(currentFloor)) {
                 drawEdge(e);

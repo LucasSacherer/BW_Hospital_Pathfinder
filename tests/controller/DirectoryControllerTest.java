@@ -1,6 +1,7 @@
 package controller;
 
 import Database.SettingsManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 import MapNavigation.DirectoryController;
 import Database.NodeManager;
@@ -13,12 +14,12 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DirectoryControllerTest {
-
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
     @Test
     public void testFormatNodeList() throws Exception {
         List<Node> nodes = new ArrayList<>();
-        NodeManager nm = new NodeManager();
-        SettingsManager sm = new SettingsManager();
+        NodeManager nm = new NodeManager(databaseGargoyle);
+        SettingsManager sm = new SettingsManager(databaseGargoyle);
         DirectoryController dc = new DirectoryController(nm,sm);
 
         Node n1 = new Node("elev1", 1, 1, "1", "1", "ELEV", "1", "1");
