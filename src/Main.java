@@ -17,6 +17,7 @@ public class Main extends Application {
         //Load UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/fxml/main.fxml"));
         GodController godController = new GodController();
+        godController.initializeObservers();
         loader.setController(godController);
         Parent root = loader.load();
         primaryStage.setTitle("B&W Path Finding");

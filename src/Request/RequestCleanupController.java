@@ -7,8 +7,6 @@ import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.List;
-
 public class RequestCleanupController {
 
     private final CleanUpManager cleanUpManager;
@@ -24,7 +22,6 @@ public class RequestCleanupController {
      */
     public void addRequest(CleanUpRequest cReq) {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
-        cleanUpManager.updateRequests();
         if (validateRequest(cReq)){
                 cleanUpManager.addRequest(cReq);
         }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
@@ -37,7 +34,6 @@ public class RequestCleanupController {
      */
     private boolean validateRequest(CleanUpRequest cReq) {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
-        cleanUpManager.updateRequests();
         if (cReq.getName() != null && cReq.getTimeCreated() != null && cReq.getNode() != null) {
             if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) == null) {
                 return true;
@@ -53,7 +49,6 @@ public class RequestCleanupController {
      * @return
      */
     public ObservableList<CleanUpRequest> getRequests(){
-        cleanUpManager.updateRequests();
         ObservableList requests =  FXCollections.observableArrayList();
         requests.addAll(cleanUpManager.getRequests());
         return requests;
@@ -64,7 +59,6 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void deleteRequest(CleanUpRequest cReq){
-        cleanUpManager.updateRequests();
         //First make sure the request exists, then delete it
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.deleteRequest(cReq);
@@ -77,7 +71,6 @@ public class RequestCleanupController {
      */
     public void updateRequest(CleanUpRequest cReq){
         //Confirm that this already exists
-        cleanUpManager.updateRequests();
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.updateRequest(cReq);
         }
@@ -89,7 +82,6 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
-        cleanUpManager.updateRequests();
         //First confirm that the request exists
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.completeRequest(cReq);

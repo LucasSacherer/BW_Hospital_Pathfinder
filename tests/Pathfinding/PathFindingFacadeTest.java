@@ -2,6 +2,7 @@ package Pathfinding;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 import org.junit.Test;
 
@@ -10,16 +11,17 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PathFindingFacadeTest {
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     @Test
     public void testFacade() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01501");
         List<Node> answer = pFF.getPath(n1,n2);
@@ -31,12 +33,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesSameNode() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01601");
         List<Node> answer = pFF.getPath(n1,n2);
@@ -48,12 +50,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesAcrossFloor1() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GELEV00N01");
         Astar star = new Astar(edgeM);
@@ -70,12 +72,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesAcrossFloor2() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         Astar star = new Astar(edgeM);
@@ -92,12 +94,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesBacktoBack() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         Astar star = new Astar(edgeM);
@@ -124,12 +126,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesbetweenElevators12() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GELEV00N01");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -146,12 +148,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesbetweenFloors12() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL02401");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -169,12 +171,12 @@ public class PathFindingFacadeTest {
     //tests that the bumps are gone and it really does take the most direct path
     public void realNodesFloors2() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL01002");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -199,12 +201,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesbetweenFloors13() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("GHALL02401");
         Node n2 = nodeM.getNode("GSERV01603");
         Astar star = new Astar(edgeM);
@@ -226,12 +228,12 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesAcrossHospital() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.updateNodes();
-        edgeM.updateEdges();
+        nodeM.update();
+        edgeM.update();
         Node n1 = nodeM.getNode("ALABS001L2");
         Node n2 = nodeM.getNode("IDEPT00903");
         List<Node> answer = pFF.getPath(n1,n2);

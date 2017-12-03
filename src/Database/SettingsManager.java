@@ -11,10 +11,11 @@ import java.util.HashMap;
 public class SettingsManager {
 
     private HashMap<String, String> settings;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
 
 
-    public SettingsManager(){
+    public SettingsManager(DatabaseGargoyle dbG){
+        databaseGargoyle = dbG;
         settings = new HashMap<>();
     }
 
@@ -23,7 +24,7 @@ public class SettingsManager {
     public void setSetting(String setting, String nodeID){
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE SETTINGS SET STRING2 = '"+nodeID+"' WHERE STRING1 = '"+
-                setting+"'", databaseGargoyle.getStatement());
+                setting+"'");
         databaseGargoyle.destroyConnection();
 
         updateSettings();
@@ -33,7 +34,7 @@ public class SettingsManager {
         settings.clear();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM SETTINGS", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM SETTINGS");
         try {
             while(rs.next()){
                 settings.put(rs.getString("STRING1"), rs.getString("STRING2"));

@@ -2,6 +2,7 @@ package Pathfinding;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Edge;
 import Entity.Node;
 import org.junit.Test;
@@ -12,11 +13,14 @@ import static java.lang.Math.min;
 import static org.junit.Assert.*;
 
 public class BeamSearchTest {
-
     @Test
     public void sameNode() throws Exception{
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
 
         BeamSearch b = new BeamSearch(edgeM);
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
@@ -27,13 +31,16 @@ public class BeamSearchTest {
         assertEquals(actual,answer);
 
         nodeM.removeNode(n1);
-
     }
 
     @Test
     public void twoConnects() throws Exception{
-        NodeManager nodeM = new NodeManager();
-        EdgeManager edgeM = new EdgeManager(nodeM);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
         Node n2 = new Node("2",2,1,"1","Shapiro","type","Stairwell","STAI");
@@ -69,10 +76,13 @@ public class BeamSearchTest {
 
     @Test
     public void realNodes1Connect() throws Exception{
-        NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
-        EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
+
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01501");
         BeamSearch beamSearch = new BeamSearch(edgeM);
@@ -83,10 +93,13 @@ public class BeamSearchTest {
 
     @Test
     public void realNodesSameNode() throws Exception{
-        NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
-        EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
+
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01601");
         BeamSearch beamSearch = new BeamSearch(edgeM);
@@ -97,10 +110,13 @@ public class BeamSearchTest {
 
     @Test
     public void realNodesAcrossFloor1() throws Exception{
-        NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
-        EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
+
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GELEV00N01");
         BeamSearch beamSearch = new BeamSearch(edgeM);
@@ -115,10 +131,13 @@ public class BeamSearchTest {
 
     @Test
     public void realNodesBacktoBack() throws Exception{
-        NodeManager nodeM = new NodeManager();
-        nodeM.updateNodes();
-        EdgeManager edgeM = new EdgeManager(nodeM);
-        edgeM.updateEdges();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
+
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         BeamSearch beamSearch = new BeamSearch(edgeM);
