@@ -121,14 +121,36 @@ public class NodeEditControllerTest {
 
     @Test
     public void alignNodesTest(){
-        System.out.println(Math.toDegrees(Math.atan2(0,0)));
-        System.out.println(Math.toDegrees(Math.atan2(1,1)));
-        System.out.println(Math.toDegrees(Math.atan2(1,0)));
-        System.out.println(Math.toDegrees(Math.atan2(1,-1)));
-        System.out.println(Math.toDegrees(Math.atan2(0,-1)));
-        System.out.println(Math.toDegrees(Math.atan2(-1,-1)));
-        System.out.println(Math.toDegrees(Math.atan2(-1,0)));
-        System.out.println(Math.toDegrees(Math.atan2(-1,1)));
+        NodeManager nManager = new NodeManager();
+        SettingsManager sManager = new SettingsManager();
+        EdgeManager eManager = new EdgeManager(nManager);
+        UserManager um = new UserManager();
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(nManager,um), new FoodManager(nManager,um), new InterpreterManager(nManager,um));
+        NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
+
+        Node test = new Node("1",0,0,"1","building","type","lName","sName");
+        Node test2 = new Node("2",0, 10,"1","building","type","lName","sName");
+        Node test3 = new Node("3",5,5,"1","building","bathroom","lName","sName");
+        Node test4 = new Node("4",-5,5,"1","building","bathroom","lName","sName");
+        Node test5 = new Node("5",-5, -5,"1","building","type","lName","sName");
+        Node test6 = new Node("6",5, -5,"1","building","type","lName","sName");
+        Node test7 = new Node("7",5, 15,"1","building","type","lName","sName");
+        Node test8 = new Node("8",-5, 15,"1","building","type","lName","sName");
+
+
+
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(test);
+        nodes.add(test2);
+        nodes.add(test3);
+        nodes.add(test4);
+        nodes.add(test5);
+        nodes.add(test6);
+        nodes.add(test7);
+        nodes.add(test8);
+
+        editor.alignNodes(nodes);
+
 
     }
 }

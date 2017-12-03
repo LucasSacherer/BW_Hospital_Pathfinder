@@ -49,18 +49,35 @@ public class NodeEditController {
     //i=0 "Start" --  i=1 "End"
     public void alignNodes (List<Node> nodes){
         Node startNode = nodes.get(0);
+        System.out.println(startNode.getNodeID());
         Node endNode = nodes.get(1);
+        System.out.println(endNode.getNodeID());
 
-        double abXdistance = startNode.getXcoord() - endNode.getXcoord();
-        double abYdistance = startNode.getYcoord() - endNode.getYcoord();
-        double abLineAngle = Math.atan2(abYdistance,abXdistance);
+        double abXdistance = endNode.getXcoord() - startNode.getXcoord();
+        double abYdistance = endNode.getYcoord() - startNode.getYcoord();
+        double abLineAngle = (180 * Math.atan2(abYdistance,abXdistance)) / Math.PI;
+        System.out.println(abLineAngle);
+
+
 
         for (int i = 2; i < nodes.size(); i++){
-            double outOfPlaceXDistance = startNode.getXcoord() - nodes.get(i).getXcoord();
-            double outOfPlaceYDistance = startNode.getYcoord() - nodes.get(i).getYcoord();
-            double outOfPlaceLineAngle = Math.atan2(outOfPlaceYDistance,outOfPlaceXDistance);
+            System.out.println(nodes.get(i).getNodeID());
+            double outOfPlaceXDistance = nodes.get(i).getXcoord() - startNode.getXcoord();
+            double outOfPlaceYDistance = nodes.get(i).getYcoord() - startNode.getYcoord();
+            double outOfPlaceLineAngle = (180* Math.atan2(outOfPlaceYDistance,outOfPlaceXDistance)) / Math.PI;
 
-            double bacAngle;
+            if (outOfPlaceLineAngle < 0){
+                outOfPlaceLineAngle = 360 + outOfPlaceLineAngle;
+            }
+            System.out.println(outOfPlaceLineAngle);
+
+
+            double bacAngle = (abLineAngle - outOfPlaceLineAngle);
+
+            System.out.println(bacAngle);
+
+            double xComponentToMove;
+            double yComponentToMove;
 
 
 
