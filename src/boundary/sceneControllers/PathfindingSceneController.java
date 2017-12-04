@@ -39,8 +39,9 @@ public class PathfindingSceneController  extends AbstractMapController {
 
     public void findPath(Node o, Node d) throws IOException {
         origin = o;
-        originField.setText(o.toString());
         destination = d;
+        if (origin == null || destination == null) return;
+        originField.setText(o.toString());
         destinationField.setText(destination.toString());
         currentPath = pathFindingFacade.getPath(origin, destination);
         textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
