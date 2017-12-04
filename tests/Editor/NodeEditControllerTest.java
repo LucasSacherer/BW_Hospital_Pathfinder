@@ -163,7 +163,7 @@ public class NodeEditControllerTest {
         Node test2 = new Node("2",10, 10,"1","building","type","lName","sName");
         Node test3 = new Node("3",5,10,"1","building","bathroom","lName","sName");
         Node test4 = new Node("4",-5,5,"1","building","bathroom","lName","sName");
-        Node test5 = new Node("5",-5, -5,"1","building","type","lName","sName");
+        Node test5 = new Node("5",10, 5,"1","building","type","lName","sName");
         Node test6 = new Node("6",5, -5,"1","building","type","lName","sName");
         Node test7 = new Node("7",5, 15,"1","building","type","lName","sName");
         Node test8 = new Node("8",-5, 15,"1","building","type","lName","sName");
@@ -177,16 +177,13 @@ public class NodeEditControllerTest {
         nodes.add(test2);
         nodes.add(test3);
         nodes.add(test4);
-        /*
         nodes.add(test5);
+        /*
         nodes.add(test6);
         nodes.add(test7);
         nodes.add(test8);
         */
 
         editor.alignNodes(nodes);
-
-
-
     }
 }

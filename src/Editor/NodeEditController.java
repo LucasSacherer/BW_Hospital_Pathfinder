@@ -58,9 +58,6 @@ public class NodeEditController {
         Node endNode = nodes.get(1);
 
         float slope = ((float)(endNode.getYcoord() - startNode.getYcoord())) / ((float)(endNode.getXcoord() - startNode.getXcoord()));
-        System.out.println(endNode.getXcoord() + " endX");
-        System.out.println(startNode.getXcoord() + " StartX");
-        System.out.println(slope);
         matrix.add(0,1,-slope);
 
         float ba = ((-slope)*(startNode.getXcoord())) + startNode.getYcoord();
@@ -74,22 +71,20 @@ public class NodeEditController {
         for (int i = 2; i < nodes.size(); i++){
             FMatrixRMaj temp = matrix.copy();
 
-            System.out.println(nodes.get(i).getXcoord() + " i X coord");
-            System.out.println(nodes.get(i).getYcoord() + " i Y coord");
-            float bc = (inverseSlope*nodes.get(i).getXcoord()) + nodes.get(i).getYcoord();
+            Node c = nodes.get(i);
+            float bc = (inverseSlope*c.getXcoord()) + c.getYcoord();
             temp.add(1,2,bc);
 
-            temp.print();
             rref.reduce(temp,3);
 
             float changeInY = temp.get(0,2);
             float changeInX = temp.get(1,2);
-
-            temp.print();
             System.out.println(changeInX);
             System.out.println(changeInY);
+            System.out.println("Break");
 
-            System.out.println("BREAK");
+            Node n = new Node(c.getNodeID(),Math.round(c.getXcoord() - changeInX), Math.round(c.getYcoord() - changeInY), c.getFloor(), c.getBuilding(), c.getNodeType(), c.getLongName(), c.getShortName());
+            editNode(n);
         }
 
 
