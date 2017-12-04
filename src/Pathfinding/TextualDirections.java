@@ -114,9 +114,25 @@ public class TextualDirections {
         Node startNode = path.get(0);
         Node destNode = path.get(path.size() - 1);
 
+        //make readable names for start and dest node. If they're hallways, just say hallway. Otherwise, use short name.
+        //if no short name, just use NodeID
+        String startName = sNameNode(startNode);
+        if(startName.equals("")){
+            startName = startNode.getNodeID();
+        }
+        if(startNode.getNodeType().equals("HALL")){
+            startName = startName + " in " + startNode.getBuilding();
+        }
+        String destName = sNameNode(destNode);
+        if(destName.equals("")){
+            destName = destNode.getNodeID();
+        }
+        if(destNode.getNodeType().equals("HALL")){
+            destName = destName + " in " + destNode.getBuilding();
+        }
         //inserts directions overview
-        writtenDirections.add("Directions from " + nameNode(startNode) + " to "
-                + nameNode(destNode) + ".");
+        writtenDirections.add("Directions from " + startName + " to "
+                + destName + ".");
 
         //adds first step
         writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
@@ -155,7 +171,7 @@ public class TextualDirections {
                         sNameNode(nextNode) + ".");
             }
         }
-        writtenDirections.add("You have arrived at " + nameNode(destNode) + "! Thank you for visiting Brigham and Women's Hospital.");
+        writtenDirections.add("You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.");
         return writtenDirections;
     }
 
