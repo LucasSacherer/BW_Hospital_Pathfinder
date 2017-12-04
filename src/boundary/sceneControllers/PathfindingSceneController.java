@@ -41,10 +41,18 @@ public class PathfindingSceneController  extends AbstractMapController {
         origin = o;
         destination = d;
         if (origin == null || destination == null) return;
+        goToCorrectFloor();
         originField.setText(o.toString());
         destinationField.setText(destination.toString());
         currentPath = pathFindingFacade.getPath(origin, destination);
         textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
+        refreshCanvas();
+    }
+
+    private void goToCorrectFloor() {
+        currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        currentFloorNum.setText(currentFloor);
         refreshCanvas();
     }
 }

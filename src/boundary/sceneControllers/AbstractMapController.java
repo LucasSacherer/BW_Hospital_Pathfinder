@@ -59,7 +59,6 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         this.gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
-        this.origin = mapNavigationFacade.getDefaultNode(); //TODO doesn't work
         System.out.println(mapNavigationFacade.getDefaultNode());
     }
 
@@ -75,8 +74,9 @@ public abstract class AbstractMapController {
     }
 
     public void refreshCanvas() {
+        if (origin == null) origin = mapNavigationFacade.getDefaultNode();
         clearCanvas();
-        if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
+        drawCurrentNode();
         drawPath();
         gc.setTransform(1, 0, 0, 1, 0, 0);
         drawPathNodes();
@@ -93,7 +93,7 @@ public abstract class AbstractMapController {
             gc.setFill(Color.WHITE);
             gc.fillOval(destination.getXcoord() - 6, destination.getYcoord() - 6, 12, 12);
             gc.setFill(Color.BLACK);
-            gc.fillOval(destination.getXcoord() - 4, destination.getYcoord() - 4, 8, 8);
+            gc.fillOval(destination.getXcoord() - 3, destination.getYcoord() - 3, 6, 6);
         }
     }
 
