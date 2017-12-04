@@ -5,6 +5,8 @@ import Database.NodeManager;
 import Database.SettingsManager;
 import Entity.Node;
 import Request.GenericRequestController;
+import org.ejml.data.FMatrixRMaj;
+import org.ejml.dense.row.misc.RrefGaussJordanRowPivot_FDRM;
 
 import java.util.List;
 
@@ -48,45 +50,46 @@ public class NodeEditController {
     //it doesnt matter the order of which one is "start" or "end"
     //i=0 "Start" --  i=1 "End"
     public void alignNodes (List<Node> nodes){
+        FMatrixRMaj matrix = new FMatrixRMaj(2,3);
+        matrix.add(0,0,1); // sets 0,1 to 1 (y coefficient)
+        matrix.add(1,0,1); // sets 1,1 to 1
+
         Node startNode = nodes.get(0);
-        System.out.println(startNode.getNodeID());
         Node endNode = nodes.get(1);
-        System.out.println(endNode.getNodeID());
 
-        double abXdistance = endNode.getXcoord() - startNode.getXcoord();
-        double abYdistance = endNode.getYcoord() - startNode.getYcoord();
-        double abLineAngle = (180 * Math.atan2(abYdistance,abXdistance)) / Math.PI;
-        System.out.println(abLineAngle);
+        float slope = ((float)(endNode.getYcoord() - startNode.getYcoord())) / ((float)(endNode.getXcoord() - startNode.getXcoord()));
+        System.out.println(endNode.getXcoord() + " endX");
+        System.out.println(startNode.getXcoord() + " StartX");
+        System.out.println(slope);
+        matrix.add(0,1,-slope);
 
+        float ba = ((-slope)*(startNode.getXcoord())) + startNode.getYcoord();
+        matrix.add(0,2,ba);
 
+        float inverseSlope = (-1/slope);
+        matrix.add(1,1,-inverseSlope);
+
+        RrefGaussJordanRowPivot_FDRM rref = new RrefGaussJordanRowPivot_FDRM();
 
         for (int i = 2; i < nodes.size(); i++){
-            System.out.println(nodes.get(i).getNodeID());
-            double outOfPlaceXDistance = nodes.get(i).getXcoord() - startNode.getXcoord();
-            double outOfPlaceYDistance = nodes.get(i).getYcoord() - startNode.getYcoord();
-            double outOfPlaceLineAngle = (180* Math.atan2(outOfPlaceYDistance,outOfPlaceXDistance)) / Math.PI;
+            FMatrixRMaj temp = matrix.copy();
 
-            //makes angle 0-360 not negative values.
-            if (outOfPlaceLineAngle < 0){
-                outOfPlaceLineAngle = 360 + outOfPlaceLineAngle;
-            }
-            System.out.println(outOfPlaceLineAngle);
+            System.out.println(nodes.get(i).getXcoord() + " i X coord");
+            System.out.println(nodes.get(i).getYcoord() + " i Y coord");
+            float bc = (inverseSlope*nodes.get(i).getXcoord()) + nodes.get(i).getYcoord();
+            temp.add(1,2,bc);
 
-            //angle between start and end line and out of place node. Made positive and between 0-90
-            double bacAngle = (abLineAngle - outOfPlaceLineAngle);
-            bacAngle = Math.abs(bacAngle);
-            if (bacAngle > 90){
-                bacAngle = bacAngle % 90;
-            }
-            System.out.println(bacAngle);
+            temp.print();
+            rref.reduce(temp,3);
 
+            float changeInY = temp.get(0,2);
+            float changeInX = temp.get(1,2);
 
+            temp.print();
+            System.out.println(changeInX);
+            System.out.println(changeInY);
 
-            double xComponentToMove;
-            double yComponentToMove;
-
-
-
+            System.out.println("BREAK");
         }
 
 

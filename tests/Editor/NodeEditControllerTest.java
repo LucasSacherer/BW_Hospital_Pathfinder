@@ -159,9 +159,9 @@ public class NodeEditControllerTest {
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG,nManager,um), new FoodManager(dbG, nManager,um), new InterpreterManager(dbG, nManager,um));
         NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
 
-        Node test = new Node("1",0,0,"1","building","type","lName","sName");
-        Node test2 = new Node("2",0, 10,"1","building","type","lName","sName");
-        Node test3 = new Node("3",5,5,"1","building","bathroom","lName","sName");
+        Node test = new Node("1",5,5,"1","building","type","lName","sName");
+        Node test2 = new Node("2",10, 10,"1","building","type","lName","sName");
+        Node test3 = new Node("3",5,10,"1","building","bathroom","lName","sName");
         Node test4 = new Node("4",-5,5,"1","building","bathroom","lName","sName");
         Node test5 = new Node("5",-5, -5,"1","building","type","lName","sName");
         Node test6 = new Node("6",5, -5,"1","building","type","lName","sName");
@@ -177,15 +177,15 @@ public class NodeEditControllerTest {
         nodes.add(test2);
         nodes.add(test3);
         nodes.add(test4);
+        /*
         nodes.add(test5);
         nodes.add(test6);
         nodes.add(test7);
         nodes.add(test8);
-        nodes.add(test9);
-        nodes.add(test10);
-
+        */
 
         editor.alignNodes(nodes);
+
 
 
     }
