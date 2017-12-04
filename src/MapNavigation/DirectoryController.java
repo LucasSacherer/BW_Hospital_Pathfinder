@@ -25,7 +25,6 @@ public class DirectoryController {
      */
      HashMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
-        nm.updateNodes();
         List<Node> visitableNodes = new ArrayList<Node>();
 
         for (int i = 0; nm.getAllNodes().size() > i; i++ ){
@@ -56,7 +55,6 @@ public class DirectoryController {
         ObservableList<Node> exit = FXCollections.observableArrayList();
         ObservableList<Node> retl = FXCollections.observableArrayList();
         ObservableList<Node> serv = FXCollections.observableArrayList();
-        nm.updateNodes();
 
         //Go through all the visitable nodes and assign them to the correct list based on nodeType
         for (Node node : visitableNodes){
@@ -105,7 +103,6 @@ public class DirectoryController {
     //TODO Need to throw exception if Default Node doesn't exist.
     Node getDefaultNode(){
         settingsManager.updateSettings();
-        nm.updateNodes();
         String defaultNode = settingsManager.getSetting("Default Node");
         return nm.getNode(defaultNode);
     }

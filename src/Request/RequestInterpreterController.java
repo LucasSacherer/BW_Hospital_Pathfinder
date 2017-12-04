@@ -20,7 +20,6 @@ public class RequestInterpreterController {
      */
     public void addRequest(InterpreterRequest iReq){
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
-        interpreterManager.updateRequests();
         if (validateRequest(iReq)){
             interpreterManager.addRequest(iReq);
         }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
@@ -33,7 +32,6 @@ public class RequestInterpreterController {
      */
     private boolean validateRequest(InterpreterRequest iReq){
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
-        interpreterManager.updateRequests();
         if (iReq.getName() != null && iReq.getTimeCreated() != null && iReq.getNode()!=null && iReq.getLanguage()!=null){
             if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) == null){
                 return true;
@@ -54,7 +52,6 @@ public class RequestInterpreterController {
      * @param iReq
      */
     public void deleteRequest(InterpreterRequest iReq){
-        interpreterManager.updateRequests();
         //First make sure the request exists, then delete it
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.deleteRequest(iReq);
@@ -67,7 +64,6 @@ public class RequestInterpreterController {
      */
     public void updateRequest(InterpreterRequest iReq){
         //Confirm that this already exists
-        interpreterManager.updateRequests();
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.updateRequest(iReq);
         }
@@ -79,8 +75,7 @@ public class RequestInterpreterController {
      * @param iReq
      */
     public void completeRequest(InterpreterRequest iReq){
-        interpreterManager.updateRequests();
-        //First confiurm that the request exists
+        //First confirm that the request exists
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.completeRequest(iReq);
         }

@@ -23,7 +23,6 @@ public class RequestFoodController {
      */
     public void addRequest(FoodRequest fReq){
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
-        foodManager.updateRequests();
         if (validateRequest(fReq)){
             foodManager.addRequest(fReq);
         }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
@@ -36,7 +35,6 @@ public class RequestFoodController {
      */
     private boolean validateRequest(FoodRequest fReq){
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
-        foodManager.updateRequests();
         if (fReq.getName() != null && fReq.getTimeCreated() != null && fReq.getNode()!=null){
             if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) == null){
                 return true;
@@ -59,7 +57,6 @@ public class RequestFoodController {
      * @param fReq
      */
     public void deleteRequest(FoodRequest fReq){
-        foodManager.updateRequests();
         //Check to make sure the request exists
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.deleteRequest(fReq);
@@ -72,7 +69,6 @@ public class RequestFoodController {
      */
     public void updateRequest(FoodRequest fReq){
         //Confirm that this already exists
-        foodManager.updateRequests();
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.updateRequest(fReq);
         }
@@ -84,7 +80,6 @@ public class RequestFoodController {
      * @param fReq
      */
     public void completeRequest(FoodRequest fReq){
-        foodManager.updateRequests();
         //First confiurm that the request exists
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.completeRequest(fReq);

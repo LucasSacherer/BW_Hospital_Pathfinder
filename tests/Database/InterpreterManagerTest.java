@@ -8,28 +8,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class InterpreterManagerTest {
+
     @Test
     public void TestAddandDelete() {
-        NodeManager nodeManager = new NodeManager();
-        nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
-        userManager.updateUsers();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.notifyManagers();
+
         LocalDateTime createdDate = LocalDateTime.now();
 
         InterpreterRequest request = new InterpreterRequest("test", createdDate, createdDate, "type", "description", nodeManager.getNode("GINFO01902"), userManager.getUser("admin1"), "English");
         iManager.addRequest(request);
 
         //Test to see if the added request is in the database
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'test' AND TIMECREATED = '" + Timestamp.valueOf(createdDate)+"'", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'test' AND TIMECREATED = '" + Timestamp.valueOf(createdDate)+"'");
         try {
             while (rs.next()){
                 assertTrue(rs.getString("name").equals("test"));
@@ -38,10 +41,12 @@ public class InterpreterManagerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
 
         //Test to see if after removal, the user is no longer in the database
         iManager.deleteRequest(request);
-        rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'test' AND TIMECREATED = '" +Timestamp.valueOf(createdDate)+"'", databaseGargoyle.getStatement());
+        databaseGargoyle.createConnection();
+        rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'test' AND TIMECREATED = '" +Timestamp.valueOf(createdDate)+"'");
         try {
             assertFalse(rs.next());
         } catch (SQLException e) {
@@ -52,11 +57,15 @@ public class InterpreterManagerTest {
 
     @Test
     public void TestUpdateRequest() throws Exception {
-        NodeManager nodeManager = new NodeManager();
-        nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
-        userManager.updateUsers();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.notifyManagers();
+
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
         LocalDateTime createdDate = LocalDateTime.now();
@@ -70,12 +79,10 @@ public class InterpreterManagerTest {
                 "NewType", "description", nodeManager.getNode("GINFO01902"),
                 userManager.getUser("admin1"), "English");
         iManager.updateRequest(updatedRequest);
-        iManager.updateRequests();
 
         assertEquals(iManager.getRequests().get(2).getType(), "NewType");
 
         iManager.updateRequest(request);
-        iManager.updateRequests();
 
         assertEquals(iManager.getRequests().get(2).getType(), "type");
 
@@ -85,15 +92,17 @@ public class InterpreterManagerTest {
     @Test
     public void testCompleteRequest() {
         //Create what is needed to run the tests
-        NodeManager nodeManager = new NodeManager();
-        nodeManager.updateNodes();
-        UserManager userManager = new UserManager();
-        userManager.updateUsers();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.notifyManagers();
+
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
         Timestamp completed = Timestamp.valueOf("1961-01-01 23:03:20.00");
-        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        databaseGargoyle.createConnection();
 
         //Update the request and make sure it is changed in the database
         InterpreterRequest completedRequest = new InterpreterRequest("not complete", created.toLocalDateTime(),
@@ -101,7 +110,9 @@ public class InterpreterManagerTest {
                 nodeManager.getNode("GLABS015L2"), userManager.getUser("admin1"), "English");
         iManager.addRequest(completedRequest);
         iManager.completeRequest(completedRequest);
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'");
         try {
             if(rs.next()) {
                 assertFalse(rs.getTimestamp("timecompleted").equals(completed));
@@ -109,12 +120,17 @@ public class InterpreterManagerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
 
         //Revert changes and confirm they are good now
+        databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("UPDATE INTERPRETERREQUEST SET " +
                 "TIMECOMPLETED = '" + created + "' " +
-                "WHERE NAME = 'not complete' AND TIMECREATED = '" + created + "'", databaseGargoyle.getStatement());
-        ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'", databaseGargoyle.getStatement());
+                "WHERE NAME = 'not complete' AND TIMECREATED = '" + created + "'");
+        databaseGargoyle.destroyConnection();
+
+        databaseGargoyle.createConnection();
+        ResultSet rs2 = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM INTERPRETERREQUEST WHERE name = 'not complete' AND TIMECREATED = '" +created+"'");
         try {
             if(rs2.next()) {
                 assertTrue(rs2.getTimestamp("timecompleted").equals(created));
@@ -122,17 +138,21 @@ public class InterpreterManagerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        databaseGargoyle.destroyConnection();
 
         iManager.deleteRequest(completedRequest);
-
-        databaseGargoyle.destroyConnection();
     }
 
     @Test
     public void testGetCompleted() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.notifyManagers();
 
         List<InterpreterRequest> completed = iManager.getCompleted();
         //Test that there is only one item in the list returned
@@ -144,12 +164,14 @@ public class InterpreterManagerTest {
 
     @Test
     public void testGetRequestsBy() {
-        NodeManager nodeManager = new NodeManager();
-        UserManager userManager = new UserManager();
-        InterpreterManager iManager = new InterpreterManager(nodeManager, userManager);
-
-        userManager.updateUsers();
-        iManager.updateRequests();
+        DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle);
+        InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
+        databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.notifyManagers();
 
         List<InterpreterRequest> requestsByUser = iManager.getRequestsBy(userManager.getUser("admin2"));
 

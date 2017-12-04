@@ -2,7 +2,6 @@ package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.User;
-import Request.GenericRequestController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,9 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserManager {
-    private ArrayList<User> users = new ArrayList<>();
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+public class UserManager implements EntityManager {
+    private ArrayList<User> users;
+    private DatabaseGargoyle databaseGargoyle;
+
+    public UserManager(DatabaseGargoyle dbG) {
+        this.databaseGargoyle = dbG;
+        this.users = new ArrayList<>();
+    }
 
     /**
      * Returns true if there exists an ADMIN with the given credentials, false if there is no user.
@@ -21,7 +25,6 @@ public class UserManager {
      * @return
      */
     public Boolean authenticateAdmin(String username, String password){
-        updateUsers();
         for (User user: users){
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 if (user.getAdminFlag()){
@@ -39,7 +42,6 @@ public class UserManager {
      * @return
      */
     public Boolean authenticateStaff(String username, String password){
-        updateUsers();
         for (User user: users){
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 if (!user.getAdminFlag()){
@@ -53,13 +55,13 @@ public class UserManager {
     /**
      * Updates all users in the UserManager's list to be up to date with the database
      */
-    public void updateUsers(){
+    public void update(){
         String userID, userName, password, department, tempAdminFlag;
         Boolean adminFlag = null;
-
         users.clear();
+
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM KIOSKUSER", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM KIOSKUSER");
         try {
             while (rs.next()){
                 userID = rs.getString("USERID");
@@ -95,9 +97,8 @@ public class UserManager {
                 "USERNAME = '" + updatedUser.getUsername() + "'," +
                 "PASSWORD = '" + updatedUser.getPassword() + "'," +
                 "ADMINFLAG = '" + adminFlag + "'," +
-                "DEPARTMENT = '" + updatedUser.getDepartment() + "' WHERE USERID = '" + updatedUser.getUserID() + "'", databaseGargoyle.getStatement());
+                "DEPARTMENT = '" + updatedUser.getDepartment() + "' WHERE USERID = '" + updatedUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
-        updateUsers();
     }
 
     /**
@@ -107,9 +108,8 @@ public class UserManager {
     public void addUser(User newUser){
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO KIOSKUSER VALUES ('"+ newUser.getUserID()+"','"+newUser.getUsername()+"','"+
-                newUser.getPassword()+"','"+newUser.getAdminFlag().toString()+"','"+newUser.getDepartment()+"')", databaseGargoyle.getStatement());
+                newUser.getPassword()+"','"+newUser.getAdminFlag().toString()+"','"+newUser.getDepartment()+"')");
         databaseGargoyle.destroyConnection();
-        updateUsers();
     }
 
     /**
@@ -117,12 +117,9 @@ public class UserManager {
      * @param oldUser
      */
     public void removeUser(User oldUser){
-
-
         databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'", databaseGargoyle.getStatement());
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
-        updateUsers();
     }
 
     /**
@@ -160,7 +157,6 @@ public class UserManager {
     public ObservableList getUsers() {
         ObservableList fxUsers = FXCollections.observableArrayList();
         fxUsers.addAll(this.users);
-        updateUsers();
         return fxUsers;
     }
 }
