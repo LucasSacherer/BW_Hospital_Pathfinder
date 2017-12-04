@@ -6,6 +6,7 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -30,7 +31,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
-    private ImageButton floorChange;
+    protected ImageButton floorChange;
     protected GodController godController;
     protected Label currentFloorNum;
     protected Canvas canvas;
@@ -47,8 +48,9 @@ public abstract class AbstractMapController {
 
     protected Node origin, destination, currentLoc;
     protected ErrorController errorController = new ErrorController();
+    protected JFXSlider zoomSlider;
 
-    public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum) {
+    public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider) {
         this.godController = g;
         this.imageView = i;
         this.mapNavigationFacade = m;
@@ -57,6 +59,7 @@ public abstract class AbstractMapController {
         this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
         currentFloor = "G";
+        this.zoomSlider = zoomSlider;
     }
 
     public void initializeScene() {
@@ -308,6 +311,13 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         currentFloorNum.setText(currentFloor);
         refreshCanvas();
+    }
+
+    public void zoom() {
+        double sliderLevel = zoomSlider.getValue() / 100;
+        double zoomLevel = (sliderLevel + 1) / 2;
+        mapPane.setScaleX(zoomLevel);
+        mapPane.setScaleY(zoomLevel);
     }
 
     private class ImageButton extends JFXButton {

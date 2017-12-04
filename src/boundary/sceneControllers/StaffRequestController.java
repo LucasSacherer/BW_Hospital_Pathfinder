@@ -8,10 +8,7 @@ import Request.RequestCleanupController;
 import Request.RequestFoodController;
 import Request.RequestInterpreterController;
 import boundary.GodController;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -55,8 +52,8 @@ public class StaffRequestController extends AbstractMapController{
                                   JFXTextField requestFoodName, JFXTextArea cleanupDescription,
                                   JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription,
                                   JFXTextArea requestFoodDescription, JFXTextArea requestInfo,
-                                  JFXListView currentFoodOrder, JFXTextField foodItem) {
-        super(g, requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest);
+                                  JFXListView currentFoodOrder, JFXTextField foodItem, JFXSlider zoomSlider) {
+        super(g, requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, zoomSlider);
         this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;

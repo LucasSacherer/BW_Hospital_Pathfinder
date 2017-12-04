@@ -12,6 +12,7 @@ import Pathfinding.PathFindingFacade;
 import boundary.GodController;
 import boundary.sceneControllers.mapEditing.*;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -51,8 +52,8 @@ public class AdminMapController extends AbstractMapController{
 
     public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
                               Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab) {
-        super(g, i, mapPane, canvas, m, p, currentFloorNum);
+                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, JFXSlider zoomSlider) {
+        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.databaseGargoyle = dbG;
         this.edgeEditController = e;
         this.nodeEditController = n;

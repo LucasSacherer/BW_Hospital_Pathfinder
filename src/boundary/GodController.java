@@ -107,6 +107,9 @@ public class GodController {
     @FXML
     private JFXListView pathfindingTextDirections;
 
+    @FXML
+    private JFXSlider pathfindingZoomSlider;
+
 
     /* Staff Request Scene */
     @FXML
@@ -266,7 +269,7 @@ public class GodController {
     private void initializePathfindingScene() {
         pathfindingSceneController = new PathfindingSceneController(this, pathfindingImageView, pathfindingMapPane,
                 pathfindingCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
-                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections);
+                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider);
     }
 
     private void initializeDirectoryScene() {
@@ -285,13 +288,13 @@ public class GodController {
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem);
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem, null);
     }
 
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
                 mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab);
+                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, null);
     }
 
     private void initializeAdminLogScene() {
@@ -328,7 +331,7 @@ public class GodController {
     @FXML
     private void directoryNavigate() {mainSceneController.directoryNavigate(); }
     @FXML
-    private void mainZoom() { }//mainSceneController.zoom(); }
+    private void mainZoom() { mainSceneController.zoom(); }
 
     @FXML
     private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}

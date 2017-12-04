@@ -33,15 +33,14 @@ public class MainSceneController extends AbstractMapController{
     private DirectorySceneController directorySceneController;
     private JFXTextField originField, destinationField;
     private ErrorController errorController = new ErrorController();
-    private JFXSlider zoomSlider;
+
 
     public MainSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                                Label currentFloorNum, JFXTextField originField, JFXTextField destinationField,
                                JFXSlider zoomSlider, DirectorySceneController directorySceneController) {
-        super(g, i, mapPane, canvas, m, p, currentFloorNum);
+        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.originField = originField;
         this.destinationField = destinationField;
-        this.zoomSlider = zoomSlider;
         this.directorySceneController = directorySceneController;
     }
 
