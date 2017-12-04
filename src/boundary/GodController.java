@@ -99,9 +99,6 @@ public class GodController {
     @FXML
     private ImageView imageView, mapEditImageView, requestImageView;
 
-    @FXML
-    private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
-
     /* Staff Request Scene */
     @FXML
     private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
@@ -221,7 +218,8 @@ public class GodController {
     @FXML
     private JFXToggleButton adminToggle;
 
-
+    @FXML
+    private JFXSlider zoomSlider;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -235,6 +233,7 @@ public class GodController {
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
+    DirectorySceneController directorySceneController;
 
 
     boolean firstTime = true;
@@ -242,6 +241,7 @@ public class GodController {
     private void initialize() {
         //pathFindingFacade.setPathfinder(beamSearch);
         if (firstTime){ pathFindingFacade.setPathfinder(astar);}
+        initializeDirectoryScene();
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -252,12 +252,15 @@ public class GodController {
         firstTime = false;
     }
 
+    private void initializeDirectoryScene() {
+        directorySceneController = new DirectorySceneController(mapNavigationFacade);
+    }
+
     private void initializeMainScene() {
-        mainSceneController = new MainSceneController(imageView, mapPane, canvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
-                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical,
-                originField, destinationField);
+        mainSceneController = new MainSceneController(imageView, mapPane, canvas, mapNavigationFacade,
+                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController);
         mainSceneController.initializeScene();
+        directorySceneController.setMainSceneController(mainSceneController);
     }
 
     private void initializeRequestScene() {
@@ -303,8 +306,15 @@ public class GodController {
     ////////////////
 
     @FXML
-    private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
+    private void openDirectory() throws IOException { mainSceneController.openDirectory(this); }
 
+    @FXML
+    private void directoryNavigate() {mainSceneController.directoryNavigate(); }
+    @FXML
+    private void mainZoom() { }//mainSceneController.zoom(); }
+
+    @FXML
+    private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
 
     @FXML
     private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(); }
