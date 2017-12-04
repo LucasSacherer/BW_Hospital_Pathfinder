@@ -100,6 +100,14 @@ public class GodController {
     @FXML
     private ImageView imageView, mapEditImageView, requestImageView, pathfindingImageView;
 
+    /* Pathfinding Scene */
+    @FXML
+    private JFXTextField pathfindingOrigin, pathfindingDestination;
+
+    @FXML
+    private JFXListView pathfindingTextDirections;
+
+
     /* Staff Request Scene */
     @FXML
     private JFXTextField requestNodeID, requestCleanupName, requestInterpreterName, requestFoodName, foodItem;
@@ -257,7 +265,8 @@ public class GodController {
 
     private void initializePathfindingScene() {
         pathfindingSceneController = new PathfindingSceneController(this, pathfindingImageView, pathfindingMapPane,
-                pathfindingCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding);
+                pathfindingCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
+                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections);
     }
 
     private void initializeDirectoryScene() {
