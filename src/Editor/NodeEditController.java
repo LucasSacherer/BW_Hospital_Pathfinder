@@ -52,7 +52,7 @@ public class NodeEditController {
     public void alignNodes (List<Node> nodes){
         FMatrixRMaj matrix = new FMatrixRMaj(2,3);
         matrix.add(0,0,1); // sets 0,1 to 1 (y coefficient)
-        matrix.add(1,0,1); // sets 1,1 to 1
+        matrix.add(1,0,1); // sets 1,1 to 1 (y coefficient)
 
         Node startNode = nodes.get(0);
         Node endNode = nodes.get(1);
@@ -66,24 +66,27 @@ public class NodeEditController {
         float inverseSlope = (-1/slope);
         matrix.add(1,1,-inverseSlope);
 
-        RrefGaussJordanRowPivot_FDRM rref = new RrefGaussJordanRowPivot_FDRM();
+        RrefGaussJordanRowPivot_FDRM rref = new RrefGaussJordanRowPivot_FDRM(); // Create RREF object
 
-        for (int i = 2; i < nodes.size(); i++){
-            FMatrixRMaj temp = matrix.copy();
+        for (int i = 2; i < nodes.size(); i++){ // Starts at i = 2 since i = 0 is Start node and i = 1 End node.
+            FMatrixRMaj temp = matrix.copy();  // creates a copy of the initial matrix since only [1,2] element will change.
 
-            Node c = nodes.get(i);
+            Node c = nodes.get(i); // Created so I can type less. Current out of place node
+
             float bc = (inverseSlope*c.getXcoord()) + c.getYcoord();
             temp.add(1,2,bc);
 
-            rref.reduce(temp,3);
+            //Reduce matrix using RREF. Returns intersection point between two lines of matrix.
+            rref.reduce(temp,3); // coefficientColumns = 3 since it is coefficient matrix. all columns = coefficients
 
-            float changeInY = temp.get(0,2);
-            float changeInX = temp.get(1,2);
+            float changeInY = temp.get(0,2); // Result of reduced matrix Dy - subtract from Ycoord of out of place node
+            float changeInX = temp.get(1,2); // Result of reduced matrix Dx - add to Xcoord of out of place node
 
 
             Node n = new Node(c.getNodeID(),Math.round(c.getXcoord() + changeInX), Math.round(c.getYcoord() - changeInY), c.getFloor(), c.getBuilding(), c.getNodeType(), c.getLongName(), c.getShortName());
-            editNode(n);
-            nodes.set(i,n);
+            editNode(n); // Unsure if this is how to actually implement editing nodes or if it should be in UI
+
+            nodes.set(i,n); // updates the list so the list that was originally passed in ends up being the list of aligned nodes
         }
 
 
