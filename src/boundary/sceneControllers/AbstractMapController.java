@@ -76,26 +76,50 @@ public abstract class AbstractMapController {
 
     public void refreshCanvas() {
         clearCanvas();
-        if (origin != null && origin.getFloor().equals(currentFloor)) drawNode(origin, Color.GREEN);
-        if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.RED);
         if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
         drawPath();
         gc.setTransform(1, 0, 0, 1, 0, 0);
         drawPathNodes();
+        drawOrigin();
+        drawDestination();
+    }
+
+    private void drawDestination() { //TODO make this the icon of location
+        if (destination != null && destination.getFloor().equals(currentFloor)) {
+            gc.setFill(Color.WHITE);
+            gc.fillOval(destination.getXcoord() - 10, destination.getYcoord() - 10, 20, 20);
+            gc.setFill(Color.BLACK);
+            gc.fillOval(destination.getXcoord() - 9, destination.getYcoord() - 9, 18, 18);
+            gc.setFill(Color.WHITE);
+            gc.fillOval(destination.getXcoord() - 6, destination.getYcoord() - 6, 12, 12);
+            gc.setFill(Color.BLACK);
+            gc.fillOval(destination.getXcoord() - 4, destination.getYcoord() - 4, 8, 8);
+        }
+    }
+
+    private void drawOrigin() {
+        if (origin != null && origin.getFloor().equals(currentFloor)) {
+            gc.setFill(Color.LIGHTBLUE);
+            gc.fillOval(origin.getXcoord() - 15, origin.getYcoord() - 15, 30, 30);
+            gc.setFill(Color.WHITE);
+            gc.fillOval(origin.getXcoord() - 12, origin.getYcoord() - 12, 24, 24);
+            gc.setFill(Color.BLUE);
+            gc.fillOval(origin.getXcoord() - 9, origin.getYcoord() - 9, 18, 18);
+        }
+        gc.setFill(Color.BLACK);
     }
 
     public void clearCanvas() { gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight()); }
 
-    public void drawNode(Node n, Color c) {
-        if (n == null) return;
-        gc.setFill(c);
-        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
-    }
-
     public void drawCurrentNode() {
         if(currentLoc == null || !currentLoc.getFloor().equals(currentFloor)){ return; }
-        gc.setFill(Color.BLUE);
-        gc.fillOval(currentLoc.getXcoord()-5,currentLoc.getYcoord()-5,10,10);
+        gc.setFill(Color.WHITE);
+        gc.fillOval(currentLoc.getXcoord()-10,currentLoc.getYcoord()-10,20,20);
+        gc.setFill(Color.BLACK);
+        gc.fillOval(currentLoc.getXcoord()-9,currentLoc.getYcoord()-9,18,18);
+        gc.setFill(Color.WHITE);
+        gc.fillOval(currentLoc.getXcoord()-6,currentLoc.getYcoord()-6,12,12);
+        gc.setFill(Color.BLACK);
     }
 
     public void setOrigin() {
@@ -161,14 +185,29 @@ public abstract class AbstractMapController {
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
-                gc.setLineWidth(3);
-                drawArrow(x1, y1, x2, y2);
+                gc.setLineWidth(7);
+                drawArrow(x1, y1, x2, y2, Color.DARKSLATEGRAY, 10);
+            }
+        }
+
+        for(int i=0;i<pathToDraw.size()-1;i++) {
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i+1);
+            int x1 = current.getXcoord();
+            int y1 = current.getYcoord();
+            int x2 = next.getXcoord();
+            int y2 = next.getYcoord();
+            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
+
+                gc.setLineWidth(4);
+                drawArrow(x1, y1, x2, y2, Color.ROYALBLUE, 8);
             }
         }
     }
 
-    void drawArrow(int x1, int y1, int x2, int y2) {
-        gc.setFill(Color.BLACK);
+    void drawArrow(int x1, int y1, int x2, int y2, Color c, int triangleNum) {
+        gc.setFill(c);
+        gc.setStroke(c);
 
         double dx = x2 - x1, dy = y2 - y1;
         double angle = Math.atan2(dy, dx);
@@ -179,15 +218,12 @@ public abstract class AbstractMapController {
         gc.setTransform(new Affine(transform));
 
         gc.strokeLine(0, 0, len, 0);
-        gc.fillPolygon(new double[]{len, len - 8, len - 8, len}, new double[]{0, -8, 8, 0},
-                4);
+        gc.fillPolygon(new double[]{len, len - triangleNum, len - triangleNum, len}, new double[]{0, -triangleNum, triangleNum, 0},4);
     }
 
     private void drawPathNodes() {
         List<Node> pathToDraw = currentPath;
-        if (pathToDraw == null || pathToDraw.size() == 0) {
-            return;
-        }
+        if (pathToDraw == null || pathToDraw.size() == 0) { return; }
 
         for (int i = 0; i < pathToDraw.size() - 1; i++) {
             Node next = pathToDraw.get(i);
