@@ -164,7 +164,7 @@ public class NodeEditControllerTest {
         Node test3 = new Node("3",5,10,"1","building","bathroom","lName","sName");
         Node test4 = new Node("4",-5,5,"1","building","bathroom","lName","sName");
         Node test5 = new Node("5",10, 5,"1","building","type","lName","sName");
-        Node test6 = new Node("6",5, -5,"1","building","type","lName","sName");
+        Node test6 = new Node("6",5, 5,"1","building","type","lName","sName");
         Node test7 = new Node("7",5, 15,"1","building","type","lName","sName");
         Node test8 = new Node("8",-5, 15,"1","building","type","lName","sName");
         Node test9 = new Node("9",0, -5,"1","building","type","lName","sName");
@@ -178,12 +178,24 @@ public class NodeEditControllerTest {
         nodes.add(test3);
         nodes.add(test4);
         nodes.add(test5);
-        /*
         nodes.add(test6);
-        nodes.add(test7);
-        nodes.add(test8);
-        */
+
+        //nodes.add(test7);
+        //nodes.add(test8);
 
         editor.alignNodes(nodes);
+
+        assertEquals(nodes.get(2).getXcoord(),8);
+        assertEquals(nodes.get(2).getYcoord(),8);
+
+        assertEquals(nodes.get(3).getXcoord(),0);
+        assertEquals(nodes.get(3).getYcoord(),0);
+
+        assertEquals(nodes.get(4).getXcoord(),8);
+        assertEquals(nodes.get(4).getYcoord(),8);
+
+        assertEquals(nodes.get(5).getXcoord(),5);
+        assertEquals(nodes.get(5).getYcoord(),5);
+
     }
 }

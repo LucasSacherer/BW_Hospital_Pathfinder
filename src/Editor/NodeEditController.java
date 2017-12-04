@@ -79,12 +79,11 @@ public class NodeEditController {
 
             float changeInY = temp.get(0,2);
             float changeInX = temp.get(1,2);
-            System.out.println(changeInX);
-            System.out.println(changeInY);
-            System.out.println("Break");
 
-            Node n = new Node(c.getNodeID(),Math.round(c.getXcoord() - changeInX), Math.round(c.getYcoord() - changeInY), c.getFloor(), c.getBuilding(), c.getNodeType(), c.getLongName(), c.getShortName());
+
+            Node n = new Node(c.getNodeID(),Math.round(c.getXcoord() + changeInX), Math.round(c.getYcoord() - changeInY), c.getFloor(), c.getBuilding(), c.getNodeType(), c.getLongName(), c.getShortName());
             editNode(n);
+            nodes.set(i,n);
         }
 
 
