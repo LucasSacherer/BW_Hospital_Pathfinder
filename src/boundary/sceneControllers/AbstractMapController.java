@@ -5,6 +5,9 @@ import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -27,6 +30,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
+    private ImageButton floorChange;
     protected GodController godController;
     protected Label currentFloorNum;
     protected Canvas canvas;
@@ -74,6 +78,7 @@ public abstract class AbstractMapController {
     }
 
     public void refreshCanvas() {
+        mapPane.getChildren().remove(floorChange);
         if (origin == null) origin = mapNavigationFacade.getDefaultNode();
         clearCanvas();
         drawCurrentNode();
@@ -224,24 +229,19 @@ public abstract class AbstractMapController {
     private void drawPathNodes() {
         List<Node> pathToDraw = currentPath;
         if (pathToDraw == null || pathToDraw.size() == 0) { return; }
-
         for (int i = 0; i < pathToDraw.size() - 1; i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i + 1);
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
             if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
-                if (currentFloorInt < nextFloorInt) {
-                    gc.setFill(Color.WHITE);
-                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.setFill(Color.BLACK);
-                } else {
-                    gc.setFill(Color.WHITE);
-                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.setFill(Color.BLACK);
-                }
+                floorChange = new ImageButton();
+                floorChange.setLayoutX(current.getXcoord() - 10);
+                floorChange.setLayoutY(current.getYcoord() - 10);
+                floorChange.setFloor(next);
+                if (currentFloorInt < nextFloorInt) { floorChange.updateImages(uparrow); }
+                else { floorChange.updateImages(downarrow); }
+                mapPane.getChildren().add(floorChange);
             }
             if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
                 gc.setFill(Color.WHITE);
@@ -308,5 +308,32 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         currentFloorNum.setText(currentFloor);
         refreshCanvas();
+    }
+
+    private class ImageButton extends JFXButton {
+        public ImageButton() {
+            this.setButtonType(JFXButton.ButtonType.RAISED);
+            this.setPrefSize(20, 20);
+        }
+
+        public void setFloor(Node next) {
+            this.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    currentFloor = next.getFloor();
+                    imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+                    currentFloorNum.setText(currentFloor);
+                    refreshCanvas();
+                }
+            });
+        }
+
+        public void updateImages(final Image image) {
+            final ImageView iv = new ImageView(image);
+            iv.setFitHeight(30);
+            iv.setFitWidth(30);
+            this.getChildren().add(iv);
+            super.setGraphic(iv);
+        }
     }
 }

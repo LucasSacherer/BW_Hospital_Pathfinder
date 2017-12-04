@@ -42,11 +42,16 @@ public class PathfindingSceneController  extends AbstractMapController {
         destination = d;
         if (origin == null || destination == null) return;
         goToCorrectFloor();
+        centerMap();
         originField.setText(o.toString());
         destinationField.setText(destination.toString());
         currentPath = pathFindingFacade.getPath(origin, destination);
         textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
         refreshCanvas();
+    }
+
+    private void centerMap() {
+        //TODO center the map on the path, and show both the origin and destination nodes as well
     }
 
     private void goToCorrectFloor() {
