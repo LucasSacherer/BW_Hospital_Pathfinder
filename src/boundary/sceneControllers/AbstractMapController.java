@@ -4,6 +4,7 @@ import Entity.Node;
 import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.GodController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -26,6 +27,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
+    protected GodController godController;
     protected Label currentFloorNum;
     protected Canvas canvas;
     protected String currentFloor = "G";
@@ -42,7 +44,8 @@ public abstract class AbstractMapController {
     protected Node origin, destination, currentLoc;
     protected ErrorController errorController = new ErrorController();
 
-    public AbstractMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum) {
+    public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum) {
+        this.godController = g;
         this.imageView = i;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
@@ -108,7 +111,7 @@ public abstract class AbstractMapController {
         refreshCanvas();
     }
 
-    public void findPath() {
+    public void findPath() throws IOException {
         boolean success = true;
         try {
             origin.equals("");

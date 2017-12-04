@@ -35,10 +35,10 @@ public class MainSceneController extends AbstractMapController{
     private ErrorController errorController = new ErrorController();
     private JFXSlider zoomSlider;
 
-    public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+    public MainSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                                Label currentFloorNum, JFXTextField originField, JFXTextField destinationField,
                                JFXSlider zoomSlider, DirectorySceneController directorySceneController) {
-        super(i, mapPane, canvas, m, p, currentFloorNum);
+        super(g, i, mapPane, canvas, m, p, currentFloorNum);
         this.originField = originField;
         this.destinationField = destinationField;
         this.zoomSlider = zoomSlider;
@@ -70,7 +70,7 @@ public class MainSceneController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void navigateToHere() {
+    public void navigateToHere() throws IOException {
 //        boolean success = checkNullLocations();
 //        if(success) {
             setDestination();
@@ -96,7 +96,7 @@ public class MainSceneController extends AbstractMapController{
         destinationField.setText(destination.getNodeID());
     }
 
-    public void displayTextDir(){
+    public void displayTextDir() throws IOException {
         boolean success = checkNullLocations();
         if(success) {
             currentPath = pathFindingFacade.getPath(origin, destination);
@@ -130,9 +130,22 @@ public class MainSceneController extends AbstractMapController{
         //TODO
     }
 
-    public void navigate(Node origin, Node destination) {
+    public void navigate(Node origin, Node destination) throws IOException {
         this.origin = origin;
         this.destination = destination;
         findPath();
+    }
+
+    @Override
+    public void findPath() throws IOException {
+        godController.mainToPathfinding();
+    }
+
+    public Node getOrigin() {
+        return origin;
+    }
+
+    public Node getDestination() {
+        return destination;
     }
 }

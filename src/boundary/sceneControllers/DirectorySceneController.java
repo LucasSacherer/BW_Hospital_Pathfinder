@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class DirectorySceneController {
     private MainSceneController mainSceneController;
     private MapNavigationFacade mapNavigationFacade;
@@ -35,7 +37,7 @@ public class DirectorySceneController {
     }
 
     @FXML
-    private void directoryNavigate() {
+    private void directoryNavigate() throws IOException {
         mainSceneController.navigate(origin, destination);
         Stage stage = (Stage) directoryOrigin.getScene().getWindow();
         stage.close();
