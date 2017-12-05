@@ -6,6 +6,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
@@ -69,25 +70,35 @@
                               <Image url="@../images/circle-outline.png" />
                            </image>
                         </ImageView>
-                        <JFXTextField fx:id="originField" alignment="BOTTOM_LEFT" promptText="Kiosk Location">
+                        <JFXTextField fx:id="originField" alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="170.0" promptText="Kiosk Location">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
+                        <Button cancelButton="true" mnemonicParsing="false" text="X" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT">
+                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="250.0">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
                               <Image url="@../images/location.png" />
                            </image>
                         </ImageView>
-                        <JFXTextField fx:id="destinationField" alignment="BOTTOM_LEFT" promptText="Select a Destination">
+                        <JFXTextField fx:id="destinationField" alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="201.0" promptText="Select a Destination">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
+                        <Button cancelButton="true" mnemonicParsing="false" text="X" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
                </children>
