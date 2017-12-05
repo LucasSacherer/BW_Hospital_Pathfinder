@@ -40,7 +40,6 @@ public class GodController {
     /* managers */
     final private NodeManager nodeManager = new NodeManager(databaseGargoyle);
     final private EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager);
-    final private SettingsManager settingsManager = new SettingsManager(databaseGargoyle);
     final private UserManager userManager = new UserManager(databaseGargoyle);
     final private CleanUpManager cleanupManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
@@ -49,12 +48,12 @@ public class GodController {
 
     /* Controllers */
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanupManager, foodManager, interpreterManager);
-    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, settingsManager, edgeManager, genericRequestController);
+    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, edgeManager, genericRequestController);
     final private EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
     final private MapDisplayController mapDisplayController = new MapDisplayController();
-    final private DirectoryController directoryController = new DirectoryController(nodeManager,settingsManager);
+    final private DirectoryController directoryController = new DirectoryController(nodeManager);
     final private UserLoginController userLoginController = new UserLoginController(userManager);
     final private RequestCleanupController requestCleanupController = new RequestCleanupController(cleanupManager);
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreterManager);

@@ -18,9 +18,9 @@ public class NodeEditController {
     EdgeManager edgeManager;
     GenericRequestController genericRequestController;
 
-    public NodeEditController(NodeManager nodeM, SettingsManager setM, EdgeManager edgeM, GenericRequestController grm){
+    public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm){
         this.nodeManager = nodeM;
-        this.settingsManager = setM;
+        this.settingsManager = SettingsManager.getInstance();
         this.edgeManager = edgeM;
         this.genericRequestController = grm;
     }
