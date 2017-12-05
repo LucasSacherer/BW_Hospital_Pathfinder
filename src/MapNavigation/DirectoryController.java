@@ -14,9 +14,9 @@ public class DirectoryController {
     private NodeManager nm;
     private SettingsManager settingsManager;
 
-    public DirectoryController(NodeManager nm, SettingsManager sm) {
+    public DirectoryController(NodeManager nm) {
         this.nm = nm;
-        settingsManager = sm;
+        settingsManager = SettingsManager.getInstance();
     }
 
     /**
@@ -102,7 +102,6 @@ public class DirectoryController {
      */
     //TODO Need to throw exception if Default Node doesn't exist.
     Node getDefaultNode(){
-        settingsManager.updateSettings();
         String defaultNode = settingsManager.getSetting("Default Node");
         return nm.getNode(defaultNode);
     }

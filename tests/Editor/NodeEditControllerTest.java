@@ -18,7 +18,6 @@ public class NodeEditControllerTest {
     public void AddRemoveEditNode() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager nManager = new NodeManager(databaseGargoyle);
-        SettingsManager sManager = new SettingsManager(databaseGargoyle);
         EdgeManager eManager = new EdgeManager(databaseGargoyle,  nManager);
         UserManager userManager = new UserManager(databaseGargoyle);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,userManager);
@@ -33,7 +32,7 @@ public class NodeEditControllerTest {
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager,eManager,genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager,eManager,genericRequestController);
 
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
         Node test2 = new Node("2",2, 2,"1","building","type","lName","sName");
@@ -68,7 +67,6 @@ public class NodeEditControllerTest {
 
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager nManager = new NodeManager(databaseGargoyle);
-        SettingsManager sManager = new SettingsManager(databaseGargoyle);
         EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
         UserManager um = new UserManager(databaseGargoyle);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,um);
@@ -83,7 +81,7 @@ public class NodeEditControllerTest {
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
 
         editor.setKioskLocation(test);
 
@@ -95,7 +93,6 @@ public class NodeEditControllerTest {
     public void deleteNode() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager nManager = new NodeManager(databaseGargoyle);
-        SettingsManager sManager = new SettingsManager(databaseGargoyle);
         EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
         UserManager um = new UserManager(databaseGargoyle);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,um);
@@ -110,7 +107,7 @@ public class NodeEditControllerTest {
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
-        NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
 
         Node test = new Node("1",1,1,"1","building","type","lName","sName");
         Node test2 = new Node("2",1, 2,"1","building","type","lName","sName");
@@ -153,11 +150,10 @@ public class NodeEditControllerTest {
     public void alignNodesTest(){
         DatabaseGargoyle dbG = new DatabaseGargoyle();
         NodeManager nManager = new NodeManager(dbG);
-        SettingsManager sManager = new SettingsManager(dbG);
         EdgeManager eManager = new EdgeManager(dbG, nManager);
         UserManager um = new UserManager(dbG);
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG,nManager,um), new FoodManager(dbG, nManager,um), new InterpreterManager(dbG, nManager,um));
-        NodeEditController editor = new NodeEditController(nManager, sManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
 
         Node test = new Node("1",5,5,"1","building","type","lName","sName");
         Node test2 = new Node("2",10, 10,"1","building","type","lName","sName");
