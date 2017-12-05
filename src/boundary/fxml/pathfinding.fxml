@@ -19,13 +19,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pathfindingPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="300.0">
+            <AnchorPane prefHeight="900.0" prefWidth="320.0">
                <children>
                   <GridPane prefHeight="700.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -38,72 +40,110 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <VBox spacing="10.0" GridPane.columnSpan="2">
+                        <GridPane>
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="41.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="228.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="50.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <HBox alignment="TOP_RIGHT">
-                                 <children>
-                                    <JFXButton buttonType="RAISED" cancelButton="true" onAction="#pathfindingToMain" text="X" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT">
-                                 <children>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0">
+                              <ImageView fitHeight="34.0" fitWidth="34.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../images/location.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="34.0" fitWidth="34.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../images/circle-outline.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXTextField fx:id="pathfindingDestination" promptText="Select a Destination" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="pathfindingOrigin" promptText="Kiosk Location" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                                 <ripplerFill>
+                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                       <stops>
+                                          <Stop color="RED" />
+                                          <Stop color="#ffffff00" offset="0.4022988505747126" />
+                                          <Stop color="#ffffff00" offset="1.0" />
+                                       </stops>
+                                    </RadialGradient>
+                                 </ripplerFill>
+                                 <GridPane.margin>
+                                    <Insets bottom="7.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton prefHeight="33.0" prefWidth="42.0" text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                                 <ripplerFill>
+                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                       <stops>
+                                          <Stop color="RED" />
+                                          <Stop color="#ff000000" offset="0.40996168582375475" />
+                                          <Stop color="#ff000000" offset="1.0" />
+                                       </stops>
+                                    </RadialGradient>
+                                 </ripplerFill>
+                                 <GridPane.margin>
+                                    <Insets top="5.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton alignment="TOP_CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="58.0" prefWidth="54.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
+                                 <graphic>
+                                    <ImageView fitHeight="41.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/circle-outline.png" />
+                                          <Image url="@../images/Icons/switch.png" />
                                        </image>
                                     </ImageView>
-                                    <JFXTextField fx:id="pathfindingOrigin" promptText="Kiosk Location">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </JFXTextField>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT">
-                                 <children>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0">
-                                       <image>
-                                          <Image url="@../images/location.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXTextField fx:id="pathfindingDestination" promptText="Select a Destination">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </JFXTextField>
-                                 </children>
-                              </HBox>
+                                 </graphic>
+                              </JFXButton>
                            </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </VBox>
+                        </GridPane>
                         <JFXListView fx:id="pathfindingTextDirections" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
-            <GridPane alignment="CENTER">
+            <GridPane alignment="CENTER" HBox.hgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="800.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="600.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="18.0" prefHeight="200.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="685.0" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="194.0" minHeight="18.0" prefHeight="115.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="2" GridPane.rowSpan="3">
                      <content>
                         <Pane fx:id="pathfindingMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                            <children>
-                              <ImageView fx:id="pathfindingImageView" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="pathfindingImageView" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/other%20images/BWH.png" />
                                  </image>
                               </ImageView>
-                              <Canvas fx:id="pathfindingCanvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
+                              <Canvas fx:id="pathfindingCanvas" height="3400.0" nodeOrientation="INHERIT" onMouseClicked="#clickOnMap" width="5000.0" />
                            </children>
                         </Pane>
                      </content>
@@ -116,33 +156,103 @@
                         </ContextMenu>
                      </contextMenu>
                   </ScrollPane>
-                  <VBox alignment="CENTER" maxHeight="300.0" GridPane.rowIndex="2" />
-                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="400.0" prefWidth="103.0" spacing="20.0">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="82.0" prefWidth="82.0" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/Info%20desk.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/Elevator1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/Bathroom.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                            <children>
-                              <VBox alignment="TOP_CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
-                                 <children>
-                                    <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor" textAlignment="CENTER" wrapText="true">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                                 <graphic>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Icons/UpArrow1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
+                                 <graphic>
+                                    <Label fx:id="currentFloorNumPathfinding" contentDisplay="CENTER" textFill="#cccccc">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="32.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="currentFloorNumPathfinding">
-                                       <font>
-                                          <Font name="System Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" onMouseDragged="#pathfindingZoom" onMousePressed="#pathfindingZoom" onMouseReleased="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                                 <graphic>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Icons/DownArrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
+                        <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" onMouseDragged="#pathfindingZoom" onMousePressed="#pathfindingZoom" onMouseReleased="#pathfindingZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" VBox.vgrow="SOMETIMES">
+                           <padding>
+                              <Insets right="40.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </JFXSlider>
                      </children>
-                  </HBox>
+                  </VBox>
+                  <JFXButton buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#pathfindingToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 10; -fx-border-color: #0068B1; -fx-border-width: 5; -fx-border-radius: 10;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets right="15.0" top="15.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </GridPane>
          </children>

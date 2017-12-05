@@ -390,12 +390,54 @@ public class GodController {
     @FXML
     private void navigateToHere() throws IOException {mainSceneController.navigateToHere();}
 
+    @FXML //opens up the info popup
+    private void informationMain(){}//TODO
+
+    @FXML
+    private void clearOriginMain(){}//TODO
+
+    @FXML
+    private void clearDestinationMain(){}//TODO
+
+    @FXML
+    private void nearestInfoDeskMain(){}//TODO
+
+    @FXML
+    private void nearestBathroomMain(){}//TODO
+
+    @FXML
+    private void nearestElevatorMain(){}//TODO
+
     ///////////////////////
     /* Pathfinding Scene */
     ///////////////////////
+    @FXML
+    private void clearOriginPathfinding(){}//TODO
+
+    @FXML
+    private void clearDestinationPathfinding(){}//TODO
+
+    @FXML
+    private void floorUpPathfinding(){}//TODO
+
+    @FXML
+    private void floorDownPathfinding(){}//TODO
+
+    @FXML
+    private void nearestInfoDeskPathfinding(){}//TODO
+
+    @FXML
+    private void nearestBathroomPathfinding(){}//TODO
+
+    @FXML
+    private void nearestElevatorPathfinding(){}//TODO
 
     @FXML
     private void pathfindingZoom() {pathfindingSceneController.zoom(); }
+
+    @FXML//switches the origin and the destination nodes, then renavagates.
+    private void switchOrigWDest(){}//TODO
+
 
     /////////////////////////
     /* Staff Request Scene */
