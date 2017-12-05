@@ -262,7 +262,7 @@
                            <children>
                               <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                                  <children>
-                                    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onMouseClicked="#floorUpRequest" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
                                        <graphic>
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -283,7 +283,7 @@
                                           <Insets bottom="10.0" top="10.0" />
                                        </VBox.margin>
                                     </JFXButton>
-                                    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onMouseClicked="#floorDownRequest" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
                                        <graphic>
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
