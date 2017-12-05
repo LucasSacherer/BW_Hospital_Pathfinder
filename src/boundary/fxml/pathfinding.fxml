@@ -42,7 +42,7 @@
                            <children>
                               <HBox alignment="TOP_RIGHT">
                                  <children>
-                                    <JFXButton cancelButton="true" onAction="#pathfindingToMain" text="X" />
+                                    <JFXButton buttonType="RAISED" cancelButton="true" onAction="#pathfindingToMain" text="X" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT">
@@ -85,7 +85,7 @@
             </AnchorPane>
             <GridPane alignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="800.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
                </columnConstraints>
                <rowConstraints>
@@ -137,7 +137,7 @@
                                  </children>
                               </VBox>
                               <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorDownPath" style="-fx-background-radius: 100;" />
-                              <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
+                              <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" onMousePressed="#pathfindingZoom" onMouseReleased="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

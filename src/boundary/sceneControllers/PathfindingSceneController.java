@@ -29,15 +29,6 @@ public class PathfindingSceneController  extends AbstractMapController {
         this.textDirectionsList = textDirectionsList;
     }
 
-    public void floorUp() {
-    }
-
-    public void floorDown() {
-    }
-
-    public void zoom() {
-    }
-
     public void findPath(Node o, Node d) throws IOException {
         origin = o;
         destination = d;
