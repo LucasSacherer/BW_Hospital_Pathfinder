@@ -73,7 +73,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                              <JFXButton onAction="#clearOriginPathfinding" text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="25.0" />
                                  </font>
@@ -90,7 +90,7 @@
                                     <Insets bottom="7.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton prefHeight="33.0" prefWidth="42.0" text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                              <JFXButton onAction="#clearDestinationPathfinding" prefHeight="33.0" prefWidth="42.0" text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="25.0" />
                                  </font>
@@ -107,7 +107,7 @@
                                     <Insets top="5.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton alignment="TOP_CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="58.0" prefWidth="54.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
+                              <JFXButton alignment="TOP_CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#switchOrigWDest" prefHeight="58.0" prefWidth="54.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
                                  <graphic>
                                     <ImageView fitHeight="41.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -158,7 +158,7 @@
                   </ScrollPane>
                   <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="82.0" prefWidth="82.0" text=" ">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskPathfinding" prefHeight="82.0" prefWidth="82.0" text=" ">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -170,7 +170,7 @@
                               <Insets bottom="5.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestElevatorPathfinding" text=" ">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -182,7 +182,7 @@
                               <Insets bottom="5.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomPathfinding" text=" ">
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -200,7 +200,7 @@
                      <children>
                         <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUpPathfinding" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -221,7 +221,7 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDownPathfinding" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

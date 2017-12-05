@@ -76,7 +76,7 @@
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXButton contentDisplay="RIGHT" graphicTextGap="0.0" text="X" textFill="RED">
+                        <JFXButton contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearOriginMain" text="X" textFill="RED">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -95,7 +95,7 @@
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXButton contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="40.0" prefWidth="29.0" text="X" textFill="RED">
+                        <JFXButton contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearDestinationMain" prefHeight="40.0" prefWidth="29.0" text="X" textFill="RED">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -119,15 +119,18 @@
                                  </image>
                               </ImageView>
                            </graphic></JFXButton>
-                        <VBox alignment="TOP_CENTER" maxHeight="85.0" maxWidth="59.0" minHeight="70.0" prefHeight="82.0" prefWidth="59.0" style="-fx-background-image: url('../images/icons/floor-current.png');">
-                           <children>
-                              <Label fx:id="currentFloorNum" contentDisplay="CENTER">
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
+                           <graphic>
+                              <Label fx:id="currentFloorNum" contentDisplay="CENTER" textFill="#cccccc">
                                  <font>
-                                    <Font name="System Bold" size="28.0" />
+                                    <Font name="System Bold" size="32.0" />
                                  </font>
                               </Label>
-                           </children>
-                        </VBox>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="15.0" />
+                           </VBox.margin>
+                        </JFXButton>
                         <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;" text=" ">
                            <graphic>
                               <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
@@ -151,7 +154,7 @@
             </VBox>
             <VBox prefHeight="109.0" prefWidth="117.0" spacing="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <children>
-                  <JFXButton alignment="TOP_LEFT" style="-fx-background-color: #CCCCCC;" text="Directory">
+                  <JFXButton alignment="TOP_LEFT" onAction="#directoryMain" style="-fx-background-color: #CCCCCC;" text="Directory">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -183,7 +186,7 @@
             </JFXButton>
             <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                <children>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="82.0" prefWidth="82.0" text=" ">
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskMain" prefHeight="82.0" prefWidth="82.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -195,7 +198,7 @@
                         <Insets bottom="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestElevatorMain" text=" ">
                      <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -207,7 +210,7 @@
                         <Insets bottom="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" text=" ">
                      <graphic>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -237,7 +240,7 @@
                   </RadialGradient>
                </ripplerFill>
             </JFXButton>
-            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" " wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#informationMain" text=" " wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <graphic>
                   <ImageView fitHeight="70.0" fitWidth="70.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
