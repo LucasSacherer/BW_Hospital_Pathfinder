@@ -4,6 +4,11 @@ import Entity.Node;
 import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.GodController;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSlider;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -26,6 +31,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
+    protected ImageButton floorChange;
+    protected GodController godController;
     protected Label currentFloorNum;
     protected Canvas canvas;
     protected String currentFloor = "G";
@@ -41,8 +48,10 @@ public abstract class AbstractMapController {
 
     protected Node origin, destination, currentLoc;
     protected ErrorController errorController = new ErrorController();
+    protected JFXSlider zoomSlider;
 
-    public AbstractMapController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum) {
+    public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider) {
+        this.godController = g;
         this.imageView = i;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
@@ -50,13 +59,13 @@ public abstract class AbstractMapController {
         this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
         currentFloor = "G";
+        this.zoomSlider = zoomSlider;
     }
 
     public void initializeScene() {
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         this.gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
-        this.origin = mapNavigationFacade.getDefaultNode(); //TODO doesn't work
         System.out.println(mapNavigationFacade.getDefaultNode());
     }
 
@@ -72,27 +81,53 @@ public abstract class AbstractMapController {
     }
 
     public void refreshCanvas() {
+        mapPane.getChildren().remove(floorChange);
+        if (origin == null) origin = mapNavigationFacade.getDefaultNode();
         clearCanvas();
-        if (origin != null && origin.getFloor().equals(currentFloor)) drawNode(origin, Color.GREEN);
-        if (destination != null && destination.getFloor().equals(currentFloor)) drawNode(destination, Color.RED);
-        if (currentLoc != null && currentLoc.getFloor().equals(currentFloor)) drawCurrentNode();
+        drawCurrentNode();
         drawPath();
         gc.setTransform(1, 0, 0, 1, 0, 0);
         drawPathNodes();
+        drawOrigin();
+        drawDestination();
+    }
+
+    private void drawDestination() { //TODO make this the icon of location
+        if (destination != null && destination.getFloor().equals(currentFloor)) {
+            gc.setFill(Color.WHITE);
+            gc.fillOval(destination.getXcoord() - 10, destination.getYcoord() - 10, 20, 20);
+            gc.setFill(Color.BLACK);
+            gc.fillOval(destination.getXcoord() - 9, destination.getYcoord() - 9, 18, 18);
+            gc.setFill(Color.WHITE);
+            gc.fillOval(destination.getXcoord() - 6, destination.getYcoord() - 6, 12, 12);
+            gc.setFill(Color.BLACK);
+            gc.fillOval(destination.getXcoord() - 3, destination.getYcoord() - 3, 6, 6);
+        }
+    }
+
+    private void drawOrigin() {
+        if (origin != null && origin.getFloor().equals(currentFloor)) {
+            gc.setFill(Color.LIGHTBLUE);
+            gc.fillOval(origin.getXcoord() - 15, origin.getYcoord() - 15, 30, 30);
+            gc.setFill(Color.WHITE);
+            gc.fillOval(origin.getXcoord() - 12, origin.getYcoord() - 12, 24, 24);
+            gc.setFill(Color.BLUE);
+            gc.fillOval(origin.getXcoord() - 9, origin.getYcoord() - 9, 18, 18);
+        }
+        gc.setFill(Color.BLACK);
     }
 
     public void clearCanvas() { gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight()); }
 
-    public void drawNode(Node n, Color c) {
-        if (n == null) return;
-        gc.setFill(c);
-        gc.fillOval(n.getXcoord() - 10, n.getYcoord() - 10, 20, 20);
-    }
-
     public void drawCurrentNode() {
         if(currentLoc == null || !currentLoc.getFloor().equals(currentFloor)){ return; }
-        gc.setFill(Color.BLUE);
-        gc.fillOval(currentLoc.getXcoord()-5,currentLoc.getYcoord()-5,10,10);
+        gc.setFill(Color.WHITE);
+        gc.fillOval(currentLoc.getXcoord()-10,currentLoc.getYcoord()-10,20,20);
+        gc.setFill(Color.BLACK);
+        gc.fillOval(currentLoc.getXcoord()-9,currentLoc.getYcoord()-9,18,18);
+        gc.setFill(Color.WHITE);
+        gc.fillOval(currentLoc.getXcoord()-6,currentLoc.getYcoord()-6,12,12);
+        gc.setFill(Color.BLACK);
     }
 
     public void setOrigin() {
@@ -108,7 +143,7 @@ public abstract class AbstractMapController {
         refreshCanvas();
     }
 
-    public void findPath() {
+    public void findPath() throws IOException {
         boolean success = true;
         try {
             origin.equals("");
@@ -158,14 +193,29 @@ public abstract class AbstractMapController {
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
-                gc.setLineWidth(3);
-                drawArrow(x1, y1, x2, y2);
+                gc.setLineWidth(7);
+                drawArrow(x1, y1, x2, y2, Color.DARKSLATEGRAY, 10);
+            }
+        }
+
+        for(int i=0;i<pathToDraw.size()-1;i++) {
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i+1);
+            int x1 = current.getXcoord();
+            int y1 = current.getYcoord();
+            int x2 = next.getXcoord();
+            int y2 = next.getYcoord();
+            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
+
+                gc.setLineWidth(4);
+                drawArrow(x1, y1, x2, y2, Color.ROYALBLUE, 8);
             }
         }
     }
 
-    void drawArrow(int x1, int y1, int x2, int y2) {
-        gc.setFill(Color.BLACK);
+    void drawArrow(int x1, int y1, int x2, int y2, Color c, int triangleNum) {
+        gc.setFill(c);
+        gc.setStroke(c);
 
         double dx = x2 - x1, dy = y2 - y1;
         double angle = Math.atan2(dy, dx);
@@ -176,33 +226,25 @@ public abstract class AbstractMapController {
         gc.setTransform(new Affine(transform));
 
         gc.strokeLine(0, 0, len, 0);
-        gc.fillPolygon(new double[]{len, len - 8, len - 8, len}, new double[]{0, -8, 8, 0},
-                4);
+        gc.fillPolygon(new double[]{len, len - triangleNum, len - triangleNum, len}, new double[]{0, -triangleNum, triangleNum, 0},4);
     }
 
     private void drawPathNodes() {
         List<Node> pathToDraw = currentPath;
-        if (pathToDraw == null || pathToDraw.size() == 0) {
-            return;
-        }
-
+        if (pathToDraw == null || pathToDraw.size() == 0) { return; }
         for (int i = 0; i < pathToDraw.size() - 1; i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i + 1);
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
             if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
-                if (currentFloorInt < nextFloorInt) {
-                    gc.setFill(Color.WHITE);
-                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.drawImage(uparrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.setFill(Color.BLACK);
-                } else {
-                    gc.setFill(Color.WHITE);
-                    gc.fillOval(current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.drawImage(downarrow, current.getXcoord() - 15, current.getYcoord() - 15, 30, 30);
-                    gc.setFill(Color.BLACK);
-                }
+                floorChange = new ImageButton();
+                floorChange.setLayoutX(current.getXcoord() - 10);
+                floorChange.setLayoutY(current.getYcoord() - 10);
+                floorChange.setFloor(next);
+                if (currentFloorInt < nextFloorInt) { floorChange.updateImages(uparrow); }
+                else { floorChange.updateImages(downarrow); }
+                mapPane.getChildren().add(floorChange);
             }
             if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
                 gc.setFill(Color.WHITE);
@@ -269,5 +311,41 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         currentFloorNum.setText(currentFloor);
         refreshCanvas();
+    }
+
+    public void zoom() {
+        System.out.println(zoomSlider.getValue()/100);
+        System.out.println(mapPane.getScaleX());
+        double sliderLevel = zoomSlider.getValue() / 100;
+        double zoomLevel = sliderLevel + 1;
+        mapPane.setScaleX(zoomLevel);
+        mapPane.setScaleY(zoomLevel);
+    }
+
+    private class ImageButton extends JFXButton {
+        public ImageButton() {
+            this.setButtonType(JFXButton.ButtonType.RAISED);
+            this.setPrefSize(20, 20);
+        }
+
+        public void setFloor(Node next) {
+            this.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    currentFloor = next.getFloor();
+                    imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+                    currentFloorNum.setText(currentFloor);
+                    refreshCanvas();
+                }
+            });
+        }
+
+        public void updateImages(final Image image) {
+            final ImageView iv = new ImageView(image);
+            iv.setFitHeight(30);
+            iv.setFitWidth(30);
+            this.getChildren().add(iv);
+            super.setGraphic(iv);
+        }
     }
 }
