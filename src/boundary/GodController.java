@@ -326,7 +326,7 @@ public class GodController {
             employeeTypeAE, adminToggle);
     }
 
-    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(); }
+    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
 
     /** Organize Functions by Scene **/
 

@@ -23,5 +23,6 @@
     <orderEntry type="library" name="ejml-core-0.32" level="project" />
     <orderEntry type="library" name="ejml-fdense-0.32" level="project" />
     <orderEntry type="library" name="jfoenix" level="project" />
+    <orderEntry type="library" name="Interpreter-1.0-SNAPSHOT" level="project" />
   </component>
 </module>
