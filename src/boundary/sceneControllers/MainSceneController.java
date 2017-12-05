@@ -3,45 +3,46 @@ package boundary.sceneControllers;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
     private DirectorySceneController directorySceneController;
     private JFXTextField originField, destinationField;
     private ErrorController errorController = new ErrorController();
-
+    private AutoCompleteTextField searchBar;
 
     public MainSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                                Label currentFloorNum, JFXTextField originField, JFXTextField destinationField,
-                               JFXSlider zoomSlider, DirectorySceneController directorySceneController) {
+                               JFXSlider zoomSlider, DirectorySceneController directorySceneController, AnchorPane searchPane) {
         super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.originField = originField;
         this.destinationField = destinationField;
         this.directorySceneController = directorySceneController;
+        searchBar = new AutoCompleteTextField();
+        searchPane.getChildren().add(searchBar);
+        initializeSearchBar();
+    }
+
+    private void initializeSearchBar() {
+//        this.searchBar.getEntries().addAll();
     }
 
     private boolean checkNullLocations(){

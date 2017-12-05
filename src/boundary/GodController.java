@@ -9,6 +9,7 @@ import Editor.NodeEditController;
 import Entity.AdminLog;
 import Entity.ErrorController;
 import Entity.Node;
+import Entity.User;
 import MapNavigation.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
@@ -27,6 +28,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -81,7 +83,10 @@ public class GodController {
     ///////////////////////
     /* Scene Panes */
     @FXML
-    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane;
+    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
+
+    @FXML
+    private AnchorPane searchPane; // search bar
 
     /* Map Panes */
     @FXML
@@ -286,7 +291,7 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, imageView, mapPane, canvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController);
+                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController, searchPane);
         mainSceneController.initializeScene();
         directorySceneController.setMainSceneController(mainSceneController);
     }
@@ -326,8 +331,7 @@ public class GodController {
             employeeTypeAE, adminToggle);
     }
 
-    private void initializeStaffRequestHubScene(){}
-
+    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
 
     /** Organize Functions by Scene **/
 
@@ -433,7 +437,7 @@ public class GodController {
     private void nearestElevatorPathfinding(){}//TODO
 
     @FXML
-    private void pathfindingZoom() {pathfindingSceneController.zoom(); }
+    private void pathfindingZoom() { pathfindingSceneController.zoom(); }
 
     @FXML//switches the origin and the destination nodes, then renavagates.
     private void switchOrigWDest(){}//TODO
@@ -722,25 +726,21 @@ public class GodController {
     /////////////////////////
 
     @FXML
-    public void serviceHubToMain(ActionEvent event) {
-        staffRequestHubController.serviceHubToMain();
+    public void serviceHubtoAPITest() { staffRequestHubController.serviceHubtoAPITest(); }
 
+    @FXML
+    public void serviceHubtoFoodAPI() { staffRequestHubController.serviceHubtoFoodAPI(); }
+
+    @FXML
+    public void serviceHubtoRequest() throws IOException {
+        User u = staffRequestHubController.getUser();
+        sceneSwitcher.toStaffRequests(this, requestHubPane);
+        staffRequestController.initializeScene(userManager.getUser(u.getUserID()));
     }
 
     @FXML
-    public void serviceHubtoAPITest(ActionEvent event) {
-        staffRequestHubController.serviceHubtoAPITest();
-    }
+    public void serviceHubToMain() throws IOException { sceneSwitcher.toMain(this, requestHubPane); }
 
-    @FXML
-    public void serviceHubtoFoodAPI(ActionEvent event) {
-        staffRequestHubController.serviceHubtoFoodAPI();
-    }
-
-    @FXML
-    public void serviceHubtoRequest(ActionEvent event) {
-        staffRequestHubController.serviceHubtoRequest();
-    }
 
     ////////////////
     /* Admin Logs */
@@ -778,11 +778,17 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
-
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.toStaffRequests(this, loginPane);
-            staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
+            sceneSwitcher.toStaffRequestHub(this, loginPane);
+            staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
+    }
+
+    @FXML
+    private void serviceHubToRequest() throws IOException {
+        sceneSwitcher.toStaffRequests(this, requestPane);
+        System.out.println(staffRequestHubController.getUser());
+        staffRequestController.initializeScene(userManager.getUser(staffRequestHubController.getUser().getUserID()));
     }
 
     @FXML

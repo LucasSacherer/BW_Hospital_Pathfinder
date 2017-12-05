@@ -162,14 +162,11 @@
                         <Insets left="15.0" top="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXTextField fx:id="search" alignment="TOP_LEFT" promptText="Search" style="-fx-background-color: #CCCCCC;" styleClass="root" unFocusColor="BLACK">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
+                  <AnchorPane fx:id="searchPane">
                      <VBox.margin>
                         <Insets left="15.0" />
                      </VBox.margin>
-                  </JFXTextField>
+                  </AnchorPane>
                </children>
             </VBox>
             <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#findPath" prefHeight="75.0" prefWidth="78.0" text="Navigate" GridPane.columnIndex="1">
