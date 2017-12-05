@@ -27,6 +27,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -82,6 +83,9 @@ public class GodController {
     /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
+
+    @FXML
+    private AnchorPane searchPane; // search bar
 
     /* Map Panes */
     @FXML
@@ -286,7 +290,7 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, imageView, mapPane, canvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController);
+                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController, searchPane);
         mainSceneController.initializeScene();
         directorySceneController.setMainSceneController(mainSceneController);
     }
@@ -432,7 +436,7 @@ public class GodController {
     private void nearestElevatorPathfinding(){}//TODO
 
     @FXML
-    private void pathfindingZoom() {pathfindingSceneController.zoom(); }
+    private void pathfindingZoom() { pathfindingSceneController.zoom(); }
 
     @FXML//switches the origin and the destination nodes, then renavagates.
     private void switchOrigWDest(){}//TODO
