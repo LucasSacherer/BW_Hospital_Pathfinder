@@ -40,11 +40,6 @@
                      <children>
                         <VBox spacing="10.0" GridPane.columnSpan="2">
                            <children>
-                              <HBox alignment="TOP_RIGHT">
-                                 <children>
-                                    <JFXButton buttonType="RAISED" cancelButton="true" onAction="#pathfindingToMain" text="X" />
-                                 </children>
-                              </HBox>
                               <HBox alignment="CENTER_LEFT">
                                  <children>
                                     <ImageView fitHeight="20.0" fitWidth="20.0">
@@ -83,7 +78,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <GridPane alignment="CENTER" gridLinesVisible="true" HBox.hgrow="ALWAYS">
+            <GridPane alignment="CENTER" HBox.hgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="800.0" />
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
@@ -129,15 +124,15 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <VBox alignment="TOP_CENTER" maxHeight="85.0" maxWidth="59.0" minHeight="70.0" prefHeight="82.0" prefWidth="59.0" style="-fx-background-image: url('../images/icons/floor-current.png');">
-                                 <children>
-                                    <Label fx:id="currentFloorNumPathfinding" contentDisplay="CENTER">
+                              <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="70.0" minWidth="70.0" mouseTransparent="true" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
+                                 <graphic>
+                                    <Label fx:id="currentFloorNumPathfinding" contentDisplay="CENTER" textFill="#cccccc">
                                        <font>
                                           <Font name="System Bold" size="28.0" />
                                        </font>
                                     </Label>
-                                 </children>
-                              </VBox>
+                                 </graphic>
+                              </JFXButton>
                               <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
@@ -159,6 +154,14 @@
                         </JFXSlider>
                      </children>
                   </VBox>
+                  <JFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#pathfindingToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 10; -fx-border-color: #0068B1; -fx-border-width: 5; -fx-border-radius: 10;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets right="15.0" top="15.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </GridPane>
          </children>
