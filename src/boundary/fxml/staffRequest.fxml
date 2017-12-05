@@ -3,11 +3,11 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -37,11 +37,10 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="1065.0" minHeight="10.0" prefHeight="1048.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="1111.0" prefWidth="423.0" GridPane.rowIndex="1">
+                        <VBox alignment="TOP_CENTER" prefHeight="1111.0" prefWidth="423.0">
                            <children>
                               <Label text="Staff Request">
                                  <font>
@@ -227,11 +226,6 @@
                               <Insets bottom="25.0" top="25.0" />
                            </padding>
                         </VBox>
-                        <JFXButton fx:id="back" onAction="#requestToMain" style="-fx-background-color: #003da5;" text="&lt;- Back" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </JFXButton>
                      </children>
                   </GridPane>
                </children>
@@ -240,114 +234,97 @@
          <center>
             <AnchorPane prefHeight="1080.0" prefWidth="1652.0" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane focusTraversable="true" prefHeight="1078.0" prefWidth="1637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane prefHeight="773.0" prefWidth="556.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox prefHeight="1080.0" prefWidth="3000.0">
+                        <AnchorPane prefHeight="773.0" prefWidth="756.0">
                            <children>
-                              <StackPane prefHeight="773.0" prefWidth="556.0" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <AnchorPane prefHeight="773.0" prefWidth="756.0">
+                              <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <Pane fx:id="requestMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                                        <children>
-                                          <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <content>
-                                                <Pane fx:id="requestMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
-                                                   <children>
-                                                      <ImageView fx:id="requestImageView" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../images/other%20images/BWH.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Canvas fx:id="requestCanvas" height="3400.0" onMouseClicked="#clickOnRequestMap" width="5000.0" />
-                                                   </children>
-                                                </Pane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane mouseTransparent="true" prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <Region mouseTransparent="true" prefHeight="955.0" prefWidth="44.0" style="-fx-background-image: url('/boundary/images/other%20images/shadow.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                          <Region fx:id="topshad" mouseTransparent="true" prefHeight="22.0" prefWidth="1645.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadowTop.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </StackPane>
-                              <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="112.0" prefWidth="877.0" translateZ="3.0">
-                                 <children>
-                                    <HBox alignment="CENTER" prefHeight="110.0" prefWidth="754.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Group />
-                                          <Group onMouseClicked="#zoomInRequestMap">
-                                             <children>
-                                                <ImageView fitHeight="125.0" fitWidth="136.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/Black%20Plus.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group onMouseClicked="#zoomOutRequestMap">
-                                             <children>
-                                                <ImageView fitHeight="122.0" fitWidth="124.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/Black%20Minus.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group onMouseClicked="#floorDownRequest">
-                                             <children>
-                                                <ImageView fitHeight="119.0" fitWidth="109.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/down_arrow.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <VBox alignment="TOP_CENTER" style="-fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
-                                             <children>
-                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor:" textAlignment="CENTER" wrapText="true">
-                                                   <font>
-                                                      <Font name="System Bold" size="15.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="currentFloorNumRequest">
-                                                   <font>
-                                                      <Font name="System Bold" size="60.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <Group onMouseClicked="#floorUpRequest">
-                                             <children>
-                                                <ImageView fitHeight="114.0" fitWidth="116.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/up_arrow.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <Group>
-                                             <children>
-                                                <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/home.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Group>
-                                          <ImageView fitHeight="116.0" fitWidth="215.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="requestImageView" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/location.png" />
+                                                <Image url="@../images/other%20images/BWH.png" />
                                              </image>
                                           </ImageView>
+                                          <Canvas fx:id="requestCanvas" height="3400.0" onMouseClicked="#clickOnRequestMap" width="5000.0" />
                                        </children>
-                                    </HBox>
-                                 </children>
-                              </AnchorPane>
+                                    </Pane>
+                                 </content>
+                              </ScrollPane>
                            </children>
-                        </VBox>
-                        <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="112.0" prefWidth="22.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadow.png');" StackPane.alignment="BOTTOM_LEFT" />
+                        </AnchorPane>
+                        <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="1081.0" prefWidth="22.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadow.png');" StackPane.alignment="CENTER_LEFT" />
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1254.0" minWidth="10.0" prefWidth="1236.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="743.0" minWidth="10.0" prefWidth="261.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="353.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="868.0" minHeight="10.0" prefHeight="854.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <children>
+                                    <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
+                                       <children>
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                                             <graphic>
+                                                <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/Icons/UpArrow1.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
+                                             <graphic>
+                                                <Label fx:id="currentFloorNumPathfinding" contentDisplay="CENTER" textFill="#cccccc">
+                                                   <font>
+                                                      <Font name="System Bold" size="32.0" />
+                                                   </font>
+                                                </Label>
+                                             </graphic>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                             </VBox.margin>
+                                          </JFXButton>
+                                          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                                             <graphic>
+                                                <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/Icons/DownArrow.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" onMouseDragged="#pathfindingZoom" onMousePressed="#pathfindingZoom" onMouseReleased="#pathfindingZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" VBox.vgrow="SOMETIMES">
+                                       <padding>
+                                          <Insets right="40.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets bottom="30.0" />
+                                       </VBox.margin>
+                                    </JFXSlider>
+                                 </children>
+                              </VBox>
+                              <JFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#requestToAdminHub" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-background-radius: 10; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets right="15.0" top="15.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </GridPane>
                      </children>
                   </StackPane>
                </children>
