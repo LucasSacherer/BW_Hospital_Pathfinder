@@ -23,7 +23,7 @@
 
 <AnchorPane fx:id="pathfindingPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="300.0">
                <children>
@@ -83,7 +83,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <GridPane alignment="CENTER">
+            <GridPane alignment="CENTER" gridLinesVisible="true" HBox.hgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="800.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
