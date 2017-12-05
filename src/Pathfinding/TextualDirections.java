@@ -14,10 +14,15 @@ public class TextualDirections {
     private Node previousNode;
     private Node currentNode;
     private Node nextNode;
-    private int leftLow = 220;
-    private int leftHigh = 359;
-    private int rightLow = 0;
-    private int rightHigh = 140;
+
+    private int sRightLow = 220;
+    private int rightLow = 250;
+    private int rightHigh = 290;
+    private int hRightHigh = 359;
+    private int sLeftLow = 5;
+    private int leftLow = 70;
+    private int leftHigh = 110;
+    private int hLeftHigh = 140;
 
     private String distance;
     private int distScale = 1;
@@ -49,7 +54,13 @@ public class TextualDirections {
             return 180;
         }
 
-        return Math.toDegrees(angleDiff);
+        double degrees = Math.toDegrees(angleDiff);
+        if(degrees < 0){
+            return (((degrees * -1) + 180.0) % 360);
+        }
+        else{
+            return degrees;
+        }
     }
 
     //getter for testing
@@ -61,11 +72,30 @@ public class TextualDirections {
     //i.e. "left", "right", "straight"
     private String findTurn(){
         double currentAngle = findAngle(previousNode, currentNode, nextNode);
-        if (currentAngle >= leftLow && currentAngle <= leftHigh){
-            return "Turn left and continue";
+
+        if (currentAngle > rightHigh && currentAngle <= hRightHigh){
+            return "Take a hard right and continue";
+
         }
         if (currentAngle >= rightLow && currentAngle <= rightHigh){
             return "Turn right and continue";
+
+        }
+        if (currentAngle >= sRightLow && currentAngle < rightLow){
+            return "Take a slight right and continue";
+
+        }
+        if (currentAngle > leftHigh && currentAngle <= hLeftHigh){
+            return "Take a hard left and continue";
+
+        }
+        if (currentAngle >= leftLow && currentAngle <= leftHigh){
+            return "Turn left and continue";
+
+        }
+        if (currentAngle >= sLeftLow && currentAngle < leftLow){
+            return "Take a slight left and continue";
+
         }
         return "Continue";
     }
@@ -77,12 +107,15 @@ public class TextualDirections {
 
     //finds and returns the Node's short name to be used in directions, or "the Hallway" if it's a hallway
     private String sNameNode(Node input) {
+
         if(!input.getNodeType().equals("HALL")){
             return input.getShortName();
         }
         else{
             return "the hallway";
         }
+
+        //return input.getNodeID();
     }
 
     //for default zoom on main screen, 196 pixels/units ~ 344 feet -> 1.76 feet per pixel
@@ -142,14 +175,13 @@ public class TextualDirections {
             return writtenDirections;
         }
 
-        //for(int i = path.size() - 1; i > 0; i--){
         for(int i = 1; i < path.size() - 1; i++){
             //updates Nodes to match iteration
             previousNode = path.get(i-1);
             currentNode = path.get(i);
             nextNode = path.get(i+1);
 
-            distance = distNode(previousNode, currentNode);
+            distance = distNode(currentNode, nextNode);
 
             //deviates directions text if you're taking the stairs or elevator to a different floor
             if(currentNode.getNodeType().equals("ELEV") && !currentNode.getFloor().equals(nextNode.getFloor())){

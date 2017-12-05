@@ -21,9 +21,9 @@ public class SettingsManager {
 
 
 
-    public void setSetting(String setting, String nodeID){
+    public void setSetting(String setting, String subject){
         databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("UPDATE SETTINGS SET STRING2 = '"+nodeID+"' WHERE STRING1 = '"+
+        databaseGargoyle.executeUpdateOnDatabase("UPDATE SETTINGS SET STRING2 = '"+subject+"' WHERE STRING1 = '"+
                 setting+"'");
         databaseGargoyle.destroyConnection();
 
