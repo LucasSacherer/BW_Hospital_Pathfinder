@@ -121,7 +121,6 @@
                      <children>
                         <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="400.0" prefWidth="103.0">
                            <children>
-                              <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorUpPath" prefHeight="76.0" prefWidth="82.0" style="-fx-background-radius: 100;" />
                               <VBox alignment="TOP_CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                  <children>
                                     <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor" textAlignment="CENTER" wrapText="true">

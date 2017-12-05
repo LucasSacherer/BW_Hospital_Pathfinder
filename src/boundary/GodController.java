@@ -385,12 +385,6 @@ public class GodController {
     ///////////////////////
 
     @FXML
-    private void floorUpPath() {pathfindingSceneController.floorUp(); }
-
-    @FXML
-    private void floorDownPath() {pathfindingSceneController.floorDown(); }
-
-    @FXML
     private void pathfindingZoom() {pathfindingSceneController.zoom(); }
 
     /////////////////////////
