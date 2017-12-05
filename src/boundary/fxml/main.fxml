@@ -26,15 +26,15 @@
 
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane alignment="CENTER">
+      <GridPane alignment="CENTER" layoutY="-9.0" prefHeight="891.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0568542480469" minWidth="10.0" prefWidth="257.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="400.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="133.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0568542480469" minWidth="10.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="500.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="400.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="600.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="18.0" prefHeight="200.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
@@ -106,9 +106,12 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <VBox alignment="CENTER" maxHeight="300.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="100.0" top="100.0" />
+               </GridPane.margin>
                <children>
-                  <VBox alignment="CENTER" fillWidth="false" prefHeight="340.0" prefWidth="103.0">
+                  <VBox alignment="CENTER" fillWidth="false" prefWidth="130.0">
                      <children>
                         <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="76.0" prefWidth="82.0" style="-fx-background-radius: 100;">
                            <graphic>
@@ -142,15 +145,15 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
+                        <JFXSlider fx:id="zoomSlider" onMouseClicked="#mainZoom" onMouseDragged="#mainZoom" onMouseReleased="#mainZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" value="-100.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </VBox>
-                  <JFXSlider fx:id="zoomSlider" onMouseClicked="#mainZoom" onMouseDragged="#mainZoom" onMouseReleased="#mainZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" value="-100.0" />
                </children>
-            </VBox>
-            <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#mainToLogin" style="-fx-background-radius: 100;" GridPane.columnIndex="2">
+            </HBox>
+            <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#mainToLogin" style="-fx-background-radius: 100;" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -158,8 +161,11 @@
                      </image>
                   </ImageView>
                </graphic>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
             </JFXButton>
-            <MenuButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" popupSide="LEFT" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <MenuButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" popupSide="LEFT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#infoClicked" text="Info">
                      <graphic>
@@ -209,7 +215,7 @@
                   </VBox>
                </graphic>
             </MenuButton>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="839.0" prefWidth="256.0" spacing="10.0">
                      <children>

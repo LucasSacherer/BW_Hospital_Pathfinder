@@ -314,8 +314,10 @@ public abstract class AbstractMapController {
     }
 
     public void zoom() {
+        System.out.println(zoomSlider.getValue()/100);
+        System.out.println(mapPane.getScaleX());
         double sliderLevel = zoomSlider.getValue() / 100;
-        double zoomLevel = (sliderLevel + 1) / 2;
+        double zoomLevel = sliderLevel + 1;
         mapPane.setScaleX(zoomLevel);
         mapPane.setScaleY(zoomLevel);
     }
