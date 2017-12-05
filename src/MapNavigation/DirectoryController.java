@@ -1,28 +1,37 @@
 package MapNavigation;
 
+import Database.SettingsManager;
 import Entity.Node;
 import Database.NodeManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class DirectoryController {
     private NodeManager nm;
+    private SettingsManager settingsManager;
 
     public DirectoryController(NodeManager nm) {
         this.nm = nm;
+        settingsManager = SettingsManager.getInstance();
     }
 
     /**
      * Gets all visitable nodes from the database and returns a directory of nodes categorized by nodetype
      * @return A categorized Directory (HashMap)
      */
-    public HashMap<String, ObservableList<Node>> getDirectory(){
+     HashMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
-        nm.updateNodes();
-        List<Node> visitableNodes = nm.getVisitableNodes();
+        List<Node> visitableNodes = new ArrayList<Node>();
+
+        for (int i = 0; nm.getAllNodes().size() > i; i++ ){
+            if (!nm.getAllNodes().get(i).getNodeType().equals("HALL")){
+                visitableNodes.add(nm.getAllNodes().get(i));
+            }
+        }
 
         //Return the categorized directory
         return formatNodeList(visitableNodes);
@@ -46,7 +55,6 @@ public class DirectoryController {
         ObservableList<Node> exit = FXCollections.observableArrayList();
         ObservableList<Node> retl = FXCollections.observableArrayList();
         ObservableList<Node> serv = FXCollections.observableArrayList();
-        nm.updateNodes();
 
         //Go through all the visitable nodes and assign them to the correct list based on nodeType
         for (Node node : visitableNodes){
@@ -85,5 +93,16 @@ public class DirectoryController {
      */
     public HashMap<String, ObservableList<Node>> formatNodeListTester(List<Node> nodeList) {
         return formatNodeList(nodeList);
+    }
+
+    /**
+     *
+     * Returns the defaultNode which should be the Kiosk Location.
+     * @return a Node that is the Default Node.
+     */
+    //TODO Need to throw exception if Default Node doesn't exist.
+    Node getDefaultNode(){
+        String defaultNode = settingsManager.getSetting("Default Node");
+        return nm.getNode(defaultNode);
     }
 }

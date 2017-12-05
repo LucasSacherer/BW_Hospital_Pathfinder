@@ -3,27 +3,40 @@ package Entity;
 import java.time.LocalDateTime;
 
 public class CleanUpRequest implements Request{
-    final private String type;
     final private String name;
+    final private LocalDateTime timeCreated;
+    final private LocalDateTime timeCompleted;
+    final private String type;
     final private String description;
     final private Node node;
-    final private LocalDateTime timeStamp;
+    final private User user;
 
 
-    public CleanUpRequest (String type, String name, String description, Node node, LocalDateTime timeStamp){
-        this.type = type;
+    public CleanUpRequest (String name, LocalDateTime timeCreated, LocalDateTime timeCompleted, String type,
+                           String description, Node node, User user){
         this.name = name;
+        this.timeCreated = timeCreated;
+        this.timeCompleted = timeCompleted;
+        this.type = type;
         this.description = description;
         this.node = node;
-        this.timeStamp = timeStamp;
-    }
-
-    public String getType() {
-        return type;
+        this.user = user;
     }
 
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
+    }
+
+    public LocalDateTime getTimeCompleted() {
+        return timeCompleted;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getDescription() {
@@ -34,12 +47,16 @@ public class CleanUpRequest implements Request{
         return node;
     }
 
-    public LocalDateTime getTimeStamp() {
-        return timeStamp;
+    public User getUser() {
+        return user;
     }
 
     @Override
     public String toString() {
-        return name + "    " + timeStamp.getMonth() + " " + timeStamp.getDayOfMonth() + " " + timeStamp.getHour() + ":" + timeStamp.getMinute() + ":" + timeStamp.getSecond();
+        return "Clean Up:    " + name + "    " + timeCreated.getMonth() + " " + timeCreated.getDayOfMonth() + " " + timeCreated.getHour() + ":" + timeCreated.getMinute() + ":" + timeCreated.getSecond();
+    }
+
+    public String getRequestReport(){
+        return "Name: " + name + "\n\nDescription: " + description;
     }
 }

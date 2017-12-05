@@ -14,6 +14,7 @@ public class User {
         this.adminFlag = adminFlag;
         this.department = department;
     }
+    
     public String getUserID() { return userID; }
     public String getUsername() {
         return username;
@@ -26,5 +27,10 @@ public class User {
     }
     public String getDepartment() {
         return department;
+    }
+
+    @Override
+    public String toString() {
+        return "UserID: " + userID + ", Username: " + username  + ", Department: "+ department + (adminFlag ? " [Administrator]" : "");
     }
 }

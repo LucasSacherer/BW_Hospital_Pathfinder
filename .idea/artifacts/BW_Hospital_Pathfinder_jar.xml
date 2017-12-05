@@ -3,8 +3,11 @@
     <output-path>$PROJECT_DIR$/out/artifacts/BW_Hospital_Pathfinder_jar</output-path>
     <root id="archive" name="BW_Hospital_Pathfinder.jar">
       <element id="module-output" name="BW_Hospital_Pathfinder" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/resources/derbyclient.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/jfoenix.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/resources/commons-csv-1.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/ejml-fdense-0.32.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/derbyclient.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/ejml-core-0.32.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

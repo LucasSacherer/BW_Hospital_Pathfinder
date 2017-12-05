@@ -5,18 +5,18 @@ import Entity.Node;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class NodeManager {
+public class NodeManager implements EntityManager{
     private List<Node> nodes;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
 
-    public NodeManager(){
+    public NodeManager(DatabaseGargoyle dbG){
+        databaseGargoyle = dbG;
         nodes = new ArrayList<>();
     }
 
     /**
-     * FOR TESTING ONLY, sets the value of the nodes in node manager instead of using the updateNodes method
+     * FOR TESTING ONLY, sets the value of the nodes in node manager instead of using the update method
      * @param start - starting point of the list
      */
     public  NodeManager(List<Node> start){
@@ -26,13 +26,13 @@ public class NodeManager {
     /**
      * Updates the nodes in the node manager to match the nodes in the database
      */
-    public void updateNodes(){
+    public void update(){
         int xcoord, ycoord;
         String floor, building, nodetype, longName, shortName;
         nodes.clear();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM NODE");
         try {
             while(rs.next()){
                 String nodeID = rs.getString("NODEID");
@@ -79,15 +79,6 @@ public class NodeManager {
     }
 
     /**
-     * Returns a list of all nodes marked with the visitable flag
-     * @return the list of visitable nodes
-     */
-    public List<Node> getVisitableNodes(){
-        //filters to nodes that are only visitable
-        return nodes.stream().filter(Node::isVisitable).collect(Collectors.toList());
-    }
-
-    /**
      * Adds the given node to the database and updates the node manager
      * @param node - node to be added to the database
      */
@@ -95,10 +86,8 @@ public class NodeManager {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO NODE VALUES ('"+node.getNodeID()+"',"+node.getXcoord()+","+
                 node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
-                node.getLongName()+"','"+node.getShortName()+"','Team G')", databaseGargoyle.getStatement());
+                node.getLongName()+"','"+node.getShortName()+"','Team G')");
         databaseGargoyle.destroyConnection();
-
-        updateNodes();
     }
 
     /**
@@ -108,9 +97,8 @@ public class NodeManager {
     public void removeNode(Node node){
         String nodeToRemove = node.getNodeID();
         databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'", databaseGargoyle.getStatement());
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
         databaseGargoyle.destroyConnection();
-        updateNodes();
     }
 
     /**
@@ -125,13 +113,12 @@ public class NodeManager {
                 "BUILDING = '" + node.getBuilding() + "'," +
                 "NODETYPE = '" + node.getNodeType() + "'," +
                 "LONGNAME = '" + node.getLongName() + "'," +
-                "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'", databaseGargoyle.getStatement());
+                "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'");
         databaseGargoyle.destroyConnection();
-        updateNodes();
     }
 
     /**
-     * For testing updateNodes only, should never really be used
+     * For testing update only, should never really be used
      */
     private void printOutContent(){
         for (Node node: nodes){
@@ -168,18 +155,20 @@ public class NodeManager {
 
     /**
      * Finds the node of a given type nearest to the given coordinate
+     * However it will currently go to the nearest only based on coordinates but
+     * it does not take into account the distance to stairs/elevators
      * @param x the x coordinate to search from
      * @param y the y coordinate to search from
      * @param type the type of node to search for
      * @return result the closest node of the specified type
      */
-    public Node nearestLoc(int x, int y, String floor, String type){
+    public Node nearestLoc(int x, int y, String type){
         double newDistance;
         double nodeDistance = 10000000000.0;
         Node result = null;
 
         for (Node node: nodes){
-            if(node.getNodeType().equals(type) && node.getFloor().equals(floor)) {
+            if(node.getNodeType().equals(type)) {
                 newDistance = Math.sqrt(Math.abs((x - node.getXcoord()) * (x - node.getXcoord()) +
                         (y - node.getYcoord()) * (y - node.getYcoord())));
                 if (newDistance < nodeDistance) {

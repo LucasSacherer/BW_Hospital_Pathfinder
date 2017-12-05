@@ -2,12 +2,15 @@ package Request;
 
 import Database.CleanUpManager;
 import Entity.CleanUpRequest;
-
-import java.util.List;
+import Entity.ErrorController;
+import Entity.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class RequestCleanupController {
 
     private final CleanUpManager cleanUpManager;
+    private ErrorController errorController;
 
     public RequestCleanupController(CleanUpManager cm){
         cleanUpManager = cm;
@@ -17,8 +20,11 @@ public class RequestCleanupController {
      * Takes a request, checks if it's valid, and then gives it to the manager to be added
      * @param cReq
      */
-    public void addRequest(CleanUpRequest cReq){
-
+    public void addRequest(CleanUpRequest cReq) {
+        //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
+        if (validateRequest(cReq)){
+                cleanUpManager.addRequest(cReq);
+        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
     }
 
     /**
@@ -26,16 +32,26 @@ public class RequestCleanupController {
      * @param cReq
      * @return
      */
-    private boolean validateRequest(CleanUpRequest cReq){
-       return false;
+    private boolean validateRequest(CleanUpRequest cReq) {
+        //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
+        if (cReq.getName() != null && cReq.getTimeCreated() != null && cReq.getNode() != null) {
+            if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) == null) {
+                return true;
+            } else return false;
+        } else {
+            System.out.println("WHY?");
+            return false;
+        }
     }
 
     /**
      * returns a list of uncompleted requests of this type (from the manager)
      * @return
      */
-    public List<CleanUpRequest> getRequests(){
-        return null;
+    public ObservableList<CleanUpRequest> getRequests(){
+        ObservableList requests =  FXCollections.observableArrayList();
+        requests.addAll(cleanUpManager.getRequests());
+        return requests;
     }
 
     /**
@@ -43,7 +59,10 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void deleteRequest(CleanUpRequest cReq){
-
+        //First make sure the request exists, then delete it
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.deleteRequest(cReq);
+        } else errorController.showError("The request you want to delete does not exist");
     }
 
     /**
@@ -51,7 +70,11 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void updateRequest(CleanUpRequest cReq){
-
+        //Confirm that this already exists
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.updateRequest(cReq);
+        }
+        else errorController.showError("This request does not already exist in the database");
     }
 
     /**
@@ -59,6 +82,14 @@ public class RequestCleanupController {
      * @param cReq
      */
     public void completeRequest(CleanUpRequest cReq){
+        //First confirm that the request exists
+        if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
+            cleanUpManager.completeRequest(cReq);
+        }
+        else errorController.showError("This request does not already exist in the database");
+    }
 
+    public ObservableList<CleanUpRequest> getRequestsBy(User user){
+        return cleanUpManager.getRequestsBy(user);
     }
 }

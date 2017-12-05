@@ -31,8 +31,8 @@ public class RequestControllerTest {
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
         Request.RequestController requestController = new Request.RequestController(requestManager);
-        nodeManager.updateNodes();
-        requestManager.updateRequests();
+        nodeManager.update();
+        requestManager.update();
         nodeManager.addNode(test1);
         nodeManager.addNode(test2);
 
@@ -56,8 +56,8 @@ public class RequestControllerTest {
         NodeManager nodeManager = new NodeManager();
         RequestManager requestManager = new RequestManager(nodeManager);
         Request.RequestController requestController = new Request.RequestController(requestManager);
-        nodeManager.updateNodes();
-        requestManager.updateRequests();
+        nodeManager.update();
+        requestManager.update();
         nodeManager.addNode(test1);
         nodeManager.addNode(test2);
 
@@ -82,11 +82,11 @@ public class RequestControllerTest {
         RequestManager requestManager = new RequestManager(nodeManager);
         Request.RequestController requestController = new Request.RequestController(requestManager);
         nodeManager.addNode(test1);
-        nodeManager.updateNodes();
-        requestManager.updateRequests();
+        nodeManager.update();
+        requestManager.update();
 
         requestManager.addRequest(request1);
-        requestManager.updateRequests();
+        requestManager.update();
         List<Request> testList = new ArrayList<Request>();
         testList.add(request1);
         assertEquals(testList.get(0).getName(), requestManager.getRequests().get(0).getName());
@@ -102,9 +102,9 @@ public class RequestControllerTest {
         RequestManager requestManager = new RequestManager(nodeManager);
         Request.RequestController requestController = new Request.RequestController(requestManager);
         nodeManager.addNode(test1);
-        nodeManager.updateNodes();
+        nodeManager.update();
         requestManager.addRequest(request1);
-        requestManager.updateRequests();
+        requestManager.update();
 
         requestController.deleteRequest(request1);
 

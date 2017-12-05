@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="adminLogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="logImage" fitHeight="257.0" fitWidth="349.0" layoutX="232.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/other%20images/BWH.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" text="STAFF REPORTS">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="printLogSR" layoutX="1426.0" layoutY="220.0" style="-fx-background-color: #5ea459;" text="Print" textFill="WHITE" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="216.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="sendLogSR" layoutX="1587.0" layoutY="216.0" style="-fx-background-color: #5ea459;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="216.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="clearLogSR" layoutX="1746.0" layoutY="211.0" onAction="#clearLogButton" style="-fx-background-color: #ff716a;" text="Clear" textFill="WHITE" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="216.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <GridPane layoutX="30.0" layoutY="320.0" prefHeight="764.0" prefWidth="1866.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="320.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <JFXTabPane>
+               <tabs>
+                  <Tab text="SPILLS">
+                    <content>
+                        <VBox>
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1827.0" minWidth="10.0" prefWidth="937.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1049.0" minWidth="10.0" prefWidth="929.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label fx:id="logLabel1" text="Spill Frequency by Location">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TreeTableView fx:id="adminLogs">
+                                             <columns>
+                                                <TreeTableColumn fx:id="logID" prefWidth="109.66667175292969" text="Log ID" />
+                                                <TreeTableColumn fx:id="dateLogged" minWidth="-1.0" prefWidth="200.0" text="Date Logged" />
+                                                <TreeTableColumn fx:id="adminLogged" prefWidth="200.0" text="Admin Logged" />
+                                                <TreeTableColumn fx:id="logContent" prefWidth="200.0" text="Log Content" />
+                                             </columns>
+                                          </TreeTableView>
+                                          <Label fx:id="logLabel11" layoutX="10.0" layoutY="10.0" text="Spill Frequency by Type">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TreeTableView fx:id="adminLogs1" layoutX="10.0" layoutY="45.0">
+                                             <columns>
+                                                <TreeTableColumn fx:id="logID1" prefWidth="109.66667175292969" text="Log ID" />
+                                                <TreeTableColumn fx:id="dateLogged1" minWidth="-1.0" prefWidth="200.0" text="Date Logged" />
+                                                <TreeTableColumn fx:id="adminLogged1" prefWidth="200.0" text="Admin Logged" />
+                                                <TreeTableColumn fx:id="logContent1" prefWidth="200.0" text="Log Content" />
+                                             </columns>
+                                          </TreeTableView>
+                                       </children>
+                                    </VBox>
+                                    <VBox GridPane.columnIndex="1">
+                                       <children>
+                                          <Label fx:id="logLabel1111" text="Spill Clean Up Burndown Chart">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <LineChart style="-fx-border-color: black;">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </LineChart>
+                                          <Label fx:id="logLabel111" text="Most Frequent Spill Types">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <BarChart style="-fx-border-color: black;">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                    </content>
+                  </Tab>
+                  <Tab text="FOOD">
+                     <content>
+                        <VBox>
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1827.0" minWidth="10.0" prefWidth="937.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1049.0" minWidth="10.0" prefWidth="929.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label fx:id="logLabel11" text="Food Frequency by Location">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TreeTableView fx:id="adminLogs1">
+                                             <columns>
+                                                <TreeTableColumn fx:id="logID1" prefWidth="109.66667175292969" text="Log ID" />
+                                                <TreeTableColumn fx:id="dateLogged1" minWidth="-1.0" prefWidth="200.0" text="Date Logged" />
+                                                <TreeTableColumn fx:id="adminLogged1" prefWidth="200.0" text="Admin Logged" />
+                                                <TreeTableColumn fx:id="logContent1" prefWidth="200.0" text="Log Content" />
+                                             </columns>
+                                          </TreeTableView>
+                                          <Label fx:id="logLabel111" layoutX="10.0" layoutY="10.0" text="Food Frequency by Type">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TreeTableView fx:id="adminLogs11" layoutX="10.0" layoutY="45.0">
+                                             <columns>
+                                                <TreeTableColumn fx:id="logID11" prefWidth="109.66667175292969" text="Log ID" />
+                                                <TreeTableColumn fx:id="dateLogged11" minWidth="-1.0" prefWidth="200.0" text="Date Logged" />
+                                                <TreeTableColumn fx:id="adminLogged11" prefWidth="200.0" text="Admin Logged" />
+                                                <TreeTableColumn fx:id="logContent11" prefWidth="200.0" text="Log Content" />
+                                             </columns>
+                                          </TreeTableView>
+                                       </children>
+                                    </VBox>
+                                    <VBox GridPane.columnIndex="1">
+                                       <children>
+                                          <Label fx:id="logLabel11111" text="Food Order Burndown Chart">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <LineChart style="-fx-border-color: black;">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </LineChart>
+                                          <Label fx:id="logLabel1111" text="Most Frequent Food Types">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <BarChart style="-fx-border-color: black;">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+                  <Tab text="INTERPRETER">
+                     <content>
+                        <VBox>
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1827.0" minWidth="10.0" prefWidth="937.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1049.0" minWidth="10.0" prefWidth="929.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label fx:id="logLabel111" text="Interpreter Frequency by Location">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TreeTableView fx:id="adminLogs11">
+                                             <columns>
+                                                <TreeTableColumn fx:id="logID11" prefWidth="109.66667175292969" text="Log ID" />
+                                                <TreeTableColumn fx:id="dateLogged11" minWidth="-1.0" prefWidth="200.0" text="Date Logged" />
+                                                <TreeTableColumn fx:id="adminLogged11" prefWidth="200.0" text="Admin Logged" />
+                                                <TreeTableColumn fx:id="logContent11" prefWidth="200.0" text="Log Content" />
+                                             </columns>
+                                          </TreeTableView>
+                                          <Label fx:id="logLabel1111" layoutX="10.0" layoutY="10.0" text="Interpreter Frequency by Language">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TreeTableView fx:id="adminLogs111" layoutX="10.0" layoutY="45.0">
+                                             <columns>
+                                                <TreeTableColumn fx:id="logID111" prefWidth="109.66667175292969" text="Log ID" />
+                                                <TreeTableColumn fx:id="dateLogged111" minWidth="-1.0" prefWidth="200.0" text="Date Logged" />
+                                                <TreeTableColumn fx:id="adminLogged111" prefWidth="200.0" text="Admin Logged" />
+                                                <TreeTableColumn fx:id="logContent111" prefWidth="200.0" text="Log Content" />
+                                             </columns>
+                                          </TreeTableView>
+                                       </children>
+                                    </VBox>
+                                    <VBox GridPane.columnIndex="1">
+                                       <children>
+                                          <Label fx:id="logLabel111111" text="Interpreter Burndown Chart">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <LineChart style="-fx-border-color: black;">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </LineChart>
+                                          <Label fx:id="logLabel11111" text="Most Frequent Interpreter Types">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <BarChart style="-fx-border-color: black;">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+      </GridPane>
+      <JFXButton layoutX="8.0" layoutY="-1.0" prefHeight="34.0" prefWidth="81.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

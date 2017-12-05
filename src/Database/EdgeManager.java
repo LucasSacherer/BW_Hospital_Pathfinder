@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EdgeManager {
+public class EdgeManager implements EntityManager{
     final private NodeManager nodeManager;
     private List<Edge> edges;
-    private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    private DatabaseGargoyle databaseGargoyle;
 
-    public EdgeManager(NodeManager nodeManager){
+    public EdgeManager(DatabaseGargoyle dbG, NodeManager nodeManager){
+        databaseGargoyle = dbG;
         this.nodeManager = nodeManager;
         edges = new ArrayList<>();
     }
@@ -21,12 +22,12 @@ public class EdgeManager {
     /**
      * Updates list of edges to match what is currently in the database
      */
-    public void updateEdges(){
+    public void update(){
         String startNodeID, endNodeID;
         edges.clear();
 
         databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE", databaseGargoyle.getStatement());
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM EDGE");
         try {
             while (rs.next()){
                 startNodeID = rs.getString("STARTNODE");
@@ -45,12 +46,13 @@ public class EdgeManager {
      * @param e the edge to add
      */
     public void addEdge(Edge e){
-        databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("INSERT INTO EDGE VALUES ('"+
-                e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
-                e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')", databaseGargoyle.getStatement());
-        databaseGargoyle.destroyConnection();
-        updateEdges();
+        if (!edges.contains(getEdge(e.getStartNode(),e.getEndNode()))){
+            databaseGargoyle.createConnection();
+            databaseGargoyle.executeUpdateOnDatabase("INSERT INTO EDGE VALUES ('"+
+                    e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
+                    e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
+            databaseGargoyle.destroyConnection();
+        }
     }
 
     /**
@@ -58,11 +60,35 @@ public class EdgeManager {
      * @param e the edge to remove
      */
     public void removeEdge(Edge e) {
+        if (e == null) return;
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
-                e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'", databaseGargoyle.getStatement());
+                e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID() + "'");
         databaseGargoyle.destroyConnection();
-        updateEdges();
+        databaseGargoyle.createConnection();
+        databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
+                e.getEndNode().getNodeID() + "_" + e.getStartNode().getNodeID() + "'");
+        databaseGargoyle.destroyConnection();
+
+        //AHALL00202_AHALL00302
+    }
+
+    /**
+     *
+     * @param start The starting node of the edge you want to remove
+     * @param end The end node of the edge you want to remove
+     * @return The cooresponding Edge that matches the starting and ending node given.
+     */
+    public Edge getEdge(Node start, Node end){
+        for (Edge edge : edges){
+            if (edge.getStartNode().getNodeID().equals(start.getNodeID()) && edge.getEndNode().getNodeID().equals(end.getNodeID())){
+                return edge;
+            }
+            else if(edge.getEndNode().getNodeID().equals(start.getNodeID()) && edge.getStartNode().getNodeID().equals(end.getNodeID())){
+                return edge;
+            }
+        }
+        return null;
     }
 
     /**
@@ -108,4 +134,19 @@ public class EdgeManager {
                         p.getEndNode().getNodeID().equals(start.getNodeID()))).findFirst()).get();
         return (double)target.getWeight();
     }
+
+    /**
+     * Uses a similar structure for getNeighbors() to get a list of all connecting edges from a given
+     * input node and deletes them from the database.
+     * @param node the node that will be deleted in future
+     */
+    public void removeNeighborEdges(Node node){
+        List<Edge> connectedEdges = (edges.stream().filter(p -> p.getStartNode().getNodeID().equals(node.getNodeID()) ||
+                p.getEndNode().getNodeID().equals(node.getNodeID())).collect(Collectors.toList()));
+
+        for (int i = 0; connectedEdges.size() > i; i++){
+            removeEdge(connectedEdges.get(i));
+        }
+    }
+
 }

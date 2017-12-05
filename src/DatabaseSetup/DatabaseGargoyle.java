@@ -1,12 +1,21 @@
 package DatabaseSetup;
 
+import Database.*;
+import Entity.AdminLog;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseGargoyle {
     private final String URL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
     private final String driver = "org.apache.derby.jdbc.ClientDriver";
     private Connection connection;
     private Statement statement;
+    private ArrayList<EntityManager> managers;
+
+    public DatabaseGargoyle() {
+        managers = new ArrayList<>();
+    }
 
     /**
      * Loads the driver for the database connection, and then connects to the URL and creates a statement to be executed
@@ -48,21 +57,27 @@ public class DatabaseGargoyle {
      */
     public void createTables() {
         TableCreator tableCreator = new TableCreator(this.statement);
-        tableCreator.createNodeTable();
-        tableCreator.createEdgeTable();
+        tableCreator.createNodeTable(this.connection);
+        tableCreator.createEdgeTable(this.connection);
         tableCreator.createKioskUserTable();
         tableCreator.createFoodRequestTable();
         tableCreator.createInterpreterRequestTable();
         tableCreator.createCleanUpRequestTable();
+        tableCreator.createFoodOrdersTable();
+        tableCreator.createSettingsTable();
+        tableCreator.createAdminLogTable();
     }
 
     /**
      * Executes a SQL update statement to the database
      * @param sql
      */
-    public void executeUpdateOnDatabase(String sql, Statement statement){
+    public void executeUpdateOnDatabase(String sql){
         try {
             statement.executeUpdate(sql);
+            this.destroyConnection();
+            notifyManagers();
+            this.createConnection();
         } catch (SQLException e) {
             System.out.println("The statement " + sql +  " failed: ");
             e.printStackTrace();
@@ -74,7 +89,7 @@ public class DatabaseGargoyle {
      * @param sql
      * @return
      */
-    public ResultSet executeQueryOnDatabase(String sql, Statement statement){
+    public ResultSet executeQueryOnDatabase(String sql){
         try {
             return statement.executeQuery(sql);
         } catch (SQLException e) {
@@ -84,7 +99,28 @@ public class DatabaseGargoyle {
         }
     }
 
+    /**
+     * Attaches a manager to the list of managers
+     * @param manager
+     */
+    public void attachManager(EntityManager manager){
+        this.managers.add(manager);
+    }
+
+    /**
+     * Updates all the managers
+     */
+    public void notifyManagers(){
+        for (EntityManager manager: managers){
+            manager.update();
+        }
+    }
+
     public Statement getStatement() {
         return statement;
     }
+    public Connection getConnection() {
+        return connection;
+    }
+    public ArrayList<EntityManager> getManagers() {return managers; }
 }

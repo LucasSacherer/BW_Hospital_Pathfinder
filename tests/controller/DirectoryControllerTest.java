@@ -1,20 +1,24 @@
 package controller;
 
+import Database.SettingsManager;
+import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
+import MapNavigation.DirectoryController;
 import Database.NodeManager;
+import MapNavigation.DirectoryController;
 import org.junit.Test;
-
+import MapNavigation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class DirectoryControllerTest {
-
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
     @Test
     public void testFormatNodeList() throws Exception {
         List<Node> nodes = new ArrayList<>();
-        NodeManager nm = new NodeManager();
+        NodeManager nm = new NodeManager(databaseGargoyle);
         DirectoryController dc = new DirectoryController(nm);
 
         Node n1 = new Node("elev1", 1, 1, "1", "1", "ELEV", "1", "1");
