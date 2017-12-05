@@ -8,6 +8,7 @@ import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.AdminLog;
 import Entity.ErrorController;
+import Entity.Node;
 import MapNavigation.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
@@ -81,26 +82,34 @@ public class GodController {
     ///////////////////////
     /* Scene Panes */
     @FXML
-    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane;
+    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane;
 
     /* Map Panes */
     @FXML
-    private Pane mapEditMapPane, mapPane, requestMapPane;
+    private Pane mapEditMapPane, mapPane, requestMapPane, pathfindingMapPane;
 
     @FXML
     private StackPane menuARStackPane;
 
     @FXML
-    private Canvas canvas, mapEditCanvas, requestCanvas;
+    private Canvas canvas, mapEditCanvas, requestCanvas, pathfindingCanvas;
 
     @FXML
     private JFXTextField originField, destinationField;
 
     @FXML
-    private ImageView imageView, mapEditImageView, requestImageView;
+    private ImageView imageView, mapEditImageView, requestImageView, pathfindingImageView;
+
+    /* Pathfinding Scene */
+    @FXML
+    private JFXTextField pathfindingOrigin, pathfindingDestination;
 
     @FXML
-    private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
+    private JFXListView pathfindingTextDirections;
+
+    @FXML
+    private JFXSlider pathfindingZoomSlider;
+
 
     /* Staff Request Scene */
     @FXML
@@ -127,7 +136,7 @@ public class GodController {
     private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab;
 
     @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit;
+    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
 
     @FXML
     private JFXComboBox nodeTypeCombo, buildingCombo, nodeTypeComboEdit;
@@ -221,7 +230,8 @@ public class GodController {
     @FXML
     private JFXToggleButton adminToggle;
 
-
+    @FXML
+    private JFXSlider zoomSlider;
 
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -235,6 +245,8 @@ public class GodController {
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
+    DirectorySceneController directorySceneController;
+    PathfindingSceneController pathfindingSceneController;
 
 
     boolean firstTime = true;
@@ -242,6 +254,7 @@ public class GodController {
     private void initialize() {
         //pathFindingFacade.setPathfinder(beamSearch);
         if (firstTime){ pathFindingFacade.setPathfinder(astar);}
+        initializeDirectoryScene();
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -249,29 +262,39 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
+        initializePathfindingScene();
         firstTime = false;
     }
 
+    private void initializePathfindingScene() {
+        pathfindingSceneController = new PathfindingSceneController(this, pathfindingImageView, pathfindingMapPane,
+                pathfindingCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
+                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider);
+    }
+
+    private void initializeDirectoryScene() {
+        directorySceneController = new DirectorySceneController(mapNavigationFacade);
+    }
+
     private void initializeMainScene() {
-        mainSceneController = new MainSceneController(imageView, mapPane, canvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNum, elevatorDir,
-                restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical,
-                originField, destinationField);
+        mainSceneController = new MainSceneController(this, imageView, mapPane, canvas, mapNavigationFacade,
+                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController);
         mainSceneController.initializeScene();
+        directorySceneController.setMainSceneController(mainSceneController);
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(requestImageView, requestMapPane, requestCanvas,
+        staffRequestController = new StaffRequestController(this, requestImageView, requestMapPane, requestCanvas,
                 mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem);
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem, null);
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
+        adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
                 mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab);
+                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, null);
     }
 
     private void initializeAdminLogScene() {
@@ -303,8 +326,15 @@ public class GodController {
     ////////////////
 
     @FXML
-    private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
+    private void openDirectory() throws IOException { mainSceneController.openDirectory(this); }
 
+    @FXML
+    private void directoryNavigate() {mainSceneController.directoryNavigate(); }
+    @FXML
+    private void mainZoom() { mainSceneController.zoom(); }
+
+    @FXML
+    private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
 
     @FXML
     private void setLoc1(ActionEvent e) { mainSceneController.setOrigin(); }
@@ -313,7 +343,7 @@ public class GodController {
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
 
     @FXML
-    private void findPath(ActionEvent e) { mainSceneController.findPath(); }
+    private void findPath(ActionEvent e) throws IOException { mainSceneController.findPath(); }
 
     //zooms in by 0.1 on click of zoom in button
     @FXML
@@ -348,16 +378,21 @@ public class GodController {
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
 
     @FXML
-    private void navigateToHere() {mainSceneController.navigateToHere();}
+    private void navigateToHere() throws IOException {mainSceneController.navigateToHere();}
 
+    ///////////////////////
+    /* Pathfinding Scene */
+    ///////////////////////
 
+    @FXML
+    private void pathfindingZoom() {pathfindingSceneController.zoom(); }
 
     /////////////////////////
     /* Staff Request Scene */
     /////////////////////////
 
     @FXML
-    private void navigateToRequest() { staffRequestController.navigateToRequest(); } //TODO
+    private void navigateToRequest() throws IOException { staffRequestController.navigateToRequest(); } //TODO
 
     @FXML
     private void completeStaffRequest() { staffRequestController.completeRequest(); } //TODO
@@ -647,6 +682,18 @@ public class GodController {
     private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
     @FXML
+    public void mainToPathfinding() throws IOException {
+        Node o = mainSceneController.getOrigin();
+        Node d =  mainSceneController.getDestination();
+        sceneSwitcher.toPathfinding(this, mainPane);
+        pathfindingSceneController.initializeScene();
+        pathfindingSceneController.findPath(o, d);
+    }
+
+    @FXML
+    private void pathfindingToMain() throws IOException { sceneSwitcher.toMain(this, pathfindingPane);}
+
+    @FXML
     private void requestToMain() throws IOException { sceneSwitcher.toMain(this, requestPane); }
 
     @FXML
@@ -719,7 +766,7 @@ public class GodController {
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
 
     @FXML
-    private void getTextDirections() {mainSceneController.displayTextDir();}
+    private void getTextDirections() throws IOException {mainSceneController.displayTextDir();}
 
     public void initializeObservers(){
         databaseGargoyle.attachManager(nodeManager);
