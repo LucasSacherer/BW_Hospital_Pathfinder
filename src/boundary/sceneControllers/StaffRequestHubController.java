@@ -1,7 +1,9 @@
 package boundary.sceneControllers;
 
-public class StaffRequestHubController {
+import Entity.User;
 
+public class StaffRequestHubController {
+    private User user;
 
     public void serviceHubToMain() {
 
@@ -17,5 +19,13 @@ public class StaffRequestHubController {
 
     public void serviceHubtoRequest() {
 
+    }
+
+    public String getUserName() {
+        return user.username;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

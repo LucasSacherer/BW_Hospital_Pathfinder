@@ -81,7 +81,7 @@ public class GodController {
     ///////////////////////
     /* Scene Panes */
     @FXML
-    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane;
+    private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
 
     /* Map Panes */
     @FXML
@@ -722,25 +722,16 @@ public class GodController {
     /////////////////////////
 
     @FXML
-    public void serviceHubToMain(ActionEvent event) {
-        staffRequestHubController.serviceHubToMain();
-
-    }
+    public void serviceHubToMain() { staffRequestHubController.serviceHubToMain(); }
 
     @FXML
-    public void serviceHubtoAPITest(ActionEvent event) {
-        staffRequestHubController.serviceHubtoAPITest();
-    }
+    public void serviceHubtoAPITest() { staffRequestHubController.serviceHubtoAPITest(); }
 
     @FXML
-    public void serviceHubtoFoodAPI(ActionEvent event) {
-        staffRequestHubController.serviceHubtoFoodAPI();
-    }
+    public void serviceHubtoFoodAPI() { staffRequestHubController.serviceHubtoFoodAPI(); }
 
     @FXML
-    public void serviceHubtoRequest(ActionEvent event) {
-        staffRequestHubController.serviceHubtoRequest();
-    }
+    public void serviceHubtoRequest() { staffRequestHubController.serviceHubtoRequest(); }
 
     ////////////////
     /* Admin Logs */
@@ -778,13 +769,17 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
-
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.toStaffRequests(this, loginPane);
-            staffRequestController.initializeScene(userManager.getUserByName(staffLoginText.getText()));
+            sceneSwitcher.toStaffRequestHub(this, mainPane);
+            staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
     }
 
+    @FXML
+    private void serviceHubToRequest() throws IOException {
+        sceneSwitcher.toStaffRequests(this, requestPane);
+        staffRequestController.initializeScene(userManager.getUserByName(staffRequestHubController.getUserName()));
+    }
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
