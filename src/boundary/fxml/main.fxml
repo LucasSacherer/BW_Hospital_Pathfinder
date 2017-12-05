@@ -112,15 +112,14 @@
                <children>
                   <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                      <children>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorUp" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
                            <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/Icons/UpArrow1.png" />
+                                    <Image url="@../images/Icons/ArrowUp.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
-                        </JFXButton>
+                           </graphic></JFXButton>
                         <VBox alignment="TOP_CENTER" maxHeight="85.0" maxWidth="59.0" minHeight="70.0" prefHeight="82.0" prefWidth="59.0" style="-fx-background-image: url('../images/icons/floor-current.png');">
                            <children>
                               <Label fx:id="currentFloorNum" contentDisplay="CENTER">
@@ -130,7 +129,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;" text=" ">
                            <graphic>
                               <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
