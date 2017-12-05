@@ -134,16 +134,16 @@
                   <RowConstraints maxHeight="194.0" minHeight="18.0" prefHeight="115.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="2" GridPane.rowSpan="3">
+                  <ScrollPane hbarPolicy="NEVER" hvalue="0.57" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="2" GridPane.rowSpan="3">
                      <content>
                         <Pane fx:id="pathfindingMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                            <children>
-                              <ImageView fx:id="pathfindingImageView" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="pathfindingImageView" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/other%20images/BWH.png" />
                                  </image>
                               </ImageView>
-                              <Canvas fx:id="pathfindingCanvas" height="3400.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#clickOnMap" width="5000.0" />
+                              <Canvas fx:id="pathfindingCanvas" height="3400.0" nodeOrientation="INHERIT" onMouseClicked="#clickOnMap" width="5000.0" />
                            </children>
                         </Pane>
                      </content>
