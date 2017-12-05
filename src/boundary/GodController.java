@@ -9,6 +9,7 @@ import Editor.NodeEditController;
 import Entity.AdminLog;
 import Entity.ErrorController;
 import Entity.Node;
+import Entity.User;
 import MapNavigation.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
@@ -731,7 +732,11 @@ public class GodController {
     public void serviceHubtoFoodAPI() { staffRequestHubController.serviceHubtoFoodAPI(); }
 
     @FXML
-    public void serviceHubtoRequest() throws IOException { sceneSwitcher.toStaffRequests(this, requestHubPane); }
+    public void serviceHubtoRequest() throws IOException {
+        User u = staffRequestHubController.getUser();
+        sceneSwitcher.toStaffRequests(this, requestHubPane);
+        staffRequestController.initializeScene(userManager.getUser(u.getUserID()));
+    }
 
     @FXML
     public void serviceHubToMain() throws IOException { sceneSwitcher.toMain(this, requestHubPane); }
@@ -782,8 +787,10 @@ public class GodController {
     @FXML
     private void serviceHubToRequest() throws IOException {
         sceneSwitcher.toStaffRequests(this, requestPane);
-        staffRequestController.initializeScene(userManager.getUserByName(staffRequestHubController.getUserName()));
+        System.out.println(staffRequestHubController.getUser());
+        staffRequestController.initializeScene(userManager.getUser(staffRequestHubController.getUser().getUserID()));
     }
+
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {

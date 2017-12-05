@@ -38,13 +38,12 @@ public class StaffRequestHubController {
 
     public void serviceHubtoFoodAPI() { }
 
-    public String getUserName() {
-        return user.username;
-    }
-
     public void setUser(User user) {
         this.user = user;
+        System.out.println(user);
     }
+
+    public User getUser() { return user; }
 
     private class IWraper implements IInterpretNode{
         private Node node;
