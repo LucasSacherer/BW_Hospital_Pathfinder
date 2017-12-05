@@ -154,7 +154,7 @@
             </VBox>
             <VBox prefHeight="109.0" prefWidth="117.0" spacing="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <children>
-                  <JFXButton alignment="TOP_LEFT" onAction="#directoryMain" style="-fx-background-color: #CCCCCC;" text="Directory">
+                  <JFXButton alignment="TOP_LEFT" onAction="#openDirectory" style="-fx-background-color: #CCCCCC;" text="Directory">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

@@ -382,9 +382,6 @@ public class GodController {
     @FXML //opens up the info popup
     private void informationMain(){}//TODO
 
-    @FXML//opens up directory
-    private void directoryMain(){}//TODO
-
     @FXML
     private void clearOriginMain(){}//TODO
 
