@@ -119,7 +119,7 @@
                   <VBox alignment="CENTER" maxHeight="300.0" GridPane.rowIndex="2" />
                   <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="400.0" prefWidth="103.0">
+                        <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="400.0" prefWidth="103.0" spacing="20.0">
                            <children>
                               <VBox alignment="TOP_CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                  <children>
@@ -135,8 +135,7 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorDownPath" style="-fx-background-radius: 100;" />
-                              <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" onMousePressed="#pathfindingZoom" onMouseReleased="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
+                              <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" onMouseDragged="#pathfindingZoom" onMousePressed="#pathfindingZoom" onMouseReleased="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
