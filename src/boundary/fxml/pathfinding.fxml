@@ -29,8 +29,8 @@
                <children>
                   <GridPane prefHeight="700.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                        <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="146.0" vgrow="SOMETIMES" />
@@ -85,17 +85,16 @@
             </AnchorPane>
             <GridPane alignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0568542480469" minWidth="10.0" prefWidth="257.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="400.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="133.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1903.2227506637573" minWidth="10.0" prefWidth="200.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="400.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="18.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="600.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="18.0" prefHeight="200.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="3" GridPane.rowSpan="3">
+                  <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="2" GridPane.rowSpan="3">
                      <content>
                         <Pane fx:id="pathfindingMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                            <children>
@@ -117,20 +116,12 @@
                         </ContextMenu>
                      </contextMenu>
                   </ScrollPane>
-                  <VBox alignment="CENTER" maxHeight="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <VBox alignment="CENTER" maxHeight="398.0" prefHeight="398.0" prefWidth="133.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER" maxHeight="300.0" GridPane.rowIndex="2" />
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <VBox alignment="CENTER" fillWidth="false" prefHeight="340.0" prefWidth="103.0">
+                        <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="400.0" prefWidth="103.0">
                            <children>
-                              <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorUpPath" prefHeight="76.0" prefWidth="82.0" style="-fx-background-radius: 100;">
-                                 <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/up_arrow.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
+                              <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorUpPath" prefHeight="76.0" prefWidth="82.0" style="-fx-background-radius: 100;" />
                               <VBox alignment="TOP_CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
                                  <children>
                                     <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor" textAlignment="CENTER" wrapText="true">
@@ -145,23 +136,15 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorDownPath" style="-fx-background-radius: 100;">
-                                 <graphic>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/down_arrow.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
+                              <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#floorDownPath" style="-fx-background-radius: 100;" />
+                              <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <JFXSlider fx:id="pathfindingZoomSlider" onMouseClicked="#pathfindingZoom" orientation="VERTICAL" prefHeight="623.0" prefWidth="21.0" />
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
             </GridPane>
          </children>

@@ -63,7 +63,8 @@ public abstract class AbstractMapController {
     }
 
     public void initializeScene() {
-        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
+        imageView.setImage(
+                mapNavigationFacade.getFloorMap("G"));
         this.gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
         System.out.println(mapNavigationFacade.getDefaultNode());
@@ -314,8 +315,6 @@ public abstract class AbstractMapController {
     }
 
     public void zoom() {
-        System.out.println(zoomSlider.getValue()/100);
-        System.out.println(mapPane.getScaleX());
         double sliderLevel = zoomSlider.getValue() / 100;
         double zoomLevel = sliderLevel + 1;
         mapPane.setScaleX(zoomLevel);
