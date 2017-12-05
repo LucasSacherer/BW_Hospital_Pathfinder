@@ -273,7 +273,7 @@
                                     </JFXButton>
                                     <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
                                        <graphic>
-                                          <Label fx:id="currentFloorNumPathfinding" contentDisplay="CENTER" textFill="#cccccc">
+                                          <Label fx:id="currentFloorNumRequest" contentDisplay="CENTER" textFill="#cccccc">
                                              <font>
                                                 <Font name="System Bold" size="32.0" />
                                              </font>
