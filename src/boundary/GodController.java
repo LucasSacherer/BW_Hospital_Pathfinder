@@ -232,6 +232,14 @@ public class GodController {
     @FXML
     private JFXSlider zoomSlider;
 
+    /* Staff Request Hub */
+
+
+    @FXML
+    private JFXButton foodButton, interpreterButton, cleanupButton, APITestButton, serviceHubBack;
+
+
+
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
 
@@ -246,7 +254,7 @@ public class GodController {
     RequestReportController requestReportController;
     DirectorySceneController directorySceneController;
     PathfindingSceneController pathfindingSceneController;
-
+    StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
     @FXML
@@ -262,6 +270,7 @@ public class GodController {
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
         initializePathfindingScene();
+        initializeStaffRequestHubScene();
         firstTime = false;
     }
 
@@ -316,6 +325,8 @@ public class GodController {
             genericRequestController,employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
             employeeTypeAE, adminToggle);
     }
+
+    private void initializeStaffRequestHubScene(){}
 
 
     /** Organize Functions by Scene **/
@@ -663,6 +674,31 @@ public class GodController {
     @FXML
     private void exportEdges() { adminMapController.exportEdges(); }
 
+
+    /////////////////////////
+    /* Service Request Hub */
+    /////////////////////////
+
+    @FXML
+    public void serviceHubToMain(ActionEvent event) {
+        staffRequestHubController.serviceHubToMain();
+
+    }
+
+    @FXML
+    public void serviceHubtoAPITest(ActionEvent event) {
+        staffRequestHubController.serviceHubtoAPITest();
+    }
+
+    @FXML
+    public void serviceHubtoFoodAPI(ActionEvent event) {
+        staffRequestHubController.serviceHubtoFoodAPI();
+    }
+
+    @FXML
+    public void serviceHubtoRequest(ActionEvent event) {
+        staffRequestHubController.serviceHubtoRequest();
+    }
 
     ////////////////
     /* Admin Logs */
