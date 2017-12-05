@@ -326,8 +326,7 @@ public class GodController {
             employeeTypeAE, adminToggle);
     }
 
-    private void initializeStaffRequestHubScene(){}
-
+    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(); }
 
     /** Organize Functions by Scene **/
 
@@ -722,16 +721,17 @@ public class GodController {
     /////////////////////////
 
     @FXML
-    public void serviceHubToMain() { staffRequestHubController.serviceHubToMain(); }
-
-    @FXML
     public void serviceHubtoAPITest() { staffRequestHubController.serviceHubtoAPITest(); }
 
     @FXML
     public void serviceHubtoFoodAPI() { staffRequestHubController.serviceHubtoFoodAPI(); }
 
     @FXML
-    public void serviceHubtoRequest() { staffRequestHubController.serviceHubtoRequest(); }
+    public void serviceHubtoRequest() throws IOException { sceneSwitcher.toStaffRequests(this, requestHubPane); }
+
+    @FXML
+    public void serviceHubToMain() throws IOException { sceneSwitcher.toMain(this, requestHubPane); }
+
 
     ////////////////
     /* Admin Logs */
@@ -770,7 +770,7 @@ public class GodController {
     @FXML
     private void goToRequests() throws IOException {
        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.toStaffRequestHub(this, mainPane);
+            sceneSwitcher.toStaffRequestHub(this, loginPane);
             staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
     }
