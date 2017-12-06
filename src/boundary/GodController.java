@@ -470,12 +470,6 @@ public class GodController {
     private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
 
     @FXML
-    private void zoomInRequestMap() { staffRequestController.zoomInMap(); }
-
-    @FXML
-    private void zoomOutRequestMap() { staffRequestController.zoomOutMap(); }
-
-    @FXML
     private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
 
     @FXML
