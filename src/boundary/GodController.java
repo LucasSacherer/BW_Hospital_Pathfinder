@@ -66,6 +66,7 @@ public class GodController {
     final private RequestInterpreterController requestInterpreterController = new RequestInterpreterController(interpreterManager);
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
+    final private SearchEngine searchEngine = new SearchEngine(directoryController);
 
     /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(
@@ -290,7 +291,7 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane);
+                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine);
         mainSceneController.initializeScene();
         directorySceneController.setMainSceneController(mainSceneController);
     }

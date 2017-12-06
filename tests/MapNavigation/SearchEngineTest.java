@@ -16,9 +16,10 @@ public class SearchEngineTest {
     public void testCafe(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
+        DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
-        SearchEngine se = new SearchEngine(manager);
+        SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("Cafe"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
@@ -34,8 +35,9 @@ public class SearchEngineTest {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
         databaseGargoyle.attachManager(manager);
+        DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.notifyManagers();
-        SearchEngine se = new SearchEngine(manager);
+        SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
@@ -51,8 +53,9 @@ public class SearchEngineTest {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
         databaseGargoyle.attachManager(manager);
+        DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.notifyManagers();
-        SearchEngine se = new SearchEngine(manager);
+        SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
