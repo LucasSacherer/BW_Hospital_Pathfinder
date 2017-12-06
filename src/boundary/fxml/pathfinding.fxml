@@ -6,9 +6,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -147,14 +145,6 @@
                            </children>
                         </Pane>
                      </content>
-                     <contextMenu>
-                        <ContextMenu>
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
-                              <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
-                          </items>
-                        </ContextMenu>
-                     </contextMenu>
                   </ScrollPane>
                   <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
