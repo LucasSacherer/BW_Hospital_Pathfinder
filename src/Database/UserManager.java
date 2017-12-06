@@ -1,6 +1,7 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.ErrorController;
 import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class UserManager implements EntityManager {
     private ArrayList<User> users;
     private DatabaseGargoyle databaseGargoyle;
+    private ErrorController errorController = new ErrorController();
 
     public UserManager(DatabaseGargoyle dbG) {
         this.databaseGargoyle = dbG;
@@ -106,6 +108,10 @@ public class UserManager implements EntityManager {
      * @param newUser
      */
     public void addUser(User newUser){
+        if(newUser.department == null){
+            errorController.showError("Please select a department for the employeee.");
+            return;
+        }
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO KIOSKUSER VALUES ('"+ newUser.getUserID()+"','"+newUser.getUsername()+"','"+
                 newUser.getPassword()+"','"+newUser.getAdminFlag().toString()+"','"+newUser.getDepartment()+"')");
@@ -117,6 +123,10 @@ public class UserManager implements EntityManager {
      * @param oldUser
      */
     public void removeUser(User oldUser){
+        if(oldUser == null){
+            errorController.showError("Please select a valid employee to delete.");
+            return;
+        }
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
