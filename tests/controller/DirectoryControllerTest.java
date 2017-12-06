@@ -1,5 +1,6 @@
 package controller;
 
+import Database.AdminLogManager;
 import Database.SettingsManager;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
@@ -18,7 +19,8 @@ public class DirectoryControllerTest {
     @Test
     public void testFormatNodeList() throws Exception {
         List<Node> nodes = new ArrayList<>();
-        NodeManager nm = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nm = new NodeManager(databaseGargoyle, adminLogManager);
         DirectoryController dc = new DirectoryController(nm);
 
         Node n1 = new Node("elev1", 1, 1, "1", "1", "ELEV", "1", "1");

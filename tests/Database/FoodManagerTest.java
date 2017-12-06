@@ -16,12 +16,14 @@ public class FoodManagerTest {
     @Test
     public void testUpdateRequests() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nm = new NodeManager(databaseGargoyle);
-        UserManager us = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nm = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager us = new UserManager(databaseGargoyle, adminLogManager);
         FoodManager foodManager = new FoodManager(databaseGargoyle, nm,us);
         databaseGargoyle.attachManager(nm);
         databaseGargoyle.attachManager(us);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         //Check if the user is there before update
@@ -42,12 +44,14 @@ public class FoodManagerTest {
     @Test
     public void testUpdateRequest() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nm = new NodeManager(databaseGargoyle);
-        UserManager um = new UserManager(databaseGargoyle);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nm = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager us = new UserManager(databaseGargoyle, adminLogManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,us);
         databaseGargoyle.attachManager(nm);
-        databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(us);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Timestamp time = Timestamp.valueOf("1960-01-01 23:03:20.000000000");
@@ -60,9 +64,9 @@ public class FoodManagerTest {
         newOrder.add("turkey");
 
         FoodRequest originalReq = new FoodRequest("food1", time.toLocalDateTime(),time.toLocalDateTime(),
-                "type1", "description1", nm.getNode("GRETL03501"), um.getUser("admin1"), originalOrder);
+                "type1", "description1", nm.getNode("GRETL03501"), us.getUser("admin1"), originalOrder);
         FoodRequest newReq = new FoodRequest("food1", time.toLocalDateTime(),time.toLocalDateTime(),
-                "type2", "description2", nm.getNode("WELEV00ML2"), um.getUser("admin2"), newOrder);
+                "type2", "description2", nm.getNode("WELEV00ML2"), us.getUser("admin2"), newOrder);
         foodManager.updateRequest(newReq);
         FoodRequest testReq = foodManager.getFoodRequest("food1");
         assertEquals("type2", testReq.getType());
@@ -84,12 +88,14 @@ public class FoodManagerTest {
     @Test
     public void testCompleteRequest() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nm = new NodeManager(databaseGargoyle);
-        UserManager um = new UserManager(databaseGargoyle);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nm = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager us = new UserManager(databaseGargoyle, adminLogManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,us);
         databaseGargoyle.attachManager(nm);
-        databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(us);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         ArrayList<String> originalOrder = new ArrayList<>();
@@ -105,25 +111,27 @@ public class FoodManagerTest {
 
         //Complete the request, and then check that it has been completed and removed from the list
         FoodRequest completedRequest = new FoodRequest("food1", time.toLocalDateTime(),time.toLocalDateTime(),
-                "type1", "description1", nm.getNode("GRETL03501"), um.getUser("admin1"), originalOrder);
+                "type1", "description1", nm.getNode("GRETL03501"), us.getUser("admin1"), originalOrder);
         foodManager.completeRequest(completedRequest);
         assertEquals(null, foodManager.getFoodRequest("food1"));
 
         //Revert changes
         FoodRequest original = new FoodRequest("food1", time.toLocalDateTime(),time.toLocalDateTime(),
-                "type1", "description1", nm.getNode("GRETL03501"), um.getUser("admin1"), originalOrder);
+                "type1", "description1", nm.getNode("GRETL03501"), us.getUser("admin1"), originalOrder);
         foodManager.updateRequest(original);
     }
 
     @Test
     public void testAddDeleteRequest() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nm = new NodeManager(databaseGargoyle);
-        UserManager um = new UserManager(databaseGargoyle);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nm = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager us = new UserManager(databaseGargoyle, adminLogManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,us);
         databaseGargoyle.attachManager(nm);
-        databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(us);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Timestamp time = Timestamp.valueOf(LocalDateTime.now());
@@ -131,7 +139,7 @@ public class FoodManagerTest {
         order.add("food1");
         order.add("food2");
         FoodRequest request = new FoodRequest("name", time.toLocalDateTime(),
-                null, "type", "description", nm.getNode("IHALL01303"), um.getUser("admin1"), order);
+                null, "type", "description", nm.getNode("IHALL01303"), us.getUser("admin1"), order);
         foodManager.addRequest(request);
         FoodRequest testReq = foodManager.getFoodRequest("name");
         assertEquals("type", testReq.getType());
@@ -149,12 +157,14 @@ public class FoodManagerTest {
     @Test
     public void testGetCompleted() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nm = new NodeManager(databaseGargoyle);
-        UserManager um = new UserManager(databaseGargoyle);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,um);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nm = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager us = new UserManager(databaseGargoyle, adminLogManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nm,us);
         databaseGargoyle.attachManager(nm);
-        databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(us);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         ArrayList<FoodRequest> completed = foodManager.getCompleted();
@@ -165,8 +175,9 @@ public class FoodManagerTest {
     public void testGetRequestsBy() {
         //Run testCompleteRequest first!
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle,adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         FoodManager fManager = new FoodManager(databaseGargoyle, nodeManager,userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);

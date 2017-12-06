@@ -2,6 +2,7 @@ package DatabaseSetup;
 
 import Database.*;
 import Entity.AdminLog;
+import Entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class DatabaseGargoyle {
     private Connection connection;
     private Statement statement;
     private ArrayList<EntityManager> managers;
+    private User currentUser = new User("Unknown User", "Unknown User", "Unknown User",false, "Unknown Department");
 
     public DatabaseGargoyle() {
         managers = new ArrayList<>();
@@ -124,4 +126,13 @@ public class DatabaseGargoyle {
         return connection;
     }
     public ArrayList<EntityManager> getManagers() {return managers; }
+
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 }

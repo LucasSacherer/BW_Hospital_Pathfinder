@@ -1,5 +1,6 @@
 package Pathfinding;
 
+import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Database.PathfindingLogManager;
@@ -17,8 +18,9 @@ public class PathFindingFacadeTest {
     @Test
     public void testFacade() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -35,8 +37,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesSameNode() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -53,8 +56,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesAcrossFloor1() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -76,8 +80,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesAcrossFloor2() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -99,8 +104,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesBacktoBack() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -132,8 +138,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesbetweenElevators12() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -155,8 +162,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesbetweenFloors12() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -179,8 +187,9 @@ public class PathFindingFacadeTest {
     //tests that the bumps are gone and it really does take the most direct path
     public void realNodesFloors2() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -210,8 +219,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesbetweenFloors13() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -238,8 +248,9 @@ public class PathFindingFacadeTest {
     @Test
     public void realNodesAcrossHospital() throws Exception{
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM,adminLogManager);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -255,8 +266,9 @@ public class PathFindingFacadeTest {
     @Test
     public void addToPathfindingLog(){
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
