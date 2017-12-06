@@ -129,7 +129,7 @@
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
                                           </JFXButton>
-                                          <JFXButton fx:id="adminLogin" defaultButton="true" onAction="#goToAdminHub" prefHeight="31.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                          <JFXButton fx:id="adminLogin" onAction="#goToAdminHub" prefHeight="31.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
