@@ -1,8 +1,12 @@
 package Pathfinding;
 
+import Database.SettingsManager;
 import Entity.ErrorController;
 import Entity.Node;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,12 +17,23 @@ public class TextualDirections {
     private Node previousNode;
     private Node currentNode;
     private Node nextNode;
-    private int leftLow = 220;
-    private int leftHigh = 359;
-    private int rightLow = 0;
-    private int rightHigh = 140;
+
+    private int sRightLow = 220;
+    private int rightLow = 250;
+    private int rightHigh = 290;
+    private int hRightHigh = 359;
+    private int sLeftLow = 5;
+    private int leftLow = 70;
+    private int leftHigh = 110;
+    private int hLeftHigh = 140;
+
+    private String distance;
+    private int distScale = 1;
+    private double pix2ft;
 
     public TextualDirections(){
+        SettingsManager settingsManager = SettingsManager.getInstance();
+        pix2ft = Double.parseDouble(settingsManager.getSetting("Distance Scale"));
     }
 
     //determines angle person is turning at currentNode by comparing angle of edges
@@ -44,7 +59,13 @@ public class TextualDirections {
             return 180;
         }
 
-        return Math.toDegrees(angleDiff);
+        double degrees = Math.toDegrees(angleDiff);
+        if(degrees < 0){
+            return (((degrees * -1) + 180.0) % 360);
+        }
+        else{
+            return degrees;
+        }
     }
 
     //getter for testing
@@ -56,23 +77,65 @@ public class TextualDirections {
     //i.e. "left", "right", "straight"
     private String findTurn(){
         double currentAngle = findAngle(previousNode, currentNode, nextNode);
-        if (currentAngle >= leftLow && currentAngle <= leftHigh){
-            return "Turn left and continue";
+
+        if (currentAngle > rightHigh && currentAngle <= hRightHigh){
+            return "Take a hard right and continue";
+
         }
         if (currentAngle >= rightLow && currentAngle <= rightHigh){
             return "Turn right and continue";
+
+        }
+        if (currentAngle >= sRightLow && currentAngle < rightLow){
+            return "Take a slight right and continue";
+
+        }
+        if (currentAngle > leftHigh && currentAngle <= hLeftHigh){
+            return "Take a hard left and continue";
+
+        }
+        if (currentAngle >= leftLow && currentAngle <= leftHigh){
+            return "Turn left and continue";
+
+        }
+        if (currentAngle >= sLeftLow && currentAngle < leftLow){
+            return "Take a slight left and continue";
+
         }
         return "Continue";
     }
 
-    //finds and returns the Node's name to be used in directions
+    //finds and returns the Node's ID to be used in directions
     private String nameNode(Node input){
         return input.getNodeID();
     }
 
+    //finds and returns the Node's short name to be used in directions, or "the Hallway" if it's a hallway
+    private String sNameNode(Node input) {
+
+        if(!input.getNodeType().equals("HALL")){
+            return input.getShortName();
+        }
+        else{
+            return "the hallway";
+        }
+
+        //return input.getNodeID();
+    }
+
+    //for default zoom on main screen, 196 pixels/units ~ 344 feet -> 1.76 feet per pixel
+    //currently, it doesn't depend on zoom
+    //get the 'distance' to have them walk by calculating edge weight and converting from pixels to feet, will be scaled by a settings manager entry in the future
+    private String distNode(Node start, Node end){
+        return Integer.toString((int)(Math.sqrt (((start.getXcoord() - end.getXcoord()) * (start.getXcoord() - end.getXcoord()) +
+                (start.getYcoord() - end.getYcoord()) *  (start.getYcoord() - end.getYcoord()))) * pix2ft * distScale));
+    }
+
     //method that does the work creating the textual directions
-    private List<String> makeTextDir(List<Node> path){
+    public List<String> makeTextDir(List<Node> path){
         List<String> writtenDirections = new LinkedList();
+
+        Collections.reverse(path);
 
         //takes care of size errors
         if (path.size() == 0) {
@@ -89,12 +152,28 @@ public class TextualDirections {
         Node startNode = path.get(0);
         Node destNode = path.get(path.size() - 1);
 
+        //make readable names for start and dest node. If they're hallways, just say hallway. Otherwise, use short name.
+        //if no short name, just use NodeID
+        String startName = sNameNode(startNode);
+        if(startName.equals("")){
+            startName = startNode.getNodeID();
+        }
+        if(startNode.getNodeType().equals("HALL")){
+            startName = startName + " in " + startNode.getBuilding();
+        }
+        String destName = sNameNode(destNode);
+        if(destName.equals("")){
+            destName = destNode.getNodeID();
+        }
+        if(destNode.getNodeType().equals("HALL")){
+            destName = destName + " in " + destNode.getBuilding();
+        }
         //inserts directions overview
-        writtenDirections.add("Directions from " + nameNode(startNode) + " to "
-                + nameNode(destNode) + ".");
+        writtenDirections.add("Directions from " + startName + " to "
+                + destName + ".");
 
         //adds first step
-        writtenDirections.add("1. Proceed to " + nameNode(path.get(1)));
+        writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
 
         //accounts for the case where path size is 2
         if (path.size() == 2){
@@ -107,28 +186,43 @@ public class TextualDirections {
             currentNode = path.get(i);
             nextNode = path.get(i+1);
 
+            distance = distNode(currentNode, nextNode);
+
             //deviates directions text if you're taking the stairs or elevator to a different floor
             if(currentNode.getNodeType().equals("ELEV") && !currentNode.getFloor().equals(nextNode.getFloor())){
-                writtenDirections.add(Integer.toString(i+1) + ". Take " + nameNode(currentNode) +
+                writtenDirections.add(Integer.toString(i+1) + ". Take " + sNameNode(currentNode) +
                         " to floor " + nextNode.getFloor() + ".");
             } else if(currentNode.getNodeType().equals("STAI") && !currentNode.getFloor().equals(nextNode.getFloor())){
-                writtenDirections.add(Integer.toString(i+1) + ". Take " + nameNode(currentNode) +
+                writtenDirections.add(Integer.toString(i+1) + ". Take " + sNameNode(currentNode) +
                         " to floor " + nextNode.getFloor() + ".");
             //deviates directions text if you're going to another building
             } else if (!currentNode.getBuilding().equals(nextNode.getBuilding())){
                 writtenDirections.add(Integer.toString(i+1) + ". Exit " + currentNode.getBuilding() + " through " +
-                        nameNode(currentNode) + " and enter " + nextNode.getBuilding() + " through "
-                        + nameNode(nextNode) + ".");
+                        sNameNode(currentNode) + " and enter " + nextNode.getBuilding() + " through "
+                        + sNameNode(nextNode) + ".");
             //default directions text
-            } else{
-                writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " until you reach " +
-                        nameNode(nextNode) + ".");
+            } else if (currentNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("HALL")){
+                writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " down the hall for " + distance + " feet.");
+            }else{
+                writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " for " + distance + " feet until you reach " +
+                        sNameNode(nextNode) + ".");
             }
         }
-        writtenDirections.add("You have arrived! Thank you for visiting Brigham and Women's Hospital.");
+        writtenDirections.add("You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.");
+
+        Collections.reverse(path);
         return writtenDirections;
     }
 
     //getter for textual directions
     protected List<String> getDir(List<Node> path){return makeTextDir(path);}
+
+    //get an observable list
+    public ObservableList<String> getTextDirections(List<Node> path) {
+        ObservableList textualDirections = FXCollections.observableArrayList();
+        List<String> thePath = makeTextDir(path);
+        textualDirections.addAll(thePath);
+        return textualDirections;
+    }
+
 }

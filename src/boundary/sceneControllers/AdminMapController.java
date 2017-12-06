@@ -9,8 +9,10 @@ import Entity.Edge;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.GodController;
 import boundary.sceneControllers.mapEditing.*;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -38,6 +40,7 @@ public class AdminMapController extends AbstractMapController{
     private EdgeAdder edgeAdder;
     private EdgeRemover edgeRemover;
     private KioskEditor kioskEditor;
+    private Straightener straightener;
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
@@ -45,13 +48,13 @@ public class AdminMapController extends AbstractMapController{
     private ObservableList<String> nodeTypeList, buildingList; //TODO remove
     final private FileSelector fileSelector = new FileSelector();
     CSVController csvController = new CSVController(databaseGargoyle);
-    private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
+    private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab;
 
 
-    public AdminMapController(DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
+    public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
                               Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab) {
-        super(i, mapPane, canvas, m, p, currentFloorNum);
+                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, Tab straightenTab, JFXSlider zoomSlider) {
+        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.databaseGargoyle = dbG;
         this.edgeEditController = e;
         this.nodeEditController = n;
@@ -64,6 +67,7 @@ public class AdminMapController extends AbstractMapController{
         this.kioskTab = kioskTab;
         this.edgesTab = edgesTab;
         this.nodesTab = nodesTab;
+        this.straightenTab = straightenTab;
         this.edgeManager = em;
     }
 
@@ -107,25 +111,27 @@ public class AdminMapController extends AbstractMapController{
     private void drawKiosk() {
         Node k = mapNavigationFacade.getDefaultNode();
         if (k == null) return;
+        if (k.getFloor().equals(currentFloor)) {
 
-        gc.setFill(Color.PURPLE);
-        gc.fillOval(k.getXcoord() - 18, k.getYcoord() - 18, 36, 36);
+            gc.setFill(Color.PURPLE);
+            gc.fillOval(k.getXcoord() - 18, k.getYcoord() - 18, 36, 36);
 
-        gc.setFill(Color.GOLD);
-        gc.fillOval(k.getXcoord() - 15, k.getYcoord() - 15, 30, 30);
+            gc.setFill(Color.GOLD);
+            gc.fillOval(k.getXcoord() - 15, k.getYcoord() - 15, 30, 30);
 
 
-        gc.setFill(Color.RED);
-        gc.fillOval(k.getXcoord() - 12, k.getYcoord() - 12, 24, 24);
+            gc.setFill(Color.RED);
+            gc.fillOval(k.getXcoord() - 12, k.getYcoord() - 12, 24, 24);
 
-        gc.setFill(Color.YELLOW);
-        gc.fillOval(k.getXcoord() - 10, k.getYcoord() - 10, 20, 20);
+            gc.setFill(Color.YELLOW);
+            gc.fillOval(k.getXcoord() - 10, k.getYcoord() - 10, 20, 20);
 
-        gc.setFill(Color.BLUE);
-        gc.fillOval(k.getXcoord() - 8, k.getYcoord() - 8, 16, 16);
+            gc.setFill(Color.BLUE);
+            gc.fillOval(k.getXcoord() - 8, k.getYcoord() - 8, 16, 16);
 
-        gc.setFill(Color.GREEN);
-        gc.fillOval(k.getXcoord() - 4, k.getYcoord() - 4, 8, 8);
+            gc.setFill(Color.GREEN);
+            gc.fillOval(k.getXcoord() - 4, k.getYcoord() - 4, 8, 8);
+        }
     }
 
     private void drawAllNodes() {
@@ -164,6 +170,7 @@ public class AdminMapController extends AbstractMapController{
             snapToNode(m);
             if (addEdge.isSelected()) edgeAdder.clickOnMap(currentLoc);
             else if (removeEdge.isSelected()) edgeRemover.clickOnMap(currentLoc);
+            else if (straightenTab.isSelected()) straightener.clickOnMap(currentLoc);
         }
         else if (kioskTab.isSelected()) {
             snapToNode(m);
@@ -276,6 +283,14 @@ public class AdminMapController extends AbstractMapController{
             e.printStackTrace();
         }
     }
+
+    public void initializeStraightener(JFXTextField edgeXStartStraighten, JFXTextField edgeYStartStraighten, JFXTextField edgeXEndStraighten, JFXTextField edgeYEndStraighten) {
+        straightener = new Straightener(nodeEditController, edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten, gc, this);
+    }
+
+    public void straighten() { straightener.straighten(); }
+
+    public void resetStraightener() { straightener.reset(); }
 }
 
 

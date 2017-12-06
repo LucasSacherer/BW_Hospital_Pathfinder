@@ -1,52 +1,37 @@
 package Database;
 
-import DatabaseSetup.DatabaseGargoyle;
-import Editor.NodeEditController;
-import Entity.Node;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public class SettingsManager {
 
     private HashMap<String, String> settings;
-    private DatabaseGargoyle databaseGargoyle;
 
 
-    public SettingsManager(DatabaseGargoyle dbG){
-        databaseGargoyle = dbG;
+    private SettingsManager(){
         settings = new HashMap<>();
+
+        // ***** Default Settings ***** //
+        settings.put("Default Node","GHALL03802");
+        settings.put("Distance Scale", "1.76");
     }
 
 
 
     public void setSetting(String setting, String nodeID){
-        databaseGargoyle.createConnection();
-        databaseGargoyle.executeUpdateOnDatabase("UPDATE SETTINGS SET STRING2 = '"+nodeID+"' WHERE STRING1 = '"+
-                setting+"'");
-        databaseGargoyle.destroyConnection();
-
-        updateSettings();
-    }
-
-    public void updateSettings(){
-        settings.clear();
-
-        databaseGargoyle.createConnection();
-        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM SETTINGS");
-        try {
-            while(rs.next()){
-                settings.put(rs.getString("STRING1"), rs.getString("STRING2"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Failed to update the settings manager!");
-            e.printStackTrace();
+        if (settings.keySet().contains(setting)){
+            settings.put(setting,nodeID);
         }
-        databaseGargoyle.destroyConnection();
     }
 
     public String getSetting(String string){
         return settings.get(string);
+    }
+
+    private static class SingletonHelper{
+        private static final SettingsManager INSTANCE = new SettingsManager();
+    }
+
+    public static SettingsManager getInstance(){
+        return SingletonHelper.INSTANCE;
     }
 }

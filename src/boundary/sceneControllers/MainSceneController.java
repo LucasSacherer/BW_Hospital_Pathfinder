@@ -3,62 +3,48 @@ package boundary.sceneControllers;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.AutoCompleteTextField;
+import boundary.GodController;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.WindowEvent;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
+    private DirectorySceneController directorySceneController;
     private JFXTextField originField, destinationField;
-    private ListView elevatorDir, restroomDir, stairsDir, deptDir, labDir, infoDeskDir, conferenceDir, exitDir, shopsDir, nonMedical;
     private ErrorController errorController = new ErrorController();
+    private AutoCompleteTextField searchBar;
 
-    public MainSceneController(ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
-                               Label currentFloorNum, ListView elevatorDir, ListView restroomDir, ListView stairsDir,
-                               ListView deptDir, ListView labDir, ListView infoDeskDir, ListView conferenceDir,
-                               ListView exitDir, ListView shopsDir, ListView nonMedical, JFXTextField originField,
-                               JFXTextField destinationField) {
-        super(i, mapPane, canvas, m, p, currentFloorNum);
-        // todo set origin:  this.origin = mapNavigationFacade.getDefaultNode(); //todo change the origin when the floor changes
-        this.elevatorDir = elevatorDir;
-        this.restroomDir = restroomDir;
-        this.stairsDir = stairsDir;
-        this.labDir = labDir;
-        this.deptDir = deptDir;
-        this.infoDeskDir = infoDeskDir;
-        this.conferenceDir = conferenceDir;
-        this.exitDir = exitDir;
-        this.shopsDir = shopsDir;
-        this.nonMedical = nonMedical;
+    public MainSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
+                               Label currentFloorNum, JFXTextField originField, JFXTextField destinationField,
+                               JFXSlider zoomSlider, DirectorySceneController directorySceneController, AnchorPane searchPane) {
+        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.originField = originField;
         this.destinationField = destinationField;
-        initializeDirectory();
-        initializeDirectoryListeners();
+        this.directorySceneController = directorySceneController;
+        searchBar = new AutoCompleteTextField();
+        searchPane.getChildren().add(searchBar);
+        initializeSearchBar();
     }
 
-    private void initializeDirectory() {
-        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
-        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
-        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
-        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
-        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
-        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
-        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
-        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
-        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
-        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
+    private void initializeSearchBar() {
+//        this.searchBar.getEntries().addAll();
     }
+
     private boolean checkNullLocations(){
         boolean success = true;
         try {
@@ -70,44 +56,6 @@ public class MainSceneController extends AbstractMapController{
             success = false;
         }
         return success;
-    }
-    private void initializeDirectoryListeners(){
-        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) elevatorDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) restroomDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) stairsDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) labDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) deptDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) infoDeskDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) conferenceDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) exitDir.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
-        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            currentLoc = (Node) nonMedical.getItems().get(newValue.intValue());
-            refreshCanvas();
-        });
     }
 
     public void bathroomClicked() { findNearest(currentLoc, "REST"); }
@@ -122,7 +70,7 @@ public class MainSceneController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void navigateToHere() {
+    public void navigateToHere() throws IOException {
 //        boolean success = checkNullLocations();
 //        if(success) {
             setDestination();
@@ -148,7 +96,7 @@ public class MainSceneController extends AbstractMapController{
         destinationField.setText(destination.getNodeID());
     }
 
-    public void displayTextDir(){
+    public void displayTextDir() throws IOException {
         boolean success = checkNullLocations();
         if(success) {
             currentPath = pathFindingFacade.getPath(origin, destination);
@@ -166,5 +114,38 @@ public class MainSceneController extends AbstractMapController{
             Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
             directions.show();
         }
+    }
+
+    public void openDirectory(GodController godController) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
+        loader.setController(directorySceneController);
+        Parent root = loader.load();
+        Stage directoryStage = new Stage();
+        directoryStage.setTitle("B&W Directory");
+        directoryStage.setScene(new Scene(root, 900, 600));
+        directoryStage.show();
+    }
+
+    public void directoryNavigate() {
+        //TODO
+    }
+
+    public void navigate(Node origin, Node destination) throws IOException {
+        this.origin = origin;
+        this.destination = destination;
+        findPath();
+    }
+
+    @Override
+    public void findPath() throws IOException {
+        godController.mainToPathfinding();
+    }
+
+    public Node getOrigin() {
+        return origin;
+    }
+
+    public Node getDestination() {
+        return destination;
     }
 }
