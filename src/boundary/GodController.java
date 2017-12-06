@@ -24,6 +24,9 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -31,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -82,6 +86,10 @@ public class GodController {
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
+
+    @FXML
+    private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
+
     /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
@@ -89,21 +97,11 @@ public class GodController {
     @FXML
     private AnchorPane searchPane; // search bar
 
-    /* Map Panes */
-    @FXML
-    private Pane mapEditMapPane, mapPane, requestMapPane, pathfindingMapPane;
-
     @FXML
     private StackPane menuARStackPane;
 
     @FXML
-    private Canvas canvas, mapEditCanvas, requestCanvas, pathfindingCanvas;
-
-    @FXML
-    private JFXTextField originField, destinationField;
-
-    @FXML
-    private ImageView imageView, mapEditImageView, requestImageView, pathfindingImageView;
+    private Label originField, destinationField;
 
     /* Pathfinding Scene */
     @FXML
@@ -237,7 +235,7 @@ public class GodController {
     private JFXToggleButton adminToggle;
 
     @FXML
-    private JFXSlider zoomSlider;
+    private JFXSlider zoomSlider, requestZoomSlider;
 
     /* Staff Request Hub */
 
@@ -282,9 +280,8 @@ public class GodController {
     }
 
     private void initializePathfindingScene() {
-        pathfindingSceneController = new PathfindingSceneController(this, pathfindingImageView, pathfindingMapPane,
-                pathfindingCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
-                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider);
+        pathfindingSceneController = new PathfindingSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
+                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider, pathfindingScrollPane);
     }
 
     private void initializeDirectoryScene() {
@@ -292,24 +289,25 @@ public class GodController {
     }
 
     private void initializeMainScene() {
-        mainSceneController = new MainSceneController(this, imageView, mapPane, canvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController, searchPane);
+        mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane);
         mainSceneController.initializeScene();
         directorySceneController.setMainSceneController(mainSceneController);
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(this, requestImageView, requestMapPane, requestCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
+        staffRequestController = new StaffRequestController(this, mapNavigationFacade, pathFindingFacade,
+                currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem, null);
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem,
+                requestZoomSlider, requestScrollPane);
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
-                mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, null); //TODO update mapadmin page with zoom slider
+        adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager,
+                nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
+                addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, null, mapEditScrollPane);
     }
 
     private void initializeAdminLogScene() {
@@ -363,11 +361,11 @@ public class GodController {
 
     //zooms in by 0.1 on click of zoom in button
     @FXML
-    private void zoomInMap() { mainSceneController.zoomInMap(); }
+    private void zoomInMap() {  } // TODO delete
 
     //zooms out by 0.1 on click of zoom out button
     @FXML
-    private void zoomOutMap() { mainSceneController.zoomOutMap(); }
+    private void zoomOutMap() { }
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
@@ -418,6 +416,12 @@ public class GodController {
     /* Pathfinding Scene */
     ///////////////////////
     @FXML
+    private void pathfindingUp() throws IOException, SQLException { pathfindingSceneController.floorUp(); }
+
+    @FXML
+    private void pathfindingDown() throws IOException, SQLException { pathfindingSceneController.floorDown(); }
+
+    @FXML
     private void clearOriginPathfinding(){}//TODO
 
     @FXML
@@ -448,6 +452,9 @@ public class GodController {
     /////////////////////////
     /* Staff Request Scene */
     /////////////////////////
+
+    @FXML
+    private void requestZoom() { staffRequestController.zoom(); }
 
     @FXML
     private void navigateToRequest() throws IOException { staffRequestController.navigateToRequest(); } //TODO
@@ -631,6 +638,8 @@ public class GodController {
     /////////////////
     /* Map Editing */
     /////////////////
+    @FXML
+    private void mapEditZoom() { adminMapController.zoom(); }
 
     @FXML
     private void straightenButton() { adminMapController.straighten(); }
@@ -685,10 +694,10 @@ public class GodController {
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
     @FXML
-    private void zoomInMapEdit() { adminMapController.zoomInMap(); }
+    private void zoomInMapEdit() { }
 
     @FXML
-    private void zoomOutMapEdit() { adminMapController.zoomOutMap(); }
+    private void zoomOutMapEdit() { }
 
     @FXML
     private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
@@ -858,6 +867,18 @@ public class GodController {
 
     @FXML
     private void getTextDirections() throws IOException {mainSceneController.displayTextDir();}
+
+    @FXML
+    private void toAboutPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/aboutPopUp.fxml"));
+        fxmlLoader.setController(new AboutPopUpController());
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        stage.setScene(new Scene(root2, 1000, 1000));
+        stage.setMaximized(true);
+        stage.show();
+    }
 
     public void initializeObservers(){
         databaseGargoyle.attachManager(nodeManager);

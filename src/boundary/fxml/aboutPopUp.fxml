@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+         <children>
+            <JFXTabPane prefHeight="1080.0" prefWidth="1920.0">
+               <tabs>
+                  <Tab text="About">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextArea editable="false" prefHeight="895.0" prefWidth="1920.0" text="WPI Computer Science Department&#10;CS3733 Software Engineering&#10;Professor Wilson Wong&#10;&#10;Team Members:&#10;&#10;Lucas Sacherer: Lead Developer &#10;Nicole Franco: Assistant Developer&#10;Quinn Averill: Assistant Developer&#10;Melanie Dworak: Project Manager&#10;Garrett Otteni: Scrum Master&#10;Taylor Stephen: Product Owner&#10;Ian MacGregor: Test Engineer&#10;Alexander Pappas: Documentation Analyst&#10;Dimitrios Tsiakmakis: Software Engineer&#10;Sean Hunt: Software Engineer&#10;Zach Halzel: Software Engineer&#10;&#10;Team Coach:&#10;Binam Kayastha&#10;&#10;A special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input and for such a wonderful project.&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </JFXTextArea>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Information">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane prefHeight="895.0" prefWidth="1920.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="945.0" minWidth="10.0" prefWidth="569.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1463.0" minWidth="10.0" prefWidth="1341.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <JFXTextArea prefHeight="885.0" prefWidth="1000.0" text="1. The information button launches this window which gives more information about the kiosk and its creation&#10;&#10;2. The Login button is for authorized users to let them access more complicated features of the kiosk&#10;&#10;3. The floor switcher button allows for an easy way to swap the kiosk map between floors&#10;&#10;4. The zoom slider allows you to zoom in and out of the map&#10;&#10;5. This button will display the nearest bathroom to your current kiosk location&#10;&#10;6. This button will display the nearest elevator to your current kiosk location&#10;&#10;7. This button will display the nearest help desk to your current kiosk location&#10;&#10;8. This button will display your current destination on the map&#10;&#10;9. This button will display the current location of the kiosk on the map&#10;&#10;10.  This button opens up the Navigation Menu which will allow you to navigate the map &#10;&#10;11. This button opens up the Directory Menu which allows you to select your destination from a list instead of on the map&#10;&#10;12. This is the search bar which allows you to type in your destination if you already know where you want to go&#10;&#10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                                             <font>
+                                                <Font size="25.0" />
+                                             </font>
+                                          </JFXTextArea>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <ImageView fitHeight="1000.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+                                             <image>
+                                                <Image url="@../images/informationMap.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+      </VBox>
+      <Label layoutX="94.0" layoutY="76.0" text="Information">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

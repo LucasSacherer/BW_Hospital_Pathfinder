@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -20,10 +21,11 @@ public class PathfindingSceneController  extends AbstractMapController {
     private JFXTextField originField, destinationField;
     private JFXListView textDirectionsList;
 
-    public PathfindingSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m,
-                                      PathFindingFacade p, Label currentFloorNum, JFXTextField originField,
-                                      JFXTextField destinationField, JFXListView textDirectionsList, JFXSlider zoomSlider) {
-        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
+    public PathfindingSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
+                                      Label currentFloorNum, JFXTextField originField,
+                                      JFXTextField destinationField, JFXListView textDirectionsList,
+                                      JFXSlider zoomSlider, ScrollPane scrollPane) {
+        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.originField = originField;
         this.destinationField = destinationField;
         this.textDirectionsList = textDirectionsList;

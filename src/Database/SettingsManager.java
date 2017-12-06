@@ -15,8 +15,6 @@ public class SettingsManager {
         settings.put("Distance Scale", "1.76");
     }
 
-
-
     public void setSetting(String setting, String nodeID){
         if (settings.keySet().contains(setting)){
             settings.put(setting,nodeID);
