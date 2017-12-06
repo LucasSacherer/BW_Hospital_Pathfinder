@@ -1,5 +1,6 @@
 package Pathfinding;
 
+import Database.SettingsManager;
 import Entity.ErrorController;
 import Entity.Node;
 import javafx.collections.FXCollections;
@@ -28,9 +29,11 @@ public class TextualDirections {
 
     private String distance;
     private int distScale = 1;
-    private final double pix2ft = 1.76;
+    private double pix2ft;
 
     public TextualDirections(){
+        SettingsManager settingsManager = SettingsManager.getInstance();
+        pix2ft = Double.parseDouble(settingsManager.getSetting("Distance Scale"));
     }
 
     //determines angle person is turning at currentNode by comparing angle of edges
@@ -206,6 +209,8 @@ public class TextualDirections {
             }
         }
         writtenDirections.add("You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.");
+
+        Collections.reverse(path);
         return writtenDirections;
     }
 
