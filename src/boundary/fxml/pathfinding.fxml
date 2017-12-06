@@ -99,7 +99,7 @@
                      <children>
                         <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#pathfindingUp" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
                                  <graphic>
                                     <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="-2.0">
                                        <image>
@@ -120,7 +120,7 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;" text=" ">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#pathfindingDown" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;" text=" ">
                                  <graphic>
                                     <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
                                        <image>

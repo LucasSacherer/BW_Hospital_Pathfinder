@@ -53,7 +53,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                              <JFXButton fx:id="staffLogin" defaultButton="true" onAction="#goToRequests" prefHeight="31.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                              <JFXButton fx:id="staffLogin" onAction="#goToRequests" prefHeight="31.0" prefWidth="120.0" ripplerFill="WHITE" style="-fx-background-color: #5ea459;" text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                                   <font>
                                                       <Font name="System Bold" size="24.0" />
                                                   </font>
