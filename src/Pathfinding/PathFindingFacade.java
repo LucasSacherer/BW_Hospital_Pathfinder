@@ -1,4 +1,5 @@
 package Pathfinding;
+import Database.PathfindingLogManager;
 import Entity.Node;
 import Entity.Edge;
 
@@ -8,10 +9,15 @@ import java.util.List;
 
 public class PathFindingFacade {
     PathFinder pF;
+    PathController pathController;
+    PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
+
     public PathFindingFacade(){};
 
     public List<Node> getPath(Node start, Node end){
-        return pF.pathFind(start,end);
+        List<Node> path = pF.pathFind(start,end);
+        addPathtoLog(path);
+        return path;
     }
     public TextualDirections textualDirections = new TextualDirections();
 
@@ -23,4 +29,7 @@ public class PathFindingFacade {
         this.pF = pathfinder;
     }
 
+    void addPathtoLog (List<Node> path){
+        pathfindingLogManager.addPathToLog(path);
+    }
 }
