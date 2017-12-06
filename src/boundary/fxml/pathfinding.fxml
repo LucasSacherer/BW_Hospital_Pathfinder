@@ -152,46 +152,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </JFXButton>
-                  <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#nearestInfoDeskPathfinding" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/Info%20desk.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <HBox.margin>
-                              <Insets bottom="10.0" right="10.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#nearestElevatorPathfinding" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/Elevator1.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#nearestBathroomPathfinding" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/Bathroom.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                     </children>
-                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
