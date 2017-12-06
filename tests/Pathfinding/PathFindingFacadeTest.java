@@ -266,8 +266,9 @@ public class PathFindingFacadeTest {
     @Test
     public void addToPathfindingLog(){
         PathFindingFacade pFF = new PathFindingFacade();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);

@@ -218,11 +218,12 @@ public class NodeEditControllerTest {
     @Test
     public void alignNodesVerticalTest() {
         DatabaseGargoyle dbG = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(dbG);
-        EdgeManager eManager = new EdgeManager(dbG, nManager);
-        UserManager um = new UserManager(dbG);
+        AdminLogManager adminLogManager = new AdminLogManager(dbG);
+        NodeManager nManager = new NodeManager(dbG, adminLogManager);
+        EdgeManager eManager = new EdgeManager(dbG, nManager, adminLogManager);
+        UserManager um = new UserManager(dbG, adminLogManager);
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, dbG);
 
         Node test = new Node("1", 5, 5, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 5, 10, "1", "building", "bathroom", "lName", "sName");
@@ -244,11 +245,12 @@ public class NodeEditControllerTest {
     @Test
     public void alignNodesVertical2Test() {
         DatabaseGargoyle dbG = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(dbG);
-        EdgeManager eManager = new EdgeManager(dbG, nManager);
-        UserManager um = new UserManager(dbG);
+        AdminLogManager adminLogManager = new AdminLogManager(dbG);
+        NodeManager nManager = new NodeManager(dbG, adminLogManager);
+        EdgeManager eManager = new EdgeManager(dbG, nManager, adminLogManager);
+        UserManager um = new UserManager(dbG, adminLogManager);
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, dbG);
 
         Node test = new Node("1", 5, 10, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 10, 10, "1", "building", "bathroom", "lName", "sName");

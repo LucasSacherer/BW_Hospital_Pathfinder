@@ -1,5 +1,6 @@
 package Pathfinding;
 
+import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import DatabaseSetup.DatabaseGargoyle;
@@ -19,10 +20,12 @@ public class DijkstraTest {
     @Test
     public void sameNode() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         databaseGargoyle.attachManager(nodeM);
         databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Dijkstra b = new Dijkstra(edgeM);
@@ -39,10 +42,12 @@ public class DijkstraTest {
     @Test
     public void twoConnects() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         databaseGargoyle.attachManager(nodeM);
         databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
@@ -80,10 +85,12 @@ public class DijkstraTest {
     @Test
     public void realNodes1Connect() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         databaseGargoyle.attachManager(nodeM);
         databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = nodeM.getNode("GHALL01601");
@@ -97,10 +104,12 @@ public class DijkstraTest {
     @Test
     public void realNodesSameNode() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         databaseGargoyle.attachManager(nodeM);
         databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = nodeM.getNode("GHALL01601");
@@ -114,10 +123,12 @@ public class DijkstraTest {
     @Test
     public void realNodesAcrossFloor1() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         databaseGargoyle.attachManager(nodeM);
         databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = nodeM.getNode("GHALL01601");
@@ -135,10 +146,12 @@ public class DijkstraTest {
     @Test
     public void realNodesBacktoBack() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeM = new NodeManager(databaseGargoyle);
-        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeM = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM, adminLogManager);
         databaseGargoyle.attachManager(nodeM);
         databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = nodeM.getNode("GHALL01602");
