@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -50,10 +51,12 @@ public class AdminMapController extends AbstractMapController{
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
 
 
-    public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
-                              Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, JFXSlider zoomSlider) {
-        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
+    public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm,
+                              NodeEditController n, EdgeEditController e, MapNavigationFacade m, PathFindingFacade p,
+                              Label currentFloorNum, Tab addNode, Tab editNode, Tab removeNode, Tab addEdge,
+                              Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, JFXSlider zoomSlider,
+                              ScrollPane scrollPane) {
+        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.databaseGargoyle = dbG;
         this.edgeEditController = e;
         this.nodeEditController = n;

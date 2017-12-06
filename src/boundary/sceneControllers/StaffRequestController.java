@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -41,9 +42,9 @@ public class StaffRequestController extends AbstractMapController{
     private ObservableList foodOrderList = FXCollections.observableArrayList();
     private ObservableList allStaffRequestsList, requestsIMadeList;
 
-    public StaffRequestController(GodController g, ImageView requestImageView, Pane requestMapPane, Canvas requestCanvas,
-                                  MapNavigationFacade mapNavigationFacade, PathFindingFacade pathFindingFacade,
-                                  Label currentFloorNumRequest, GenericRequestController genericRequestController,
+    public StaffRequestController(GodController g, MapNavigationFacade mapNavigationFacade,
+                                  PathFindingFacade pathFindingFacade, Label currentFloorNumRequest,
+                                  GenericRequestController genericRequestController,
                                   RequestCleanupController requestCleanupController,
                                   RequestInterpreterController requestInterpreterController,
                                   RequestFoodController requestFoodController,
@@ -52,8 +53,8 @@ public class StaffRequestController extends AbstractMapController{
                                   JFXTextField requestFoodName, JFXTextArea cleanupDescription,
                                   JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription,
                                   JFXTextArea requestFoodDescription, JFXTextArea requestInfo,
-                                  JFXListView currentFoodOrder, JFXTextField foodItem, JFXSlider zoomSlider) {
-        super(g, requestImageView, requestMapPane, requestCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, zoomSlider);
+                                  JFXListView currentFoodOrder, JFXTextField foodItem, JFXSlider zoomSlider, ScrollPane staffScrollPane) {
+        super(g, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, zoomSlider, staffScrollPane);
         this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;

@@ -10,24 +10,19 @@ import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -52,22 +47,39 @@ public abstract class AbstractMapController {
     protected JFXSlider zoomSlider;
     protected javafx.scene.control.ScrollPane scrollPane;
 
-    public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider) {
+    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
         this.godController = g;
-
-        this.imageView = i;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
-        this.canvas = canvas;
-        this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
-        currentFloor = "G";
+        currentFloor = "G"; // TODO maybe make it follow the last floor?
         this.zoomSlider = zoomSlider;
+        this.scrollPane = scrollPane;
     }
 
     public void initializeScene() {
-
-
+        Group group = new Group();
+        Pane pane = new Pane();
+        mapPane = pane;
+        imageView = new ImageView();
+        imageView.setPreserveRatio(true);
+        canvas = new Canvas();
+        canvas.setWidth(5000);
+        canvas.setHeight(3400);
+        EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                clickOnMap(event);
+            }
+        };
+        canvas.setOnMouseClicked(handler);
+        gc = canvas.getGraphicsContext2D();
+        pane.getChildren().add(imageView);
+        pane.getChildren().add(1,canvas);
+        group.getChildren().add(pane);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setContent(group);
 
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         gc = canvas.getGraphicsContext2D();
