@@ -2,6 +2,7 @@ package Pathfinding;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import Database.PathfindingLogManager;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 import org.junit.Test;
@@ -20,8 +21,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01501");
         List<Node> answer = pFF.getPath(n1,n2);
@@ -37,8 +39,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01601");
         List<Node> answer = pFF.getPath(n1,n2);
@@ -54,8 +57,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GELEV00N01");
         Astar star = new Astar(edgeM);
@@ -76,8 +80,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         Astar star = new Astar(edgeM);
@@ -98,8 +103,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
         Astar star = new Astar(edgeM);
@@ -130,8 +136,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GELEV00N01");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -152,8 +159,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL02401");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -175,8 +183,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL01002");
         Node n2 = nodeM.getNode("GELEV00N02");
         Astar star = new Astar(edgeM);
@@ -205,8 +214,9 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("GHALL02401");
         Node n2 = nodeM.getNode("GSERV01603");
         Astar star = new Astar(edgeM);
@@ -232,13 +242,33 @@ public class PathFindingFacadeTest {
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
-        nodeM.update();
-        edgeM.update();
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("ALABS001L2");
         Node n2 = nodeM.getNode("IDEPT00903");
         List<Node> answer = pFF.getPath(n1,n2);
         List<Node> expected = new ArrayList<>();
         System.out.println(answer);
+    }
+
+    @Test
+    public void addToPathfindingLog(){
+        PathFindingFacade pFF = new PathFindingFacade();
+        NodeManager nodeM = new NodeManager(databaseGargoyle);
+        EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
+        Astar astar = new Astar(edgeM);
+        pFF.setPathfinder(astar);
+        databaseGargoyle.attachManager(nodeM);
+        databaseGargoyle.attachManager(edgeM);
+        databaseGargoyle.notifyManagers();
+        Node n1 = nodeM.getNode("ALABS001L2");
+        Node n2 = nodeM.getNode("IDEPT00903");
+        int logSize = pathfindingLogManager.getPathfindingLogSize();
+        List<Node> answer = pFF.getPath(n1,n2);
+        assertEquals(logSize,pathfindingLogManager.getPathfindingLogSize() - answer.size());
+
 
     }
 }
