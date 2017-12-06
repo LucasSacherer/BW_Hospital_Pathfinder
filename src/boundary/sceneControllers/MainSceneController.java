@@ -7,7 +7,9 @@ import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -28,17 +30,43 @@ public class MainSceneController extends AbstractMapController{
     private JFXTextField originField, destinationField;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField searchBar;
+    private ScrollPane mainScrollPane;
 
     public MainSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
                                Label currentFloorNum, JFXTextField originField, JFXTextField destinationField,
-                               JFXSlider zoomSlider, DirectorySceneController directorySceneController, AnchorPane searchPane) {
+                               JFXSlider zoomSlider, DirectorySceneController directorySceneController, AnchorPane searchPane, ScrollPane mainScrollPane) {
         super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
+        this.mainScrollPane = mainScrollPane;
         this.originField = originField;
         this.destinationField = destinationField;
         this.directorySceneController = directorySceneController;
         searchBar = new AutoCompleteTextField();
         searchPane.getChildren().add(searchBar);
         initializeSearchBar();
+        initializeScrollPane();
+    }
+
+    private void initializeScrollPane() {
+        Group group = new Group();
+        Pane pane = new Pane();
+        mapPane = pane;
+        imageView = new ImageView();
+        imageView.setPreserveRatio(true);
+        canvas = new Canvas();
+        canvas.setWidth(5000);
+        canvas.setHeight(3400);
+        EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                clickOnMap(event);
+            }
+        };
+        canvas.setOnMouseClicked(handler);
+        gc = canvas.getGraphicsContext2D();
+        pane.getChildren().add(imageView);
+        pane.getChildren().add(1,canvas);
+        group.getChildren().add(pane);
+        mainScrollPane.setContent(group);
     }
 
     private void initializeSearchBar() {

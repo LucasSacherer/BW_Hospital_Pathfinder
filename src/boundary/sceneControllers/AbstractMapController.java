@@ -63,9 +63,8 @@ public abstract class AbstractMapController {
     }
 
     public void initializeScene() {
-        imageView.setImage(
-                mapNavigationFacade.getFloorMap("G"));
-        this.gc = canvas.getGraphicsContext2D();
+        if (imageView != null) imageView.setImage(mapNavigationFacade.getFloorMap("G"));
+        if (canvas != null) this.gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
         System.out.println(mapNavigationFacade.getDefaultNode());
     }

@@ -14,8 +14,6 @@ public class SettingsManager {
         settings.put("Default Node","GHALL03802");
     }
 
-
-
     public void setSetting(String setting, String nodeID){
         if (settings.keySet().contains(setting)){
             settings.put(setting,nodeID);

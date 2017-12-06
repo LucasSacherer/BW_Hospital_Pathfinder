@@ -81,6 +81,10 @@ public class GodController {
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
+
+    @FXML
+    private ScrollPane mainScrollPane;
+
     /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
@@ -290,8 +294,8 @@ public class GodController {
     }
 
     private void initializeMainScene() {
-        mainSceneController = new MainSceneController(this, imageView, mapPane, canvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController, searchPane);
+        mainSceneController = new MainSceneController(this, null, null, null, mapNavigationFacade,
+                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane);
         mainSceneController.initializeScene();
         directorySceneController.setMainSceneController(mainSceneController);
     }
