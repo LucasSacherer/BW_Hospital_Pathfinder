@@ -372,13 +372,13 @@ public class GodController {
     private void clearCanvas(){ mainSceneController.clearCanvas(); }
 
     @FXML
-    private void bathroomClicked(ActionEvent e){ mainSceneController.bathroomClicked(); }
+    private void bathroomClicked(ActionEvent e) throws IOException { mainSceneController.bathroomClicked(); }
 
     @FXML
-    private void infoClicked(ActionEvent e){ mainSceneController.infoClicked(); }
+    private void infoClicked(ActionEvent e) throws IOException { mainSceneController.infoClicked(); }
 
     @FXML
-    private void elevatorClicked(ActionEvent e){ mainSceneController.elevatorClicked(); }
+    private void elevatorClicked(ActionEvent e) throws IOException { mainSceneController.elevatorClicked(); }
 
     @FXML
     private void floorDown() throws IOException, SQLException { mainSceneController.floorDown(); }
@@ -402,13 +402,13 @@ public class GodController {
     private void clearDestinationMain(){}//TODO
 
     @FXML
-    private void nearestInfoDeskMain(){}//TODO
+    private void nearestInfoDeskMain() throws IOException { mainSceneController.infoClicked(); }//TODO
 
     @FXML
-    private void nearestBathroomMain(){}//TODO
+    private void nearestBathroomMain() throws IOException { mainSceneController.bathroomClicked(); }//TODO
 
     @FXML
-    private void nearestElevatorMain(){}//TODO
+    private void nearestElevatorMain() throws IOException { mainSceneController.elevatorClicked(); }//TODO
 
     ///////////////////////
     /* Pathfinding Scene */
