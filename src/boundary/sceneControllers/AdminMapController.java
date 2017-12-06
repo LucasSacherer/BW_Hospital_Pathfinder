@@ -40,6 +40,7 @@ public class AdminMapController extends AbstractMapController{
     private EdgeAdder edgeAdder;
     private EdgeRemover edgeRemover;
     private KioskEditor kioskEditor;
+    private Straightener straightener;
     private String longName = "";
     private String shortName = "";
     private String nodeID = "";
@@ -47,12 +48,12 @@ public class AdminMapController extends AbstractMapController{
     private ObservableList<String> nodeTypeList, buildingList; //TODO remove
     final private FileSelector fileSelector = new FileSelector();
     CSVController csvController = new CSVController(databaseGargoyle);
-    private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
+    private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab;
 
 
     public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
                               Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, JFXSlider zoomSlider) {
+                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, Tab straightenTab, JFXSlider zoomSlider) {
         super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.databaseGargoyle = dbG;
         this.edgeEditController = e;
@@ -66,6 +67,7 @@ public class AdminMapController extends AbstractMapController{
         this.kioskTab = kioskTab;
         this.edgesTab = edgesTab;
         this.nodesTab = nodesTab;
+        this.straightenTab = straightenTab;
         this.edgeManager = em;
     }
 
@@ -168,6 +170,7 @@ public class AdminMapController extends AbstractMapController{
             snapToNode(m);
             if (addEdge.isSelected()) edgeAdder.clickOnMap(currentLoc);
             else if (removeEdge.isSelected()) edgeRemover.clickOnMap(currentLoc);
+            else if (straightenTab.isSelected()) straightener.clickOnMap(currentLoc);
         }
         else if (kioskTab.isSelected()) {
             snapToNode(m);
@@ -280,6 +283,14 @@ public class AdminMapController extends AbstractMapController{
             e.printStackTrace();
         }
     }
+
+    public void initializeStraightener(JFXTextField edgeXStartStraighten, JFXTextField edgeYStartStraighten, JFXTextField edgeXEndStraighten, JFXTextField edgeYEndStraighten) {
+        straightener = new Straightener(nodeEditController, edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten, gc, this);
+    }
+
+    public void straighten() { straightener.straighten(); }
+
+    public void resetStraightener() { straightener.reset(); }
 }
 
 
