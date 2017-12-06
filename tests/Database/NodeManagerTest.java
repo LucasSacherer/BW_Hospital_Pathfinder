@@ -2,6 +2,7 @@ package Database;
 
 import Database.NodeManager;
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Node;
 import org.junit.Test;
 
@@ -12,7 +13,8 @@ public class NodeManagerTest {
     @Test
     public void checkUpdateNodes(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         assertTrue(manager.getAllNodes().size() == 0);
         manager.update();
         assertFalse(manager.getAllNodes().size() == 0);
@@ -21,7 +23,8 @@ public class NodeManagerTest {
     @Test
     public void testGetNode(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
@@ -33,7 +36,8 @@ public class NodeManagerTest {
     @Test
     public void testAddDeleteNode(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
@@ -47,7 +51,8 @@ public class NodeManagerTest {
     @Test
     public void testUpdateNode(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
@@ -62,7 +67,8 @@ public class NodeManagerTest {
     @Test
     public void testNearestNode(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
@@ -87,7 +93,8 @@ public class NodeManagerTest {
     @Test
     public void testNearestLoc(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 

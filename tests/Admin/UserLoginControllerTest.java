@@ -1,5 +1,6 @@
 package Admin;
 
+import Database.AdminLogManager;
 import Database.UserManager;
 import DatabaseSetup.DatabaseGargoyle;
 import org.junit.Test;
@@ -11,8 +12,10 @@ public class UserLoginControllerTest {
     @Test
     public void testAdmin() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);
@@ -23,8 +26,10 @@ public class UserLoginControllerTest {
     @Test
     public void testAdminonStaff() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);
@@ -35,8 +40,10 @@ public class UserLoginControllerTest {
     @Test
     public void testAdminBadFormat() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);
@@ -53,8 +60,10 @@ public class UserLoginControllerTest {
     @Test
     public void testAdminBadPass() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);
@@ -67,8 +76,10 @@ public class UserLoginControllerTest {
     @Test
     public void testStaffBadFormat() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);
@@ -85,8 +96,10 @@ public class UserLoginControllerTest {
     @Test
     public void testStaffBadPass() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);
@@ -97,8 +110,10 @@ public class UserLoginControllerTest {
     @Test
     public void testGoodLogins() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager um = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager um = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         UserLoginController ulc = new UserLoginController(um);

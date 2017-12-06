@@ -52,7 +52,7 @@ public class AdminLogController {
         dateLogged.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<AdminLog, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getTime().toString()));
         adminLogged.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<AdminLog, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getUser().getUsername()));
+                (TreeTableColumn.CellDataFeatures<AdminLog, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getUser()));
         logContent.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<AdminLog, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getAction()));
 
