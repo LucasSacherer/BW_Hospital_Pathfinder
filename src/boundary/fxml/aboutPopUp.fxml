@@ -44,7 +44,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXTextArea text="1. &#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10.&#10;11.&#10;12.&#10;13.&#10;">
+                                    <JFXTextArea text="1. The information button launches this window which gives more information about the kiosk and its creation&#10;&#10;2. The Login button is for authorized users to let them access more complicated features of the kiosk&#10;&#10;3. The floor switcher button allows for an easy way to swap the kiosk map between floors&#10;&#10;4. The zoom slider allows you to zoom in and out of the map&#10;&#10;5. This button will display the nearest bathroom to your current kiosk location&#10;&#10;6. This button will display the nearest elevator to your current kiosk location&#10;&#10;7. This button will display the nearest help desk to your current kiosk location&#10;&#10;8. This button will display your current destination on the map&#10;&#10;9. This button will display the current location of the kiosk on the map&#10;&#10;10.  This button opens up the Navigation Menu which will allow you to navigate the map &#10;&#10;11. This button opens up the Directory Menu which allows you to select your destination from a list instead of on the map&#10;&#10;12. This is the search bar which allows you to type in your destination if you already know where you want to go&#10;&#10;">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
