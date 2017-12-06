@@ -92,7 +92,10 @@ public class NodeManager implements EntityManager{
                 node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
                 node.getLongName()+"','"+node.getShortName()+"','Team G')");
         databaseGargoyle.destroyConnection();
-        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Added a new Node", LocalDateTime.now()));
+        adminLogManager.addAdminLog(
+                new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                        "Added a new Node (" + node.getNodeID() + ") on floor " + node.getFloor() + " in building " + node.getBuilding(),
+                        LocalDateTime.now()));
     }
 
     /**
@@ -104,7 +107,8 @@ public class NodeManager implements EntityManager{
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
         databaseGargoyle.destroyConnection();
-        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Removed a Node", LocalDateTime.now()));
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                "Removed Node: " + node.getNodeID(), LocalDateTime.now()));
     }
 
     /**
@@ -121,7 +125,11 @@ public class NodeManager implements EntityManager{
                 "LONGNAME = '" + node.getLongName() + "'," +
                 "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'");
         databaseGargoyle.destroyConnection();
-        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Edited a Node", LocalDateTime.now()));
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                "Edited node " + node.getNodeID() + ": XCOORD = " + node.getXcoord() + ", YCOOR = " + node.getYcoord() +
+                        ", FLOOR = " + node.getFloor() + ", BUILDING = " + node.getBuilding() + ", NODETYPE = " + node.getNodeType() +
+                        ", LONGNAME = " + node.getLongName() + ", SHORTNAME = " + node.getShortName(),
+                LocalDateTime.now()));
     }
 
     /**

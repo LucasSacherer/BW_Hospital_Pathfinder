@@ -783,7 +783,7 @@ public class GodController {
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
             databaseGargoyle.setCurrentUser(userManager.getUserByName(adminLoginText.getText()));
-            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as admin", LocalDateTime.now()));
+            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
             System.out.println(databaseGargoyle.getCurrentUser().getUsername());
             sceneSwitcher.toAdminHub(this, loginPane);
             adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));

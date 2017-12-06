@@ -56,7 +56,7 @@ public class EdgeManager implements EntityManager{
                     e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
                     e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
             databaseGargoyle.destroyConnection();
-            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Added a new Edge", LocalDateTime.now()));
+            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Added Edge: " + e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID(), LocalDateTime.now()));
         }
     }
 
@@ -74,7 +74,7 @@ public class EdgeManager implements EntityManager{
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
                 e.getEndNode().getNodeID() + "_" + e.getStartNode().getNodeID() + "'");
         databaseGargoyle.destroyConnection();
-        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Removed a Node", LocalDateTime.now()));
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Removed Edge: " + e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID(), LocalDateTime.now()));
     }
 
     /**
