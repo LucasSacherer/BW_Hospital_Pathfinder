@@ -1,6 +1,8 @@
 package MapNavigation;
 
 import Entity.Node;
+import boundary.sceneControllers.DirectorySceneController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.*;
@@ -11,14 +13,9 @@ import javafx.collections.ObservableList;
 import java.util.*;
 public class SearchEngine {
 
-
-        NodeManager nm;
         DirectoryController dc;
 
-        public SearchEngine(NodeManager nm){
-            this.nm = nm;
-            dc = new DirectoryController(nm);
-        }
+        public SearchEngine(DirectoryController dc) { this.dc = dc; }
 
         private List<Node> places(){
             HashMap<String,ObservableList<Node>> directory = dc.getDirectory();
@@ -69,7 +66,7 @@ public class SearchEngine {
             return d[str1.length][ str2.length];
         }
 
-        public  List<Node> Search(String wd){
+        public  ObservableList<Node> Search(String wd){
             String word = wd.toLowerCase();
             List<Node> places = places();
             List<String> wordList =  new ArrayList<>();
@@ -100,9 +97,11 @@ public class SearchEngine {
                 else break;
             }
             for ( int i = 0; i < 6; i++){
-                int m = matches.get(i);
-                Node node = places.get(m);
-                results.add(node);
+                if (matches.size() > i) {
+                    int m = matches.get(i);
+                    Node node = places.get(m);
+                    results.add(node);
+                }
             }
             List<Node> letterStarts = new ArrayList<>();
             List<Integer> remove = new ArrayList<>();
@@ -125,7 +124,9 @@ public class SearchEngine {
                     answer.add(results.get(k));
                 }
             }
-            return answer;
+            ObservableList FXresults = FXCollections.observableArrayList();
+            FXresults.addAll(answer);
+            return FXresults;
         }
 
 
