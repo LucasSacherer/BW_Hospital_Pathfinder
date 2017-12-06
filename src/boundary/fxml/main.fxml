@@ -41,55 +41,6 @@
                   </ContextMenu>
                </contextMenu>
             </ScrollPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <children>
-                  <VBox alignment="BOTTOM_CENTER" layoutX="14.0" layoutY="77.0" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="194.0">
-                           <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
-                                 <image>
-                                    <Image url="@../images/circle-outline.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="originField" text="Kiosk location">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearOriginMain" text="X">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="234.0">
-                           <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
-                                 <image>
-                                    <Image url="@../images/location.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="destinationField" text="Select a Destination">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearDestinationMain" prefHeight="40.0" prefWidth="29.0" text="X">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </AnchorPane>
             <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
                   <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
@@ -152,19 +103,19 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="85.0" prefWidth="85.0" style="-fx-background-radius: 120; -fx-background-color: #0068B1;" text="Navigate" GridPane.columnIndex="1">
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="116.0" prefWidth="116.0" style="-fx-background-radius: 120; -fx-background-color: #0068B1;" text="Navigate" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" translateX="3.0">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" translateX="3.0">
                      <image>
                         <Image url="@../images/Icons/Navagate.png" />
                      </image>
                   </ImageView>
                </graphic>
                <GridPane.margin>
-                  <Insets top="10.0" />
+                  <Insets bottom="15.0" left="15.0" />
                </GridPane.margin>
             </JFXButton>
             <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
