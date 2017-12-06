@@ -33,12 +33,5 @@ public class PathfindingLogManagerTest {
 
         //Ensure that the database changed
         assertEquals(originalSize + 7, pathfindingLogManager.getPathfindingLogSize());
-
-        pathfindingLogManager.clearAllLogsInDatabase();
-        pathfindingLogManager.clearAllLogsInDatabase();
-
-        //Ensure the changes were reverted
-        assertEquals(0, pathfindingLogManager.getPathfindingLogSize());
-
     }
 }
