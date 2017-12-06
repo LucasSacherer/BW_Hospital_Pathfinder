@@ -79,6 +79,7 @@ public class GodController {
     final private BreadthSearch breadth = new BreadthSearch(edgeManager);
     final private DepthSearch depth = new DepthSearch(edgeManager);
     final private BestFirst best = new BestFirst(edgeManager);
+    final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
 
     ///////////////////////
@@ -706,8 +707,13 @@ public class GodController {
     private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
 
     @FXML
-    private void selectDepth() { pathFindingFacade.setPathfinder(depth);
-    }
+    private void selectDepth() { pathFindingFacade.setPathfinder(depth); }
+
+    @FXML
+    private void selectBest() { pathFindingFacade.setPathfinder(best);}
+
+    @FXML
+    private void selectDijkstras() { pathFindingFacade.setPathfinder(dijkstra);}
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
