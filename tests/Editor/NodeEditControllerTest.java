@@ -183,14 +183,14 @@ public class NodeEditControllerTest {
         editor.alignNodes(nodes);
 
         //Checks the updated nodes in the list provided. Once editing works could test new nodes.
-        assertEquals(nodes.get(2).getXcoord(),8);
-        assertEquals(nodes.get(2).getYcoord(),8);
+        assertEquals(nodes.get(2).getXcoord(),7);
+        assertEquals(nodes.get(2).getYcoord(),7);
 
         assertEquals(nodes.get(3).getXcoord(),0);
         assertEquals(nodes.get(3).getYcoord(),0);
 
-        assertEquals(nodes.get(4).getXcoord(),8);
-        assertEquals(nodes.get(4).getYcoord(),8);
+        assertEquals(nodes.get(4).getXcoord(),7);
+        assertEquals(nodes.get(4).getYcoord(),7);
 
         assertEquals(nodes.get(5).getXcoord(),5);
         assertEquals(nodes.get(5).getYcoord(),5);
@@ -201,10 +201,10 @@ public class NodeEditControllerTest {
         assertEquals(nodes.get(7).getXcoord(),0);
         assertEquals(nodes.get(7).getYcoord(),0);
 
-        assertEquals(nodes.get(8).getXcoord(),13);
-        assertEquals(nodes.get(8).getYcoord(),13);
+        assertEquals(nodes.get(8).getXcoord(),12);
+        assertEquals(nodes.get(8).getYcoord(),12);
 
-        assertEquals(nodes.get(9).getXcoord(),13);
-        assertEquals(nodes.get(9).getYcoord(),13);
+        assertEquals(nodes.get(9).getXcoord(),12);
+        assertEquals(nodes.get(9).getYcoord(),12);
     }
 }
