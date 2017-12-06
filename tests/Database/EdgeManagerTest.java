@@ -47,6 +47,8 @@ public class EdgeManagerTest {
 
         test.removeEdge(e1);
         test.removeEdge(e2);
+        manager.removeNode(n1);
+        manager.removeNode(n2);
     }
     @Test
     public void testRemoveEdge(){
@@ -70,6 +72,9 @@ public class EdgeManagerTest {
         int startingsize = test.getAllEdges().size();
         test.removeEdge(e1);
         assertEquals(startingsize - 1, test.getAllEdges().size());
+
+        manager.removeNode(n1);
+        manager.removeNode(n2);
     }
     @Test
     public void testGetNeighbors() throws Exception {

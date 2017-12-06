@@ -68,6 +68,7 @@ public class DatabaseGargoyle {
         tableCreator.createFoodOrdersTable();
         tableCreator.createSettingsTable();
         tableCreator.createAdminLogTable();
+        tableCreator.createPathfindingLogTable();
     }
 
     /**

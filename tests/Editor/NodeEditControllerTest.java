@@ -37,10 +37,10 @@ public class NodeEditControllerTest {
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
         NodeEditController editor = new NodeEditController(nManager,eManager,genericRequestController, adminLogManager, databaseGargoyle);
 
-        Node test = new Node("1",1,1,"1","building","type","lName","sName");
-        Node test2 = new Node("2",2, 2,"1","building","type","lName","sName");
-        Node test3 = new Node("3",5,5,"1","building","bathroom","lName","sName");
-        Node test4 = new Node("4",3,3,"1","building","bathroom","lName","sName");
+        Node test = new Node("1", 1, 1, "1", "building", "type", "lName", "sName");
+        Node test2 = new Node("2", 2, 2, "1", "building", "type", "lName", "sName");
+        Node test3 = new Node("3", 5, 5, "1", "building", "bathroom", "lName", "sName");
+        Node test4 = new Node("4", 3, 3, "1", "building", "bathroom", "lName", "sName");
         editor.addNode(test);
         editor.addNode(test2);
         editor.addNode(test3);
@@ -51,7 +51,7 @@ public class NodeEditControllerTest {
         assertEquals(nManager.getNode("3").getNodeID(), test3.getNodeID());
         assertEquals(nManager.getNode("4").getNodeID(), test4.getNodeID());
 
-        Node testEdit = new Node("1",1,1,"1","monkey","type","lName","sName");
+        Node testEdit = new Node("1", 1, 1, "1", "monkey", "type", "lName", "sName");
 
         editor.editNode(testEdit);
 
@@ -66,7 +66,7 @@ public class NodeEditControllerTest {
 
     @Test
     public void setKioskTest() throws Exception {
-        Node test = new Node("1",1,1,"1","building","type","lName","sName");
+        Node test = new Node("1", 1, 1, "1", "building", "type", "lName", "sName");
 
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
@@ -116,18 +116,18 @@ public class NodeEditControllerTest {
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
         NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, databaseGargoyle);
 
-        Node test = new Node("1",1,1,"1","building","type","lName","sName");
-        Node test2 = new Node("2",1, 2,"1","building","type","lName","sName");
-        Node test3 = new Node("3",2,1,"1","building","bathroom","lName","sName");
-        Node test4 = new Node("4",3,1,"1","building","bathroom","lName","sName");
+        Node test = new Node("1", 1, 1, "1", "building", "type", "lName", "sName");
+        Node test2 = new Node("2", 1, 2, "1", "building", "type", "lName", "sName");
+        Node test3 = new Node("3", 2, 1, "1", "building", "bathroom", "lName", "sName");
+        Node test4 = new Node("4", 3, 1, "1", "building", "bathroom", "lName", "sName");
         editor.addNode(test);
         editor.addNode(test2);
         editor.addNode(test3);
         editor.addNode(test4);
 
-        Edge e1 = new Edge(test,test2);
-        Edge e2 = new Edge(test,test3);
-        Edge e3 = new Edge(test3,test4);
+        Edge e1 = new Edge(test, test2);
+        Edge e2 = new Edge(test, test3);
+        Edge e3 = new Edge(test3, test4);
         Edge e4 = new Edge(test4, test);
 
         eManager.addEdge(e1);
@@ -154,7 +154,7 @@ public class NodeEditControllerTest {
 
 
     @Test
-    public void alignNodesTest(){
+    public void alignNodesTest() {
         DatabaseGargoyle dbG = new DatabaseGargoyle();
         AdminLogManager adminLogManager = new AdminLogManager(dbG);
         NodeManager nManager = new NodeManager(dbG, adminLogManager);
@@ -163,17 +163,16 @@ public class NodeEditControllerTest {
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG,nManager,um), new FoodManager(dbG, nManager,um), new InterpreterManager(dbG, nManager,um));
         NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, dbG);
 
-        Node test = new Node("1",5,5,"1","building","type","lName","sName");
-        Node test2 = new Node("2",10, 10,"1","building","type","lName","sName");
-        Node test3 = new Node("3",5,10,"1","building","bathroom","lName","sName");
-        Node test4 = new Node("4",-5,5,"1","building","bathroom","lName","sName");
-        Node test5 = new Node("5",10, 5,"1","building","type","lName","sName");
-        Node test6 = new Node("6",5, 5,"1","building","type","lName","sName");
-        Node test7 = new Node("7",2, 2,"1","building","type","lName","sName");
-        Node test8 = new Node("8",5, -5,"1","building","type","lName","sName");
-        Node test9 = new Node("9",10, 15,"1","building","type","lName","sName");
-        Node test10 = new Node("10",15, 10,"1","building","type","lName","sName");
-
+        Node test = new Node("1", 5, 5, "1", "building", "type", "lName", "sName");
+        Node test2 = new Node("2", 10, 10, "1", "building", "type", "lName", "sName");
+        Node test3 = new Node("3", 5, 10, "1", "building", "bathroom", "lName", "sName");
+        Node test4 = new Node("4", -5, 5, "1", "building", "bathroom", "lName", "sName");
+        Node test5 = new Node("5", 10, 5, "1", "building", "type", "lName", "sName");
+        Node test6 = new Node("6", 5, 5, "1", "building", "type", "lName", "sName");
+        Node test7 = new Node("7", 2, 2, "1", "building", "type", "lName", "sName");
+        Node test8 = new Node("8", 5, -5, "1", "building", "type", "lName", "sName");
+        Node test9 = new Node("9", 10, 15, "1", "building", "type", "lName", "sName");
+        Node test10 = new Node("10", 15, 10, "1", "building", "type", "lName", "sName");
 
 
         List<Node> nodes = new ArrayList<>();
@@ -191,28 +190,81 @@ public class NodeEditControllerTest {
         editor.alignNodes(nodes);
 
         //Checks the updated nodes in the list provided. Once editing works could test new nodes.
-        assertEquals(nodes.get(2).getXcoord(),8);
+        assertEquals(nodes.get(2).getXcoord(),7);
+        assertEquals(nodes.get(2).getYcoord(),7);
+
+        assertEquals(nodes.get(3).getXcoord(), 0);
+        assertEquals(nodes.get(3).getYcoord(), 0);
+
+        assertEquals(nodes.get(4).getXcoord(),7);
+        assertEquals(nodes.get(4).getYcoord(),7);
+
+        assertEquals(nodes.get(5).getXcoord(), 5);
+        assertEquals(nodes.get(5).getYcoord(), 5);
+
+        assertEquals(nodes.get(6).getXcoord(), 2);
+        assertEquals(nodes.get(6).getYcoord(), 2);
+
+        assertEquals(nodes.get(7).getXcoord(), 0);
+        assertEquals(nodes.get(7).getYcoord(), 0);
+
+        assertEquals(nodes.get(8).getXcoord(),12);
+        assertEquals(nodes.get(8).getYcoord(),12);
+
+        assertEquals(nodes.get(9).getXcoord(),12);
+        assertEquals(nodes.get(9).getYcoord(),12);
+    }
+
+    @Test
+    public void alignNodesVerticalTest() {
+        DatabaseGargoyle dbG = new DatabaseGargoyle();
+        NodeManager nManager = new NodeManager(dbG);
+        EdgeManager eManager = new EdgeManager(dbG, nManager);
+        UserManager um = new UserManager(dbG);
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+
+        Node test = new Node("1", 5, 5, "1", "building", "type", "lName", "sName");
+        Node test2 = new Node("2", 5, 10, "1", "building", "bathroom", "lName", "sName");
+        Node test3 = new Node("3", 8, 8, "1", "building", "bathroom", "lName", "sName");
+
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(test);
+        nodes.add(test2);
+        nodes.add(test3);
+
+
+        editor.alignNodes(nodes);
+
+        //Checks the updated nodes in the list provided. Once editing works could test new nodes.
+        assertEquals(nodes.get(2).getXcoord(),5);
         assertEquals(nodes.get(2).getYcoord(),8);
 
-        assertEquals(nodes.get(3).getXcoord(),0);
-        assertEquals(nodes.get(3).getYcoord(),0);
+    }
+    @Test
+    public void alignNodesVertical2Test() {
+        DatabaseGargoyle dbG = new DatabaseGargoyle();
+        NodeManager nManager = new NodeManager(dbG);
+        EdgeManager eManager = new EdgeManager(dbG, nManager);
+        UserManager um = new UserManager(dbG);
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
 
-        assertEquals(nodes.get(4).getXcoord(),8);
-        assertEquals(nodes.get(4).getYcoord(),8);
+        Node test = new Node("1", 5, 10, "1", "building", "type", "lName", "sName");
+        Node test2 = new Node("2", 10, 10, "1", "building", "bathroom", "lName", "sName");
+        Node test3 = new Node("3", 8, 8, "1", "building", "bathroom", "lName", "sName");
 
-        assertEquals(nodes.get(5).getXcoord(),5);
-        assertEquals(nodes.get(5).getYcoord(),5);
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(test);
+        nodes.add(test2);
+        nodes.add(test3);
 
-        assertEquals(nodes.get(6).getXcoord(),2);
-        assertEquals(nodes.get(6).getYcoord(),2);
 
-        assertEquals(nodes.get(7).getXcoord(),0);
-        assertEquals(nodes.get(7).getYcoord(),0);
+        editor.alignNodes(nodes);
 
-        assertEquals(nodes.get(8).getXcoord(),13);
-        assertEquals(nodes.get(8).getYcoord(),13);
+        //Checks the updated nodes in the list provided. Once editing works could test new nodes.
+        assertEquals(nodes.get(2).getXcoord(),7);
+        assertEquals(nodes.get(2).getYcoord(),10);
 
-        assertEquals(nodes.get(9).getXcoord(),13);
-        assertEquals(nodes.get(9).getYcoord(),13);
     }
 }

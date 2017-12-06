@@ -12,9 +12,8 @@ public class SettingsManager {
 
         // ***** Default Settings ***** //
         settings.put("Default Node","GHALL03802");
+        settings.put("Distance Scale", "1.76");
     }
-
-
 
     public void setSetting(String setting, String nodeID){
         if (settings.keySet().contains(setting)){

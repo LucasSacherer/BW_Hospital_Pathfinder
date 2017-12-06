@@ -7,7 +7,9 @@ import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
@@ -25,14 +29,14 @@ import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
     private DirectorySceneController directorySceneController;
-    private JFXTextField originField, destinationField;
+    private Label originField, destinationField;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField searchBar;
-
-    public MainSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p,
-                               Label currentFloorNum, JFXTextField originField, JFXTextField destinationField,
-                               JFXSlider zoomSlider, DirectorySceneController directorySceneController, AnchorPane searchPane) {
-        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
+                               Label originField, Label destinationField, JFXSlider zoomSlider,
+                               DirectorySceneController directorySceneController, AnchorPane searchPane,
+                               ScrollPane scrollPane) {
+        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.originField = originField;
         this.destinationField = destinationField;
         this.directorySceneController = directorySceneController;

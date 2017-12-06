@@ -19,6 +19,12 @@ public class TextualDirectionsTests {
         Node next = new Node("three", 0, 1, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
         assertEquals(270, textualDirections.getAngle(previous, current, next), 0.0);
         assertEquals(90, textualDirections.getAngle(next, current, previous), 0.0);
+        previous = new Node("four", 90, 90, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
+        current = new Node("five", 90, 125, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
+        next = new Node("six", 125, 125, "floor 1", "shapiro", "STAI", "blerg", "blerg" );
+        assertEquals(90, textualDirections.getAngle(previous, current, next), 0.0);
+        assertEquals(270, textualDirections.getAngle(next, current, previous), 0.0);
+
     }
 
     @Test
@@ -29,6 +35,7 @@ public class TextualDirectionsTests {
         assertEquals(180, textualDirections.getAngle(next, current, previous), 0.0);
 
     }
+    //fix this
     @Test
     public void getDirTest(){
         TextualDirections textualDirections = new TextualDirections();
