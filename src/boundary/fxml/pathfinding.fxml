@@ -17,15 +17,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pathfindingPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="900.0" prefWidth="320.0">
+            <AnchorPane prefHeight="900.0" prefWidth="340.0">
                <children>
                   <GridPane prefHeight="700.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -71,40 +69,6 @@
                                     <Font size="16.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="25.0" />
-                                 </font>
-                                 <ripplerFill>
-                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                       <stops>
-                                          <Stop color="RED" />
-                                          <Stop color="#ffffff00" offset="0.4022988505747126" />
-                                          <Stop color="#ffffff00" offset="1.0" />
-                                       </stops>
-                                    </RadialGradient>
-                                 </ripplerFill>
-                                 <GridPane.margin>
-                                    <Insets bottom="7.0" />
-                                 </GridPane.margin>
-                              </JFXButton>
-                              <JFXButton prefHeight="33.0" prefWidth="42.0" text="X" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="25.0" />
-                                 </font>
-                                 <ripplerFill>
-                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                       <stops>
-                                          <Stop color="RED" />
-                                          <Stop color="#ff000000" offset="0.40996168582375475" />
-                                          <Stop color="#ff000000" offset="1.0" />
-                                       </stops>
-                                    </RadialGradient>
-                                 </ripplerFill>+
-                                 <GridPane.margin>
-                                    <Insets top="5.0" />
-                                 </GridPane.margin>
-                              </JFXButton>
                               <JFXButton alignment="TOP_CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="58.0" prefWidth="54.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
                                  <graphic>
                                     <ImageView fitHeight="41.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
@@ -146,55 +110,15 @@
                         </Pane>
                      </content>
                   </ScrollPane>
-                  <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="82.0" prefWidth="82.0" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/Info%20desk.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <HBox.margin>
-                              <Insets bottom="5.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/Elevator1.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <HBox.margin>
-                              <Insets bottom="5.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" text=" ">
-                           <graphic>
-                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/Bathroom.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <HBox.margin>
-                              <Insets bottom="5.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                     </children>
-                  </HBox>
                   <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorUp" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="-2.0">
                                        <image>
-                                          <Image url="@../images/Icons/UpArrow1.png" />
+                                          <Image url="@../images/Icons/ArrowUp.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -211,9 +135,9 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;" text=" ">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
                                        <image>
                                           <Image url="@../images/Icons/DownArrow.png" />
                                        </image>
@@ -235,7 +159,7 @@
                         </JFXSlider>
                      </children>
                   </VBox>
-                  <JFXButton buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#pathfindingToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 10; -fx-border-color: #0068B1; -fx-border-width: 5; -fx-border-radius: 10;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <JFXButton buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#pathfindingToMain" prefHeight="61.0" prefWidth="110.0" ripplerFill="#cccccc" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-width: 5; -fx-border-radius: 10;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets right="15.0" top="15.0" />
                      </GridPane.margin>
@@ -243,6 +167,46 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </JFXButton>
+                  <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#nearestInfoDeskPathfinding" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/Info%20desk.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#nearestElevatorPathfinding" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/Elevator1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#nearestBathroomPathfinding" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/Bathroom.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
             </GridPane>
          </children>
