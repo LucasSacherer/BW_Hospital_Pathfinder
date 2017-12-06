@@ -37,8 +37,10 @@ public class PathfindingSceneController  extends AbstractMapController {
         if (origin == null || destination == null) return;
         goToCorrectFloor();
         centerMap();
-        originField.setText(o.toString());
-        destinationField.setText(destination.toString());
+        if (origin.toString().length() < 1) originField.setText("Unknown Name");
+        else originField.setText(origin.toString());
+        if (destination.toString().length() < 1) destinationField.setText("Unknown Name");
+        else destinationField.setText(d.toString());
         currentPath = pathFindingFacade.getPath(origin, destination);
         textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
         refreshCanvas();
@@ -53,5 +55,9 @@ public class PathfindingSceneController  extends AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         currentFloorNum.setText(currentFloor);
         refreshCanvas();
+    }
+
+    public void reversePath() throws IOException {
+        this.findPath(destination, origin);
     }
 }
