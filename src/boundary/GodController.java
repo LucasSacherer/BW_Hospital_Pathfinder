@@ -365,11 +365,11 @@ public class GodController {
 
     //zooms in by 0.1 on click of zoom in button
     @FXML
-    private void zoomInMap() { mainSceneController.zoomInMap(); }
+    private void zoomInMap() {  } // TODO delete
 
     //zooms out by 0.1 on click of zoom out button
     @FXML
-    private void zoomOutMap() { mainSceneController.zoomOutMap(); }
+    private void zoomOutMap() { }
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
@@ -682,10 +682,10 @@ public class GodController {
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
     @FXML
-    private void zoomInMapEdit() { adminMapController.zoomInMap(); }
+    private void zoomInMapEdit() { }
 
     @FXML
-    private void zoomOutMapEdit() { adminMapController.zoomOutMap(); }
+    private void zoomOutMapEdit() { }
 
     @FXML
     private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }

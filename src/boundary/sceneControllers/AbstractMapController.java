@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -49,9 +50,11 @@ public abstract class AbstractMapController {
     protected Node origin, destination, currentLoc;
     protected ErrorController errorController = new ErrorController();
     protected JFXSlider zoomSlider;
+    protected javafx.scene.control.ScrollPane scrollPane;
 
     public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider) {
         this.godController = g;
+
         this.imageView = i;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
@@ -63,10 +66,12 @@ public abstract class AbstractMapController {
     }
 
     public void initializeScene() {
-        if (imageView != null) imageView.setImage(mapNavigationFacade.getFloorMap("G"));
-        if (canvas != null) this.gc = canvas.getGraphicsContext2D();
+
+
+
+        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
+        gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
-        System.out.println(mapNavigationFacade.getDefaultNode());
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -158,20 +163,6 @@ public abstract class AbstractMapController {
             refreshCanvas();
         }
     }
-
-    public void zoomInMap() {
-        if (mapPane.getScaleX() >= 0.8 || mapPane.getScaleY() >= 0.8) return;
-        mapPane.setScaleX(mapPane.getScaleX() + 0.1);
-        mapPane.setScaleY(mapPane.getScaleY() + 0.1);
-    }
-
-
-    public void zoomOutMap() {
-        if (mapPane.getScaleX() <= 0.5 || mapPane.getScaleY() <= 0.5) return;
-        mapPane.setScaleX(mapPane.getScaleX() - 0.1);
-        mapPane.setScaleY(mapPane.getScaleY() - 0.1);
-    }
-
 
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
@@ -315,9 +306,48 @@ public abstract class AbstractMapController {
 
     public void zoom() {
         double sliderLevel = zoomSlider.getValue() / 100;
-        double zoomLevel = sliderLevel + 1;
+        double zoomLevel = sliderLevel + 0.5;
+        double SCALE_DELTA = 1.1;
+        Point2D scrollOffset = figureScrollOffset(mapPane, scrollPane);
+
+        double scaleFactor = 1;
         mapPane.setScaleX(zoomLevel);
         mapPane.setScaleY(zoomLevel);
+
+        // move viewport so that old center remains in the center after the
+        // scaling
+        repositionScroller(mapPane, scrollPane, scaleFactor, scrollOffset);
+    }
+
+    private Point2D figureScrollOffset(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller) {
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
+        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
+        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
+        return new Point2D(scrollXOffset, scrollYOffset);
+    }
+
+    private void repositionScroller(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
+        double scrollXOffset = scrollOffset.getX();
+        double scrollYOffset = scrollOffset.getY();
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        if (extraWidth > 0) {
+            double halfWidth = scroller.getViewportBounds().getWidth() / 2 ;
+            double newScrollXOffset = (scaleFactor - 1) *  halfWidth + scaleFactor * scrollXOffset;
+            scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
+        } else {
+            scroller.setHvalue(scroller.getHmin());
+        }
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        if (extraHeight > 0) {
+            double halfHeight = scroller.getViewportBounds().getHeight() / 2 ;
+            double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
+            scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
+        } else {
+            scroller.setHvalue(scroller.getHmin());
+        }
     }
 
     private class ImageButton extends JFXButton {

@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
@@ -66,6 +68,9 @@ public class MainSceneController extends AbstractMapController{
         pane.getChildren().add(imageView);
         pane.getChildren().add(1,canvas);
         group.getChildren().add(pane);
+        scrollPane = mainScrollPane;
+        mainScrollPane.setFitToWidth(true);
+        mainScrollPane.setFitToHeight(true);
         mainScrollPane.setContent(group);
     }
 

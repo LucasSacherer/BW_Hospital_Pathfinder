@@ -106,13 +106,9 @@ public class StaffRequestController extends AbstractMapController{
     }
 
     public void zoomInMap() {
-        super.zoomInMap();
-        refreshRequestCanvas();
     }
 
     public void zoomOutMap() {
-        super.zoomOutMap();
-        refreshRequestCanvas();
     }
 
     public void floorDown() throws IOException, SQLException {
