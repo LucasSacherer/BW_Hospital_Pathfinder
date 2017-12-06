@@ -91,6 +91,10 @@ public class AdminEmployeeController {
     }
 
     public void deleteEmployeeAE(){
+        if(selectedUser == null){
+            errorController.showError("Please select a user to remove.");
+            return;
+        }
         for (Request req: genericRequestController.getAllRequestsByUser(selectedUser)){
             genericRequestController.deleteRequest(req);
         }

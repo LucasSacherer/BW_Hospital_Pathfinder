@@ -39,11 +39,9 @@ public class NodeEditController {
 
     // deletes an already existing node
     public void deleteNode(Node node) {
-        if(node != null){
             edgeManager.removeNeighborEdges(node);
             genericRequestController.deleteNodeRequests(node);
             nodeManager.removeNode(node);
-        }else errorController.showError("Please select a valid node.");
     }
 
     public void setKioskLocation(Node defaultNode){
