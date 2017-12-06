@@ -138,7 +138,7 @@ public class GodController {
 
     /* MAP ADMIN FXML */
     @FXML
-    private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab;
+    private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab, straightenTab;
 
     @FXML
     private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
@@ -153,7 +153,8 @@ public class GodController {
             shortNameAdd, shortNameEdit,
             longNameAdd, longNameEdit, requestName, requestDescription,
             edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
-            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, editNodeID;
+            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, editNodeID,
+            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten;
 
     @FXML
     private JFXListView nodesListView, allStaffRequests, requestsIMade;
@@ -308,7 +309,7 @@ public class GodController {
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
                 mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, null);
+                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, null); //TODO update mapadmin page with zoom slider
     }
 
     private void initializeAdminLogScene() {
@@ -632,6 +633,11 @@ public class GodController {
     /////////////////
 
     @FXML
+    private void straightenButton() { adminMapController.straighten(); }
+
+    @FXML
+    private void resetStraightenButton() { adminMapController.resetStraightener(); }
+    @FXML
     private void addNodeButton() {
         adminMapController.addNode();
         adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Node", LocalDateTime.now()));
@@ -835,6 +841,7 @@ public class GodController {
         adminMapController.initializeEdgeAdder(edgeXStartAdd, edgeYStartAdd, edgeXEndAdd, edgeYEndAdd);
         adminMapController.initializeEdgeRemover(edgeXStartRemove, edgeYStartRemove, edgeXEndRemove, edgeYEndRemove);
         adminMapController.initializeKioskEditor(setKioskX, setKioskY);
+        adminMapController.initializeStraightener(edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten);
     }
 
     @FXML

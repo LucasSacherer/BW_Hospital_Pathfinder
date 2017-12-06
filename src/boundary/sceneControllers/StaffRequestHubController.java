@@ -20,17 +20,17 @@ public class StaffRequestHubController {
     }
 
     public void serviceHubtoAPITest() {
-//        InterpreterFacade intf = new InterpreterFacade();
-//        List<IInterpretNode> converted = new ArrayList<>();
-//        for (Node n : nodeManager.getAllNodes()){
-//            converted.add(new IWraper(n));
-//        }
-//        intf.setNodes((Collection<? extends IInterpretNode>) converted);
-//        try {
-//            intf.run(0, 0, 1200, 800, null, null, null);
-//        } catch (ServiceException se) {
-//            se.printStackTrace();
-//        }
+        InterpreterFacade intf = new InterpreterFacade();
+        List<IInterpretNode> converted = new ArrayList<>();
+        for (Node n : nodeManager.getAllNodes()){
+            converted.add(new IWraper(n));
+        }
+        intf.setNodes(converted);
+        try {
+            intf.run(0, 0, 1200, 800, null, null, null);
+        } catch (ServiceException se) {
+            se.printStackTrace();
+        }
 
 //        where nc is your node controller, and getINodes() returns any collection of a list of nodes.
 //        The first null is the css, the and the second and third are the node ids. The last null (originNodeID) is the node that is used for the Interpreter request!
