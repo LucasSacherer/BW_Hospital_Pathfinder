@@ -1,3 +1,4 @@
+
 package Pathfinding;
 
 import Database.EdgeManager;
@@ -5,52 +6,50 @@ import Entity.Edge;
 import Entity.Node;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import static java.lang.Math.min;
 
+public class BestFirst implements PathFinder{
 
-public class BeamSearch implements PathFinder {
+    //Interpreted BestFirst as Greedy BestFirst
+    //without a huge beam width, that is
+    int beamWidth = 1;
 
-        //admittedly, beam search's lack of completeness doesn't make it a great pathfinding algorithm
-        //without a huge beam width, that is
-        int beamWidth = 30;
+    EdgeManager edgeM;
+    // The set of nodes already evaluated
+    ArrayList<String> closedSet = new ArrayList<String>();
+    List<Node> neighbors = new ArrayList<Node>();
+    List<Node> connected = new ArrayList<Node>();
+    // The set of currently discovered nodes that are not evaluated yet.
+    boolean alreadyfound = false;
 
-        EdgeManager edgeM;
-        // The set of nodes already evaluated
-        ArrayList<String> closedSet = new ArrayList<String>();
-        List<Node> neighbors = new ArrayList<Node>();
-        List<Node> connected = new ArrayList<Node>();
-        // The set of currently discovered nodes that are not evaluated yet.
-        boolean alreadyfound = false;
+    private static Comparator<pathNode> weightComparator = new Comparator<pathNode>() {
+        @Override
+        public int compare(pathNode s1, pathNode s2) {
+            //return (int) (s1.cost - s2.cost);
+            return (int) (s1.cost - s2.cost);
+        }
+    };
 
-        private static Comparator<pathNode> weightComparator = new Comparator<pathNode>() {
-            @Override
-            public int compare(pathNode s1, pathNode s2) {
-                //return (int) (s1.cost - s2.cost);
-                return (int) (s1.cost - s2.cost);
-            }
-        };
-
-        PriorityQueue<pathNode> beamPQ = new PriorityQueue<pathNode>(2, weightComparator);
-        ArrayList<pathNode> holder = new ArrayList<pathNode>();
+    PriorityQueue<pathNode> beamPQ = new PriorityQueue<pathNode>(2, weightComparator);
+    ArrayList<pathNode> holder = new ArrayList<pathNode>();
 
 
-    public BeamSearch(EdgeManager e){this.edgeM = e;}
+    public BestFirst(EdgeManager e){this.edgeM = e;}
 
     public ArrayList<Node> pathFind(Node start, Node end) {
-        return beamSearch(start, end);
+        return bestFirst(start, end);
     }
 
-    private ArrayList<Node> beamSearch(Node loc1, Node loc2){
+    private ArrayList<Node> bestFirst(Node loc1, Node loc2){
         //remove best node, grab all of its children
         //if any of them is goal, end and retrace path
         //else, sort list by heuristic
         //delete all but the first <beamWidth> children
         //repeat with the new best one
-
 
         int size;
         //define starting edge, just to get weight
@@ -147,6 +146,7 @@ public class BeamSearch implements PathFinder {
         closedSet.clear();
         beamPQ.clear();
 
+        System.out.println("Path Not Found");
         return new ArrayList<Node>();
     }
 
@@ -160,3 +160,4 @@ public class BeamSearch implements PathFinder {
         return total_path;
     }
 }
+
