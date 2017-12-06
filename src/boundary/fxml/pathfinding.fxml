@@ -102,7 +102,7 @@
                                           <Stop color="#ff000000" offset="1.0" />
                                        </stops>
                                     </RadialGradient>
-                                 </ripplerFill>
+                                 </ripplerFill>+
                                  <GridPane.margin>
                                     <Insets top="5.0" />
                                  </GridPane.margin>
