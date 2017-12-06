@@ -225,7 +225,7 @@
                   </RadialGradient>
                </ripplerFill>
             </JFXButton>
-            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" " wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" " wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="150.0" top="10.0" />
                </GridPane.margin>
