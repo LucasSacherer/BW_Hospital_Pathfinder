@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class UserManager implements EntityManager {
@@ -31,11 +32,11 @@ public class UserManager implements EntityManager {
         for (User user: users){
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 if (user.getAdminFlag()){
-                    adminLogManager.addAdminLog(new AdminLog());
                     return true;
                 }
             }
         }
+        adminLogManager.addAdminLog(new AdminLog("Unknown User", "Failed to log in as admin", LocalDateTime.now()));
         return false;
     }
 
@@ -103,6 +104,7 @@ public class UserManager implements EntityManager {
                 "ADMINFLAG = '" + adminFlag + "'," +
                 "DEPARTMENT = '" + updatedUser.getDepartment() + "' WHERE USERID = '" + updatedUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Edited a Employee", LocalDateTime.now()));
     }
 
     /**
@@ -114,6 +116,7 @@ public class UserManager implements EntityManager {
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO KIOSKUSER VALUES ('"+ newUser.getUserID()+"','"+newUser.getUsername()+"','"+
                 newUser.getPassword()+"','"+newUser.getAdminFlag().toString()+"','"+newUser.getDepartment()+"')");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Added a new Employee", LocalDateTime.now()));
     }
 
     /**
@@ -124,6 +127,7 @@ public class UserManager implements EntityManager {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Removed an Employee", LocalDateTime.now()));
     }
 
     /**

@@ -13,7 +13,7 @@ public class DatabaseGargoyle {
     private Connection connection;
     private Statement statement;
     private ArrayList<EntityManager> managers;
-    private User currentUser;
+    private User currentUser = new User("Unknown User", "Unknown User", "Unknown User",false, "Unknown Department");
 
     public DatabaseGargoyle() {
         managers = new ArrayList<>();

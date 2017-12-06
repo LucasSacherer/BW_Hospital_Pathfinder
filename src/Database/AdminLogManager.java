@@ -14,12 +14,10 @@ public class AdminLogManager implements EntityManager {
 
     private final List<AdminLog> adminlogs;
     private final DatabaseGargoyle databaseGargoyle;
-    private final UserManager userManager;
 
-    public AdminLogManager(DatabaseGargoyle dbG, UserManager userManager) {
+    public AdminLogManager(DatabaseGargoyle dbG) {
         this.adminlogs = new ArrayList<>();
         this.databaseGargoyle = dbG;
-        this.userManager = userManager;
     }
 
     /**
@@ -30,7 +28,7 @@ public class AdminLogManager implements EntityManager {
         //Add the request to the ADMINLOG table
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO ADMINLOG VALUES (" +
-                "'" + logEntry.getUser().getUserID() + "'," +
+                "'" + logEntry.getUser() + "'," +
                 "'" + logEntry.getAction() + "'," +
                 "'" + Timestamp.valueOf(logEntry.getTime()) + "')");
         databaseGargoyle.destroyConnection();
@@ -40,9 +38,8 @@ public class AdminLogManager implements EntityManager {
      * Updates the list of AdminLogs in AdminLogManager to be up to date with the database
      */
     public void update(){
-        String action;
+        String action, userID;
         LocalDateTime time;
-        User user;
         adminlogs.clear();
 
         databaseGargoyle.createConnection();
@@ -77,7 +74,7 @@ public class AdminLogManager implements EntityManager {
         databaseGargoyle.createConnection();
         //Add the request to the ADMINLOG table
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM ADMINLOG WHERE USERID = " +
-                "'" + badLog.getUser().getUserID() + "' AND ACTION = " +
+                "'" + badLog.getUser() + "' AND ACTION = " +
                 "'" + badLog.getAction() + "' AND TIME = " +
                 "'" + Timestamp.valueOf(badLog.getTime()) + "'");
         databaseGargoyle.destroyConnection();

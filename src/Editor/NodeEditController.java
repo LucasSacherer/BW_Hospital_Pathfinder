@@ -1,13 +1,17 @@
 package Editor;
 
+import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
+import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Node;
 import Request.GenericRequestController;
 import org.ejml.data.FMatrixRMaj;
 import org.ejml.dense.row.misc.RrefGaussJordanRowPivot_FDRM;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class NodeEditController {
@@ -17,12 +21,16 @@ public class NodeEditController {
     SettingsManager settingsManager;
     EdgeManager edgeManager;
     GenericRequestController genericRequestController;
+    AdminLogManager adminLogManager;
+    DatabaseGargoyle databaseGargoyle;
 
-    public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm){
+    public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm, AdminLogManager adminLogManager, DatabaseGargoyle databaseGargoyle){
         this.nodeManager = nodeM;
         this.settingsManager = SettingsManager.getInstance();
         this.edgeManager = edgeM;
         this.genericRequestController = grm;
+        this.adminLogManager = adminLogManager;
+        this.databaseGargoyle = databaseGargoyle;
     }
 
     // adds a new node to the lists of all nodes
@@ -44,6 +52,7 @@ public class NodeEditController {
 
     public void setKioskLocation(Node defaultNode){
         settingsManager.setSetting("Default Node", defaultNode.getNodeID());
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed Kiosk Default Node", LocalDateTime.now()));
     }
 
     //first two nodes are start and end

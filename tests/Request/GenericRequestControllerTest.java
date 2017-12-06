@@ -19,8 +19,9 @@ public class GenericRequestControllerTest {
     @Test
     public void deleteRequestTest(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
@@ -29,6 +30,7 @@ public class GenericRequestControllerTest {
         databaseGargoyle.attachManager(cleanUpManager);
         databaseGargoyle.attachManager(interpreterManager);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
@@ -64,8 +66,9 @@ public class GenericRequestControllerTest {
     @Test
     public void getAllRequestsByUserTest(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
@@ -74,6 +77,7 @@ public class GenericRequestControllerTest {
         databaseGargoyle.attachManager(cleanUpManager);
         databaseGargoyle.attachManager(interpreterManager);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
@@ -90,8 +94,9 @@ public class GenericRequestControllerTest {
     @Test
     public void getAllRequestsByDepartmentTest(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
@@ -100,6 +105,7 @@ public class GenericRequestControllerTest {
         databaseGargoyle.attachManager(cleanUpManager);
         databaseGargoyle.attachManager(interpreterManager);
         databaseGargoyle.attachManager(foodManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);

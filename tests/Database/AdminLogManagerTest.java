@@ -15,13 +15,13 @@ public class AdminLogManagerTest {
     @Test
     public void testAddAdminLogAndUpdateAdminLogsAndDeleteAdminLog() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager userManager = new UserManager(databaseGargoyle);
-        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle, userManager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
         Timestamp time = Timestamp.valueOf("1960-01-01 23:03:20.00");
-        AdminLog log1 = new AdminLog(userManager.getUser("admin1"), "Test", time.toLocalDateTime());
+        AdminLog log1 = new AdminLog("admin1", "Test", time.toLocalDateTime());
 
         //Make sure the database is empty at the start
         assertEquals(0, adminLogManager.getAdminLogs().size());

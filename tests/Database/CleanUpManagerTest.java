@@ -20,12 +20,14 @@ public class CleanUpManagerTest {
     @Test
     public void testAddAndDelete(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         LocalDateTime createdDate = LocalDateTime.now();
@@ -69,8 +71,9 @@ public class CleanUpManagerTest {
     @Test
     public void testUpdateRequests() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
@@ -98,12 +101,14 @@ public class CleanUpManagerTest {
     @Test
     public void testUpdateRequest() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
@@ -137,12 +142,14 @@ public class CleanUpManagerTest {
     @Test
     public void testCompleteRequest() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
@@ -187,12 +194,14 @@ public class CleanUpManagerTest {
     @Test
     public void testGetCompleted() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         List<CleanUpRequest> completed = cleanUpManager.getCompleted();
@@ -205,12 +214,14 @@ public class CleanUpManagerTest {
     @Test
     public void testGetRequestsBy() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         User admin = userManager.getUser("admin1");
