@@ -1,13 +1,17 @@
 package Editor;
 
+import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
+import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Node;
 import Request.GenericRequestController;
 import org.ejml.data.FMatrixRMaj;
 import org.ejml.dense.row.misc.RrefGaussJordanRowPivot_FDRM;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class NodeEditController {
@@ -17,12 +21,16 @@ public class NodeEditController {
     SettingsManager settingsManager;
     EdgeManager edgeManager;
     GenericRequestController genericRequestController;
+    AdminLogManager adminLogManager;
+    DatabaseGargoyle databaseGargoyle;
 
-    public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm){
+    public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm, AdminLogManager adminLogManager, DatabaseGargoyle databaseGargoyle){
         this.nodeManager = nodeM;
         this.settingsManager = SettingsManager.getInstance();
         this.edgeManager = edgeM;
         this.genericRequestController = grm;
+        this.adminLogManager = adminLogManager;
+        this.databaseGargoyle = databaseGargoyle;
     }
 
     // adds a new node to the lists of all nodes
@@ -44,6 +52,7 @@ public class NodeEditController {
 
     public void setKioskLocation(Node defaultNode){
         settingsManager.setSetting("Default Node", defaultNode.getNodeID());
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed Kiosk Default Node", LocalDateTime.now()));
     }
 
     //first two nodes are start and end
@@ -57,7 +66,22 @@ public class NodeEditController {
         Node startNode = nodes.get(0);
         Node endNode = nodes.get(1);
 
-        float slope = ((float)(endNode.getYcoord() - startNode.getYcoord())) / ((float)(endNode.getXcoord() - startNode.getXcoord()));
+        float yDistance =  (float)(endNode.getYcoord() - startNode.getYcoord());
+        float xDistance =  (float)(endNode.getXcoord() - startNode.getXcoord());
+        System.out.println("Y Distance " + yDistance);
+        System.out.println("X Distance " + xDistance);
+
+        if (yDistance == 0.0){
+            yDistance = (float) 0.001;
+            System.out.println("yDistance changed to: " + yDistance);
+        }
+
+        if (xDistance == 0.0){
+            xDistance = (float) 0.001;
+            System.out.println("xDistance changed to: " + xDistance);
+        }
+
+        float slope = (yDistance) / (xDistance);
         matrix.add(0,1,-slope);
 
         float ba = ((-slope)*((float)startNode.getXcoord())) + (float)startNode.getYcoord();
@@ -85,7 +109,8 @@ public class NodeEditController {
 
             float changeInY = temp.get(0,2); // Result of reduced matrix Dy - subtract from Ycoord of out of place node
             float changeInX = temp.get(1,2); // Result of reduced matrix Dx - add to Xcoord of out of place node
-
+            System.out.println("New X coord: " + changeInX);
+            System.out.println("New Y coord: " + changeInY);
 
             Node n = new Node(c.getNodeID(),(int)changeInX, (int)changeInY, c.getFloor(), c.getBuilding(), c.getNodeType(), c.getLongName(), c.getShortName());
             editNode(n); // Unsure if this is how to actually implement editing nodes or if it should be in UI

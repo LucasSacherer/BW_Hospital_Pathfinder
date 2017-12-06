@@ -1,8 +1,10 @@
 package MapNavigation;
 
+import Database.AdminLogManager;
 import Database.NodeManager;
 import Database.SettingsManager;
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Node;
 import org.junit.Test;
 
@@ -14,8 +16,10 @@ public class MapNavigationFacadeTest {
     @Test
     public void getNearestNode() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         ClickController clickController = new ClickController(manager);
@@ -45,8 +49,10 @@ public class MapNavigationFacadeTest {
     @Test
     public void getNearestPOI() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         ClickController clickController = new ClickController(manager);
@@ -95,9 +101,11 @@ public class MapNavigationFacadeTest {
     @Test
     public void getDefaultNode() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         SettingsManager settingsManager = SettingsManager.getInstance();
         databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         ClickController clickController = new ClickController(manager);

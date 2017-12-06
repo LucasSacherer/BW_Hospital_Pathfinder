@@ -9,11 +9,14 @@ import Entity.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static java.lang.Math.min;
 import static org.junit.Assert.*;
 
-public class BeamSearchTest {
+public class DijkstraTest {
+
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+
     @Test
     public void sameNode() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
@@ -25,7 +28,7 @@ public class BeamSearchTest {
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
-        BeamSearch b = new BeamSearch(edgeM);
+        Dijkstra b = new Dijkstra(edgeM);
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
         ArrayList<Node> actual = new ArrayList<>();
         actual.add(n1);
@@ -59,12 +62,12 @@ public class BeamSearchTest {
         edgeM.addEdge(e1);
         edgeM.addEdge(e3);
 
-        BeamSearch beamSearch = new BeamSearch(edgeM);
+        Dijkstra Dijkstra = new Dijkstra(edgeM);
         ArrayList<String> actual = new ArrayList<>();
         actual.add(n3.getNodeID());
         actual.add(n1.getNodeID());
 
-        ArrayList<Node> answer = beamSearch.pathFind(n1,n3);
+        ArrayList<Node> answer = Dijkstra.pathFind(n1,n3);
         ArrayList<String> ansID = new ArrayList<>();
         for(int i = 0; i < answer.size(); i++){
             ansID.add(answer.get(i).getNodeID());
@@ -92,8 +95,8 @@ public class BeamSearchTest {
 
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01501");
-        BeamSearch beamSearch = new BeamSearch(edgeM);
-        ArrayList<Node> answer = beamSearch.pathFind(n1,n2);
+        Dijkstra Dijkstra = new Dijkstra(edgeM);
+        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
         assertEquals("GHALL01501", answer.get(0).getNodeID());
         assertEquals("GHALL01601", answer.get(1).getNodeID());
     }
@@ -111,8 +114,8 @@ public class BeamSearchTest {
 
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01601");
-        BeamSearch beamSearch = new BeamSearch(edgeM);
-        ArrayList<Node> answer = beamSearch.pathFind(n1,n2);
+        Dijkstra Dijkstra = new Dijkstra(edgeM);
+        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
         ArrayList<Node> expected;
         assertEquals("GHALL01601", answer.get(0).getNodeID());
     }
@@ -130,8 +133,8 @@ public class BeamSearchTest {
 
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GELEV00N01");
-        BeamSearch beamSearch = new BeamSearch(edgeM);
-        ArrayList<Node> answer = beamSearch.pathFind(n1,n2);
+        Dijkstra Dijkstra = new Dijkstra(edgeM);
+        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
         //System.out.println(answer);
         ArrayList<String> ansID = new ArrayList<>();
         for(int i = 0; i < answer.size(); i++){
@@ -153,8 +156,8 @@ public class BeamSearchTest {
 
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
-        BeamSearch beamSearch = new BeamSearch(edgeM);
-        ArrayList<Node> answer = beamSearch.pathFind(n1,n2);
+        Dijkstra Dijkstra = new Dijkstra(edgeM);
+        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
         ArrayList<Node> expected;
         //System.out.println(answer);
         ArrayList<String> ansID = new ArrayList<>();
@@ -165,8 +168,8 @@ public class BeamSearchTest {
 
         n1 = nodeM.getNode("GHALL01601");
         n2 = nodeM.getNode("GELEV00N01");
-        beamSearch = new BeamSearch(edgeM);
-        answer = beamSearch.pathFind(n1,n2);
+        Dijkstra = new Dijkstra(edgeM);
+        answer = Dijkstra.pathFind(n1,n2);
         ansID.clear();
         for(int i = 0; i < answer.size(); i++){
             ansID.add(answer.get(i).getNodeID());

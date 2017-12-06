@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
@@ -27,6 +28,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
+    protected Group group;
     protected ImageButton floorChange;
     protected GodController godController;
     protected Label currentFloorNum;
@@ -58,9 +60,8 @@ public abstract class AbstractMapController {
     }
 
     public void initializeScene() {
-        Group group = new Group();
-        Pane pane = new Pane();
-        mapPane = pane;
+        group = new Group();
+        mapPane = new Pane();
         imageView = new ImageView();
         imageView.setPreserveRatio(true);
         canvas = new Canvas();
@@ -74,9 +75,8 @@ public abstract class AbstractMapController {
         };
         canvas.setOnMouseClicked(handler);
         gc = canvas.getGraphicsContext2D();
-        pane.getChildren().add(imageView);
-        pane.getChildren().add(1,canvas);
-        group.getChildren().add(pane);
+        mapPane.getChildren().addAll(imageView, canvas);
+        group.getChildren().add(mapPane);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setContent(group);
@@ -366,12 +366,14 @@ public abstract class AbstractMapController {
         public ImageButton() {
             this.setButtonType(JFXButton.ButtonType.RAISED);
             this.setPrefSize(20, 20);
+            this.setHover(true);
         }
 
         public void setFloor(Node next) {
             this.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    System.out.println("Made it here");
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
                     currentFloorNum.setText(currentFloor);

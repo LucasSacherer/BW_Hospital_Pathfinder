@@ -1,9 +1,11 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Edge;
 import Entity.Node;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,10 +14,12 @@ public class EdgeManager implements EntityManager{
     final private NodeManager nodeManager;
     private List<Edge> edges;
     private DatabaseGargoyle databaseGargoyle;
+    private AdminLogManager adminLogManager;
 
-    public EdgeManager(DatabaseGargoyle dbG, NodeManager nodeManager){
+    public EdgeManager(DatabaseGargoyle dbG, NodeManager nodeManager, AdminLogManager adminLogManager){
         databaseGargoyle = dbG;
         this.nodeManager = nodeManager;
+        this.adminLogManager = adminLogManager;
         edges = new ArrayList<>();
     }
 
@@ -52,6 +56,7 @@ public class EdgeManager implements EntityManager{
                     e.getStartNode().getNodeID()+"_"+e.getEndNode().getNodeID()+"','"+
                     e.getStartNode().getNodeID()+"','"+e.getEndNode().getNodeID()+"')");
             databaseGargoyle.destroyConnection();
+            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Added Edge: " + e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID(), LocalDateTime.now()));
         }
     }
 
@@ -69,8 +74,7 @@ public class EdgeManager implements EntityManager{
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM EDGE WHERE EDGEID = '" +
                 e.getEndNode().getNodeID() + "_" + e.getStartNode().getNodeID() + "'");
         databaseGargoyle.destroyConnection();
-
-        //AHALL00202_AHALL00302
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Removed Edge: " + e.getStartNode().getNodeID() + "_" + e.getEndNode().getNodeID(), LocalDateTime.now()));
     }
 
     /**

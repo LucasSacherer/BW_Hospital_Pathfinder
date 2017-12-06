@@ -5,11 +5,11 @@ import javafx.beans.property.SimpleStringProperty;
 import java.time.LocalDateTime;
 
 public class AdminLog {
-    private User user;
+    private String user;
     private String action;
     private LocalDateTime time;
 
-    public AdminLog(User user, String action, LocalDateTime time) {
+    public AdminLog(String user, String action, LocalDateTime time) {
         this.user = user;
         this.action = action;
         this.time = time;
@@ -26,7 +26,7 @@ public class AdminLog {
     }
 
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
