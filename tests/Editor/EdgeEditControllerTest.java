@@ -1,8 +1,10 @@
 package Editor;
 
+import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Edge;
 import Entity.Node;
 import org.junit.Test;
@@ -16,10 +18,12 @@ public class EdgeEditControllerTest {
     @Test
     public void testAddRemoveGetAllEdges() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager testMan = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager testMan = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(testMan);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         //Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
@@ -72,10 +76,12 @@ public class EdgeEditControllerTest {
     @Test
     public void testDeleteEdge(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle,adminLogManager);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(edgeManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");

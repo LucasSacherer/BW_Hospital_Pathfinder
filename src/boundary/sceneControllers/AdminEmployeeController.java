@@ -37,7 +37,6 @@ public class AdminEmployeeController {
     public void initializeScene() {
         departmentList = FXCollections.observableArrayList("Food", "Interpreter","Janitorial");
         departmentMenu.setItems(departmentList);
-        userManager.update();
         employeeList.setItems(userManager.getUsers());
         initializeAdminEmployeeListeners();
     }
@@ -61,7 +60,6 @@ public class AdminEmployeeController {
             User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.addUser(newUser);
-            userManager.update();
             employeeList.setItems(userManager.getUsers());
             resetScene();
         }
@@ -82,7 +80,6 @@ public class AdminEmployeeController {
             User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.modifyUser(modUser);
-            userManager.update();
             employeeList.setItems(userManager.getUsers());
         }
     }
@@ -92,7 +89,6 @@ public class AdminEmployeeController {
             genericRequestController.deleteRequest(req);
         }
         userManager.removeUser(selectedUser);
-        userManager.update();
         employeeList.setItems(userManager.getUsers());
     }
 

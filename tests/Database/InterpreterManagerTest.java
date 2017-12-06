@@ -17,12 +17,14 @@ public class InterpreterManagerTest {
     @Test
     public void TestAddandDelete() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         LocalDateTime createdDate = LocalDateTime.now();
@@ -58,12 +60,14 @@ public class InterpreterManagerTest {
     @Test
     public void TestUpdateRequest() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
@@ -93,12 +97,14 @@ public class InterpreterManagerTest {
     public void testCompleteRequest() {
         //Create what is needed to run the tests
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Timestamp created = Timestamp.valueOf("1960-01-01 23:03:20.00");
@@ -146,12 +152,14 @@ public class InterpreterManagerTest {
     @Test
     public void testGetCompleted() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         List<InterpreterRequest> completed = iManager.getCompleted();
@@ -165,12 +173,14 @@ public class InterpreterManagerTest {
     @Test
     public void testGetRequestsBy() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         InterpreterManager iManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(iManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         List<InterpreterRequest> requestsByUser = iManager.getRequestsBy(userManager.getUser("admin2"));
