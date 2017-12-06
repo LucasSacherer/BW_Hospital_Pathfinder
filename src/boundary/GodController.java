@@ -81,6 +81,10 @@ public class GodController {
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
+
+    @FXML
+    private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
+
     /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
@@ -88,21 +92,11 @@ public class GodController {
     @FXML
     private AnchorPane searchPane; // search bar
 
-    /* Map Panes */
-    @FXML
-    private Pane mapEditMapPane, mapPane, requestMapPane, pathfindingMapPane;
-
     @FXML
     private StackPane menuARStackPane;
 
     @FXML
-    private Canvas canvas, mapEditCanvas, requestCanvas, pathfindingCanvas;
-
-    @FXML
-    private JFXTextField originField, destinationField;
-
-    @FXML
-    private ImageView imageView, mapEditImageView, requestImageView, pathfindingImageView;
+    private Label originField, destinationField;
 
     /* Pathfinding Scene */
     @FXML
@@ -281,9 +275,8 @@ public class GodController {
     }
 
     private void initializePathfindingScene() {
-        pathfindingSceneController = new PathfindingSceneController(this, pathfindingImageView, pathfindingMapPane,
-                pathfindingCanvas, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
-                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider);
+        pathfindingSceneController = new PathfindingSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
+                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider, pathfindingScrollPane);
     }
 
     private void initializeDirectoryScene() {
@@ -291,24 +284,25 @@ public class GodController {
     }
 
     private void initializeMainScene() {
-        mainSceneController = new MainSceneController(this, imageView, mapPane, canvas, mapNavigationFacade,
-                pathFindingFacade, currentFloorNum, originField, destinationField, zoomSlider, directorySceneController, searchPane);
+        mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane);
         mainSceneController.initializeScene();
         directorySceneController.setMainSceneController(mainSceneController);
     }
 
     private void initializeRequestScene() {
-        staffRequestController = new StaffRequestController(this, requestImageView, requestMapPane, requestCanvas,
-                mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, genericRequestController, requestCleanupController,
+        staffRequestController = new StaffRequestController(this, mapNavigationFacade, pathFindingFacade,
+                currentFloorNumRequest, genericRequestController, requestCleanupController,
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
-                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem, null);
+                requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem,
+                null, requestScrollPane);
     }
 
     private void initializeMapAdminScene() {
-        adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager, nodeEditController, edgeEditController,
-                mapEditImageView, mapEditMapPane, mapEditCanvas, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumMapEdit, addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, null); //TODO update mapadmin page with zoom slider
+        adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager,
+                nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
+                addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, null, mapEditScrollPane);
     }
 
     private void initializeAdminLogScene() {
@@ -362,11 +356,11 @@ public class GodController {
 
     //zooms in by 0.1 on click of zoom in button
     @FXML
-    private void zoomInMap() { mainSceneController.zoomInMap(); }
+    private void zoomInMap() {  } // TODO delete
 
     //zooms out by 0.1 on click of zoom out button
     @FXML
-    private void zoomOutMap() { mainSceneController.zoomOutMap(); }
+    private void zoomOutMap() { }
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
@@ -684,10 +678,10 @@ public class GodController {
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
     @FXML
-    private void zoomInMapEdit() { adminMapController.zoomInMap(); }
+    private void zoomInMapEdit() { }
 
     @FXML
-    private void zoomOutMapEdit() { adminMapController.zoomOutMap(); }
+    private void zoomOutMapEdit() { }
 
     @FXML
     private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
