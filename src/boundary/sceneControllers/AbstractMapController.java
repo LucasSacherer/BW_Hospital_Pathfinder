@@ -28,6 +28,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
+    private final double ZOOM = 0.28;
     protected Group group;
     protected ImageButton floorChange;
     protected GodController godController;
@@ -84,6 +85,9 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
+        zoomSlider.setValue(0);
+        mapPane.setScaleX(ZOOM);
+        mapPane.setScaleY(ZOOM);
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -318,8 +322,7 @@ public abstract class AbstractMapController {
 
     public void zoom() {
         double sliderLevel = zoomSlider.getValue() / 100;
-        double zoomLevel = sliderLevel + 0.5;
-        double SCALE_DELTA = 1.1;
+        double zoomLevel = sliderLevel+ ZOOM;
         Point2D scrollOffset = figureScrollOffset(mapPane, scrollPane);
 
         double scaleFactor = 1;
