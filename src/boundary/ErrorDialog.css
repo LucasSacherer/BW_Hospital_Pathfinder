@@ -1,16 +1,30 @@
 .dialog-pane {
-    -fx-background-color: black;
+    -fx-background-color: #ffffff;
 }
 
 .dialog-pane .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #000000;
 }
 
-.dialog-pane:header .header-panel {
-    -fx-background-color: black;
+.dialog-pane .header-panel {
+    -fx-background-color: rgba(0, 116, 180, 0.49);
 }
 
-.dialog-pane:header .header-panel .label {
-    -fx-font-style: italic;
+.dialog-pane .header-panel .label {
+    -fx-font-style: bold;
     -fx-font-size: 2em;
+}
+
+.dialog-pane .button{
+    -fx-background-color:white;
+    -fx-text-fill:blue;
+    -fx-wrap-text: true;
+    -fx-effect: innershadow(gaussian, grey, 10, 0.0, 10, 10);
+    -fx-cursor:hand;
+}
+
+.dialog-pane .button:hover{
+    -fx-background-color:white;
+    -fx-text-fill:black;
+    -fx-font-weight:bold;
 }

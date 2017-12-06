@@ -11,7 +11,7 @@ public class ErrorController {
 
     public void showError(String errorMessage){
         Dialog error = new Dialog();
-        error.setHeaderText("Error");
+        error.setHeaderText("Error!");
         error.setResizable(true);
         error.setContentText(errorMessage);
 
