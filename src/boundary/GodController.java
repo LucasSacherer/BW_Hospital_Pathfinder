@@ -794,11 +794,10 @@ public class GodController {
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
-            currentUser = adminLoginText.getText();
-            System.out.println(currentUser);
+            databaseGargoyle.setCurrentUser(userManager.getUserByName(adminLoginText.getText()));
+            System.out.println(databaseGargoyle.getCurrentUser().getUsername());
             sceneSwitcher.toAdminHub(this, loginPane);
             adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
-            adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Logged in", LocalDateTime.now()));
         } else errorController.showError("Invalid credentials! Please try again.");
 
     }

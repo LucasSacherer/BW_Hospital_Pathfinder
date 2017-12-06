@@ -49,10 +49,10 @@ public class AdminLogManager implements EntityManager {
         ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT * FROM ADMINLOG");
         try {
             while (rs.next()) {
-                user = userManager.getUser(rs.getString("USERID"));
+                userID = rs.getString("USERID");
                 action = rs.getString("ACTION");
                 time = rs.getTimestamp("TIME").toLocalDateTime();
-                adminlogs.add(new AdminLog(user, action, time));
+                adminlogs.add(new AdminLog(userID, action, time));
             }
         }catch (SQLException ex){
             System.out.println("Failed to update the list of Admin Logs!");

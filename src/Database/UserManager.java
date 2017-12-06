@@ -1,6 +1,7 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 public class UserManager implements EntityManager {
     private ArrayList<User> users;
     private DatabaseGargoyle databaseGargoyle;
+    private AdminLogManager adminLogManager;
 
-    public UserManager(DatabaseGargoyle dbG) {
+    public UserManager(DatabaseGargoyle dbG, AdminLogManager adminLogManager) {
         this.databaseGargoyle = dbG;
+        this.adminLogManager = adminLogManager;
         this.users = new ArrayList<>();
     }
 
@@ -28,6 +31,7 @@ public class UserManager implements EntityManager {
         for (User user: users){
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 if (user.getAdminFlag()){
+                    adminLogManager.addAdminLog(new AdminLog());
                     return true;
                 }
             }
