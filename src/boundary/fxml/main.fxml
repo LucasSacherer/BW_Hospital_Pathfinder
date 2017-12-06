@@ -15,8 +15,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
@@ -209,21 +207,13 @@
                   </JFXButton>
                </children>
             </HBox>
-            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="44.0" prefWidth="110.0" style="-fx-background-radius: 12; -fx-background-color: white; -fx-border-color: #0068b1; -fx-border-radius: 10; -fx-border-width: 5;" text="Login" textFill="#0068b1" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="44.0" prefWidth="110.0" ripplerFill="#cccccc" style="-fx-background-radius: 12; -fx-background-color: white; -fx-border-color: #0068b1; -fx-border-radius: 10; -fx-border-width: 5;" text="Login" textFill="#0068b1" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
                <GridPane.margin>
                   <Insets right="15.0" top="15.0" />
                </GridPane.margin>
-               <ripplerFill>
-                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                     <stops>
-                        <Stop color="BLACK" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </RadialGradient>
-               </ripplerFill>
             </JFXButton>
             <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 100;" text=" " wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
