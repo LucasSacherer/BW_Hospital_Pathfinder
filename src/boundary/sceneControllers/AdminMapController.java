@@ -9,8 +9,10 @@ import Entity.Edge;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
+import boundary.GodController;
 import boundary.sceneControllers.mapEditing.*;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
@@ -48,10 +50,10 @@ public class AdminMapController extends AbstractMapController{
     private Tab addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab;
 
 
-    public AdminMapController(DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
+    public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm, NodeEditController n, EdgeEditController e, ImageView i, Pane mapPane,
                               Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab) {
-        super(i, mapPane, canvas, m, p, currentFloorNum);
+                              Tab addNode, Tab editNode, Tab removeNode, Tab addEdge, Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, JFXSlider zoomSlider) {
+        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
         this.databaseGargoyle = dbG;
         this.edgeEditController = e;
         this.nodeEditController = n;
@@ -107,25 +109,27 @@ public class AdminMapController extends AbstractMapController{
     private void drawKiosk() {
         Node k = mapNavigationFacade.getDefaultNode();
         if (k == null) return;
+        if (k.getFloor().equals(currentFloor)) {
 
-        gc.setFill(Color.PURPLE);
-        gc.fillOval(k.getXcoord() - 18, k.getYcoord() - 18, 36, 36);
+            gc.setFill(Color.PURPLE);
+            gc.fillOval(k.getXcoord() - 18, k.getYcoord() - 18, 36, 36);
 
-        gc.setFill(Color.GOLD);
-        gc.fillOval(k.getXcoord() - 15, k.getYcoord() - 15, 30, 30);
+            gc.setFill(Color.GOLD);
+            gc.fillOval(k.getXcoord() - 15, k.getYcoord() - 15, 30, 30);
 
 
-        gc.setFill(Color.RED);
-        gc.fillOval(k.getXcoord() - 12, k.getYcoord() - 12, 24, 24);
+            gc.setFill(Color.RED);
+            gc.fillOval(k.getXcoord() - 12, k.getYcoord() - 12, 24, 24);
 
-        gc.setFill(Color.YELLOW);
-        gc.fillOval(k.getXcoord() - 10, k.getYcoord() - 10, 20, 20);
+            gc.setFill(Color.YELLOW);
+            gc.fillOval(k.getXcoord() - 10, k.getYcoord() - 10, 20, 20);
 
-        gc.setFill(Color.BLUE);
-        gc.fillOval(k.getXcoord() - 8, k.getYcoord() - 8, 16, 16);
+            gc.setFill(Color.BLUE);
+            gc.fillOval(k.getXcoord() - 8, k.getYcoord() - 8, 16, 16);
 
-        gc.setFill(Color.GREEN);
-        gc.fillOval(k.getXcoord() - 4, k.getYcoord() - 4, 8, 8);
+            gc.setFill(Color.GREEN);
+            gc.fillOval(k.getXcoord() - 4, k.getYcoord() - 4, 8, 8);
+        }
     }
 
     private void drawAllNodes() {

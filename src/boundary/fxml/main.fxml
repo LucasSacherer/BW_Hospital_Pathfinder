@@ -1,509 +1,262 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="275.0" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="1080.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="439.0568542480469" minWidth="10.0" prefWidth="234.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="306.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="100.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="446.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="195.0" minHeight="18.0" prefHeight="154.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="3" GridPane.rowSpan="3">
+               <content>
+                  <Pane fx:id="mapPane" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
                      <children>
-                        <StackPane prefHeight="909.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-                              <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="275.0" StackPane.alignment="BOTTOM_CENTER">
-                                 <children>
-                                    <VBox alignment="BOTTOM_CENTER" layoutX="18.0" layoutY="37.0" prefHeight="590.0" prefWidth="244.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <AnchorPane prefHeight="141.0" prefWidth="275.0">
-                                             <children>
-                                                <GridPane prefHeight="122.0" prefWidth="275.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label text="Welcome to" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                                                         <font>
-                                                            <Font name="Serif Bold" size="29.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label text="Brigham &amp; Woman's" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                         <font>
-                                                            <Font name="Serif Bold" size="29.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label text="Hospital" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                                                         <font>
-                                                            <Font name="Serif Bold" size="29.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </GridPane>
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane prefHeight="308.0" prefWidth="275.0">
-                                             <children>
-                                                <ImageView fitHeight="319.0" fitWidth="255.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                                                   <image>
-                                                      <Image url="@../images/other%20images/BWH.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </AnchorPane>
-                              <Accordion maxWidth="-Infinity" prefHeight="752.0" prefWidth="275.0">
-                                 <panes>
-                                    <TitledPane animated="false" text="Elevators">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="elevatorDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" text="Restrooms">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="restroomDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Stairs">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="stairsDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="122.0" text="Departments">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="deptDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Labs">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="labDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="66.0" text="Info Desks">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="infoDeskDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="150.0" text="Conference Rooms">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="conferenceDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Exits/Entrances">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="exitDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="320.0" text="Shops, Food, Phones">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="shopsDir" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                    <TitledPane animated="false" layoutX="10.0" layoutY="320.0" prefWidth="254.0" text="Non-Medical Services">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DBBD9B;">
-                                             <children>
-                                                <ListView fx:id="nonMedical" prefHeight="184.0" prefWidth="252.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                             </cursor>
-                                          </AnchorPane>
-                                       </content>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </TitledPane>
-                                 </panes>
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </Accordion>
-                           </children>
-                        </StackPane>
-                        <Separator minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" />
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="275.0">
-                           <children>
-                              <GridPane prefHeight="169.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="48.0" minHeight="7.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="60.0" minHeight="8.0" prefHeight="8.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Origin:">
-                                       <font>
-                                          <Font name="System Bold" size="17.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Destination:" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font name="System Bold" size="17.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXTextField fx:id="originField" text="Default(Kiosk)" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="destinationField" text="Select" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <JFXButton onAction="#setLoc1" style="-fx-background-color: #CCCCCC;" text="Set" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </JFXButton>
-                                    <JFXButton onAction="#setLoc2" style="-fx-background-color: #CCCCCC;" text="Set" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </JFXButton>
-                                    <JFXButton fx:id="navigate" onAction="#findPath" style="-fx-background-color: #CCCCCC;" text="Navigate" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </JFXButton>
-                                    <JFXButton onAction="#getTextDirections" style="-fx-background-color: #CCCCCC;" text="Text Directions" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                       <font>
-                                          <Font name="System Bold" size="15.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets />
-                                       </GridPane.margin>
-                                    </JFXButton>
-                                 </children>
-                              </GridPane>
-                           </children></AnchorPane>
+                        <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/other%20images/BWH.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                        <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
                      </children>
-                  </VBox>
+                  </Pane>
+               </content>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
+                        <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="228.0" prefWidth="358.0" spacing="25.0" GridPane.rowIndex="2">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                           <image>
+                              <Image url="@../images/circle-outline.png" />
+                           </image>
+                        </ImageView>
+                        <JFXTextField fx:id="originField" alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="170.0" promptText="Kiosk Location">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearOriginMain" text="X" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="194.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                           <image>
+                              <Image url="@../images/location.png" />
+                           </image>
+                        </ImageView>
+                        <JFXTextField fx:id="destinationField" alignment="BOTTOM_LEFT" prefHeight="41.0" prefWidth="146.0" promptText="Select a Destination">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearDestinationMain" prefHeight="40.0" prefWidth="29.0" text="X" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
-            </AnchorPane>
-         </left>
-         <center>
-            <AnchorPane prefHeight="1080.0" prefWidth="1652.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
-                  <AnchorPane prefHeight="1080.0" prefWidth="1645.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                      <children>
-                        <GridPane alignment="CENTER" prefHeight="1080.0" prefWidth="1645.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="985.0" minHeight="10.0" prefHeight="962.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="482.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.rowSpan="2">
-                                 <content>
-                                    <Pane fx:id="mapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
-                                       <children>
-                                          <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/other%20images/BWH.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Canvas fx:id="canvas" height="3400.0" onMouseClicked="#clickOnMap" width="5000.0" />
-                                       </children>
-                                    </Pane>
-                                 </content>
-                                 <contextMenu>
-                                    <ContextMenu>
-                                      <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
-                                          <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
-                                      </items>
-                                    </ContextMenu>
-                                 </contextMenu>
-                              </ScrollPane>
-                              <HBox alignment="CENTER" prefHeight="109.0" prefWidth="1646.0" GridPane.rowIndex="1">
-                                 <children>
-                                    <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#zoomInMap" style="-fx-background-radius: 100;">
-                                       <graphic>
-                                          <ImageView fitHeight="125.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/Black%20Plus.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                    <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#zoomOutMap" style="-fx-background-radius: 100;">
-                                       <graphic>
-                                          <ImageView fitHeight="122.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/Black%20Minus.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                    <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="369.0" layoutY="-1.0" onAction="#floorDown" style="-fx-background-radius: 100;">
-                                       <graphic>
-                                          <ImageView fitHeight="119.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/down_arrow.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                    <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="10.0" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: black; -fx-border-radius: 10px;">
-                                       <children>
-                                          <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="42.0" prefWidth="85.0" text="Floor:" textAlignment="CENTER" wrapText="true">
-                                             <font>
-                                                <Font name="System Bold" size="15.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="currentFloorNum">
-                                             <font>
-                                                <Font name="System Bold" size="60.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                    <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="622.0" layoutY="53.0" onAction="#floorUp" style="-fx-background-radius: 100;">
-                                       <graphic>
-                                          <ImageView fitHeight="114.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/up_arrow.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                    <MenuButton mnemonicParsing="false">
-                                       <items>
-                                          <MenuItem mnemonicParsing="false" onAction="#infoClicked" text="Info">
-                                             <graphic>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/mapIcons/info.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </MenuItem>
-                                          <MenuItem mnemonicParsing="false" onAction="#bathroomClicked" text="Bathroom">
-                                             <graphic>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/mapIcons/bathroom.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </MenuItem>
-                                          <MenuItem mnemonicParsing="false" onAction="#elevatorClicked" text="Elevator">
-                                             <graphic>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/mapIcons/elev.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </MenuItem>
-                                       </items>
-                                       <graphic>
-                                          <VBox alignment="BOTTOM_CENTER">
-                                             <children>
-                                                <Group>
-                                                   <children>
-                                                      <ImageView fitHeight="86.0" fitWidth="77.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../images/nearest.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutY="77.0" prefHeight="18.0" prefWidth="85.0" text="Nearest " textAlignment="CENTER" />
-                                                   </children>
-                                                </Group>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </VBox>
-                                       </graphic>
-                                    </MenuButton>
-                                    <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="1297.0" layoutY="53.0" onAction="#mainToLogin" style="-fx-background-radius: 100;">
-                                       <graphic>
-                                          <ImageView fitHeight="107.0" fitWidth="110.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/ic_account_circle_black_24dp.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </GridPane>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorUp" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
+                           <graphic>
+                              <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/ArrowUp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></JFXButton>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
+                           <graphic>
+                              <Label fx:id="currentFloorNum" contentDisplay="CENTER" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="15.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#floorDown" prefHeight="0.0" prefWidth="0.0" style="-fx-background-radius: 100;" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/DownArrow.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <JFXSlider fx:id="zoomSlider" max="200.0" onMouseClicked="#mainZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" value="100.0" VBox.vgrow="SOMETIMES">
+                     <padding>
+                        <Insets right="40.0" />
+                     </padding>
+                  </JFXSlider>
+               </children>
+            </VBox>
+            <VBox prefHeight="109.0" prefWidth="117.0" spacing="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <children>
+                  <JFXButton alignment="TOP_LEFT" onAction="#openDirectory" style="-fx-background-color: #CCCCCC;" text="Directory">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <AnchorPane fx:id="searchPane">
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
                   </AnchorPane>
                </children>
-            </AnchorPane>
-         </center>
-      </BorderPane>
+            </VBox>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#findPath" prefHeight="75.0" prefWidth="78.0" text="Navigate" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0">
+                     <image>
+                        <Image url="@../images/Icons/Navagate.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
+               <children>
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskMain" prefHeight="82.0" prefWidth="82.0" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/Info%20desk.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestElevatorMain" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/Elevator1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/Bathroom.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="44.0" prefWidth="110.0" style="-fx-background-radius: 10; -fx-background-color: white; -fx-border-color: #0068b1; -fx-border-radius: 10; -fx-border-width: 5;" text="Login" textFill="#0068b1" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="15.0" top="15.0" />
+               </GridPane.margin>
+               <ripplerFill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </ripplerFill>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#informationMain" text=" " wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <graphic>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Icons/info2.png" />
+                     </image></ImageView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets right="130.0" top="5.0" />
+               </GridPane.margin>
+               <ripplerFill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="#fffcfc" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </ripplerFill>
+            </JFXButton>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

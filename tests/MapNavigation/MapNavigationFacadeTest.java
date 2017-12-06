@@ -15,13 +15,12 @@ public class MapNavigationFacadeTest {
     public void getNearestNode() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
-        SettingsManager sm = new SettingsManager(databaseGargoyle);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
-        DirectoryController directoryController = new DirectoryController(manager,sm);
+        DirectoryController directoryController = new DirectoryController(manager);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
 
@@ -47,13 +46,12 @@ public class MapNavigationFacadeTest {
     public void getNearestPOI() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
-        SettingsManager sm = new SettingsManager(databaseGargoyle);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
-        DirectoryController directoryController = new DirectoryController(manager,sm);
+        DirectoryController directoryController = new DirectoryController(manager);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
 
@@ -98,17 +96,16 @@ public class MapNavigationFacadeTest {
     public void getDefaultNode() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         NodeManager manager = new NodeManager(databaseGargoyle);
-        SettingsManager settingsManager = new SettingsManager(databaseGargoyle);
+        SettingsManager settingsManager = SettingsManager.getInstance();
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.notifyManagers();
 
         ClickController clickController = new ClickController(manager);
         MapDisplayController mapDisplayController = new MapDisplayController();
-        DirectoryController directoryController = new DirectoryController(manager,settingsManager);
+        DirectoryController directoryController = new DirectoryController(manager);
         NearestPOIController nearestPOIController = new NearestPOIController(manager);
         MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,nearestPOIController,mapDisplayController,directoryController);
 
-        settingsManager.updateSettings();
         System.out.println(settingsManager.getSetting("Default Node"));
         System.out.println(manager.getNode(settingsManager.getSetting("Default Node")));
 

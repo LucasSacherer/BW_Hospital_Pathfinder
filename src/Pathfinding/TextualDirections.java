@@ -2,6 +2,8 @@ package Pathfinding;
 
 import Entity.ErrorController;
 import Entity.Node;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -127,7 +129,7 @@ public class TextualDirections {
     }
 
     //method that does the work creating the textual directions
-    private List<String> makeTextDir(List<Node> path){
+    public List<String> makeTextDir(List<Node> path){
         List<String> writtenDirections = new LinkedList();
 
         Collections.reverse(path);
@@ -209,4 +211,13 @@ public class TextualDirections {
 
     //getter for textual directions
     protected List<String> getDir(List<Node> path){return makeTextDir(path);}
+
+    //get an observable list
+    public ObservableList<String> getTextDirections(List<Node> path) {
+        ObservableList textualDirections = FXCollections.observableArrayList();
+        List<String> thePath = makeTextDir(path);
+        textualDirections.addAll(thePath);
+        return textualDirections;
+    }
+
 }
