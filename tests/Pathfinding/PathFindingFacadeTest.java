@@ -2,6 +2,7 @@ package Pathfinding;
 
 import Database.EdgeManager;
 import Database.NodeManager;
+import Database.PathfindingLogManager;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 import org.junit.Test;
@@ -256,6 +257,7 @@ public class PathFindingFacadeTest {
         PathFindingFacade pFF = new PathFindingFacade();
         NodeManager nodeM = new NodeManager(databaseGargoyle);
         EdgeManager edgeM = new EdgeManager(databaseGargoyle, nodeM);
+        PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
         Astar astar = new Astar(edgeM);
         pFF.setPathfinder(astar);
         databaseGargoyle.attachManager(nodeM);
@@ -263,7 +265,12 @@ public class PathFindingFacadeTest {
         databaseGargoyle.notifyManagers();
         Node n1 = nodeM.getNode("ALABS001L2");
         Node n2 = nodeM.getNode("IDEPT00903");
-        pFF.getPath(n1,n2);
+        int logSize = pathfindingLogManager.getPathfindingLogSize();
+        List<Node> answer = pFF.getPath(n1,n2);
+        assertEquals(logSize,pathfindingLogManager.getPathfindingLogSize() - answer.size());
+        pathfindingLogManager.clearAllLogsInDatabase();
+        assertEquals(pathfindingLogManager.getPathfindingLogSize(),0);
+
 
     }
 }
