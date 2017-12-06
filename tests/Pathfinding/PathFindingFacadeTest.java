@@ -268,8 +268,6 @@ public class PathFindingFacadeTest {
         int logSize = pathfindingLogManager.getPathfindingLogSize();
         List<Node> answer = pFF.getPath(n1,n2);
         assertEquals(logSize,pathfindingLogManager.getPathfindingLogSize() - answer.size());
-        pathfindingLogManager.clearAllLogsInDatabase();
-        assertEquals(pathfindingLogManager.getPathfindingLogSize(),0);
 
 
     }
