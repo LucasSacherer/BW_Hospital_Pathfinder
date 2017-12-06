@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.fxml.AboutPopUp">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
          <children>
@@ -22,7 +22,11 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="895.0" prefWidth="1920.0" text="Label" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <JFXTextArea editable="false" prefHeight="895.0" prefWidth="1920.0" text="WPI Computer Science Department&#10;CS3733 Software Engineering&#10;Professor Wilson Wong&#10;&#10;Team Members:&#10;&#10;Lucas Sacherer: Lead Developer &#10;Nicole Franco: Assistant Developer&#10;Quinn Averill: Assistant Developer&#10;Melanie Dworak: Project Manager&#10;Garrett Otteni: Scrum Master&#10;Taylor Stephen: Product Owner&#10;Ian MacGregor: Test Engineer&#10;Alexander Pappas: Documentation Analyst&#10;Dimitrios Tsiakmakis: Software Engineer&#10;Sean Hunt: Software Engineer&#10;Zach Halzel: Software Engineer&#10;&#10;Team Coach:&#10;Binam Kayastha&#10;&#10;A special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input and for such a wonderful project.&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </JFXTextArea>
                            </children>
                         </AnchorPane>
                     </content>
@@ -40,11 +44,16 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                                       <children>
-                                          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                       </children>
-                                    </AnchorPane>
+                                    <JFXTextArea text="1. &#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10.&#10;11.&#10;12.&#10;13.&#10;">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </JFXTextArea>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <center>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('/boundary/images/informationMap.png');" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
                                  </children>
                               </GridPane>
                            </children>
