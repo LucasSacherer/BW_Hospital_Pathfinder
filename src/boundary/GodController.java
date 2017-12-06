@@ -234,7 +234,7 @@ public class GodController {
     private JFXToggleButton adminToggle;
 
     @FXML
-    private JFXSlider zoomSlider;
+    private JFXSlider zoomSlider, requestZoomSlider;
 
     /* Staff Request Hub */
 
@@ -300,7 +300,7 @@ public class GodController {
                 requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
                 requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem,
-                null, requestScrollPane);
+                requestZoomSlider, requestScrollPane);
     }
 
     private void initializeMapAdminScene() {
@@ -415,6 +415,12 @@ public class GodController {
     /* Pathfinding Scene */
     ///////////////////////
     @FXML
+    private void pathfindingUp() throws IOException, SQLException { pathfindingSceneController.floorUp(); }
+
+    @FXML
+    private void pathfindingDown() throws IOException, SQLException { pathfindingSceneController.floorDown(); }
+
+    @FXML
     private void clearOriginPathfinding(){}//TODO
 
     @FXML
@@ -445,6 +451,9 @@ public class GodController {
     /////////////////////////
     /* Staff Request Scene */
     /////////////////////////
+
+    @FXML
+    private void requestZoom() { staffRequestController.zoom(); }
 
     @FXML
     private void navigateToRequest() throws IOException { staffRequestController.navigateToRequest(); } //TODO
@@ -628,6 +637,8 @@ public class GodController {
     /////////////////
     /* Map Editing */
     /////////////////
+    @FXML
+    private void mapEditZoom() { adminMapController.zoom(); }
 
     @FXML
     private void straightenButton() { adminMapController.straighten(); }
