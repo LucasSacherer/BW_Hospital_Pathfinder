@@ -3,6 +3,8 @@ package Database;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.Node;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,5 +45,25 @@ public class PathfindingLogManager {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM PATHFINDINGLOG");
         databaseGargoyle.destroyConnection();
+    }
+
+    /**
+     * For Testing only
+     * Gets the number of logs currently in the database
+     * @return
+     */
+    public int getPathfindingLogSize() {
+        int size = 0;
+        databaseGargoyle.createConnection();
+        ResultSet rs = databaseGargoyle.executeQueryOnDatabase("SELECT COUNT(*) FROM PATHFINDINGLOG");
+        try {
+            while (rs.next()){
+                size = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        databaseGargoyle.destroyConnection();
+        return size;
     }
 }
