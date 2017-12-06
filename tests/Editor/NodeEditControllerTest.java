@@ -229,8 +229,8 @@ public class NodeEditControllerTest {
         editor.alignNodes(nodes);
 
         //Checks the updated nodes in the list provided. Once editing works could test new nodes.
-        //assertEquals(nodes.get(2).getXcoord(),8);
-        //assertEquals(nodes.get(2).getYcoord(),8);
+        assertEquals(nodes.get(2).getXcoord(),5);
+        assertEquals(nodes.get(2).getYcoord(),8);
 
     }
     @Test
@@ -255,8 +255,8 @@ public class NodeEditControllerTest {
         editor.alignNodes(nodes);
 
         //Checks the updated nodes in the list provided. Once editing works could test new nodes.
-        //assertEquals(nodes.get(2).getXcoord(),8);
-        //assertEquals(nodes.get(2).getYcoord(),8);
+        assertEquals(nodes.get(2).getXcoord(),7);
+        assertEquals(nodes.get(2).getYcoord(),10);
 
     }
 }
