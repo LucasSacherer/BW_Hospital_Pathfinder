@@ -19,6 +19,10 @@ public class RequestInterpreterController {
      * @param iReq
      */
     public void addRequest(InterpreterRequest iReq){
+        if(iReq.getType() == null){
+            errorController.showError("Please select a language.");
+            return;
+        }
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         if (validateRequest(iReq)){
             interpreterManager.addRequest(iReq);
