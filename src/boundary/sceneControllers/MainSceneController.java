@@ -122,7 +122,7 @@ public class MainSceneController extends AbstractMapController{
         Parent root = loader.load();
         Stage directoryStage = new Stage();
         directoryStage.setTitle("B&W Directory");
-        directoryStage.setScene(new Scene(root, 600, 800));
+        directoryStage.setScene(new Scene(root, 900, 600));
         directoryStage.show();
     }
 
