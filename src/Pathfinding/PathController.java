@@ -50,11 +50,7 @@ public class PathController {
             return false;
         }else if (start.getNodeID().equals(end.getNodeID())){
             return false;
-        } else if (!start.getFloor().equals(end.getFloor())) {
-            return false;
-        } else if (!start.getBuilding().equals(end.getBuilding())){
-            return false;
-        }else {
+        } else {
             return true;
         }
     }

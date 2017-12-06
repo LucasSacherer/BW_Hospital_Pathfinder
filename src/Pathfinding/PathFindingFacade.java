@@ -7,11 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PathFindingFacade {
+    PathController pathController;
     PathFinder pF;
     public PathFindingFacade(){};
 
     public List<Node> getPath(Node start, Node end){
-        return pF.pathFind(start,end);
+        return pathController.findPath(start,end);
     }
     public TextualDirections textualDirections = new TextualDirections();
 
