@@ -19,8 +19,7 @@ public class DirectoryControllerTest {
     public void testFormatNodeList() throws Exception {
         List<Node> nodes = new ArrayList<>();
         NodeManager nm = new NodeManager(databaseGargoyle);
-        SettingsManager sm = new SettingsManager(databaseGargoyle);
-        DirectoryController dc = new DirectoryController(nm,sm);
+        DirectoryController dc = new DirectoryController(nm);
 
         Node n1 = new Node("elev1", 1, 1, "1", "1", "ELEV", "1", "1");
         Node n2 = new Node("elev2", 1, 1, "1", "1", "ELEV", "1", "1");
