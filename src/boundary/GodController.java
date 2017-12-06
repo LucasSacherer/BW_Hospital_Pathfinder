@@ -73,6 +73,7 @@ public class GodController {
     final private BeamSearch beam = new BeamSearch(edgeManager);
     final private BreadthSearch breadth = new BreadthSearch(edgeManager);
     final private DepthSearch depth = new DepthSearch(edgeManager);
+    final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
     /* Current user that is logged in */
     String currentUser;

@@ -35,6 +35,8 @@ public class Dijkstra implements PathFinder {
        return Dijkstra(loc1, loc2);
    }
 
+
+   //Dijkstra is A* but without hCost
    private ArrayList<Node> Dijkstra(Node loc1, Node loc2) {
        //define starting edge, just to get weight
        Edge tempEdge = new Edge(loc1,loc2);
