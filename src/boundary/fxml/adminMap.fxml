@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
@@ -15,7 +14,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -444,20 +442,7 @@
                                  <children>
                                     <AnchorPane prefHeight="773.0" prefWidth="756.0">
                                        <children>
-                                          <ScrollPane hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <content>
-                                                <Pane fx:id="mapEditMapPane" prefHeight="3400.0" prefWidth="5000.0" snapToPixel="false" style="-fx-background-color: #E0E0E0;">
-                                                   <children>
-                                                      <ImageView fx:id="mapEditImageView" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../images/other%20images/BWH.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Canvas fx:id="mapEditCanvas" height="3400.0" onMouseClicked="#clickOnMapEdit" width="5000.0" />
-                                                   </children>
-                                                </Pane>
-                                             </content>
-                                          </ScrollPane>
+                                          <ScrollPane fx:id="mapEditScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane mouseTransparent="true" prefHeight="200.0" prefWidth="200.0">

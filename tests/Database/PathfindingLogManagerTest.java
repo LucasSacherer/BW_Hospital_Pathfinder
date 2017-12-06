@@ -14,8 +14,10 @@ public class PathfindingLogManagerTest {
     public void testAddRemovePathfindingLog(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(nodeManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         int originalSize = pathfindingLogManager.getPathfindingLogSize();

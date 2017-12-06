@@ -2,21 +2,25 @@ package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.ErrorController;
+import Entity.AdminLog;
 import Entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class UserManager implements EntityManager {
     private ArrayList<User> users;
     private DatabaseGargoyle databaseGargoyle;
+    private AdminLogManager adminLogManager;
     private ErrorController errorController = new ErrorController();
 
-    public UserManager(DatabaseGargoyle dbG) {
+    public UserManager(DatabaseGargoyle dbG, AdminLogManager adminLogManager) {
         this.databaseGargoyle = dbG;
+        this.adminLogManager = adminLogManager;
         this.users = new ArrayList<>();
     }
 
@@ -30,10 +34,12 @@ public class UserManager implements EntityManager {
         for (User user: users){
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
                 if (user.getAdminFlag()){
+                    databaseGargoyle.setCurrentUser(getUserByName(username));
                     return true;
                 }
             }
         }
+        adminLogManager.addAdminLog(new AdminLog("Unknown User", "Failed to log in as admin", LocalDateTime.now()));
         return false;
     }
 
@@ -101,6 +107,8 @@ public class UserManager implements EntityManager {
                 "ADMINFLAG = '" + adminFlag + "'," +
                 "DEPARTMENT = '" + updatedUser.getDepartment() + "' WHERE USERID = '" + updatedUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                "Edited an Employee: set USERNAME = " + updatedUser.getUsername() + " PASSWORD = " + updatedUser.getPassword() + " ADMINFLAG = " + adminFlag + " DEPARTMENT = " + updatedUser.getDepartment(), LocalDateTime.now()));
     }
 
     /**
@@ -112,6 +120,7 @@ public class UserManager implements EntityManager {
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO KIOSKUSER VALUES ('"+ newUser.getUserID()+"','"+newUser.getUsername()+"','"+
                 newUser.getPassword()+"','"+newUser.getAdminFlag().toString()+"','"+newUser.getDepartment()+"')");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Added Employee : " + newUser.getUserID(), LocalDateTime.now()));
     }
 
     /**
@@ -126,6 +135,7 @@ public class UserManager implements EntityManager {
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Removed an Employee: " + oldUser.getUserID(), LocalDateTime.now()));
     }
 
     /**

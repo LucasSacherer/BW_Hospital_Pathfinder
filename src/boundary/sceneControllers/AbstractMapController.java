@@ -9,28 +9,26 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
+    protected Group group;
     protected ImageButton floorChange;
     protected GodController godController;
     protected Label currentFloorNum;
@@ -49,25 +47,43 @@ public abstract class AbstractMapController {
     protected Node origin, destination, currentLoc;
     protected ErrorController errorController = new ErrorController();
     protected JFXSlider zoomSlider;
+    protected javafx.scene.control.ScrollPane scrollPane;
 
-    public AbstractMapController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider) {
+    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
         this.godController = g;
-        this.imageView = i;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
-        this.canvas = canvas;
-        this.mapPane = mapPane;
         this.currentFloorNum = currentFloorNum;
-        currentFloor = "G";
+        currentFloor = "G"; // TODO maybe make it follow the last floor?
         this.zoomSlider = zoomSlider;
+        this.scrollPane = scrollPane;
     }
 
     public void initializeScene() {
-        imageView.setImage(
-                mapNavigationFacade.getFloorMap("G"));
-        this.gc = canvas.getGraphicsContext2D();
+        group = new Group();
+        mapPane = new Pane();
+        imageView = new ImageView();
+        imageView.setPreserveRatio(true);
+        canvas = new Canvas();
+        canvas.setWidth(5000);
+        canvas.setHeight(3400);
+        EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                clickOnMap(event);
+            }
+        };
+        canvas.setOnMouseClicked(handler);
+        gc = canvas.getGraphicsContext2D();
+        mapPane.getChildren().addAll(imageView, canvas);
+        group.getChildren().add(mapPane);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setContent(group);
+
+        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
+        gc = canvas.getGraphicsContext2D();
         currentFloorNum.setText(currentFloor);
-        System.out.println(mapNavigationFacade.getDefaultNode());
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -159,20 +175,6 @@ public abstract class AbstractMapController {
             refreshCanvas();
         }
     }
-
-    public void zoomInMap() {
-        if (mapPane.getScaleX() >= 0.8 || mapPane.getScaleY() >= 0.8) return;
-        mapPane.setScaleX(mapPane.getScaleX() + 0.1);
-        mapPane.setScaleY(mapPane.getScaleY() + 0.1);
-    }
-
-
-    public void zoomOutMap() {
-        if (mapPane.getScaleX() <= 0.5 || mapPane.getScaleY() <= 0.5) return;
-        mapPane.setScaleX(mapPane.getScaleX() - 0.1);
-        mapPane.setScaleY(mapPane.getScaleY() - 0.1);
-    }
-
 
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
@@ -316,21 +318,62 @@ public abstract class AbstractMapController {
 
     public void zoom() {
         double sliderLevel = zoomSlider.getValue() / 100;
-        double zoomLevel = sliderLevel + 1;
+        double zoomLevel = sliderLevel + 0.5;
+        double SCALE_DELTA = 1.1;
+        Point2D scrollOffset = figureScrollOffset(mapPane, scrollPane);
+
+        double scaleFactor = 1;
         mapPane.setScaleX(zoomLevel);
         mapPane.setScaleY(zoomLevel);
+
+        // move viewport so that old center remains in the center after the
+        // scaling
+        repositionScroller(mapPane, scrollPane, scaleFactor, scrollOffset);
+    }
+
+    private Point2D figureScrollOffset(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller) {
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
+        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
+        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
+        return new Point2D(scrollXOffset, scrollYOffset);
+    }
+
+    private void repositionScroller(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
+        double scrollXOffset = scrollOffset.getX();
+        double scrollYOffset = scrollOffset.getY();
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        if (extraWidth > 0) {
+            double halfWidth = scroller.getViewportBounds().getWidth() / 2 ;
+            double newScrollXOffset = (scaleFactor - 1) *  halfWidth + scaleFactor * scrollXOffset;
+            scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
+        } else {
+            scroller.setHvalue(scroller.getHmin());
+        }
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        if (extraHeight > 0) {
+            double halfHeight = scroller.getViewportBounds().getHeight() / 2 ;
+            double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
+            scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
+        } else {
+            scroller.setHvalue(scroller.getHmin());
+        }
     }
 
     private class ImageButton extends JFXButton {
         public ImageButton() {
             this.setButtonType(JFXButton.ButtonType.RAISED);
             this.setPrefSize(20, 20);
+            this.setHover(true);
         }
 
         public void setFloor(Node next) {
             this.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    System.out.println("Made it here");
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
                     currentFloorNum.setText(currentFloor);

@@ -1,6 +1,7 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.User;
 import org.junit.Test;
 
@@ -16,8 +17,10 @@ public class UserManagerTest {
     @Test
     public void testAuthenticateAdmin() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         //Test an actual admin
@@ -35,8 +38,10 @@ public class UserManagerTest {
     @Test
     public void testAuthenticateStaff() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         //Test an actual admin
@@ -52,7 +57,8 @@ public class UserManagerTest {
     @Test
     public void testUpdateUsers() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
 
         //Check if the user is there before update
         assertEquals(null, userManager.getUser("admin1"));
@@ -70,8 +76,10 @@ public class UserManagerTest {
     @Test
     public void testModifyUser() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         //Test updating an existing user
@@ -98,8 +106,10 @@ public class UserManagerTest {
     @Test
     public void testAddRemoveUser() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        UserManager userManager = new UserManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(userManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         User user = new User ("1", "username", "password", true, "department");

@@ -9,14 +9,10 @@ import Entity.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class DijkstraTest {
-
-    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-
+public class BestFirstTest {
     @Test
     public void sameNode() throws Exception{
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
@@ -28,7 +24,7 @@ public class DijkstraTest {
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
-        Dijkstra b = new Dijkstra(edgeM);
+        BestFirst b = new BestFirst(edgeM);
         Node n1 = new Node("1",1,1,"1","Shapiro","type","Stairwell","STAI");
         ArrayList<Node> actual = new ArrayList<>();
         actual.add(n1);
@@ -62,12 +58,12 @@ public class DijkstraTest {
         edgeM.addEdge(e1);
         edgeM.addEdge(e3);
 
-        Dijkstra Dijkstra = new Dijkstra(edgeM);
+        BestFirst bestFirst = new BestFirst(edgeM);
         ArrayList<String> actual = new ArrayList<>();
         actual.add(n3.getNodeID());
         actual.add(n1.getNodeID());
 
-        ArrayList<Node> answer = Dijkstra.pathFind(n1,n3);
+        ArrayList<Node> answer = bestFirst.pathFind(n1,n3);
         ArrayList<String> ansID = new ArrayList<>();
         for(int i = 0; i < answer.size(); i++){
             ansID.add(answer.get(i).getNodeID());
@@ -95,8 +91,8 @@ public class DijkstraTest {
 
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01501");
-        Dijkstra Dijkstra = new Dijkstra(edgeM);
-        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
+        BestFirst bestFirst = new BestFirst(edgeM);
+        ArrayList<Node> answer = bestFirst.pathFind(n1,n2);
         assertEquals("GHALL01501", answer.get(0).getNodeID());
         assertEquals("GHALL01601", answer.get(1).getNodeID());
     }
@@ -114,8 +110,8 @@ public class DijkstraTest {
 
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GHALL01601");
-        Dijkstra Dijkstra = new Dijkstra(edgeM);
-        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
+        BestFirst bestFirst = new BestFirst(edgeM);
+        ArrayList<Node> answer = bestFirst.pathFind(n1,n2);
         ArrayList<Node> expected;
         assertEquals("GHALL01601", answer.get(0).getNodeID());
     }
@@ -133,8 +129,8 @@ public class DijkstraTest {
 
         Node n1 = nodeM.getNode("GHALL01601");
         Node n2 = nodeM.getNode("GELEV00N01");
-        Dijkstra Dijkstra = new Dijkstra(edgeM);
-        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
+        BestFirst bestFirst = new BestFirst(edgeM);
+        ArrayList<Node> answer = bestFirst.pathFind(n1,n2);
         //System.out.println(answer);
         ArrayList<String> ansID = new ArrayList<>();
         for(int i = 0; i < answer.size(); i++){
@@ -156,8 +152,8 @@ public class DijkstraTest {
 
         Node n1 = nodeM.getNode("GHALL01602");
         Node n2 = nodeM.getNode("GHALL01002");
-        Dijkstra Dijkstra = new Dijkstra(edgeM);
-        ArrayList<Node> answer = Dijkstra.pathFind(n1,n2);
+        BestFirst bestFirst = new BestFirst(edgeM);
+        ArrayList<Node> answer = bestFirst.pathFind(n1,n2);
         ArrayList<Node> expected;
         //System.out.println(answer);
         ArrayList<String> ansID = new ArrayList<>();
@@ -168,8 +164,8 @@ public class DijkstraTest {
 
         n1 = nodeM.getNode("GHALL01601");
         n2 = nodeM.getNode("GELEV00N01");
-        Dijkstra = new Dijkstra(edgeM);
-        answer = Dijkstra.pathFind(n1,n2);
+        bestFirst = new BestFirst(edgeM);
+        answer = bestFirst.pathFind(n1,n2);
         ansID.clear();
         for(int i = 0; i < answer.size(); i++){
             ansID.add(answer.get(i).getNodeID());
