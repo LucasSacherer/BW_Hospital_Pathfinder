@@ -3,6 +3,7 @@ package Editor;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
+import Entity.ErrorController;
 import Entity.Node;
 import Request.GenericRequestController;
 import org.ejml.data.FMatrixRMaj;
@@ -17,6 +18,7 @@ public class NodeEditController {
     SettingsManager settingsManager;
     EdgeManager edgeManager;
     GenericRequestController genericRequestController;
+    ErrorController errorController = new ErrorController();
 
     public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm){
         this.nodeManager = nodeM;
@@ -37,9 +39,11 @@ public class NodeEditController {
 
     // deletes an already existing node
     public void deleteNode(Node node) {
-        edgeManager.removeNeighborEdges(node);
-        genericRequestController.deleteNodeRequests(node);
-        nodeManager.removeNode(node);
+        if(node != null){
+            edgeManager.removeNeighborEdges(node);
+            genericRequestController.deleteNodeRequests(node);
+            nodeManager.removeNode(node);
+        }else errorController.showError("Please select a valid node.");
     }
 
     public void setKioskLocation(Node defaultNode){
