@@ -460,7 +460,7 @@
                                                    <content>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="265.0">
                                                          <children>
-                                                            <VBox prefHeight="453.0" prefWidth="265.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <VBox prefHeight="453.0" prefWidth="265.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                <children>
                                                                   <Label text="Path Finding" textAlignment="CENTER">
                                                                      <font>
@@ -483,6 +483,16 @@
                                                                      </font>
                                                                   </JFXButton>
                                                                   <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="243.0" onAction="#selectDepth" text="Depth First Search">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="237.0" onAction="#selectBest" text="Best First Search">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="292.0" onAction="#selectDijkstras" text="Dijkstras">
                                                                      <font>
                                                                         <Font size="20.0" />
                                                                      </font>
