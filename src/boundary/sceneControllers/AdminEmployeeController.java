@@ -54,7 +54,7 @@ public class AdminEmployeeController {
 
     public void addEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please fill out all the employee information");
+            errorController.showError("Please complete all employee information fields.");
         }
         else {
             //temp until UI if fixed
@@ -75,7 +75,7 @@ public class AdminEmployeeController {
 
     public void editEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please fill out all the employee information");
+            errorController.showError("Please complete all employee information fields.");
         }
         else {
             isAdmin = adminToggle.isSelected();

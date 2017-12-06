@@ -151,7 +151,7 @@ public abstract class AbstractMapController {
             destination.equals("");
         }
         catch(NullPointerException e){
-            errorController.showError("Please set a start and end location");
+            errorController.showError("Please select a start and end location.");
             success = false;
         }
         if (success) {
