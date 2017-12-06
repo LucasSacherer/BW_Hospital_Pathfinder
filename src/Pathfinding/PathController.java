@@ -1,5 +1,6 @@
 package Pathfinding;
 
+import Database.PathfindingLogManager;
 import Entity.Node;
 
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.util.List;
 
 public class PathController {
     final private PathFinder pF;
+    PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
+
 
     public PathController(PathFinder pF){
         this.pF = pF;
@@ -20,10 +23,13 @@ public class PathController {
      */
     public List<Node> findPath(Node start, Node end){
         if (validatePath(start,end)){
-            return pF.pathFind(start,end);
+            List<Node> path = pF.pathFind(start,end);
+            addPathtoLog(path);
+            return path;
         }else{
             return new ArrayList<>();
         }
+
     }
 
 
@@ -51,6 +57,10 @@ public class PathController {
         }else {
             return true;
         }
+    }
+
+    void addPathtoLog (List<Node> path){
+        pathfindingLogManager.addPathToLog(path);
     }
 
 }
