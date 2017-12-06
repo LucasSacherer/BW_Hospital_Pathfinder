@@ -6,10 +6,10 @@ import Entity.Node;
 import java.util.List;
 
 public class PathfindingLogManager {
-    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
+    DatabaseGargoyle databaseGargoyle;
 
-    public PathfindingLogManager(DatabaseGargoyle databaseGargoyle) {
-        this.databaseGargoyle = databaseGargoyle;
+    public PathfindingLogManager() {
+        this.databaseGargoyle =  new DatabaseGargoyle();
     }
 
     public void addPathToLog(List<Node> path){
