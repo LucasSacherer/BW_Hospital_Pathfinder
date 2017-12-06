@@ -24,7 +24,6 @@ public class PathController {
     public List<Node> findPath(Node start, Node end){
         if (validatePath(start,end)){
             List<Node> path = pF.pathFind(start,end);
-            addPathtoLog(path);
             return path;
         }else{
             return new ArrayList<>();
@@ -36,9 +35,7 @@ public class PathController {
     /**
      * Takes two nodes and returns true if they are:
      * A. Not the same nodeID
-     * B. On the the same floor
-     * C. In the same building
-     * D. Visitable Nodes
+     * B. Has two nodes given
      *
      * @param start
      * @param end
@@ -55,9 +52,7 @@ public class PathController {
         }
     }
 
-    void addPathtoLog (List<Node> path){
-        pathfindingLogManager.addPathToLog(path);
-    }
+
 
 }
 
