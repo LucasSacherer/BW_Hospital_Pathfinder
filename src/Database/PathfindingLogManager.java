@@ -6,7 +6,7 @@ import Entity.Node;
 import java.util.List;
 
 public class PathfindingLogManager {
-    DatabaseGargoyle databaseGargoyle;
+    DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     public PathfindingLogManager(DatabaseGargoyle databaseGargoyle) {
         this.databaseGargoyle = databaseGargoyle;
