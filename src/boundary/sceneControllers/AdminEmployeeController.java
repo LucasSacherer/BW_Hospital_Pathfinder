@@ -57,7 +57,10 @@ public class AdminEmployeeController {
             errorController.showError("Please complete all employee information fields.");
         }
         else {
-            //temp until UI if fixed
+            if(departmentMenu.getSelectionModel().getSelectedItem() == null){
+                errorController.showError("Please select an employee department.");
+                return;
+            }
             User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.addUser(newUser);

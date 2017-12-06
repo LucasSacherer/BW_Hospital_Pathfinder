@@ -108,10 +108,6 @@ public class UserManager implements EntityManager {
      * @param newUser
      */
     public void addUser(User newUser){
-        if(newUser.department == null){
-            errorController.showError("Please select a department for the employeee.");
-            return;
-        }
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("INSERT INTO KIOSKUSER VALUES ('"+ newUser.getUserID()+"','"+newUser.getUsername()+"','"+
                 newUser.getPassword()+"','"+newUser.getAdminFlag().toString()+"','"+newUser.getDepartment()+"')");
