@@ -234,7 +234,8 @@ public class TableCreator {
             statement.execute("CREATE TABLE pathfindinglog (\n" +
                     "nodeID VARCHAR(20) NOT NULL, \n" +
                     "time TIMESTAMP NOT NULL, \n" +
-                    "destination VARCHAR(5) NOT NULL\n)");
+                    "destination VARCHAR(5) NOT NULL, \n" +
+                    "pathID VARCHAR(250) NOT NULL\n)");
             System.out.println("PathfindingLog Table created!");
         } catch (SQLException e){
             System.out.println("Pathfinding table already exists");
