@@ -23,7 +23,8 @@ public class PathfindingLogManager {
     public void addPathToLog(List<Node> path){
         int i = 0;
         LocalDateTime time = LocalDateTime.now();
-        String pathID = "" + path.get(path.size() - 1) + "_" + path.get(0) + "_" + Timestamp.valueOf(time);
+        int size = path.size();
+        String pathID = "" + path.get(size - 1).getNodeID() + "_" + path.get(0).getNodeID() + "_" + Timestamp.valueOf(time);
         for (Node node: path){
             String destinationFlag = (i == 0 ? "true" : "false");
             databaseGargoyle.createConnection();
