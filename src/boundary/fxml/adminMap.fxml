@@ -601,7 +601,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </VBox>
-                  <JFXSlider fx:id="zoomSlider" max="200.0" onMouseClicked="#mainZoom" onMouseDragged="#mainZoom" onMouseReleased="#mainZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" value="100.0" VBox.vgrow="SOMETIMES">
+                  <JFXSlider fx:id="mapEditZoomSlider" max="200.0" onMouseClicked="#mapEditZoom" onMouseDragged="#mapEditZoom" onMousePressed="#mapEditZoom" onMouseReleased="#mapEditZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" value="100.0" VBox.vgrow="SOMETIMES">
                      <padding>
                         <Insets right="40.0" />
                      </padding>
