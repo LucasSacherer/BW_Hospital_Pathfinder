@@ -45,17 +45,18 @@ public class GodController {
     final private DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
 
     /* managers */
-    final private NodeManager nodeManager = new NodeManager(databaseGargoyle);
-    final private EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager);
-    final private UserManager userManager = new UserManager(databaseGargoyle);
+    final private AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+    final private NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+    final private EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager, adminLogManager);
+    final private UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
     final private CleanUpManager cleanupManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
     final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
-    final private AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle, userManager);
+
 
     /* Controllers */
     final private GenericRequestController genericRequestController = new GenericRequestController(cleanupManager, foodManager, interpreterManager);
-    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, edgeManager, genericRequestController);
+    final private NodeEditController nodeEditController = new NodeEditController(nodeManager, edgeManager, genericRequestController, adminLogManager, databaseGargoyle);
     final private EdgeEditController edgeEditController = new EdgeEditController(edgeManager);
     final private ClickController clickController = new ClickController(nodeManager);
     final private NearestPOIController nearestPOIController = new NearestPOIController(nodeManager);
@@ -79,9 +80,7 @@ public class GodController {
     final private BreadthSearch breadth = new BreadthSearch(edgeManager);
     final private DepthSearch depth = new DepthSearch(edgeManager);
     final private BestFirst best = new BestFirst(edgeManager);
-
-    /* Current user that is logged in */
-    String currentUser;
+    final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
 
     ///////////////////////
@@ -375,13 +374,13 @@ public class GodController {
     private void clearCanvas(){ mainSceneController.clearCanvas(); }
 
     @FXML
-    private void bathroomClicked(ActionEvent e){ mainSceneController.bathroomClicked(); }
+    private void bathroomClicked(ActionEvent e) throws IOException { mainSceneController.bathroomClicked(); }
 
     @FXML
-    private void infoClicked(ActionEvent e){ mainSceneController.infoClicked(); }
+    private void infoClicked(ActionEvent e) throws IOException { mainSceneController.infoClicked(); }
 
     @FXML
-    private void elevatorClicked(ActionEvent e){ mainSceneController.elevatorClicked(); }
+    private void elevatorClicked(ActionEvent e) throws IOException { mainSceneController.elevatorClicked(); }
 
     @FXML
     private void floorDown() throws IOException, SQLException { mainSceneController.floorDown(); }
@@ -405,13 +404,13 @@ public class GodController {
     private void clearDestinationMain(){}//TODO
 
     @FXML
-    private void nearestInfoDeskMain(){}//TODO
+    private void nearestInfoDeskMain() throws IOException { mainSceneController.infoClicked(); }//TODO
 
     @FXML
-    private void nearestBathroomMain(){}//TODO
+    private void nearestBathroomMain() throws IOException { mainSceneController.bathroomClicked(); }//TODO
 
     @FXML
-    private void nearestElevatorMain(){}//TODO
+    private void nearestElevatorMain() throws IOException { mainSceneController.elevatorClicked(); }//TODO
 
     ///////////////////////
     /* Pathfinding Scene */
@@ -473,12 +472,6 @@ public class GodController {
     private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
 
     @FXML
-    private void zoomInRequestMap() { staffRequestController.zoomInMap(); }
-
-    @FXML
-    private void zoomOutRequestMap() { staffRequestController.zoomOutMap(); }
-
-    @FXML
     private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
 
     @FXML
@@ -534,7 +527,6 @@ public class GodController {
    @FXML
    private void addEmployeeAE() {
        adminEmployeeController.addEmployeeAE();
-       adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Employee", LocalDateTime.now()));
    }
 
    @FXML
@@ -542,15 +534,12 @@ public class GodController {
 
     @FXML
     private void editEmployeeAE() {
-       adminEmployeeController.editEmployeeAE();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Edited a Employee", LocalDateTime.now()));
+        adminEmployeeController.editEmployeeAE();
    }
 
     @FXML
     private void deleteEmployeeAE() {
         adminEmployeeController.deleteEmployeeAE();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed an Employee", LocalDateTime.now()));
-
     }
 
     @FXML
@@ -650,13 +639,11 @@ public class GodController {
     @FXML
     private void addNodeButton() {
         adminMapController.addNode();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Node", LocalDateTime.now()));
     }
 
     @FXML
     private void removeNodeButton() {
         adminMapController.removeNodeButton();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed a Node", LocalDateTime.now()));
     }
 
     @FXML
@@ -667,7 +654,6 @@ public class GodController {
     @FXML
     private void editNode() {
         adminMapController.editNode();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Edited a Node", LocalDateTime.now()));
     }
 
     @FXML
@@ -679,7 +665,6 @@ public class GodController {
     @FXML
     private void removeEdgeButton() {
         adminMapController.removeEdgeButton();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Removed a Node", LocalDateTime.now()));
     }
 
     @FXML
@@ -688,7 +673,6 @@ public class GodController {
     @FXML
     private void addEdgeButton() {
         adminMapController.addEdgeButton();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Added a new Edge", LocalDateTime.now()));
     }
 
     @FXML
@@ -712,7 +696,6 @@ public class GodController {
     @FXML
     private void setDefaultNode() {
         adminMapController.setKioskLocation();
-        adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Changed Kiosk Default Node", LocalDateTime.now()));
     }
 
     @FXML
@@ -725,8 +708,13 @@ public class GodController {
     private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
 
     @FXML
-    private void selectDepth() { pathFindingFacade.setPathfinder(depth);
-    }
+    private void selectDepth() { pathFindingFacade.setPathfinder(depth); }
+
+    @FXML
+    private void selectBest() { pathFindingFacade.setPathfinder(best);}
+
+    @FXML
+    private void selectDijkstras() { pathFindingFacade.setPathfinder(dijkstra);}
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
@@ -811,11 +799,11 @@ public class GodController {
     @FXML
     private void goToAdminHub() throws IOException {
         if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
-            currentUser = adminLoginText.getText();
-            System.out.println(currentUser);
+            databaseGargoyle.setCurrentUser(userManager.getUserByName(adminLoginText.getText()));
+            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
+            System.out.println(databaseGargoyle.getCurrentUser().getUsername());
             sceneSwitcher.toAdminHub(this, loginPane);
             adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
-            adminLogManager.addAdminLog(new AdminLog(userManager.getUserByName(currentUser),"Logged in", LocalDateTime.now()));
         } else errorController.showError("Invalid credentials! Please try again.");
 
     }

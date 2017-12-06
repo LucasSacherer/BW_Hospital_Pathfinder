@@ -1,7 +1,9 @@
 package MapNavigation;
 
+import Database.AdminLogManager;
 import Database.NodeManager;
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Node;
 import org.junit.Test;
 
@@ -15,10 +17,16 @@ public class SearchEngineTest {
     @Test
     public void testCafe(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         DirectoryController dc = new DirectoryController(manager);
+
+
+
         databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
+
         SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("Cafe"));
         List<String> names = new ArrayList<>();
@@ -33,10 +41,14 @@ public class SearchEngineTest {
     @Test
     public void testLowerCafe(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
+        databaseGargoyle.attachManager(adminLogManager);
         DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.notifyManagers();
+
+        SearchEngine se = new SearchEngine(manager);
         SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
@@ -51,10 +63,14 @@ public class SearchEngineTest {
     @Test
     public void twice(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         DirectoryController dc = new DirectoryController(manager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
+
+        SearchEngine se = new SearchEngine(manager);
         SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();

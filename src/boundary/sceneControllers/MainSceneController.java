@@ -101,15 +101,17 @@ public class MainSceneController extends AbstractMapController{
         return success;
     }
 
-    public void bathroomClicked() { findNearest(currentLoc, "REST"); }
+    public void bathroomClicked() throws IOException { findNearest(origin, "REST"); }
 
-    public void infoClicked() { findNearest(currentLoc, "INFO"); }
+    public void infoClicked() throws IOException { findNearest(origin, "INFO"); }
 
-    public void elevatorClicked() { findNearest(currentLoc, "ELEV"); }
+    public void elevatorClicked() throws IOException { findNearest(origin, "ELEV"); }
 
-    private void findNearest(Node node, String type) {
-        destination = mapNavigationFacade.getNearestPOI(node.getXcoord(), node.getYcoord(), type);
-        currentPath = pathFindingFacade.getPath(origin, destination);
+    private void findNearest(Node node, String type) throws IOException {
+        if (origin == null) origin = mapNavigationFacade.getDefaultNode();
+        System.out.println(origin);
+        destination = mapNavigationFacade.getNearestPOI(origin.getXcoord(), origin.getYcoord(), type);
+        findPath();
         refreshCanvas();
     }
 

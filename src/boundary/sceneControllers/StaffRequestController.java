@@ -106,11 +106,6 @@ public class StaffRequestController extends AbstractMapController{
         // requestChoiceBox.setItems(requestTypeList);
     }
 
-    public void zoomInMap() {
-    }
-
-    public void zoomOutMap() {
-    }
 
     public void floorDown() throws IOException, SQLException {
         super.floorDown();

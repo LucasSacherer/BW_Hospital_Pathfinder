@@ -2,6 +2,7 @@ package Editor;
 
 import Database.*;
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Edge;
 import Entity.Node;
 import Request.GenericRequestController;
@@ -17,22 +18,24 @@ public class NodeEditControllerTest {
     @Test
     public void AddRemoveEditNode() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(databaseGargoyle);
-        EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
-        UserManager userManager = new UserManager(databaseGargoyle);
-        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager, userManager);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager, userManager);
-        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager, userManager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nManager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager eManager = new EdgeManager(databaseGargoyle,  nManager, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager,userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager,userManager);
         databaseGargoyle.attachManager(nManager);
         databaseGargoyle.attachManager(eManager);
         databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
         databaseGargoyle.attachManager(foodManager);
         databaseGargoyle.attachManager(interpreterManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager,eManager,genericRequestController, adminLogManager, databaseGargoyle);
 
         Node test = new Node("1", 1, 1, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 2, 2, "1", "building", "type", "lName", "sName");
@@ -66,22 +69,24 @@ public class NodeEditControllerTest {
         Node test = new Node("1", 1, 1, "1", "building", "type", "lName", "sName");
 
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(databaseGargoyle);
-        EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
-        UserManager um = new UserManager(databaseGargoyle);
-        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager, um);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager, um);
-        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager, um);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nManager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager eManager = new EdgeManager(databaseGargoyle,  nManager, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager,userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager,userManager);
         databaseGargoyle.attachManager(nManager);
         databaseGargoyle.attachManager(eManager);
-        databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
         databaseGargoyle.attachManager(foodManager);
         databaseGargoyle.attachManager(interpreterManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, databaseGargoyle);
 
         editor.setKioskLocation(test);
 
@@ -92,22 +97,24 @@ public class NodeEditControllerTest {
     @Test
     public void deleteNode() {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(databaseGargoyle);
-        EdgeManager eManager = new EdgeManager(databaseGargoyle, nManager);
-        UserManager um = new UserManager(databaseGargoyle);
-        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager, um);
-        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager, um);
-        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager, um);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nManager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager eManager = new EdgeManager(databaseGargoyle,  nManager, adminLogManager);
+        UserManager userManager = new UserManager(databaseGargoyle, adminLogManager);
+        CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle, nManager,userManager);
+        FoodManager foodManager = new FoodManager(databaseGargoyle, nManager,userManager);
+        InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nManager,userManager);
         databaseGargoyle.attachManager(nManager);
         databaseGargoyle.attachManager(eManager);
-        databaseGargoyle.attachManager(um);
+        databaseGargoyle.attachManager(userManager);
         databaseGargoyle.attachManager(cleanUpManager);
         databaseGargoyle.attachManager(foodManager);
         databaseGargoyle.attachManager(interpreterManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         GenericRequestController genericRequestController = new GenericRequestController(cleanUpManager, foodManager, interpreterManager);
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, databaseGargoyle);
 
         Node test = new Node("1", 1, 1, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 1, 2, "1", "building", "type", "lName", "sName");
@@ -149,11 +156,12 @@ public class NodeEditControllerTest {
     @Test
     public void alignNodesTest() {
         DatabaseGargoyle dbG = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(dbG);
-        EdgeManager eManager = new EdgeManager(dbG, nManager);
-        UserManager um = new UserManager(dbG);
-        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        AdminLogManager adminLogManager = new AdminLogManager(dbG);
+        NodeManager nManager = new NodeManager(dbG, adminLogManager);
+        EdgeManager eManager = new EdgeManager(dbG, nManager, adminLogManager);
+        UserManager um = new UserManager(dbG, adminLogManager);
+        GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG,nManager,um), new FoodManager(dbG, nManager,um), new InterpreterManager(dbG, nManager,um));
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, dbG);
 
         Node test = new Node("1", 5, 5, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 10, 10, "1", "building", "type", "lName", "sName");
@@ -210,11 +218,12 @@ public class NodeEditControllerTest {
     @Test
     public void alignNodesVerticalTest() {
         DatabaseGargoyle dbG = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(dbG);
-        EdgeManager eManager = new EdgeManager(dbG, nManager);
-        UserManager um = new UserManager(dbG);
+        AdminLogManager adminLogManager = new AdminLogManager(dbG);
+        NodeManager nManager = new NodeManager(dbG, adminLogManager);
+        EdgeManager eManager = new EdgeManager(dbG, nManager, adminLogManager);
+        UserManager um = new UserManager(dbG, adminLogManager);
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, dbG);
 
         Node test = new Node("1", 5, 5, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 5, 10, "1", "building", "bathroom", "lName", "sName");
@@ -236,11 +245,12 @@ public class NodeEditControllerTest {
     @Test
     public void alignNodesVertical2Test() {
         DatabaseGargoyle dbG = new DatabaseGargoyle();
-        NodeManager nManager = new NodeManager(dbG);
-        EdgeManager eManager = new EdgeManager(dbG, nManager);
-        UserManager um = new UserManager(dbG);
+        AdminLogManager adminLogManager = new AdminLogManager(dbG);
+        NodeManager nManager = new NodeManager(dbG, adminLogManager);
+        EdgeManager eManager = new EdgeManager(dbG, nManager, adminLogManager);
+        UserManager um = new UserManager(dbG, adminLogManager);
         GenericRequestController genericRequestController = new GenericRequestController(new CleanUpManager(dbG, nManager, um), new FoodManager(dbG, nManager, um), new InterpreterManager(dbG, nManager, um));
-        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController);
+        NodeEditController editor = new NodeEditController(nManager, eManager, genericRequestController, adminLogManager, dbG);
 
         Node test = new Node("1", 5, 10, "1", "building", "type", "lName", "sName");
         Node test2 = new Node("2", 10, 10, "1", "building", "bathroom", "lName", "sName");

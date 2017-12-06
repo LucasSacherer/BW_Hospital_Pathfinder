@@ -6,6 +6,7 @@ import Entity.User;
 import interpreter.IInterpretNode;
 import interpreter.InterpreterFacade;
 import interpreter.ServiceException;
+import foodRequest.FoodRequest;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +37,15 @@ public class StaffRequestHubController {
 //        The first null is the css, the and the second and third are the node ids. The last null (originNodeID) is the node that is used for the Interpreter request!
     }
 
-    public void serviceHubtoFoodAPI() { }
+    public void serviceHubtoFoodAPI() {
+        FoodRequest foodRequest = new FoodRequest();
+        try{
+            foodRequest.run(0,0,0,0,null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
+    }
 
     public void setUser(User user) {
         this.user = user;
