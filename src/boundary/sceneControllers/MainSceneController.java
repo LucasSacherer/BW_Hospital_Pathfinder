@@ -74,13 +74,13 @@ public class MainSceneController extends AbstractMapController{
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
-                    System.out.println("Enter!");
-                    searchBar.show();
+                    searchBar.hide();
                 }
 
                 if (searchBar.getValue() == null) return;
                 searchBar.getItems().clear();
                 searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
+                searchBar.show();
             }
         };
         searchBar.setOnKeyPressed(k);
