@@ -40,10 +40,6 @@ public class BeamSearch extends BadAlgorithims {
 
     public BeamSearch(EdgeManager e){this.edgeM = e;}
 
-    public ArrayList<Node> pathFind(Node start, Node end) {
-        return beamSearch(start, end);
-    }
-
     @Override
     void setWeight() {
         beamWidth = 30;
@@ -78,7 +74,7 @@ public class BeamSearch extends BadAlgorithims {
 
             //Check if the goal has been reached yet
             if (current.node.getNodeID().equals(loc2.getNodeID())) {
-                System.out.println("Goal Reached!");
+                System.out.println("Goal Reached Beam!");
                 //if so trace back its path
                 closedSet.clear();
                 beamPQ.clear();
