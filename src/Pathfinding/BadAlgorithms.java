@@ -34,7 +34,6 @@ public abstract class BadAlgorithms implements PathFinder{
 
 
     List<Node> findPath(Node startNode, Node endNode){
-        System.out.println("succ");
         init(startNode, endNode);
         while(!beamPQ.isEmpty()){
             body(startNode, endNode);
