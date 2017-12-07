@@ -98,9 +98,6 @@ public class GodController {
     private AnchorPane searchPane; // search bar
 
     @FXML
-    private StackPane menuARStackPane;
-
-    @FXML
     private Label originField, destinationField;
 
     /* Pathfinding Scene */
@@ -119,9 +116,6 @@ public class GodController {
     private JFXTextArea requestCleanupDescription, requestInterpreterDescription, requestFoodDescription, requestInfo;
 
     @FXML
-    private Tab requestFoodTab, requestCleanupTab, requestInterpreterTab;
-
-    @FXML
     private JFXComboBox languageSelect;
 
     @FXML
@@ -132,33 +126,20 @@ public class GodController {
     private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab, straightenTab;
 
     @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest,
-            currentFloorNumMapEdit, currentFloorNumPathfinding;
+    private Label currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
 
     @FXML
     private JFXComboBox nodeTypeCombo, buildingCombo, nodeTypeComboEdit;
 
     @FXML
-    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode, xPosAddEdge,
-            yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge, setKioskX, setKioskY, editNodeTypeField, shortNameAdd,
-            shortNameEdit, longNameAdd, longNameEdit, requestName, requestDescription, edgeXStartAdd, edgeYStartAdd,
-            edgeXEndAdd,edgeYEndAdd, edgeXStartRemove, edgeYStartRemove, edgeXEndRemove, edgeYEndRemove, editNodeID,
-            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten;
+    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode, setKioskX,
+            setKioskY, editNodeTypeField, shortNameAdd, shortNameEdit, longNameAdd, longNameEdit, requestDescription,
+            edgeXStartAdd, edgeYStartAdd, edgeXEndAdd,edgeYEndAdd, edgeXStartRemove, edgeYStartRemove, edgeXEndRemove,
+            edgeYEndRemove, editNodeID, edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten,
+            edgeYEndStraighten, distanceScale;;
 
     @FXML
-    private JFXListView nodesListView, allStaffRequests, requestsIMade;
-
-    /* Requests ADMIN FXML */
-    @FXML
-    private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription, foodARNode, foodARTimestamp,
-            foodARDescription, interpreterARNode,interpreterARTimestamp, interpreterARDescription, menuARName,
-            menuARDescription,menuARCost;
-
-    @FXML
-    private JFXComboBox spillsARType, spillsARName, foodARType, foodARName, interpreterARType, interpreterARName;
-
-    @FXML
-    private JFXToggleButton spillsARDisplayToggle, foodARDisplayToggle, interpreterARDisplayToggle;
+    private JFXListView allStaffRequests, requestsIMade;
 
     /* Login Screen */
     @FXML
@@ -283,6 +264,7 @@ public class GodController {
 
     @FXML
     private void directoryNavigate() {mainSceneController.directoryNavigate(); }
+
     @FXML
     private void mainZoom() { mainSceneController.zoom(); }
 
@@ -300,9 +282,6 @@ public class GodController {
 
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
-
-    @FXML
-    private void clearCanvas(){ mainSceneController.clearCanvas(); } //todo whats this for?
 
     @FXML
     private void floorDown() throws IOException, SQLException { mainSceneController.floorDown(); }
@@ -335,7 +314,7 @@ public class GodController {
     private void nearestExitMain() throws IOException { mainSceneController.exitClicked(); }
 
     ///////////////////////
-    /* Pathfinding Scene */
+    /* Pathfinding Scene */ //TODO this kind of sucks, let's go back to one scene with a hamburger
     ///////////////////////
     @FXML
     private void reversePath() throws IOException { pathfindingSceneController.reversePath(); }
@@ -347,32 +326,7 @@ public class GodController {
     private void pathfindingDown() throws IOException, SQLException { pathfindingSceneController.floorDown(); }
 
     @FXML
-    private void clearOriginPathfinding(){}//TODO
-
-    @FXML
-    private void clearDestinationPathfinding(){}//TODO
-
-    @FXML
-    private void floorUpPathfinding(){}//TODO
-
-    @FXML
-    private void floorDownPathfinding(){}//TODO
-
-    @FXML
-    private void nearestInfoDeskPathfinding(){}//TODO
-
-    @FXML
-    private void nearestBathroomPathfinding(){}//TODO
-
-    @FXML
-    private void nearestElevatorPathfinding(){}//TODO
-
-    @FXML
     private void pathfindingZoom() { pathfindingSceneController.zoom(); }
-
-    @FXML//switches the origin and the destination nodes, then renavagates.
-    private void switchOrigWDest(){}//TODO
-
 
     /////////////////////////
     /* Staff Request Scene */
@@ -450,25 +404,19 @@ public class GodController {
     ////////////////////
 
    @FXML
-   private void addEmployeeAE() {
-       adminEmployeeController.addEmployeeAE();
-   }
+   private void addEmployeeAE() { adminEmployeeController.addEmployeeAE(); }
 
    @FXML
-   private void cancelEmployeeAE() {adminEmployeeController.cancelEmployeeAE();}
+   private void cancelEmployeeAE() { adminEmployeeController.cancelEmployeeAE(); }
 
     @FXML
-    private void editEmployeeAE() {
-        adminEmployeeController.editEmployeeAE();
-   }
+    private void editEmployeeAE() { adminEmployeeController.editEmployeeAE(); }
 
     @FXML
-    private void deleteEmployeeAE() {
-        adminEmployeeController.deleteEmployeeAE();
-    }
+    private void deleteEmployeeAE() { adminEmployeeController.deleteEmployeeAE(); }
 
     @FXML
-    private void toggleAdmin(MouseEvent e) {adminEmployeeController.toggleAdmin();}
+    private void toggleAdmin(MouseEvent e) { adminEmployeeController.toggleAdmin(); }
 
     ///////////////////
     /* Request Admin */
@@ -562,24 +510,16 @@ public class GodController {
     @FXML
     private void resetStraightenButton() { adminMapController.resetStraightener(); }
     @FXML
-    private void addNodeButton() {
-        adminMapController.addNode();
-    }
+    private void addNodeButton() { adminMapController.addNode(); }
 
     @FXML
-    private void removeNodeButton() {
-        adminMapController.removeNodeButton();
-    }
+    private void removeNodeButton() { adminMapController.removeNodeButton(); }
 
     @FXML
-    private void resetNodeButtonAdd() {
-        adminMapController.resetNodeButtonAdd();
-    }
+    private void resetNodeButtonAdd() { adminMapController.resetNodeButtonAdd(); }
 
     @FXML
-    private void editNode() {
-        adminMapController.editNode();
-    }
+    private void editNode() { adminMapController.editNode(); }
 
     @FXML
     private void resetNodeButtonEdit() { adminMapController.resetNodeButtonEdit(); }
@@ -588,21 +528,16 @@ public class GodController {
     private void resetNodeButtonRemove() { adminMapController.resetNodeButtonRemove(); }
 
     @FXML
-    private void removeEdgeButton() {
-        adminMapController.removeEdgeButton();
-    }
+    private void removeEdgeButton() { adminMapController.removeEdgeButton(); }
 
     @FXML
     private void resetEdgeButtonRemove() { adminMapController.resetEdgeButtonRemove(); }
 
     @FXML
-    private void addEdgeButton() {
-        adminMapController.addEdgeButton();
-    }
+    private void addEdgeButton() { adminMapController.addEdgeButton(); }
 
     @FXML
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
-
 
     @FXML
     private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
@@ -614,15 +549,13 @@ public class GodController {
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     @FXML
-    private void setDefaultNode() {
-        adminMapController.setKioskLocation();
-    }
+    private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
     @FXML
     private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
 
     @FXML
-    private void selectBeam() { pathFindingFacade.setPathfinder(beam); } //todo
+    private void selectBeam() { pathFindingFacade.setPathfinder(beam); }
 
     @FXML
     private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
@@ -741,7 +674,7 @@ public class GodController {
     }
 
     @FXML
-    private void adminHubtoRequest() throws IOException {
+    private void adminHubtoRequest() throws IOException { //TODO this scene needs help
         // sceneSwitcher.toAdminRequests(this, adminHubPane);
         // adminRequestController.initializeScene();
     }
