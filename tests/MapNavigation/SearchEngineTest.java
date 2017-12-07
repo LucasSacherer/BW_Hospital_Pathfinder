@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class SearchEngineTest {
-
+/*
     @Test
     public void testCafe(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
@@ -89,5 +89,6 @@ public class SearchEngineTest {
 
         System.out.println(names2);
     }
+    */
 
 }
