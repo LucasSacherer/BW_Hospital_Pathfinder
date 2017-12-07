@@ -37,7 +37,7 @@ public class SearchEngineTest {
         System.out.println(names);
 
     }
-
+/*
     @Test
     public void testLowerCafe(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
@@ -58,8 +58,8 @@ public class SearchEngineTest {
         System.out.println(names);
 
     }
-
-    @Test
+*/
+  /*  @Test
     public void twice(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
@@ -86,6 +86,6 @@ public class SearchEngineTest {
         }
 
         System.out.println(names2);
-    }
+    }*/
 
 }

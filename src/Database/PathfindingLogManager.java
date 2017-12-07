@@ -21,6 +21,9 @@ public class PathfindingLogManager {
      * @param path
      */
     public void addPathToLog(List<Node> path){
+        if (path.size() < 1){
+            return;
+        }
         int i = 0;
         LocalDateTime time = LocalDateTime.now();
         int size = path.size();

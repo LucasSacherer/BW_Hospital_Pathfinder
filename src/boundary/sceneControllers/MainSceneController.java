@@ -10,12 +10,15 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -23,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -34,6 +38,8 @@ import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -61,31 +67,25 @@ public class MainSceneController extends AbstractMapController{
     }
 
     private void initializeSearchBar() {
+        searchBar.setPromptText("Search");
         searchBar.setEditable(true);
         searchBar.setPrefWidth(200);
-        searchBar.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-            System.out.println(newValue);
-            if (newValue != null && newValue.toString().length() > 0) {
-                searchBar.setItems(searchEngine.Search(newValue.toString()));
+        EventHandler<KeyEvent> k = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    searchBar.hide();
+                }
+
+                if (searchBar.getValue() == null) return;
+                searchBar.getItems().clear();
+                searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
                 searchBar.show();
             }
-        });
+        };
+        searchBar.setOnKeyPressed(k);
     }
 
-//        searchBar.valueProperty().addListener((obs, oldItem, newItem) -> {
-//                Node n = (Node) newItem;
-//                destination = n;
-//                destinationField.setText(n.getNodeID());
-//                searchBar.setPromptText(n.getShortName());
-//        });
-//        searchBar.valueProperty().addListener(new ChangeListener<String>() {
-//            @Override public void changed(ObservableValue value, String old, String newString) {
-//                Node selected = (Node) value;
-//                destination = selected;
-//                destinationField.setText(selected.getNodeID());
-//                searchBar.setPromptText(selected.getNodeID());
-//            }
-//        });
 
 
     private boolean checkNullLocations(){
@@ -106,6 +106,8 @@ public class MainSceneController extends AbstractMapController{
     public void infoClicked() throws IOException { findNearest(origin, "INFO"); }
 
     public void elevatorClicked() throws IOException { findNearest(origin, "ELEV"); }
+
+    public void exitClicked() throws IOException { findNearest(origin, "EXIT"); }
 
     private void findNearest(Node node, String type) throws IOException {
         if (origin == null) origin = mapNavigationFacade.getDefaultNode();

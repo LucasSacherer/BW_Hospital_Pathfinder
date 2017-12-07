@@ -249,6 +249,10 @@ public class AdminMapController extends AbstractMapController{
         kioskEditor.setKiosk();
         refreshCanvas();
     }
+    public void setScale(JFXTextField distanceScale){
+        kioskEditor.setScale(distanceScale);
+    }
+
 
     public void resetKioskScene() {
         kioskEditor.reset();
@@ -294,6 +298,7 @@ public class AdminMapController extends AbstractMapController{
     public void straighten() { straightener.straighten(); }
 
     public void resetStraightener() { straightener.reset(); }
+
 }
 
 
