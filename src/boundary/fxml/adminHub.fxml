@@ -45,7 +45,7 @@
                   </DropShadow>
                </effect>
             </JFXButton>
-            <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#adminHubToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5; -fx-border-color: #0068B1;" text="Back" textAlignment="CENTER" textFill="#0068b1" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#adminHubToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 12; -fx-border-width: 5; -fx-border-color: #0068B1;" text="Back" textAlignment="CENTER" textFill="#0068b1" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

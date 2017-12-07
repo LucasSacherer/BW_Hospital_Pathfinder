@@ -1,5 +1,6 @@
 package DatabaseSetup;
 
+import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import static org.junit.Assert.*;
@@ -11,7 +12,8 @@ public class DatabaseGargoyleTest {
     @Test
     public void attachManagerTest(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
 
         //Before, the manager list should not contain the node manager
         assertEquals(0, databaseGargoyle.getManagers().size());
@@ -26,8 +28,9 @@ public class DatabaseGargoyleTest {
     @Test
     public void notifyManagersTest(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager, adminLogManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(edgeManager);
 

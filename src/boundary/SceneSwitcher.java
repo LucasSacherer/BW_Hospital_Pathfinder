@@ -18,6 +18,7 @@ public class SceneSwitcher {
     private final String adminEmployeeLoc = "/boundary/fxml/adminEmployee.fxml";
     private final String mapEditLoc = "/boundary/fxml/adminMap.fxml";
     private final String pathfindingLoc = "/boundary/fxml/pathfinding.fxml";
+    private final String staffRequestHubLoc = "/boundary/fxml/staffRequestHub.fxml";
 
     public void switchScene(GodController g, Pane from, String to) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(to));
@@ -44,4 +45,6 @@ public class SceneSwitcher {
     public void toAdminEmployee(GodController g, Pane from) throws IOException { switchScene(g, from, adminEmployeeLoc); }
 
     public void toPathfinding(GodController g, Pane from) throws IOException { switchScene(g, from, pathfindingLoc); }
+
+    public void toStaffRequestHub(GodController g, Pane from) throws IOException { switchScene(g, from, staffRequestHubLoc); }
 }

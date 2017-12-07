@@ -56,7 +56,7 @@ public class NodeAdder {
 
         }
         catch(NullPointerException e){
-            errorController.showError("Please fill out the node information");
+            errorController.showError("Please complete all node information fields.");
             success = false;
         }
         if(success) {

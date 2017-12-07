@@ -208,6 +208,7 @@ public class TableCreator {
                     " string2 VARCHAR(250) NOT NULL\n)");
             System.out.println("Settings table created!");
             statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Default Node','GHALL03802')");
+            statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Distance Scale','1.76')");
         } catch (SQLException e) {
             System.out.println("Settings table already exists");
         }
@@ -225,6 +226,20 @@ public class TableCreator {
             System.out.println("AdminLog table created!");
         } catch (SQLException e) {
             System.out.println("AdminLog table already exists");
+            //e.printStackTrace();
+        }
+    }
+
+    public void createPathfindingLogTable() {
+        try{
+            statement.execute("CREATE TABLE pathfindinglog (\n" +
+                    "nodeID VARCHAR(20) NOT NULL, \n" +
+                    "time TIMESTAMP NOT NULL, \n" +
+                    "destination VARCHAR(5) NOT NULL, \n" +
+                    "pathID VARCHAR(250) NOT NULL\n)");
+            System.out.println("PathfindingLog Table created!");
+        } catch (SQLException e){
+            System.out.println("Pathfinding table already exists");
             //e.printStackTrace();
         }
     }

@@ -37,7 +37,6 @@ public class AdminEmployeeController {
     public void initializeScene() {
         departmentList = FXCollections.observableArrayList("Food", "Interpreter","Janitorial");
         departmentMenu.setItems(departmentList);
-        userManager.update();
         employeeList.setItems(userManager.getUsers());
         initializeAdminEmployeeListeners();
     }
@@ -54,14 +53,16 @@ public class AdminEmployeeController {
 
     public void addEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please fill out all the employee information");
+            errorController.showError("Please complete all employee information fields.");
         }
         else {
-            //temp until UI if fixed
+            if(departmentMenu.getSelectionModel().getSelectedItem() == null){
+                errorController.showError("Please select an employee department.");
+                return;
+            }
             User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.addUser(newUser);
-            userManager.update();
             employeeList.setItems(userManager.getUsers());
             resetScene();
         }
@@ -75,24 +76,26 @@ public class AdminEmployeeController {
 
     public void editEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please fill out all the employee information");
+            errorController.showError("Please complete all employee information fields.");
         }
         else {
             isAdmin = adminToggle.isSelected();
             User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.modifyUser(modUser);
-            userManager.update();
             employeeList.setItems(userManager.getUsers());
         }
     }
 
     public void deleteEmployeeAE(){
+        if(selectedUser == null){
+            errorController.showError("Please select a user to remove.");
+            return;
+        }
         for (Request req: genericRequestController.getAllRequestsByUser(selectedUser)){
             genericRequestController.deleteRequest(req);
         }
         userManager.removeUser(selectedUser);
-        userManager.update();
         employeeList.setItems(userManager.getUsers());
     }
 

@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -20,10 +21,11 @@ public class PathfindingSceneController  extends AbstractMapController {
     private JFXTextField originField, destinationField;
     private JFXListView textDirectionsList;
 
-    public PathfindingSceneController(GodController g, ImageView i, Pane mapPane, Canvas canvas, MapNavigationFacade m,
-                                      PathFindingFacade p, Label currentFloorNum, JFXTextField originField,
-                                      JFXTextField destinationField, JFXListView textDirectionsList, JFXSlider zoomSlider) {
-        super(g, i, mapPane, canvas, m, p, currentFloorNum, zoomSlider);
+    public PathfindingSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
+                                      Label currentFloorNum, JFXTextField originField,
+                                      JFXTextField destinationField, JFXListView textDirectionsList,
+                                      JFXSlider zoomSlider, ScrollPane scrollPane) {
+        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.originField = originField;
         this.destinationField = destinationField;
         this.textDirectionsList = textDirectionsList;
@@ -35,8 +37,10 @@ public class PathfindingSceneController  extends AbstractMapController {
         if (origin == null || destination == null) return;
         goToCorrectFloor();
         centerMap();
-        originField.setText(o.toString());
-        destinationField.setText(destination.toString());
+        if (origin.toString().length() < 1) originField.setText("Unknown Name");
+        else originField.setText(origin.toString());
+        if (destination.toString().length() < 1) destinationField.setText("Unknown Name");
+        else destinationField.setText(d.toString());
         currentPath = pathFindingFacade.getPath(origin, destination);
         textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
         refreshCanvas();
@@ -51,5 +55,9 @@ public class PathfindingSceneController  extends AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         currentFloorNum.setText(currentFloor);
         refreshCanvas();
+    }
+
+    public void reversePath() throws IOException {
+        this.findPath(destination, origin);
     }
 }

@@ -3,6 +3,7 @@ package Database;
 import Database.EdgeManager;
 import Database.NodeManager;
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Edge;
 import Entity.Node;
 import org.junit.Test;
@@ -22,10 +23,12 @@ public class EdgeManagerTest {
     @Test
     public void testAddEdge(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(test);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
@@ -44,14 +47,18 @@ public class EdgeManagerTest {
 
         test.removeEdge(e1);
         test.removeEdge(e2);
+        manager.removeNode(n1);
+        manager.removeNode(n2);
     }
     @Test
     public void testRemoveEdge(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(test);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
@@ -65,14 +72,19 @@ public class EdgeManagerTest {
         int startingsize = test.getAllEdges().size();
         test.removeEdge(e1);
         assertEquals(startingsize - 1, test.getAllEdges().size());
+
+        manager.removeNode(n1);
+        manager.removeNode(n2);
     }
     @Test
     public void testGetNeighbors() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(test);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1", 1, 1, "1", "test", "type","lName", "sName");
@@ -112,10 +124,12 @@ public class EdgeManagerTest {
     @Test
     public void testGetEdge(){
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager nodeManager = new NodeManager(databaseGargoyle);
-        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager nodeManager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, nodeManager, adminLogManager);
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(edgeManager);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node testnode1 = nodeManager.getNode("GHALL001L2");
@@ -133,10 +147,12 @@ public class EdgeManagerTest {
     @Test
     public void testEdgeWeight() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager test = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager test = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(test);
+        databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         Node n1 = new Node("1", 1, 1, "1", "test","type", "lName", "sName");
@@ -172,8 +188,9 @@ public class EdgeManagerTest {
     @Test
     public void testRemoveNeighborEdges() throws Exception {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
-        NodeManager manager = new NodeManager(databaseGargoyle);
-        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager);
+        AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
+        NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        EdgeManager edgeManager = new EdgeManager(databaseGargoyle, manager, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(edgeManager);
         databaseGargoyle.notifyManagers();

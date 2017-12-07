@@ -1,18 +1,22 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.AdminLog;
 import Entity.Node;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NodeManager implements EntityManager{
     private List<Node> nodes;
     private DatabaseGargoyle databaseGargoyle;
+    private AdminLogManager adminLogManager;
 
-    public NodeManager(DatabaseGargoyle dbG){
-        databaseGargoyle = dbG;
-        nodes = new ArrayList<>();
+    public NodeManager(DatabaseGargoyle dbG, AdminLogManager adminLogManager){
+        this.databaseGargoyle = dbG;
+        this.adminLogManager = adminLogManager;
+        this.nodes = new ArrayList<>();
     }
 
     /**
@@ -88,6 +92,10 @@ public class NodeManager implements EntityManager{
                 node.getYcoord()+",'"+node.getFloor()+"','"+node.getBuilding()+"','"+node.getNodeType()+"','"+
                 node.getLongName()+"','"+node.getShortName()+"','Team G')");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(
+                new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                        "Added a new Node (" + node.getNodeID() + ") on floor " + node.getFloor() + " in building " + node.getBuilding(),
+                        LocalDateTime.now()));
     }
 
     /**
@@ -99,6 +107,8 @@ public class NodeManager implements EntityManager{
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM NODE WHERE NODEID = '"+nodeToRemove+"'");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                "Removed Node: " + node.getNodeID(), LocalDateTime.now()));
     }
 
     /**
@@ -115,6 +125,11 @@ public class NodeManager implements EntityManager{
                 "LONGNAME = '" + node.getLongName() + "'," +
                 "SHORTNAME = '" + node.getShortName() + "' WHERE NODEID = '" + node.getNodeID() + "'");
         databaseGargoyle.destroyConnection();
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),
+                "Edited node " + node.getNodeID() + ": XCOORD = " + node.getXcoord() + ", YCOOR = " + node.getYcoord() +
+                        ", FLOOR = " + node.getFloor() + ", BUILDING = " + node.getBuilding() + ", NODETYPE = " + node.getNodeType() +
+                        ", LONGNAME = " + node.getLongName() + ", SHORTNAME = " + node.getShortName(),
+                LocalDateTime.now()));
     }
 
     /**
