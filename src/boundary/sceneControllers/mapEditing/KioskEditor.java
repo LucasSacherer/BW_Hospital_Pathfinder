@@ -48,7 +48,7 @@ public class KioskEditor {
             potential.equals(potential);
         }
         catch(NullPointerException e){
-            errorController.showError("Please select a node");
+            errorController.showError("Please select an origin node.");
         }
         if (success) {
             nodeEditController.setKioskLocation(potential);

@@ -1,6 +1,7 @@
 package Database;
 
 import DatabaseSetup.DatabaseGargoyle;
+import Entity.ErrorController;
 import Entity.AdminLog;
 import Entity.User;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ public class UserManager implements EntityManager {
     private ArrayList<User> users;
     private DatabaseGargoyle databaseGargoyle;
     private AdminLogManager adminLogManager;
+    private ErrorController errorController = new ErrorController();
 
     public UserManager(DatabaseGargoyle dbG, AdminLogManager adminLogManager) {
         this.databaseGargoyle = dbG;
@@ -126,6 +128,10 @@ public class UserManager implements EntityManager {
      * @param oldUser
      */
     public void removeUser(User oldUser){
+        if(oldUser == null){
+            errorController.showError("Please select a valid employee to delete.");
+            return;
+        }
         databaseGargoyle.createConnection();
         databaseGargoyle.executeUpdateOnDatabase("DELETE FROM KIOSKUSER WHERE userID = '" + oldUser.getUserID() + "'");
         databaseGargoyle.destroyConnection();

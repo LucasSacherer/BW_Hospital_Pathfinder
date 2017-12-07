@@ -139,11 +139,11 @@ public class TextualDirections {
 
         //takes care of size errors
         if (path.size() == 0) {
-            errorController.showError("ERROR: No path selected!");
+            errorController.showError("No path selected!");
             return writtenDirections;
         }
         if (path.size() == 1){
-            errorController.showError("ERROR: You are already there!");
+            errorController.showError("You are already there!");
             return writtenDirections;
         }
 

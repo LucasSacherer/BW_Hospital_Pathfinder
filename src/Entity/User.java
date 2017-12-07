@@ -1,11 +1,11 @@
 package Entity;
 
 public class User {
-    public String userID;
-    public String username;
-    public String password;
-    public Boolean adminFlag;
-    public String department;
+    private String userID;
+    private String username;
+    private String password;
+    private Boolean adminFlag;
+    private String department;
 
     public User(String userID, String username, String password, Boolean adminFlag, String department) {
         this.userID = userID;
