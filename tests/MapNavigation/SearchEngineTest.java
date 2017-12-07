@@ -48,7 +48,6 @@ public class SearchEngineTest {
         DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.notifyManagers();
 
-        SearchEngine se = new SearchEngine(manager);
         SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
@@ -70,7 +69,6 @@ public class SearchEngineTest {
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
-        SearchEngine se = new SearchEngine(manager);
         SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
