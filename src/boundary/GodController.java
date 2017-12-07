@@ -640,7 +640,7 @@ public class GodController {
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
     @FXML
-    private void setDistanceScale(){ adminMapController.setScale(distanceScale);}
+    private void setDistanceScale(){ adminMapController.setScale(distanceScale); }
 
     @FXML
     private void exportNodes() { adminMapController.exportNodes(); }
