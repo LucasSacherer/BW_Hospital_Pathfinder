@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 
-public class Dijkstra implements PathFinder {
+public class Dijkstra extends GoodAlgorithims {
    EdgeManager edgeM;
    // The set of nodes already evaluated
    ArrayList<String> closedSet = new ArrayList<String>();
@@ -31,17 +31,26 @@ public class Dijkstra implements PathFinder {
        this.edgeM = e;
    }
 
-    public ArrayList<Node> pathFind(Node loc1, Node loc2){
-       return Dijkstra(loc1, loc2);
-   }
+    @Override
+    void init(Node loc1, Node loc2) {
+        //define starting edge, just to get weight
+        tempEdge = new Edge(loc1,loc2);
+        //initial dNode to store weight and null parent
+        start = new dNode(loc1, null,0);
+    }
+
+    @Override
+    ArrayList<Node> run(Node loc1, Node loc2) {
+        return Dijkstra(loc1,loc2);
+    }
 
 
-   //Dijkstra is A* but without hCost
+    Edge tempEdge;
+    dNode start;
+
+    //Dijkstra is A* but without hCost
    private ArrayList<Node> Dijkstra(Node loc1, Node loc2) {
-       //define starting edge, just to get weight
-       Edge tempEdge = new Edge(loc1,loc2);
-       //initial dNode to store weight and null parent
-       dNode start = new dNode(loc1, null,0);
+
        // Initially, only the start node is known.
        dPQ.add(start);
 
