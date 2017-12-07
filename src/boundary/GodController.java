@@ -121,7 +121,7 @@ public class GodController {
     @FXML
     private JFXListView currentFoodOrder;
 
-    /* MAP ADMIN FXML */
+    /* MAP Editing */
     @FXML
     private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab, straightenTab;
 
@@ -239,7 +239,7 @@ public class GodController {
 
     private void initializeAdminLogScene() {
         adminLogController = new AdminLogController (databaseGargoyle, adminLogs, dateLogged,
-                 adminLogged, logContent, adminLogManager,userManager);
+                adminLogged, logContent, adminLogManager,userManager);
     }
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
@@ -316,6 +316,7 @@ public class GodController {
     ///////////////////////
     /* Pathfinding Scene */ //TODO this kind of sucks, let's go back to one scene with a hamburger
     ///////////////////////
+
     @FXML
     private void reversePath() throws IOException { pathfindingSceneController.reversePath(); }
 
@@ -403,11 +404,11 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   @FXML
-   private void addEmployeeAE() { adminEmployeeController.addEmployeeAE(); }
+    @FXML
+    private void addEmployeeAE() { adminEmployeeController.addEmployeeAE(); }
 
-   @FXML
-   private void cancelEmployeeAE() { adminEmployeeController.cancelEmployeeAE(); }
+    @FXML
+    private void cancelEmployeeAE() { adminEmployeeController.cancelEmployeeAE(); }
 
     @FXML
     private void editEmployeeAE() { adminEmployeeController.editEmployeeAE(); }
@@ -509,6 +510,7 @@ public class GodController {
 
     @FXML
     private void resetStraightenButton() { adminMapController.resetStraightener(); }
+
     @FXML
     private void addNodeButton() { adminMapController.addNode(); }
 
@@ -616,6 +618,7 @@ public class GodController {
     /////////////////////
     /* Scene Switching */
     /////////////////////
+
     @FXML
     private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
@@ -639,7 +642,7 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
-       if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
+        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequestHub(this, loginPane);
             staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
