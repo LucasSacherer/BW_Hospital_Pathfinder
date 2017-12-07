@@ -22,7 +22,7 @@ public class RequestInterpreterController {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         if (validateRequest(iReq)){
             interpreterManager.addRequest(iReq);
-        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
+        }else errorController.showError("This request is invalid. Please make sure that the request has a unique name.");
     }
 
     /**
@@ -55,7 +55,7 @@ public class RequestInterpreterController {
         //First make sure the request exists, then delete it
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.deleteRequest(iReq);
-        } else errorController.showError("The request you want to delete does not exist");
+        } else errorController.showError("The selected request does not exist.");
     }
 
     /**
@@ -67,7 +67,7 @@ public class RequestInterpreterController {
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.updateRequest(iReq);
         }
-        else errorController.showError("This request does not already exist in the database");
+        else errorController.showError("This request does not exist in the database.");
     }
 
     /**
@@ -79,7 +79,7 @@ public class RequestInterpreterController {
         if (interpreterManager.getInterpreterRequest(iReq.getName(), iReq.getTimeCreated()) != null){
             interpreterManager.completeRequest(iReq);
         }
-        else errorController.showError("This request does not already exist in the database");
+        else errorController.showError("This request does not exist in the database.");
     }
 
     public List<InterpreterRequest> getRequestsBy(User user){

@@ -53,10 +53,13 @@ public class AdminEmployeeController {
 
     public void addEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please fill out all the employee information");
+            errorController.showError("Please complete all employee information fields.");
         }
         else {
-            //temp until UI if fixed
+            if(departmentMenu.getSelectionModel().getSelectedItem() == null){
+                errorController.showError("Please select an employee department.");
+                return;
+            }
             User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
                     departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.addUser(newUser);
@@ -73,7 +76,7 @@ public class AdminEmployeeController {
 
     public void editEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please fill out all the employee information");
+            errorController.showError("Please complete all employee information fields.");
         }
         else {
             isAdmin = adminToggle.isSelected();
@@ -85,6 +88,10 @@ public class AdminEmployeeController {
     }
 
     public void deleteEmployeeAE(){
+        if(selectedUser == null){
+            errorController.showError("Please select a user to remove.");
+            return;
+        }
         for (Request req: genericRequestController.getAllRequestsByUser(selectedUser)){
             genericRequestController.deleteRequest(req);
         }

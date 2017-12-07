@@ -25,7 +25,7 @@ public class RequestFoodController {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         if (validateRequest(fReq)){
             foodManager.addRequest(fReq);
-        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
+        }else errorController.showError("This request is invalid. Please make sure that the request has a unique name.");
     }
 
     /**
@@ -60,7 +60,7 @@ public class RequestFoodController {
         //Check to make sure the request exists
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.deleteRequest(fReq);
-        } else errorController.showError("The request you want to delete does not exist");
+        } else errorController.showError("The selected request does not exist.");
     }
 
     /**
@@ -72,7 +72,7 @@ public class RequestFoodController {
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.updateRequest(fReq);
         }
-        else errorController.showError("This request does not already exist in the database");
+        else errorController.showError("This request does not exist in the database.");
     }
 
     /**
@@ -84,7 +84,7 @@ public class RequestFoodController {
         if (foodManager.getFoodRequest(fReq.getName(), fReq.getTimeCreated()) != null){
             foodManager.completeRequest(fReq);
         }
-        else errorController.showError("This request does not already exist in the database");
+        else errorController.showError("This request does not exist in the database.");
     }
 
     public List<FoodRequest> getRequestsBy(User user){
