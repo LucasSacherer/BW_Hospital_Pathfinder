@@ -19,11 +19,15 @@ public class SearchEngineTest {
         DatabaseGargoyle databaseGargoyle = new DatabaseGargoyle();
         AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
         NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
+        DirectoryController dc = new DirectoryController(manager);
+
+
+
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
-        SearchEngine se = new SearchEngine(manager);
+        SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("Cafe"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
@@ -41,9 +45,11 @@ public class SearchEngineTest {
         NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(adminLogManager);
+        DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.notifyManagers();
 
         SearchEngine se = new SearchEngine(manager);
+        SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
@@ -60,10 +66,12 @@ public class SearchEngineTest {
         AdminLogManager adminLogManager = new AdminLogManager(databaseGargoyle);
         NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         databaseGargoyle.attachManager(manager);
+        DirectoryController dc = new DirectoryController(manager);
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
-        
+
         SearchEngine se = new SearchEngine(manager);
+        SearchEngine se = new SearchEngine(dc);
         List<Node> answer = (se.Search("cafe"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
