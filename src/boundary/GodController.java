@@ -418,6 +418,9 @@ public class GodController {
     /* Pathfinding Scene */
     ///////////////////////
     @FXML
+    private void reversePath() throws IOException { pathfindingSceneController.reversePath(); }
+
+    @FXML
     private void pathfindingUp() throws IOException, SQLException { pathfindingSceneController.floorUp(); }
 
     @FXML
