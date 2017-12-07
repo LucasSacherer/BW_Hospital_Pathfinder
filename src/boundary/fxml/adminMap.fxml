@@ -418,13 +418,13 @@
                                        <children>
                                           <JFXTabPane prefHeight="483.0" prefWidth="265.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <tabs>
-                                                <Tab text="KIOSK LOC.">
+                                                <Tab text="DEFAULTS">
                                                    <content>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <VBox alignment="TOP_CENTER" prefHeight="743.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <VBox alignment="TOP_CENTER" prefHeight="743.0" prefWidth="275.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                <children>
-                                                                  <Label contentDisplay="CENTER" text="Node Location">
+                                                                  <Label contentDisplay="CENTER" text="Kiosk Node">
                                                                      <font>
                                                                         <Font name="System Bold" size="24.0" />
                                                                      </font>
@@ -447,16 +447,41 @@
                                                                         <Font name="System Bold" size="20.0" />
                                                                      </font>
                                                                   </JFXButton>
+                                                                  <Label text="Set Distance Ratio">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="24.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <JFXTextField fx:id="distanceScale" prefHeight="31.0" prefWidth="194.0">
+                                                                           <HBox.margin>
+                                                                              <Insets left="5.0" />
+                                                                           </HBox.margin>
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </JFXTextField>
+                                                                        <JFXButton onAction="#setDistanceScale" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                           <HBox.margin>
+                                                                              <Insets left="5.0" />
+                                                                           </HBox.margin>
+                                                                        </JFXButton>
+                                                                     </children>
+                                                                  </HBox>
                                                                </children>
                                                                <padding>
-                                                                  <Insets top="25.0" />
+                                                                  <Insets top="10.0" />
                                                                </padding>
                                                             </VBox>
                                                          </children>
                                                       </AnchorPane>
                                                    </content>
                                                 </Tab>
-                                                <Tab text="PATH FINDING">
+                                                <Tab text="PATHING">
                                                    <content>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="265.0">
                                                          <children>

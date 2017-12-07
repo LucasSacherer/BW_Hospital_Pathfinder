@@ -107,6 +107,8 @@ public class MainSceneController extends AbstractMapController{
 
     public void elevatorClicked() throws IOException { findNearest(origin, "ELEV"); }
 
+    public void exitClicked() throws IOException { findNearest(origin, "EXIT"); }
+
     private void findNearest(Node node, String type) throws IOException {
         if (origin == null) origin = mapNavigationFacade.getDefaultNode();
         System.out.println(origin);
