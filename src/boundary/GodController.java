@@ -157,6 +157,8 @@ public class GodController {
     @FXML
     private JFXListView nodesListView, allStaffRequests, requestsIMade;
 
+    @FXML
+    private JFXSlider mapEditZoomSlider;
 
     /* Requests ADMIN FXML */
     @FXML
@@ -307,7 +309,7 @@ public class GodController {
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager,
                 nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
-                addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, null, mapEditScrollPane);
+                addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, mapEditZoomSlider, mapEditScrollPane);
     }
 
     private void initializeAdminLogScene() {
@@ -678,11 +680,6 @@ public class GodController {
     @FXML
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
-    @FXML
-    private void zoomInMapEdit() { }
-
-    @FXML
-    private void zoomOutMapEdit() { }
 
     @FXML
     private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
