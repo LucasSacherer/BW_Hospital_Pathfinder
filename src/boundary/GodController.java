@@ -152,7 +152,7 @@ public class GodController {
             longNameAdd, longNameEdit, requestName, requestDescription,
             edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
             edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, editNodeID,
-            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten;
+            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten, distanceScale;
 
     @FXML
     private JFXListView nodesListView, allStaffRequests, requestsIMade;
@@ -406,13 +406,16 @@ public class GodController {
     private void clearDestinationMain(){}//TODO
 
     @FXML
-    private void nearestInfoDeskMain() throws IOException { mainSceneController.infoClicked(); }//TODO
+    private void nearestInfoDeskMain() throws IOException { mainSceneController.infoClicked(); }
 
     @FXML
-    private void nearestBathroomMain() throws IOException { mainSceneController.bathroomClicked(); }//TODO
+    private void nearestBathroomMain() throws IOException { mainSceneController.bathroomClicked(); }
 
     @FXML
-    private void nearestElevatorMain() throws IOException { mainSceneController.elevatorClicked(); }//TODO
+    private void nearestElevatorMain() throws IOException { mainSceneController.elevatorClicked(); }
+
+    @FXML
+    private void nearestExitMain() throws IOException { mainSceneController.exitClicked(); }
 
     ///////////////////////
     /* Pathfinding Scene */
@@ -718,6 +721,9 @@ public class GodController {
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
+
+    @FXML
+    private void setDistanceScale(){ adminMapController.setScale(distanceScale);}
 
     @FXML
     private void exportNodes() { adminMapController.exportNodes(); }
