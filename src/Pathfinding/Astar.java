@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
- public class Astar implements PathFinder {
+ public class Astar extends GoodAlgorithims {
     EdgeManager edgeM;
     // The set of nodes already evaluated
     ArrayList<String> closedSet = new ArrayList<String>();
@@ -33,16 +33,15 @@ import java.util.List;
         this.edgeM = e;
     }
 
-     public ArrayList<Node> pathFind(Node loc1, Node loc2){
-        return Astar(loc1, loc2);
-    }
+    //public ArrayList<Node> pathFind(Node loc1, Node loc2){
+    //    return Astar(loc1, loc2);
+    //}
+
+     starNode start;
+     double hCost;
+     Edge tempEdge;
 
     private ArrayList<Node> Astar(Node loc1, Node loc2) {
-        //define starting edge, just to get weight
-        Edge tempEdge = new Edge(loc1,loc2);
-        double hCost = (double)(tempEdge.getWeight());
-        //initial starNode to store weight and null parent
-        starNode start = new starNode(loc1, null, hCost,0);
         // Initially, only the start node is known.
         astarPQ.add(start);
 
@@ -133,4 +132,17 @@ import java.util.List;
          return total_path;
      }
 
-}
+     @Override
+     void init(Node loc1, Node loc2) {
+         //define starting edge, just to get weight
+         tempEdge = new Edge(loc1,loc2);
+         hCost = (double)(tempEdge.getWeight());
+         //initial starNode to store weight and null parent
+         start = new starNode(loc1, null, hCost,0);
+     }
+
+     @Override
+     ArrayList<Node> run(Node loc1, Node loc2) {
+         return Astar(loc1,loc2);
+     }
+ }

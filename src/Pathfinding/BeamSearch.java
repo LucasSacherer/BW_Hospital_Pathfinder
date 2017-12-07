@@ -12,11 +12,11 @@ import java.util.List;
 import static java.lang.Math.min;
 
 
-public class BeamSearch implements PathFinder {
+public class BeamSearch extends BadAlgorithims {
 
         //admittedly, beam search's lack of completeness doesn't make it a great pathfinding algorithm
         //without a huge beam width, that is
-        int beamWidth = 30;
+        int beamWidth;
 
         EdgeManager edgeM;
         // The set of nodes already evaluated
@@ -40,8 +40,14 @@ public class BeamSearch implements PathFinder {
 
     public BeamSearch(EdgeManager e){this.edgeM = e;}
 
-    public ArrayList<Node> pathFind(Node start, Node end) {
-        return beamSearch(start, end);
+    @Override
+    void setWeight() {
+        beamWidth = 30;
+    }
+
+    @Override
+    ArrayList<Node> findPath(Node loc1, Node loc2) {
+        return beamSearch(loc1, loc2);
     }
 
     private ArrayList<Node> beamSearch(Node loc1, Node loc2){
@@ -68,7 +74,7 @@ public class BeamSearch implements PathFinder {
 
             //Check if the goal has been reached yet
             if (current.node.getNodeID().equals(loc2.getNodeID())) {
-                System.out.println("Goal Reached!");
+                System.out.println("Goal Reached Beam!");
                 //if so trace back its path
                 closedSet.clear();
                 beamPQ.clear();

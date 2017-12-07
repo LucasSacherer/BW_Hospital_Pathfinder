@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 
 import static java.lang.Math.min;
 
-public class BestFirst implements PathFinder{
+public class BestFirst extends BadAlgorithims{
 
     //Interpreted BestFirst as Greedy BestFirst
     //without a huge beam width, that is
@@ -40,8 +40,14 @@ public class BestFirst implements PathFinder{
 
     public BestFirst(EdgeManager e){this.edgeM = e;}
 
-    public ArrayList<Node> pathFind(Node start, Node end) {
-        return bestFirst(start, end);
+    @Override
+    void setWeight() {
+        beamWidth = 1;
+    }
+
+    @Override
+    ArrayList<Node> findPath(Node loc1, Node loc2) {
+        return bestFirst(loc1, loc2);
     }
 
     private ArrayList<Node> bestFirst(Node loc1, Node loc2){
