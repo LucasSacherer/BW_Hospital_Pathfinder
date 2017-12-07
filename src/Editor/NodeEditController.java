@@ -8,6 +8,7 @@ import DatabaseSetup.DatabaseGargoyle;
 import Entity.AdminLog;
 import Entity.Node;
 import Request.GenericRequestController;
+import com.jfoenix.controls.JFXTextField;
 import org.ejml.data.FMatrixRMaj;
 import org.ejml.dense.row.misc.RrefGaussJordanRowPivot_FDRM;
 
@@ -53,6 +54,13 @@ public class NodeEditController {
     public void setKioskLocation(Node defaultNode){
         settingsManager.setSetting("Default Node", defaultNode.getNodeID());
         adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed Kiosk Default Node", LocalDateTime.now()));
+    }
+
+    public void setScale(JFXTextField distanceScale){
+
+        settingsManager.setSetting("Distance Scale", distanceScale.getText());
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed Distance Scale", LocalDateTime.now()));
+
     }
 
     //first two nodes are start and end

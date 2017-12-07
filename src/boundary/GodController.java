@@ -152,7 +152,7 @@ public class GodController {
             longNameAdd, longNameEdit, requestName, requestDescription,
             edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
             edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, editNodeID,
-            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten;
+            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten, distanceScale;
 
     @FXML
     private JFXListView nodesListView, allStaffRequests, requestsIMade;
@@ -718,6 +718,9 @@ public class GodController {
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
+
+    @FXML
+    private void setDistanceScale(){ adminMapController.setScale(distanceScale);}
 
     @FXML
     private void exportNodes() { adminMapController.exportNodes(); }
