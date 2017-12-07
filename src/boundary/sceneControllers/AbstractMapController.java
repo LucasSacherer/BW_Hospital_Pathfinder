@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class AbstractMapController {
-    private final double ZOOM = 0.28;
+    private final double ZOOM = 0.5;
     protected Group group;
     protected ImageButton floorChange;
     protected GodController godController;
