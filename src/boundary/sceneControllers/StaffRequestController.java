@@ -171,7 +171,7 @@ public class StaffRequestController extends AbstractMapController{
             }
         }
         catch(NullPointerException e){
-            errorController.showError("Please fill in request information");
+            errorController.showError("Please complete all request information fields.");
             success = false;
         }
         if(success) {
@@ -270,7 +270,7 @@ public class StaffRequestController extends AbstractMapController{
             }
         }
         catch(NullPointerException e){
-            errorController.showError("Please fill in request information");
+            errorController.showError("Please complete all request information fields.");
             success = false;
         }
         if(success) {
@@ -295,7 +295,7 @@ public class StaffRequestController extends AbstractMapController{
             }
         }
         catch(NullPointerException e){
-            errorController.showError("Please fill in request information");
+            errorController.showError("Please complete all request information fields.");
             success = false;
         }
         if(success) {
@@ -325,7 +325,7 @@ public class StaffRequestController extends AbstractMapController{
             }
         }
         catch(NullPointerException e){
-            errorController.showError("Please type in a food item");
+            errorController.showError("Please select a food item.");
             success = false;
         }
         if(success) {

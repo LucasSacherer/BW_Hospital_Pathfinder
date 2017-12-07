@@ -1,6 +1,7 @@
 package boundary.sceneControllers.mapEditing;
 
 import Editor.NodeEditController;
+import Entity.ErrorController;
 import Entity.Node;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,6 +9,7 @@ import javafx.scene.paint.Color;
 
 public class NodeRemover {
     private NodeEditController nodeEditController;
+    private ErrorController errorController = new ErrorController();
     private JFXTextField xPos, yPos;
     private Node current;
     private GraphicsContext gc;
@@ -19,7 +21,11 @@ public class NodeRemover {
         this.gc = gc;
     }
 
-    public void remove() { if (current != null) nodeEditController.deleteNode(current); }
+    public void remove() {
+        if (current != null) {
+            nodeEditController.deleteNode(current);
+        } else errorController.showError("Please select a node.");
+    }
 
     public void clickOnMap(Node current) {
         gc.setFill(Color.BLUE);

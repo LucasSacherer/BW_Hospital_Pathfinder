@@ -95,7 +95,7 @@ public class MainSceneController extends AbstractMapController{
             destination.equals("");
         }
         catch(NullPointerException e){
-            errorController.showError("Please set a start and end location");
+            errorController.showError("Please select both a start and end location.");
             success = false;
         }
         return success;

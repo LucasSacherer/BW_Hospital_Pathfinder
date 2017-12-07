@@ -61,7 +61,7 @@ public class EdgeAdder {
             node.getYcoord();
         }
         catch(NullPointerException e){
-            errorController.showError("Please fill out the node information");
+            errorController.showError("Please complete all node information fields.");
             success = false;
         }
         return success;
@@ -101,7 +101,7 @@ public class EdgeAdder {
             endNode.equals(startNode);
         }
         catch(NullPointerException e){
-            errorController.showError("Please pick two nodes");
+            errorController.showError("Please pick two nodes.");
             success = false;
         }
         if (success) {

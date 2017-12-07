@@ -4,6 +4,7 @@ import Database.AdminLogManager;
 import Database.EdgeManager;
 import Database.NodeManager;
 import Database.SettingsManager;
+import Entity.ErrorController;
 import DatabaseSetup.DatabaseGargoyle;
 import Entity.AdminLog;
 import Entity.Node;
@@ -23,6 +24,7 @@ public class NodeEditController {
     GenericRequestController genericRequestController;
     AdminLogManager adminLogManager;
     DatabaseGargoyle databaseGargoyle;
+    ErrorController errorController = new ErrorController();
 
     public NodeEditController(NodeManager nodeM, EdgeManager edgeM, GenericRequestController grm, AdminLogManager adminLogManager, DatabaseGargoyle databaseGargoyle){
         this.nodeManager = nodeM;
@@ -45,9 +47,9 @@ public class NodeEditController {
 
     // deletes an already existing node
     public void deleteNode(Node node) {
-        edgeManager.removeNeighborEdges(node);
-        genericRequestController.deleteNodeRequests(node);
-        nodeManager.removeNode(node);
+            edgeManager.removeNeighborEdges(node);
+            genericRequestController.deleteNodeRequests(node);
+            nodeManager.removeNode(node);
     }
 
     public void setKioskLocation(Node defaultNode){

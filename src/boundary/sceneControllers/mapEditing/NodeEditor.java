@@ -63,7 +63,7 @@ public class NodeEditor {
             }
         }
         catch(NullPointerException e){
-            errorController.showError("Please fill out node info");
+            errorController.showError("Please complete all node information fields.");
             success = false;
         }
         if(success) {

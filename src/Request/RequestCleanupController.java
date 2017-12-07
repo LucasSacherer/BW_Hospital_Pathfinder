@@ -24,7 +24,7 @@ public class RequestCleanupController {
         //Check that cReq has a name and timeCompleted that is unique to all cleanUpRequests
         if (validateRequest(cReq)){
                 cleanUpManager.addRequest(cReq);
-        }else errorController.showError("The request is invalid, make sure there it has a UNIQUE name and time created pair");
+        }else errorController.showError("This request is invalid. Please make sure that the request has a unique name.");
     }
 
     /**
@@ -62,7 +62,7 @@ public class RequestCleanupController {
         //First make sure the request exists, then delete it
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.deleteRequest(cReq);
-        } else errorController.showError("The request you want to delete does not exist");
+        } else errorController.showError("The selected request does not exist.");
     }
 
     /**
@@ -74,7 +74,7 @@ public class RequestCleanupController {
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.updateRequest(cReq);
         }
-        else errorController.showError("This request does not already exist in the database");
+        else errorController.showError("This request does not exist in the database.");
     }
 
     /**
@@ -86,7 +86,7 @@ public class RequestCleanupController {
         if (cleanUpManager.getCleanUpRequest(cReq.getName(), cReq.getTimeCreated()) != null){
             cleanUpManager.completeRequest(cReq);
         }
-        else errorController.showError("This request does not already exist in the database");
+        else errorController.showError("This request does not exist in the database.");
     }
 
     public ObservableList<CleanUpRequest> getRequestsBy(User user){
