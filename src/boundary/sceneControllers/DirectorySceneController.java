@@ -30,7 +30,9 @@ public class DirectorySceneController {
         this.mapNavigationFacade = mapNavigationFacade;
     }
 
-    public void setMainSceneController(MainSceneController m) { this.m = m; }
+    public void setMainSceneController(MainSceneController m) {
+        this.m = m;
+    }
 
     @FXML
     private void initialize() {
@@ -41,7 +43,8 @@ public class DirectorySceneController {
                 listView.setItems(mapNavigationFacade.getDirectory().get(browser.getSelectionModel().getSelectedItem()));
             }
         });
-//        initializeDirectoryListeners();
+        browser.getSelectionModel().select(0);
+        listView.setItems(mapNavigationFacade.getDirectory().get(browser.getSelectionModel().getSelectedItem()));
     }
 
     @FXML
@@ -56,100 +59,4 @@ public class DirectorySceneController {
             m.setDestination((Node) listView.getSelectionModel().getSelectedItem());
     }
 
-//    @FXML
-//    private void setElevatorOrigin() {
-//        origin = (Node) elevatorDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setRestroomOrigin() {
-//        origin = (Node) restroomDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setStairsOrigin() {
-//        origin = (Node) stairsDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setDepartmentsOrigin() {
-//        origin = (Node) deptDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setInfoDesksOrigin() {
-//        origin = (Node) infoDeskDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setLabsOrigin() {
-//        origin = (Node) labDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setExitOrigin() {
-//        origin = (Node) exitDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setShopsOrigin() {
-//        origin = (Node) shopsDir.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setNonMedicalOrigin() {
-//        origin = (Node) nonMedical.getSelectionModel().getSelectedItem();
-//    }
-//
-//    @FXML
-//    private void setConferenceOrigin() {
-//        origin = (Node) conferenceDir.getSelectionModel().getSelectedItem();
-//    }
-
-    private void initializeDirectory() {
-
-//        elevatorDir.setItems(mapNavigationFacade.getDirectory().get("Elevators"));
-//        restroomDir.setItems(mapNavigationFacade.getDirectory().get("Restrooms"));
-//        stairsDir.setItems(mapNavigationFacade.getDirectory().get("Stairs"));
-//        labDir.setItems(mapNavigationFacade.getDirectory().get("Departments"));
-//        deptDir.setItems(mapNavigationFacade.getDirectory().get("Labs"));
-//        infoDeskDir.setItems(mapNavigationFacade.getDirectory().get("Information Desks"));
-//        conferenceDir.setItems(mapNavigationFacade.getDirectory().get("Conference Rooms"));
-//        exitDir.setItems(mapNavigationFacade.getDirectory().get("Exits/Entrances"));
-//        shopsDir.setItems(mapNavigationFacade.getDirectory().get("Shops, Food, Phones"));
-//        nonMedical.setItems(mapNavigationFacade.getDirectory().get("Non-Medical Services"));
-    }
-//
-//    private void initializeDirectoryListeners(){
-//        elevatorDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) elevatorDir.getItems().get(newValue.intValue());
-//        });
-//        restroomDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) restroomDir.getItems().get(newValue.intValue());
-//        });
-//        stairsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) stairsDir.getItems().get(newValue.intValue());
-//        });
-//        labDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) labDir.getItems().get(newValue.intValue());
-//        });
-//        deptDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) deptDir.getItems().get(newValue.intValue());
-//        });
-//        infoDeskDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) infoDeskDir.getItems().get(newValue.intValue());
-//        });
-//        conferenceDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) conferenceDir.getItems().get(newValue.intValue());
-//        });
-//        exitDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) exitDir.getItems().get(newValue.intValue());
-//        });
-//        shopsDir.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) shopsDir.getItems().get(newValue.intValue());
-//        });
-//        nonMedical.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-//            destination = (Node) nonMedical.getItems().get(newValue.intValue());
-//        });
-//    }
 }

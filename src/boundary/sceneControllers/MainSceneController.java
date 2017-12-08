@@ -6,6 +6,8 @@ import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -49,21 +51,25 @@ public class MainSceneController extends AbstractMapController{
         searchBar.setPromptText("Search");
         searchBar.setEditable(true);
         searchBar.setPrefWidth(200);
-        EventHandler<KeyEvent> k = new EventHandler<KeyEvent>() {
+        searchBar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    searchBar.hide();
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (!searchBar.getSelectionModel().isEmpty()) {
+                    if (searchBar.getValue() == null) searchBar.hide();
+                    else {
+                        searchBar.getItems().clear();
+                        searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
+                        searchBar.show();
+                        System.out.println("hey");
+                    }
                 }
-
-                if (searchBar.getValue() == null) return;
-                searchBar.getItems().clear();
-                searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
-                searchBar.show();
             }
-        };
-        searchBar.setOnKeyPressed(k);
+        });
+
+//        searchBar.setOnAction(e -> destinationField.setText((String) searchBar.getValue()));
     }
+
+
 
     public void setOrigin(Node o) {
         this.origin = o;
@@ -107,8 +113,8 @@ public class MainSceneController extends AbstractMapController{
     public void navigateToHere() throws IOException {
 //        boolean success = checkNullLocations();
 //        if(success) {
-            setDestination();
-            findPath();
+        setDestination();
+        findPath();
 //        }
     }
 

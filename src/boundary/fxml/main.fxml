@@ -228,17 +228,14 @@
             </JFXButton>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <VBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="69.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="15.0" layoutY="69.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
                      <children>
-                        <AnchorPane fx:id="directoryPane">
-                           <children>
-                              <JFXButton fx:id="directoryButton" alignment="TOP_LEFT" buttonType="RAISED" onAction="#openDirectory" style="-fx-background-color: #0068B1; -fx-background-radius: 12;" text="Directory" textFill="#cccccc">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </AnchorPane>
+                        <JFXButton fx:id="directoryButton" alignment="TOP_LEFT" buttonType="RAISED" onAction="#openDirectory" style="-fx-background-color: #0068B1; -fx-background-radius: 12;" text="Directory" textFill="#cccccc">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </JFXButton>
+                        <AnchorPane fx:id="directoryPane" />
                      </children>
                   </VBox>
                </children>
