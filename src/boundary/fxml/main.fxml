@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -84,23 +87,6 @@
                         <Insets right="40.0" />
                      </padding>
                   </JFXSlider>
-               </children>
-            </VBox>
-            <VBox prefHeight="100.0" prefWidth="284.0" spacing="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-               <children>
-                  <JFXButton alignment="TOP_LEFT" buttonType="RAISED" onAction="#openDirectory" style="-fx-background-color: #0068B1; -fx-background-radius: 12;" text="Directory" textFill="#cccccc">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="15.0" top="15.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <AnchorPane fx:id="searchPane" prefHeight="2.0" prefWidth="247.0">
-                     <VBox.margin>
-                        <Insets left="15.0" />
-                     </VBox.margin>
-                  </AnchorPane>
                </children>
             </VBox>
             <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="116.0" prefWidth="116.0" style="-fx-background-radius: 120; -fx-background-color: #0068B1;" text="Navigate" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -190,52 +176,56 @@
                   </Label>
                </graphic>
             </JFXButton>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+            <AnchorPane maxHeight="-Infinity" prefHeight="105.0" prefWidth="267.0">
                <children>
-                  <VBox alignment="BOTTOM_CENTER" layoutX="14.0" layoutY="77.0" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
+                  <VBox prefHeight="700.0" prefWidth="315.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="194.0">
+                        <AnchorPane style="-fx-background-color: white;">
                            <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
-                                 <image>
-                                    <Image url="@../images/circle-outline.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="originField" text="Kiosk location">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearOriginMain" text="X">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
+                              <GridPane layoutY="8.0" minHeight="-Infinity" prefHeight="70.0" prefWidth="315.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.0" minWidth="10.0" prefWidth="33.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="138.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.0" minWidth="10.0" prefWidth="28.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/circle-outline.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXComboBox fx:id="originField" prefHeight="25.0" prefWidth="147.0" promptText="Kiosk location" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                    <JFXButton buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearOriginMain" text="X" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </JFXButton>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/location.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXComboBox fx:id="destinationField" promptText="destination (select)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                 </children>
+                              </GridPane>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="234.0">
-                           <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
-                                 <image>
-                                    <Image url="@../images/location.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="destinationField" text="Select a Destination">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#clearDestinationMain" prefHeight="40.0" prefWidth="29.0" text="X">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </HBox>
+                        </AnchorPane>
+                        <Accordion prefHeight="621.0" prefWidth="284.0">
+                          <panes>
+                            <TitledPane animated="false" prefHeight="643.0" prefWidth="267.0" text="untitled 1">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="313.0" />
+                              </content>
+                            </TitledPane>
+                          </panes>
+                        </Accordion>
                      </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
