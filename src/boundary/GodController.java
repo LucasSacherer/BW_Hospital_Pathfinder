@@ -83,6 +83,9 @@ public class GodController {
     ///////////////////////
 
     @FXML
+    private JFXButton directoryButton;
+
+    @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
 
     /* Scene Panes */
@@ -95,7 +98,7 @@ public class GodController {
 
 
     @FXML
-    private AnchorPane searchPane; // search bar
+    private AnchorPane searchPane, directoryPane; // search bar, directory
 
     @FXML
     private Label originField, destinationField;
@@ -189,6 +192,9 @@ public class GodController {
 
     boolean firstTime = true;
 
+    private Stage primaryStage;
+    public GodController(Stage primaryStage) { this.primaryStage = primaryStage; }
+
     @FXML
     private void initialize() {
         //pathFindingFacade.setPathfinder(beamSearch);
@@ -217,9 +223,8 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine);
+                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine, primaryStage);
         mainSceneController.initializeScene();
-        directorySceneController.setMainSceneController(mainSceneController);
     }
 
     private void initializeRequestScene() {
@@ -260,7 +265,7 @@ public class GodController {
     ////////////////
 
     @FXML
-    private void openDirectory() throws IOException { mainSceneController.openDirectory(this); }
+    private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
 
     @FXML
     private void directoryNavigate() {mainSceneController.directoryNavigate(); }
@@ -297,9 +302,6 @@ public class GodController {
 
     @FXML
     private void clearOriginMain(){}//TODO
-
-    @FXML
-    private void clearDestinationMain(){}//TODO
 
     @FXML
     private void nearestInfoDeskMain() throws IOException { mainSceneController.infoClicked(); }

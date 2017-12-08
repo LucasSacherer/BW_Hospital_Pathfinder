@@ -16,7 +16,7 @@ public class Main extends Application {
 
         //Load UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/fxml/main.fxml"));
-        GodController godController = new GodController();
+        GodController godController = new GodController(primaryStage);
         godController.initializeObservers();
         loader.setController(godController);
         Parent root = loader.load();
