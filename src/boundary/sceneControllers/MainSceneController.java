@@ -4,46 +4,23 @@ import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
-import boundary.AutoCompleteTextField;
 import boundary.GodController;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
+import com.jfoenix.controls.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
-import javafx.scene.transform.Translate;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
 
-import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import java.awt.event.MouseAdapter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
@@ -52,16 +29,20 @@ public class MainSceneController extends AbstractMapController{
     private Label originField, destinationField;
     private ErrorController errorController = new ErrorController();
     private JFXComboBox searchBar;
+    private Stage primaryStage;
+    private AnchorPane searchPane;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
                                Label originField, Label destinationField, JFXSlider zoomSlider,
                                DirectorySceneController directorySceneController, AnchorPane searchPane,
-                               ScrollPane scrollPane, SearchEngine searchEngine) {
+                               ScrollPane scrollPane, SearchEngine searchEngine, Stage primaryStage) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
+        this.primaryStage = primaryStage;
         this.searchEngine = searchEngine;
         this.originField = originField;
         this.destinationField = destinationField;
         this.directorySceneController = directorySceneController;
         searchBar = new JFXComboBox();
+        this.searchPane = searchPane;
         searchPane.getChildren().add(searchBar);
         initializeSearchBar();
     }
@@ -70,23 +51,35 @@ public class MainSceneController extends AbstractMapController{
         searchBar.setPromptText("Search");
         searchBar.setEditable(true);
         searchBar.setPrefWidth(200);
-        EventHandler<KeyEvent> k = new EventHandler<KeyEvent>() {
+        searchBar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    searchBar.hide();
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (!searchBar.getSelectionModel().isEmpty()) {
+                    if (searchBar.getValue() == null) searchBar.hide();
+                    else {
+                        searchBar.getItems().clear();
+                        searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
+                        searchBar.show();
+                        System.out.println("hey");
+                    }
                 }
-
-                if (searchBar.getValue() == null) return;
-                searchBar.getItems().clear();
-                searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
-                searchBar.show();
             }
-        };
-        searchBar.setOnKeyPressed(k);
+        });
+
+//        searchBar.setOnAction(e -> destinationField.setText((String) searchBar.getValue()));
     }
 
 
+
+    public void setOrigin(Node o) {
+        this.origin = o;
+        originField.setText(o.getNodeID());
+    }
+
+    public void setDestination(Node d) {
+        this.destination = d;
+        destinationField.setText(d.getNodeID());
+    }
 
     private boolean checkNullLocations(){
         boolean success = true;
@@ -120,8 +113,8 @@ public class MainSceneController extends AbstractMapController{
     public void navigateToHere() throws IOException {
 //        boolean success = checkNullLocations();
 //        if(success) {
-            setDestination();
-            findPath();
+        setDestination();
+        findPath();
 //        }
     }
 
@@ -163,14 +156,23 @@ public class MainSceneController extends AbstractMapController{
         }
     }
 
-    public void openDirectory(GodController godController) throws IOException {
+    public void openDirectory(AnchorPane dPane) throws IOException {
+        JFXRippler rippler = new JFXRippler();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
         loader.setController(directorySceneController);
-        Parent root = loader.load();
-        Stage directoryStage = new Stage();
-        directoryStage.setTitle("B&W Directory");
-        directoryStage.setScene(new Scene(root, 900, 600));
-        directoryStage.show();
+        Region region = loader.load();
+        dPane.getChildren().add(rippler);
+        JFXPopup popup = new JFXPopup(region);
+        directorySceneController.setMainSceneController(this);
+
+        popup.show(rippler, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT);
+//
+//        loader.setController(directorySceneController);
+//        Parent root = loader.load();
+//        Stage directoryStage = new Stage();
+//        directoryStage.setTitle("B&W Directory");
+//        directoryStage.setScene(new Scene(root, 900, 600));
+//        directoryStage.show();
     }
 
     public void directoryNavigate() {

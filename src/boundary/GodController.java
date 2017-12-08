@@ -17,17 +17,12 @@ import Request.RequestCleanupController;
 import Request.RequestFoodController;
 import Request.RequestInterpreterController;
 import boundary.sceneControllers.*;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -70,8 +65,8 @@ public class GodController {
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
 
     /* Facades */
-    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(
-            clickController, nearestPOIController, mapDisplayController, directoryController);
+    final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,
+            nearestPOIController, mapDisplayController, directoryController);
     final private PathFindingFacade pathFindingFacade = new PathFindingFacade();
 
     /* Entities */
@@ -88,17 +83,22 @@ public class GodController {
     ///////////////////////
 
     @FXML
+    private JFXButton directoryButton;
+
+    @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
 
     /* Scene Panes */
     @FXML
     private Pane mainPane, loginPane, requestPane, adminHubPane, adminRequestPane, adminMapPane, adminEmployeePane, adminLogPane, pathfindingPane, requestHubPane;
 
+    /* Zoom Sliders */
     @FXML
-    private AnchorPane searchPane; // search bar
+    private JFXSlider pathfindingZoomSlider, mapEditZoomSlider, zoomSlider, requestZoomSlider;
+
 
     @FXML
-    private StackPane menuARStackPane;
+    private AnchorPane searchPane, directoryPane; // search bar, directory
 
     @FXML
     private Label originField, destinationField;
@@ -110,9 +110,6 @@ public class GodController {
     @FXML
     private JFXListView pathfindingTextDirections;
 
-    @FXML
-    private JFXSlider pathfindingZoomSlider;
-
 
     /* Staff Request Scene */
     @FXML
@@ -122,72 +119,32 @@ public class GodController {
     private JFXTextArea requestCleanupDescription, requestInterpreterDescription, requestFoodDescription, requestInfo;
 
     @FXML
-    private Tab requestFoodTab, requestCleanupTab, requestInterpreterTab;
-
-    @FXML
     private JFXComboBox languageSelect;
 
     @FXML
     private JFXListView currentFoodOrder;
 
-    /* Request Report Scene */
-    @FXML
-    private JFXButton printLogSR, sendLogSR, clearLogSR;
-
-    /* MAP ADMIN FXML */
+    /* MAP Editing */
     @FXML
     private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab, straightenTab;
 
     @FXML
-    private Label mapEditText, nodeLocation1, nodeLocation2, nodeLocation3, currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
+    private Label currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
 
     @FXML
     private JFXComboBox nodeTypeCombo, buildingCombo, nodeTypeComboEdit;
 
     @FXML
-    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode,
-            xPosAddEdge, yPosAddEdge, xPosRemoveEdge, yPosRemoveEdge,
-            setKioskX, setKioskY, editNodeTypeField,
-            shortNameAdd, shortNameEdit,
-            longNameAdd, longNameEdit, requestName, requestDescription,
-            edgeXStartAdd,edgeYStartAdd,edgeXEndAdd,edgeYEndAdd,
-            edgeXStartRemove,edgeYStartRemove,edgeXEndRemove,edgeYEndRemove, editNodeID,
-            edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten, distanceScale;
+    private JFXTextField xPosAddNode, yPosAddNode, xPosEdit, yPosEdit, xPosRemoveNode, yPosRemoveNode, setKioskX,
+            setKioskY, editNodeTypeField, shortNameAdd, shortNameEdit, longNameAdd, longNameEdit, requestDescription,
+            edgeXStartAdd, edgeYStartAdd, edgeXEndAdd,edgeYEndAdd, edgeXStartRemove, edgeYStartRemove, edgeXEndRemove,
+            edgeYEndRemove, editNodeID, edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten,
+            edgeYEndStraighten, distanceScale;;
 
     @FXML
-    private JFXListView nodesListView, allStaffRequests, requestsIMade;
-
-    @FXML
-    private JFXSlider mapEditZoomSlider;
-
-    /* Requests ADMIN FXML */
-    @FXML
-    private JFXTextField spillsARNode,spillsARTimestamp, spillsARDescription,
-            foodARNode, foodARTimestamp, foodARDescription,
-            interpreterARNode,interpreterARTimestamp, interpreterARDescription,
-            menuARName,menuARDescription,menuARCost;
-
-    @FXML
-    private JFXComboBox spillsARType, spillsARName,
-            foodARType, foodARName,
-            interpreterARType, interpreterARName;
-
-    @FXML
-    private JFXToggleButton spillsARDisplayToggle, foodARDisplayToggle, interpreterARDisplayToggle;
-
-    @FXML
-    private JFXButton spillsARAdd, spillsARCancel, spillsAREdit, spillsARDelete,spillsARDeleteAll,
-            foodARAdd, foodARCancel, foodAREdit, foodARDelete,foodARDeleteAll,
-            interpreterARAdd, interpreterARCancel, interpreterAREdit, interpreterARDelete,interpreterARDeleteAll,
-            menuARAdd, menuARCancel, menuAREdit, menuARDelete,menuARDeleteAll;
-
-    @FXML
-    private JFXListView spillsARList, foodARList, interpreterARList, menuARList;
+    private JFXListView allStaffRequests, requestsIMade;
 
     /* Login Screen */
-    @FXML
-    private JFXButton staffLogin, staffCancel, adminLogin, adminCancel;
-
     @FXML
     private JFXTextField staffLoginText, adminLoginText;
 
@@ -200,32 +157,15 @@ public class GodController {
     private TreeTableView<AdminLog> adminLogs = new TreeTableView<AdminLog>();
 
     @FXML
-    private TreeTableColumn<AdminLog,String> dateLogged = new TreeTableColumn<AdminLog,String>();
-
-    @FXML
-    private TreeTableColumn<AdminLog,String> adminLogged = new TreeTableColumn<AdminLog,String>();
-
-    @FXML
-    private TreeTableColumn<AdminLog,String> logContent = new TreeTableColumn<AdminLog,String>();
-
-    @FXML
-    private ImageView logImage;
-
-    @FXML
-    private Label logLabel;
-
-    @FXML
-    private JFXButton printLog, sendLog, clearLog, backAdminHub;
+    private TreeTableColumn<AdminLog,String> dateLogged = new TreeTableColumn<AdminLog,String>(),
+            adminLogged = new TreeTableColumn<AdminLog,String>(), logContent = new TreeTableColumn<AdminLog,String>();
 
     /* Employee Editing */
     @FXML
     private JFXListView employeeListAE;
 
     @FXML
-    private JFXTextField employeeUserIDAE;
-
-    @FXML
-    private JFXTextField employeeUsernameAE;
+    private JFXTextField employeeUserIDAE, employeeUsernameAE;
 
     @FXML
     private JFXPasswordField employeePasswordAE;
@@ -236,22 +176,9 @@ public class GodController {
     @FXML
     private JFXToggleButton adminToggle;
 
-    @FXML
-    private JFXSlider zoomSlider, requestZoomSlider;
-
-    /* Staff Request Hub */
-
-
-    @FXML
-    private JFXButton foodButton, interpreterButton, cleanupButton, APITestButton, serviceHubBack;
-
-
-
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
-
-
-    /* Scene Commandments */
+    /* Scene Facilitators */
     MainSceneController mainSceneController;
     AdminEmployeeController adminEmployeeController;
     AdminLogController adminLogController;
@@ -264,6 +191,10 @@ public class GodController {
     StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
+
+    private Stage primaryStage;
+    public GodController(Stage primaryStage) { this.primaryStage = primaryStage; }
+
     @FXML
     private void initialize() {
         //pathFindingFacade.setPathfinder(beamSearch);
@@ -292,9 +223,8 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine);
+                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine, primaryStage);
         mainSceneController.initializeScene();
-        directorySceneController.setMainSceneController(mainSceneController);
     }
 
     private void initializeRequestScene() {
@@ -314,22 +244,15 @@ public class GodController {
 
     private void initializeAdminLogScene() {
         adminLogController = new AdminLogController (databaseGargoyle, adminLogs, dateLogged,
-                 adminLogged, logContent, adminLogManager,userManager);
+                adminLogged, logContent, adminLogManager,userManager);
     }
 
-    private void initializeAdminRequestScene(){
-        adminRequestController = new AdminRequestController();
-//        TreeItem<Log> log1 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-//        TreeItem<Log> log2 = new TreeItem<>(new Log("11/27/2017","admin1","logged in"));
-//        TreeItem<Log> log3 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-//        TreeItem<Log> log4 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-//        TreeItem<Log> log5 = new TreeItem<>(new Log("11/27/2017","admin1","added Node"));
-    }
+    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
 
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            genericRequestController,employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
+            genericRequestController, employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
             employeeTypeAE, adminToggle);
     }
 
@@ -342,10 +265,11 @@ public class GodController {
     ////////////////
 
     @FXML
-    private void openDirectory() throws IOException { mainSceneController.openDirectory(this); }
+    private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
 
     @FXML
     private void directoryNavigate() {mainSceneController.directoryNavigate(); }
+
     @FXML
     private void mainZoom() { mainSceneController.zoom(); }
 
@@ -361,28 +285,8 @@ public class GodController {
     @FXML
     private void findPath(ActionEvent e) throws IOException { mainSceneController.findPath(); }
 
-    //zooms in by 0.1 on click of zoom in button
-    @FXML
-    private void zoomInMap() {  } // TODO delete
-
-    //zooms out by 0.1 on click of zoom out button
-    @FXML
-    private void zoomOutMap() { }
-
     @FXML
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
-
-    @FXML
-    private void clearCanvas(){ mainSceneController.clearCanvas(); }
-
-    @FXML
-    private void bathroomClicked(ActionEvent e) throws IOException { mainSceneController.bathroomClicked(); }
-
-    @FXML
-    private void infoClicked(ActionEvent e) throws IOException { mainSceneController.infoClicked(); }
-
-    @FXML
-    private void elevatorClicked(ActionEvent e) throws IOException { mainSceneController.elevatorClicked(); }
 
     @FXML
     private void floorDown() throws IOException, SQLException { mainSceneController.floorDown(); }
@@ -394,16 +298,10 @@ public class GodController {
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
 
     @FXML
-    private void navigateToHere() throws IOException {mainSceneController.navigateToHere();}
-
-    @FXML //opens up the info popup
-    private void informationMain(){}//TODO
+    private void navigateToHere() throws IOException { mainSceneController.navigateToHere(); }
 
     @FXML
     private void clearOriginMain(){}//TODO
-
-    @FXML
-    private void clearDestinationMain(){}//TODO
 
     @FXML
     private void nearestInfoDeskMain() throws IOException { mainSceneController.infoClicked(); }
@@ -418,8 +316,9 @@ public class GodController {
     private void nearestExitMain() throws IOException { mainSceneController.exitClicked(); }
 
     ///////////////////////
-    /* Pathfinding Scene */
+    /* Pathfinding Scene */ //TODO this kind of sucks, let's go back to one scene with a hamburger
     ///////////////////////
+
     @FXML
     private void reversePath() throws IOException { pathfindingSceneController.reversePath(); }
 
@@ -430,32 +329,7 @@ public class GodController {
     private void pathfindingDown() throws IOException, SQLException { pathfindingSceneController.floorDown(); }
 
     @FXML
-    private void clearOriginPathfinding(){}//TODO
-
-    @FXML
-    private void clearDestinationPathfinding(){}//TODO
-
-    @FXML
-    private void floorUpPathfinding(){}//TODO
-
-    @FXML
-    private void floorDownPathfinding(){}//TODO
-
-    @FXML
-    private void nearestInfoDeskPathfinding(){}//TODO
-
-    @FXML
-    private void nearestBathroomPathfinding(){}//TODO
-
-    @FXML
-    private void nearestElevatorPathfinding(){}//TODO
-
-    @FXML
     private void pathfindingZoom() { pathfindingSceneController.zoom(); }
-
-    @FXML//switches the origin and the destination nodes, then renavagates.
-    private void switchOrigWDest(){}//TODO
-
 
     /////////////////////////
     /* Staff Request Scene */
@@ -532,26 +406,20 @@ public class GodController {
     /* Employee Admin */
     ////////////////////
 
-   @FXML
-   private void addEmployeeAE() {
-       adminEmployeeController.addEmployeeAE();
-   }
-
-   @FXML
-   private void cancelEmployeeAE() {adminEmployeeController.cancelEmployeeAE();}
+    @FXML
+    private void addEmployeeAE() { adminEmployeeController.addEmployeeAE(); }
 
     @FXML
-    private void editEmployeeAE() {
-        adminEmployeeController.editEmployeeAE();
-   }
+    private void cancelEmployeeAE() { adminEmployeeController.cancelEmployeeAE(); }
 
     @FXML
-    private void deleteEmployeeAE() {
-        adminEmployeeController.deleteEmployeeAE();
-    }
+    private void editEmployeeAE() { adminEmployeeController.editEmployeeAE(); }
 
     @FXML
-    private void toggleAdmin(MouseEvent e) {adminEmployeeController.toggleAdmin();}
+    private void deleteEmployeeAE() { adminEmployeeController.deleteEmployeeAE(); }
+
+    @FXML
+    private void toggleAdmin(MouseEvent e) { adminEmployeeController.toggleAdmin(); }
 
     ///////////////////
     /* Request Admin */
@@ -644,25 +512,18 @@ public class GodController {
 
     @FXML
     private void resetStraightenButton() { adminMapController.resetStraightener(); }
-    @FXML
-    private void addNodeButton() {
-        adminMapController.addNode();
-    }
 
     @FXML
-    private void removeNodeButton() {
-        adminMapController.removeNodeButton();
-    }
+    private void addNodeButton() { adminMapController.addNode(); }
 
     @FXML
-    private void resetNodeButtonAdd() {
-        adminMapController.resetNodeButtonAdd();
-    }
+    private void removeNodeButton() { adminMapController.removeNodeButton(); }
 
     @FXML
-    private void editNode() {
-        adminMapController.editNode();
-    }
+    private void resetNodeButtonAdd() { adminMapController.resetNodeButtonAdd(); }
+
+    @FXML
+    private void editNode() { adminMapController.editNode(); }
 
     @FXML
     private void resetNodeButtonEdit() { adminMapController.resetNodeButtonEdit(); }
@@ -671,21 +532,16 @@ public class GodController {
     private void resetNodeButtonRemove() { adminMapController.resetNodeButtonRemove(); }
 
     @FXML
-    private void removeEdgeButton() {
-        adminMapController.removeEdgeButton();
-    }
+    private void removeEdgeButton() { adminMapController.removeEdgeButton(); }
 
     @FXML
     private void resetEdgeButtonRemove() { adminMapController.resetEdgeButtonRemove(); }
 
     @FXML
-    private void addEdgeButton() {
-        adminMapController.addEdgeButton();
-    }
+    private void addEdgeButton() { adminMapController.addEdgeButton(); }
 
     @FXML
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
-
 
     @FXML
     private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
@@ -697,15 +553,13 @@ public class GodController {
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
 
     @FXML
-    private void setDefaultNode() {
-        adminMapController.setKioskLocation();
-    }
+    private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
     @FXML
     private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
 
     @FXML
-    private void selectBeam() { pathFindingFacade.setPathfinder(beam); } //todo
+    private void selectBeam() { pathFindingFacade.setPathfinder(beam); }
 
     @FXML
     private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
@@ -723,7 +577,7 @@ public class GodController {
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
     @FXML
-    private void setDistanceScale(){ adminMapController.setScale(distanceScale);}
+    private void setDistanceScale(){ adminMapController.setScale(distanceScale); }
 
     @FXML
     private void exportNodes() { adminMapController.exportNodes(); }
@@ -766,6 +620,7 @@ public class GodController {
     /////////////////////
     /* Scene Switching */
     /////////////////////
+
     @FXML
     private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
@@ -789,7 +644,7 @@ public class GodController {
 
     @FXML
     private void goToRequests() throws IOException {
-       if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
+        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequestHub(this, loginPane);
             staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
         } else errorController.showError("Invalid credentials! Please try again.");
@@ -824,7 +679,7 @@ public class GodController {
     }
 
     @FXML
-    private void adminHubtoRequest() throws IOException {
+    private void adminHubtoRequest() throws IOException { //TODO this scene needs help
         // sceneSwitcher.toAdminRequests(this, adminHubPane);
         // adminRequestController.initializeScene();
     }
