@@ -3,12 +3,11 @@ package boundary.sceneControllers;
 import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import boundary.GodController;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
@@ -18,9 +17,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DirectorySceneController {
-    private JFXPopup p;
+    private MainSceneController m;
     private MapNavigationFacade mapNavigationFacade;
-    private Node destination, origin;
 
     @FXML
     private JFXComboBox browser;
@@ -32,25 +30,30 @@ public class DirectorySceneController {
         this.mapNavigationFacade = mapNavigationFacade;
     }
 
-    public void setPopup(JFXPopup p) {
-        this.p = p;
-    }
+    public void setMainSceneController(MainSceneController m) { this.m = m; }
 
     @FXML
     private void initialize() {
         browser.setItems(FXCollections.observableArrayList(mapNavigationFacade.getDirectory().keySet()));
-        browser.setOnAction(e -> listView.setItems(mapNavigationFacade.getDirectory().get(browser.getSelectionModel().getSelectedItem())));
+        browser.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                listView.setItems(mapNavigationFacade.getDirectory().get(browser.getSelectionModel().getSelectedItem()));
+            }
+        });
 //        initializeDirectoryListeners();
     }
 
     @FXML
     private void setDirectoryOrigin() throws IOException {
-        //TODO
+        if (!listView.getSelectionModel().isEmpty())
+            m.setOrigin((Node) listView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     private void setDirectoryDestination() throws IOException {
-        //TODO
+        if (!listView.getSelectionModel().isEmpty())
+            m.setDestination((Node) listView.getSelectionModel().getSelectedItem());
     }
 
 //    @FXML

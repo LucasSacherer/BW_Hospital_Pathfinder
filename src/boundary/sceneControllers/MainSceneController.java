@@ -65,7 +65,15 @@ public class MainSceneController extends AbstractMapController{
         searchBar.setOnKeyPressed(k);
     }
 
+    public void setOrigin(Node o) {
+        this.origin = o;
+        originField.setText(o.getNodeID());
+    }
 
+    public void setDestination(Node d) {
+        this.destination = d;
+        destinationField.setText(d.getNodeID());
+    }
 
     private boolean checkNullLocations(){
         boolean success = true;
@@ -149,7 +157,7 @@ public class MainSceneController extends AbstractMapController{
         Region region = loader.load();
         dPane.getChildren().add(rippler);
         JFXPopup popup = new JFXPopup(region);
-        directorySceneController.setPopup(popup);
+        directorySceneController.setMainSceneController(this);
 
         popup.show(rippler, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT);
 //
