@@ -107,7 +107,7 @@ public class MainSceneController extends AbstractMapController{
         setDestinationText();
     }
 
-    private void setOriginText() {
+    private void setOriginText() { //TODO sometimes the short names are too long for the JFXComboBox
         String prompt;
         if (origin.toString().length() < 1) prompt = origin.getNodeID();
         else prompt = origin.getShortName();
@@ -194,18 +194,21 @@ public class MainSceneController extends AbstractMapController{
     }
 
     public void reversePath() throws IOException {
+        if (origin == null || destination == null) return; //TODO throw an error
         Node temp = destination;
         destination = origin;
         origin = temp;
-        if (origin == null || destination == null) return; //TODO throw an error
+        setOriginText();
+        setDestinationText();
         goToCorrectFloor();
-        //centerMap();
+        centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
         textDirections();
         refreshCanvas();
     }
 
-    public Node getDestination() {
-        return destination;
+    private void centerMap() {
+    //TODO
     }
+
 }

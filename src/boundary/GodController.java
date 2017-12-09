@@ -258,6 +258,8 @@ public class GodController {
     ////////////////
 
     @FXML
+    private void reversePath() throws IOException { mainSceneController.reversePath(); }
+    @FXML
     private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
 
     @FXML
