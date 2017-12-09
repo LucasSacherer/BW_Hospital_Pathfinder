@@ -1,23 +1,25 @@
 package boundary.sceneControllers;
 
 import Entity.Node;
+import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
 import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
 import Pathfinding.TextualDirections;
+import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
 
@@ -26,28 +28,31 @@ import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
     private TextualDirections textualDirections = new TextualDirections();
-    private SearchEngine searchEngine;
     private DirectorySceneController directorySceneController;
-    private JFXComboBox originField, destinationField;
+    private JFXComboBox originField;
+    private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
-    private JFXComboBox searchBar;
-    private Stage primaryStage;
+    private AutoCompleteTextField destinationTextField;
     private AnchorPane textPane;
-    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                               JFXComboBox originField, JFXComboBox destinationField, JFXSlider zoomSlider,
+    private DirectoryController dc;
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
+                               AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectorySceneController directorySceneController, AnchorPane textPane,
-                               ScrollPane scrollPane, SearchEngine searchEngine, Stage primaryStage) {
+                               ScrollPane scrollPane) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
-        this.primaryStage = primaryStage;
-        this.searchEngine = searchEngine;
         this.originField = originField;
-        this.destinationField = destinationField;
+        this.searchAnchor = searchAnchor;
         this.directorySceneController = directorySceneController;
         this.textPane = textPane;
-        initializeSearchBoxes();
+        this.dc = dc;
     }
 
-    private void initializeSearchBoxes() { } //TODO
+    public void initializeScene() {
+        super.initializeScene();
+        destinationTextField = new AutoCompleteTextField(dc, this);
+        searchAnchor.getChildren().add(destinationTextField);
+        origin = mapNavigationFacade.getDefaultNode();
+    }
 
     public void setOrigin(Node o) {
         this.origin = o;
@@ -56,7 +61,7 @@ public class MainSceneController extends AbstractMapController{
 
     public void setDestination(Node d) {
         this.destination = d;
-        destinationField.setPromptText(d.getNodeID());
+        destinationTextField.setText(d.getNodeID());
     }
 
     private boolean checkNullLocations(){
@@ -118,7 +123,7 @@ public class MainSceneController extends AbstractMapController{
         String prompt;
         if (destination.toString().length() < 1) prompt = destination.getNodeID();
         else prompt = destination.getShortName();
-        destinationField.setPromptText(prompt);
+        destinationTextField.setText(prompt);
     }
 
     public void setOrigin(MouseEvent m) {
@@ -209,7 +214,7 @@ public class MainSceneController extends AbstractMapController{
     }
 
     private void centerMap() {
-    //TODO
+        //TODO
     }
 
 }

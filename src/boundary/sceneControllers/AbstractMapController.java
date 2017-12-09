@@ -255,40 +255,17 @@ public abstract class AbstractMapController {
                     floorChange = new ImageButton();
                     floorChange.initiate(uparrow, next);
                     floorChange.setLayoutX(current.getXcoord() - 25);
-                    floorChange.setLayoutY(current.getYcoord() - 60);
+                    floorChange.setLayoutY(current.getYcoord() - 25);
                 }
                 else {
                     floorChange = new ImageButton();
                     floorChange.initiate(downarrow, next);
                     floorChange.setLayoutX(current.getXcoord() - 25);
-                    floorChange.setLayoutY(current.getYcoord() + 15);
+                    floorChange.setLayoutY(current.getYcoord() - 25);
                 }
                 buttons.add(floorChange);
                 mapPane.getChildren().add(floorChange);
                 floorChange.toFront();
-            }
-
-            if (!current.getFloor().equals(currentFloor) &&  next.getFloor().equals(currentFloor)) {
-                ImageButton floorChange = new ImageButton();
-                if (currentFloorInt > nextFloorInt) {
-                    floorChange.initiate(uparrow, current);
-                    floorChange.setLayoutX(next.getXcoord() - 25);
-                    floorChange.setLayoutY(next.getYcoord() - 60);
-                }
-                else {
-                    floorChange.initiate(downarrow, current);
-                    floorChange.setLayoutX(next.getXcoord() - 25);
-                    floorChange.setLayoutY(next.getYcoord() + 15);
-                }
-                buttons.add(floorChange);
-                mapPane.getChildren().add(floorChange);
-                floorChange.toFront();
-            }
-
-            if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
-                gc.setFill(Color.WHITE);
-                gc.fillOval(next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
-                gc.drawImage(circleoutline, next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
             }
         }
     }

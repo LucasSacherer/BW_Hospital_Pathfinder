@@ -86,6 +86,9 @@ public class GodController {
     private JFXButton directoryButton;
 
     @FXML
+    private AnchorPane searchAnchor;
+
+    @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
 
     /* Scene Panes */
@@ -101,7 +104,7 @@ public class GodController {
     private AnchorPane textPane, directoryPane; // search bar, directory
 
     @FXML
-    private JFXComboBox originField, destinationField;
+    private JFXComboBox originField;
 
     /* Pathfinding Scene */
     @FXML
@@ -207,7 +210,8 @@ public class GodController {
     boolean firstTime = true;
 
     private Stage primaryStage;
-    public GodController(Stage primaryStage) { this.primaryStage = primaryStage; }
+
+    public GodController(Stage primaryStage) { this.primaryStage = primaryStage; } //TODO do we need the stage?
 
     @FXML
     private void initialize() {
@@ -231,7 +235,7 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, textPane, mainScrollPane, searchEngine, primaryStage);
+                originField, searchAnchor, zoomSlider, directoryController, directorySceneController, textPane, mainScrollPane);
         mainSceneController.initializeScene();
     }
 
