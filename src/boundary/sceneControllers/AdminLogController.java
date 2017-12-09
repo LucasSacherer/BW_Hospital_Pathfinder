@@ -1,5 +1,6 @@
 package boundary.sceneControllers;
 
+import com.jfoenix.controls.JFXTreeTableView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import Admin.CSVController;
@@ -21,7 +22,7 @@ public class AdminLogController {
     final private FileSelector fileSelector = new FileSelector();
     private DatabaseGargoyle databaseGargoyle;
     CSVController csvController;
-    private TreeTableView<AdminLog> adminLogs;
+    private JFXTreeTableView<AdminLog> adminLogs;
     private TreeTableColumn<AdminLog,String> dateLogged;
     private TreeTableColumn<AdminLog,String> adminLogged;
     private TreeTableColumn<AdminLog,String> logContent;
@@ -31,7 +32,7 @@ public class AdminLogController {
     TreeItem<AdminLog> logRoot = new TreeItem<>();
 
 
-    public AdminLogController ( DatabaseGargoyle dbG, TreeTableView adminLogs, TreeTableColumn dateLogged,
+    public AdminLogController ( DatabaseGargoyle dbG, JFXTreeTableView adminLogs, TreeTableColumn dateLogged,
                                  TreeTableColumn adminLogged, TreeTableColumn logContent, AdminLogManager adminLogManager,UserManager userManager){
         this.databaseGargoyle = dbG;
         this.adminLogs = adminLogs;
