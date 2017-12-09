@@ -716,6 +716,9 @@ public class GodController {
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
 
     @FXML
+    private void settingsToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
+
+    @FXML
     private void getTextDirections() throws IOException {mainSceneController.displayTextDir();}
 
     @FXML
