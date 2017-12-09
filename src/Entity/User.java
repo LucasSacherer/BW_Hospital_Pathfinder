@@ -1,6 +1,8 @@
 package Entity;
 
-public class User {
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
+public class User extends RecursiveTreeObject<User> {
     private String userID;
     private String username;
     private String password;

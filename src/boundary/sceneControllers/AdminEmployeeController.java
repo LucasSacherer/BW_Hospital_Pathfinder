@@ -6,13 +6,25 @@ import Entity.User;
 import Request.GenericRequestController;
 import Entity.ErrorController;
 import com.jfoenix.controls.*;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
 
 public class AdminEmployeeController {
     private UserManager userManager;
     private GenericRequestController genericRequestController;
-    private JFXListView employeeList;
+
+    private JFXTreeTableView<User> employeeTable;
+    private TreeTableColumn<User, String> userIDColumn;
+    private TreeTableColumn<User, String> departmentColumn;
+    private TreeTableColumn<User, String> usernameColumn;
+    private TreeTableColumn<User, String> passwordColumn;
+    private TreeTableColumn<User, String> adminStatusColumn;
+
     private JFXTextField userID;
     private JFXTextField userName;
     private JFXPasswordField password;
@@ -21,35 +33,79 @@ public class AdminEmployeeController {
     private boolean isAdmin;
     private User selectedUser;
     private JFXToggleButton adminToggle;
+    private TreeItem userRoot = new TreeItem();
     private ErrorController errorController = new ErrorController();
-    public AdminEmployeeController(UserManager u, GenericRequestController grc, JFXListView employeeList, JFXTextField userID, JFXTextField userName,
-                                   JFXPasswordField password, JFXComboBox department, JFXToggleButton adminToggle) {
+    public AdminEmployeeController(UserManager u, GenericRequestController grc, JFXTextField userID, JFXTextField userName,
+                                   JFXPasswordField password, JFXComboBox department, JFXToggleButton adminToggle, JFXTreeTableView<User> employeeTable,
+                                   TreeTableColumn<User, String> userIDColumn, TreeTableColumn<User, String> departmentColumn,
+                                   TreeTableColumn<User, String> usernameColumn, TreeTableColumn<User, String> passwordColumn,TreeTableColumn adminStatusColumn) {
         this.userManager = u;
         this.genericRequestController = grc;
-        this.employeeList = employeeList;
+
         this.userID = userID;
         this.userName = userName;
         this.password = password;
         this.departmentMenu = department;
         this.adminToggle = adminToggle;
+        this.employeeTable = employeeTable;
+        this.userIDColumn = userIDColumn;
+        this.departmentColumn = departmentColumn;
+        this.usernameColumn = usernameColumn;
+        this.passwordColumn = passwordColumn;
+        this.adminStatusColumn = adminStatusColumn;
     }
 
     public void initializeScene() {
         departmentList = FXCollections.observableArrayList("Food", "Interpreter","Janitorial");
         departmentMenu.setItems(departmentList);
-        employeeList.setItems(userManager.getUsers());
-        initializeAdminEmployeeListeners();
+        initializeAdminEmployeeTable();
     }
-    private void initializeAdminEmployeeListeners(){
-        employeeList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            selectedUser = (User) employeeList.getItems().get(newValue.intValue());
-            userID.setText(selectedUser.getUserID());
-            userName.setText(selectedUser.getUsername());
-            password.setText(selectedUser.getPassword());
-            adminToggle.setSelected(selectedUser.getAdminFlag());
-            departmentMenu.getSelectionModel().select(selectedUser.getDepartment());
+    private void initializeAdminEmployeeTable(){
+        userRoot.getChildren().clear();
+        userManager.update();
+
+        for (Object user : userManager.getUsers()) {
+            userRoot.getChildren().add(new TreeItem<>(user));
+
+        }
+        userIDColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<User, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getUserID()));
+        departmentColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<User, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getDepartment()));
+        usernameColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<User, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getUsername()));
+        passwordColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<User, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getPassword()));
+        adminStatusColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<User, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getAdminFlag().toString()));
+
+
+        employeeTable.setRoot(userRoot);
+        employeeTable.setShowRoot(false);
+        employeeTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() > 0) {
+                onEditMenu();
+            }
         });
+
     }
+
+
+    private void onEditMenu() {
+        if (employeeTable.getSelectionModel().getSelectedItem() == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR, "No selected Item");
+            error.show();
+        } else {
+            TreeItem<User> selectedUserItem = employeeTable.getSelectionModel().getSelectedItem();
+            userID.setText(selectedUserItem.getValue().getUserID());
+            userName.setText(selectedUserItem.getValue().getUsername());
+            password.setText(selectedUserItem.getValue().getPassword());
+            departmentMenu.getSelectionModel().select(selectedUserItem.getValue().getDepartment());
+            adminToggle.setSelected(selectedUserItem.getValue().getAdminFlag());
+        }
+    }
+
+
 
     public void addEmployeeAE(){
         if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
@@ -60,11 +116,11 @@ public class AdminEmployeeController {
                 errorController.showError("Please select an employee department.");
                 return;
             }
-            User newUser = new User(userID.getText(), userName.getText(), password.getText(), adminToggle.isSelected(),
-                    departmentMenu.getSelectionModel().getSelectedItem().toString());
+            User newUser = new User(userID.getText(),userName.getText(),password.getText(),adminToggle.isSelected(),departmentMenu.getSelectionModel().getSelectedItem().toString());
             userManager.addUser(newUser);
-            employeeList.setItems(userManager.getUsers());
-            resetScene();
+//            userRoot.getChildren().add(new TreeItem<>(newUser));
+            initializeAdminEmployeeTable();
+
         }
 
     }
@@ -75,28 +131,31 @@ public class AdminEmployeeController {
     }
 
     public void editEmployeeAE(){
-        if(userID.getText().equals("")||userName.getText().equals("")|| password.getText().equals("")){
-            errorController.showError("Please complete all employee information fields.");
+        if (employeeTable.getSelectionModel().getSelectedItem() == null){
+            Alert error = new Alert(Alert.AlertType.ERROR,"No selected Item");
+            error.show();
+        }else {
+            TreeItem<User> selectedUserItem = employeeTable.getSelectionModel().getSelectedItem();
+            User modifiedUser = new User(userID.getText(),userName.getText(),password.getText(),adminToggle.isSelected(),departmentMenu.getSelectionModel().getSelectedItem().toString());
+            userManager.modifyUser(modifiedUser);
+//            userRoot.getChildren().remove(selectedUserItem);
+//            userRoot.getChildren().add(new TreeItem<>(modifiedUser));
+            initializeAdminEmployeeTable();
         }
-        else {
-            isAdmin = adminToggle.isSelected();
-            User modUser = new User(userID.getText(), userName.getText(), password.getText(), isAdmin,
-                    departmentMenu.getSelectionModel().getSelectedItem().toString());
-            userManager.modifyUser(modUser);
-            employeeList.setItems(userManager.getUsers());
-        }
+
     }
 
     public void deleteEmployeeAE(){
-        if(selectedUser == null){
-            errorController.showError("Please select a user to remove.");
-            return;
+        if (employeeTable.getSelectionModel().getSelectedItem() == null){
+            Alert error = new Alert(Alert.AlertType.ERROR,"No selected Item");
+            error.show();
+        }else {
+            TreeItem<User> selectedUserItem = employeeTable.getSelectionModel().getSelectedItem();
+            userManager.removeUser(selectedUserItem.getValue());
+            userRoot.getChildren().remove(selectedUserItem);
+            resetScene();
+
         }
-        for (Request req: genericRequestController.getAllRequestsByUser(selectedUser)){
-            genericRequestController.deleteRequest(req);
-        }
-        userManager.removeUser(selectedUser);
-        employeeList.setItems(userManager.getUsers());
     }
 
     private void resetScene(){
@@ -108,6 +167,7 @@ public class AdminEmployeeController {
         departmentMenu.setItems(departmentList);
         departmentList = FXCollections.observableArrayList("Food", "Interpreter","clean-up");
         departmentMenu.setItems(departmentList);
+        adminToggle.setSelected(false);
     }
 
     public void toggleAdmin(){}
