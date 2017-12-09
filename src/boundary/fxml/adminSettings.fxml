@@ -1,28 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.fxml.AdminSettings">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.fxml.AdminSettings">
    <children>
-      <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#settingsToAdminHub" ripplerFill="#cccccc" style="-fx-background-color: #cccc; -fx-background-radius: 12; -fx-border-radius: 10; -fx-border-color: #0068B1; -fx-border-width: 5;" text="&lt;- Back" textFill="#0068b1">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </JFXButton>
-      <JFXToggleButton layoutX="44.0" layoutY="153.0">
-         <toggleGroup>
-            <ToggleGroup fx:id="path" />
-         </toggleGroup>
-      </JFXToggleButton>
-      <JFXToggleButton layoutX="44.0" layoutY="207.0" toggleGroup="$path" />
+      <JFXTabPane prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="ASPECT RATIO">
+               <content>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <children>
+                              <JFXTextField fx:id="distanceScale">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton onAction="#setDistanceScale" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <Label text="Set Distance Ratio" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab text="PATHING">
+               <content>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <children>
+                              <VBox prefHeight="453.0" prefWidth="265.0" spacing="15.0">
+                                 <children>
+                                    <Label text="Path Finding" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXToggleButton onAction="#selectAstar" text="AStar">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="path" />
+                                       </toggleGroup>
+                                    </JFXToggleButton>
+                                    <JFXToggleButton onAction="#selectBreadth" text="Breadth First Search">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="path" />
+                                       </toggleGroup>
+                                    </JFXToggleButton>
+                                    <JFXToggleButton layoutX="20.0" layoutY="509.0" onAction="#selectDepth" text="Depth First Search" toggleGroup="$path" />
+                                    <JFXToggleButton layoutX="20.0" layoutY="584.0" onAction="#selectBest" text="Best First Search" toggleGroup="$path" />
+                                    <JFXToggleButton layoutX="20.0" layoutY="659.0" onAction="#selectDijkstras" text="Dijkstra" toggleGroup="$path" />
+                                    <JFXToggleButton layoutX="20.0" layoutY="734.0" onAction="#selectScenicRoute" text="Scenic Route" toggleGroup="$path" />
+                                    <JFXToggleButton layoutX="20.0" layoutY="809.0" onAction="#selectQuickScenicRoute" text="Quick Scenic Route" toggleGroup="$path" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+            <Tab text="MOMENTO">
+               <content>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <children>
+                              <JFXTextField fx:id="momentoTimeout">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton onAction="#setMomentoTimeout" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <Label text="Set Timeout" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>

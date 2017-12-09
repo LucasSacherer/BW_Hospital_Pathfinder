@@ -109,7 +109,7 @@
                               <Insets left="5.0" top="5.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toSettings" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 120; -fx-background-color: white;" text="Navigate" GridPane.columnIndex="2" GridPane.valignment="TOP">
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toSettingsPopUp" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 120; -fx-background-color: white;" text="Navigate" GridPane.columnIndex="2" GridPane.valignment="TOP">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
