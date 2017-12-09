@@ -181,6 +181,7 @@ public class MainSceneController extends AbstractMapController{
         textPane.getChildren().add(rippler);
         JFXListView directions = new JFXListView();
         directions.setItems(textualDirections.getTextDirections(currentPath));
+
         JFXPopup popup = new JFXPopup(directions);
 
         popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);

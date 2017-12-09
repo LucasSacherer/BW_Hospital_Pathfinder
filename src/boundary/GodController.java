@@ -598,7 +598,11 @@ public class GodController {
     private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
     @FXML
-    private void requestToMain() throws IOException { sceneSwitcher.toMain(this, requestPane); }
+    private void requestToHub() throws IOException {
+        User u = staffRequestController.getUser();
+        sceneSwitcher.toStaffRequestHub(this, requestPane);
+        staffRequestHubController.setUser(u);
+    }
 
     @FXML
     private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
