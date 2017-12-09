@@ -1,15 +1,12 @@
 package boundary.sceneControllers.mapEditing;
 
-import Database.SettingsManager;
 import Editor.NodeEditController;
-import Entity.AdminLog;
 import Entity.Node;
 import Entity.ErrorController;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.time.LocalDateTime;
 
 public class KioskEditor {
     private NodeEditController nodeEditController;

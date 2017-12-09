@@ -346,4 +346,8 @@ public class StaffRequestController extends AbstractMapController{
 
     public void editRequest() {
     }
+
+    public User getUser() {
+        return user;
+    }
 }

@@ -30,7 +30,7 @@
                      <children>
                         <ImageView fitHeight="221.0" fitWidth="188.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/other%20images/BWH.png" />
+                              <Image url="/boundary/images/other images/BWH.png" />
                            </image>
                         </ImageView>
                         <Label contentDisplay="CENTER" text="Map Editor">
@@ -502,7 +502,7 @@
                                                                         <Font size="20.0" />
                                                                      </font>
                                                                   </JFXButton>
-                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="82.0" onAction="#selectBreadth" text="Breath First Search">
+                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="82.0" onAction="#selectBreadth" text="Breadth First Search">
                                                                      <font>
                                                                         <Font size="20.0" />
                                                                      </font>
