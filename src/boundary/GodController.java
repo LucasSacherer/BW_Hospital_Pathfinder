@@ -98,10 +98,10 @@ public class GodController {
 
 
     @FXML
-    private AnchorPane searchPane, directoryPane; // search bar, directory
+    private AnchorPane textPane, directoryPane; // search bar, directory
 
     @FXML
-    private Label originField, destinationField;
+    private JFXComboBox originField, destinationField;
 
     /* Pathfinding Scene */
     @FXML
@@ -162,7 +162,22 @@ public class GodController {
 
     /* Employee Editing */
     @FXML
-    private JFXListView employeeListAE;
+    private JFXTreeTableView<User> employeeTable = new JFXTreeTableView<>();
+
+    @FXML
+    private TreeTableColumn<User, String> userIDColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> departmentColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> usernameColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> passwordColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> adminStatusColumn = new TreeTableColumn<>();
 
     @FXML
     private JFXTextField employeeUserIDAE, employeeUsernameAE;
@@ -187,7 +202,6 @@ public class GodController {
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
     DirectorySceneController directorySceneController;
-    PathfindingSceneController pathfindingSceneController;
     StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
@@ -207,14 +221,8 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
-        initializePathfindingScene();
         initializeStaffRequestHubScene();
         firstTime = false;
-    }
-
-    private void initializePathfindingScene() {
-        pathfindingSceneController = new PathfindingSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
-                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider, pathfindingScrollPane);
     }
 
     private void initializeDirectoryScene() {
@@ -223,7 +231,7 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine, primaryStage);
+                originField, destinationField, zoomSlider, directorySceneController, textPane, mainScrollPane, searchEngine, primaryStage);
         mainSceneController.initializeScene();
     }
 
@@ -252,8 +260,10 @@ public class GodController {
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            genericRequestController, employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
-            employeeTypeAE, adminToggle);
+            genericRequestController, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
+            employeeTypeAE, adminToggle, employeeTable,
+              userIDColumn,  departmentColumn,
+              usernameColumn,  passwordColumn,adminStatusColumn);
     }
 
     private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
@@ -265,10 +275,9 @@ public class GodController {
     ////////////////
 
     @FXML
-    private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
-
+    private void reversePath() throws IOException { mainSceneController.reversePath(); }
     @FXML
-    private void directoryNavigate() {mainSceneController.directoryNavigate(); }
+    private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
 
     @FXML
     private void mainZoom() { mainSceneController.zoom(); }
@@ -310,26 +319,7 @@ public class GodController {
     private void nearestBathroomMain() throws IOException { mainSceneController.bathroomClicked(); }
 
     @FXML
-    private void nearestElevatorMain() throws IOException { mainSceneController.elevatorClicked(); }
-
-    @FXML
     private void nearestExitMain() throws IOException { mainSceneController.exitClicked(); }
-
-    ///////////////////////
-    /* Pathfinding Scene */ //TODO this kind of sucks, let's go back to one scene with a hamburger
-    ///////////////////////
-
-    @FXML
-    private void reversePath() throws IOException { pathfindingSceneController.reversePath(); }
-
-    @FXML
-    private void pathfindingUp() throws IOException, SQLException { pathfindingSceneController.floorUp(); }
-
-    @FXML
-    private void pathfindingDown() throws IOException, SQLException { pathfindingSceneController.floorDown(); }
-
-    @FXML
-    private void pathfindingZoom() { pathfindingSceneController.zoom(); }
 
     /////////////////////////
     /* Staff Request Scene */
@@ -625,19 +615,11 @@ public class GodController {
     private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
 
     @FXML
-    public void mainToPathfinding() throws IOException {
-        Node o = mainSceneController.getOrigin();
-        Node d =  mainSceneController.getDestination();
-        sceneSwitcher.toPathfinding(this, mainPane);
-        pathfindingSceneController.initializeScene();
-        pathfindingSceneController.findPath(o, d);
+    private void requestToHub() throws IOException {
+        User u = staffRequestController.getUser();
+        sceneSwitcher.toStaffRequestHub(this, requestPane);
+        staffRequestHubController.setUser(u);
     }
-
-    @FXML
-    private void pathfindingToMain() throws IOException { sceneSwitcher.toMain(this, pathfindingPane);}
-
-    @FXML
-    private void requestToMain() throws IOException { sceneSwitcher.toMain(this, requestPane); }
 
     @FXML
     private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
