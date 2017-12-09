@@ -17,6 +17,7 @@ public class TextualDirections {
     private Node previousNode;
     private Node currentNode;
     private Node nextNode;
+    private textDirEntry nextEntry;
 
     private int sRightLow = 220;
     private int rightLow = 250;
@@ -132,8 +133,8 @@ public class TextualDirections {
     }
 
     //method that does the work creating the textual directions
-    public List<String> makeTextDir(List<Node> path){
-        List<String> writtenDirections = new LinkedList();
+    public List<List<textDirEntry>> makeTextDir(List<Node> path){
+        List<List<textDirEntry>> writtenDirections = new LinkedList();
 
         Collections.reverse(path);
 
@@ -153,7 +154,7 @@ public class TextualDirections {
         Node destNode = path.get(path.size() - 1);
 
         //make readable names for start and dest node. If they're hallways, just say hallway. Otherwise, use short name.
-        //if no short name, just use NodeID
+        //if no short name, use NodeID
         String startName = sNameNode(startNode);
         if(startName.equals("")){
             startName = startNode.getNodeID();
@@ -169,11 +170,15 @@ public class TextualDirections {
             destName = destName + " in " + destNode.getBuilding();
         }
         //inserts directions overview
-        writtenDirections.add("Directions from " + startName + " to "
+        /*writtenDirections.add("Directions from " + startName + " to "
                 + destName + ".");
-
+        */
         //adds first step
-        writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
+        //writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
+        //add the list for the first floor in the directions
+        writtenDirections.add(new LinkedList<textDirEntry>());
+        nextEntry = (new textDirEntry(path.get(0), path.get(1), "Proceed to ",distNode(path.get(0), path.get(1))));
+        writtenDirections.get(0).add(nextEntry);
 
         //accounts for the case where path size is 2
         if (path.size() == 2){
@@ -187,7 +192,7 @@ public class TextualDirections {
             nextNode = path.get(i+1);
 
             distance = distNode(currentNode, nextNode);
-
+            /*
             //deviates directions text if you're taking the stairs or elevator to a different floor
             if(currentNode.getNodeType().equals("ELEV") && !currentNode.getFloor().equals(nextNode.getFloor())){
                 writtenDirections.add(Integer.toString(i+1) + ". Take " + sNameNode(currentNode) +
@@ -207,22 +212,33 @@ public class TextualDirections {
                 writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " for " + distance + " feet until you reach " +
                         sNameNode(nextNode) + ".");
             }
+            */
+            nextEntry = new textDirEntry(currentNode, nextNode, findTurn(), distNode(currentNode, nextNode));
+            writtenDirections.get(writtenDirections.size() - 1).add(nextEntry);
+
+            if(!currentNode.getFloor().equals(nextNode.getFloor())){
+                writtenDirections.add(new LinkedList<textDirEntry>());
+            }
         }
-        writtenDirections.add("You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.");
+        //writtenDirections.add("You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.");
 
         Collections.reverse(path);
         return writtenDirections;
     }
 
     //getter for textual directions
-    protected List<String> getDir(List<Node> path){return makeTextDir(path);}
+    //protected List<String> getDir(List<Node> path){return makeTextDir(path);}
+    protected List<List<textDirEntry>> getDir(List<Node> path){return makeTextDir(path);}
 
     //get an observable list
+    //wait what does this do?
+    /*
     public ObservableList<String> getTextDirections(List<Node> path) {
         ObservableList textualDirections = FXCollections.observableArrayList();
         List<String> thePath = makeTextDir(path);
         textualDirections.addAll(thePath);
         return textualDirections;
     }
+    */
 
 }
