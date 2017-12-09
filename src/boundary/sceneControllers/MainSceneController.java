@@ -165,8 +165,8 @@ public class MainSceneController extends AbstractMapController{
         JFXPopup popup = new JFXPopup(region);
         directorySceneController.setMainSceneController(this);
 
-        popup.show(rippler, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT);
-//
+        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+
 //        loader.setController(directorySceneController);
 //        Parent root = loader.load();
 //        Stage directoryStage = new Stage();

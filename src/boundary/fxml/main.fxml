@@ -86,9 +86,9 @@
                   </JFXSlider>
                </children>
             </VBox>
-            <VBox prefHeight="100.0" prefWidth="284.0" spacing="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <VBox prefHeight="100.0" prefWidth="284.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <children>
-                  <HBox alignment="CENTER" spacing="10.0">
+                  <HBox alignment="CENTER">
                      <children>
                         <VBox alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;">
                            <children>
@@ -147,12 +147,28 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
+                  <VBox alignment="BOTTOM_LEFT">
+                     <children>
+                        <AnchorPane fx:id="directoryPane" />
+                        <JFXButton fx:id="directoryButton" alignment="TOP_LEFT" buttonType="RAISED" onAction="#openDirectory" style="-fx-background-color: #0068B1; -fx-background-radius: 12;" text="Directory" textFill="#cccccc">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
                   <AnchorPane fx:id="searchPane" prefHeight="2.0" prefWidth="247.0">
                      <VBox.margin>
                         <Insets left="15.0" />
                      </VBox.margin>
                   </AnchorPane>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </VBox>
             <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="127.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                <children>
@@ -226,20 +242,7 @@
                   </Label>
                </graphic>
             </JFXButton>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-               <children>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="15.0" layoutY="69.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
-                     <children>
-                        <JFXButton fx:id="directoryButton" alignment="TOP_LEFT" buttonType="RAISED" onAction="#openDirectory" style="-fx-background-color: #0068B1; -fx-background-radius: 12;" text="Directory" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </JFXButton>
-                        <AnchorPane fx:id="directoryPane" />
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
