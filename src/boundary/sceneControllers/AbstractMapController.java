@@ -6,6 +6,8 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,10 +15,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -25,12 +29,13 @@ import javafx.scene.transform.Transform;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractMapController {
-    private final double ZOOM = 0.5;
+    protected ArrayList<ImageButton> buttons = new ArrayList<>();
+    protected final double ZOOM = 0.5;
     protected Group group;
-    protected ImageButton floorChange;
     protected GodController godController;
     protected Label currentFloorNum;
     protected Canvas canvas;
@@ -102,15 +107,16 @@ public abstract class AbstractMapController {
     }
 
     public void refreshCanvas() {
-        mapPane.getChildren().remove(floorChange);
+        for (ImageButton b : buttons) mapPane.getChildren().remove(b);
+        buttons.clear();
         if (origin == null) origin = mapNavigationFacade.getDefaultNode();
         clearCanvas();
         drawCurrentNode();
         drawPath();
         gc.setTransform(1, 0, 0, 1, 0, 0);
-        drawPathNodes();
         drawOrigin();
         drawDestination();
+        drawPathNodes();
     }
 
     private void drawDestination() { //TODO make this the icon of location
@@ -245,14 +251,43 @@ public abstract class AbstractMapController {
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
             if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
-                floorChange = new ImageButton();
-                floorChange.setLayoutX(current.getXcoord() - 10);
-                floorChange.setLayoutY(current.getYcoord() - 10);
-                floorChange.setFloor(next);
-                if (currentFloorInt < nextFloorInt) { floorChange.updateImages(uparrow); }
-                else { floorChange.updateImages(downarrow); }
+                ImageButton floorChange;
+                if (currentFloorInt < nextFloorInt) {
+                    floorChange = new ImageButton();
+                    floorChange.initiate(uparrow, next);
+                    floorChange.setLayoutX(current.getXcoord() - 25);
+                    floorChange.setLayoutY(current.getYcoord() - 60);
+                }
+                else {
+                    floorChange = new ImageButton();
+                    floorChange.initiate(downarrow, next);
+                    floorChange.setLayoutX(current.getXcoord() - 25);
+                    floorChange.setLayoutY(current.getYcoord() + 15);
+                }
+                buttons.add(floorChange);
                 mapPane.getChildren().add(floorChange);
+                floorChange.toFront();
             }
+
+            if (!current.getFloor().equals(currentFloor) &&  next.getFloor().equals(currentFloor)) {
+                ImageButton floorChange;
+                if (currentFloorInt > nextFloorInt) {
+                    floorChange = new ImageButton();
+                    floorChange.initiate(uparrow, current);
+                    floorChange.setLayoutX(next.getXcoord() - 25);
+                    floorChange.setLayoutY(next.getYcoord() - 60);
+                }
+                else {
+                    floorChange = new ImageButton();
+                    floorChange.initiate(downarrow, current);
+                    floorChange.setLayoutX(next.getXcoord() - 25);
+                    floorChange.setLayoutY(next.getYcoord() + 15);
+                }
+                buttons.add(floorChange);
+                mapPane.getChildren().add(floorChange);
+                floorChange.toFront();
+            }
+
             if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
                 gc.setFill(Color.WHITE);
                 gc.fillOval(next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
@@ -365,32 +400,37 @@ public abstract class AbstractMapController {
         }
     }
 
-    private class ImageButton extends JFXButton {
-        public ImageButton() {
-            this.setButtonType(JFXButton.ButtonType.RAISED);
-            this.setPrefSize(20, 20);
-            this.setHover(true);
-        }
+    public class ImageButton extends Button {
+        public void initiate(final Image image, final Node next) {
+            final ImageView iv = new ImageView(image);
+            iv.setPreserveRatio(true);
+            iv.setFitHeight(30);
+            iv.setFitWidth(30);
+            this.getChildren().add(iv);
+            this.resize(30,30);
 
-        public void setFloor(Node next) {
-            this.setOnAction(new javafx.event.EventHandler<ActionEvent>() {
+            this.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    System.out.println("Made it here");
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
                     currentFloorNum.setText(currentFloor);
                     refreshCanvas();
                 }
             });
-        }
-
-        public void updateImages(final Image image) {
-            final ImageView iv = new ImageView(image);
-            iv.setFitHeight(30);
-            iv.setFitWidth(30);
-            this.getChildren().add(iv);
+            iv.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent evt) {
+                    currentFloor = next.getFloor();
+                    imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+                    currentFloorNum.setText(currentFloor);
+                    refreshCanvas();
+                }
+            });
             super.setGraphic(iv);
         }
     }
 }
+
+
+
+
