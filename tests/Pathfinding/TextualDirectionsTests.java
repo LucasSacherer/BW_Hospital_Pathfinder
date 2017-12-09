@@ -40,15 +40,15 @@ public class TextualDirectionsTests {
     public void getDirTest(){
         TextualDirections textualDirections = new TextualDirections();
 
-        Node a1 = new Node("1",0,0,"1","A","test","test","test");
-        Node a2 = new Node("2",0,10,"1","A","test","test","test");
-        Node a3 = new Node("3",30,30,"1","A","ELEV","test","test");
-        Node b3 = new Node("b3",30,30,"2","A","ELEV","test","test");
-        Node b4 = new Node("b4",40,30,"2","A","STAI","test","test");
-        Node a4 = new Node("4",40,30,"1","A","STAI","test","test");
-        Node a5 = new Node("5",40,30,"1","A","test","test","test");
-        Node a6 = new Node("6",60,0,"1","A","test","test","test");
-        Node a7 = new Node("7",40,0,"1","A","test","test","test");
+        Node a1 = new Node("1",0,0,"1","A","test","test","test1");
+        Node a2 = new Node("2",0,10,"1","A","test","test","test2");
+        Node a3 = new Node("3",30,30,"1","A","ELEV","test","test3");
+        Node b3 = new Node("b3",30,30,"2","A","ELEV","test","test4");
+        Node b4 = new Node("b4",40,30,"2","A","STAI","test","test5");
+        Node a4 = new Node("4",40,30,"1","A","STAI","test","test6");
+        Node a5 = new Node("5",40,30,"1","A","test","test","test7");
+        Node a6 = new Node("6",60,0,"1","A","test","test","test8");
+        Node a7 = new Node("7",40,0,"1","A","test","test","test9");
 
         List<Node> path = new ArrayList<>();
         path.add(a1);
@@ -61,7 +61,30 @@ public class TextualDirectionsTests {
         path.add(a6);
         path.add(a7);
 
-        System.out.println(textualDirections.getDir(path));
+        List<List<textDirEntry>> results = textualDirections.getDir(path);
+
+        System.out.println(textualDirections.toStringTextDir(results));
+    }
+
+    @Test
+    public void getDirTest2(){
+        TextualDirections textualDirections = new TextualDirections();
+
+        Node a1 = new Node("1",0,0,"1","A","test","test","test1");
+        Node a2 = new Node("2",0,10,"1","A","test","test","test2");
+        Node a3 = new Node("3",10,10,"1","A","test","test","test3");
+        Node a4 = new Node("4",10,0,"1","A","test","test","test4");
+
+
+        List<Node> path = new ArrayList<>();
+        path.add(a1);
+        path.add(a2);
+        path.add(a3);
+        path.add(a4);
+
+        List<List<textDirEntry>> results = textualDirections.getDir(path);
+
+        System.out.println(textualDirections.toStringTextDir(results));
     }
 
 }

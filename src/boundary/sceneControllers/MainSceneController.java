@@ -147,7 +147,8 @@ public class MainSceneController extends AbstractMapController{
         boolean success = checkNullLocations();
         if(success) {
             currentPath = pathFindingFacade.getPath(origin, destination);
-            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
+            String dirMessage = pathFindingFacade.getDirections(currentPath);
+            /*
             String dirMessage = "";
             findPath();
             if (writtenDir.isEmpty()) {
@@ -157,7 +158,7 @@ public class MainSceneController extends AbstractMapController{
                 dirMessage += writtenDir.get(i);
                 dirMessage += "\n";
             }
-
+            */
             Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
             directions.show();
         }

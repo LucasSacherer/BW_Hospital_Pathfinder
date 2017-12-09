@@ -42,7 +42,7 @@ public class PathfindingSceneController  extends AbstractMapController {
         if (destination.toString().length() < 1) destinationField.setText("Unknown Name");
         else destinationField.setText(d.toString());
         currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
+        //textDirectionsList.setItems(textualDirections.getTextDirections(currentPath)); //todo
         refreshCanvas();
     }
 

@@ -29,7 +29,6 @@ public class textDirEntry {
         }else{
             this.instruction = direction + " for " + distance + " feet until you reach " + sNameNode(nextNode) + ".";
         }
-        //need a way to handle changing buildings...
     }
 
     //finds and returns the Node's short name to be used in directions, or "the Hallway" if it's a hallway

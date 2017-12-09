@@ -177,7 +177,7 @@ public class TextualDirections {
         //writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
         //add the list for the first floor in the directions
         writtenDirections.add(new LinkedList<textDirEntry>());
-        nextEntry = (new textDirEntry(path.get(0), path.get(1), "Proceed to ",distNode(path.get(0), path.get(1))));
+        nextEntry = (new textDirEntry(path.get(0), path.get(1), "Proceed",distNode(path.get(0), path.get(1))));
         writtenDirections.get(0).add(nextEntry);
 
         //accounts for the case where path size is 2
@@ -232,13 +232,28 @@ public class TextualDirections {
 
     //get an observable list
     //wait what does this do?
-    /*
+
     public ObservableList<String> getTextDirections(List<Node> path) {
         ObservableList textualDirections = FXCollections.observableArrayList();
-        List<String> thePath = makeTextDir(path);
-        textualDirections.addAll(thePath);
+        //List<String> thePath = makeTextDir(path);
+        //textualDirections.addAll(thePath);
         return textualDirections;
     }
-    */
+
+    public String toStringTextDir(List<List<textDirEntry>> list) {
+        String result = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            result += ("Floor " + list.get(i).get(0).currNode.getFloor() + "\n");
+            for (int j = 0; j < list.get(i).size(); j++) {
+                result += ("    " + (j+1) + ". " + list.get(i).get(j).instruction + "\n");
+            }
+        }
+
+        return result;
+    }
+//PathfindingSceneController line 45
+    //PathFindingFacade line 25
+    //both use text directions, go change them to process the new way.
 
 }
