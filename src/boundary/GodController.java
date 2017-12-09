@@ -268,9 +268,6 @@ public class GodController {
     private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
 
     @FXML
-    private void directoryNavigate() {mainSceneController.directoryNavigate(); }
-
-    @FXML
     private void mainZoom() { mainSceneController.zoom(); }
 
     @FXML

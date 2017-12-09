@@ -166,22 +166,11 @@ public class MainSceneController extends AbstractMapController{
         directorySceneController.setMainSceneController(this);
 
         popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-
-//        loader.setController(directorySceneController);
-//        Parent root = loader.load();
-//        Stage directoryStage = new Stage();
-//        directoryStage.setTitle("B&W Directory");
-//        directoryStage.setScene(new Scene(root, 900, 600));
-//        directoryStage.show();
     }
 
-    public void directoryNavigate() {
-        //TODO
-    }
-
-    public void navigate(Node origin, Node destination) throws IOException {
-        this.origin = origin;
-        this.destination = destination;
+    public void navigate(Node o, Node d) throws IOException {
+        this.origin = o;
+        this.destination = d;
         findPath();
     }
 
