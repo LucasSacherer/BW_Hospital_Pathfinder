@@ -162,7 +162,22 @@ public class GodController {
 
     /* Employee Editing */
     @FXML
-    private JFXListView employeeListAE;
+    private JFXTreeTableView<User> employeeTable = new JFXTreeTableView<>();
+
+    @FXML
+    private TreeTableColumn<User, String> userIDColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> departmentColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> usernameColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> passwordColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<User, String> adminStatusColumn = new TreeTableColumn<>();
 
     @FXML
     private JFXTextField employeeUserIDAE, employeeUsernameAE;
@@ -252,8 +267,10 @@ public class GodController {
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
-            genericRequestController, employeeListAE, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
-            employeeTypeAE, adminToggle);
+            genericRequestController, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
+            employeeTypeAE, adminToggle, employeeTable,
+              userIDColumn,  departmentColumn,
+              usernameColumn,  passwordColumn,adminStatusColumn);
     }
 
     private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
