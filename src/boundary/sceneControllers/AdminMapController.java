@@ -220,7 +220,6 @@ public class AdminMapController extends AbstractMapController{
     }
 
     public void removeNodeButton() {
-
         nodeRemover.remove();
         refreshCanvas();
     }
@@ -249,9 +248,8 @@ public class AdminMapController extends AbstractMapController{
         kioskEditor.setKiosk();
         refreshCanvas();
     }
-    public void setScale(JFXTextField distanceScale){
-        kioskEditor.setScale(distanceScale);
-    }
+
+    public void setScale(JFXTextField distanceScale){ kioskEditor.setScale(distanceScale); }
 
 
     public void resetKioskScene() {

@@ -4,89 +4,60 @@ import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
-import boundary.AutoCompleteTextField;
+import Pathfinding.TextualDirections;
 import boundary.GodController;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
+import com.jfoenix.controls.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
-import javafx.scene.transform.Translate;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
 
-import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import java.awt.event.MouseAdapter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
+    private TextualDirections textualDirections = new TextualDirections();
     private SearchEngine searchEngine;
     private DirectorySceneController directorySceneController;
-    private Label originField, destinationField;
+    private JFXComboBox originField, destinationField;
     private ErrorController errorController = new ErrorController();
     private JFXComboBox searchBar;
+    private Stage primaryStage;
+    private AnchorPane textPane;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                               Label originField, Label destinationField, JFXSlider zoomSlider,
-                               DirectorySceneController directorySceneController, AnchorPane searchPane,
-                               ScrollPane scrollPane, SearchEngine searchEngine) {
+                               JFXComboBox originField, JFXComboBox destinationField, JFXSlider zoomSlider,
+                               DirectorySceneController directorySceneController, AnchorPane textPane,
+                               ScrollPane scrollPane, SearchEngine searchEngine, Stage primaryStage) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
+        this.primaryStage = primaryStage;
         this.searchEngine = searchEngine;
         this.originField = originField;
         this.destinationField = destinationField;
         this.directorySceneController = directorySceneController;
-        searchBar = new JFXComboBox();
-        searchPane.getChildren().add(searchBar);
-        initializeSearchBar();
+        this.textPane = textPane;
+        initializeSearchBoxes();
     }
 
-    private void initializeSearchBar() {
-        searchBar.setPromptText("Search");
-        searchBar.setEditable(true);
-        searchBar.setPrefWidth(200);
-        EventHandler<KeyEvent> k = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    searchBar.hide();
-                }
+    private void initializeSearchBoxes() { } //TODO
 
-                if (searchBar.getValue() == null) return;
-                searchBar.getItems().clear();
-                searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
-                searchBar.show();
-            }
-        };
-        searchBar.setOnKeyPressed(k);
+    public void setOrigin(Node o) {
+        this.origin = o;
+        originField.setPromptText(o.getNodeID());
     }
 
-
+    public void setDestination(Node d) {
+        this.destination = d;
+        destinationField.setPromptText(d.getNodeID());
+    }
 
     private boolean checkNullLocations(){
         boolean success = true;
@@ -120,27 +91,42 @@ public class MainSceneController extends AbstractMapController{
     public void navigateToHere() throws IOException {
 //        boolean success = checkNullLocations();
 //        if(success) {
-            setDestination();
-            findPath();
+        setDestination();
+        findPath();
 //        }
     }
 
     public void setOrigin() {
         super.setOrigin();
-        originField.setText(origin.getNodeID());
+        setOriginText();
+    }
+
+
+    public void setDestination() {
+        super.setDestination();
+        setDestinationText();
+    }
+
+    private void setOriginText() { //TODO sometimes the short names are too long for the JFXComboBox
+        String prompt;
+        if (origin.toString().length() < 1) prompt = origin.getNodeID();
+        else prompt = origin.getShortName();
+        originField.setPromptText(prompt);
+    }
+
+    private void setDestinationText() {
+        String prompt;
+        if (destination.toString().length() < 1) prompt = destination.getNodeID();
+        else prompt = destination.getShortName();
+        destinationField.setPromptText(prompt);
     }
 
     public void setOrigin(MouseEvent m) {
         snapToNode(m);
         currentPath = null;
         origin = currentLoc;
-        originField.setText(origin.getNodeID());
+        setOriginText();
         refreshCanvas();
-    }
-
-    public void setDestination() {
-        super.setDestination();
-        destinationField.setText(destination.getNodeID());
     }
 
     public void displayTextDir() throws IOException {
@@ -164,36 +150,67 @@ public class MainSceneController extends AbstractMapController{
         }
     }
 
-    public void openDirectory(GodController godController) throws IOException {
+    public void openDirectory(AnchorPane dPane) throws IOException {
+        JFXRippler rippler = new JFXRippler();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
         loader.setController(directorySceneController);
-        Parent root = loader.load();
-        Stage directoryStage = new Stage();
-        directoryStage.setTitle("B&W Directory");
-        directoryStage.setScene(new Scene(root, 900, 600));
-        directoryStage.show();
+        Region region = loader.load();
+        dPane.getChildren().add(rippler);
+        JFXPopup popup = new JFXPopup(region);
+        directorySceneController.setMainSceneController(this);
+
+        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
     }
 
-    public void directoryNavigate() {
-        //TODO
-    }
-
-    public void navigate(Node origin, Node destination) throws IOException {
-        this.origin = origin;
-        this.destination = destination;
+    public void navigate(Node o, Node d) throws IOException {
+        this.origin = o;
+        this.destination = d;
         findPath();
     }
 
-    @Override
     public void findPath() throws IOException {
-        godController.mainToPathfinding();
+        if (origin == null || destination == null) return; //TODO throw an error
+        goToCorrectFloor();
+        //centerMap();
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        textDirections();
+        refreshCanvas();
     }
 
-    public Node getOrigin() {
-        return origin;
+    private void textDirections() {
+        JFXRippler rippler = new JFXRippler();
+        textPane.getChildren().add(rippler);
+        JFXListView directions = new JFXListView();
+        directions.setItems(textualDirections.getTextDirections(currentPath));
+
+        JFXPopup popup = new JFXPopup(directions);
+
+        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
     }
 
-    public Node getDestination() {
-        return destination;
+    private void goToCorrectFloor() {
+        currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        currentFloorNum.setText(currentFloor);
+        refreshCanvas();
     }
+
+    public void reversePath() throws IOException {
+        if (origin == null || destination == null) return; //TODO throw an error
+        Node temp = destination;
+        destination = origin;
+        origin = temp;
+        setOriginText();
+        setDestinationText();
+        goToCorrectFloor();
+        centerMap();
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        textDirections();
+        refreshCanvas();
+    }
+
+    private void centerMap() {
+    //TODO
+    }
+
 }

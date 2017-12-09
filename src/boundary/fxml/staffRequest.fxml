@@ -383,7 +383,7 @@
                               </JFXSlider>
                            </children>
                         </VBox>
-                        <JFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#requestToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                        <JFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#requestToHub" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets right="15.0" top="15.0" />
                            </GridPane.margin>
