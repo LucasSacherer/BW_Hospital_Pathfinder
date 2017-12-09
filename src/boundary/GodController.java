@@ -98,10 +98,10 @@ public class GodController {
 
 
     @FXML
-    private AnchorPane searchPane, directoryPane; // search bar, directory
+    private AnchorPane textPane, directoryPane; // search bar, directory
 
     @FXML
-    private Label originField, destinationField;
+    private JFXComboBox originField, destinationField;
 
     /* Pathfinding Scene */
     @FXML
@@ -187,7 +187,6 @@ public class GodController {
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
     DirectorySceneController directorySceneController;
-    PathfindingSceneController pathfindingSceneController;
     StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
@@ -207,14 +206,8 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
-        initializePathfindingScene();
         initializeStaffRequestHubScene();
         firstTime = false;
-    }
-
-    private void initializePathfindingScene() {
-        pathfindingSceneController = new PathfindingSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNumPathfinding,
-                pathfindingOrigin, pathfindingDestination, pathfindingTextDirections, pathfindingZoomSlider, pathfindingScrollPane);
     }
 
     private void initializeDirectoryScene() {
@@ -223,7 +216,7 @@ public class GodController {
 
     private void initializeMainScene() {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, searchPane, mainScrollPane, searchEngine, primaryStage);
+                originField, destinationField, zoomSlider, directorySceneController, textPane, mainScrollPane, searchEngine, primaryStage);
         mainSceneController.initializeScene();
     }
 
@@ -307,26 +300,7 @@ public class GodController {
     private void nearestBathroomMain() throws IOException { mainSceneController.bathroomClicked(); }
 
     @FXML
-    private void nearestElevatorMain() throws IOException { mainSceneController.elevatorClicked(); }
-
-    @FXML
     private void nearestExitMain() throws IOException { mainSceneController.exitClicked(); }
-
-    ///////////////////////
-    /* Pathfinding Scene */ //TODO this kind of sucks, let's go back to one scene with a hamburger
-    ///////////////////////
-
-    @FXML
-    private void reversePath() throws IOException { pathfindingSceneController.reversePath(); }
-
-    @FXML
-    private void pathfindingUp() throws IOException, SQLException { pathfindingSceneController.floorUp(); }
-
-    @FXML
-    private void pathfindingDown() throws IOException, SQLException { pathfindingSceneController.floorDown(); }
-
-    @FXML
-    private void pathfindingZoom() { pathfindingSceneController.zoom(); }
 
     /////////////////////////
     /* Staff Request Scene */
@@ -620,18 +594,6 @@ public class GodController {
 
     @FXML
     private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
-
-    @FXML
-    public void mainToPathfinding() throws IOException {
-        Node o = mainSceneController.getOrigin();
-        Node d =  mainSceneController.getDestination();
-        sceneSwitcher.toPathfinding(this, mainPane);
-        pathfindingSceneController.initializeScene();
-        pathfindingSceneController.findPath(o, d);
-    }
-
-    @FXML
-    private void pathfindingToMain() throws IOException { sceneSwitcher.toMain(this, pathfindingPane);}
 
     @FXML
     private void requestToMain() throws IOException { sceneSwitcher.toMain(this, requestPane); }

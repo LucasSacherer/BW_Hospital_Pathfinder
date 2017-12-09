@@ -4,6 +4,7 @@ import Entity.Node;
 import MapNavigation.MapNavigationFacade;
 import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
+import Pathfinding.TextualDirections;
 import boundary.GodController;
 import com.jfoenix.controls.*;
 import javafx.beans.value.ChangeListener;
@@ -24,16 +25,17 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController{
+    private TextualDirections textualDirections = new TextualDirections();
     private SearchEngine searchEngine;
     private DirectorySceneController directorySceneController;
-    private Label originField, destinationField;
+    private JFXComboBox originField, destinationField;
     private ErrorController errorController = new ErrorController();
     private JFXComboBox searchBar;
     private Stage primaryStage;
-    private AnchorPane searchPane;
+    private AnchorPane textPane;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                               Label originField, Label destinationField, JFXSlider zoomSlider,
-                               DirectorySceneController directorySceneController, AnchorPane searchPane,
+                               JFXComboBox originField, JFXComboBox destinationField, JFXSlider zoomSlider,
+                               DirectorySceneController directorySceneController, AnchorPane textPane,
                                ScrollPane scrollPane, SearchEngine searchEngine, Stage primaryStage) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.primaryStage = primaryStage;
@@ -41,44 +43,20 @@ public class MainSceneController extends AbstractMapController{
         this.originField = originField;
         this.destinationField = destinationField;
         this.directorySceneController = directorySceneController;
-        searchBar = new JFXComboBox();
-        this.searchPane = searchPane;
-        searchPane.getChildren().add(searchBar);
-        initializeSearchBar();
+        this.textPane = textPane;
+        initializeSearchBoxes();
     }
 
-    private void initializeSearchBar() {
-        searchBar.setPromptText("Search");
-        searchBar.setEditable(true);
-        searchBar.setPrefWidth(200);
-        searchBar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if (!searchBar.getSelectionModel().isEmpty()) {
-                    if (searchBar.getValue() == null) searchBar.hide();
-                    else {
-                        searchBar.getItems().clear();
-                        searchBar.setItems(searchEngine.Search((String) searchBar.getValue()));
-                        searchBar.show();
-                        System.out.println("hey");
-                    }
-                }
-            }
-        });
-
-//        searchBar.setOnAction(e -> destinationField.setText((String) searchBar.getValue()));
-    }
-
-
+    private void initializeSearchBoxes() { } //TODO
 
     public void setOrigin(Node o) {
         this.origin = o;
-        originField.setText(o.getNodeID());
+        originField.setPromptText(o.getNodeID());
     }
 
     public void setDestination(Node d) {
         this.destination = d;
-        destinationField.setText(d.getNodeID());
+        destinationField.setPromptText(d.getNodeID());
     }
 
     private boolean checkNullLocations(){
@@ -120,20 +98,35 @@ public class MainSceneController extends AbstractMapController{
 
     public void setOrigin() {
         super.setOrigin();
-        originField.setText(origin.getNodeID());
+        setOriginText();
+    }
+
+
+    public void setDestination() {
+        super.setDestination();
+        setDestinationText();
+    }
+
+    private void setOriginText() {
+        String prompt;
+        if (origin.toString().length() < 1) prompt = origin.getNodeID();
+        else prompt = origin.getShortName();
+        originField.setPromptText(prompt);
+    }
+
+    private void setDestinationText() {
+        String prompt;
+        if (destination.toString().length() < 1) prompt = destination.getNodeID();
+        else prompt = destination.getShortName();
+        destinationField.setPromptText(prompt);
     }
 
     public void setOrigin(MouseEvent m) {
         snapToNode(m);
         currentPath = null;
         origin = currentLoc;
-        originField.setText(origin.getNodeID());
+        setOriginText();
         refreshCanvas();
-    }
-
-    public void setDestination() {
-        super.setDestination();
-        destinationField.setText(destination.getNodeID());
     }
 
     public void displayTextDir() throws IOException {
@@ -174,13 +167,42 @@ public class MainSceneController extends AbstractMapController{
         findPath();
     }
 
-    @Override
     public void findPath() throws IOException {
-        godController.mainToPathfinding();
+        if (origin == null || destination == null) return; //TODO throw an error
+        goToCorrectFloor();
+        //centerMap();
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        textDirections();
+        refreshCanvas();
     }
 
-    public Node getOrigin() {
-        return origin;
+    private void textDirections() {
+        JFXRippler rippler = new JFXRippler();
+        textPane.getChildren().add(rippler);
+        JFXListView directions = new JFXListView();
+        directions.setItems(textualDirections.getTextDirections(currentPath));
+        JFXPopup popup = new JFXPopup(directions);
+
+        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+    }
+
+    private void goToCorrectFloor() {
+        currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        currentFloorNum.setText(currentFloor);
+        refreshCanvas();
+    }
+
+    public void reversePath() throws IOException {
+        Node temp = destination;
+        destination = origin;
+        origin = temp;
+        if (origin == null || destination == null) return; //TODO throw an error
+        goToCorrectFloor();
+        //centerMap();
+        currentPath = pathFindingFacade.getPath(origin, destination);
+        textDirections();
+        refreshCanvas();
     }
 
     public Node getDestination() {
