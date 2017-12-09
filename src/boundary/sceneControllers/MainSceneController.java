@@ -130,11 +130,12 @@ public class MainSceneController extends AbstractMapController{
     }
 
     public void displayTextDir() throws IOException {
+        //this is deprecated? but still in GodController
+        /*
         boolean success = checkNullLocations();
         if(success) {
             currentPath = pathFindingFacade.getPath(origin, destination);
-            String dirMessage = pathFindingFacade.getDirections(currentPath);
-            /*
+            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
             String dirMessage = "";
             findPath();
             if (writtenDir.isEmpty()) {
@@ -144,10 +145,10 @@ public class MainSceneController extends AbstractMapController{
                 dirMessage += writtenDir.get(i);
                 dirMessage += "\n";
             }
-            */
             Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
             directions.show();
         }
+        */
     }
 
     public void openDirectory(AnchorPane dPane) throws IOException {
