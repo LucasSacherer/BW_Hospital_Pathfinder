@@ -19,6 +19,7 @@ import java.io.IOException;
 public class DirectorySceneController {
     private MainSceneController m;
     private MapNavigationFacade mapNavigationFacade;
+    private ObservableList directoryList;
 
     @FXML
     private JFXComboBox browser;
@@ -36,7 +37,11 @@ public class DirectorySceneController {
 
     @FXML
     private void initialize() {
-        browser.setItems(FXCollections.observableArrayList(mapNavigationFacade.getDirectory().keySet()));
+        directoryList = FXCollections.observableArrayList(mapNavigationFacade.getDirectory().keySet());
+//        ObservableList all = FXCollections.observableArrayList();
+//        for (ObservableList o : mapNavigationFacade.getDirectory().values()) { all.addAll(o); }
+//        directoryList.add(0, all);
+        browser.setItems(directoryList);
         browser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

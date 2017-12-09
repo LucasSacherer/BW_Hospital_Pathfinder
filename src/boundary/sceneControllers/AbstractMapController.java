@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -270,15 +269,13 @@ public abstract class AbstractMapController {
             }
 
             if (!current.getFloor().equals(currentFloor) &&  next.getFloor().equals(currentFloor)) {
-                ImageButton floorChange;
+                ImageButton floorChange = new ImageButton();
                 if (currentFloorInt > nextFloorInt) {
-                    floorChange = new ImageButton();
                     floorChange.initiate(uparrow, current);
                     floorChange.setLayoutX(next.getXcoord() - 25);
                     floorChange.setLayoutY(next.getYcoord() - 60);
                 }
                 else {
-                    floorChange = new ImageButton();
                     floorChange.initiate(downarrow, current);
                     floorChange.setLayoutX(next.getXcoord() - 25);
                     floorChange.setLayoutY(next.getYcoord() + 15);
@@ -430,7 +427,3 @@ public abstract class AbstractMapController {
         }
     }
 }
-
-
-
-
