@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ContextMenu?>
@@ -93,16 +92,7 @@
                      <children>
                         <VBox alignment="BOTTOM_CENTER" style="-fx-background-color: #CCCCCC; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;">
                            <children>
-                              <HBox alignment="CENTER_LEFT">
-                                 <children>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
-                                       <image>
-                                          <Image url="@../images/circle-outline.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXComboBox fx:id="originField" editable="true" promptText="Kiosk location" />
-                                 </children>
-                              </HBox>
+                              <HBox alignment="CENTER_LEFT" />
                               <HBox alignment="CENTER_LEFT">
                                  <children>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
@@ -110,7 +100,7 @@
                                           <Image url="@../images/location.png" />
                                        </image>
                                     </ImageView>
-                                    <JFXComboBox fx:id="destinationField" editable="true" promptText="Destination" />
+                                    <AnchorPane fx:id="searchAnchor" prefHeight="200.0" prefWidth="200.0" />
                                  </children>
                               </HBox>
                            </children>
