@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.TreeMap;
 
 public class MapNavigationFacade {
     private ClickController clickController;
@@ -33,12 +35,11 @@ public class MapNavigationFacade {
         return mapDisplayController.getMap(floor);
     }
 
-    public HashMap<String,ObservableList<Node>> getDirectory(){
+    public TreeMap<String,ObservableList<Node>> getDirectory(){
         return directoryController.getDirectory();
     }
 
     public Node getDefaultNode(){
         return directoryController.getDefaultNode();
     }
-
 }

@@ -27,6 +27,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -83,7 +84,16 @@ public class GodController {
     ///////////////////////
 
     @FXML
+    private JFXHamburger hamburger;
+
+    @FXML
+    private JFXDrawer drawer;
+
+    @FXML
     private JFXButton directoryButton;
+
+    @FXML
+    private AnchorPane searchAnchor;
 
     @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
@@ -101,7 +111,7 @@ public class GodController {
     private AnchorPane textPane, directoryPane; // search bar, directory
 
     @FXML
-    private JFXComboBox originField, destinationField;
+    private JFXComboBox originField;
 
     /* Pathfinding Scene */
     @FXML
@@ -201,19 +211,21 @@ public class GodController {
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
-    DirectorySceneController directorySceneController;
+    DirectoryDrawerController directoryDrawerController;
+    NavigationDrawerController navigationDrawerController;
     StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
 
     private Stage primaryStage;
-    public GodController(Stage primaryStage) { this.primaryStage = primaryStage; }
+
+    public GodController(Stage primaryStage) { this.primaryStage = primaryStage; } //TODO do we need the stage?
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         //pathFindingFacade.setPathfinder(beamSearch);
         if (firstTime){ pathFindingFacade.setPathfinder(astar);}
-        initializeDirectoryScene();
+        initializeDrawers();
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -225,13 +237,15 @@ public class GodController {
         firstTime = false;
     }
 
-    private void initializeDirectoryScene() {
-        directorySceneController = new DirectorySceneController(mapNavigationFacade);
+    private void initializeDrawers() {
+        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController);
+        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController);
     }
 
-    private void initializeMainScene() {
+    private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, destinationField, zoomSlider, directorySceneController, textPane, mainScrollPane, searchEngine, primaryStage);
+                originField, searchAnchor, zoomSlider, directoryController, directoryDrawerController,
+                navigationDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
 
@@ -277,7 +291,7 @@ public class GodController {
     @FXML
     private void reversePath() throws IOException { mainSceneController.reversePath(); }
     @FXML
-    private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
+    private void openDirectory() throws IOException { }
 
     @FXML
     private void mainZoom() { mainSceneController.zoom(); }
@@ -696,9 +710,6 @@ public class GodController {
 
     @FXML
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
-
-    @FXML
-    private void getTextDirections() throws IOException {mainSceneController.displayTextDir();}
 
     @FXML
     private void toAboutPopUp() throws IOException{

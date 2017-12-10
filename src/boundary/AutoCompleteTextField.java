@@ -1,8 +1,14 @@
 package boundary;
 
+import Entity.Node;
+import MapNavigation.DirectoryController;
+import MapNavigation.SearchEngine;
+import boundary.sceneControllers.MainSceneController;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
@@ -20,15 +26,19 @@ import java.util.TreeSet;
 
 public class AutoCompleteTextField extends JFXTextField
 {
+    private SearchEngine searchEngine;
+    private Node node;
     /** The existing autocomplete entries. */
-    private final SortedSet<String> entries;
+    private ObservableList<Node> results;
     /** The popup used to select an entry. */
     private ContextMenu entriesPopup;
 
     /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField() {
+    public AutoCompleteTextField(DirectoryController dc, Node n) {
         super();
-        entries = new TreeSet<>();
+        node = n;
+        setHover(true);
+        searchEngine = new SearchEngine(dc);
         entriesPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>()
         {
@@ -39,11 +49,10 @@ public class AutoCompleteTextField extends JFXTextField
                     entriesPopup.hide();
                 } else
                 {
-                    LinkedList<String> searchResult = new LinkedList<>();
-                    searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
-                    if (entries.size() > 0)
+                    results = searchEngine.Search(getText());
+                    if (results.size() > 0)
                     {
-                        populatePopup(searchResult);
+                        populatePopup(results);
                         if (!entriesPopup.isShowing())
                         {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
@@ -66,30 +75,26 @@ public class AutoCompleteTextField extends JFXTextField
     }
 
     /**
-     * Get the existing set of autocomplete entries.
-     * @return The existing autocomplete entries.
-     */
-    public SortedSet<String> getEntries() { return entries; }
-
-    /**
      * Populate the entry set with the given search results.  Display is limited to 10 entries, for performance.
      * @param searchResult The set of matching strings.
      */
-    private void populatePopup(List<String> searchResult) {
+    private void populatePopup(List<Node> searchResult) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
         // If you'd like more entries, modify this line.
         int maxEntries = 10;
         int count = Math.min(searchResult.size(), maxEntries);
         for (int i = 0; i < count; i++)
         {
-            final String result = searchResult.get(i);
-            Label entryLabel = new Label(result);
+            final Node result = searchResult.get(i);
+            Label entryLabel = new Label(result.getShortName());
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(new EventHandler<ActionEvent>()
             {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    setText(result);
+                    setText(result.getShortName());
+                    node = result;
+                    System.out.println("Node set to " + node);
                     entriesPopup.hide();
                 }
             });
@@ -97,6 +102,8 @@ public class AutoCompleteTextField extends JFXTextField
         }
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
-
+    }
+    public void hide() {
+        entriesPopup.hide();
     }
 }
