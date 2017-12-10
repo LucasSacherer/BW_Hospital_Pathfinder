@@ -9,6 +9,9 @@ import Pathfinding.TextualDirections;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.sun.tools.javac.comp.Flow;
+import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -19,40 +22,75 @@ import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
 
+import static javafx.scene.input.SwipeEvent.SWIPE_LEFT;
+
 public class MainSceneController extends AbstractMapController{
     private TextualDirections textualDirections = new TextualDirections();
-    private DirectorySceneController directorySceneController;
+    private DirectoryDrawerController directoryDrawerController;
     private JFXComboBox originField;
     private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField destinationTextField;
     private AnchorPane textPane;
     private DirectoryController dc;
+    private JFXHamburger hamburger;
+    private JFXDrawer drawer;
+    private Pane mainPane;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
-                               DirectorySceneController directorySceneController, AnchorPane textPane,
-                               ScrollPane scrollPane) {
+                               DirectoryDrawerController directoryDrawerController, AnchorPane textPane,
+                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.originField = originField;
         this.searchAnchor = searchAnchor;
-        this.directorySceneController = directorySceneController;
+        this.directoryDrawerController = directoryDrawerController;
         this.textPane = textPane;
         this.dc = dc;
+        this.drawer = drawer;
+        this.hamburger = hamburger;
+        this.mainPane = mainPane;
     }
 
-    public void initializeScene() {
+    public void initializeScene() throws IOException {
         super.initializeScene();
         destinationTextField = new AutoCompleteTextField(dc, this);
         searchAnchor.getChildren().add(destinationTextField);
         origin = mapNavigationFacade.getDefaultNode();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/drawerPractice.fxml"));
+        loader.setController(directoryDrawerController);
+        Region region = loader.load();
+        initializeBurger(region);
     }
+
+    private void initializeBurger(Region region) {
+//        drawer.setDefaultDrawerSize(textPane.getWidth());
+//        drawer.setPrefHeight(700);
+        HamburgerBackArrowBasicTransition h = new HamburgerBackArrowBasicTransition(hamburger);
+        hamburger.setOnMouseClicked(e -> {
+            region.setMaxHeight(mainPane.getHeight()-40);
+            region.setPrefHeight(mainPane.getHeight()-40);
+            drawer.setSidePane(region);
+            h.play();
+            System.out.println("hey");
+            if (drawer.isHidden() || drawer.isHiding()) {
+                drawer.open();
+                drawer.toFront();
+            } else {
+                drawer.close();
+            }
+        });
+    }
+
 
     public void setOrigin(Node o) {
         this.origin = o;

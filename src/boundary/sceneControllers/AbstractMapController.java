@@ -64,7 +64,7 @@ public abstract class AbstractMapController {
         this.scrollPane = scrollPane;
     }
 
-    public void initializeScene() {
+    public void initializeScene() throws IOException {
         group = new Group();
         mapPane = new Pane();
         imageView = new ImageView();

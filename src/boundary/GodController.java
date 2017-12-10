@@ -27,6 +27,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -81,6 +82,12 @@ public class GodController {
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
+
+    @FXML
+    private JFXHamburger hamburger;
+
+    @FXML
+    private JFXDrawer drawer;
 
     @FXML
     private JFXButton directoryButton;
@@ -204,7 +211,7 @@ public class GodController {
     StaffRequestController staffRequestController;
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
-    DirectorySceneController directorySceneController;
+    DirectoryDrawerController directoryDrawerController;
     StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
@@ -214,10 +221,10 @@ public class GodController {
     public GodController(Stage primaryStage) { this.primaryStage = primaryStage; } //TODO do we need the stage?
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         //pathFindingFacade.setPathfinder(beamSearch);
         if (firstTime){ pathFindingFacade.setPathfinder(astar);}
-        initializeDirectoryScene();
+        initializeDirectoryDrawer();
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -229,13 +236,13 @@ public class GodController {
         firstTime = false;
     }
 
-    private void initializeDirectoryScene() {
-        directorySceneController = new DirectorySceneController(mapNavigationFacade);
+    private void initializeDirectoryDrawer() {
+        directoryDrawerController = new DirectoryDrawerController(mapNavigationFacade);
     }
 
-    private void initializeMainScene() {
+    private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, searchAnchor, zoomSlider, directoryController, directorySceneController, textPane, mainScrollPane);
+                originField, searchAnchor, zoomSlider, directoryController, directoryDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
 
