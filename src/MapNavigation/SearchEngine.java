@@ -1,16 +1,11 @@
 package MapNavigation;
 
 import Entity.Node;
-import boundary.sceneControllers.DirectorySceneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.*;
-import Entity.Node;
-import Database.NodeManager;
-import javafx.collections.ObservableList;
 
-import java.util.*;
 public class SearchEngine {
 
         DirectoryController dc;

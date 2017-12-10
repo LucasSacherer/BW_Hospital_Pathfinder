@@ -27,20 +27,19 @@ import java.util.TreeSet;
 public class AutoCompleteTextField extends JFXTextField
 {
     private SearchEngine searchEngine;
-    private MainSceneController mainSceneController;
+    private Node node;
     /** The existing autocomplete entries. */
     private ObservableList<Node> results;
     /** The popup used to select an entry. */
     private ContextMenu entriesPopup;
 
     /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField(DirectoryController dc, MainSceneController m) {
+    public AutoCompleteTextField(DirectoryController dc, Node n) {
         super();
-        mainSceneController = m;
+        node = n;
         setHover(true);
         searchEngine = new SearchEngine(dc);
         entriesPopup = new ContextMenu();
-        setPromptText("Search Brigham & Women's");
         textProperty().addListener(new ChangeListener<String>()
         {
             @Override
@@ -94,7 +93,8 @@ public class AutoCompleteTextField extends JFXTextField
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result.getShortName());
-                    mainSceneController.setDestination(result);
+                    node = result;
+                    System.out.println("Node set to " + node);
                     entriesPopup.hide();
                 }
             });
@@ -102,6 +102,8 @@ public class AutoCompleteTextField extends JFXTextField
         }
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
-
+    }
+    public void hide() {
+        entriesPopup.hide();
     }
 }

@@ -64,7 +64,7 @@ public abstract class AbstractMapController {
         this.scrollPane = scrollPane;
     }
 
-    public void initializeScene() {
+    public void initializeScene() throws IOException {
         group = new Group();
         mapPane = new Pane();
         imageView = new ImageView();
@@ -88,8 +88,8 @@ public abstract class AbstractMapController {
 
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         gc = canvas.getGraphicsContext2D();
-        currentFloorNum.setText(currentFloor);
-        zoomSlider.setValue(0);
+//        currentFloorNum.setText(currentFloor);
+//        zoomSlider.setValue(0);
         mapPane.setScaleX(ZOOM);
         mapPane.setScaleY(ZOOM);
     }

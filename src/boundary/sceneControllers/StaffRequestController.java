@@ -74,7 +74,7 @@ public class StaffRequestController extends AbstractMapController{
         this.foodItem = foodItem;
     }
 
-    public void initializeScene(User user){
+    public void initializeScene(User user) throws IOException {
         requestsIMadeList = genericRequestController.getAllRequestsByUser(user);
         allStaffRequestsList = genericRequestController.getAllRequestsByDepartment(user.getDepartment());
         super.initializeScene();

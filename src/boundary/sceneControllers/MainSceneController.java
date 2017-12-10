@@ -3,63 +3,87 @@ package boundary.sceneControllers;
 import Entity.Node;
 import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
-import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
-import Pathfinding.TextualDirections;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
 
 import java.io.IOException;
-import java.util.List;
 
-public class MainSceneController extends AbstractMapController{
-    private TextualDirections textualDirections = new TextualDirections();
-    private DirectorySceneController directorySceneController;
+public class MainSceneController extends AbstractMapController {
+    private DirectoryDrawerController directoryDrawerController;
+    private NavigationDrawerController navigationDrawerController;
     private JFXComboBox originField;
     private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField destinationTextField;
     private AnchorPane textPane;
     private DirectoryController dc;
+    private JFXHamburger hamburger;
+    private JFXDrawer drawer;
+    private Pane mainPane;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
-                               DirectorySceneController directorySceneController, AnchorPane textPane,
-                               ScrollPane scrollPane) {
+                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController, AnchorPane textPane,
+                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.originField = originField;
         this.searchAnchor = searchAnchor;
-        this.directorySceneController = directorySceneController;
+        this.directoryDrawerController = directoryDrawerController;
+        this.navigationDrawerController = navigationDrawerController;
         this.textPane = textPane;
         this.dc = dc;
+        this.drawer = drawer;
+        this.hamburger = hamburger;
+        this.mainPane = mainPane;
     }
 
-    public void initializeScene() {
+    public void initializeScene() throws IOException {
         super.initializeScene();
-        destinationTextField = new AutoCompleteTextField(dc, this);
+        destinationTextField = new AutoCompleteTextField(dc, destination);
+        destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
         origin = mapNavigationFacade.getDefaultNode();
+
+        FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
+        directoryLoader.setController(directoryDrawerController);
+        Region directoryRegion = directoryLoader.load();
+
+        FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
+        navigationLoader.setController(navigationDrawerController);
+        Region navigationRegion = navigationLoader.load();
+        directoryDrawerController.setRegion(navigationRegion);
+        initializeBurger(directoryRegion);
     }
+
+    private void initializeBurger(Region region) {
+        hamburger.setOnMouseClicked(e -> {
+            region.setMaxHeight(mainPane.getHeight()-40);
+            region.setPrefHeight(mainPane.getHeight()-40);
+            drawer.setSidePane(region);
+            if (drawer.isHidden() || drawer.isHiding()) {
+                drawer.open();
+                drawer.toFront();
+            } else {
+                drawer.close();
+            }
+        });
+    }
+
 
     public void setOrigin(Node o) {
         this.origin = o;
         originField.setPromptText(o.getNodeID());
     }
 
-    public void setDestination(Node d) {
+    public void setNode(Node d) {
         this.destination = d;
         destinationTextField.setText(d.getNodeID());
     }
@@ -134,38 +158,6 @@ public class MainSceneController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void displayTextDir() throws IOException {
-        boolean success = checkNullLocations();
-        if(success) {
-            currentPath = pathFindingFacade.getPath(origin, destination);
-            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
-            String dirMessage = "";
-            findPath();
-            if (writtenDir.isEmpty()) {
-                return;
-            }
-            for (int i = 0; i < writtenDir.size(); i++) {
-                dirMessage += writtenDir.get(i);
-                dirMessage += "\n";
-            }
-
-            Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
-            directions.show();
-        }
-    }
-
-    public void openDirectory(AnchorPane dPane) throws IOException {
-        JFXRippler rippler = new JFXRippler();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
-        loader.setController(directorySceneController);
-        Region region = loader.load();
-        dPane.getChildren().add(rippler);
-        JFXPopup popup = new JFXPopup(region);
-        directorySceneController.setMainSceneController(this);
-
-        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-    }
-
     public void navigate(Node o, Node d) throws IOException {
         this.origin = o;
         this.destination = d;
@@ -177,19 +169,7 @@ public class MainSceneController extends AbstractMapController{
         goToCorrectFloor();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirections();
         refreshCanvas();
-    }
-
-    private void textDirections() {
-        JFXRippler rippler = new JFXRippler();
-        textPane.getChildren().add(rippler);
-        JFXListView directions = new JFXListView();
-        directions.setItems(textualDirections.getTextDirections(currentPath));
-
-        JFXPopup popup = new JFXPopup(directions);
-
-        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
     }
 
     private void goToCorrectFloor() {
@@ -209,7 +189,6 @@ public class MainSceneController extends AbstractMapController{
         goToCorrectFloor();
         centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirections();
         refreshCanvas();
     }
 
@@ -217,4 +196,48 @@ public class MainSceneController extends AbstractMapController{
         //TODO
     }
 
+    public void zoomIn() {
+    }
+
+    public void zoomOut() {
+    }
+
+    public void floorL2() {
+        currentFloor = "L2";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floorL1() {
+        currentFloor = "L1";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floorG() {
+        currentFloor = "G";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor1() {
+        currentFloor = "1";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor2() {
+        currentFloor = "2";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor3() {
+        currentFloor = "3";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void streetView() {
+    }
 }
