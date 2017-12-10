@@ -15,6 +15,8 @@ import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.HashMap;
 
 public class DirectorySceneController {
     private MainSceneController m;
@@ -38,9 +40,6 @@ public class DirectorySceneController {
     @FXML
     private void initialize() {
         directoryList = FXCollections.observableArrayList(mapNavigationFacade.getDirectory().keySet());
-//        ObservableList all = FXCollections.observableArrayList();
-//        for (ObservableList o : mapNavigationFacade.getDirectory().values()) { all.addAll(o); }
-//        directoryList.add(0, all);
         browser.setItems(directoryList);
         browser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
