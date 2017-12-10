@@ -288,7 +288,7 @@ public class GodController {
     @FXML
     private void reversePath() throws IOException { mainSceneController.reversePath(); }
     @FXML
-    private void openDirectory() throws IOException { mainSceneController.openDirectory(directoryPane); }
+    private void openDirectory() throws IOException { }
 
     @FXML
     private void mainZoom() { mainSceneController.zoom(); }
@@ -707,9 +707,6 @@ public class GodController {
 
     @FXML
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
-
-    @FXML
-    private void getTextDirections() throws IOException {mainSceneController.displayTextDir();}
 
     @FXML
     private void toAboutPopUp() throws IOException{

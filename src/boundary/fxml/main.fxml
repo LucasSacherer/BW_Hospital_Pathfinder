@@ -33,7 +33,7 @@
             <RowConstraints maxHeight="195.0" minHeight="18.0" prefHeight="154.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXDrawer fx:id="drawer" direction="TOP" overLayVisible="false">
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false">
                <GridPane.margin>
                   <Insets left="20.0" top="20.0" />
                </GridPane.margin>
@@ -203,18 +203,6 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </HBox>
-                        <VBox alignment="BOTTOM_LEFT" fillWidth="false">
-                           <children>
-                              <JFXButton fx:id="directoryButton" alignment="TOP_LEFT" buttonType="RAISED" onAction="#openDirectory" style="-fx-background-color: #0068B1; -fx-background-radius: 12;" text="Directory" textFill="#cccccc">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </VBox>
                         <AnchorPane fx:id="textPane" prefHeight="2.0" prefWidth="247.0">
                            <VBox.margin>
                               <Insets left="15.0" />

@@ -35,7 +35,6 @@ import java.util.List;
 import static javafx.scene.input.SwipeEvent.SWIPE_LEFT;
 
 public class MainSceneController extends AbstractMapController{
-    private TextualDirections textualDirections = new TextualDirections();
     private DirectoryDrawerController directoryDrawerController;
     private JFXComboBox originField;
     private AnchorPane searchAnchor;
@@ -66,10 +65,10 @@ public class MainSceneController extends AbstractMapController{
         destinationTextField = new AutoCompleteTextField(dc, this);
         searchAnchor.getChildren().add(destinationTextField);
         origin = mapNavigationFacade.getDefaultNode();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/drawerPractice.fxml"));
-        loader.setController(directoryDrawerController);
-        Region region = loader.load();
-        initializeBurger(region);
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/drawerPractice.fxml"));
+//        loader.setController(directoryDrawerController);
+//        Region region = loader.load();
+//        initializeBurger(region);
     }
 
     private void initializeBurger(Region region) {
@@ -172,38 +171,6 @@ public class MainSceneController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void displayTextDir() throws IOException {
-        boolean success = checkNullLocations();
-        if(success) {
-            currentPath = pathFindingFacade.getPath(origin, destination);
-            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
-            String dirMessage = "";
-            findPath();
-            if (writtenDir.isEmpty()) {
-                return;
-            }
-            for (int i = 0; i < writtenDir.size(); i++) {
-                dirMessage += writtenDir.get(i);
-                dirMessage += "\n";
-            }
-
-            Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
-            directions.show();
-        }
-    }
-
-    public void openDirectory(AnchorPane dPane) throws IOException {
-        JFXRippler rippler = new JFXRippler();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
-        loader.setController(directorySceneController);
-        Region region = loader.load();
-        dPane.getChildren().add(rippler);
-        JFXPopup popup = new JFXPopup(region);
-        directorySceneController.setMainSceneController(this);
-
-        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-    }
-
     public void navigate(Node o, Node d) throws IOException {
         this.origin = o;
         this.destination = d;
@@ -215,19 +182,7 @@ public class MainSceneController extends AbstractMapController{
         goToCorrectFloor();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirections();
         refreshCanvas();
-    }
-
-    private void textDirections() {
-        JFXRippler rippler = new JFXRippler();
-        textPane.getChildren().add(rippler);
-        JFXListView directions = new JFXListView();
-        directions.setItems(textualDirections.getTextDirections(currentPath));
-
-        JFXPopup popup = new JFXPopup(directions);
-
-        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
     }
 
     private void goToCorrectFloor() {
@@ -247,7 +202,6 @@ public class MainSceneController extends AbstractMapController{
         goToCorrectFloor();
         centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirections();
         refreshCanvas();
     }
 

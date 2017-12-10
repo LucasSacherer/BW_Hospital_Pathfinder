@@ -61,15 +61,7 @@ public class DirectoryDrawerController {
             m.setDestination((Node) listView.getSelectionModel().getSelectedItem());
     }
 
-    public void close() {
-
-    }
-
-    public void setOrigin() {
-
-    }
-
-    public void setDestination() {
+    public void closeDrawer() {
 
     }
 
