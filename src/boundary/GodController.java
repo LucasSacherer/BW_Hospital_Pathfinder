@@ -63,7 +63,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
-    final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
+    //final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,
@@ -312,6 +312,7 @@ public class GodController {
     DirectoryDrawerController directoryDrawerController;
     NavigationDrawerController navigationDrawerController;
     StaffRequestHubController staffRequestHubController;
+    AdminSettingsPopUpController adminSettingsPopUpController;
 
     boolean firstTime = true;
 
@@ -334,6 +335,7 @@ public class GodController {
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
         initializeStaffRequestHubScene();
+        initializeAdminSettingsPopUpController();
         firstTime = false;
     }
 
@@ -394,6 +396,9 @@ public class GodController {
     }
 
     private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
+
+    private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
+            pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
 
     /** Organize Functions by Scene **/
 
@@ -632,23 +637,6 @@ public class GodController {
     @FXML
     private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
-    @FXML
-    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
-
-    @FXML
-    private void selectBeam() { pathFindingFacade.setPathfinder(beam); }
-
-    @FXML
-    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
-
-    @FXML
-    private void selectDepth() { pathFindingFacade.setPathfinder(depth); }
-
-    @FXML
-    private void selectBest() { pathFindingFacade.setPathfinder(best);}
-
-    @FXML
-    private void selectDijkstras() { pathFindingFacade.setPathfinder(dijkstra);}
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
