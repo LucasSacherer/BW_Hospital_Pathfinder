@@ -1,5 +1,6 @@
 package boundary.sceneControllers;
 
+import javafx.scene.control.*;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -11,9 +12,6 @@ import Entity.AdminLog;
 import Entity.FileSelector;
 import Entity.User;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -57,20 +55,8 @@ public class AdminLogController {
         logContent.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<AdminLog, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getAction()));
 
-//        logID.setCellFactory(new Callback<TreeTableColumn<Log, String>, TreeTableCell<Log, String>>() {
-//            @Override
-//            public TreeTableCell<Log, String> call(TreeTableColumn<Log, String> param) {
-//                return new TextFieldTreeTableCell<>();
-//            }
-//        });
-//        logID.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
-//        logID.setOnEditCommit(new EventHandler<TreeTableColumn.CellEditEvent<Log, String>>() {
-//            @Override
-//            public void handle(TreeTableColumn.CellEditEvent<Log, String> event) {
-//                TreeItem<Log> currentEditingLog = adminLogs.getTreeItem(event.getTreeTablePosition().getRow());
-//                currentEditingLog.getValue().setLogIDProperty(event.getNewValue());
-//            }
-//        });
+
+
 
 //        adminLogs.setEditable(true);
         adminLogs.setRoot(logRoot);

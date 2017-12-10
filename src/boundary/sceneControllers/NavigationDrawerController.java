@@ -1,16 +1,23 @@
 package boundary.sceneControllers;
 
+import Entity.AdminLog;
 import Entity.Node;
 import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.TextualDirections;
 import boundary.AutoCompleteTextField;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.*;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonBar;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class NavigationDrawerController {
@@ -31,15 +38,26 @@ public class NavigationDrawerController {
     private ButtonBar buttonBar;
 
     @FXML
-    private JFXListView listView;
+    private JFXTreeTableView<AdminLog> textDirectionsTable = new JFXTreeTableView<>();
+
+    @FXML
+    private TreeTableColumn<AdminLog, String> textDirectionsColumn = new TreeTableColumn<>();
+
+    private TreeItem<AdminLog> root = new TreeItem<>();
 
 
-    public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc) {
+
+    public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc,
+                                      MainSceneController m,JFXTreeTableView<AdminLog> textDirectionsTable,TreeTableColumn<AdminLog, String> textDirectionsColumn) {
         this.drawer = drawer;
         this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
         JFXListView directions = new JFXListView();
+//        this.listView = listView;
 //        directions.setItems(textualDirections.getTextDirections(currentPath));
+        this.textDirectionsTable = textDirectionsTable;
+        this.textDirectionsColumn = textDirectionsColumn;
+
     }
 
     @FXML
@@ -53,7 +71,48 @@ public class NavigationDrawerController {
         destinationTextField = new AutoCompleteTextField(dc, m, false);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
+        initializeListCells();
+
     }
+
+    public void initializeListCells() {
+        textDirectionsColumn.setCellFactory(col -> {
+            TreeTableCell<AdminLog, String> c = new TreeTableCell<>();
+            final ImageView imageView = new ImageView("/boundary/images/circle-outline.png");
+
+            HBox hbox = new HBox();
+            hbox.setAlignment(Pos.CENTER_LEFT);
+            hbox.getChildren().add(imageView);
+//            c.itemProperty().addListener((observable, oldValue, newValue) -> {
+//                if (oldValue != null) {
+//                    comboBox.valueProperty().unbindBidirectional(oldValue);
+//                }
+//                if (newValue != null) {
+//                    comboBox.valueProperty().bindBidirectional(newValue);
+//                }
+//            });
+            VBox vBox = new VBox();
+            vBox.setAlignment(Pos.CENTER);
+            JFXTextArea textArea = new JFXTextArea("HELLO");
+//            textArea.setStyle("-fx-underline: true");
+            JFXTextField textField = new JFXTextField("Hey");
+            textArea.setPrefWidth(300);
+            textArea.setPrefHeight(50);
+            vBox.getChildren().add(textArea);
+            vBox.getChildren().add(textField);
+            hbox.getChildren().add(vBox);
+            //c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((Node) null).otherwise(button));
+            c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((javafx.scene.Node) null).otherwise(hbox));
+//            c.setGraphic(hbox);
+            return c;
+        });
+        textDirectionsTable.setRoot(root);
+        textDirectionsTable.setShowRoot(true);
+    }
+
+
+
+
 
     @FXML
     public void closeDrawer() {
