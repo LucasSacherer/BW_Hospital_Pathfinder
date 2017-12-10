@@ -210,42 +210,22 @@
                   </JFXButton>
                </children>
             </HBox>
-            <AnchorPane GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <HBox maxHeight="80.0" maxWidth="240.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="240.0" style="-fx-background-color: #0068B1;">
                <children>
-                  <VBox layoutX="120.0" prefHeight="100.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0" />
+                  <VBox alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" style="-fx-background-color: #0068B1;">
-                                 <children>
-                                    <JFXHamburger fx:id="hamburger" />
-                                    <AnchorPane fx:id="searchAnchor" style="-fx-background-color: Gray;" />
-                                 </children>
-                              </HBox>
-                              <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#findPath" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" translateX="3.0">
-                                       <image>
-                                          <Image url="@../images/Icons/Navagate.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </HBox>
+                        <AnchorPane fx:id="searchAnchor" style="-fx-background-color: white;" />
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
                   </VBox>
                </children>
-            </AnchorPane>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
                   <HBox alignment="BOTTOM_RIGHT" layoutY="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">

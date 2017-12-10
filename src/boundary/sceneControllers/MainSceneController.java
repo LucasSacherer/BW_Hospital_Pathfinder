@@ -52,8 +52,8 @@ public class MainSceneController extends AbstractMapController {
         destinationTextField = new AutoCompleteTextField(dc, this, false);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
-        searchAnchor.setPrefHeight(searchAnchor.getHeight());
-        searchAnchor.setPrefWidth(searchAnchor.getWidth());
+        searchAnchor.setPrefHeight(40);
+        searchAnchor.setPrefWidth(100);
         origin = mapNavigationFacade.getDefaultNode();
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
