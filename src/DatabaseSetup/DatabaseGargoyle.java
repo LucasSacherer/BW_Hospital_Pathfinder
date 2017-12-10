@@ -8,8 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseGargoyle {
-    private final String URL = "jdbc:derby://localhost:1527/bw_pathfinder_db;create=true;user=granite_gargoyle;password=wong";
-    private final String driver = "org.apache.derby.jdbc.ClientDriver";
+    private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     private Connection connection;
     private Statement statement;
     private ArrayList<EntityManager> managers;
@@ -33,7 +32,7 @@ public class DatabaseGargoyle {
 
         //Create connection and statement to be run
         try {
-            this.connection = DriverManager.getConnection(URL);
+            this.connection = DriverManager.getConnection("jdbc:derby:gargoyle_db;create=true;user=granite_gargoyle;password=wong");
             this.statement = connection.createStatement();
         } catch (SQLException e) {
             System.out.println("Exception thrown in createConnection()");
