@@ -340,8 +340,8 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController);
         navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController,textDirectionsTable,textDirectionsColumn);
+        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController, navigationDrawerController);
     }
 
     private void initializeMainScene() throws IOException {
