@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -65,7 +64,7 @@ public abstract class AbstractMapController {
         this.scrollPane = scrollPane;
     }
 
-    public void initializeScene() {
+    public void initializeScene() throws IOException {
         group = new Group();
         mapPane = new Pane();
         imageView = new ImageView();
@@ -89,8 +88,8 @@ public abstract class AbstractMapController {
 
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         gc = canvas.getGraphicsContext2D();
-        currentFloorNum.setText(currentFloor);
-        zoomSlider.setValue(0);
+//        currentFloorNum.setText(currentFloor);
+//        zoomSlider.setValue(0);
         mapPane.setScaleX(ZOOM);
         mapPane.setScaleY(ZOOM);
     }
@@ -256,42 +255,17 @@ public abstract class AbstractMapController {
                     floorChange = new ImageButton();
                     floorChange.initiate(uparrow, next);
                     floorChange.setLayoutX(current.getXcoord() - 25);
-                    floorChange.setLayoutY(current.getYcoord() - 60);
+                    floorChange.setLayoutY(current.getYcoord() - 25);
                 }
                 else {
                     floorChange = new ImageButton();
                     floorChange.initiate(downarrow, next);
                     floorChange.setLayoutX(current.getXcoord() - 25);
-                    floorChange.setLayoutY(current.getYcoord() + 15);
+                    floorChange.setLayoutY(current.getYcoord() - 25);
                 }
                 buttons.add(floorChange);
                 mapPane.getChildren().add(floorChange);
                 floorChange.toFront();
-            }
-
-            if (!current.getFloor().equals(currentFloor) &&  next.getFloor().equals(currentFloor)) {
-                ImageButton floorChange;
-                if (currentFloorInt > nextFloorInt) {
-                    floorChange = new ImageButton();
-                    floorChange.initiate(uparrow, current);
-                    floorChange.setLayoutX(next.getXcoord() - 25);
-                    floorChange.setLayoutY(next.getYcoord() - 60);
-                }
-                else {
-                    floorChange = new ImageButton();
-                    floorChange.initiate(downarrow, current);
-                    floorChange.setLayoutX(next.getXcoord() - 25);
-                    floorChange.setLayoutY(next.getYcoord() + 15);
-                }
-                buttons.add(floorChange);
-                mapPane.getChildren().add(floorChange);
-                floorChange.toFront();
-            }
-
-            if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
-                gc.setFill(Color.WHITE);
-                gc.fillOval(next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
-                gc.drawImage(circleoutline, next.getXcoord() - 12, next.getYcoord() - 12, 24, 24);
             }
         }
     }
@@ -430,7 +404,3 @@ public abstract class AbstractMapController {
         }
     }
 }
-
-
-
-

@@ -1,8 +1,10 @@
 package Entity;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.time.LocalDateTime;
 
-public class InterpreterRequest implements Request{
+public class InterpreterRequest extends RecursiveTreeObject<InterpreterRequest> implements Request {
     final private String name;
     final private LocalDateTime timeCreated;
     final private LocalDateTime timeCompleted;

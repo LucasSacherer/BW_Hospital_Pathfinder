@@ -3,6 +3,7 @@ package Pathfinding;
 import Database.SettingsManager;
 import Entity.ErrorController;
 import Entity.Node;
+import com.jfoenix.controls.JFXListCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -45,6 +46,7 @@ public class TextualDirections {
         int currentY = current.getYcoord();
         int nextX = next.getXcoord();
         int nextY = next.getYcoord();
+
 
 
         //handling in polar to avoid divide-by-zero errors

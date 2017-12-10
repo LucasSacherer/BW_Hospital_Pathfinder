@@ -1,16 +1,11 @@
 package MapNavigation;
 
 import Entity.Node;
-import boundary.sceneControllers.DirectorySceneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.*;
-import Entity.Node;
-import Database.NodeManager;
-import javafx.collections.ObservableList;
 
-import java.util.*;
 public class SearchEngine {
 
         DirectoryController dc;
@@ -18,7 +13,7 @@ public class SearchEngine {
         public SearchEngine(DirectoryController dc) { this.dc = dc; }
 
         private List<Node> places(){
-            HashMap<String,ObservableList<Node>> directory = dc.getDirectory();
+            TreeMap<String,ObservableList<Node>> directory = dc.getDirectory();
             List<Node> locations = new ArrayList<>();
             Collection<ObservableList<Node>> nodeCollection = directory.values();
             for (ObservableList<Node> n : nodeCollection){

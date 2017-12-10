@@ -21,7 +21,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <Label text="Browse:" />
+                  <Label text="Filter:" />
                   <JFXComboBox fx:id="browser" promptText="Directory Browser" />
                </children>
             </HBox>
