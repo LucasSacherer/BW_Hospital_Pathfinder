@@ -212,6 +212,7 @@ public class GodController {
     AdminRequestController adminRequestController;
     RequestReportController requestReportController;
     DirectoryDrawerController directoryDrawerController;
+    NavigationDrawerController navigationDrawerController;
     StaffRequestHubController staffRequestHubController;
 
     boolean firstTime = true;
@@ -224,7 +225,7 @@ public class GodController {
     private void initialize() throws IOException {
         //pathFindingFacade.setPathfinder(beamSearch);
         if (firstTime){ pathFindingFacade.setPathfinder(astar);}
-        initializeDirectoryDrawer();
+        initializeDrawers();
         initializeMainScene();
         initializeRequestScene();
         initializeRequestReportScene();
@@ -236,13 +237,15 @@ public class GodController {
         firstTime = false;
     }
 
-    private void initializeDirectoryDrawer() {
-        directoryDrawerController = new DirectoryDrawerController(mapNavigationFacade);
+    private void initializeDrawers() {
+        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController);
+        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController);
     }
 
     private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, searchAnchor, zoomSlider, directoryController, directoryDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
+                originField, searchAnchor, zoomSlider, directoryController, directoryDrawerController,
+                navigationDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
 

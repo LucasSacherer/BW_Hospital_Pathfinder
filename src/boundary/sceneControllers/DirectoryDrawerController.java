@@ -1,25 +1,33 @@
 package boundary.sceneControllers;
 
 import Entity.Node;
+import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
+import boundary.AutoCompleteTextField;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 
 import java.io.IOException;
 
 public class DirectoryDrawerController {
-    private MainSceneController m;
     private MapNavigationFacade mapNavigationFacade;
+    private Region navigateRegion;
+    private DirectoryController dc;
     private ObservableList directoryList;
+    private JFXDrawer drawer;
+    private Node originNode, destinationNode;
 
     @FXML
-    private AnchorPane originPane, destinationPane;
+    private Label originLabel, destinationLabel;
 
     @FXML
     private JFXComboBox browser;
@@ -27,16 +35,15 @@ public class DirectoryDrawerController {
     @FXML
     private JFXListView listView;
 
-    public DirectoryDrawerController(MapNavigationFacade mapNavigationFacade) {
+    public DirectoryDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc) {
+        this.drawer = drawer;
         this.mapNavigationFacade = mapNavigationFacade;
-    }
-
-    public void setMainSceneController(MainSceneController m) {
-        this.m = m;
+        this.dc = dc;
     }
 
     @FXML
     private void initialize() {
+        originNode = mapNavigationFacade.getDefaultNode();
         directoryList = FXCollections.observableArrayList(mapNavigationFacade.getDirectory().keySet());
         browser.setItems(directoryList);
         browser.setOnAction(new EventHandler<ActionEvent>() {
@@ -51,25 +58,44 @@ public class DirectoryDrawerController {
 
     @FXML
     private void setDirectoryOrigin() throws IOException {
-        if (!listView.getSelectionModel().isEmpty())
-            m.setOrigin((Node) listView.getSelectionModel().getSelectedItem());
+        if (!listView.getSelectionModel().isEmpty()) {
+            originNode = (Node) listView.getSelectionModel().getSelectedItem();
+            originLabel.setText(originNode.getNodeID());
+        }
     }
 
     @FXML
     private void setDirectoryDestination() throws IOException {
-        if (!listView.getSelectionModel().isEmpty())
-            m.setDestination((Node) listView.getSelectionModel().getSelectedItem());
+        if (!listView.getSelectionModel().isEmpty()) {
+            destinationNode = (Node) listView.getSelectionModel().getSelectedItem();
+            destinationLabel.setText(destinationNode.getNodeID());
+        }
     }
 
+    @FXML
     public void closeDrawer() {
-
+        originLabel.setText("Kiosk Location");
+        destinationLabel.setText("Select a Destination");
+        originNode = mapNavigationFacade.getDefaultNode();
+        destinationNode = null;
+        drawer.close();
+        drawer.toBack();
     }
 
     public void navigate() {
-
+        drawer.setSidePane(navigateRegion);
     }
 
+    @FXML
     public void reversePath() {
+        Node temp = originNode;
+        originNode = destinationNode;
+        destinationNode = temp;
+        if (originNode != null) originLabel.setText(originNode.getNodeID());
+        if (destinationNode != null) destinationLabel.setText(destinationNode.getNodeID());
+    }
 
+    public void setRegion(Region region) {
+        this.navigateRegion = region;
     }
 }

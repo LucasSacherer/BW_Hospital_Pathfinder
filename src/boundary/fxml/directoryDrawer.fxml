@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutY="7.0" prefHeight="600.0" prefWidth="400.0">
@@ -26,8 +25,8 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="279.0" minHeight="0.0" prefHeight="73.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="436.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="458.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="436.0" minHeight="0.0" prefHeight="73.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="456.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Directory" GridPane.columnSpan="3">
@@ -38,17 +37,17 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <JFXButton onAction="#closeDrawer" prefHeight="42.0" prefWidth="60.0" text="Close" GridPane.columnIndex="2">
+            <JFXButton onAction="#closeDrawer" prefHeight="42.0" prefWidth="60.0" text="Close" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <GridPane.margin>
-                  <Insets left="70.0" top="-20.0" />
+                  <Insets top="-20.0" />
                </GridPane.margin>
             </JFXButton>
-            <AnchorPane prefHeight="104.0" prefWidth="315.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <AnchorPane prefHeight="72.0" prefWidth="221.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </GridPane.margin>
                <children>
-                  <VBox alignment="BOTTOM_CENTER" layoutX="11.0" layoutY="22.0" prefHeight="60.0" prefWidth="259.0" style="-fx-background-color: #CCCCCC;">
+                  <VBox alignment="BOTTOM_CENTER" layoutX="14.0" layoutY="13.0" prefHeight="47.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #CCCCCC;">
                      <children>
                         <HBox alignment="CENTER_LEFT">
                            <children>
@@ -60,27 +59,27 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <AnchorPane fx:id="originPane" prefHeight="20.0" prefWidth="263.0" />
+                              <Label fx:id="originLabel" text="Kiosk Location" underline="true" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT">
                            <children>
                               <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
                                  <image>
-                                    <Image url="@../../../../../../IdeaProjects/BW_Hospital_Pathfinder/src/boundary/images/location.png" />
+                                    <Image url="@../images/location.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets left="2.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <AnchorPane fx:id="destinationPane" prefHeight="30.0" prefWidth="269.0" />
+                              <Label fx:id="destinationLabel" text="Select a Destination" underline="true" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-            <JFXButton onAction="#reversePath" text="Reverse" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <JFXButton onAction="#reversePath" text="Reverse" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
