@@ -5,10 +5,9 @@ import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.*;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -23,8 +22,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -205,8 +209,25 @@ public abstract class AbstractMapController {
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
+                JFXProgressBar j = new JFXProgressBar();
+                j.setLayoutX(x1);
+                j.setLayoutY(y1);
+                Circle c = new Circle();
+                c.setCenterY(y1);
+                c.setCenterX(x1);
+                c.setRadius(10);
+                c.setVisible(true);
+                mapPane.getChildren().add(c);
+
+                mapPane.getChildren().add(j);
+                j.setPrefHeight(5);
+                j.toFront();
+
+                double len = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+                double degrees = Math.toDegrees(Math.asin((y2-y1)/len));
+                j.setPrefWidth(len);
+                j.setRotate(-degrees);
                 gc.setLineWidth(7);
-                drawArrow(x1, y1, x2, y2, Color.DARKSLATEGRAY, 10);
             }
         }
 
@@ -218,12 +239,30 @@ public abstract class AbstractMapController {
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-
                 gc.setLineWidth(4);
                 drawArrow(x1, y1, x2, y2, Color.ROYALBLUE, 8);
             }
         }
     }
+
+//    private void drawZArrow(int x1, int y1, int x2, int y2, Color darkslategray, int i) {
+//
+//        double dx = x2 - x1, dy = y2 - y1;
+//        double angle = Math.atan2(dy, dx);
+//        int len = (int) Math.sqrt(dx * dx + dy * dy);
+//
+//        Transform transform = Transform.translate(x1, y1);
+//        transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
+//        gc.setTransform(new Affine(transform));
+//        JFXProgressBar j = new JFXProgressBar();
+//        j.setLayoutX(50);
+//        j.setLayoutY(50);
+//        group.getChildren().add(j);
+//        j.setPrefHeight(len);
+//        j.toFront();
+//        j.setRotate(45);
+////        gc.strokeLine(0, 0, len, 0);
+//    }
 
     void drawArrow(int x1, int y1, int x2, int y2, Color c, int triangleNum) {
         gc.setFill(c);
