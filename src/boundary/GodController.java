@@ -76,6 +76,11 @@ public class GodController {
     final private BestFirst best = new BestFirst(edgeManager);
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
+    /* Drawer */
+    private JFXTreeTableView<AdminLog> textDirectionsTable;
+
+    private TreeTableColumn<AdminLog, String> textDirectionsColumn;
+
 
 
     ///////////////////////
@@ -338,7 +343,7 @@ public class GodController {
 
     private void initializeDrawers() {
         directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController);
-        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController);
+        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController,textDirectionsTable,textDirectionsColumn);
     }
 
     private void initializeMainScene() throws IOException {
