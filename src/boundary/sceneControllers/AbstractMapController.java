@@ -34,6 +34,7 @@ import java.util.List;
 public abstract class AbstractMapController {
     protected ArrayList<ImageButton> buttons = new ArrayList<>();
     protected final double ZOOM = 0.5;
+    protected final double MAX_ZOOM = 2.0;
     protected Group group;
     protected GodController godController;
     protected Label currentFloorNum;
@@ -89,7 +90,7 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap("G"));
         gc = canvas.getGraphicsContext2D();
 //        currentFloorNum.setText(currentFloor);
-//        zoomSlider.setValue(0);
+        zoomSlider.setValue(0);
         mapPane.setScaleX(ZOOM);
         mapPane.setScaleY(ZOOM);
     }
@@ -338,12 +339,10 @@ public abstract class AbstractMapController {
         mapPane.setScaleX(zoomLevel);
         mapPane.setScaleY(zoomLevel);
 
-        // move viewport so that old center remains in the center after the
-        // scaling
         repositionScroller(mapPane, scrollPane, scaleFactor, scrollOffset);
     }
 
-    private Point2D figureScrollOffset(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller) {
+    protected Point2D figureScrollOffset(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller) {
         double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
         double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
         double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
@@ -353,7 +352,7 @@ public abstract class AbstractMapController {
         return new Point2D(scrollXOffset, scrollYOffset);
     }
 
-    private void repositionScroller(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
+    protected void repositionScroller(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
         double scrollXOffset = scrollOffset.getX();
         double scrollYOffset = scrollOffset.getY();
         double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();

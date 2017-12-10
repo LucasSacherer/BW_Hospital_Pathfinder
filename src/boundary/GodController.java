@@ -65,6 +65,7 @@ public class GodController {
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
 
+
     /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,
             nearestPOIController, mapDisplayController, directoryController);
@@ -82,7 +83,6 @@ public class GodController {
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
-
     @FXML
     private JFXHamburger hamburger;
 
@@ -238,8 +238,8 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController);
-        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController);
+        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController);
+        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController, navigationDrawerController);
     }
 
     private void initializeMainScene() throws IOException {
@@ -292,10 +292,7 @@ public class GodController {
     private void openDirectory() throws IOException { }
 
     @FXML
-    private void zoomIn() { mainSceneController.zoomIn(); }
-
-    @FXML
-    private void zoomOut() { mainSceneController.zoomOut(); }
+    private void zoom() { mainSceneController.zoom(); }
 
     @FXML
     private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}

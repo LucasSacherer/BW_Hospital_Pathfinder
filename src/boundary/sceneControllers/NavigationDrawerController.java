@@ -8,10 +8,8 @@ import boundary.AutoCompleteTextField;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
@@ -24,6 +22,7 @@ public class NavigationDrawerController {
     private Object currentPath = null;
     private Node originNode, destinationNode;
     private AutoCompleteTextField originTextField, destinationTextField;
+    private MainSceneController mainSceneController;
 
     @FXML
     private AnchorPane originPane, destinationPane;
@@ -35,8 +34,7 @@ public class NavigationDrawerController {
     private JFXListView listView;
 
 
-    public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc,
-                                      MainSceneController m) {
+    public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc) {
         this.drawer = drawer;
         this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
@@ -48,11 +46,11 @@ public class NavigationDrawerController {
     private void initialize() {
 //        if (originNode == null) originNode = mapNavigationFacade.getDefaultNode();
 
-        originTextField = new AutoCompleteTextField(dc, originNode);
+        originTextField = new AutoCompleteTextField(dc, m, true);
         originPane.getChildren().add(originTextField);
         originTextField.setPromptText("Kiosk Location");
 
-        destinationTextField = new AutoCompleteTextField(dc, destinationNode);
+        destinationTextField = new AutoCompleteTextField(dc, m, false);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
     }
@@ -98,5 +96,9 @@ public class NavigationDrawerController {
     @FXML
     private void nextFloor() {
 
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 }
