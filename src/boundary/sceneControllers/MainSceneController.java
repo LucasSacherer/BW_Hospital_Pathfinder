@@ -175,7 +175,7 @@ public class MainSceneController extends AbstractMapController {
     private void goToCorrectFloor() {
         currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
+//        currentFloorNum.setText(currentFloor);
         refreshCanvas();
     }
 

@@ -300,7 +300,7 @@ public abstract class AbstractMapController {
                 break;
         }
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
+//        currentFloorNum.setText(currentFloor);
         refreshCanvas();
     }
 
@@ -325,7 +325,7 @@ public abstract class AbstractMapController {
                 break;
         }
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
+//        currentFloorNum.setText(currentFloor);
         refreshCanvas();
     }
 
@@ -388,7 +388,7 @@ public abstract class AbstractMapController {
                 public void handle(ActionEvent event) {
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-                    currentFloorNum.setText(currentFloor);
+//                    currentFloorNum.setText(currentFloor);
                     refreshCanvas();
                 }
             });
@@ -396,7 +396,7 @@ public abstract class AbstractMapController {
                 public void handle(MouseEvent evt) {
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-                    currentFloorNum.setText(currentFloor);
+//                    currentFloorNum.setText(currentFloor);
                     refreshCanvas();
                 }
             });
