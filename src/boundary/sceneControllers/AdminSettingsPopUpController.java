@@ -8,7 +8,6 @@ package boundary.sceneControllers;
         import javafx.scene.canvas.GraphicsContext;
 
 public class AdminSettingsPopUpController {
-    private KioskEditor kioskEditor;
     private NodeEditController nodeEditController;
     protected GraphicsContext gc;
 
@@ -17,21 +16,12 @@ public class AdminSettingsPopUpController {
 
     @FXML
     private void setDistanceScale(){
-        setScale(distanceScale);
+        nodeEditController.setScale(distanceScale);
     }
 
     public AdminSettingsPopUpController(NodeEditController nodeEditController ) {
         this.nodeEditController = nodeEditController;
     }
-
-    public void initializeKioskEditor (JFXTextField setKioskX, JFXTextField setKioskY){
-        this.kioskEditor = new KioskEditor(gc, nodeEditController, setKioskX, setKioskY);
-    }
-
-    public void setScale(JFXTextField distanceScale) {
-        kioskEditor.setScale(distanceScale);
-    }
-
 
 
 }

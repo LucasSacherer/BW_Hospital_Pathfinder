@@ -61,6 +61,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
+    final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,
@@ -705,7 +706,7 @@ public class GodController {
     @FXML
     private void toSettingsPopUp() throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/adminSettings.fxml"));
-        fxmlLoader.setController(new AdminSettingsPopUpController());
+        fxmlLoader.setController(adminSettingsPopUpController);
         Parent root2 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setTitle("Admin Settings");
