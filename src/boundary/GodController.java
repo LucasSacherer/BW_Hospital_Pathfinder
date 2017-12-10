@@ -6,10 +6,7 @@ import Database.*;
 import DatabaseSetup.DatabaseGargoyle;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
-import Entity.AdminLog;
-import Entity.ErrorController;
-import Entity.Node;
-import Entity.User;
+import Entity.*;
 import MapNavigation.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
@@ -47,6 +44,7 @@ public class GodController {
     final private CleanUpManager cleanupManager = new CleanUpManager(databaseGargoyle, nodeManager, userManager);
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
     final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
+    final private CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle,nodeManager,userManager);
 
 
     /* Controllers */
@@ -78,15 +76,114 @@ public class GodController {
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
 
+
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
+
+
 
     @FXML
     private JFXButton directoryButton;
 
     @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
+
+    /* Admin Request */
+
+    @FXML
+    private ImageView requestsImageView;
+
+    @FXML
+    private JFXButton deleteRequestIntButton;
+
+    @FXML
+    private JFXButton deleteAllRequestsIntColumn;
+
+    @FXML
+    private JFXTreeTableView<InterpreterRequest> requestsIntTable = new JFXTreeTableView<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> requestIntNameColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> timeCreatedIntColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> timeCompleteIntColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> requestTypeIntColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> requestDescriptionIntColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> requestLocationIntColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<InterpreterRequest, String> requestUserIntColumn = new TreeTableColumn<>();
+
+    @FXML
+    private JFXButton deleteRequestSpillButton;
+
+    @FXML
+    private JFXButton deleteAllRequestsSpillButton;
+
+    @FXML
+    private JFXTreeTableView<CleanUpRequest> requestsTableSpills = new JFXTreeTableView<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> requestNameSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> timeCreatedSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> timeCompletedSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> requestTypeSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> requestDescriptionSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> requestLocationSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<CleanUpRequest, String> requestUserSpillsColumn = new TreeTableColumn<>();
+
+    @FXML
+    private JFXButton deleteRequestFoodButton;
+
+    @FXML
+    private JFXButton deleteAllRequestsFoodButton;
+
+    @FXML
+    private JFXTreeTableView<FoodRequest> requestsTableFood = new JFXTreeTableView<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> requestNameFoodColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> timeCreatedFoodColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> timeCompletedFoodColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> requestTypeFoodColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> requestDescriptionFoodColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> requestLocationFoodColumn = new TreeTableColumn<>();
+
+    @FXML
+    private TreeTableColumn<FoodRequest, String> requestUserFoodColumn = new TreeTableColumn<>();
+
 
     /* Scene Panes */
     @FXML
@@ -154,7 +251,7 @@ public class GodController {
     /* Admin Logs */
 
     @FXML
-    private TreeTableView<AdminLog> adminLogs = new TreeTableView<AdminLog>();
+    private JFXTreeTableView<AdminLog> adminLogs = new JFXTreeTableView<AdminLog>();
 
     @FXML
     private TreeTableColumn<AdminLog,String> dateLogged = new TreeTableColumn<AdminLog,String>(),
@@ -207,6 +304,8 @@ public class GodController {
     boolean firstTime = true;
 
     private Stage primaryStage;
+
+
     public GodController(Stage primaryStage) { this.primaryStage = primaryStage; }
 
     @FXML
@@ -255,7 +354,20 @@ public class GodController {
                 adminLogged, logContent, adminLogManager,userManager);
     }
 
-    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController(); }
+    private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController( interpreterManager,  foodManager,
+             cleanUpManager, requestsIntTable,
+              requestIntNameColumn,   timeCreatedIntColumn,
+              timeCompleteIntColumn,  requestTypeIntColumn,
+             requestDescriptionIntColumn,  requestLocationIntColumn,
+             requestUserIntColumn,  requestsTableSpills,
+             requestNameSpillsColumn,  timeCreatedSpillsColumn,
+             timeCompletedSpillsColumn,  requestTypeSpillsColumn,
+             requestDescriptionSpillsColumn,  requestLocationSpillsColumn,
+             requestUserSpillsColumn,  requestsTableFood,
+             requestNameFoodColumn,  timeCreatedFoodColumn,
+             timeCompletedFoodColumn,   requestTypeFoodColumn,
+             requestDescriptionFoodColumn,  requestLocationFoodColumn,
+             requestUserFoodColumn); }
 
     private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
 
@@ -414,82 +526,26 @@ public class GodController {
     ///////////////////
     /* Request Admin */
     ///////////////////
-
-    //Spills
     @FXML
-    private void displayARSpillsOnMap() throws IOException { adminRequestController.displayARSpillsOnMap(); }
+    public void deleteSpill() {adminRequestController.deleteSpill();}
 
     @FXML
-    private void addARSpills() throws IOException { adminRequestController.addARSpills(); }
+    public void deleteAllSpills() {adminRequestController.deleteAllSpills();}
 
     @FXML
-    private void cancelARSpills() throws IOException { adminRequestController.cancelARSpills(); }
+    public void deleteFood() {adminRequestController.deleteFood();}
 
     @FXML
-    private void editARSpills() throws IOException { adminRequestController.editARSpills(); }
+    public void deleteAllFoods() {adminRequestController.deleteAllFoods();}
 
     @FXML
-    private void deleteARSpills() throws IOException { adminRequestController.deleteARSpills(); }
+    public void deleteInterpeter() {adminRequestController.deleteInterpeter();}
 
     @FXML
-    private void deleteAllARSpills() throws IOException { adminRequestController.deleteAllARSpills(); }
+    public void deleteAllInterpeter() {adminRequestController.deleteAllInterpeter();}
 
-    //Food
-    @FXML
-    private void displayARFoodOnMap(MouseEvent e) throws IOException { adminRequestController.displayARFoodOnMap(); }
 
-    @FXML
-    private void addARFood() throws IOException { adminRequestController.addARFood(); }
 
-    @FXML
-    private void cancelARFood() throws IOException { adminRequestController.cancelARFood(); }
-
-    @FXML
-    private void editARFood() throws IOException { adminRequestController.editARFood(); }
-
-    @FXML
-    private void deleteARFood() throws IOException { adminRequestController.deleteARFood(); }
-
-    @FXML
-    private void deleteAllARFood() throws IOException { adminRequestController.deleteAllARFood(); }
-
-    @FXML
-    public void editARMenuFoodPopUp() throws  IOException { adminRequestController.editARMenuFoodPopUp(); }
-
-    @FXML
-    private void addARMenuFood() throws IOException { adminRequestController.addARMenuFood(); }
-
-    @FXML
-    private void cancelARMenuFood() throws IOException { adminRequestController.cancelARMenuFood(); }
-
-    @FXML
-    private void editARMenuFood() throws IOException { adminRequestController.editARMenuFood(); }
-
-    @FXML
-    private void deleteARMenuFood() throws IOException { adminRequestController.deleteARMenuFood(); }
-
-    @FXML
-    private void deleteAllARMenuFood() throws IOException { adminRequestController.deleteAllARMenuFood(); }
-
-    //Interpreter
-
-    @FXML
-    private void displayARInterpreterOnMap() throws IOException { adminRequestController.displayARInterpreterOnMap(); }
-
-    @FXML
-    private void addARInterpreter() throws IOException { adminRequestController.addARInterpreter(); }
-
-    @FXML
-    private void cancelARInterpreter() throws IOException { adminRequestController.cancelARInterpreter(); }
-
-    @FXML
-    private void editARInterpreter() throws IOException { adminRequestController.editARInterpreter(); }
-
-    @FXML
-    private void deleteARInterpreter() throws IOException { adminRequestController.deleteARInterpreter(); }
-
-    @FXML
-    private void deleteAllARInterpreter() throws IOException { adminRequestController.deleteAllARInterpreter(); }
 
     /////////////////
     /* Map Editing */
@@ -662,8 +718,8 @@ public class GodController {
 
     @FXML
     private void adminHubtoRequest() throws IOException { //TODO this scene needs help
-        // sceneSwitcher.toAdminRequests(this, adminHubPane);
-        // adminRequestController.initializeScene();
+         sceneSwitcher.toAdminRequests(this, adminHubPane);
+         adminRequestController.initializeScene();
     }
 
     @FXML

@@ -1,9 +1,11 @@
 package Entity;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class FoodRequest implements Request{
+public class FoodRequest extends RecursiveTreeObject<FoodRequest> implements Request{
     final private String name;
     final private LocalDateTime timeCreated;
     final private LocalDateTime timeCompleted;
