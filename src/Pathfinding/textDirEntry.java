@@ -9,16 +9,45 @@ public class textDirEntry {
     String direction;
     String distance;
     String instruction;
+    String symbol;
 
     textDirEntry(Node node, Node nextNode, String direction, String distance){
         this.currNode = node;
         this.nextNode = nextNode;
         this.direction = direction;
         this.distance = distance;
+
+        //set symbol based on direction, for choosing icon later
+        switch (direction) {
+            case "Take a hard right and continue":
+                symbol = "hardRight";
+                break;
+            case "Turn right and continue":
+                symbol = "right";
+                break;
+            case "Take a slight right and continue":
+                symbol = "slightRight";
+                break;
+            case "Take a hard left and continue":
+                symbol = "hardLeft";
+                break;
+            case "Turn left and continue":
+                symbol = "left";
+                break;
+            case "Take a slight left and continue":
+                symbol = "slightLeft";
+                break;
+            case "Continue":
+                symbol = "continue";
+                break;
+        }
+
         //instructions are written based on this node and the next node
         //instructions for switching floors
         if(!node.getFloor().equals(nextNode.getFloor())){
             this.instruction = "Take " + sNameNode(node) + " to floor " + nextNode.getFloor() + ".";
+            //set symbol to the next floor if changing floors
+            this.symbol = nextNode.getFloor();
             //instructions for switching buildings
         } else if (!node.getBuilding().equals(nextNode.getBuilding())){
             this.instruction = "Exit " + node.getBuilding() + " through " + sNameNode(node) + " and enter " + nextNode.getBuilding() + " through "
