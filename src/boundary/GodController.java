@@ -289,12 +289,13 @@ public class GodController {
     ////////////////
 
     @FXML
-    private void reversePath() throws IOException { mainSceneController.reversePath(); }
-    @FXML
     private void openDirectory() throws IOException { }
 
     @FXML
-    private void mainZoom() { mainSceneController.zoom(); }
+    private void zoomIn() { mainSceneController.zoomIn(); }
+
+    @FXML
+    private void zoomOut() { mainSceneController.zoomOut(); }
 
     @FXML
     private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
@@ -312,10 +313,25 @@ public class GodController {
     private void snapToNode(MouseEvent m) { mainSceneController.snapToNode(m); }
 
     @FXML
-    private void floorDown() throws IOException, SQLException { mainSceneController.floorDown(); }
+    private void floorL2() throws IOException, SQLException { mainSceneController.floorL2(); }
 
     @FXML
-    private void floorUp() throws IOException, SQLException { mainSceneController.floorUp(); }
+    private void floorL1() throws IOException, SQLException { mainSceneController.floorL1(); }
+
+    @FXML
+    private void floorG() throws IOException, SQLException { mainSceneController.floorG(); }
+
+    @FXML
+    private void floor1() throws IOException, SQLException { mainSceneController.floor1(); }
+
+    @FXML
+    private void floor2() throws IOException, SQLException { mainSceneController.floor2(); }
+
+    @FXML
+    private void floor3() throws IOException, SQLException { mainSceneController.floor3(); }
+
+    @FXML
+    private void streetView() { mainSceneController.streetView(); }
 
     @FXML
     private void clickOnMap(MouseEvent m) { mainSceneController.clickOnMap(m); }
