@@ -5,10 +5,12 @@ import Entity.Node;
 import Database.NodeManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
+import java.util.TreeMap;
 
 public class DirectoryController {
     private NodeManager nm;
@@ -21,9 +23,9 @@ public class DirectoryController {
 
     /**
      * Gets all visitable nodes from the database and returns a directory of nodes categorized by nodetype
-     * @return A categorized Directory (HashMap)
+     * @return A categorized Directory (TreeMap)
      */
-     HashMap<String, ObservableList<Node>> getDirectory(){
+     TreeMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
         List<Node> visitableNodes = new ArrayList<Node>();
 
@@ -42,9 +44,11 @@ public class DirectoryController {
      * @param visitableNodes All nodes that are visitable (pulled from database in NodeManager)
      * @return The categorized directory
      */
-    protected HashMap<String, ObservableList<Node>> formatNodeList(List<Node> visitableNodes) {
+    protected TreeMap<String, ObservableList<Node>> formatNodeList(List<Node> visitableNodes) {
         //Initialize the final directory, and the lists that make up the directory
-        HashMap<String, ObservableList<Node>> directory = new HashMap<>();
+        TreeMap<String, ObservableList<Node>> directory = new TreeMap<>();
+        ObservableList<Node> all = FXCollections.observableArrayList();
+        all.addAll(nm.getAllNodes());
         ObservableList<Node> elev = FXCollections.observableArrayList();
         ObservableList<Node> rest = FXCollections.observableArrayList();
         ObservableList<Node> stai = FXCollections.observableArrayList();
@@ -73,6 +77,7 @@ public class DirectoryController {
         }
 
         //Combine the lists into the final directory and return it
+        directory.put("All", all);
         directory.put("Elevators", elev);
         directory.put("Restrooms", rest);
         directory.put("Stairs", stai);
@@ -91,7 +96,7 @@ public class DirectoryController {
      * @param nodeList TESTING ONLY
      * @return TESTING ONLY
      */
-    public HashMap<String, ObservableList<Node>> formatNodeListTester(List<Node> nodeList) {
+    public TreeMap<String, ObservableList<Node>> formatNodeListTester(List<Node> nodeList) {
         return formatNodeList(nodeList);
     }
 
@@ -104,5 +109,9 @@ public class DirectoryController {
     Node getDefaultNode(){
         String defaultNode = settingsManager.getSetting("Default Node");
         return nm.getNode(defaultNode);
+    }
+
+    public List<Node> getAllNodes() {
+        return nm.getAllNodes();
     }
 }

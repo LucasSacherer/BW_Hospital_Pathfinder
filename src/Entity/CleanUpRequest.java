@@ -1,8 +1,10 @@
 package Entity;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.time.LocalDateTime;
 
-public class CleanUpRequest implements Request{
+public class CleanUpRequest extends RecursiveTreeObject<CleanUpRequest> implements Request{
     final private String name;
     final private LocalDateTime timeCreated;
     final private LocalDateTime timeCompleted;

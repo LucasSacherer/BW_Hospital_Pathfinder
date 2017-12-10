@@ -1,10 +1,11 @@
 package Entity;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDateTime;
 
-public class AdminLog {
+public class AdminLog extends RecursiveTreeObject<AdminLog> {
     private String user;
     private String action;
     private LocalDateTime time;
