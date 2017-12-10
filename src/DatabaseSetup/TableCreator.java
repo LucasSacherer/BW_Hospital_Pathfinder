@@ -230,6 +230,9 @@ public class TableCreator {
         }
     }
 
+    /**
+     * Create PATHFINDINGLOG table
+     */
     public void createPathfindingLogTable() {
         try{
             statement.execute("CREATE TABLE pathfindinglog (\n" +
@@ -237,9 +240,29 @@ public class TableCreator {
                     "time TIMESTAMP NOT NULL, \n" +
                     "destination VARCHAR(5) NOT NULL, \n" +
                     "pathID VARCHAR(250) NOT NULL\n)");
-            System.out.println("PathfindingLog Table created!");
+            System.out.println("PathfindingLog table created!");
         } catch (SQLException e){
             System.out.println("Pathfinding table already exists");
+            //e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create GOOGLENODE table
+     */
+    public void createGoogleNodeTable() {
+        try {
+            statement.execute("CREATE TABLE googlenode (\n" +
+                    "name VARCHAR(250) NOT NULL, \n" +
+                    "url VARCHAR(1000) NOT NULL, \n" +
+                    "xcoord INTEGER NOT NULL, \n" +
+                    "ycoord INTEGER NOT NULL, \n" +
+                    "floor VARCHAR(250) NOT NULL\n)");
+            System.out.println("GoogleNode table created!");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('FrancisStreet','https://goo.gl/maps/CB3RET9g6Gq',1451, 1616, 'G')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('BCHSouth','https://goo.gl/maps/o1jTB9vEJW42',1955, 33, '1')");
+        } catch (SQLException e) {
+            System.out.println("GoogleNode table already exists");
             //e.printStackTrace();
         }
     }
