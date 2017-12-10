@@ -37,9 +37,8 @@ public class textDirEntry {
             case "Take a slight left and continue":
                 symbol = "slightLeft";
                 break;
-            case "Continue":
+            default:
                 symbol = "continue";
-                break;
         }
 
         //instructions are written based on this node and the next node

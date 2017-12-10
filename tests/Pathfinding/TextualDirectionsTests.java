@@ -83,6 +83,7 @@ public class TextualDirectionsTests {
         path.add(a4);
 
         List<List<textDirEntry>> results = textualDirections.getDir(path);
+        assertEquals(results.get(0).get(1).symbol, "right");
 
         System.out.println(textualDirections.toStringTextDir(results));
     }
