@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
@@ -16,43 +17,46 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutY="7.0" prefHeight="600.0" prefWidth="400.0">
+      <GridPane layoutY="7.0" prefWidth="400.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="84.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="183.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="80.0" prefWidth="80.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="279.0" minHeight="0.0" prefHeight="73.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="436.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="458.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Directions" GridPane.columnSpan="3">
+            <Label text="Directions" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="140.0" />
+                  <Insets />
                </GridPane.margin>
             </Label>
-            <JFXButton onAction="#closeDrawer" prefHeight="42.0" prefWidth="60.0" text="Close" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <JFXButton alignment="TOP_RIGHT" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="80.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
             </JFXButton>
-            <AnchorPane prefHeight="104.0" prefWidth="315.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
                <children>
-                  <VBox alignment="BOTTOM_CENTER" layoutX="11.0" layoutY="22.0" prefHeight="60.0" prefWidth="259.0" style="-fx-background-color: #CCCCCC;">
+                  <VBox alignment="CENTER" layoutX="11.0" layoutY="22.0" maxWidth="260.0" minHeight="60.0" minWidth="260.0" prefHeight="60.0" prefWidth="260.0" style="-fx-background-color: #CCCCCC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                            <children>
-                              <ImageView fitHeight="15.0" fitWidth="15.0" mouseTransparent="true">
+                              <ImageView fitHeight="15.0" fitWidth="15.0" mouseTransparent="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/circle-outline.png" />
                                  </image>
@@ -60,12 +64,12 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <AnchorPane fx:id="originPane" prefHeight="20.0" prefWidth="263.0" />
+                              <AnchorPane fx:id="originPane" prefHeight="30.0" prefWidth="263.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                            <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true">
+                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/location.png" />
                                  </image>
@@ -73,25 +77,45 @@
                                     <Insets left="2.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <AnchorPane fx:id="destinationPane" prefHeight="30.0" prefWidth="269.0" />
+                              <AnchorPane fx:id="destinationPane" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="269.0" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-            <JFXButton onAction="#reversePath" text="Reverse" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </JFXButton>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#reversePath" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/switch.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" translateX="3.0">
+                           <image>
+                              <Image url="@../images/Icons/Navagate.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
             <AnchorPane style="-fx-background-radius: 25;" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="474.0" prefWidth="300.0" style="-fx-background-radius: 25;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="CENTER" spacing="50.0">
                            <children>
-                              <JFXButton buttonType="RAISED" onAction="#allFloors" prefHeight="25.0" prefWidth="45.0" text="All" />
+                              <JFXButton buttonType="FLAT" onAction="#allFloors" prefHeight="25.0" prefWidth="45.0" text="All" />
                               <ButtonBar fx:id="buttonBar" prefHeight="40.0" prefWidth="200.0">
                                 <buttons>
                                     <JFXButton onAction="#previousFloor" text="Previous" />
@@ -101,12 +125,15 @@
                               </ButtonBar>
                            </children>
                         </HBox>
-                        <AnchorPane style="-fx-border-radius: 25;" />
-                        <JFXTreeTableView fx:id="textDirectionsTable">
-                           <columns>
-                              <TreeTableColumn fx:id="textDirectionsColumn" prefWidth="379.0" text="Text Directions" />
-                           </columns>
-                        </JFXTreeTableView>
+                        <AnchorPane>
+                           <children>
+                              <JFXTreeTableView fx:id="textDirectionsTable" prefHeight="600.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                    <TreeTableColumn fx:id="textDirectionsColumn" prefWidth="379.0" text="Text Directions" />
+                                 </columns>
+                              </JFXTreeTableView>
+                           </children>
+                        </AnchorPane>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -114,7 +141,10 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <JFXButton onAction="#navigate" text="Navigate (Please move me)" GridPane.columnSpan="2" />
+            <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" onMouseClicked="#backToDirectory" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin></JFXHamburger>
          </children>
       </GridPane>
    </children>

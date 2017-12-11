@@ -14,6 +14,7 @@ import Request.RequestCleanupController;
 import Request.RequestFoodController;
 import Request.RequestInterpreterController;
 import boundary.sceneControllers.*;
+import boundary.sceneControllers.AdminSettingsPopUpController;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import sun.security.x509.AVA;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -62,6 +65,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
+    //final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,
@@ -82,7 +86,6 @@ public class GodController {
     private TreeTableColumn<AdminLog, String> textDirectionsColumn;
 
 
-
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
@@ -95,9 +98,6 @@ public class GodController {
 
     @FXML
     private JFXButton directoryButton;
-
-    @FXML
-    private AnchorPane searchAnchor;
 
     @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
@@ -208,10 +208,7 @@ public class GodController {
 
 
     @FXML
-    private AnchorPane textPane, directoryPane; // search bar, directory
-
-    @FXML
-    private JFXComboBox originField;
+    private AnchorPane searchAnchor, directoryPane; // search bar, directory
 
     /* Pathfinding Scene */
     @FXML
@@ -249,17 +246,20 @@ public class GodController {
             setKioskY, editNodeTypeField, shortNameAdd, shortNameEdit, longNameAdd, longNameEdit, requestDescription,
             edgeXStartAdd, edgeYStartAdd, edgeXEndAdd,edgeYEndAdd, edgeXStartRemove, edgeYStartRemove, edgeXEndRemove,
             edgeYEndRemove, editNodeID, edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten,
-            edgeYEndStraighten, distanceScale;;
+            edgeYEndStraighten;
 
     @FXML
     private JFXListView allStaffRequests, requestsIMade;
 
     /* Login Screen */
     @FXML
-    private JFXTextField staffLoginText, adminLoginText;
+    private JFXTextField loginText;
 
     @FXML
-    private JFXPasswordField staffPasswordText, adminPasswordText;
+    private JFXPasswordField passwordText;
+
+    @FXML
+    private JFXToggleButton loginAdminToggle;
 
     /* Admin Logs */
 
@@ -314,6 +314,7 @@ public class GodController {
     DirectoryDrawerController directoryDrawerController;
     NavigationDrawerController navigationDrawerController;
     StaffRequestHubController staffRequestHubController;
+    AdminSettingsPopUpController adminSettingsPopUpController;
 
     boolean firstTime = true;
 
@@ -336,20 +337,22 @@ public class GodController {
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
         initializeStaffRequestHubScene();
+        initializeAdminSettingsPopUpController();
         firstTime = false;
     }
 
     private void initializeDrawers() {
-        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController,textDirectionsTable,textDirectionsColumn);
-        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController, navigationDrawerController);
+        navigationDrawerController = new NavigationDrawerController(drawer, directoryController, textDirectionsTable, textDirectionsColumn);
+        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade);
     }
 
     private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, searchAnchor, zoomSlider, directoryController, directoryDrawerController,
-                navigationDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
+                searchAnchor, zoomSlider, directoryController, directoryDrawerController,
+                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
+
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(this, mapNavigationFacade, pathFindingFacade,
@@ -373,7 +376,7 @@ public class GodController {
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController( interpreterManager,  foodManager,
              cleanUpManager, requestsIntTable,
-              requestIntNameColumn,   timeCreatedIntColumn,
+                requestIntNameColumn,   timeCreatedIntColumn,
               timeCompleteIntColumn,  requestTypeIntColumn,
              requestDescriptionIntColumn,  requestLocationIntColumn,
              requestUserIntColumn,  requestsTableSpills,
@@ -396,6 +399,9 @@ public class GodController {
     }
 
     private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
+
+    private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
+            pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
 
     /** Organize Functions by Scene **/
 
@@ -631,29 +637,11 @@ public class GodController {
     @FXML
     private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
-    @FXML
-    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
-
-    @FXML
-    private void selectBeam() { pathFindingFacade.setPathfinder(beam); }
-
-    @FXML
-    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
-
-    @FXML
-    private void selectDepth() { pathFindingFacade.setPathfinder(depth); }
-
-    @FXML
-    private void selectBest() { pathFindingFacade.setPathfinder(best);}
-
-    @FXML
-    private void selectDijkstras() { pathFindingFacade.setPathfinder(dijkstra);}
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
-    @FXML
-    private void setDistanceScale(){ adminMapController.setScale(distanceScale); }
+
 
     @FXML
     private void exportNodes() { adminMapController.exportNodes(); }
@@ -711,11 +699,23 @@ public class GodController {
     private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
 
     @FXML
-    private void goToRequests() throws IOException {
-        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.toStaffRequestHub(this, loginPane);
-            staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
-        } else errorController.showError("Invalid credentials! Please try again.");
+    private void goToHub() throws IOException{
+        if (loginAdminToggle.isSelected()){
+            if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
+                databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
+                adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
+                System.out.println(databaseGargoyle.getCurrentUser().getUsername());
+                sceneSwitcher.toAdminHub(this, loginPane);
+                adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
+            } else errorController.showError("Invalid credentials! Please try again.");
+            }
+        else{
+            if (userLoginController.authenticateStaff(loginText.getText(), passwordText.getText())){
+                sceneSwitcher.toStaffRequestHub(this, loginPane);
+                staffRequestHubController.setUser(userManager.getUserByName(loginText.getText()));
+            } else errorController.showError("Invalid credentials! Please try again.");
+
+        }
     }
 
     @FXML
@@ -726,24 +726,12 @@ public class GodController {
     }
 
     @FXML
-    private void goToAdminHub() throws IOException {
-        if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
-            databaseGargoyle.setCurrentUser(userManager.getUserByName(adminLoginText.getText()));
-            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
-            System.out.println(databaseGargoyle.getCurrentUser().getUsername());
-            sceneSwitcher.toAdminHub(this, loginPane);
-            adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
-        } else errorController.showError("Invalid credentials! Please try again.");
-
-    }
-
-    @FXML
     private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
 
     @FXML
     private void adminHubtoLog() throws IOException {
         sceneSwitcher.toAdminLog(this, adminHubPane);
-        adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
+        adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
     }
 
     @FXML
@@ -782,6 +770,17 @@ public class GodController {
 
     @FXML
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
+
+    @FXML
+    private void toSettingsPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/adminSettings.fxml"));
+        fxmlLoader.setController(adminSettingsPopUpController);
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Admin Settings");
+        stage.setScene(new Scene(root2, 600, 800));
+        stage.show();
+    }
 
     @FXML
     private void toAboutPopUp() throws IOException{

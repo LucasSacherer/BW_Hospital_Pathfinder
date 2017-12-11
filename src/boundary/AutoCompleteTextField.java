@@ -5,6 +5,7 @@ import MapNavigation.DirectoryController;
 import MapNavigation.SearchEngine;
 import boundary.sceneControllers.MainSceneController;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.org.apache.xalan.internal.xsltc.dom.NodeSortRecord;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import sun.applet.Main;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,10 +34,9 @@ public class AutoCompleteTextField extends JFXTextField
     private boolean originFlag;
 
     /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField(DirectoryController dc, MainSceneController mainSceneController, boolean originFlag) {
+    public AutoCompleteTextField(DirectoryController dc, boolean originFlag) {
         super();
         this.originFlag = originFlag;
-        this.mainSceneController = mainSceneController;
         setHover(true);
         searchEngine = new SearchEngine(dc);
         entriesPopup = new ContextMenu();
@@ -70,7 +71,6 @@ public class AutoCompleteTextField extends JFXTextField
                 entriesPopup.hide();
             }
         });
-
     }
 
     /**
@@ -95,6 +95,7 @@ public class AutoCompleteTextField extends JFXTextField
                     if (originFlag) mainSceneController.setOrigin(result);
                     else mainSceneController.setDestination(result);
                     entriesPopup.hide();
+                    mainSceneController.hide();
                 }
             });
             menuItems.add(item);
@@ -104,5 +105,9 @@ public class AutoCompleteTextField extends JFXTextField
     }
     public void hide() {
         entriesPopup.hide();
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 }
