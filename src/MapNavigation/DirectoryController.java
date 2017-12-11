@@ -52,7 +52,6 @@ public class DirectoryController {
         all.addAll(visitableNodes);
         ObservableList<Node> elev = FXCollections.observableArrayList();
         ObservableList<Node> rest = FXCollections.observableArrayList();
-        ObservableList<Node> stai = FXCollections.observableArrayList();
         ObservableList<Node> dept = FXCollections.observableArrayList();
         ObservableList<Node> labs = FXCollections.observableArrayList();
         ObservableList<Node> info = FXCollections.observableArrayList();
@@ -66,7 +65,6 @@ public class DirectoryController {
             switch (node.getNodeType()) {
                 case "ELEV": elev.add(node); break;
                 case "REST": rest.add(node); break;
-                case "STAI": stai.add(node); break;
                 case "DEPT": dept.add(node); break;
                 case "LABS": labs.add(node); break;
                 case "INFO": info.add(node); break;
@@ -81,7 +79,6 @@ public class DirectoryController {
         directory.put("All", all);
         directory.put("Elevators", elev);
         directory.put("Restrooms", rest);
-        directory.put("Stairs", stai);
         directory.put("Departments", dept);
         directory.put("Labs", labs);
         directory.put("Information Desks", info);
