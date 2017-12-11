@@ -14,6 +14,7 @@ import Request.RequestCleanupController;
 import Request.RequestFoodController;
 import Request.RequestInterpreterController;
 import boundary.sceneControllers.*;
+import boundary.sceneControllers.AdminSettingsPopUpController;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,6 +64,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
+    //final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
     final private MapNavigationFacade mapNavigationFacade = new MapNavigationFacade(clickController,
@@ -81,7 +83,6 @@ public class GodController {
     private JFXTreeTableView<AdminLog> textDirectionsTable;
 
     private TreeTableColumn<AdminLog, String> textDirectionsColumn;
-
 
 
     ///////////////////////
@@ -244,7 +245,7 @@ public class GodController {
             setKioskY, editNodeTypeField, shortNameAdd, shortNameEdit, longNameAdd, longNameEdit, requestDescription,
             edgeXStartAdd, edgeYStartAdd, edgeXEndAdd,edgeYEndAdd, edgeXStartRemove, edgeYStartRemove, edgeXEndRemove,
             edgeYEndRemove, editNodeID, edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten,
-            edgeYEndStraighten, distanceScale;;
+            edgeYEndStraighten;
 
     @FXML
     private JFXListView allStaffRequests, requestsIMade;
@@ -309,6 +310,7 @@ public class GodController {
     DirectoryDrawerController directoryDrawerController;
     NavigationDrawerController navigationDrawerController;
     StaffRequestHubController staffRequestHubController;
+    AdminSettingsPopUpController adminSettingsPopUpController;
 
     boolean firstTime = true;
 
@@ -331,6 +333,7 @@ public class GodController {
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
         initializeStaffRequestHubScene();
+        initializeAdminSettingsPopUpController();
         firstTime = false;
     }
 
@@ -369,7 +372,7 @@ public class GodController {
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController( interpreterManager,  foodManager,
              cleanUpManager, requestsIntTable,
-              requestIntNameColumn,   timeCreatedIntColumn,
+                requestIntNameColumn,   timeCreatedIntColumn,
               timeCompleteIntColumn,  requestTypeIntColumn,
              requestDescriptionIntColumn,  requestLocationIntColumn,
              requestUserIntColumn,  requestsTableSpills,
@@ -392,6 +395,9 @@ public class GodController {
     }
 
     private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
+
+    private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
+            pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
 
     /** Organize Functions by Scene **/
 
@@ -627,29 +633,11 @@ public class GodController {
     @FXML
     private void setDefaultNode() { adminMapController.setKioskLocation(); }
 
-    @FXML
-    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
-
-    @FXML
-    private void selectBeam() { pathFindingFacade.setPathfinder(beam); }
-
-    @FXML
-    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
-
-    @FXML
-    private void selectDepth() { pathFindingFacade.setPathfinder(depth); }
-
-    @FXML
-    private void selectBest() { pathFindingFacade.setPathfinder(best);}
-
-    @FXML
-    private void selectDijkstras() { pathFindingFacade.setPathfinder(dijkstra);}
 
     @FXML
     private void resetDefaultNode() { adminMapController.resetKioskScene(); } //TODO
 
-    @FXML
-    private void setDistanceScale(){ adminMapController.setScale(distanceScale); }
+
 
     @FXML
     private void exportNodes() { adminMapController.exportNodes(); }
@@ -778,6 +766,17 @@ public class GodController {
 
     @FXML
     private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
+
+    @FXML
+    private void toSettingsPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/adminSettings.fxml"));
+        fxmlLoader.setController(adminSettingsPopUpController);
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Admin Settings");
+        stage.setScene(new Scene(root2, 600, 800));
+        stage.show();
+    }
 
     @FXML
     private void toAboutPopUp() throws IOException{
