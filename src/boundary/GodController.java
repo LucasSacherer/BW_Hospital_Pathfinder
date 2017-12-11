@@ -30,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import sun.security.x509.AVA;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -252,10 +253,13 @@ public class GodController {
 
     /* Login Screen */
     @FXML
-    private JFXTextField staffLoginText, adminLoginText;
+    private JFXTextField loginText;
 
     @FXML
-    private JFXPasswordField staffPasswordText, adminPasswordText;
+    private JFXPasswordField passwordText;
+
+    @FXML
+    private JFXToggleButton loginAdminToggle;
 
     /* Admin Logs */
 
@@ -695,11 +699,23 @@ public class GodController {
     private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
 
     @FXML
-    private void goToRequests() throws IOException {
-        if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
-            sceneSwitcher.toStaffRequestHub(this, loginPane);
-            staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
-        } else errorController.showError("Invalid credentials! Please try again.");
+    private void goToHub() throws IOException{
+        if (loginAdminToggle.isSelected()){
+            if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
+                databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
+                adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
+                System.out.println(databaseGargoyle.getCurrentUser().getUsername());
+                sceneSwitcher.toAdminHub(this, loginPane);
+                adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
+            } else errorController.showError("Invalid credentials! Please try again.");
+            }
+        else{
+            if (userLoginController.authenticateStaff(loginText.getText(), passwordText.getText())){
+                sceneSwitcher.toStaffRequestHub(this, loginPane);
+                staffRequestHubController.setUser(userManager.getUserByName(loginText.getText()));
+            } else errorController.showError("Invalid credentials! Please try again.");
+
+        }
     }
 
     @FXML
@@ -710,24 +726,12 @@ public class GodController {
     }
 
     @FXML
-    private void goToAdminHub() throws IOException {
-        if (userLoginController.authenticateAdmin(adminLoginText.getText(), adminPasswordText.getText())) {
-            databaseGargoyle.setCurrentUser(userManager.getUserByName(adminLoginText.getText()));
-            adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
-            System.out.println(databaseGargoyle.getCurrentUser().getUsername());
-            sceneSwitcher.toAdminHub(this, loginPane);
-            adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
-        } else errorController.showError("Invalid credentials! Please try again.");
-
-    }
-
-    @FXML
     private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
 
     @FXML
     private void adminHubtoLog() throws IOException {
         sceneSwitcher.toAdminLog(this, adminHubPane);
-        adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
+        adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
     }
 
     @FXML
