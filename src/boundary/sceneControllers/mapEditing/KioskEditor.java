@@ -57,11 +57,6 @@ public class KioskEditor {
             reset();
         }
     }
-    public void setScale(JFXTextField distanceScale){
-           nodeEditController.setScale(distanceScale);
-    }
-
-
 
     public void reset() {
         kioskX.clear();
