@@ -52,13 +52,6 @@ public class NavigationDrawerController implements NodeReceiver{
 //        directions.setItems(textualDirections.getTextDirections(mainSceneController.getCurrentPath()));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
-        this.mainSceneController = mainSceneController;
-    }
-
-    public void setMainSceneController(MainSceneController mainSceneController) {
-        this.mainSceneController = mainSceneController;
-        originTextField.setNodeReceiver(mainSceneController);
-        destinationTextField.setNodeReceiver(mainSceneController);
     }
 
     @FXML
@@ -66,16 +59,22 @@ public class NavigationDrawerController implements NodeReceiver{
 //        if (originNode == null) originNode = mapNavigationFacade.getDefaultNode();
 
         originTextField = new AutoCompleteTextField(dc, true);
-        originTextField.setNodeReceiver(this);
+//        originTextField.setNodeReceiver(this);
         originPane.getChildren().add(originTextField);
         originTextField.setPromptText("Kiosk Location");
 
         destinationTextField = new AutoCompleteTextField(dc, false);
-        destinationTextField.setNodeReceiver(this);
+//        destinationTextField.setNodeReceiver(this);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
         initializeListCells();
 
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
+        originTextField.setNodeReceiver(mainSceneController);
+        destinationTextField.setNodeReceiver(mainSceneController);
     }
 
     public void initializeListCells() {
@@ -126,14 +125,10 @@ public class NavigationDrawerController implements NodeReceiver{
 
     @FXML
     public void navigate() throws IOException {
-        if (originNode != null && destinationNode != null) {
-            mainSceneController.navigate(originNode, destinationNode);
+            mainSceneController.findPath();
             mainSceneController.hide();
             originTextField.hide();
             destinationTextField.hide();
-        }
-        else
-            System.out.println("Origin: " + originNode + " Destination: " + destinationNode);
     }
 
     @FXML
