@@ -25,5 +25,9 @@
     <orderEntry type="library" name="jfoenix" level="project" />
     <orderEntry type="library" name="Interpreter-1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Team-G-Food-Request" level="project" />
+    <orderEntry type="library" name="jxbrowser-6.17" level="project" />
+    <orderEntry type="library" name="license" level="project" />
+    <orderEntry type="library" name="jxbrowser-mac-6.17" level="project" />
+    <orderEntry type="library" name="jxbrowser-win32-6.17" level="project" />
   </component>
 </module>
