@@ -6,10 +6,9 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
+import boundary.NodeReceiver;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,29 +18,25 @@ import Entity.ErrorController;
 
 import java.io.IOException;
 
-public class MainSceneController extends AbstractMapController {
+public class MainSceneController extends AbstractMapController implements NodeReceiver{
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
-    private JFXComboBox originField;
     private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField destinationTextField;
-    private AnchorPane textPane;
     private DirectoryController dc;
     private JFXHamburger hamburger;
     private JFXDrawer drawer;
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
-    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
-                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController, AnchorPane textPane,
+                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
                                ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
-        this.originField = originField;
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
         this.navigationDrawerController = navigationDrawerController;
-        this.textPane = textPane;
         this.dc = dc;
         this.drawer = drawer;
         this.hamburger = hamburger;
@@ -50,11 +45,12 @@ public class MainSceneController extends AbstractMapController {
 
     public void initializeScene() throws IOException {
         super.initializeScene();
-        destinationTextField = new AutoCompleteTextField(dc, this, false);
+        destinationTextField = new AutoCompleteTextField(dc, false);
+        destinationTextField.setNodeReceiver(this);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
-        searchAnchor.setPrefHeight(40);
-        searchAnchor.setPrefWidth(100);
+//        searchAnchor.setPrefHeight(40);
+//        searchAnchor.setPrefWidth(100);
         origin = mapNavigationFacade.getDefaultNode();
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
@@ -66,17 +62,15 @@ public class MainSceneController extends AbstractMapController {
         navigationRegion = navigationLoader.load();
 
         directoryDrawerController.setNavigateRegion(navigationRegion);
-
-        directoryDrawerController.setMainSceneController(this);
-        navigationDrawerController.setMainSceneController(this);
         initializeBurger(directoryRegion);
     }
 
-    private void initializeBurger(Region region) {
+    private void initializeBurger(Region directoryRegion) {
         hamburger.setOnMouseClicked(e -> {
-            region.setMaxHeight(mainPane.getHeight()-40);
-            region.setPrefHeight(mainPane.getHeight()-40);
-            drawer.setSidePane(region);
+            directoryRegion.setMaxHeight(mainPane.getHeight()-40);
+            directoryRegion.setPrefHeight(mainPane.getHeight()-40);
+            drawer.setSidePane(directoryRegion);
+            directoryDrawerController.setMainSceneController(this);
             if (drawer.isHidden() || drawer.isHiding()) {
                 drawer.open();
                 drawer.toFront();
@@ -87,6 +81,7 @@ public class MainSceneController extends AbstractMapController {
     }
 
     private void openNavigationDrawer() {
+        navigationDrawerController.setMainSceneController(this);
         drawer.setSidePane(navigationRegion);
         if (drawer.isHidden() || drawer.isHiding()) {
             drawer.open();
@@ -94,14 +89,11 @@ public class MainSceneController extends AbstractMapController {
         }
     }
 
-    public void setOrigin(Node o) {
-        this.origin = o;
-        originField.setPromptText(o.getNodeID());
-    }
+    public void setOrigin(Node o) { this.origin = o; }
 
-    public void setDestination(Node destination) {
-        this.destination = destination;
-        destinationTextField.setText(destination.getNodeID());
+    public void setDestination(Node d) {
+        this.destination = d;
+        if (destination != null) destinationTextField.setText(destination.getNodeID());
     }
 
     private boolean checkNullLocations(){
@@ -140,22 +132,9 @@ public class MainSceneController extends AbstractMapController {
 //        }
     }
 
-    public void setOrigin() {
-        super.setOrigin();
-        setOriginText();
-    }
-
-
     public void setDestination() {
         super.setDestination();
         setDestinationText();
-    }
-
-    private void setOriginText() { //TODO sometimes the short names are too long for the JFXComboBox
-        String prompt;
-        if (origin.toString().length() < 1) prompt = origin.getNodeID();
-        else prompt = origin.getShortName();
-        originField.setPromptText(prompt);
     }
 
     private void setDestinationText() {
@@ -169,7 +148,6 @@ public class MainSceneController extends AbstractMapController {
         snapToNode(m);
         currentPath = null;
         origin = currentLoc;
-        setOriginText();
         refreshCanvas();
     }
 
@@ -179,13 +157,20 @@ public class MainSceneController extends AbstractMapController {
         findPath();
     }
 
+    public void reversePath() throws IOException {
+        navigate(destination, origin);
+
+    }
+
     public void findPath() throws IOException {
         if (origin == null || destination == null) return;
         openNavigationDrawer();
+        navigationDrawerController.setFields(origin, destination);
         goToCorrectFloor();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
         refreshCanvas();
+        navigationDrawerController.hide();
     }
 
     private void goToCorrectFloor() {
@@ -237,4 +222,6 @@ public class MainSceneController extends AbstractMapController {
 
     public void streetView() {
     }
+
+    public void hide() { destinationTextField.hide(); }
 }

@@ -15,6 +15,7 @@ public class PathFindingFacade {
     public PathFindingFacade(){};
 
     public List<Node> getPath(Node start, Node end){
+        System.out.println(pF);
         List<Node> path = pF.pathFind(start,end);
         addPathtoLog(path);
         return path;
@@ -26,6 +27,7 @@ public class PathFindingFacade {
     }
 
     public void setPathfinder(PathFinder pathfinder){
+        System.out.println(pathfinder.toString());
         this.pF = pathfinder;
     }
 
