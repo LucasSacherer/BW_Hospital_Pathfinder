@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -71,16 +70,12 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <JFXToggleButton onAction="#selectAstar" text="AStar">
+                              <JFXToggleButton onAction="#selectAstar" selected="true" text="AStar">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="path" />
                                  </toggleGroup>
                               </JFXToggleButton>
-                              <JFXToggleButton onAction="#selectBreadth" text="Breadth First Search">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="path" />
-                                 </toggleGroup>
-                              </JFXToggleButton>
+                              <JFXToggleButton onAction="#selectBreadth" text="Breadth First Search" toggleGroup="$path" />
                               <JFXToggleButton layoutX="20.0" layoutY="509.0" onAction="#selectDepth" text="Depth First Search" toggleGroup="$path" />
                               <JFXToggleButton layoutX="20.0" layoutY="584.0" onAction="#selectBest" text="Best First Search" toggleGroup="$path" />
                               <JFXToggleButton layoutX="20.0" layoutY="659.0" onAction="#selectDijkstras" text="Dijkstra" toggleGroup="$path" />
