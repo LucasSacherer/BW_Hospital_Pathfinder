@@ -338,7 +338,7 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, textDirectionsTable, textDirectionsColumn);
+        navigationDrawerController = new NavigationDrawerController(drawer, directoryController, textDirectionsTable, textDirectionsColumn);
         directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController, navigationDrawerController);
     }
 

@@ -159,16 +159,20 @@ public class MainSceneController extends AbstractMapController implements NodeRe
         findPath();
     }
 
+    public void reversePath() throws IOException {
+        navigate(destination, origin);
+
+    }
+
     public void findPath() throws IOException {
         if (origin == null || destination == null) return;
         openNavigationDrawer();
-        navigationDrawerController.setOrigin(origin);
-        navigationDrawerController.setDestination(destination);
-        navigationDrawerController.setFields();
+        navigationDrawerController.setFields(origin, destination);
         goToCorrectFloor();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
         refreshCanvas();
+        navigationDrawerController.hide();
     }
 
     private void goToCorrectFloor() {

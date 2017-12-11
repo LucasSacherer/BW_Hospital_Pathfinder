@@ -19,12 +19,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class NavigationDrawerController implements NodeReceiver{
+public class NavigationDrawerController {
     private JFXDrawer drawer;
     private DirectoryController dc;
     private TextualDirections textualDirections = new TextualDirections();
-    private MapNavigationFacade mapNavigationFacade;
-    private Node originNode, destinationNode;
     private AutoCompleteTextField originTextField, destinationTextField;
     private MainSceneController mainSceneController;
 
@@ -42,10 +40,9 @@ public class NavigationDrawerController implements NodeReceiver{
 
     private TreeItem<AdminLog> root = new TreeItem<>();
 
-    public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc,
+    public NavigationDrawerController(JFXDrawer drawer, DirectoryController dc,
                                       JFXTreeTableView<AdminLog> textDirectionsTable, TreeTableColumn<AdminLog, String> textDirectionsColumn) {
         this.drawer = drawer;
-        this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
         JFXListView directions = new JFXListView();
 //        this.listView = listView;
@@ -56,19 +53,15 @@ public class NavigationDrawerController implements NodeReceiver{
 
     @FXML
     private void initialize() {
-//        if (originNode == null) originNode = mapNavigationFacade.getDefaultNode();
-
         originTextField = new AutoCompleteTextField(dc, true);
-//        originTextField.setNodeReceiver(this);
         originPane.getChildren().add(originTextField);
         originTextField.setPromptText("Kiosk Location");
 
         destinationTextField = new AutoCompleteTextField(dc, false);
-//        destinationTextField.setNodeReceiver(this);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
-        initializeListCells();
 
+        initializeListCells();
     }
 
     public void setMainSceneController(MainSceneController mainSceneController) {
@@ -117,8 +110,6 @@ public class NavigationDrawerController implements NodeReceiver{
     public void closeDrawer() {
         originTextField.clear();
         destinationTextField.clear();
-        originNode = mapNavigationFacade.getDefaultNode();
-        destinationNode = null;
         drawer.close();
         drawer.toBack();
     }
@@ -127,21 +118,16 @@ public class NavigationDrawerController implements NodeReceiver{
     public void navigate() throws IOException {
             mainSceneController.findPath();
             mainSceneController.hide();
-            originTextField.hide();
-            destinationTextField.hide();
+            hide();
     }
 
     @FXML
     public void reversePath() throws IOException {
-        Node temp = originNode;
-        originNode = destinationNode;
-        destinationNode = temp;
-        if (originNode != null) originTextField.setText(originNode.getNodeID());
-        if (destinationNode != null) destinationTextField.setText(destinationNode.getNodeID());
-        mainSceneController.navigate(originNode, destinationNode);
+        originTextField.setText(destinationTextField.getText());
+        destinationTextField.setText(originTextField.getText());
+        mainSceneController.reversePath();
         mainSceneController.hide();
-        originTextField.hide();
-        destinationTextField.hide();
+        hide();
     }
 
     @FXML
@@ -164,24 +150,14 @@ public class NavigationDrawerController implements NodeReceiver{
 
     }
 
-    public void setOrigin(Node origin) {
-        System.out.println("setting origin");
-        this.originNode = origin;
-        if (originNode != null) originTextField.setText(origin.getNodeID());
-        originTextField.hide();
+    public void setFields(Node origin, Node destination) {
+        destinationTextField.setText(destination.getShortName());
+        originTextField.setText(origin.getShortName());
+        hide();
     }
 
-    public void setDestination(Node destination) {
-        System.out.println("Setting destination");
-        this.destinationNode = destination;
-        if (destinationNode != null) destinationTextField.setText(destination.getNodeID());
-        destinationTextField.hide();
-    }
-
-    public void setFields() {
-        if (destinationNode != null) destinationTextField.setText(destinationNode.getNodeID());
-        if (originNode != null) originTextField.setText(originNode.getNodeID());
-        destinationTextField.hide();
+    public void hide() {
         originTextField.hide();
+        destinationTextField.hide();
     }
 }
