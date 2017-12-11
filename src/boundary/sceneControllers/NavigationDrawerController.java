@@ -45,7 +45,6 @@ public class NavigationDrawerController {
         this.drawer = drawer;
         this.dc = dc;
         JFXListView directions = new JFXListView();
-//        this.listView = listView;
 //        directions.setItems(textualDirections.getTextDirections(mainSceneController.getCurrentPath()));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;

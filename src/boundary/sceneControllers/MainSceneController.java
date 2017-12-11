@@ -24,7 +24,6 @@ public class MainSceneController extends AbstractMapController implements NodeRe
     private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField destinationTextField;
-    private AnchorPane textPane;
     private DirectoryController dc;
     private JFXHamburger hamburger;
     private JFXDrawer drawer;
@@ -32,13 +31,12 @@ public class MainSceneController extends AbstractMapController implements NodeRe
     private Region navigationRegion, directoryRegion;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
-                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController, AnchorPane textPane,
+                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
                                ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
         this.navigationDrawerController = navigationDrawerController;
-        this.textPane = textPane;
         this.dc = dc;
         this.drawer = drawer;
         this.hamburger = hamburger;

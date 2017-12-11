@@ -98,9 +98,6 @@ public class GodController {
     private JFXButton directoryButton;
 
     @FXML
-    private AnchorPane searchAnchor;
-
-    @FXML
     private ScrollPane mainScrollPane, mapEditScrollPane, requestScrollPane, pathfindingScrollPane;
 
     /* Admin Request */
@@ -209,7 +206,7 @@ public class GodController {
 
 
     @FXML
-    private AnchorPane textPane, directoryPane; // search bar, directory
+    private AnchorPane searchAnchor, directoryPane; // search bar, directory
 
     /* Pathfinding Scene */
     @FXML
@@ -345,7 +342,7 @@ public class GodController {
     private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
                 searchAnchor, zoomSlider, directoryController, directoryDrawerController,
-                navigationDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
+                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
 
