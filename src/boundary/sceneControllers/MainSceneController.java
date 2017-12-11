@@ -166,6 +166,40 @@ public class MainSceneController extends AbstractMapController {
         refreshCanvas();
     }
 
+    public void displayTextDir() throws IOException {
+        //this is deprecated? but still in GodController
+        /*
+        boolean success = checkNullLocations();
+        if(success) {
+            currentPath = pathFindingFacade.getPath(origin, destination);
+            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
+            String dirMessage = "";
+            findPath();
+            if (writtenDir.isEmpty()) {
+                return;
+            }
+            for (int i = 0; i < writtenDir.size(); i++) {
+                dirMessage += writtenDir.get(i);
+                dirMessage += "\n";
+            }
+            Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
+            directions.show();
+        }
+        */
+    }
+
+    public void openDirectory(AnchorPane dPane) throws IOException {
+        JFXRippler rippler = new JFXRippler();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
+        loader.setController(directorySceneController);
+        Region region = loader.load();
+        dPane.getChildren().add(rippler);
+        JFXPopup popup = new JFXPopup(region);
+        directorySceneController.setMainSceneController(this);
+
+        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+    }
+
     public void navigate(Node o, Node d) throws IOException {
         this.origin = o;
         this.destination = d;
