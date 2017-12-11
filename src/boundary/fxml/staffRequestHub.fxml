@@ -119,20 +119,12 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </ImageView>
-                        <Label text="Staff Service " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                        <Label text="Staff Service Hub " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets bottom="60.0" right="90.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Request Hub" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets bottom="145.0" left="180.0" />
+                              <Insets bottom="60.0" right="30.0" />
                            </GridPane.margin>
                         </Label>
                      </children>
@@ -141,7 +133,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <GridPane prefHeight="872.0" prefWidth="1451.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                  <GridPane layoutY="-20.0" prefHeight="882.0" prefWidth="1351.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-20.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -151,12 +143,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#serviceHubToMain" prefHeight="61.0" prefWidth="172.0" style="-fx-background-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 12; -fx-border-width: 5; -fx-border-color: #0068B1;" text="Logout" textAlignment="CENTER" textFill="#0068b1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <JFXButton alignment="CENTER" cancelButton="true" onAction="#serviceHubToMain" prefHeight="91.0" prefWidth="101.0" style="-fx-background-color: #09a1b3; -fx-border-radius: 10; -fx-background-radius: 0;" text="Back" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets />
+                              <Insets left="20.0" top="20.0" />
                            </GridPane.margin>
                         </JFXButton>
                      </children>
