@@ -21,8 +21,9 @@ public class PathFindingFacade {
     }
     public TextualDirections textualDirections = new TextualDirections();
 
-    public List<String> getDirections(List<Node> path){
-        return textualDirections.getDir(path);
+    //changed to return string itself instead of a list of strings
+    public String getDirections(List<Node> path){
+        return textualDirections.toStringTextDir(textualDirections.getDir(path));
     }
 
     public void setPathfinder(PathFinder pathfinder){
