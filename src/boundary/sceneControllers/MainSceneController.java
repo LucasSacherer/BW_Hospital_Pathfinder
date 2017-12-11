@@ -61,7 +61,7 @@ public class MainSceneController extends AbstractMapController {
         navigationRegion = navigationLoader.load();
 
         directoryDrawerController.setNavigateRegion(navigationRegion);
-        resizeDrawer();
+//        resizeDrawer();
         initializeBurger(directoryRegion);
     }
 
@@ -130,11 +130,9 @@ public class MainSceneController extends AbstractMapController {
     }
 
     public void navigateToHere() throws IOException {
-//        boolean success = checkNullLocations();
-//        if(success) {
         setDestination();
         findPath();
-//        }
+        hide();
     }
 
     public void setDestination() {
@@ -229,4 +227,8 @@ public class MainSceneController extends AbstractMapController {
     }
 
     public void hide() { destinationTextField.hide(); }
+
+    public Node getOrigin() { return origin; }
+
+    public Node getDestination() { return destination; }
 }

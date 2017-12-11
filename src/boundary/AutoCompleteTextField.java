@@ -71,7 +71,6 @@ public class AutoCompleteTextField extends JFXTextField
                 entriesPopup.hide();
             }
         });
-
     }
 
     /**
@@ -96,6 +95,7 @@ public class AutoCompleteTextField extends JFXTextField
                     if (originFlag) mainSceneController.setOrigin(result);
                     else mainSceneController.setDestination(result);
                     entriesPopup.hide();
+                    mainSceneController.hide();
                 }
             });
             menuItems.add(item);

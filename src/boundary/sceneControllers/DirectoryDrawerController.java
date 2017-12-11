@@ -37,7 +37,6 @@ public class DirectoryDrawerController {
     public DirectoryDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade) {
         this.drawer = drawer;
         this.mapNavigationFacade = mapNavigationFacade;
-        this.mainSceneController = mainSceneController;
     }
 
     public void setMainSceneController(MainSceneController mainSceneController) {
@@ -46,7 +45,6 @@ public class DirectoryDrawerController {
 
     @FXML
     private void initialize() {
-        originNode = mapNavigationFacade.getDefaultNode();
         directoryList = FXCollections.observableArrayList(mapNavigationFacade.getDirectory().keySet());
         browser.setItems(directoryList);
         browser.setOnAction(new EventHandler<ActionEvent>() {
@@ -62,25 +60,29 @@ public class DirectoryDrawerController {
     @FXML
     private void setDirectoryOrigin() throws IOException {
         if (!listView.getSelectionModel().isEmpty()) {
-            mainSceneController.setOrigin((Node) listView.getSelectionModel().getSelectedItem();
-            originLabel.setText(originNode.getShortName());
+            Node origin = (Node) listView.getSelectionModel().getSelectedItem();
+            mainSceneController.setOrigin(origin);
+            if (origin.getShortName().length() < 1) originLabel.setText(origin.getNodeID());
+            else originLabel.setText(origin.getShortName());
         }
+        mainSceneController.hide();
     }
 
     @FXML
     private void setDirectoryDestination() throws IOException {
         if (!listView.getSelectionModel().isEmpty()) {
-            destinationNode = (Node) listView.getSelectionModel().getSelectedItem();
-            destinationLabel.setText(destinationNode.getShortName());
+            Node destination = (Node) listView.getSelectionModel().getSelectedItem();
+            mainSceneController.setDestination(destination);
+            if (destination.getShortName().length() < 1) destinationLabel.setText(destination.getNodeID());
+            else destinationLabel.setText(destination.getShortName());
         }
+        mainSceneController.hide();
     }
 
     @FXML
     public void closeDrawer() {
         originLabel.setText("Kiosk Location");
         destinationLabel.setText("Select a Destination");
-        originNode = mapNavigationFacade.getDefaultNode();
-        destinationNode = null;
         drawer.close();
         drawer.toBack();
     }
@@ -91,17 +93,14 @@ public class DirectoryDrawerController {
     }
 
     @FXML
-    public void reversePath() {
-        Node temp = originNode;
-        originNode = destinationNode;
-        destinationNode = temp;
-        if (originNode != null) originLabel.setText(originNode.getShortName());
-        else originLabel.setText("Unknown Location");
-        if (destinationNode != null) destinationLabel.setText(destinationNode.getShortName());
-        else originLabel.setText("Unknown Location");
+    public void reversePath() throws IOException {
+        mainSceneController.reversePath();
+        try {
+            originLabel.setText(mainSceneController.getOrigin().getShortName());
+            destinationLabel.setText(mainSceneController.getDestination().getShortName());
+        } catch (Exception e) {}
+        mainSceneController.hide();
     }
 
-    public void setNavigateRegion(Region region) {
-        this.navigateRegion = region;
-    }
+    public void setNavigateRegion(Region region) { this.navigateRegion = region; }
 }

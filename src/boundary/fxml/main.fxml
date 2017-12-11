@@ -35,7 +35,7 @@
          <children>
             <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false">
                <GridPane.margin>
-                  <Insets left="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="20.0" top="20.0" />
                </GridPane.margin>
             </JFXDrawer>
             <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="3" GridPane.rowSpan="3">
@@ -147,7 +147,7 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="TOP_RIGHT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
                   <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestExitMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
@@ -210,7 +210,7 @@
                   <Insets right="20.0" top="20.0" />
                </GridPane.margin>
             </HBox>
-            <HBox maxHeight="80.0" maxWidth="340.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="340.0" spacing="5.0" style="-fx-background-color: #0068B1;">
+            <HBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="320.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="320.0" spacing="5.0" style="-fx-background-color: #0068B1;" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <children>
                   <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0">
                      <HBox.margin>
@@ -221,12 +221,12 @@
                         <AnchorPane fx:id="searchAnchor" style="-fx-background-color: white;" />
                      </children>
                   </VBox>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="80.0" prefWidth="80.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" translateX="3.0">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" translateX="3.0">
                            <image>
                               <Image url="@../images/Icons/Navagate.png" />
                            </image>
@@ -235,7 +235,7 @@
                   </JFXButton>
                </children>
                <GridPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets left="20.0" top="20.0" />
                </GridPane.margin>
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
