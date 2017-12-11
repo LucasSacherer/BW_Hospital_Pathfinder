@@ -45,6 +45,7 @@
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.33333587646484" minWidth="2.9999961853027344" prefWidth="2.9999961853027344" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.00000381469727" minWidth="10.0" prefWidth="353.00000381469727" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.00000381469727" minWidth="10.0" prefWidth="353.00000381469727" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.66665649414062" minWidth="0.0" prefWidth="3.666656494140625" />
                           </columnConstraints>
                           <rowConstraints>
@@ -57,7 +58,7 @@
                                     <Image url="@../images/other%20images/BWH.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="CENTER" focusTraversable="false" prefHeight="51.0" prefWidth="322.0" text="Admin Hub" textFill="WHITE" GridPane.columnIndex="1">
+                              <Label alignment="CENTER" focusTraversable="false" prefHeight="103.0" prefWidth="167.0" text="Admin Hub" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="System Italic" size="34.0" />
                                  </font>
@@ -153,12 +154,26 @@
                   <Insets bottom="30.0" right="30.0" top="30.0" />
                </GridPane.margin>
             </GridPane>
-            <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#adminHubToMain" prefHeight="61.0" prefWidth="127.0" style="-fx-background-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 12; -fx-border-width: 5; -fx-border-color: #0068B1;" text="Back" textAlignment="CENTER" textFill="#0068b1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#adminHubToMain" ripplerFill="WHITE" style="-fx-background-color: #003da6; -fx-background-image: src\boundary\images\staffHub.png;" text="Back" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="28.0" />
                </font>
+               <effect>
+                  <DropShadow blurType="TWO_PASS_BOX" height="80.0" radius="39.5" width="80.0">
+                     <input>
+                        <DropShadow />
+                     </input>
+                  </DropShadow>
+               </effect>
+               <graphic>
+                  <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Food.gif" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <GridPane.margin>
-                  <Insets left="5.0" top="5.0" />
+                  <Insets left="20.0" top="20.0" />
                </GridPane.margin>
             </JFXButton>
          </children>
