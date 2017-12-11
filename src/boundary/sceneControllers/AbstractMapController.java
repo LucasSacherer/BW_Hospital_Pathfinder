@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
+import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -25,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import javafx.scene.shape.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -197,6 +199,7 @@ public abstract class AbstractMapController {
          pathToDraw.add(new Node("c",2000, 300, "a","a","a","a","a",true));
          /** testing over **/
 
+
         for(int i=0;i<pathToDraw.size()-1;i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i+1);
@@ -207,7 +210,6 @@ public abstract class AbstractMapController {
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
                 gc.setLineWidth(7);
-                drawArrow(x1, y1, x2, y2, Color.DARKSLATEGRAY, 10);
             }
         }
 
@@ -221,7 +223,22 @@ public abstract class AbstractMapController {
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
                 gc.setLineWidth(4);
-                drawArrow(x1, y1, x2, y2, Color.ROYALBLUE, 8);
+                final Circle cirPath = new Circle();
+                final Line linePath = new Line();
+                cirPath.setFill(Color.ORANGE);
+                linePath.setStartX(x1);
+                linePath.setEndX(x2);
+                linePath.setStartY(y1);
+                linePath.setEndY(y2);
+                linePath.setFill(Color.ALICEBLUE);
+                linePath.setStrokeWidth(7);
+
+                PathTransition pathTransition = new PathTransition();
+                pathTransition.setPath(linePath);
+                pathTransition.setNode(cirPath);
+                pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                pathTransition.setAutoReverse(true);
+                pathTransition.play();
             }
         }
     }
