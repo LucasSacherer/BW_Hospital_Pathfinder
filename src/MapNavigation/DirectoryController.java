@@ -31,7 +31,7 @@ public class DirectoryController {
         visitableNodes = new ArrayList<Node>();
 
         for (int i = 0; nm.getAllNodes().size() > i; i++ ){
-            if (!nm.getAllNodes().get(i).getNodeType().equals("HALL")){
+            if (!nm.getAllNodes().get(i).getNodeType().equals("HALL") && !nm.getAllNodes().get(i).getNodeType().equals("STAI")){
                 visitableNodes.add(nm.getAllNodes().get(i));
             }
         }

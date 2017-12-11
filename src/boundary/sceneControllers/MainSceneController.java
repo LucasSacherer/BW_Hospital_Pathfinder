@@ -22,7 +22,6 @@ import java.io.IOException;
 public class MainSceneController extends AbstractMapController {
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
-    private JFXComboBox originField;
     private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField destinationTextField;
@@ -32,12 +31,11 @@ public class MainSceneController extends AbstractMapController {
     private JFXDrawer drawer;
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
-    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController, AnchorPane textPane,
                                ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
         super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
-        this.originField = originField;
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
         this.navigationDrawerController = navigationDrawerController;
@@ -94,14 +92,11 @@ public class MainSceneController extends AbstractMapController {
         }
     }
 
-    public void setOrigin(Node o) {
-        this.origin = o;
-        originField.setPromptText(o.getNodeID());
-    }
+    public void setOrigin(Node o) { this.origin = o; }
 
-    public void setDestination(Node destination) {
-        this.destination = destination;
-        destinationTextField.setText(destination.getNodeID());
+    public void setDestination(Node d) {
+        this.destination = d;
+        if (destination != null) destinationTextField.setText(destination.getNodeID());
     }
 
     private boolean checkNullLocations(){
@@ -140,22 +135,9 @@ public class MainSceneController extends AbstractMapController {
 //        }
     }
 
-    public void setOrigin() {
-        super.setOrigin();
-        setOriginText();
-    }
-
-
     public void setDestination() {
         super.setDestination();
         setDestinationText();
-    }
-
-    private void setOriginText() { //TODO sometimes the short names are too long for the JFXComboBox
-        String prompt;
-        if (origin.toString().length() < 1) prompt = origin.getNodeID();
-        else prompt = origin.getShortName();
-        originField.setPromptText(prompt);
     }
 
     private void setDestinationText() {
@@ -169,7 +151,6 @@ public class MainSceneController extends AbstractMapController {
         snapToNode(m);
         currentPath = null;
         origin = currentLoc;
-        setOriginText();
         refreshCanvas();
     }
 
@@ -182,6 +163,9 @@ public class MainSceneController extends AbstractMapController {
     public void findPath() throws IOException {
         if (origin == null || destination == null) return;
         openNavigationDrawer();
+        navigationDrawerController.setOrigin(origin);
+        navigationDrawerController.setDestination(destination);
+        navigationDrawerController.setFields();
         goToCorrectFloor();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
@@ -237,4 +221,6 @@ public class MainSceneController extends AbstractMapController {
 
     public void streetView() {
     }
+
+    public void hide() { destinationTextField.hide(); }
 }

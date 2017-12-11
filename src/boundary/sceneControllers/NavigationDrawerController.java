@@ -26,7 +26,6 @@ public class NavigationDrawerController {
     private TextualDirections textualDirections = new TextualDirections();
     private MainSceneController m;
     private MapNavigationFacade mapNavigationFacade;
-    private Object currentPath = null;
     private Node originNode, destinationNode;
     private AutoCompleteTextField originTextField, destinationTextField;
     private MainSceneController mainSceneController;
@@ -45,8 +44,6 @@ public class NavigationDrawerController {
 
     private TreeItem<AdminLog> root = new TreeItem<>();
 
-
-
     public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc,
                                       MainSceneController m,JFXTreeTableView<AdminLog> textDirectionsTable,TreeTableColumn<AdminLog, String> textDirectionsColumn) {
         this.drawer = drawer;
@@ -54,7 +51,7 @@ public class NavigationDrawerController {
         this.dc = dc;
         JFXListView directions = new JFXListView();
 //        this.listView = listView;
-//        directions.setItems(textualDirections.getTextDirections(currentPath));
+//        directions.setItems(textualDirections.getTextDirections(mainSceneController.getCurrentPath()));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
 
@@ -133,8 +130,18 @@ public class NavigationDrawerController {
     }
 
     @FXML
-    public void reversePath() {
-       //TODO reverse the path over here
+    public void reversePath() throws IOException {
+        Node temp = originNode;
+        originNode = destinationNode;
+        destinationNode = temp;
+        if (originNode != null) originTextField.setText(originNode.getNodeID());
+        if (destinationNode != null) destinationTextField.setText(destinationNode.getNodeID());
+        mainSceneController.setOrigin(originNode);
+        mainSceneController.setDestination(destinationNode);
+        mainSceneController.findPath();
+        mainSceneController.hide();
+        originTextField.hide();
+        destinationTextField.hide();
     }
 
     @FXML
@@ -159,5 +166,20 @@ public class NavigationDrawerController {
 
     public void setMainSceneController(MainSceneController mainSceneController) {
         this.mainSceneController = mainSceneController;
+    }
+
+    public void setOrigin(Node origin) {
+        this.originNode = origin;
+    }
+
+    public void setDestination(Node destination) {
+        this.destinationNode = destination;
+    }
+
+    public void setFields() {
+        if (destinationNode != null) destinationTextField.setText(destinationNode.getNodeID());
+        if (originNode != null) originTextField.setText(originNode.getNodeID());
+        destinationTextField.hide();
+        originTextField.hide();
     }
 }

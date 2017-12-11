@@ -28,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -210,9 +211,6 @@ public class GodController {
     @FXML
     private AnchorPane textPane, directoryPane; // search bar, directory
 
-    @FXML
-    private JFXComboBox originField;
-
     /* Pathfinding Scene */
     @FXML
     private JFXTextField pathfindingOrigin, pathfindingDestination;
@@ -346,7 +344,7 @@ public class GodController {
 
     private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
-                originField, searchAnchor, zoomSlider, directoryController, directoryDrawerController,
+                searchAnchor, zoomSlider, directoryController, directoryDrawerController,
                 navigationDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
