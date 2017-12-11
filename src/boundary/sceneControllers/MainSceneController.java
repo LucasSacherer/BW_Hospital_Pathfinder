@@ -31,6 +31,7 @@ public class MainSceneController extends AbstractMapController {
     private JFXHamburger hamburger;
     private JFXDrawer drawer;
     private Pane mainPane;
+    private Region navigationRegion, directoryRegion;
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController, AnchorPane textPane,
@@ -58,11 +59,11 @@ public class MainSceneController extends AbstractMapController {
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
         directoryLoader.setController(directoryDrawerController);
-        Region directoryRegion = directoryLoader.load();
+        directoryRegion = directoryLoader.load();
 
         FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
         navigationLoader.setController(navigationDrawerController);
-        Region navigationRegion = navigationLoader.load();
+        navigationRegion = navigationLoader.load();
 
         directoryDrawerController.setNavigateRegion(navigationRegion);
 
@@ -85,6 +86,13 @@ public class MainSceneController extends AbstractMapController {
         });
     }
 
+    private void openNavigationDrawer() {
+        drawer.setSidePane(navigationRegion);
+        if (drawer.isHidden() || drawer.isHiding()) {
+            drawer.open();
+            drawer.toFront();
+        }
+    }
 
     public void setOrigin(Node o) {
         this.origin = o;
@@ -118,8 +126,7 @@ public class MainSceneController extends AbstractMapController {
     public void exitClicked() throws IOException { findNearest(origin, "EXIT"); }
 
     private void findNearest(Node node, String type) throws IOException {
-        if (origin == null) origin = mapNavigationFacade.getDefaultNode();
-        System.out.println(origin);
+        origin = mapNavigationFacade.getDefaultNode();
         destination = mapNavigationFacade.getNearestPOI(origin.getXcoord(), origin.getYcoord(), type);
         findPath();
         refreshCanvas();
@@ -173,7 +180,8 @@ public class MainSceneController extends AbstractMapController {
     }
 
     public void findPath() throws IOException {
-        if (origin == null || destination == null) return; //TODO throw an error
+        if (origin == null || destination == null) return;
+        openNavigationDrawer();
         goToCorrectFloor();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
