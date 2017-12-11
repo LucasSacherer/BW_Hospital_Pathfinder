@@ -9,7 +9,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
+import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -208,55 +210,56 @@ public abstract class AbstractMapController {
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-
+                gc.setStroke(Color.ROYALBLUE);
                 gc.setLineWidth(7);
+                gc.strokeLine(x1, y1, x2, y2);
             }
         }
 
         for(int i=0;i<pathToDraw.size()-1;i++) {
             Node next = pathToDraw.get(i);
-            Node current = pathToDraw.get(i+1);
+            Node current = pathToDraw.get(i + 1);
             int x1 = current.getXcoord();
             int y1 = current.getYcoord();
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
 
+                gc.setStroke(Color.ROYALBLUE);
                 gc.setLineWidth(4);
+                gc.strokeLine(x1, y1, x2, y2);
                 final Circle cirPath = new Circle();
-                final Line linePath = new Line();
                 cirPath.setFill(Color.ORANGE);
-                linePath.setStartX(x1);
-                linePath.setEndX(x2);
-                linePath.setStartY(y1);
-                linePath.setEndY(y2);
-                linePath.setFill(Color.ALICEBLUE);
-                linePath.setStrokeWidth(7);
 
                 PathTransition pathTransition = new PathTransition();
-                pathTransition.setPath(linePath);
                 pathTransition.setNode(cirPath);
                 pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                 pathTransition.setAutoReverse(true);
                 pathTransition.play();
+
+
+                Timeline timeline = new Timeline();
+                timeline.setAutoReverse(true);
+                timeline.setCycleCount(Timeline.INDEFINITE);
+
+                AnimationTimer timer = new AnimationTimer() {
+                    @Override
+                    public void handle(long now) {
+                        gc.setFill(Color.FORESTGREEN);
+                        gc.fillOval(
+                                x1-4,
+                                y1-4,
+                                10,
+                                10
+                        );
+                    }
+                };
+
+
+                timer.start();
+                timeline.play();
             }
         }
-    }
-
-    void drawArrow(int x1, int y1, int x2, int y2, Color c, int triangleNum) {
-        gc.setFill(c);
-        gc.setStroke(c);
-
-        double dx = x2 - x1, dy = y2 - y1;
-        double angle = Math.atan2(dy, dx);
-        int len = (int) Math.sqrt(dx * dx + dy * dy);
-
-        Transform transform = Transform.translate(x1, y1);
-        transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
-        gc.setTransform(new Affine(transform));
-
-        gc.strokeLine(0, 0, len, 0);
-        gc.fillPolygon(new double[]{len, len - triangleNum, len - triangleNum, len}, new double[]{0, -triangleNum, triangleNum, 0},4);
     }
 
     private void drawPathNodes() {
