@@ -376,7 +376,7 @@ public class GodController {
 
     private void initializeAdminRequestScene(){ adminRequestController = new AdminRequestController( interpreterManager,  foodManager,
              cleanUpManager, requestsIntTable,
-              requestIntNameColumn,   timeCreatedIntColumn,
+                requestIntNameColumn,   timeCreatedIntColumn,
               timeCompleteIntColumn,  requestTypeIntColumn,
              requestDescriptionIntColumn,  requestLocationIntColumn,
              requestUserIntColumn,  requestsTableSpills,
@@ -779,7 +779,6 @@ public class GodController {
         Stage stage = new Stage();
         stage.setTitle("Admin Settings");
         stage.setScene(new Scene(root2, 600, 800));
-        stage.setMaximized(true);
         stage.show();
     }
 
