@@ -338,7 +338,7 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController,textDirectionsTable,textDirectionsColumn);
+        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, textDirectionsTable, textDirectionsColumn);
         directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController, navigationDrawerController);
     }
 
@@ -348,6 +348,7 @@ public class GodController {
                 navigationDrawerController, textPane, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
     }
+
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(this, mapNavigationFacade, pathFindingFacade,

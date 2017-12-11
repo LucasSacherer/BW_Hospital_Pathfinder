@@ -42,6 +42,11 @@ public class DirectoryDrawerController {
         this.navigationDrawerController = navigationDrawerController;
         this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
+        this.mainSceneController = mainSceneController;
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 
     @FXML
@@ -103,9 +108,5 @@ public class DirectoryDrawerController {
 
     public void setNavigateRegion(Region region) {
         this.navigateRegion = region;
-    }
-
-    public void setMainSceneController(MainSceneController mainSceneController) {
-        this.mainSceneController = mainSceneController;
     }
 }
