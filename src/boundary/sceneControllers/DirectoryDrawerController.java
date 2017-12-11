@@ -19,7 +19,9 @@ import javafx.scene.layout.Region;
 import java.io.IOException;
 
 public class DirectoryDrawerController {
+    private MainSceneController mainSceneController;
     private MapNavigationFacade mapNavigationFacade;
+    private NavigationDrawerController navigationDrawerController;
     private Region navigateRegion;
     private DirectoryController dc;
     private ObservableList directoryList;
@@ -35,8 +37,9 @@ public class DirectoryDrawerController {
     @FXML
     private JFXListView listView;
 
-    public DirectoryDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc) {
+    public DirectoryDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc, NavigationDrawerController navigationDrawerController) {
         this.drawer = drawer;
+        this.navigationDrawerController = navigationDrawerController;
         this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
     }
@@ -59,7 +62,7 @@ public class DirectoryDrawerController {
     @FXML
     private void setDirectoryOrigin() throws IOException {
         if (!listView.getSelectionModel().isEmpty()) {
-            originNode = (Node) listView.getSelectionModel().getSelectedItem();
+           originNode = (Node) listView.getSelectionModel().getSelectedItem();
             originLabel.setText(originNode.getNodeID());
         }
     }
@@ -82,8 +85,11 @@ public class DirectoryDrawerController {
         drawer.toBack();
     }
 
-    public void navigate() {
+    public void navigate() throws IOException {
+        mainSceneController.navigate(originNode, destinationNode);
+        navigationDrawerController.navigate();
         drawer.setSidePane(navigateRegion);
+
     }
 
     @FXML
@@ -95,7 +101,11 @@ public class DirectoryDrawerController {
         if (destinationNode != null) destinationLabel.setText(destinationNode.getNodeID());
     }
 
-    public void setRegion(Region region) {
+    public void setNavigateRegion(Region region) {
         this.navigateRegion = region;
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 }
