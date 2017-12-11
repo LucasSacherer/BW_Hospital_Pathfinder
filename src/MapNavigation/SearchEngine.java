@@ -28,6 +28,7 @@ public class SearchEngine {
             char[] str1 = src.toCharArray();
             char[] str2 = dest.toCharArray();
 
+
             for (i = 0; i <= str1.length; i++)
             {
                 d[i][0] = i;
