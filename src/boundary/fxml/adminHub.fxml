@@ -89,7 +89,7 @@
                                  <graphic>
                                     <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Food.gif" />
+                                          <Image url="@../images/Icons/Requests.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -101,7 +101,7 @@
                                  <graphic>
                                     <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Interpreter.png" />
+                                          <Image url="@../images/Icons/Employee.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -113,7 +113,7 @@
                                  <graphic>
                                     <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Cleanup.png" />
+                                          <Image url="@../images/Icons/MapEdit.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -125,7 +125,7 @@
                                  <graphic>
                                     <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/transport.png" />
+                                          <Image url="@../images/Icons/Adminlog.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -166,9 +166,9 @@
                   </DropShadow>
                </effect>
                <graphic>
-                  <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="47.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Food.gif" />
+                        <Image url="@../images/Icons/Back.png" />
                      </image>
                   </ImageView>
                </graphic>
