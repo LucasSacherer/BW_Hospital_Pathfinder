@@ -62,13 +62,19 @@ public class MainSceneController extends AbstractMapController implements NodeRe
         navigationRegion = navigationLoader.load();
 
         directoryDrawerController.setNavigateRegion(navigationRegion);
+        resizeDrawer();
         initializeBurger(directoryRegion);
+    }
+
+    private void resizeDrawer() {
+        double height = mainPane.getHeight() - 40;
+        drawer.setMaxHeight(height);
+        drawer.setPrefHeight(height);
+        drawer.setMinHeight(height);
     }
 
     private void initializeBurger(Region directoryRegion) {
         hamburger.setOnMouseClicked(e -> {
-            directoryRegion.setMaxHeight(mainPane.getHeight()-40);
-            directoryRegion.setPrefHeight(mainPane.getHeight()-40);
             drawer.setSidePane(directoryRegion);
             directoryDrawerController.setMainSceneController(this);
             if (drawer.isHidden() || drawer.isHiding()) {
