@@ -66,6 +66,7 @@ public class SearchEngine {
             List<Node> places = places();
             List<String> wordList =  new ArrayList<>();
 
+
             for(Node n: places){
                 wordList.add(n.getShortName().toLowerCase());
             }
@@ -119,6 +120,12 @@ public class SearchEngine {
                     answer.add(results.get(k));
                 }
             }
+            for(Node n: answer){
+                if(n.getNodeType().equals("HALL")){
+                    answer.remove(n);
+                }
+            }
+
             ObservableList FXresults = FXCollections.observableArrayList();
             FXresults.addAll(answer);
             return FXresults;
