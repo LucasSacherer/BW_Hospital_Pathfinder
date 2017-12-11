@@ -21,8 +21,6 @@ public class SearchEngineTest {
         NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         DirectoryController dc = new DirectoryController(manager);
 
-
-
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
@@ -37,6 +35,7 @@ public class SearchEngineTest {
         System.out.println(names);
 
     }
+
 /*
     @Test
     public void testLowerCafe(){
