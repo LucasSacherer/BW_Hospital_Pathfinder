@@ -37,7 +37,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <JFXButton alignment="TOP_RIGHT" buttonType="RAISED" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="80.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton alignment="TOP_RIGHT" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="80.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -88,8 +88,8 @@
                      <children>
                         <HBox alignment="CENTER" spacing="50.0">
                            <children>
-                              <JFXButton buttonType="RAISED" onAction="#setDirectoryOrigin" text="Set Origin" />
-                              <JFXButton buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#setDirectoryDestination" text="Set Destination" />
+                              <JFXButton buttonType="FLAT" onAction="#setDirectoryOrigin" text="Set Origin" />
+                              <JFXButton buttonType="FLAT" layoutX="10.0" layoutY="10.0" onAction="#setDirectoryDestination" text="Set Destination" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" spacing="20.0">
@@ -112,7 +112,7 @@
             </AnchorPane>
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#reversePath" prefHeight="40.0" prefWidth="40.0">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#reversePath" prefHeight="40.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="28.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -121,7 +121,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                  <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
