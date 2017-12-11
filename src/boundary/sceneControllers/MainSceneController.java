@@ -6,7 +6,6 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
-import boundary.NodeReceiver;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -18,7 +17,7 @@ import Entity.ErrorController;
 
 import java.io.IOException;
 
-public class MainSceneController extends AbstractMapController implements NodeReceiver{
+public class MainSceneController extends AbstractMapController {
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
     private AnchorPane searchAnchor;
@@ -46,7 +45,7 @@ public class MainSceneController extends AbstractMapController implements NodeRe
     public void initializeScene() throws IOException {
         super.initializeScene();
         destinationTextField = new AutoCompleteTextField(dc, false);
-        destinationTextField.setNodeReceiver(this);
+        destinationTextField.setMainSceneController(this);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
 //        searchAnchor.setPrefHeight(40);
@@ -56,7 +55,7 @@ public class MainSceneController extends AbstractMapController implements NodeRe
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
         directoryLoader.setController(directoryDrawerController);
         directoryRegion = directoryLoader.load();
-
+        navigationDrawerController.setDirectoryRegion(directoryRegion);
         FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
         navigationLoader.setController(navigationDrawerController);
         navigationRegion = navigationLoader.load();
@@ -99,7 +98,7 @@ public class MainSceneController extends AbstractMapController implements NodeRe
 
     public void setDestination(Node d) {
         this.destination = d;
-        if (destination != null) destinationTextField.setText(destination.getNodeID());
+        setDestinationText();
     }
 
     private boolean checkNullLocations(){

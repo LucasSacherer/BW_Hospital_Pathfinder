@@ -24,7 +24,6 @@ public class DirectoryDrawerController {
     private Region navigateRegion;
     private ObservableList directoryList;
     private JFXDrawer drawer;
-    private Node originNode, destinationNode;
 
     @FXML
     private Label originLabel, destinationLabel;
@@ -63,7 +62,7 @@ public class DirectoryDrawerController {
     @FXML
     private void setDirectoryOrigin() throws IOException {
         if (!listView.getSelectionModel().isEmpty()) {
-            originNode = (Node) listView.getSelectionModel().getSelectedItem();
+            mainSceneController.setOrigin((Node) listView.getSelectionModel().getSelectedItem();
             originLabel.setText(originNode.getShortName());
         }
     }
@@ -87,7 +86,7 @@ public class DirectoryDrawerController {
     }
 
     public void navigate() throws IOException {
-        mainSceneController.navigate(originNode, destinationNode);
+        mainSceneController.findPath();
         drawer.setSidePane(navigateRegion);
     }
 
@@ -97,7 +96,9 @@ public class DirectoryDrawerController {
         originNode = destinationNode;
         destinationNode = temp;
         if (originNode != null) originLabel.setText(originNode.getShortName());
+        else originLabel.setText("Unknown Location");
         if (destinationNode != null) destinationLabel.setText(destinationNode.getShortName());
+        else originLabel.setText("Unknown Location");
     }
 
     public void setNavigateRegion(Region region) {
