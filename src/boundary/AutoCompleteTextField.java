@@ -7,7 +7,6 @@ import boundary.sceneControllers.MainSceneController;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,8 +17,6 @@ import javafx.scene.control.Label;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 
 // new AutoCompleteTextField().getEntries().addAll(Arrays.asList("AA", "AB", "AC","BCA"));
@@ -27,16 +24,18 @@ import java.util.TreeSet;
 public class AutoCompleteTextField extends JFXTextField
 {
     private SearchEngine searchEngine;
-    private Node node;
+    private MainSceneController mainSceneController;
     /** The existing autocomplete entries. */
     private ObservableList<Node> results;
     /** The popup used to select an entry. */
     private ContextMenu entriesPopup;
+    private boolean originFlag;
 
     /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField(DirectoryController dc, Node n) {
+    public AutoCompleteTextField(DirectoryController dc, MainSceneController mainSceneController, boolean originFlag) {
         super();
-        node = n;
+        this.originFlag = originFlag;
+        this.mainSceneController = mainSceneController;
         setHover(true);
         searchEngine = new SearchEngine(dc);
         entriesPopup = new ContextMenu();
@@ -93,8 +92,8 @@ public class AutoCompleteTextField extends JFXTextField
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result.getShortName());
-                    node = result;
-                    System.out.println("Node set to " + node);
+                    if (originFlag) mainSceneController.setOrigin(result);
+                    else mainSceneController.setDestination(result);
                     entriesPopup.hide();
                 }
             });

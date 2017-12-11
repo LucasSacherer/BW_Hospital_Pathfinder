@@ -15,6 +15,7 @@ import java.util.TreeMap;
 public class DirectoryController {
     private NodeManager nm;
     private SettingsManager settingsManager;
+    private List<Node> visitableNodes;
 
     public DirectoryController(NodeManager nm) {
         this.nm = nm;
@@ -27,7 +28,7 @@ public class DirectoryController {
      */
      TreeMap<String, ObservableList<Node>> getDirectory(){
         //Get all visitable nodes from the NodeManager
-        List<Node> visitableNodes = new ArrayList<Node>();
+        visitableNodes = new ArrayList<Node>();
 
         for (int i = 0; nm.getAllNodes().size() > i; i++ ){
             if (!nm.getAllNodes().get(i).getNodeType().equals("HALL")){
@@ -48,7 +49,7 @@ public class DirectoryController {
         //Initialize the final directory, and the lists that make up the directory
         TreeMap<String, ObservableList<Node>> directory = new TreeMap<>();
         ObservableList<Node> all = FXCollections.observableArrayList();
-        all.addAll(nm.getAllNodes());
+        all.addAll(visitableNodes);
         ObservableList<Node> elev = FXCollections.observableArrayList();
         ObservableList<Node> rest = FXCollections.observableArrayList();
         ObservableList<Node> stai = FXCollections.observableArrayList();
