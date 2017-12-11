@@ -83,7 +83,7 @@
                                           </ImageView>
                                        </graphic>
                                     </JFXButton>
-                                    <JFXButton fx:id="cleanupButton" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="268.0" prefWidth="337.0" style="-fx-background-color: #097bbd;" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <JFXButton fx:id="cleanupButton" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="268.0" prefWidth="273.0" style="-fx-background-color: #097bbd;" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="28.0" />
                                        </font>
@@ -143,9 +143,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton alignment="CENTER" cancelButton="true" onAction="#serviceHubToMain" prefHeight="91.0" prefWidth="101.0" style="-fx-background-color: #09a1b3; -fx-border-radius: 10; -fx-background-radius: 0;" text="Back" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <JFXButton alignment="CENTER" cancelButton="true" onAction="#serviceHubToMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #09a1b3; -fx-border-radius: 10; -fx-background-radius: 0;" text="Back" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                            <font>
-                              <Font name="System Bold" size="24.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets left="20.0" top="20.0" />
