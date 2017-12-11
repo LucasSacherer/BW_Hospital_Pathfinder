@@ -7,6 +7,8 @@ import interpreter.IInterpretNode;
 import interpreter.InterpreterFacade;
 import interpreter.ServiceException;
 import foodRequest.FoodRequest;
+import transporter.ITransportNode;
+import transporter.TransporterFacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +23,19 @@ public class StaffRequestHubController {
     }
 
     public void serviceHubtoAPITest() {
-        InterpreterFacade intf = new InterpreterFacade();
+        TransporterFacade transporterFacade = new TransporterFacade();
+        List<ITransportNode> converted = new ArrayList<>();
+        for (Node n : nodeManager.getAllNodes()){
+            converted.add(new IWraper(n));
+        }
+        transporterFacade.setNodes(converted);
+        try {
+            transporterFacade.run(0, 0, 1200, 800, null, null, null);
+        } catch (transporter.ServiceException se) {
+            se.printStackTrace();
+        }
+
+        /*InterpreterFacade intf = new InterpreterFacade();
         List<IInterpretNode> converted = new ArrayList<>();
         for (Node n : nodeManager.getAllNodes()){
             converted.add(new IWraper(n));
@@ -31,7 +45,7 @@ public class StaffRequestHubController {
             intf.run(0, 0, 1200, 800, null, null, null);
         } catch (ServiceException se) {
             se.printStackTrace();
-        }
+        }*/
 
 //        where nc is your node controller, and getINodes() returns any collection of a list of nodes.
 //        The first null is the css, the and the second and third are the node ids. The last null (originNodeID) is the node that is used for the Interpreter request!
@@ -54,7 +68,35 @@ public class StaffRequestHubController {
 
     public User getUser() { return user; }
 
-    private class IWraper implements IInterpretNode{
+/*    private class IWraper implements IInterpretNode{
+        private Node node;
+
+        public IWraper(Node node){
+            this.node = node;
+        }
+
+        @Override
+        public String getNodeID() {
+            return node.getNodeID();
+        }
+
+        @Override
+        public String getLongName() {
+            return node.getLongName();
+        }
+
+        @Override
+        public String getShortName() {
+            return node.getShortName();
+        }
+
+        @Override
+        public String getNodeType() {
+            return node.getNodeType();
+        }
+    }*/
+
+    private class IWraper implements ITransportNode{
         private Node node;
 
         public IWraper(Node node){
