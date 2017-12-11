@@ -9,10 +9,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -30,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 import javafx.scene.shape.*;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -205,7 +205,7 @@ public abstract class AbstractMapController {
          pathToDraw.add(new Node("c",2000, 300, "a","a","a","a","a",true));
          /** testing over **/
 
-
+        //draws the path outline
         for(int i=0;i<pathToDraw.size()-1;i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i+1);
@@ -215,11 +215,12 @@ public abstract class AbstractMapController {
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 gc.setStroke(Color.ROYALBLUE);
-                gc.setLineWidth(7);
+                gc.setLineWidth(10);
                 gc.strokeLine(x1, y1, x2, y2);
             }
         }
 
+        //fills the inside of the path
         for(int i=0;i<pathToDraw.size()-1;i++) {
             Node next = pathToDraw.get(i);
             Node current = pathToDraw.get(i + 1);
@@ -228,18 +229,35 @@ public abstract class AbstractMapController {
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-
                 gc.setStroke(Color.ROYALBLUE);
-                gc.setLineWidth(4);
+                gc.setLineWidth(5);
                 gc.strokeLine(x1, y1, x2, y2);
-                final Circle cirPath = new Circle();
-                cirPath.setFill(Color.ORANGE);
+            }
+        }
 
+        //the linefollowing animation
+        for(int i=0;i<pathToDraw.size()-1;i++) {
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i+1);
+            int x1 = current.getXcoord() - 4;
+            int y1 = current.getYcoord() - 4;
+            int x2 = next.getXcoord() - 4;
+            int y2 = next.getYcoord() - 4;
 
+            DoubleProperty x1d = new SimpleDoubleProperty(x1);
+            DoubleProperty y1d = new SimpleDoubleProperty(y1);
+            DoubleProperty x2d = new SimpleDoubleProperty(x2);
+            DoubleProperty y2d = new SimpleDoubleProperty(y2);
+
+            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 Timeline timeline = new Timeline(
-                       // new KeyFrame();
+                        new KeyFrame(Duration.seconds(3),
+                                new KeyValue(x1d, x2),
+                                new KeyValue(y1d, y2)
+                        )
                 );
-                timeline.setAutoReverse(true);
+
+                timeline.setAutoReverse(false);
                 timeline.setCycleCount(Timeline.INDEFINITE);
 
                 AnimationTimer timer = new AnimationTimer() {
@@ -247,8 +265,8 @@ public abstract class AbstractMapController {
                     public void handle(long now) {
                         gc.setFill(Color.FORESTGREEN);
                         gc.fillOval(
-                                x1-4,
-                                y1-4,
+                                x1d.doubleValue(),
+                                y1d.doubleValue(),
                                 15,
                                 15
                         );
