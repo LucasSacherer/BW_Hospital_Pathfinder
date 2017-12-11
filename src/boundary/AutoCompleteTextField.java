@@ -15,6 +15,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import sun.applet.Main;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 public class AutoCompleteTextField extends JFXTextField
 {
     private SearchEngine searchEngine;
-    private NodeReceiver nodeReceiver;
+    private MainSceneController mainSceneController;
     /** The existing autocomplete entries. */
     private ObservableList<Node> results;
     /** The popup used to select an entry. */
@@ -70,7 +71,6 @@ public class AutoCompleteTextField extends JFXTextField
                 entriesPopup.hide();
             }
         });
-
     }
 
     /**
@@ -92,9 +92,10 @@ public class AutoCompleteTextField extends JFXTextField
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result.getShortName());
-                    if (originFlag) nodeReceiver.setOrigin(result);
-                    else nodeReceiver.setDestination(result);
+                    if (originFlag) mainSceneController.setOrigin(result);
+                    else mainSceneController.setDestination(result);
                     entriesPopup.hide();
+                    mainSceneController.hide();
                 }
             });
             menuItems.add(item);
@@ -106,7 +107,7 @@ public class AutoCompleteTextField extends JFXTextField
         entriesPopup.hide();
     }
 
-    public void setNodeReceiver(NodeReceiver nodeReceiver) {
-        this.nodeReceiver = nodeReceiver;
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 }

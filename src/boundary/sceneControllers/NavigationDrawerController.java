@@ -3,10 +3,8 @@ package boundary.sceneControllers;
 import Entity.AdminLog;
 import Entity.Node;
 import MapNavigation.DirectoryController;
-import MapNavigation.MapNavigationFacade;
 import Pathfinding.TextualDirections;
 import boundary.AutoCompleteTextField;
-import boundary.NodeReceiver;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -15,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -25,6 +24,7 @@ public class NavigationDrawerController {
     private TextualDirections textualDirections = new TextualDirections();
     private AutoCompleteTextField originTextField, destinationTextField;
     private MainSceneController mainSceneController;
+    private Region directoryRegion;
 
     @FXML
     private AnchorPane originPane, destinationPane;
@@ -65,8 +65,8 @@ public class NavigationDrawerController {
 
     public void setMainSceneController(MainSceneController mainSceneController) {
         this.mainSceneController = mainSceneController;
-        originTextField.setNodeReceiver(mainSceneController);
-        destinationTextField.setNodeReceiver(mainSceneController);
+        originTextField.setMainSceneController(mainSceneController);
+        destinationTextField.setMainSceneController(mainSceneController);
     }
 
     public void initializeListCells() {
@@ -104,6 +104,8 @@ public class NavigationDrawerController {
         textDirectionsTable.setShowRoot(true);
     }
 
+    @FXML
+    public void backToDirectory() { drawer.setSidePane(directoryRegion); }
 
     @FXML
     public void closeDrawer() {
@@ -158,5 +160,9 @@ public class NavigationDrawerController {
     public void hide() {
         originTextField.hide();
         destinationTextField.hide();
+    }
+
+    public void setDirectoryRegion(Region directoryRegion) {
+        this.directoryRegion = directoryRegion;
     }
 }

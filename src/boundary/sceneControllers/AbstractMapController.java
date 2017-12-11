@@ -94,7 +94,8 @@ public abstract class AbstractMapController {
         scrollPane.setFitToHeight(true);
         scrollPane.setContent(group);
 
-        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
+        origin = mapNavigationFacade.getDefaultNode();
+        imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
         gc = canvas.getGraphicsContext2D();
 //        currentFloorNum.setText(currentFloor);
         zoomSlider.setValue(0);

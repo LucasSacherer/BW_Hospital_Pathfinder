@@ -16,9 +16,7 @@ public class SearchEngine {
             TreeMap<String,ObservableList<Node>> directory = dc.getDirectory();
             List<Node> locations = new ArrayList<>();
             Collection<ObservableList<Node>> nodeCollection = directory.values();
-            for (ObservableList<Node> n : nodeCollection){
-                locations.addAll(n);
-            }
+            locations = directory.get("All");
             return locations;
         }
         //put list of list into lists of names
@@ -29,6 +27,7 @@ public class SearchEngine {
             int i, j, cost;
             char[] str1 = src.toCharArray();
             char[] str2 = dest.toCharArray();
+
 
             for (i = 0; i <= str1.length; i++)
             {

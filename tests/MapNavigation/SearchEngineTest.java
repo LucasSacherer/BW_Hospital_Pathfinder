@@ -21,14 +21,12 @@ public class SearchEngineTest {
         NodeManager manager = new NodeManager(databaseGargoyle, adminLogManager);
         DirectoryController dc = new DirectoryController(manager);
 
-
-
         databaseGargoyle.attachManager(manager);
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
 
         SearchEngine se = new SearchEngine(dc);
-        List<Node> answer = (se.Search("Cafe"));
+        List<Node> answer = (se.Search("abp"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
             names.add(n.getShortName());
@@ -37,6 +35,7 @@ public class SearchEngineTest {
         System.out.println(names);
 
     }
+
 /*
     @Test
     public void testLowerCafe(){

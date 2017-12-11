@@ -6,7 +6,6 @@ import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
-import boundary.NodeReceiver;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -18,7 +17,7 @@ import Entity.ErrorController;
 
 import java.io.IOException;
 
-public class MainSceneController extends AbstractMapController implements NodeReceiver{
+public class MainSceneController extends AbstractMapController {
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
     private AnchorPane searchAnchor;
@@ -46,7 +45,7 @@ public class MainSceneController extends AbstractMapController implements NodeRe
     public void initializeScene() throws IOException {
         super.initializeScene();
         destinationTextField = new AutoCompleteTextField(dc, false);
-        destinationTextField.setNodeReceiver(this);
+        destinationTextField.setMainSceneController(this);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
 //        searchAnchor.setPrefHeight(40);
@@ -56,19 +55,25 @@ public class MainSceneController extends AbstractMapController implements NodeRe
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
         directoryLoader.setController(directoryDrawerController);
         directoryRegion = directoryLoader.load();
-
+        navigationDrawerController.setDirectoryRegion(directoryRegion);
         FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
         navigationLoader.setController(navigationDrawerController);
         navigationRegion = navigationLoader.load();
 
         directoryDrawerController.setNavigateRegion(navigationRegion);
+//        resizeDrawer();
         initializeBurger(directoryRegion);
+    }
+
+    private void resizeDrawer() {
+        double height = mainPane.getHeight() - 40;
+        drawer.setMaxHeight(height);
+        drawer.setPrefHeight(height);
+        drawer.setMinHeight(height);
     }
 
     private void initializeBurger(Region directoryRegion) {
         hamburger.setOnMouseClicked(e -> {
-            directoryRegion.setMaxHeight(mainPane.getHeight()-40);
-            directoryRegion.setPrefHeight(mainPane.getHeight()-40);
             drawer.setSidePane(directoryRegion);
             directoryDrawerController.setMainSceneController(this);
             if (drawer.isHidden() || drawer.isHiding()) {
@@ -93,7 +98,7 @@ public class MainSceneController extends AbstractMapController implements NodeRe
 
     public void setDestination(Node d) {
         this.destination = d;
-        if (destination != null) destinationTextField.setText(destination.getNodeID());
+        setDestinationText();
     }
 
     private boolean checkNullLocations(){
@@ -125,11 +130,9 @@ public class MainSceneController extends AbstractMapController implements NodeRe
     }
 
     public void navigateToHere() throws IOException {
-//        boolean success = checkNullLocations();
-//        if(success) {
         setDestination();
         findPath();
-//        }
+        hide();
     }
 
     public void setDestination() {
@@ -224,4 +227,8 @@ public class MainSceneController extends AbstractMapController implements NodeRe
     }
 
     public void hide() { destinationTextField.hide(); }
+
+    public Node getOrigin() { return origin; }
+
+    public Node getDestination() { return destination; }
 }
