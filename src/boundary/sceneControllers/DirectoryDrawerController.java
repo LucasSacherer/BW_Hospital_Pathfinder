@@ -21,9 +21,7 @@ import java.io.IOException;
 public class DirectoryDrawerController {
     private MainSceneController mainSceneController;
     private MapNavigationFacade mapNavigationFacade;
-    private NavigationDrawerController navigationDrawerController;
     private Region navigateRegion;
-    private DirectoryController dc;
     private ObservableList directoryList;
     private JFXDrawer drawer;
     private Node originNode, destinationNode;
@@ -37,11 +35,9 @@ public class DirectoryDrawerController {
     @FXML
     private JFXListView listView;
 
-    public DirectoryDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc, NavigationDrawerController navigationDrawerController) {
+    public DirectoryDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade) {
         this.drawer = drawer;
-        this.navigationDrawerController = navigationDrawerController;
         this.mapNavigationFacade = mapNavigationFacade;
-        this.dc = dc;
         this.mainSceneController = mainSceneController;
     }
 
@@ -67,8 +63,8 @@ public class DirectoryDrawerController {
     @FXML
     private void setDirectoryOrigin() throws IOException {
         if (!listView.getSelectionModel().isEmpty()) {
-           originNode = (Node) listView.getSelectionModel().getSelectedItem();
-            originLabel.setText(originNode.getNodeID());
+            originNode = (Node) listView.getSelectionModel().getSelectedItem();
+            originLabel.setText(originNode.getShortName());
         }
     }
 
@@ -76,7 +72,7 @@ public class DirectoryDrawerController {
     private void setDirectoryDestination() throws IOException {
         if (!listView.getSelectionModel().isEmpty()) {
             destinationNode = (Node) listView.getSelectionModel().getSelectedItem();
-            destinationLabel.setText(destinationNode.getNodeID());
+            destinationLabel.setText(destinationNode.getShortName());
         }
     }
 
@@ -92,9 +88,7 @@ public class DirectoryDrawerController {
 
     public void navigate() throws IOException {
         mainSceneController.navigate(originNode, destinationNode);
-        navigationDrawerController.navigate();
         drawer.setSidePane(navigateRegion);
-
     }
 
     @FXML
@@ -102,8 +96,8 @@ public class DirectoryDrawerController {
         Node temp = originNode;
         originNode = destinationNode;
         destinationNode = temp;
-        if (originNode != null) originLabel.setText(originNode.getNodeID());
-        if (destinationNode != null) destinationLabel.setText(destinationNode.getNodeID());
+        if (originNode != null) originLabel.setText(originNode.getShortName());
+        if (destinationNode != null) destinationLabel.setText(destinationNode.getShortName());
     }
 
     public void setNavigateRegion(Region region) {
