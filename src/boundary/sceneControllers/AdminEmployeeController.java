@@ -93,8 +93,8 @@ public class AdminEmployeeController {
 
     private void onEditMenu() {
         if (employeeTable.getSelectionModel().getSelectedItem() == null) {
-            Alert error = new Alert(Alert.AlertType.ERROR, "No selected Item");
-            error.show();
+            errorController.showError("No item selected.");
+            return;
         } else {
             TreeItem<User> selectedUserItem = employeeTable.getSelectionModel().getSelectedItem();
             userID.setText(selectedUserItem.getValue().getUserID());

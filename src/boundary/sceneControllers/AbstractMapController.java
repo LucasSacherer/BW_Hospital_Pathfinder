@@ -31,6 +31,7 @@ import javafx.scene.transform.Transform;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -235,49 +236,47 @@ public abstract class AbstractMapController {
             }
         }
 
+
         //the linefollowing animation
-        for(int i=0;i<pathToDraw.size()-1;i++) {
-            Node next = pathToDraw.get(i);
-            Node current = pathToDraw.get(i+1);
-            int x1 = current.getXcoord() - 4;
-            int y1 = current.getYcoord() - 4;
-            int x2 = next.getXcoord() - 4;
-            int y2 = next.getYcoord() - 4;
+        DoubleProperty x1d = new SimpleDoubleProperty();
+        DoubleProperty y1d = new SimpleDoubleProperty();
+        int x2 = 0;
+        int y2 = 0;
 
-            DoubleProperty x1d = new SimpleDoubleProperty(x1);
-            DoubleProperty y1d = new SimpleDoubleProperty(y1);
-            DoubleProperty x2d = new SimpleDoubleProperty(x2);
-            DoubleProperty y2d = new SimpleDoubleProperty(y2);
+        updateDrawingValues();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        updateDrawingValues(),
+                        new KeyValue(x1d, x2),
+                        new KeyValue(y1d, y2)
+                )
+        );
 
-            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-                Timeline timeline = new Timeline(
-                        new KeyFrame(Duration.seconds(3),
-                                new KeyValue(x1d, x2),
-                                new KeyValue(y1d, y2)
-                        )
+        timeline.setAutoReverse(false);
+        timeline.setCycleCount(1);
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                gc.setFill(Color.ROYALBLUE);
+                gc.fillOval(
+                        x1d.doubleValue(),
+                        y1d.doubleValue(),
+                        12,
+                        12
                 );
-
-                timeline.setAutoReverse(false);
-                timeline.setCycleCount(Timeline.INDEFINITE);
-
-                AnimationTimer timer = new AnimationTimer() {
-                    @Override
-                    public void handle(long now) {
-                        gc.setFill(Color.FORESTGREEN);
-                        gc.fillOval(
-                                x1d.doubleValue(),
-                                y1d.doubleValue(),
-                                15,
-                                15
-                        );
-                    }
-                };
-
-
-                timer.start();
-                timeline.play();
             }
-        }
+        };
+
+
+        timer.start();
+        timeline.play();
+    }
+
+    private ActionEvent updateDrawingValues(){
+        int iterator = 0;
+        ActionEvent update = new ActionEvent();
+        return update;
     }
 
     private void drawPathNodes() {
