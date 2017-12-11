@@ -28,7 +28,7 @@ public class SearchEngineTest {
         databaseGargoyle.notifyManagers();
 
         SearchEngine se = new SearchEngine(dc);
-        List<Node> answer = (se.Search("Cafe"));
+        List<Node> answer = (se.Search("abp"));
         List<String> names = new ArrayList<>();
         for(Node n: answer){
             names.add(n.getShortName());
