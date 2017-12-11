@@ -11,13 +11,15 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
-import java.awt.*;
+
 import java.io.IOException;
 
 public class NavigationDrawerController {
@@ -45,10 +47,15 @@ public class NavigationDrawerController {
 
     private TreeItem<AdminLog> root = new TreeItem<>();
 
+    private TreeTableCell<AdminLog, String> cell;
+
+    private Label inputLabel = new Label("Hey");
+    private Label inputLabel1 = new Label("Hello");
+    private Image image = new Image("/boundary/images/circle-outline.png");
 
 
     public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc,
-                                      MainSceneController m,JFXTreeTableView<AdminLog> textDirectionsTable,TreeTableColumn<AdminLog, String> textDirectionsColumn) {
+                                      MainSceneController m, JFXTreeTableView<AdminLog> textDirectionsTable, TreeTableColumn<AdminLog, String> textDirectionsColumn) {
         this.drawer = drawer;
         this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
@@ -57,6 +64,7 @@ public class NavigationDrawerController {
 //        directions.setItems(textualDirections.getTextDirections(currentPath));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
+
 
     }
 
@@ -72,46 +80,54 @@ public class NavigationDrawerController {
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
         initializeListCells();
+        setNew();
+        root.getChildren().add(new TreeItem<>());
+
+
 
     }
 
     public void initializeListCells() {
-        textDirectionsColumn.setCellFactory(col -> {
-            TreeTableCell<AdminLog, String> c = new TreeTableCell<>();
-            final ImageView imageView = new ImageView("/boundary/images/circle-outline.png");
+        textDirectionsColumn.setCellFactory(new Callback<TreeTableColumn<AdminLog, String>, TreeTableCell<AdminLog, String>>() {
+            @Override
+            public TreeTableCell<AdminLog, String> call(TreeTableColumn<AdminLog, String> param) {
+                 cell = new TreeTableCell<AdminLog, String>() {
+                    private HBox hBox = new HBox();
+                    private VBox vBox = new VBox();
+                    private Label labelDist = new Label();
+                    private Label labelDire = new Label();
+                    private ImageView imageView = new ImageView();
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        imageView.setImage(image);
+                        imageView.setFitHeight(40);
+                        imageView.setFitWidth(40);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        vBox.setAlignment(Pos.CENTER);
+                        labelDist.setText(inputLabel.getText());
+                        labelDire.setText(inputLabel1.getText());
+                        labelDist.setPrefWidth(300);
+                        labelDist.setPrefHeight(20);
+                        vBox.getChildren().setAll(labelDist);
+                        vBox.getChildren().setAll(labelDist,labelDire);
+                        hBox.getChildren().setAll(imageView,vBox);
+                        cell.setGraphic(hBox);
+//                        cell.graphicProperty().bind(Bindings.when(cell.emptyProperty()).then((javafx.scene.Node) null).otherwise(hBox));
+                    }
 
-            HBox hbox = new HBox();
-            hbox.setAlignment(Pos.CENTER_LEFT);
-            hbox.getChildren().add(imageView);
-//            c.itemProperty().addListener((observable, oldValue, newValue) -> {
-//                if (oldValue != null) {
-//                    comboBox.valueProperty().unbindBidirectional(oldValue);
-//                }
-//                if (newValue != null) {
-//                    comboBox.valueProperty().bindBidirectional(newValue);
-//                }
-//            });
-            VBox vBox = new VBox();
-            vBox.setAlignment(Pos.CENTER);
-            JFXTextArea textArea = new JFXTextArea("HELLO");
-//            textArea.setStyle("-fx-underline: true");
-            JFXTextField textField = new JFXTextField("Hey");
-            textArea.setPrefWidth(300);
-            textArea.setPrefHeight(50);
-            vBox.getChildren().add(textArea);
-            vBox.getChildren().add(textField);
-            hbox.getChildren().add(vBox);
-            //c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((Node) null).otherwise(button));
-            c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((javafx.scene.Node) null).otherwise(hbox));
-//            c.setGraphic(hbox);
-            return c;
+                };
+                return cell;
+            }
         });
+        root.getChildren().add(new TreeItem<>());
         textDirectionsTable.setRoot(root);
-        textDirectionsTable.setShowRoot(true);
+        textDirectionsTable.setShowRoot(false);
     }
 
-
-
+    private void setNew(){
+        inputLabel.setText("Hello again");
+        inputLabel1.setText("Hellloooooooo");
+    }
 
 
     @FXML
@@ -134,7 +150,7 @@ public class NavigationDrawerController {
 
     @FXML
     public void reversePath() {
-       //TODO reverse the path over here
+        //TODO reverse the path over here
     }
 
     @FXML

@@ -191,11 +191,11 @@ public class MainSceneController extends AbstractMapController {
     public void openDirectory(AnchorPane dPane) throws IOException {
         JFXRippler rippler = new JFXRippler();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
-        loader.setController(directorySceneController);
+        loader.setController(directoryDrawerController);
         Region region = loader.load();
         dPane.getChildren().add(rippler);
         JFXPopup popup = new JFXPopup(region);
-        directorySceneController.setMainSceneController(this);
+        directoryDrawerController.setMainSceneController(this);
 
         popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
     }
