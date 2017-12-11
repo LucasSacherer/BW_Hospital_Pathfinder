@@ -114,7 +114,7 @@
                         </AnchorPane>
                         <ImageView fitHeight="242.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <image>
-                              <Image url="@../images/other%20images/newBWH.jpg" />
+                              <Image url="@../images/other%20images/BWH.jpg" />
                            </image>
                         </ImageView>
                         <Label text="Staff Service Hub" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
