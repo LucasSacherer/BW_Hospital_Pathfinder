@@ -35,7 +35,7 @@
          <children>
             <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false">
                <GridPane.margin>
-                  <Insets left="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="20.0" top="20.0" />
                </GridPane.margin>
             </JFXDrawer>
             <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="3" GridPane.rowSpan="3">
@@ -52,7 +52,7 @@
                <children>
                   <VBox alignment="CENTER" fillWidth="false">
                      <children>
-                        <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
                                  <font>
@@ -61,10 +61,10 @@
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
                                  <font>
@@ -73,10 +73,10 @@
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
                                  <font>
@@ -85,10 +85,10 @@
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorG" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorG" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
                            <graphic>
                               <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
                                  <font>
@@ -97,10 +97,10 @@
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
                                  <font>
@@ -109,10 +109,10 @@
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
                                  <font>
@@ -121,17 +121,17 @@
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="80.0" />
                      </padding>
                   </VBox>
                   <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                      <children>
-                        <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="233.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#streetView" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="233.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#streetView" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -140,19 +140,16 @@
                               </ImageView>
                            </graphic>
                            <VBox.margin>
-                              <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </JFXButton>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="80.0" prefWidth="585.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#nearestExitMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#nearestExitMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -164,7 +161,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -176,7 +173,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -188,7 +185,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
                      <graphic>
                         <Label text="i" textFill="#cccccc">
                            <font>
@@ -200,9 +197,9 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="80.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-radius: 0; -fx-background-color: #0068B1; -fx-border-radius: 0;" text="Login" textFill="WHITE">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="80.0" prefWidth="160.0" ripplerFill="#cccccc" style="-fx-background-radius: 12; -fx-background-color: #0068b1; -fx-border-color: #0068b1; -fx-border-radius: 0; -fx-border-width: 10;" text="Login" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="19.0" />
+                        <Font name="System Bold" size="28.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="5.0" />
@@ -213,20 +210,23 @@
                   <Insets right="20.0" top="20.0" />
                </GridPane.margin>
             </HBox>
-            <HBox maxHeight="80.0" maxWidth="340.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="340.0" spacing="5.0" style="-fx-background-color: #0068B1;">
+            <HBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="320.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="320.0" spacing="5.0" style="-fx-background-color: #0068B1;" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <children>
-                  <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0" />
+                  <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></JFXHamburger>
                   <VBox alignment="CENTER" prefWidth="200.0">
                      <children>
                         <AnchorPane fx:id="searchAnchor" style="-fx-background-color: white;" />
                      </children>
                   </VBox>
-                  <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="80.0" prefWidth="80.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" translateX="3.0">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" translateX="3.0">
                            <image>
                               <Image url="@../images/Icons/Navagate.png" />
                            </image>
@@ -234,11 +234,8 @@
                      </graphic>
                   </JFXButton>
                </children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
                <GridPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets left="20.0" top="20.0" />
                </GridPane.margin>
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
