@@ -78,12 +78,15 @@ public class GodController {
     final private BestFirst best = new BestFirst(edgeManager);
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
+    /* Drawer */
+    private JFXTreeTableView<AdminLog> textDirectionsTable;
+
+    private TreeTableColumn<AdminLog, String> textDirectionsColumn;
+
 
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
-
-
 
     @FXML
     private JFXHamburger hamburger;
@@ -340,8 +343,8 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController);
-        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController);
+        navigationDrawerController = new NavigationDrawerController(drawer, mapNavigationFacade, directoryController, mainSceneController,textDirectionsTable,textDirectionsColumn);
+        directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade, directoryController, navigationDrawerController);
     }
 
     private void initializeMainScene() throws IOException {
@@ -410,10 +413,7 @@ public class GodController {
     private void openDirectory() throws IOException { }
 
     @FXML
-    private void zoomIn() { mainSceneController.zoomIn(); }
-
-    @FXML
-    private void zoomOut() { mainSceneController.zoomOut(); }
+    private void zoom() { mainSceneController.zoom(); }
 
     @FXML
     private void setOriginByMouse(MouseEvent m) { mainSceneController.setOrigin(m);}
