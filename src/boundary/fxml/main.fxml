@@ -213,24 +213,14 @@
                   <Insets right="20.0" top="20.0" />
                </GridPane.margin>
             </HBox>
-            <HBox spacing="5.0">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="20.0" right="5.0" top="20.0" />
-               </GridPane.margin>
+            <HBox maxHeight="80.0" maxWidth="340.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="340.0" spacing="5.0" style="-fx-background-color: #0068B1;">
                <children>
-                  <HBox maxHeight="80.0" maxWidth="240.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="240.0" style="-fx-background-color: #0068B1;">
+                  <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0" />
+                  <VBox alignment="CENTER" prefWidth="200.0">
                      <children>
-                        <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0" />
-                        <VBox alignment="CENTER">
-                           <children>
-                              <AnchorPane fx:id="searchAnchor" style="-fx-background-color: white;" />
-                           </children>
-                        </VBox>
+                        <AnchorPane fx:id="searchAnchor" style="-fx-background-color: white;" />
                      </children>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </HBox>
+                  </VBox>
                   <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="80.0" prefWidth="80.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -244,6 +234,12 @@
                      </graphic>
                   </JFXButton>
                </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </GridPane.margin>
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
