@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -234,14 +235,10 @@ public abstract class AbstractMapController {
                 final Circle cirPath = new Circle();
                 cirPath.setFill(Color.ORANGE);
 
-                PathTransition pathTransition = new PathTransition();
-                pathTransition.setNode(cirPath);
-                pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-                pathTransition.setAutoReverse(true);
-                pathTransition.play();
 
-
-                Timeline timeline = new Timeline();
+                Timeline timeline = new Timeline(
+                       // new KeyFrame();
+                );
                 timeline.setAutoReverse(true);
                 timeline.setCycleCount(Timeline.INDEFINITE);
 
@@ -252,8 +249,8 @@ public abstract class AbstractMapController {
                         gc.fillOval(
                                 x1-4,
                                 y1-4,
-                                10,
-                                10
+                                15,
+                                15
                         );
                     }
                 };
