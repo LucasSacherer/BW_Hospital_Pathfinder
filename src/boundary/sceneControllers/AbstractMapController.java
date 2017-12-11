@@ -50,6 +50,7 @@ public abstract class AbstractMapController {
     protected MapNavigationFacade mapNavigationFacade;
     protected PathFindingFacade pathFindingFacade;
     protected ImageView imageView;
+    protected Image locationImage = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/end-point.png"));
     protected Image uparrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/up_arrow.png"));//new Image("./boundary/images/up_arrow.png");
     protected Image downarrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/down_arrow.png"));//new Image("./boundary/images/down_arrow.png");
     protected Image circleoutline = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/circle-outline.png"));//new Image("./boundary/images/circle-outline.png");
@@ -123,7 +124,7 @@ public abstract class AbstractMapController {
         drawPathNodes();
     }
 
-    private void drawDestination() { //TODO make this the icon of location
+    private void drawDestination() {
         if (destination != null && destination.getFloor().equals(currentFloor)) {
             gc.setFill(Color.WHITE);
             gc.fillOval(destination.getXcoord() - 10, destination.getYcoord() - 10, 20, 20);
@@ -133,6 +134,8 @@ public abstract class AbstractMapController {
             gc.fillOval(destination.getXcoord() - 6, destination.getYcoord() - 6, 12, 12);
             gc.setFill(Color.BLACK);
             gc.fillOval(destination.getXcoord() - 3, destination.getYcoord() - 3, 6, 6);
+            gc.drawImage(locationImage, destination.getXcoord() - 16, destination.getYcoord() - 46, 32, 46);
+
         }
     }
 
