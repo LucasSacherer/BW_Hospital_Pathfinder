@@ -19,5 +19,26 @@
     <schema id="11" parent="1" name="SYSIBM"/>
     <schema id="12" parent="1" name="SYSPROC"/>
     <schema id="13" parent="1" name="SYSSTAT"/>
+    <table id="14" parent="3" name="PATHFINDINGLOG"/>
+    <column id="15" parent="14" name="NODEID">
+      <Position>1</Position>
+      <DataType>VARCHAR(20)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="14" name="TIME">
+      <Position>2</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="14" name="DESTINATION">
+      <Position>3</Position>
+      <DataType>VARCHAR(5)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="14" name="PATHID">
+      <Position>4</Position>
+      <DataType>VARCHAR(250)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
   </database-model>
 </dataSource>

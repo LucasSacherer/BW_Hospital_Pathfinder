@@ -5,6 +5,7 @@ import MapNavigation.DirectoryController;
 import MapNavigation.SearchEngine;
 import boundary.sceneControllers.MainSceneController;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.org.apache.xalan.internal.xsltc.dom.NodeSortRecord;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -24,7 +25,7 @@ import java.util.List;
 public class AutoCompleteTextField extends JFXTextField
 {
     private SearchEngine searchEngine;
-    private MainSceneController mainSceneController;
+    private NodeReceiver nodeReceiver;
     /** The existing autocomplete entries. */
     private ObservableList<Node> results;
     /** The popup used to select an entry. */
@@ -32,10 +33,9 @@ public class AutoCompleteTextField extends JFXTextField
     private boolean originFlag;
 
     /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField(DirectoryController dc, MainSceneController mainSceneController, boolean originFlag) {
+    public AutoCompleteTextField(DirectoryController dc, boolean originFlag) {
         super();
         this.originFlag = originFlag;
-        this.mainSceneController = mainSceneController;
         setHover(true);
         searchEngine = new SearchEngine(dc);
         entriesPopup = new ContextMenu();
@@ -92,8 +92,8 @@ public class AutoCompleteTextField extends JFXTextField
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result.getShortName());
-                    if (originFlag) mainSceneController.setOrigin(result);
-                    else mainSceneController.setDestination(result);
+                    if (originFlag) nodeReceiver.setOrigin(result);
+                    else nodeReceiver.setDestination(result);
                     entriesPopup.hide();
                 }
             });
@@ -104,5 +104,9 @@ public class AutoCompleteTextField extends JFXTextField
     }
     public void hide() {
         entriesPopup.hide();
+    }
+
+    public void setNodeReceiver(NodeReceiver nodeReceiver) {
+        this.nodeReceiver = nodeReceiver;
     }
 }

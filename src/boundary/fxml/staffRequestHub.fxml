@@ -12,67 +12,144 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="requestHubPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="requestHubPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="1.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" percentWidth="45.0" prefWidth="266.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" percentWidth="10.0" prefWidth="65.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" percentWidth="45.0" prefWidth="267.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="70.0" minHeight="39.0" prefHeight="39.0" />
-            <RowConstraints maxHeight="423.0" minHeight="338.0" prefHeight="338.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="158.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="278.0" minHeight="125.0" percentHeight="15.0" prefHeight="278.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <ImageView fitHeight="1096.0" fitWidth="2142.0" layoutX="3.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/staffHub.png" />
+         </image>
+      </ImageView>
+      <GridPane prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1683.0" minWidth="10.0" prefWidth="1361.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1579.0" minWidth="10.0" prefWidth="557.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="972.0" minHeight="10.0" prefHeight="872.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="779.0" minHeight="0.0" prefHeight="206.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <JFXButton fx:id="interpreterButton" buttonType="RAISED" onAction="#serviceHubtoRequest" prefHeight="88.0" prefWidth="328.0" style="-fx-background-color: #003da6;" text="Interpreter" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="foodButton" buttonType="RAISED" contentDisplay="TEXT_ONLY" onAction="#serviceHubtoFoodAPI" prefHeight="76.0" prefWidth="342.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="Food" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-               <effect>
-                  <DropShadow blurType="TWO_PASS_BOX" height="80.0" radius="39.5" width="80.0">
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DropShadow>
-               </effect>
-            </JFXButton>
-            <JFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#serviceHubToMain" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 12; -fx-border-width: 5; -fx-border-color: #0068B1;" text="Back" textAlignment="CENTER" textFill="#0068b1" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="15.0" top="15.0" />
-               </GridPane.margin>
-            </JFXButton>
-            <ImageView fitHeight="375.0" fitWidth="363.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <image>
-                  <Image url="@../images/other%20images/BWH.png" />
-               </image>
-            </ImageView>
-            <Label alignment="CENTER" focusTraversable="false" text="Service Request Hub" textFill="#003da6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Italic" size="34.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="cleanupButton" buttonType="RAISED" onAction="#serviceHubtoRequest" prefHeight="77.0" prefWidth="335.0" style="-fx-background-color: #003da6;" text="Clean up" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="APITestButton" buttonType="RAISED" onAction="#serviceHubtoAPITest" prefHeight="79.0" prefWidth="329.0" style="-fx-background-color: #003da6;" text="API Test" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </JFXButton>
+            <AnchorPane prefHeight="872.0" prefWidth="425.0" style="-fx-background-color: white;" GridPane.columnIndex="1">
+               <children>
+                  <GridPane prefHeight="872.1" prefWidth="467.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="798.0" minHeight="10.0" prefHeight="312.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="384.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="498.0" minHeight="10.0" prefHeight="476.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <children>
+                              <GridPane prefHeight="476.0" prefWidth="532.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <JFXButton fx:id="foodButton" alignment="BOTTOM_CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#serviceHubtoFoodAPI" prefHeight="368.0" prefWidth="389.0" ripplerFill="WHITE" style="-fx-background-color: #003da6; -fx-background-image: src\boundary\images\staffHub.png;" text="Food" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="28.0" />
+                                       </font>
+                                       <effect>
+                                          <DropShadow blurType="TWO_PASS_BOX" height="80.0" radius="39.5" width="80.0">
+                                             <input>
+                                                <DropShadow />
+                                             </input>
+                                          </DropShadow>
+                                       </effect>
+                                       <graphic>
+                                          <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/food.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton fx:id="interpreterButton" buttonType="RAISED" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="282.0" prefWidth="291.0" style="-fx-background-color: #003da6;" text="Interpreter" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="28.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Interpreter.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton fx:id="cleanupButton" buttonType="RAISED" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="268.0" prefWidth="337.0" style="-fx-background-color: #003da6;" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="28.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Cleanup.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton fx:id="APITestButton" buttonType="RAISED" contentDisplay="TOP" onAction="#serviceHubtoAPITest" prefHeight="300.0" prefWidth="389.0" style="-fx-background-color: #003da6;" text="Transport" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="28.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="144.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/transport.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                        <ImageView fitHeight="242.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../images/other%20images/BWH.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Staff Service Hub" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <GridPane prefHeight="872.0" prefWidth="1451.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#serviceHubToMain" prefHeight="61.0" prefWidth="172.0" style="-fx-background-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 12; -fx-border-width: 5; -fx-border-color: #0068B1;" text="Logout" textAlignment="CENTER" textFill="#0068b1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </JFXButton>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
    </children>

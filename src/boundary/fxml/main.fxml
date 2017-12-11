@@ -161,7 +161,7 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
@@ -173,7 +173,7 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
@@ -185,7 +185,7 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
@@ -197,7 +197,7 @@
                         </Label>
                      </graphic>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="80.0" prefWidth="160.0" ripplerFill="#cccccc" style="-fx-background-radius: 12; -fx-background-color: white; -fx-border-color: #0068b1; -fx-border-radius: 0; -fx-border-width: 5;" text="Login" textFill="#0068b1">
@@ -205,7 +205,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
                </children>

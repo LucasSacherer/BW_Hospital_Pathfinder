@@ -104,6 +104,7 @@ public class AdminMapController extends AbstractMapController{
         this.kioskEditor = new KioskEditor(gc, nodeEditController, setKioskX, setKioskY);
     }
 
+
     public void refreshCanvas() {
         super.refreshCanvas();
         drawAllNodes();
@@ -249,7 +250,7 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void setScale(JFXTextField distanceScale){ kioskEditor.setScale(distanceScale); }
+
 
 
     public void resetKioskScene() {
