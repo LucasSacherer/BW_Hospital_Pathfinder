@@ -8,6 +8,8 @@ import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -47,9 +49,11 @@ public class MainSceneController extends AbstractMapController {
 
     public void initializeScene() throws IOException {
         super.initializeScene();
-        destinationTextField = new AutoCompleteTextField(dc, destination);
+        destinationTextField = new AutoCompleteTextField(dc, this, false);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
+        searchAnchor.setPrefHeight(40);
+        searchAnchor.setPrefWidth(100);
         origin = mapNavigationFacade.getDefaultNode();
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
@@ -59,7 +63,11 @@ public class MainSceneController extends AbstractMapController {
         FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
         navigationLoader.setController(navigationDrawerController);
         Region navigationRegion = navigationLoader.load();
-        directoryDrawerController.setRegion(navigationRegion);
+
+        directoryDrawerController.setNavigateRegion(navigationRegion);
+
+        directoryDrawerController.setMainSceneController(this);
+        navigationDrawerController.setMainSceneController(this);
         initializeBurger(directoryRegion);
     }
 
@@ -83,9 +91,9 @@ public class MainSceneController extends AbstractMapController {
         originField.setPromptText(o.getNodeID());
     }
 
-    public void setNode(Node d) {
-        this.destination = d;
-        destinationTextField.setText(d.getNodeID());
+    public void setDestination(Node destination) {
+        this.destination = destination;
+        destinationTextField.setText(destination.getNodeID());
     }
 
     private boolean checkNullLocations(){
@@ -175,31 +183,12 @@ public class MainSceneController extends AbstractMapController {
     private void goToCorrectFloor() {
         currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
-    public void reversePath() throws IOException {
-        if (origin == null || destination == null) return; //TODO throw an error
-        Node temp = destination;
-        destination = origin;
-        origin = temp;
-        setOriginText();
-        setDestinationText();
-        goToCorrectFloor();
-        centerMap();
-        currentPath = pathFindingFacade.getPath(origin, destination);
+//        currentFloorNum.setText(currentFloor);
         refreshCanvas();
     }
 
     private void centerMap() {
         //TODO
-    }
-
-    public void zoomIn() {
-    }
-
-    public void zoomOut() {
     }
 
     public void floorL2() {
