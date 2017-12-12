@@ -176,18 +176,6 @@ public class MainSceneController extends AbstractMapController {
         navigationDrawerController.hide();
     }
 
-    private void goToCorrectFloor() {
-        currentFloor = origin.getFloor();
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
-    private void centerMap() {
-        zoomOut();
-        goToCorrectFloor();
-    }
-
     public void floorL2() {
         currentFloor = "L2";
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));

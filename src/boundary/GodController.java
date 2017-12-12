@@ -399,6 +399,7 @@ public class GodController {
     private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
             pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
 
+
     /** Organize Functions by Scene **/
 
     ////////////////

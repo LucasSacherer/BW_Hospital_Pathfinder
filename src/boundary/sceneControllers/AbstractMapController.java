@@ -11,7 +11,9 @@ import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -75,9 +78,11 @@ public abstract class AbstractMapController {
         EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                printScroll();
                 clickOnMap(event);
             }
         };
+
         canvas.setOnMouseClicked(handler);
 
         gc = canvas.getGraphicsContext2D();
@@ -88,8 +93,9 @@ public abstract class AbstractMapController {
         scrollPane.setContent(group);
 
         origin = mapNavigationFacade.getDefaultNode();
+        currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
-        zoomOut();
+//        centerMap();
     }
 
     protected void zoomOut() {
@@ -376,6 +382,42 @@ public abstract class AbstractMapController {
         } else {
             scroller.setHvalue(scroller.getHmin());
         }
+    }
+
+    protected void centerMap() {
+//        zoomOut();
+        goToCorrectFloor();
+        if (currentPath == null) {
+            Bounds windowSize = scrollPane.getViewportBounds();
+
+            double xCoord = origin.getXcoord();
+            double windowWidth = windowSize.getWidth(); // - windowSize.getWidth());
+            double q = xCoord - (windowWidth / 2.0);
+
+            if (q < 0) q = 0;
+            if (q > 5000) q = 5000;
+
+            scrollPane.setHvalue(q);
+            System.out.println(q);
+            System.out.println(origin.getXcoord());
+        }
+    }
+
+    //TODO delete this
+    private void printScroll() {
+        Bounds windowSize = scrollPane.getViewportBounds();
+        System.out.println("Window size is: " + windowSize.getWidth());
+        System.out.println("H Value: " + scrollPane.getHvalue());
+        System.out.println("Origin x coordinate: " + origin.getXcoord());
+        System.out.println(" Ratio = " + origin.getXcoord()/ 5000.0);
+        System.out.println("Window ratio" + (windowSize.getWidth()/5000.0));
+        System.out.println("\n\n\n");
+    }
+
+    private void goToCorrectFloor() {
+        currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
     }
 
     public class ImageButton extends Button {
