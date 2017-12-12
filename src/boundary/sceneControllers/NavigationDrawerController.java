@@ -3,7 +3,6 @@ package boundary.sceneControllers;
 import Entity.AdminLog;
 import Entity.Node;
 import MapNavigation.DirectoryController;
-import MapNavigation.MapNavigationFacade;
 import Pathfinding.TextualDirections;
 import boundary.AutoCompleteTextField;
 import com.jfoenix.controls.*;
@@ -15,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -26,12 +26,9 @@ public class NavigationDrawerController {
     private JFXDrawer drawer;
     private DirectoryController dc;
     private TextualDirections textualDirections = new TextualDirections();
-    private MainSceneController m;
-    private MapNavigationFacade mapNavigationFacade;
-    private Object currentPath = null;
-    private Node originNode, destinationNode;
     private AutoCompleteTextField originTextField, destinationTextField;
     private MainSceneController mainSceneController;
+    private Region directoryRegion;
 
     @FXML
     private AnchorPane originPane, destinationPane;
@@ -54,37 +51,39 @@ public class NavigationDrawerController {
     private Image image = new Image("/boundary/images/circle-outline.png");
 
 
-    public NavigationDrawerController(JFXDrawer drawer, MapNavigationFacade mapNavigationFacade, DirectoryController dc,
-                                      MainSceneController m, JFXTreeTableView<AdminLog> textDirectionsTable, TreeTableColumn<AdminLog, String> textDirectionsColumn) {
+
+    public NavigationDrawerController(JFXDrawer drawer, DirectoryController dc,
+                                      JFXTreeTableView<AdminLog> textDirectionsTable, TreeTableColumn<AdminLog, String> textDirectionsColumn) {
         this.drawer = drawer;
-        this.mapNavigationFacade = mapNavigationFacade;
         this.dc = dc;
         JFXListView directions = new JFXListView();
-//        this.listView = listView;
-//        directions.setItems(textualDirections.getTextDirections(currentPath));
+//        directions.setItems(textualDirections.getTextDirections(mainSceneController.getCurrentPath()));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
-
-
     }
 
     @FXML
     private void initialize() {
-//        if (originNode == null) originNode = mapNavigationFacade.getDefaultNode();
-
-        originTextField = new AutoCompleteTextField(dc, m, true);
+        originTextField = new AutoCompleteTextField(dc, true);
         originPane.getChildren().add(originTextField);
         originTextField.setPromptText("Kiosk Location");
 
-        destinationTextField = new AutoCompleteTextField(dc, m, false);
+        destinationTextField = new AutoCompleteTextField(dc, false);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
+
         initializeListCells();
         setNew();
         root.getChildren().add(new TreeItem<>());
+    }
 
 
 
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
+        originTextField.setMainSceneController(mainSceneController);
+        destinationTextField.setMainSceneController(mainSceneController);
     }
 
     public void initializeListCells() {
@@ -124,6 +123,9 @@ public class NavigationDrawerController {
         textDirectionsTable.setShowRoot(false);
     }
 
+    @FXML
+    public void backToDirectory() { drawer.setSidePane(directoryRegion); }
+
     private void setNew(){
         inputLabel.setText("Hello again");
         inputLabel1.setText("Hellloooooooo");
@@ -134,23 +136,24 @@ public class NavigationDrawerController {
     public void closeDrawer() {
         originTextField.clear();
         destinationTextField.clear();
-        originNode = mapNavigationFacade.getDefaultNode();
-        destinationNode = null;
         drawer.close();
         drawer.toBack();
     }
 
     @FXML
     public void navigate() throws IOException {
-        if (originNode != null && destinationNode != null)
-            m.navigate(originNode, destinationNode);
-        else
-            System.out.println("Origin: " + originNode + " Destination: " + destinationNode);
+            mainSceneController.findPath();
+            mainSceneController.hide();
+            hide();
     }
 
     @FXML
-    public void reversePath() {
-        //TODO reverse the path over here
+    public void reversePath() throws IOException {
+        originTextField.setText(destinationTextField.getText());
+        destinationTextField.setText(originTextField.getText());
+        mainSceneController.reversePath();
+        mainSceneController.hide();
+        hide();
     }
 
     @FXML
@@ -173,7 +176,18 @@ public class NavigationDrawerController {
 
     }
 
-    public void setMainSceneController(MainSceneController mainSceneController) {
-        this.mainSceneController = mainSceneController;
+    public void setFields(Node origin, Node destination) {
+        destinationTextField.setText(destination.getShortName());
+        originTextField.setText(origin.getShortName());
+        hide();
+    }
+
+    public void hide() {
+        originTextField.hide();
+        destinationTextField.hide();
+    }
+
+    public void setDirectoryRegion(Region directoryRegion) {
+        this.directoryRegion = directoryRegion;
     }
 }
