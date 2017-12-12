@@ -226,42 +226,6 @@ public class MainSceneController extends AbstractMapController {
         return (yMax + yMin) / 2;
     }
 
-    public void floorL2() {
-        currentFloor = "L2";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floorL1() {
-        currentFloor = "L1";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floorG() {
-        currentFloor = "G";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor1() {
-        currentFloor = "1";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor2() {
-        currentFloor = "2";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor3() {
-        currentFloor = "3";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
     public void streetView() {
         if (streetView) {
             googleNodes.clear();
