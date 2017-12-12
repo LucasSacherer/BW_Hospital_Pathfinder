@@ -447,84 +447,9 @@
                                                                         <Font name="System Bold" size="20.0" />
                                                                      </font>
                                                                   </JFXButton>
-                                                                  <Label text="Set Distance Ratio">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox prefHeight="100.0" prefWidth="200.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="distanceScale" prefHeight="31.0" prefWidth="194.0">
-                                                                           <HBox.margin>
-                                                                              <Insets left="5.0" />
-                                                                           </HBox.margin>
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXButton onAction="#setDistanceScale" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                           <HBox.margin>
-                                                                              <Insets left="5.0" />
-                                                                           </HBox.margin>
-                                                                        </JFXButton>
-                                                                     </children>
-                                                                  </HBox>
                                                                </children>
                                                                <padding>
                                                                   <Insets top="10.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                                <Tab text="PATHING">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="265.0">
-                                                         <children>
-                                                            <VBox prefHeight="453.0" prefWidth="265.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label text="Path Finding" textAlignment="CENTER">
-                                                                     <font>
-                                                                        <Font size="30.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <JFXButton buttonType="RAISED" onAction="#selectAstar" text="AStar">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton buttonType="RAISED" onAction="#selectBeam" text="Beam Search">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="82.0" onAction="#selectBreadth" text="Breadth First Search">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="243.0" onAction="#selectDepth" text="Depth First Search">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="237.0" onAction="#selectBest" text="Best First Search">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="292.0" onAction="#selectDijkstras" text="Dijkstras">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                                </padding>
                                                             </VBox>
                                                          </children>

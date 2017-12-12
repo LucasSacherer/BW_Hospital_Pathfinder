@@ -73,10 +73,13 @@
                                     <Font name="System Bold" size="24.0" />
                                 </font>
                             </JFXButton>
-                        <JFXToggleButton fx:id="loginAdminToggle" text="Admin?" toggleColor="#003da6" toggleLineColor="#0040a6bf" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <JFXToggleButton fx:id="loginAdminToggle" text="Admin?" textFill="WHITE" toggleColor="#003da6" toggleLineColor="#0040a6bf" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
                         </JFXToggleButton>
                      </children>
                   </GridPane>
