@@ -8,6 +8,7 @@ import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.*;
 import MapNavigation.*;
+import MementoPattern.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
 import Request.RequestCleanupController;
@@ -698,7 +699,11 @@ public class GodController {
     /////////////////////
 
     @FXML
-    private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
+    private void mainToLogin() throws IOException {
+        sceneSwitcher.toLogin(this, mainPane);
+        InactivityListener test = new InactivityListener(loginPane);
+        test.startListening(30000);
+    }
 
     @FXML
     private void requestToHub() throws IOException {

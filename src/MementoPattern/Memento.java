@@ -1,5 +1,11 @@
 package MementoPattern;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Window;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +14,7 @@ public class Memento{
 
     Timer timer;
     String test;
+    Window testWin;
 
     public Memento(String state){
         test = state;
