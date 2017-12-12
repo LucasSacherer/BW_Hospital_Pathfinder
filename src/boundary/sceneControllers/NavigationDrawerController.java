@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 
@@ -105,8 +106,24 @@ public class NavigationDrawerController {
         textDirectionsColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<textDirEntry, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getInstruction()));
 
+        textDirectionsColumn.setCellFactory(new Callback<TreeTableColumn<textDirEntry, String>, TreeTableCell<textDirEntry, String>>() {
+
+            @Override
+            public TreeTableCell<textDirEntry, String> call(
+                    TreeTableColumn<textDirEntry, String> param) {
+                TreeTableCell<textDirEntry, String> cell = new TreeTableCell();
+                Text text = new Text();
+                cell.setGraphic(text);
+                cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+                text.wrappingWidthProperty().bind(cell.widthProperty());
+                text.textProperty().bind(cell.itemProperty());
+                return cell ;
+            }
+
+        });
         textDirectionsTable.setRoot(root);
         textDirectionsTable.setShowRoot(false);
+
     }
 
     @FXML
