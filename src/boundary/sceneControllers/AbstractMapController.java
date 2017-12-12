@@ -78,7 +78,6 @@ public abstract class AbstractMapController {
         EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                printScroll();
                 clickOnMap(event);
             }
         };
@@ -91,18 +90,21 @@ public abstract class AbstractMapController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setContent(group);
+        refreshKiosk();
+        scrollPane.setHvalue(0.29);
+        scrollPane.setVvalue(0.69);
+    }
 
+    public void refreshKiosk() {
         origin = mapNavigationFacade.getDefaultNode();
         currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
+        centerMap(origin);
         refreshCanvas();
-//        centerMap();
+        zoomOut();
     }
 
-    protected void zoomOut() {
-        mapPane.setScaleX(ZOOM);
-        mapPane.setScaleY(ZOOM);
-        zoomSlider.setValue(0);
+    private void zoomOut() {
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -385,34 +387,20 @@ public abstract class AbstractMapController {
         }
     }
 
-    protected void centerMap() {
+    protected void centerMap(Node node) {
 //        zoomOut();
         goToCorrectFloor();
-        if (currentPath == null) {
-            Bounds windowSize = scrollPane.getViewportBounds();
+        if (node != null) {
+            double height = 3400.0;
+            double y = node.getYcoord();
+            double viewHeight = scrollPane.getViewportBounds().getHeight();
+            scrollPane.setVvalue(scrollPane.getVmax() * ((y - 0.5 * viewHeight) / (height - viewHeight)));
 
-            double xCoord = origin.getXcoord();
-            double windowWidth = windowSize.getWidth(); // - windowSize.getWidth());
-            double q = xCoord - (windowWidth / 2.0);
-
-            if (q < 0) q = 0;
-            if (q > 5000) q = 5000;
-
-            scrollPane.setHvalue(q);
-            System.out.println(q);
-            System.out.println(origin.getXcoord());
+            double width = 5000.0;
+            double x = node.getXcoord();
+            double viewWidth = scrollPane.getViewportBounds().getWidth();
+            scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)));
         }
-    }
-
-    //TODO delete this
-    private void printScroll() {
-        Bounds windowSize = scrollPane.getViewportBounds();
-        System.out.println("Window size is: " + windowSize.getWidth());
-        System.out.println("H Value: " + scrollPane.getHvalue());
-        System.out.println("Origin x coordinate: " + origin.getXcoord());
-        System.out.println(" Ratio = " + origin.getXcoord()/ 5000.0);
-        System.out.println("Window ratio" + (windowSize.getWidth()/5000.0));
-        System.out.println("\n\n\n");
     }
 
     protected void goToCorrectFloor() {
