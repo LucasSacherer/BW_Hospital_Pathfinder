@@ -1,5 +1,7 @@
 package MementoPattern;
 
+import boundary.GodController;
+import boundary.SceneSwitcher;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +13,7 @@ import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 //this is awt though, replace it with something else???
 
@@ -21,15 +24,25 @@ public class InactivityListener implements ActionListener {
     private int interval;
     private Timer timer = new Timer(0, this);
 
-    Action returnToMain = new AbstractAction() {
+    private GodController god;
+    private SceneSwitcher sceneSwitcher;
+
+    Action returnToMain = new AbstractAction(){
         @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("RETURNING TO MAIN");
+        public void actionPerformed(ActionEvent e){
+            try {
+                //System.out.println("RETURNING TO MAIN");
+                sceneSwitcher.toMain(god, pane);
+            }catch(IOException exception){
+                System.out.println("failed");
+            }
         }
     };
 
-    public InactivityListener(Pane pane) {
+    public InactivityListener(Pane pane, GodController god,  SceneSwitcher sceneSwitcher) {
         this.pane = pane;
+        this.god = god;
+        this.sceneSwitcher = sceneSwitcher;
         setAction(returnToMain);
         setInterval(1);
     }

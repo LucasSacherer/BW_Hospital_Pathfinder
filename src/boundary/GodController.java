@@ -701,8 +701,8 @@ public class GodController {
     @FXML
     private void mainToLogin() throws IOException {
         sceneSwitcher.toLogin(this, mainPane);
-        InactivityListener test = new InactivityListener(loginPane);
-        test.startListening(30000);
+        InactivityListener test = new InactivityListener(loginPane, this, sceneSwitcher);
+        test.startListening(10000);
     }
 
     @FXML
