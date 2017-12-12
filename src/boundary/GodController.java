@@ -789,8 +789,7 @@ public class GodController {
         Parent root2 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setTitle("About");
-        stage.setScene(new Scene(root2, 1000, 1000));
-        stage.setMaximized(true);
+        stage.setScene(new Scene(root2, 800, 800));
         stage.show();
     }
 
