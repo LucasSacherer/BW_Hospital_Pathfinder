@@ -44,6 +44,7 @@
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
                         <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetOrigin" text="ResetOrigin" />
                     </items>
                   </ContextMenu>
                </contextMenu>

@@ -430,6 +430,9 @@ public class GodController {
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
 
     @FXML
+    private void resetOrigin() { mainSceneController.refreshKiosk(); }
+
+    @FXML
     private void findPath(ActionEvent e) throws IOException { mainSceneController.findPath(); }
 
     @FXML
