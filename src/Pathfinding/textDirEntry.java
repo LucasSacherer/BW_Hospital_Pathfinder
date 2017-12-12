@@ -1,15 +1,18 @@
 package Pathfinding;
 
 import Entity.Node;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.scene.image.Image;
 
-public class textDirEntry {
+public class textDirEntry extends RecursiveTreeObject<textDirEntry> {
+
 
     Node currNode;
     Node nextNode;
     String direction;
     String distance;
     String instruction;
-    String symbol;
+    Image symbol;
 
     textDirEntry(Node node, Node nextNode, String direction, String distance){
         this.currNode = node;
@@ -20,25 +23,25 @@ public class textDirEntry {
         //set symbol based on direction, for choosing icon later
         switch (direction) {
             case "Take a hard right and continue":
-                symbol = "hardRight";
+                symbol = new Image("/boundary/images/circle-outline.png");
                 break;
             case "Turn right and continue":
-                symbol = "right";
+                symbol = new Image("/boundary/images/circle-outline.png");
                 break;
             case "Take a slight right and continue":
-                symbol = "slightRight";
+                symbol = new Image("/boundary/images/circle-outline.png");
                 break;
             case "Take a hard left and continue":
-                symbol = "hardLeft";
+                symbol = new Image("/boundary/images/circle-outline.png");
                 break;
             case "Turn left and continue":
-                symbol = "left";
+                symbol = new Image("/boundary/images/circle-outline.png");
                 break;
             case "Take a slight left and continue":
-                symbol = "slightLeft";
+                symbol = new Image("/boundary/images/circle-outline.png");
                 break;
             default:
-                symbol = "continue";
+                symbol = new Image("/boundary/images/circle-outline.png");
         }
 
         //instructions are written based on this node and the next node
@@ -46,7 +49,23 @@ public class textDirEntry {
         if(!node.getFloor().equals(nextNode.getFloor())){
             this.instruction = "Take " + sNameNode(node) + " to floor " + nextNode.getFloor() + ".";
             //set symbol to the next floor if changing floors
-            this.symbol = nextNode.getFloor();
+            String floor = nextNode.getFloor();
+
+            switch(floor){
+                case "L2":
+                    symbol = new Image("/boundary/images/circle-outline.png");
+                    break;
+                case "L1":
+                    symbol = new Image("/boundary/images/circle-outline.png");
+                case "G":
+                    symbol = new Image("/boundary/images/circle-outline.png");
+                case "1":
+                    symbol = new Image("/boundary/images/circle-outline.png");
+                case "2":
+                    symbol = new Image("/boundary/images/circle-outline.png");
+                case "3":
+                    symbol = new Image("/boundary/images/circle-outline.png");
+            }
             //instructions for switching buildings
         } else if (!node.getBuilding().equals(nextNode.getBuilding())){
             this.instruction = "Exit " + node.getBuilding() + " through " + sNameNode(node) + " and enter " + nextNode.getBuilding() + " through "
@@ -73,4 +92,27 @@ public class textDirEntry {
         }
     }
     //as for the start and end, maybe just use the first and last entries?
+    public Node getCurrNode() {
+        return currNode;
+    }
+
+    public Node getNextNode() {
+        return nextNode;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public Image getSymbol() {
+        return symbol;
+    }
 }

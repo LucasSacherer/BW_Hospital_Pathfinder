@@ -22,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -81,9 +82,11 @@ public class GodController {
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
     /* Drawer */
-    private JFXTreeTableView<AdminLog> textDirectionsTable;
+    private JFXTreeTableView<textDirEntry> textDirectionsTable;
 
-    private TreeTableColumn<AdminLog, String> textDirectionsColumn;
+    private TreeTableColumn<textDirEntry, String> textDirectionsColumn;
+
+    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn;
 
 
     ///////////////////////
@@ -342,7 +345,9 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        navigationDrawerController = new NavigationDrawerController(drawer, directoryController, textDirectionsTable, textDirectionsColumn);
+        navigationDrawerController = new NavigationDrawerController( drawer, directoryController,
+                 textDirectionsTable,  textDirectionsColumn,
+                 imageDirectionColumn);
         directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade);
     }
 

@@ -4,9 +4,12 @@ import Entity.AdminLog;
 import Entity.Node;
 import MapNavigation.DirectoryController;
 import Pathfinding.TextualDirections;
+import Pathfinding.textDirEntry;
 import boundary.AutoCompleteTextField;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -21,6 +24,9 @@ import javafx.util.Callback;
 
 
 import java.io.IOException;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationDrawerController {
     private JFXDrawer drawer;
@@ -37,29 +43,34 @@ public class NavigationDrawerController {
     private ButtonBar buttonBar;
 
     @FXML
-    private JFXTreeTableView<AdminLog> textDirectionsTable = new JFXTreeTableView<>();
+    private JFXTreeTableView<textDirEntry> textDirectionsTable = new JFXTreeTableView<>();
 
     @FXML
-    private TreeTableColumn<AdminLog, String> textDirectionsColumn = new TreeTableColumn<>();
+    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn = new TreeTableColumn<>();
 
-    private TreeItem<AdminLog> root = new TreeItem<>();
+    @FXML
+    private TreeTableColumn<textDirEntry, String> textDirectionsColumn = new TreeTableColumn<>();
 
-    private TreeTableCell<AdminLog, String> cell;
+    private TreeItem<textDirEntry> root = new TreeItem<>();
 
-    private Label inputLabel = new Label("Hey");
-    private Label inputLabel1 = new Label("Hello");
-    private Image image = new Image("/boundary/images/circle-outline.png");
+    protected List<Node> path = new ArrayList<>();
+
+    protected List<List<textDirEntry>> textDirs = new ArrayList<>();
 
 
 
     public NavigationDrawerController(JFXDrawer drawer, DirectoryController dc,
-                                      JFXTreeTableView<AdminLog> textDirectionsTable, TreeTableColumn<AdminLog, String> textDirectionsColumn) {
+                                      JFXTreeTableView<textDirEntry> textDirectionsTable, TreeTableColumn<textDirEntry, String> textDirectionsColumn,
+                                      TreeTableColumn<textDirEntry, Image> imageDirectionColumn) {
         this.drawer = drawer;
         this.dc = dc;
         JFXListView directions = new JFXListView();
 //        directions.setItems(textualDirections.getTextDirections(mainSceneController.getCurrentPath()));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
+        this.imageDirectionColumn = imageDirectionColumn;
+
+
     }
 
     @FXML
@@ -71,16 +82,10 @@ public class NavigationDrawerController {
         destinationTextField = new AutoCompleteTextField(dc, false);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
-
-        initializeListCells();
-        setNew();
-        TreeTableCell<AdminLog,String> secondCell = new TreeTableCell<>();
-
-//        textDirectionsTable.getTreeItem(2).set;
+        path = mainSceneController.getCurrentPath();
+        textDirs = textualDirections.makeTextDir(path);
+        initializeTable();
     }
-
-
-
 
     public void setMainSceneController(MainSceneController mainSceneController) {
         this.mainSceneController = mainSceneController;
@@ -88,36 +93,19 @@ public class NavigationDrawerController {
         destinationTextField.setMainSceneController(mainSceneController);
     }
 
-    public void initializeListCells() {
-        textDirectionsColumn.setCellFactory(param -> {
-             cell = new TreeTableCell<AdminLog, String>() {
-                private HBox hBox = new HBox();
-                private VBox vBox = new VBox();
-                private Label labelDist = new Label();
-                private Label labelDire = new Label();
-                private ImageView imageView = new ImageView();
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    imageView.setImage(image);
-                    imageView.setFitHeight(40);
-                    imageView.setFitWidth(40);
-                    hBox.setAlignment(Pos.CENTER_LEFT);
-                    vBox.setAlignment(Pos.CENTER);
-                    labelDist.setText(inputLabel.getText());
-                    labelDire.setText(inputLabel1.getText());
-                    labelDist.setPrefWidth(300);
-                    labelDist.setPrefHeight(20);
-                    vBox.getChildren().setAll(labelDist);
-                    vBox.getChildren().setAll(labelDist,labelDire);
-                    hBox.getChildren().setAll(imageView,vBox);
-                    cell.setGraphic(hBox);
-//                        cell.graphicProperty().bind(Bindings.when(cell.emptyProperty()).then((javafx.scene.Node) null).otherwise(hBox));
-                }
+    public void initializeTable() {
 
-            };
-            return cell;
-        });
-        root.getChildren().add(new TreeItem<>());
+        for (List<textDirEntry> lists : textDirs){
+            for (textDirEntry dirEntry : lists){
+                root.getChildren().add(new TreeItem<>(dirEntry));
+            }
+            root.getChildren().add(new TreeItem<>(null));
+        }
+        imageDirectionColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<textDirEntry, Image> param) -> new ReadOnlyObjectWrapper(param.getValue().getValue().getSymbol()));
+        textDirectionsColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<textDirEntry, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getInstruction()));
+
         textDirectionsTable.setRoot(root);
         textDirectionsTable.setShowRoot(false);
     }
@@ -125,10 +113,6 @@ public class NavigationDrawerController {
     @FXML
     public void backToDirectory() { drawer.setSidePane(directoryRegion); }
 
-    private void setNew(){
-        inputLabel.setText("Hello again");
-        inputLabel1.setText("Hellloooooooo");
-    }
 
 
     @FXML
