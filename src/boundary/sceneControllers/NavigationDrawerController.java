@@ -14,6 +14,7 @@ import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -99,8 +100,8 @@ public class NavigationDrawerController {
             }
 //            root.getChildren().add(new TreeItem<>(null));
         }
-//        imageDirectionColumn.setCellValueFactory(
-//                (TreeTableColumn.CellDataFeatures<textDirEntry, ImageView> param) -> new ReadOnlyObjectWrapper(param.getValue().getValue().getSymbol()));
+        imageDirectionColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<textDirEntry, ImageView> param) -> new SimpleObjectProperty<ImageView>(param.getValue().getValue().getSymbol()));
         textDirectionsColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<textDirEntry, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getInstruction()));
 
