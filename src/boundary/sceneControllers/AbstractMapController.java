@@ -407,7 +407,7 @@ public abstract class AbstractMapController {
         }
     }
 
-    public List getCurrentPath(){
-        return currentPath;
-    }
+//    public List getCurrentPath(){
+//        return currentPath;
+//    }
 }

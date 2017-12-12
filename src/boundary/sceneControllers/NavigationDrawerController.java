@@ -3,9 +3,12 @@ package boundary.sceneControllers;
 import Entity.AdminLog;
 import Entity.Node;
 import MapNavigation.DirectoryController;
+import MapNavigation.MapNavigationFacade;
+import Pathfinding.PathFindingFacade;
 import Pathfinding.TextualDirections;
 import Pathfinding.textDirEntry;
 import boundary.AutoCompleteTextField;
+import boundary.GodController;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -15,10 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -33,6 +33,9 @@ public class NavigationDrawerController {
     private DirectoryController dc;
     private TextualDirections textualDirections = new TextualDirections();
     private AutoCompleteTextField originTextField, destinationTextField;
+//    private GodController g;
+//    private MapNavigationFacade m;
+//    private PathFindingFacade p;
     private MainSceneController mainSceneController;
     private Region directoryRegion;
 
@@ -52,9 +55,7 @@ public class NavigationDrawerController {
     private TreeTableColumn<textDirEntry, String> textDirectionsColumn = new TreeTableColumn<>();
 
     private TreeItem<textDirEntry> root = new TreeItem<>();
-
     protected List<Node> path = new ArrayList<>();
-
     protected List<List<textDirEntry>> textDirs = new ArrayList<>();
 
 
@@ -78,19 +79,18 @@ public class NavigationDrawerController {
         originTextField = new AutoCompleteTextField(dc, true);
         originPane.getChildren().add(originTextField);
         originTextField.setPromptText("Kiosk Location");
-
         destinationTextField = new AutoCompleteTextField(dc, false);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
-        path = mainSceneController.getCurrentPath();
-        textDirs = textualDirections.makeTextDir(path);
-        initializeTable();
+
     }
 
     public void setMainSceneController(MainSceneController mainSceneController) {
         this.mainSceneController = mainSceneController;
         originTextField.setMainSceneController(mainSceneController);
         destinationTextField.setMainSceneController(mainSceneController);
+        path = mainSceneController.getPath();
+
     }
 
     public void initializeTable() {
@@ -99,10 +99,10 @@ public class NavigationDrawerController {
             for (textDirEntry dirEntry : lists){
                 root.getChildren().add(new TreeItem<>(dirEntry));
             }
-            root.getChildren().add(new TreeItem<>(null));
+//            root.getChildren().add(new TreeItem<>(null));
         }
-        imageDirectionColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<textDirEntry, Image> param) -> new ReadOnlyObjectWrapper(param.getValue().getValue().getSymbol()));
+//        imageDirectionColumn.setCellValueFactory(
+//                (TreeTableColumn.CellDataFeatures<textDirEntry, Image> param) -> new ReadOnlyObjectWrapper(param.getValue().getValue().getSymbol()));
         textDirectionsColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<textDirEntry, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getInstruction()));
 
@@ -172,5 +172,13 @@ public class NavigationDrawerController {
 
     public void setDirectoryRegion(Region directoryRegion) {
         this.directoryRegion = directoryRegion;
+    }
+
+    public void setPath(List path) {
+        this.path = path;
+        textDirs = textualDirections.makeTextDir(path);
+        initializeTable();
+
+
     }
 }
