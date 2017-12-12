@@ -85,21 +85,17 @@ public class InactivityListener implements ActionListener {
         timer.setInitialDelay(interval);
         timer.setRepeats(false);
         timer.start();
-
+        /*
         target.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                /*
-                if(timer.isRunning()){
-                    timer.stop();
-                }
-                timer = new Timer(delay, returnToMain);
-                timer.setRepeats(false);
-                timer.start();
-                */
                 timer.restart();
                 System.out.println("CAUGHT THAT KEY BOI");
             }
+        });*/
+        target.addEventFilter(KeyEvent.ANY, e-> {
+            timer.restart();
+            System.out.println("CAUGHT THAT KEY FILTER BOI");
         });
         target.addEventFilter(MouseEvent.MOUSE_CLICKED, e-> {
             timer.restart();
