@@ -236,9 +236,6 @@ public class GodController {
     private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab, straightenTab;
 
     @FXML
-    private Label currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
-
-    @FXML
     private JFXComboBox nodeTypeCombo, buildingCombo, nodeTypeComboEdit;
 
     @FXML
@@ -347,7 +344,7 @@ public class GodController {
     }
 
     private void initializeMainScene() throws IOException {
-        mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+        mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade,
                 searchAnchor, zoomSlider, directoryController, directoryDrawerController,
                 navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane);
         mainSceneController.initializeScene();
@@ -356,8 +353,7 @@ public class GodController {
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(this, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumRequest, genericRequestController, requestCleanupController,
-                requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
+                genericRequestController, requestCleanupController, requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
                 requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem,
                 requestZoomSlider, requestScrollPane);
@@ -365,7 +361,7 @@ public class GodController {
 
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager,
-                nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
+                nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade,
                 addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, mapEditZoomSlider, mapEditScrollPane);
     }
 

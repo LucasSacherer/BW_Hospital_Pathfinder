@@ -28,11 +28,11 @@ public class MainSceneController extends AbstractMapController {
     private JFXDrawer drawer;
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
-    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
                                ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
-        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
+        super(g, m, p, zoomSlider, scrollPane);
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
         this.navigationDrawerController = navigationDrawerController;
@@ -169,7 +169,7 @@ public class MainSceneController extends AbstractMapController {
         if (origin == null || destination == null) return;
         openNavigationDrawer();
         navigationDrawerController.setFields(origin, destination);
-        goToCorrectFloor();
+        centerMap();
         //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
         refreshCanvas();
@@ -184,7 +184,8 @@ public class MainSceneController extends AbstractMapController {
     }
 
     private void centerMap() {
-        //TODO
+        zoomOut();
+        goToCorrectFloor();
     }
 
     public void floorL2() {

@@ -56,12 +56,10 @@ public abstract class AbstractMapController {
     protected JFXSlider zoomSlider;
     protected javafx.scene.control.ScrollPane scrollPane;
 
-    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
+    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
         this.godController = g;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
-        this.currentFloorNum = currentFloorNum;
-        currentFloor = "G"; // TODO maybe make it follow the last floor?
         this.zoomSlider = zoomSlider;
         this.scrollPane = scrollPane;
     }
@@ -81,6 +79,7 @@ public abstract class AbstractMapController {
             }
         };
         canvas.setOnMouseClicked(handler);
+
         gc = canvas.getGraphicsContext2D();
         mapPane.getChildren().addAll(imageView, canvas);
         group.getChildren().add(mapPane);
@@ -90,11 +89,13 @@ public abstract class AbstractMapController {
 
         origin = mapNavigationFacade.getDefaultNode();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
-        gc = canvas.getGraphicsContext2D();
-//        currentFloorNum.setText(currentFloor);
-        zoomSlider.setValue(0);
+        zoomOut();
+    }
+
+    protected void zoomOut() {
         mapPane.setScaleX(ZOOM);
         mapPane.setScaleY(ZOOM);
+        zoomSlider.setValue(0);
     }
 
     public void clickOnMap(MouseEvent m) {
