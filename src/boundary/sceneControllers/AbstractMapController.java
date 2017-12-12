@@ -95,6 +95,7 @@ public abstract class AbstractMapController {
         origin = mapNavigationFacade.getDefaultNode();
         currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
+        refreshCanvas();
 //        centerMap();
     }
 
