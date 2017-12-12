@@ -414,7 +414,7 @@ public abstract class AbstractMapController {
         System.out.println("\n\n\n");
     }
 
-    private void goToCorrectFloor() {
+    protected void goToCorrectFloor() {
         currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         refreshCanvas();

@@ -89,8 +89,6 @@ public class NavigationDrawerController {
         this.mainSceneController = mainSceneController;
         originTextField.setMainSceneController(mainSceneController);
         destinationTextField.setMainSceneController(mainSceneController);
-        path = mainSceneController.getPath();
-
     }
 
     public void initializeTable() {
