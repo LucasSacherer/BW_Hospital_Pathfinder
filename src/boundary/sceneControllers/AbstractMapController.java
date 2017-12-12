@@ -5,10 +5,7 @@ import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -152,6 +149,15 @@ public abstract class AbstractMapController {
             gc.fillOval(origin.getXcoord() - 12, origin.getYcoord() - 12, 24, 24);
             gc.setFill(Color.BLUE);
             gc.fillOval(origin.getXcoord() - 9, origin.getYcoord() - 9, 18, 18);
+
+            JFXSpinner jfxSpinner = new JFXSpinner();
+            jfxSpinner.setRadius(10);
+            jfxSpinner.setLayoutX(origin.getXcoord());
+            jfxSpinner.setLayoutY(origin.getYcoord());
+            mapPane.getChildren().add(jfxSpinner);
+            jfxSpinner.setStartingAngle(0);
+            jfxSpinner.toFront();
+            jfxSpinner.setVisible(true);
         }
         gc.setFill(Color.BLACK);
     }
