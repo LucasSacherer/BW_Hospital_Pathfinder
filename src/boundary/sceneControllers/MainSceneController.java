@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
 import Entity.ErrorController;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainSceneController extends AbstractMapController {
     private DirectoryDrawerController directoryDrawerController;
@@ -87,11 +88,14 @@ public class MainSceneController extends AbstractMapController {
 
     private void openNavigationDrawer() {
         navigationDrawerController.setMainSceneController(this);
+        navigationDrawerController.setPath(currentPath);
         drawer.setSidePane(navigationRegion);
         if (drawer.isHidden() || drawer.isHiding()) {
             drawer.open();
             drawer.toFront();
         }
+        navigationDrawerController.setFields(origin, destination);
+        navigationDrawerController.hide();
     }
 
     public void setOrigin(Node o) { this.origin = o; }
@@ -167,13 +171,10 @@ public class MainSceneController extends AbstractMapController {
 
     public void findPath() throws IOException {
         if (origin == null || destination == null) return;
-        openNavigationDrawer();
-        navigationDrawerController.setFields(origin, destination);
-        centerMap();
-        //centerMap();
         currentPath = pathFindingFacade.getPath(origin, destination);
+        openNavigationDrawer();
+        goToCorrectFloor();
         refreshCanvas();
-        navigationDrawerController.hide();
     }
 
     public void floorL2() {

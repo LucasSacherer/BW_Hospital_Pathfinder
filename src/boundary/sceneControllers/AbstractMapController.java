@@ -449,4 +449,8 @@ public abstract class AbstractMapController {
             super.setGraphic(iv);
         }
     }
+
+//    public List getCurrentPath(){
+//        return currentPath;
+//    }
 }

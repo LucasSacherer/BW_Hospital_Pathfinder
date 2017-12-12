@@ -3,26 +3,39 @@ package boundary.sceneControllers;
 import Entity.AdminLog;
 import Entity.Node;
 import MapNavigation.DirectoryController;
+import MapNavigation.MapNavigationFacade;
+import Pathfinding.PathFindingFacade;
 import Pathfinding.TextualDirections;
+import Pathfinding.textDirEntry;
 import boundary.AutoCompleteTextField;
+import boundary.GodController;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
+
 
 import java.io.IOException;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationDrawerController {
     private JFXDrawer drawer;
     private DirectoryController dc;
     private TextualDirections textualDirections = new TextualDirections();
     private AutoCompleteTextField originTextField, destinationTextField;
+//    private GodController g;
+//    private MapNavigationFacade m;
+//    private PathFindingFacade p;
     private MainSceneController mainSceneController;
     private Region directoryRegion;
 
@@ -33,21 +46,32 @@ public class NavigationDrawerController {
     private ButtonBar buttonBar;
 
     @FXML
-    private JFXTreeTableView<AdminLog> textDirectionsTable = new JFXTreeTableView<>();
+    private JFXTreeTableView<textDirEntry> textDirectionsTable = new JFXTreeTableView<>();
 
     @FXML
-    private TreeTableColumn<AdminLog, String> textDirectionsColumn = new TreeTableColumn<>();
+    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn = new TreeTableColumn<>();
 
-    private TreeItem<AdminLog> root = new TreeItem<>();
+    @FXML
+    private TreeTableColumn<textDirEntry, String> textDirectionsColumn = new TreeTableColumn<>();
+
+    private TreeItem<textDirEntry> root = new TreeItem<>();
+    protected List<Node> path = new ArrayList<>();
+    protected List<List<textDirEntry>> textDirs = new ArrayList<>();
+
+
 
     public NavigationDrawerController(JFXDrawer drawer, DirectoryController dc,
-                                      JFXTreeTableView<AdminLog> textDirectionsTable, TreeTableColumn<AdminLog, String> textDirectionsColumn) {
+                                      JFXTreeTableView<textDirEntry> textDirectionsTable, TreeTableColumn<textDirEntry, String> textDirectionsColumn,
+                                      TreeTableColumn<textDirEntry, Image> imageDirectionColumn) {
         this.drawer = drawer;
         this.dc = dc;
         JFXListView directions = new JFXListView();
 //        directions.setItems(textualDirections.getTextDirections(mainSceneController.getCurrentPath()));
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
+        this.imageDirectionColumn = imageDirectionColumn;
+
+
     }
 
     @FXML
@@ -55,57 +79,41 @@ public class NavigationDrawerController {
         originTextField = new AutoCompleteTextField(dc, true);
         originPane.getChildren().add(originTextField);
         originTextField.setPromptText("Kiosk Location");
-
         destinationTextField = new AutoCompleteTextField(dc, false);
         destinationPane.getChildren().add(destinationTextField);
         destinationTextField.setPromptText("Search for a Destination");
 
-        initializeListCells();
     }
 
     public void setMainSceneController(MainSceneController mainSceneController) {
         this.mainSceneController = mainSceneController;
         originTextField.setMainSceneController(mainSceneController);
         destinationTextField.setMainSceneController(mainSceneController);
+        path = mainSceneController.getPath();
+
     }
 
-    public void initializeListCells() {
-        textDirectionsColumn.setCellFactory(col -> {
-            TreeTableCell<AdminLog, String> c = new TreeTableCell<>();
-            final ImageView imageView = new ImageView("/boundary/images/circle-outline.png");
+    public void initializeTable() {
 
-            HBox hbox = new HBox();
-            hbox.setAlignment(Pos.CENTER_LEFT);
-            hbox.getChildren().add(imageView);
-//            c.itemProperty().addListener((observable, oldValue, newValue) -> {
-//                if (oldValue != null) {
-//                    comboBox.valueProperty().unbindBidirectional(oldValue);
-//                }
-//                if (newValue != null) {
-//                    comboBox.valueProperty().bindBidirectional(newValue);
-//                }
-//            });
-            VBox vBox = new VBox();
-            vBox.setAlignment(Pos.CENTER);
-            JFXTextArea textArea = new JFXTextArea("HELLO");
-//            textArea.setStyle("-fx-underline: true");
-            JFXTextField textField = new JFXTextField("Hey");
-            textArea.setPrefWidth(300);
-            textArea.setPrefHeight(50);
-            vBox.getChildren().add(textArea);
-            vBox.getChildren().add(textField);
-            hbox.getChildren().add(vBox);
-            //c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((Node) null).otherwise(button));
-            c.graphicProperty().bind(Bindings.when(c.emptyProperty()).then((javafx.scene.Node) null).otherwise(hbox));
-//            c.setGraphic(hbox);
-            return c;
-        });
+        for (List<textDirEntry> lists : textDirs){
+            for (textDirEntry dirEntry : lists){
+                root.getChildren().add(new TreeItem<>(dirEntry));
+            }
+//            root.getChildren().add(new TreeItem<>(null));
+        }
+//        imageDirectionColumn.setCellValueFactory(
+//                (TreeTableColumn.CellDataFeatures<textDirEntry, Image> param) -> new ReadOnlyObjectWrapper(param.getValue().getValue().getSymbol()));
+        textDirectionsColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<textDirEntry, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getInstruction()));
+
         textDirectionsTable.setRoot(root);
-        textDirectionsTable.setShowRoot(true);
+        textDirectionsTable.setShowRoot(false);
     }
 
     @FXML
     public void backToDirectory() { drawer.setSidePane(directoryRegion); }
+
+
 
     @FXML
     public void closeDrawer() {
@@ -164,5 +172,13 @@ public class NavigationDrawerController {
 
     public void setDirectoryRegion(Region directoryRegion) {
         this.directoryRegion = directoryRegion;
+    }
+
+    public void setPath(List path) {
+        this.path = path;
+        textDirs = textualDirections.makeTextDir(path);
+        initializeTable();
+
+
     }
 }
