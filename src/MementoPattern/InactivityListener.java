@@ -9,8 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Window;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -91,26 +89,26 @@ public class InactivityListener implements ActionListener {
         target.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+                /*
                 if(timer.isRunning()){
                     timer.stop();
                 }
                 timer = new Timer(delay, returnToMain);
                 timer.setRepeats(false);
                 timer.start();
+                */
+                timer.restart();
                 System.out.println("CAUGHT THAT KEY BOI");
             }
         });
-        target.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(timer.isRunning()){
-                    timer.stop();
-                }
-                timer = new Timer(delay, returnToMain);
-                timer.setRepeats(false);
-                timer.start();
-                System.out.println("CAUGHT THAT MOUSE BOI");
-            }
+        target.addEventFilter(MouseEvent.MOUSE_CLICKED, e-> {
+            timer.restart();
+            System.out.println("CAUGHT THAT MOUSE CLICK FILTER BOI");
+        });
+
+        target.addEventFilter(MouseEvent.MOUSE_MOVED, e-> {
+            timer.restart();
+            System.out.println("CAUGHT THAT MOUSE MOVE FILTER BOI");
         });
     }
 }
