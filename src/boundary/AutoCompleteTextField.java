@@ -5,9 +5,9 @@ import MapNavigation.DirectoryController;
 import MapNavigation.SearchEngine;
 import boundary.sceneControllers.MainSceneController;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.org.apache.xalan.internal.xsltc.dom.NodeSortRecord;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,11 +15,10 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import sun.applet.Main;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 
 // new AutoCompleteTextField().getEntries().addAll(Arrays.asList("AA", "AB", "AC","BCA"));
@@ -27,16 +26,17 @@ import java.util.TreeSet;
 public class AutoCompleteTextField extends JFXTextField
 {
     private SearchEngine searchEngine;
-    private Node node;
+    private MainSceneController mainSceneController;
     /** The existing autocomplete entries. */
     private ObservableList<Node> results;
     /** The popup used to select an entry. */
     private ContextMenu entriesPopup;
+    private boolean originFlag;
 
     /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField(DirectoryController dc, Node n) {
+    public AutoCompleteTextField(DirectoryController dc, boolean originFlag) {
         super();
-        node = n;
+        this.originFlag = originFlag;
         setHover(true);
         searchEngine = new SearchEngine(dc);
         entriesPopup = new ContextMenu();
@@ -71,7 +71,6 @@ public class AutoCompleteTextField extends JFXTextField
                 entriesPopup.hide();
             }
         });
-
     }
 
     /**
@@ -93,9 +92,10 @@ public class AutoCompleteTextField extends JFXTextField
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result.getShortName());
-                    node = result;
-                    System.out.println("Node set to " + node);
+                    if (originFlag) mainSceneController.setOrigin(result);
+                    else mainSceneController.setDestination(result);
                     entriesPopup.hide();
+                    mainSceneController.hide();
                 }
             });
             menuItems.add(item);
@@ -105,5 +105,9 @@ public class AutoCompleteTextField extends JFXTextField
     }
     public void hide() {
         entriesPopup.hide();
+    }
+
+    public void setMainSceneController(MainSceneController mainSceneController) {
+        this.mainSceneController = mainSceneController;
     }
 }

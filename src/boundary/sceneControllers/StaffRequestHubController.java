@@ -3,10 +3,10 @@ package boundary.sceneControllers;
 import Database.NodeManager;
 import Entity.Node;
 import Entity.User;
-import interpreter.IInterpretNode;
-import interpreter.InterpreterFacade;
-import interpreter.ServiceException;
 import foodRequest.FoodRequest;
+import transporter.ITransportNode;
+import transporter.ServiceException;
+import transporter.TransporterFacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,8 +21,8 @@ public class StaffRequestHubController {
     }
 
     public void serviceHubtoAPITest() {
-        InterpreterFacade intf = new InterpreterFacade();
-        List<IInterpretNode> converted = new ArrayList<>();
+        TransporterFacade intf = new TransporterFacade();
+        List<ITransportNode> converted = new ArrayList<>();
         for (Node n : nodeManager.getAllNodes()){
             converted.add(new IWraper(n));
         }
@@ -54,7 +54,7 @@ public class StaffRequestHubController {
 
     public User getUser() { return user; }
 
-    private class IWraper implements IInterpretNode{
+    private class IWraper implements ITransportNode{
         private Node node;
 
         public IWraper(Node node){
