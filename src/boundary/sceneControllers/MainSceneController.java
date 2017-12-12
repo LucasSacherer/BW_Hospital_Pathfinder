@@ -22,7 +22,6 @@ import Entity.ErrorController;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainSceneController extends AbstractMapController {
     private boolean streetView;
@@ -37,7 +36,7 @@ public class MainSceneController extends AbstractMapController {
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
     private GoogleNodeController googleNodeController;
-    private ArrayList<ImageButton> googleNodes = new ArrayList<>();
+    private ArrayList<JFXButton> googleNodes = new ArrayList<JFXButton>();
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
@@ -172,7 +171,6 @@ public class MainSceneController extends AbstractMapController {
 
     public void reversePath() throws IOException {
         navigate(destination, origin);
-
     }
 
     public void findPath() throws IOException {
@@ -203,7 +201,7 @@ public class MainSceneController extends AbstractMapController {
         double width = 5000.0;
         double x = getPathX();
         double viewWidth = scrollPane.getViewportBounds().getWidth();
-        scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)));
+        scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)) * 0.9);
     }
 
     private double getPathX() {
@@ -265,29 +263,29 @@ public class MainSceneController extends AbstractMapController {
     }
 
     public void streetView() {
-        googleNodes.clear();
         if (streetView) {
             googleNodes.clear();
-
             streetView = false;
+            System.out.println("streetView turned off");
         }
         else {
             for (GoogleNode gn : googleNodeController.getGoogleNodeByFloor(currentFloor)) {
-                ImageButton imageButton = new ImageButton();
-                imageButton.setLayoutX(gn.getXcoord());
-                imageButton.setLayoutY(gn.getYcoord());
-                googleNodes.add(imageButton);
-                mapPane.getChildren().add(imageButton);
-                imageButton.toFront();
-                imageButton.setOnAction(new EventHandler<ActionEvent>() {
+                JFXButton jfxButton = new JFXButton();
+                jfxButton.setLayoutX(gn.getXcoord());
+                jfxButton.setLayoutY(gn.getYcoord());
+                jfxButton.setText("HEY");
+                googleNodes.add(jfxButton);
+                mapPane.getChildren().add(jfxButton);
+                jfxButton.toFront();
+                jfxButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println("Google me");
                     }
                 });
             }
-
             streetView = true;
+            System.out.println("streetView turned on");
         }
     }
 
