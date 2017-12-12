@@ -310,56 +310,6 @@ public abstract class AbstractMapController {
         return 3;
     }
 
-    public void floorDown() throws IOException, SQLException {
-        switch(currentFloor) {
-            case "L2" :
-                return;
-            case "L1" :
-                currentFloor = "L2";
-                break;
-            case "G" :
-                currentFloor = "L1";
-                break;
-            case "1" :
-                currentFloor = "G";
-                break;
-            case "2" :
-                currentFloor = "1";
-                break;
-            case "3" :
-                currentFloor = "2";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
-    public void floorUp() throws IOException, SQLException {
-        switch (currentFloor) {
-            case "3":
-                return;
-            case "L2":
-                currentFloor = "L1";
-                break;
-            case "L1":
-                currentFloor = "G";
-                break;
-            case "G":
-                currentFloor = "1";
-                break;
-            case "1":
-                currentFloor = "2";
-                break;
-            case "2":
-                currentFloor = "3";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
     public void zoom() {
         double sliderLevel = zoomSlider.getValue() / 100;
         double zoomLevel = sliderLevel+ ZOOM;
