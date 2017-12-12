@@ -89,7 +89,7 @@ public class GodController {
 
     private TreeTableColumn<textDirEntry, String> textDirectionsColumn;
 
-    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn;
+    private TreeTableColumn<textDirEntry,ImageView> imageDirectionColumn;
 
 
     ///////////////////////

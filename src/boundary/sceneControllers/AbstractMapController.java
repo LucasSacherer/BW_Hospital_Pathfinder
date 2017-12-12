@@ -418,6 +418,11 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         refreshCanvas();
     }
+    protected void goToCorrectFloorOfNode(Node node) {
+        currentFloor =node.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
 
     public class ImageButton extends Button {
         public void initiate(final Image image, final Node next) {
@@ -427,6 +432,9 @@ public abstract class AbstractMapController {
             iv.setFitWidth(30);
             this.getChildren().add(iv);
             this.resize(30,30);
+            this.setStyle("-fx-background-color: #09a1b3");
+
+
 
             this.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
