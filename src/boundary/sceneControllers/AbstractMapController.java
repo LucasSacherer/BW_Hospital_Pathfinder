@@ -198,16 +198,13 @@ public abstract class AbstractMapController {
         }
     }
 
-    //initializations for drawing the animation
-    double rate = 0;
-    Timeline timeline = new Timeline();
-    DoubleProperty x1d = new SimpleDoubleProperty(0);
-    DoubleProperty y1d = new SimpleDoubleProperty(0);
+
 
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
         if(currentPath == null || currentPath.size() == 0){ return; }
         Collections.reverse(pathToDraw);
+
         /** Testing Only **
          ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
          pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
@@ -216,7 +213,7 @@ public abstract class AbstractMapController {
          /** testing over **/
 
         //draws the path outline
-        for(int i=0;i<pathToDraw.size()-1;i++) {
+        for(int i=0; i<pathToDraw.size()-1; i++) {
             Node current = pathToDraw.get(i);
             Node next = pathToDraw.get(i+1);
             int x1 = current.getXcoord();
@@ -231,7 +228,7 @@ public abstract class AbstractMapController {
         }
 
         //fills the inside of the path
-        for(int i=0;i<pathToDraw.size()-1;i++) {
+        for(int i=0; i<pathToDraw.size()-1; i++) {
             Node current = pathToDraw.get(i);
             Node next = pathToDraw.get(i + 1);
             int x1 = current.getXcoord();
@@ -245,50 +242,36 @@ public abstract class AbstractMapController {
             }
         }
 
-        //populates the timeline with all animations in order
-        for(int i=0;i<pathToDraw.size()-1;i++) {
-            Node current = pathToDraw.get(i);
-            Node next = pathToDraw.get(i + 1);
-            //subtract 7 to fix node alignment
-            int x1 = current.getXcoord() - 7;
-            int y1 = current.getYcoord() - 7;
-            int x2 = next.getXcoord() - 7;
-            int y2 = next.getYcoord() - 7;
-            x1d = new SimpleDoubleProperty(x1);
-            y1d = new SimpleDoubleProperty(y1);
-            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-                buildTimeline(x1d, y1d, x2, y2);
+        Path aniPath = createPath(pathToDraw);
+
+
+
+    }
+
+    private Path createPath(List<Node> stops){
+        Path aniPath = new Path();
+        //creates the animation path
+        for(int i=0; i<stops.size(); i++){
+            Node current = stops.get(i);
+            Node next = stops.get(i + 1);
+            int x1 = current.getXcoord();
+            int y1 = current.getYcoord();
+            int x2 = next.getXcoord();
+            int y2 = next.getYcoord();
+            if(i==0){
+                MoveTo moveTo = new MoveTo();
+                moveTo.setX(x1);
+                moveTo.setY(y1);
+                aniPath.getElements().add(moveTo);
             }
+            LineTo lineTo = new LineTo();
+            lineTo.setX(x2);
+            lineTo.setY(y2);
+            aniPath.getElements().add(lineTo);
         }
-
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.setAutoReverse(false);
-
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                gc.setFill(Color.FORESTGREEN);
-                gc.fillOval(
-                        x1d.doubleValue(),
-                        y1d.doubleValue(),
-                        12,
-                        12
-                );
-            }
-        };
-
-
-        timer.start();
-        timeline.playFromStart();
+        return aniPath;
     }
 
-    private void buildTimeline(DoubleProperty x, DoubleProperty y, int x_end, int y_end){
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(1), //TODO: implement a steady rate by setting duration to distance*rate
-                        new KeyValue(x, x_end),
-                        new KeyValue(y, y_end)));
-        System.out.println(x.toString() + y.toString());
-    }
 
     private void drawPathNodes() {
         List<Node> pathToDraw = currentPath;
