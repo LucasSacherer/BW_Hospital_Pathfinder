@@ -32,6 +32,7 @@ import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 import javax.swing.*;
+import javax.transaction.xa.Xid;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public abstract class AbstractMapController {
     protected GodController godController;
     protected Label currentFloorNum;
     protected Canvas canvas;
-    protected String currentFloor = "G";
+    protected String currentFloor = "G"; //TODO
     protected GraphicsContext gc;
     protected Pane mapPane;
     protected List currentPath;
@@ -221,7 +222,7 @@ public abstract class AbstractMapController {
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-                gc.setStroke(Color.ROYALBLUE);
+                gc.setStroke(Color.SLATEGRAY);
                 gc.setLineWidth(10);
                 gc.strokeLine(x1, y1, x2, y2);
             }
@@ -257,13 +258,15 @@ public abstract class AbstractMapController {
             y1d = new SimpleDoubleProperty(y1);
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(1), //TODO: implement a steady rate by setting duration to distance*rate
+                        new KeyFrame(Duration.seconds(i+1), //TODO: implement a steady rate by setting duration to distance*rate
                                 new KeyValue(x1d, x2),
                                 new KeyValue(y1d, y2)));
+                System.out.println(x1d.toString() + y1d.toString());
+
             }
         }
 
-        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
 
         AnimationTimer timer = new AnimationTimer() {
@@ -281,7 +284,7 @@ public abstract class AbstractMapController {
 
 
         timer.start();
-        timeline.play();
+        timeline.playFromStart();
     }
 
     private void drawPathNodes() {
