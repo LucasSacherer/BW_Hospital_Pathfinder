@@ -802,6 +802,19 @@ public class GodController {
         stage.show();
     }
 
+
+    @FXML
+    private void toNewAboutPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/newAboutPage.fxml"));
+        fxmlLoader.setController(new AboutPopUpController());
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        stage.setScene(new Scene(root2, 1000, 1000));
+        stage.setMaximized(true);
+        stage.show();
+    }
+
     public void initializeObservers(){
         databaseGargoyle.attachManager(nodeManager);
         databaseGargoyle.attachManager(userManager);
