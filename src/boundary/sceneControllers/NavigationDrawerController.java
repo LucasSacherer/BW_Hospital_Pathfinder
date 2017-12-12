@@ -92,6 +92,7 @@ public class NavigationDrawerController {
     }
 
     public void initializeTable() {
+        root.getChildren().clear();
 
         for (List<textDirEntry> lists : textDirs){
             for (textDirEntry dirEntry : lists){
