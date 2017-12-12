@@ -196,6 +196,11 @@ public abstract class AbstractMapController {
         }
     }
 
+    //initializations for drawing the animation
+    double rate = 0;
+    DoubleProperty x1d = new SimpleDoubleProperty(0);
+    DoubleProperty y1d = new SimpleDoubleProperty(0);
+
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
         if(pathToDraw == null || pathToDraw.size() == 0){ return; }
@@ -237,29 +242,34 @@ public abstract class AbstractMapController {
             }
         }
 
+        Timeline timeline = new Timeline();
 
-        //the linefollowing animation
-        DoubleProperty x1d = new SimpleDoubleProperty();
-        DoubleProperty y1d = new SimpleDoubleProperty();
-        int x2 = 0;
-        int y2 = 0;
+        //populates the timeline with all animations in order
+        for(int i=0;i<pathToDraw.size()-1;i++) {
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i + 1);
+            //subtract 7 to fix node alignment
+            int x1 = current.getXcoord() - 7;
+            int y1 = current.getYcoord() - 7;
+            int x2 = next.getXcoord() - 7;
+            int y2 = next.getYcoord() - 7;
+            x1d = new SimpleDoubleProperty(x1);
+            y1d = new SimpleDoubleProperty(y1);
+            if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.seconds(1), //TODO: implement a steady rate by setting duration to distance*rate
+                                new KeyValue(x1d, x2),
+                                new KeyValue(y1d, y2)));
+            }
+        }
 
-        updateDrawingValues();
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(3),
-                        updateDrawingValues(),
-                        new KeyValue(x1d, x2),
-                        new KeyValue(y1d, y2)
-                )
-        );
-
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.setAutoReverse(false);
-        timeline.setCycleCount(1);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gc.setFill(Color.ROYALBLUE);
+                gc.setFill(Color.FORESTGREEN);
                 gc.fillOval(
                         x1d.doubleValue(),
                         y1d.doubleValue(),
@@ -272,12 +282,6 @@ public abstract class AbstractMapController {
 
         timer.start();
         timeline.play();
-    }
-
-    private ActionEvent updateDrawingValues(){
-        int iterator = 0;
-        ActionEvent update = new ActionEvent();
-        return update;
     }
 
     private void drawPathNodes() {
