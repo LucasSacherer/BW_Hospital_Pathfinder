@@ -89,6 +89,8 @@ public class TableCreator {
             statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('janitor1', 'janitor1', 'janitor1', false, 'Janitorial')");
             statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff1', 'staff1', 'staff1', false, 'Food')");
             statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('badUser', 'badUser', 'badUser', false, 'Janitorial')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('staff', 'staff', 'staff', false, 'Interpreter')");
+            statement.executeUpdate("INSERT INTO KIOSKUSER VALUES ('admin', 'admin', 'admin', true, 'Janitorial')");
         } catch (SQLException e) {
             System.out.println("KioskUser table already exists");
             //e.printStackTrace();
