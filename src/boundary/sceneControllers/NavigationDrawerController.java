@@ -74,7 +74,9 @@ public class NavigationDrawerController {
 
         initializeListCells();
         setNew();
-        root.getChildren().add(new TreeItem<>());
+        TreeTableCell<AdminLog,String> secondCell = new TreeTableCell<>();
+
+//        textDirectionsTable.getTreeItem(2).set;
     }
 
 
@@ -87,36 +89,33 @@ public class NavigationDrawerController {
     }
 
     public void initializeListCells() {
-        textDirectionsColumn.setCellFactory(new Callback<TreeTableColumn<AdminLog, String>, TreeTableCell<AdminLog, String>>() {
-            @Override
-            public TreeTableCell<AdminLog, String> call(TreeTableColumn<AdminLog, String> param) {
-                 cell = new TreeTableCell<AdminLog, String>() {
-                    private HBox hBox = new HBox();
-                    private VBox vBox = new VBox();
-                    private Label labelDist = new Label();
-                    private Label labelDire = new Label();
-                    private ImageView imageView = new ImageView();
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        imageView.setImage(image);
-                        imageView.setFitHeight(40);
-                        imageView.setFitWidth(40);
-                        hBox.setAlignment(Pos.CENTER_LEFT);
-                        vBox.setAlignment(Pos.CENTER);
-                        labelDist.setText(inputLabel.getText());
-                        labelDire.setText(inputLabel1.getText());
-                        labelDist.setPrefWidth(300);
-                        labelDist.setPrefHeight(20);
-                        vBox.getChildren().setAll(labelDist);
-                        vBox.getChildren().setAll(labelDist,labelDire);
-                        hBox.getChildren().setAll(imageView,vBox);
-                        cell.setGraphic(hBox);
+        textDirectionsColumn.setCellFactory(param -> {
+             cell = new TreeTableCell<AdminLog, String>() {
+                private HBox hBox = new HBox();
+                private VBox vBox = new VBox();
+                private Label labelDist = new Label();
+                private Label labelDire = new Label();
+                private ImageView imageView = new ImageView();
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    imageView.setImage(image);
+                    imageView.setFitHeight(40);
+                    imageView.setFitWidth(40);
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    vBox.setAlignment(Pos.CENTER);
+                    labelDist.setText(inputLabel.getText());
+                    labelDire.setText(inputLabel1.getText());
+                    labelDist.setPrefWidth(300);
+                    labelDist.setPrefHeight(20);
+                    vBox.getChildren().setAll(labelDist);
+                    vBox.getChildren().setAll(labelDist,labelDire);
+                    hBox.getChildren().setAll(imageView,vBox);
+                    cell.setGraphic(hBox);
 //                        cell.graphicProperty().bind(Bindings.when(cell.emptyProperty()).then((javafx.scene.Node) null).otherwise(hBox));
-                    }
+                }
 
-                };
-                return cell;
-            }
+            };
+            return cell;
         });
         root.getChildren().add(new TreeItem<>());
         textDirectionsTable.setRoot(root);
