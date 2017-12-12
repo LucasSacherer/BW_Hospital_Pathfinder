@@ -29,9 +29,9 @@
           <RowConstraints maxHeight="779.0" minHeight="0.0" prefHeight="206.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="872.0" prefWidth="425.0" style="-fx-background-color: white;" GridPane.columnIndex="1">
+            <AnchorPane prefHeight="872.0" prefWidth="425.0" GridPane.columnIndex="1">
                <children>
-                  <GridPane prefHeight="872.1" prefWidth="467.0" style="-fx-background-color: #097bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane layoutX="107.0" prefHeight="601.0" prefWidth="440.0" style="-fx-background-color: #097bbd;" AnchorPane.bottomAnchor="261.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -83,7 +83,7 @@
                                           </ImageView>
                                        </graphic>
                                     </JFXButton>
-                                    <JFXButton fx:id="cleanupButton" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="268.0" prefWidth="273.0" style="-fx-background-color: #097bbd;" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <JFXButton fx:id="cleanupButton" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="199.0" prefWidth="302.0" style="-fx-background-color: #097bbd;" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="28.0" />
                                        </font>
@@ -111,7 +111,7 @@
                               </GridPane>
                            </children>
                         </AnchorPane>
-                        <ImageView fitHeight="242.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                        <ImageView fitHeight="154.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/other%20images/BWH.png" />
                            </image>
@@ -119,12 +119,12 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </ImageView>
-                        <Label text="Staff Service Hub " textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                        <Label prefHeight="100.0" prefWidth="217.0" text="Staff Service Request Hub " textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets bottom="60.0" right="30.0" />
+                              <Insets right="30.0" />
                            </GridPane.margin>
                         </Label>
                      </children>
