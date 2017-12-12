@@ -37,10 +37,8 @@ import java.util.List;
 public abstract class AbstractMapController {
     protected ArrayList<ImageButton> buttons = new ArrayList<>();
     protected final double ZOOM = 0.5;
-    protected final double MAX_ZOOM = 2.0;
     protected Group group;
     protected GodController godController;
-    protected Label currentFloorNum;
     protected Canvas canvas;
     protected String currentFloor = "G";
     protected GraphicsContext gc;
@@ -264,6 +262,18 @@ public abstract class AbstractMapController {
             Node current = pathToDraw.get(i + 1);
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
+            if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 10, next.getYcoord() - 10, 20, 20);
+                gc.setFill(Color.DARKGREEN);
+                gc.fillOval(next.getXcoord() - 9, next.getYcoord() - 9, 18, 18);
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 8, next.getYcoord() - 8, 16, 16);
+                gc.setFill(Color.GREEN);
+                gc.fillOval(next.getXcoord() - 5, next.getYcoord() - 5, 10, 10);
+                gc.setFill(Color.BLACK);
+            }
+
             if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
                 ImageButton floorChange;
                 if (currentFloorInt < nextFloorInt) {
@@ -388,7 +398,7 @@ public abstract class AbstractMapController {
     }
 
     protected void centerMap(Node node) {
-//        zoomOut();
+//        zoomToNode(); //TODO is this important?
         goToCorrectFloor();
         if (node != null) {
             double height = 3400.0;

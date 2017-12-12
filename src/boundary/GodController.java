@@ -7,6 +7,7 @@ import DatabaseSetup.DatabaseGargoyle;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.*;
+import GoogleNodes.GoogleNodeController;
 import MapNavigation.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
@@ -50,6 +51,7 @@ public class GodController {
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
     final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
     final private CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle,nodeManager,userManager);
+    final private GoogleNodeManager googleNodeManager = new GoogleNodeManager(databaseGargoyle);
 
 
     /* Controllers */
@@ -66,6 +68,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
+    final private GoogleNodeController googleNodeController = new GoogleNodeController(googleNodeManager);
     //final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
@@ -351,7 +354,7 @@ public class GodController {
     private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade,
                 searchAnchor, zoomSlider, directoryController, directoryDrawerController,
-                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane);
+                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane, googleNodeController);
         mainSceneController.initializeScene();
     }
 

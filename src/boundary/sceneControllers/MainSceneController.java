@@ -1,12 +1,16 @@
 package boundary.sceneControllers;
 
+import Entity.GoogleNode;
 import Entity.Node;
+import GoogleNodes.GoogleNodeController;
 import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.*;
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainSceneController extends AbstractMapController {
+    private boolean streetView;
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
     private AnchorPane searchAnchor;
@@ -31,10 +36,12 @@ public class MainSceneController extends AbstractMapController {
     private JFXDrawer drawer;
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
+    private GoogleNodeController googleNodeController;
+    private ArrayList<ImageButton> googleNodes = new ArrayList<>();
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
-                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
+                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane, GoogleNodeController googleNodeController) {
         super(g, m, p, zoomSlider, scrollPane);
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
@@ -43,6 +50,7 @@ public class MainSceneController extends AbstractMapController {
         this.drawer = drawer;
         this.hamburger = hamburger;
         this.mainPane = mainPane;
+        this.googleNodeController = googleNodeController;
     }
 
     public void initializeScene() throws IOException {
@@ -257,6 +265,30 @@ public class MainSceneController extends AbstractMapController {
     }
 
     public void streetView() {
+        googleNodes.clear();
+        if (streetView) {
+            googleNodes.clear();
+
+            streetView = false;
+        }
+        else {
+            for (GoogleNode gn : googleNodeController.getGoogleNodeByFloor(currentFloor)) {
+                ImageButton imageButton = new ImageButton();
+                imageButton.setLayoutX(gn.getXcoord());
+                imageButton.setLayoutY(gn.getYcoord());
+                googleNodes.add(imageButton);
+                mapPane.getChildren().add(imageButton);
+                imageButton.toFront();
+                imageButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Google me");
+                    }
+                });
+            }
+
+            streetView = true;
+        }
     }
 
     public void hide() { destinationTextField.hide(); }
