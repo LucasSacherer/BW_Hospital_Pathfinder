@@ -36,6 +36,7 @@ import javax.transaction.xa.Xid;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractMapController {
@@ -199,13 +200,14 @@ public abstract class AbstractMapController {
 
     //initializations for drawing the animation
     double rate = 0;
+    Timeline timeline = new Timeline();
     DoubleProperty x1d = new SimpleDoubleProperty(0);
     DoubleProperty y1d = new SimpleDoubleProperty(0);
 
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
-        if(pathToDraw == null || pathToDraw.size() == 0){ return; }
-
+        if(currentPath == null || currentPath.size() == 0){ return; }
+        Collections.reverse(pathToDraw);
         /** Testing Only **
          ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
          pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
@@ -215,40 +217,38 @@ public abstract class AbstractMapController {
 
         //draws the path outline
         for(int i=0;i<pathToDraw.size()-1;i++) {
-            Node next = pathToDraw.get(i);
-            Node current = pathToDraw.get(i+1);
+            Node current = pathToDraw.get(i);
+            Node next = pathToDraw.get(i+1);
             int x1 = current.getXcoord();
             int y1 = current.getYcoord();
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 gc.setStroke(Color.SLATEGRAY);
-                gc.setLineWidth(10);
+                gc.setLineWidth(12);
                 gc.strokeLine(x1, y1, x2, y2);
             }
         }
 
         //fills the inside of the path
         for(int i=0;i<pathToDraw.size()-1;i++) {
-            Node next = pathToDraw.get(i);
-            Node current = pathToDraw.get(i + 1);
+            Node current = pathToDraw.get(i);
+            Node next = pathToDraw.get(i + 1);
             int x1 = current.getXcoord();
             int y1 = current.getYcoord();
             int x2 = next.getXcoord();
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 gc.setStroke(Color.ROYALBLUE);
-                gc.setLineWidth(5);
+                gc.setLineWidth(6);
                 gc.strokeLine(x1, y1, x2, y2);
             }
         }
 
-        Timeline timeline = new Timeline();
-
         //populates the timeline with all animations in order
         for(int i=0;i<pathToDraw.size()-1;i++) {
-            Node next = pathToDraw.get(i);
-            Node current = pathToDraw.get(i + 1);
+            Node current = pathToDraw.get(i);
+            Node next = pathToDraw.get(i + 1);
             //subtract 7 to fix node alignment
             int x1 = current.getXcoord() - 7;
             int y1 = current.getYcoord() - 7;
@@ -257,16 +257,11 @@ public abstract class AbstractMapController {
             x1d = new SimpleDoubleProperty(x1);
             y1d = new SimpleDoubleProperty(y1);
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(i+1), //TODO: implement a steady rate by setting duration to distance*rate
-                                new KeyValue(x1d, x2),
-                                new KeyValue(y1d, y2)));
-                System.out.println(x1d.toString() + y1d.toString());
-
+                buildTimeline(x1d, y1d, x2, y2);
             }
         }
 
-        timeline.setCycleCount(1);
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.setAutoReverse(false);
 
         AnimationTimer timer = new AnimationTimer() {
@@ -285,6 +280,14 @@ public abstract class AbstractMapController {
 
         timer.start();
         timeline.playFromStart();
+    }
+
+    private void buildTimeline(DoubleProperty x, DoubleProperty y, int x_end, int y_end){
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1), //TODO: implement a steady rate by setting duration to distance*rate
+                        new KeyValue(x, x_end),
+                        new KeyValue(y, y_end)));
+        System.out.println(x.toString() + y.toString());
     }
 
     private void drawPathNodes() {
