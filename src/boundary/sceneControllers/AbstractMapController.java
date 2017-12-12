@@ -11,7 +11,9 @@ import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSlider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -56,12 +59,10 @@ public abstract class AbstractMapController {
     protected JFXSlider zoomSlider;
     protected javafx.scene.control.ScrollPane scrollPane;
 
-    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
+    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
         this.godController = g;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
-        this.currentFloorNum = currentFloorNum;
-        currentFloor = "G"; // TODO maybe make it follow the last floor?
         this.zoomSlider = zoomSlider;
         this.scrollPane = scrollPane;
     }
@@ -77,10 +78,13 @@ public abstract class AbstractMapController {
         EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                printScroll();
                 clickOnMap(event);
             }
         };
+
         canvas.setOnMouseClicked(handler);
+
         gc = canvas.getGraphicsContext2D();
         mapPane.getChildren().addAll(imageView, canvas);
         group.getChildren().add(mapPane);
@@ -89,12 +93,16 @@ public abstract class AbstractMapController {
         scrollPane.setContent(group);
 
         origin = mapNavigationFacade.getDefaultNode();
+        currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
-        gc = canvas.getGraphicsContext2D();
-//        currentFloorNum.setText(currentFloor);
-        zoomSlider.setValue(0);
+        refreshCanvas();
+//        centerMap();
+    }
+
+    protected void zoomOut() {
         mapPane.setScaleX(ZOOM);
         mapPane.setScaleY(ZOOM);
+        zoomSlider.setValue(0);
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -377,6 +385,42 @@ public abstract class AbstractMapController {
         }
     }
 
+    protected void centerMap() {
+//        zoomOut();
+        goToCorrectFloor();
+        if (currentPath == null) {
+            Bounds windowSize = scrollPane.getViewportBounds();
+
+            double xCoord = origin.getXcoord();
+            double windowWidth = windowSize.getWidth(); // - windowSize.getWidth());
+            double q = xCoord - (windowWidth / 2.0);
+
+            if (q < 0) q = 0;
+            if (q > 5000) q = 5000;
+
+            scrollPane.setHvalue(q);
+            System.out.println(q);
+            System.out.println(origin.getXcoord());
+        }
+    }
+
+    //TODO delete this
+    private void printScroll() {
+        Bounds windowSize = scrollPane.getViewportBounds();
+        System.out.println("Window size is: " + windowSize.getWidth());
+        System.out.println("H Value: " + scrollPane.getHvalue());
+        System.out.println("Origin x coordinate: " + origin.getXcoord());
+        System.out.println(" Ratio = " + origin.getXcoord()/ 5000.0);
+        System.out.println("Window ratio" + (windowSize.getWidth()/5000.0));
+        System.out.println("\n\n\n");
+    }
+
+    protected void goToCorrectFloor() {
+        currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
     public class ImageButton extends Button {
         public void initiate(final Image image, final Node next) {
             final ImageView iv = new ImageView(image);
@@ -406,4 +450,8 @@ public abstract class AbstractMapController {
             super.setGraphic(iv);
         }
     }
+
+//    public List getCurrentPath(){
+//        return currentPath;
+//    }
 }

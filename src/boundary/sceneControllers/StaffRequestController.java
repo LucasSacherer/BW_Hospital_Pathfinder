@@ -43,7 +43,7 @@ public class StaffRequestController extends AbstractMapController{
     private ObservableList allStaffRequestsList, requestsIMadeList;
 
     public StaffRequestController(GodController g, MapNavigationFacade mapNavigationFacade,
-                                  PathFindingFacade pathFindingFacade, Label currentFloorNumRequest,
+                                  PathFindingFacade pathFindingFacade,
                                   GenericRequestController genericRequestController,
                                   RequestCleanupController requestCleanupController,
                                   RequestInterpreterController requestInterpreterController,
@@ -54,7 +54,7 @@ public class StaffRequestController extends AbstractMapController{
                                   JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription,
                                   JFXTextArea requestFoodDescription, JFXTextArea requestInfo,
                                   JFXListView currentFoodOrder, JFXTextField foodItem, JFXSlider zoomSlider, ScrollPane staffScrollPane) {
-        super(g, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, zoomSlider, staffScrollPane);
+        super(g, mapNavigationFacade, pathFindingFacade, zoomSlider, staffScrollPane);
         this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;

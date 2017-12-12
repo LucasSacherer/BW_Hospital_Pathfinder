@@ -33,12 +33,12 @@
             <RowConstraints maxHeight="195.0" minHeight="18.0" prefHeight="154.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false">
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false" GridPane.rowSpan="3">
                <GridPane.margin>
-                  <Insets bottom="20.0" left="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </GridPane.margin>
             </JFXDrawer>
-            <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="3" GridPane.rowSpan="3">
+            <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hmax="5000.0" hvalue="0.6" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vmax="3400.0" vvalue="0.57" GridPane.columnSpan="3" GridPane.rowSpan="3">
                <contextMenu>
                   <ContextMenu>
                     <items>
@@ -242,11 +242,35 @@
                <children>
                   <HBox alignment="BOTTOM_RIGHT" layoutY="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
                      <children>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="-" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="4.0" />
+                                 </padding>
+                              </Label>
+                           </graphic>
+                        </JFXButton>
                         <JFXSlider fx:id="zoomSlider" onMouseClicked="#zoom" onMouseDragged="#zoom" onMousePressed="#zoom" onMouseReleased="#zoom" prefHeight="40.0" prefWidth="306.0" style="-fx-background-color: #0068B1;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </JFXSlider>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="+" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </Label>
+                           </graphic>
+                        </JFXButton>
                      </children>
                      <opaqueInsets>
                         <Insets />

@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="950.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutY="7.0" prefWidth="400.0">
          <columnConstraints>
@@ -26,7 +26,7 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="80.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="80.0" prefHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="80.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
@@ -38,6 +38,9 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </Label>
             <JFXButton alignment="TOP_RIGHT" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="80.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
@@ -127,9 +130,10 @@
                         </HBox>
                         <AnchorPane>
                            <children>
-                              <JFXTreeTableView fx:id="textDirectionsTable" prefHeight="600.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <JFXTreeTableView fx:id="textDirectionsTable" prefHeight="709.0" prefWidth="380.0" AnchorPane.bottomAnchor="-294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                    <TreeTableColumn fx:id="textDirectionsColumn" prefWidth="379.0" text="Text Directions" />
+                                    <TreeTableColumn fx:id="imageDirectionColumn" prefWidth="75.0" />
+                                    <TreeTableColumn fx:id="textDirectionsColumn" prefWidth="303.0" text="Text Directions" />
                                  </columns>
                               </JFXTreeTableView>
                            </children>
@@ -144,7 +148,10 @@
             <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" onMouseClicked="#backToDirectory" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="10.0" />
-               </GridPane.margin></JFXHamburger>
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding></JFXHamburger>
          </children>
       </GridPane>
    </children>
