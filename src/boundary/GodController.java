@@ -77,8 +77,7 @@ public class GodController {
     final private BestFirst best = new BestFirst(edgeManager);
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
-
-
+    private InactivityListener memento;
     ///////////////////////
     /** FXML Attributes **/
     ///////////////////////
@@ -320,7 +319,6 @@ public class GodController {
 
     public GodController(Stage primaryStage) { this.primaryStage = primaryStage; } //TODO do we need the stage?
 
-
     @FXML
     private void initialize() throws IOException {
         //pathFindingFacade.setPathfinder(beamSearch);
@@ -335,6 +333,8 @@ public class GodController {
         initializeAdminLogScene();
         initializeStaffRequestHubScene();
         firstTime = false;
+
+        memento = new InactivityListener(mainPane, this, sceneSwitcher);
     }
 
     private void initializeDrawers() {
@@ -701,8 +701,9 @@ public class GodController {
     @FXML
     private void mainToLogin() throws IOException {
         sceneSwitcher.toLogin(this, mainPane);
-        InactivityListener test = new InactivityListener(loginPane, this, sceneSwitcher);
-        test.startListening(10000);
+        memento.stopListening();
+        memento.setPane(loginPane);
+        memento.startListening();
     }
 
     @FXML
@@ -710,24 +711,43 @@ public class GodController {
         User u = staffRequestController.getUser();
         sceneSwitcher.toStaffRequestHub(this, requestPane);
         staffRequestHubController.setUser(u);
+        memento.stopListening();
+        memento.setPane(requestHubPane);
+        memento.startListening();
+        System.out.println("from requests to requests hub");
     }
 
     @FXML
-    private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
+    private void goToMainScene() throws IOException {
+        sceneSwitcher.toMain(this, loginPane);
+        memento.stopListening();
+    }
 
     @FXML
     private void goToRequests() throws IOException {
         if (userLoginController.authenticateStaff(staffLoginText.getText(), staffPasswordText.getText())){
             sceneSwitcher.toStaffRequestHub(this, loginPane);
             staffRequestHubController.setUser(userManager.getUserByName(staffLoginText.getText()));
+
+            memento.stopListening();
+            memento.setPane(requestHubPane);
+            memento.startListening();
+            System.out.println("from login to request hub");
         } else errorController.showError("Invalid credentials! Please try again.");
     }
 
+    //where does this go?
     @FXML
     private void serviceHubToRequest() throws IOException {
         sceneSwitcher.toStaffRequests(this, requestPane);
         System.out.println(staffRequestHubController.getUser());
         staffRequestController.initializeScene(userManager.getUser(staffRequestHubController.getUser().getUserID()));
+
+        //WHERE DOES THIS GO
+        memento.stopListening();
+        memento.setPane(null); //WHERE DOES THIS GO
+        memento.startListening();
+        System.out.println("from to");
     }
 
     @FXML
@@ -738,8 +758,12 @@ public class GodController {
             System.out.println(databaseGargoyle.getCurrentUser().getUsername());
             sceneSwitcher.toAdminHub(this, loginPane);
             adminLogController.initializeScene(userManager.getUserByName(adminLoginText.getText()));
-        } else errorController.showError("Invalid credentials! Please try again.");
 
+            memento.stopListening();
+            memento.setPane(adminHubPane);
+            memento.startListening();
+            System.out.println("from login to admin hub");
+        } else errorController.showError("Invalid credentials! Please try again.");
     }
 
     @FXML

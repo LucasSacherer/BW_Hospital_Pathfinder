@@ -20,7 +20,7 @@ public class InactivityListener implements ActionListener {
     private Pane pane;
     private Action action;
     private int interval;
-    private Timer timer = new Timer(0, this);
+    private Timer timer;
 
     private GodController god;
     private SceneSwitcher sceneSwitcher;
@@ -29,7 +29,8 @@ public class InactivityListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
             try {
-                //System.out.println("RETURNING TO MAIN");
+                System.out.println("RETURNING TO MAIN");
+                System.out.println("Pane Name" + pane);
                 sceneSwitcher.toMain(god, pane);
             }catch(IOException exception){
                 System.out.println("failed");
@@ -41,8 +42,10 @@ public class InactivityListener implements ActionListener {
         this.pane = pane;
         this.god = god;
         this.sceneSwitcher = sceneSwitcher;
+        this.timer = new Timer(0, this);
+
         setAction(returnToMain);
-        setInterval(1);
+        setInterval(0.2);
     }
 
     /*
@@ -55,8 +58,8 @@ public class InactivityListener implements ActionListener {
     /*
      *  The interval before the Action is invoked specified in minutes
      */
-    public void setInterval(int minutes) {
-        setIntervalInMillis(minutes * 60000);
+    public void setInterval(double minutes) {
+        setIntervalInMillis((int)(minutes * 60000));
     }
 
     /*
@@ -75,24 +78,26 @@ public class InactivityListener implements ActionListener {
         action.actionPerformed(ae);
     }
 
+    public void setPane(Pane p){
+        pane = p;
+        setAction(returnToMain);
+    }
 
-    public void startListening(int delay){
+    public void startListening(){
         Pane target = pane;
 
         target.setFocusTraversable(true);
 
+        if(timer.isRunning()){
+            timer.stop();
+            timer = new Timer(interval, this);;
+            System.out.println("STOPPED");
+        }
         System.out.println("Here we go!");
         timer.setInitialDelay(interval);
         timer.setRepeats(false);
         timer.start();
-        /*
-        target.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                timer.restart();
-                System.out.println("CAUGHT THAT KEY BOI");
-            }
-        });*/
+
         target.addEventFilter(KeyEvent.ANY, e-> {
             timer.restart();
             System.out.println("CAUGHT THAT KEY FILTER BOI");
@@ -101,10 +106,19 @@ public class InactivityListener implements ActionListener {
             timer.restart();
             System.out.println("CAUGHT THAT MOUSE CLICK FILTER BOI");
         });
-
         target.addEventFilter(MouseEvent.MOUSE_MOVED, e-> {
             timer.restart();
             System.out.println("CAUGHT THAT MOUSE MOVE FILTER BOI");
         });
+    }
+
+    public void stopListening(){
+        //How do I cancel a timer without triggering the event?
+        System.out.println("Is running? " + timer.isRunning());
+        if(timer.isRunning()){
+            System.out.println("stop");
+            timer.stop();
+        }
+        System.out.println("Is running? " + timer.isRunning());
     }
 }
