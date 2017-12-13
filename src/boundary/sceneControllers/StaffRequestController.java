@@ -106,16 +106,6 @@ public class StaffRequestController extends AbstractMapController{
         // requestChoiceBox.setItems(requestTypeList);
     }
 
-
-    public void floorDown() throws IOException, SQLException {
-        super.floorDown();
-        refreshRequestCanvas();
-    }
-
-    public void floorUp() throws IOException, SQLException {
-        super.floorUp();
-        refreshRequestCanvas();
-    }
     public void clickOnMap(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();

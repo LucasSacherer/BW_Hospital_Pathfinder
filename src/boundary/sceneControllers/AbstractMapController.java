@@ -5,10 +5,7 @@ import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -37,10 +34,8 @@ import java.util.List;
 public abstract class AbstractMapController {
     protected ArrayList<ImageButton> buttons = new ArrayList<>();
     protected final double ZOOM = 0.5;
-    protected final double MAX_ZOOM = 2.0;
     protected Group group;
     protected GodController godController;
-    protected Label currentFloorNum;
     protected Canvas canvas;
     protected String currentFloor = "G";
     protected GraphicsContext gc;
@@ -78,7 +73,6 @@ public abstract class AbstractMapController {
         EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                printScroll();
                 clickOnMap(event);
             }
         };
@@ -91,18 +85,21 @@ public abstract class AbstractMapController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setContent(group);
+        refreshKiosk();
+        scrollPane.setHvalue(0.29);
+        scrollPane.setVvalue(0.69);
+    }
 
+    public void refreshKiosk() {
         origin = mapNavigationFacade.getDefaultNode();
         currentFloor = origin.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
+        centerMap(origin);
         refreshCanvas();
-//        centerMap();
+        zoomOut();
     }
 
-    protected void zoomOut() {
-        mapPane.setScaleX(ZOOM);
-        mapPane.setScaleY(ZOOM);
-        zoomSlider.setValue(0);
+    private void zoomOut() {
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -152,6 +149,15 @@ public abstract class AbstractMapController {
             gc.fillOval(origin.getXcoord() - 12, origin.getYcoord() - 12, 24, 24);
             gc.setFill(Color.BLUE);
             gc.fillOval(origin.getXcoord() - 9, origin.getYcoord() - 9, 18, 18);
+
+            JFXSpinner jfxSpinner = new JFXSpinner();
+            jfxSpinner.setRadius(10);
+            jfxSpinner.setLayoutX(origin.getXcoord());
+            jfxSpinner.setLayoutY(origin.getYcoord());
+            mapPane.getChildren().add(jfxSpinner);
+            jfxSpinner.setStartingAngle(0);
+            jfxSpinner.toFront();
+            jfxSpinner.setVisible(true);
         }
         gc.setFill(Color.BLACK);
     }
@@ -262,6 +268,18 @@ public abstract class AbstractMapController {
             Node current = pathToDraw.get(i + 1);
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
+            if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 10, next.getYcoord() - 10, 20, 20);
+                gc.setFill(Color.DARKGREEN);
+                gc.fillOval(next.getXcoord() - 9, next.getYcoord() - 9, 18, 18);
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 8, next.getYcoord() - 8, 16, 16);
+                gc.setFill(Color.GREEN);
+                gc.fillOval(next.getXcoord() - 5, next.getYcoord() - 5, 10, 10);
+                gc.setFill(Color.BLACK);
+            }
+
             if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
                 ImageButton floorChange;
                 if (currentFloorInt < nextFloorInt) {
@@ -290,56 +308,6 @@ public abstract class AbstractMapController {
         if (floor.equals("1")) return 1;
         if (floor.equals("2")) return 2;
         return 3;
-    }
-
-    public void floorDown() throws IOException, SQLException {
-        switch(currentFloor) {
-            case "L2" :
-                return;
-            case "L1" :
-                currentFloor = "L2";
-                break;
-            case "G" :
-                currentFloor = "L1";
-                break;
-            case "1" :
-                currentFloor = "G";
-                break;
-            case "2" :
-                currentFloor = "1";
-                break;
-            case "3" :
-                currentFloor = "2";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
-    public void floorUp() throws IOException, SQLException {
-        switch (currentFloor) {
-            case "3":
-                return;
-            case "L2":
-                currentFloor = "L1";
-                break;
-            case "L1":
-                currentFloor = "G";
-                break;
-            case "G":
-                currentFloor = "1";
-                break;
-            case "1":
-                currentFloor = "2";
-                break;
-            case "2":
-                currentFloor = "3";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
     }
 
     public void zoom() {
@@ -385,38 +353,29 @@ public abstract class AbstractMapController {
         }
     }
 
-    protected void centerMap() {
-//        zoomOut();
+    protected void centerMap(Node node) {
+//        zoomToNode(); //TODO is this important?
         goToCorrectFloor();
-        if (currentPath == null) {
-            Bounds windowSize = scrollPane.getViewportBounds();
+        if (node != null) {
+            double height = 3400.0;
+            double y = node.getYcoord();
+            double viewHeight = scrollPane.getViewportBounds().getHeight();
+            scrollPane.setVvalue(scrollPane.getVmax() * ((y - 0.5 * viewHeight) / (height - viewHeight)));
 
-            double xCoord = origin.getXcoord();
-            double windowWidth = windowSize.getWidth(); // - windowSize.getWidth());
-            double q = xCoord - (windowWidth / 2.0);
-
-            if (q < 0) q = 0;
-            if (q > 5000) q = 5000;
-
-            scrollPane.setHvalue(q);
-            System.out.println(q);
-            System.out.println(origin.getXcoord());
+            double width = 5000.0;
+            double x = node.getXcoord();
+            double viewWidth = scrollPane.getViewportBounds().getWidth();
+            scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)));
         }
-    }
-
-    //TODO delete this
-    private void printScroll() {
-        Bounds windowSize = scrollPane.getViewportBounds();
-        System.out.println("Window size is: " + windowSize.getWidth());
-        System.out.println("H Value: " + scrollPane.getHvalue());
-        System.out.println("Origin x coordinate: " + origin.getXcoord());
-        System.out.println(" Ratio = " + origin.getXcoord()/ 5000.0);
-        System.out.println("Window ratio" + (windowSize.getWidth()/5000.0));
-        System.out.println("\n\n\n");
     }
 
     protected void goToCorrectFloor() {
         currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+    protected void goToCorrectFloorOfNode(Node node) {
+        currentFloor =node.getFloor();
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         refreshCanvas();
     }
@@ -429,6 +388,9 @@ public abstract class AbstractMapController {
             iv.setFitWidth(30);
             this.getChildren().add(iv);
             this.resize(30,30);
+            this.setStyle("-fx-background-color: #09a1b3");
+
+
 
             this.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -451,7 +413,39 @@ public abstract class AbstractMapController {
         }
     }
 
-//    public List getCurrentPath(){
-//        return currentPath;
-//    }
+    public void floorL2() {
+        currentFloor = "L2";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floorL1() {
+        currentFloor = "L1";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floorG() {
+        currentFloor = "G";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor1() {
+        currentFloor = "1";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor2() {
+        currentFloor = "2";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor3() {
+        currentFloor = "3";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
 }

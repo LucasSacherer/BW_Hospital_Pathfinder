@@ -1,13 +1,18 @@
 package boundary.sceneControllers;
 
+import Entity.GoogleNode;
 import Entity.Node;
+import GoogleNodes.GoogleNodeController;
 import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,9 +21,10 @@ import javafx.scene.layout.Region;
 import Entity.ErrorController;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class MainSceneController extends AbstractMapController {
+    private boolean streetView;
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
     private AnchorPane searchAnchor;
@@ -29,10 +35,12 @@ public class MainSceneController extends AbstractMapController {
     private JFXDrawer drawer;
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
+    private GoogleNodeController googleNodeController;
+    private ArrayList<JFXButton> googleNodes = new ArrayList<JFXButton>();
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
-                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
+                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane, GoogleNodeController googleNodeController) {
         super(g, m, p, zoomSlider, scrollPane);
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
@@ -41,6 +49,7 @@ public class MainSceneController extends AbstractMapController {
         this.drawer = drawer;
         this.hamburger = hamburger;
         this.mainPane = mainPane;
+        this.googleNodeController = googleNodeController;
     }
 
     public void initializeScene() throws IOException {
@@ -49,9 +58,6 @@ public class MainSceneController extends AbstractMapController {
         destinationTextField.setMainSceneController(this);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
-//        searchAnchor.setPrefHeight(40);
-//        searchAnchor.setPrefWidth(100);
-        origin = mapNavigationFacade.getDefaultNode();
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
         directoryLoader.setController(directoryDrawerController);
@@ -62,7 +68,6 @@ public class MainSceneController extends AbstractMapController {
         navigationRegion = navigationLoader.load();
 
         directoryDrawerController.setNavigateRegion(navigationRegion);
-//        resizeDrawer();
         initializeBurger(directoryRegion);
     }
 
@@ -166,54 +171,86 @@ public class MainSceneController extends AbstractMapController {
 
     public void reversePath() throws IOException {
         navigate(destination, origin);
-
     }
 
     public void findPath() throws IOException {
         if (origin == null || destination == null) return;
         currentPath = pathFindingFacade.getPath(origin, destination);
+        zoomToPath();
         openNavigationDrawer();
         goToCorrectFloor();
         refreshCanvas();
     }
 
-    public void floorL2() {
-        currentFloor = "L2";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
+    private void zoomToPath() {
+        double zoomLevel =  ZOOM;
+
+        if (zoomLevel < ZOOM) zoomLevel = ZOOM;
+        zoomSlider.setValue(0);
+        mapPane.setScaleX(zoomLevel);
+        mapPane.setScaleY(zoomLevel);
+
+        Point2D scrollOffset = figureScrollOffset(mapPane, scrollPane);
+        repositionScroller(mapPane, scrollPane, 1, scrollOffset);
+
+        double height = 3400.0;
+        double y = getPathY();
+        double viewHeight = scrollPane.getViewportBounds().getHeight();
+        scrollPane.setVvalue(scrollPane.getVmax() * ((y - 0.5 * viewHeight) / (height - viewHeight)));
+
+        double width = 5000.0;
+        double x = getPathX();
+        double viewWidth = scrollPane.getViewportBounds().getWidth();
+        scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)) * 0.9);
     }
 
-    public void floorL1() {
-        currentFloor = "L1";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
+    private double getPathX() {
+        ArrayList<Node> pathList = new ArrayList<>(currentPath);
+        int xMax = 0;
+        int xMin = 3400;
+        for (Node n : pathList) {
+            if (n.getXcoord() > xMax) xMax = n.getXcoord();
+            if (n.getXcoord() < xMin) xMin = n.getXcoord();
+        }
+        return (xMax + xMin) / 2;
     }
 
-    public void floorG() {
-        currentFloor = "G";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor1() {
-        currentFloor = "1";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor2() {
-        currentFloor = "2";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor3() {
-        currentFloor = "3";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
+    private double getPathY() {
+        ArrayList<Node> pathList = new ArrayList<>(currentPath);
+        int yMax = 0;
+        int yMin = 5000;
+        for (Node n : pathList) {
+            if (n.getYcoord() > yMax) yMax = n.getYcoord();
+            if (n.getYcoord() < yMin) yMin = n.getYcoord();
+        }
+        return (yMax + yMin) / 2;
     }
 
     public void streetView() {
+        if (streetView) {
+            googleNodes.clear();
+            streetView = false;
+            System.out.println("streetView turned off");
+        }
+        else {
+            for (GoogleNode gn : googleNodeController.getGoogleNodeByFloor(currentFloor)) {
+                JFXButton jfxButton = new JFXButton();
+                jfxButton.setLayoutX(gn.getXcoord());
+                jfxButton.setLayoutY(gn.getYcoord());
+                jfxButton.setText("HEY");
+                googleNodes.add(jfxButton);
+                mapPane.getChildren().add(jfxButton);
+                jfxButton.toFront();
+                jfxButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Google me");
+                    }
+                });
+            }
+            streetView = true;
+            System.out.println("streetView turned on");
+        }
     }
 
     public void hide() { destinationTextField.hide(); }

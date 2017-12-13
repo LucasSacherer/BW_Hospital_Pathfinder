@@ -7,6 +7,7 @@ import DatabaseSetup.DatabaseGargoyle;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.*;
+import GoogleNodes.GoogleNodeController;
 import MapNavigation.*;
 import MementoPattern.*;
 import Pathfinding.*;
@@ -51,6 +52,7 @@ public class GodController {
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
     final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
     final private CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle,nodeManager,userManager);
+    final private GoogleNodeManager googleNodeManager = new GoogleNodeManager(databaseGargoyle);
 
 
     /* Controllers */
@@ -67,6 +69,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
+    final private GoogleNodeController googleNodeController = new GoogleNodeController(googleNodeManager);
     //final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
@@ -88,7 +91,7 @@ public class GodController {
 
     private TreeTableColumn<textDirEntry, String> textDirectionsColumn;
 
-    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn;
+    private TreeTableColumn<textDirEntry,ImageView> imageDirectionColumn;
 
 
     ///////////////////////
@@ -354,7 +357,7 @@ public class GodController {
     private void initializeMainScene() throws IOException {
         mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade,
                 searchAnchor, zoomSlider, directoryController, directoryDrawerController,
-                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane);
+                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane, googleNodeController);
         mainSceneController.initializeScene();
     }
 
@@ -430,6 +433,9 @@ public class GodController {
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
 
     @FXML
+    private void resetOrigin() { mainSceneController.refreshKiosk(); }
+
+    @FXML
     private void findPath(ActionEvent e) throws IOException { mainSceneController.findPath(); }
 
     @FXML
@@ -497,10 +503,10 @@ public class GodController {
     private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
 
     @FXML
-    private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
+    private void floorDownRequest() throws IOException, SQLException {  }
 
     @FXML
-    private void floorUpRequest() throws IOException, SQLException { staffRequestController.floorUp(); }
+    private void floorUpRequest() throws IOException, SQLException {  }
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
@@ -631,10 +637,10 @@ public class GodController {
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
     @FXML
-    private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
+    private void floorDownMapEdit() throws IOException, SQLException {  }
 
     @FXML
-    private void floorUpMapEdit() throws IOException, SQLException { adminMapController.floorUp(); }
+    private void floorUpMapEdit() throws IOException, SQLException {  }
 
     @FXML
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
@@ -875,7 +881,18 @@ public class GodController {
         Stage stage = new Stage();
         stage.setTitle("About");
         stage.setScene(new Scene(root2, 1000, 1000));
-        stage.setMaximized(true);
+        stage.show();
+    }
+
+
+    @FXML
+    private void toNewAboutPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/newAboutPage.fxml"));
+        fxmlLoader.setController(new AboutPopUpController());
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        stage.setScene(new Scene(root2, 1000, 1000));
         stage.show();
     }
 
