@@ -12,8 +12,11 @@ import boundary.GodController;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXSlider;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -26,8 +29,10 @@ import javafx.scene.layout.Region;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//import com.teamdev.jxbrowser.chromium.Browser;
-//import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 //import javafx.application.Platform;
 
 public class MainSceneController extends AbstractMapController {
@@ -252,37 +257,37 @@ public class MainSceneController extends AbstractMapController {
                         "-fx-pref-height: 60; " + "-fx-background-radius: 50%;" +
                         "-fx-pref-width: 60;");
                 button.setGraphic(smallPerson);
-//                button.setOnAction(new EventHandler<ActionEvent>() {
-////                    @Override
-////                    public void handle(ActionEvent event) {
-////                        System.out.println("Hey");
-////                        JFXRippler rippler = new JFXRippler();
-////                        mainPane.getChildren().add(rippler);
-////
-////                        Browser browser = new Browser();
-////                        BrowserView browserView = new BrowserView(browser);
-////                        browser.loadURL(gn.getUrl());
-////                        Scene scene = new Scene(browserView);
-////                        Stage stage = new Stage();
-////                        stage.setScene(scene);
-////                        stage.setTitle("Street View");
-////                        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-////                            @Override
-////                            public void handle(WindowEvent event) {
-////                                new Thread(new Runnable() {
-////                                    @Override
-////                                    public void run() {
-////                                        browser.dispose();
-////                                    }
-////                                }).start();
-////                            }
-////                        });
-////                        stage.show();
-//
-//                        //JFXPopup popup = new JFXPopup(browserView); // Insert you JFXPopup in here!
-//                        //popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-//                    }
-//                });
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Hey");
+                        //JFXRippler rippler = new JFXRippler();
+                        //mainPane.getChildren().add(rippler);
+
+                        Browser browser = new Browser();
+                        BrowserView browserView = new BrowserView(browser);
+                        browser.loadURL(gn.getUrl());
+                        Scene scene = new Scene(browserView);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setTitle("Street View");
+                        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent event) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        browser.dispose();
+                                    }
+                                }).start();
+                            }
+                        });
+                        stage.show();
+
+                        //JFXPopup popup = new JFXPopup(browserView); // Insert you JFXPopup in here!
+                        //popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+                    }
+                });
                 button.setVisible(true);
                 button.setMouseTransparent(false);
 
