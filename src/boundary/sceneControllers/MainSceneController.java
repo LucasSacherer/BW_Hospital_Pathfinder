@@ -40,7 +40,7 @@ public class MainSceneController extends AbstractMapController {
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
     private GoogleNodeController googleNodeController;
-    private ArrayList<JFXButton> googleNodeButtons = new ArrayList<JFXButton>();
+    private ArrayList<Button> googleNodeButtons = new ArrayList<Button>();
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
@@ -237,18 +237,17 @@ public class MainSceneController extends AbstractMapController {
         }
         else {
             for (GoogleNode gn : googleNodeController.getGoogleNodeByFloor(currentFloor)) {
-                JFXButton jfxButton = new JFXButton();
-                jfxButton.setLayoutX(gn.getXcoord());
-                jfxButton.setLayoutY(gn.getYcoord());
-                jfxButton.setText(" ");
-                jfxButton.setGraphic(new JFXSpinner());
-                googleNodeButtons.add(jfxButton);
-                mapPane.getChildren().add(jfxButton);
-                jfxButton.toFront();
-                jfxButton.setOnAction(new EventHandler<ActionEvent>() {
+                Button button = new Button();
+                button.setLayoutX(gn.getXcoord());
+                button.setLayoutY(gn.getYcoord());
+
+                button.setStyle("-fx-background-color: #09a1b3");
+
+                button.setText("GOOGLE NODE");
+                button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
+                        System.out.println("Hey");
                         JFXRippler rippler = new JFXRippler();
                         mainPane.getChildren().add(rippler);
 
@@ -264,6 +263,12 @@ public class MainSceneController extends AbstractMapController {
                         //popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
                     }
                 });
+                button.setVisible(true);
+                button.setMouseTransparent(false);
+
+                googleNodeButtons.add(button);
+                mapPane.getChildren().add(button);
+                button.toFront();
             }
             streetView = true;
             System.out.println("streetView turned on");
@@ -283,7 +288,7 @@ public class MainSceneController extends AbstractMapController {
     }
 
     private void clearGoogleNodes() {
-        for (JFXButton j : googleNodeButtons) { mapPane.getChildren().remove(j); }
+        for (Button j : googleNodeButtons) { mapPane.getChildren().remove(j); }
         googleNodeButtons.clear();
     }
 
