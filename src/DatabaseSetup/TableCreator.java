@@ -261,8 +261,13 @@ public class TableCreator {
                     "ycoord INTEGER NOT NULL, \n" +
                     "floor VARCHAR(250) NOT NULL\n)");
             System.out.println("GoogleNode table created!");
-            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('FrancisStreet','https://goo.gl/maps/CB3RET9g6Gq',1451, 1616, 'G')");
-            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('BCHSouth','https://goo.gl/maps/o1jTB9vEJW42',1955, 33, '1')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('FrancisStreet','https://goo.gl/maps/CB3RET9g6Gq',1451,1616,'1')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('BCHSouth','https://goo.gl/maps/o1jTB9vEJW42',1955,33,'1')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('Francis Street Intersection','https://goo.gl/maps/Aixmg3zNeD72',4611,1897,'2')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('45 Francis Parking','https://goo.gl/maps/8aSETNujgh92',3179,1631,'2')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('Pats Place Entrance','https://goo.gl/maps/Ks4NQfE1Nf22',4154,365,'2')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('Francis Street Entrance','https://goo.gl/maps/GjULjhS8Tp92',1838,1613,'1')");
+            statement.executeUpdate("INSERT INTO GOOGLENODE VALUES ('Francis Street Valet','https://goo.gl/maps/AU4AEfacTdu',1082,1696,'1')");
         } catch (SQLException e) {
             System.out.println("GoogleNode table already exists");
             //e.printStackTrace();
