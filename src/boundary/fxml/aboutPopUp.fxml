@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,105 +17,123 @@
 
 <AnchorPane maxHeight="740.0" maxWidth="400.0" minHeight="740.0" minWidth="400.0" prefHeight="740.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutY="94.0" prefHeight="640.0" prefWidth="400.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="94.0">
+      <VBox layoutY="53.0" prefHeight="687.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
          <children>
-            <GridPane prefHeight="635.0" prefWidth="400.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.0" minWidth="10.0" prefWidth="586.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="72.0" prefWidth="400.0" text="Opens information pop-up" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Label prefHeight="57.0" prefWidth="400.0" text="Brings authorized users to a log in screen" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Label prefHeight="21.0" prefWidth="405.0" text="Allows you to zoom in and out of the map" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Label text="Display's path to the nearest bathroom" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <Label text="Display's path to the nearest elevator" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <Label text="Display's path to the nearest help desk" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                  <Label text="Displays Google Street View Options" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                  <Label text="Navigate to searched location" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                  <Label text="Display the hospital directory " GridPane.columnIndex="3" GridPane.rowIndex="9" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <ImageView fitHeight="150.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/Icons/help.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/Icons/Bathroom.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/Icons/Elevator1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-                     <image>
-                        <Image url="@../images/Icons/InfoDesk.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="65.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Label text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
-                  <Label text="-/+" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="38.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/street_view.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/Icons/Navagate.png" />
-                     </image>
-                  </ImageView>
-                  <Line endX="-55.0" startX="-100.0" stroke="#e6e6e6" strokeLineCap="ROUND" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="TOP">
-                     <GridPane.margin>
-                        <Insets top="20.0" />
-                     </GridPane.margin>
-                  </Line>
-                  <Line endX="-55.0" startX="-100.0" stroke="#e6e6e6" strokeLineCap="ROUND" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-                  <Line endX="-55.0" startX="-100.0" stroke="#e6e6e6" strokeLineCap="ROUND" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets bottom="20.0" />
-                     </GridPane.margin>
-                  </Line>
-               </children>
-            </GridPane>
+            <TabPane prefHeight="688.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+              <tabs>
+                <Tab text="Help">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="653.0" prefWidth="400.0">
+                           <children>
+                              <GridPane prefHeight="635.0" prefWidth="400.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.0" minWidth="10.0" prefWidth="586.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints maxHeight="5.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="72.0" prefWidth="400.0" text="Opens information pop-up" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label prefHeight="57.0" prefWidth="400.0" text="Brings authorized users to a log in screen" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Label prefHeight="21.0" prefWidth="405.0" text="Allows you to zoom in and out of the map" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                    <Label text="Display's path to the nearest bathroom" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                    <Label text="Display's path to the nearest elevator" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                                    <Label text="Display's path to the nearest help desk" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                                    <Label text="Displays Google Street View Options" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                                    <Label text="Navigate to searched location" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                                    <Label text="Display the hospital directory " GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                    <ImageView fitHeight="150.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/Icons/help.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/Icons/Bathroom.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/Icons/Elevator1.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+                                       <image>
+                                          <Image url="@../images/Icons/InfoDesk.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="65.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                    <Label text="Login" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="-/+" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="38.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="70.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/street_view.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                                       <image>
+                                          <Image url="@../images/Icons/Navagate.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Line endX="-55.0" startX="-100.0" stroke="#e6e6e6" strokeLineCap="ROUND" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
+                                       <GridPane.margin>
+                                          <Insets top="20.0" />
+                                       </GridPane.margin>
+                                    </Line>
+                                    <Line endX="-55.0" startX="-100.0" stroke="#e6e6e6" strokeLineCap="ROUND" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+                                    <Line endX="-55.0" startX="-100.0" stroke="#e6e6e6" strokeLineCap="ROUND" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
+                                       <GridPane.margin>
+                                          <Insets bottom="20.0" />
+                                       </GridPane.margin>
+                                    </Line>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Shuttle Schedule">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children>
       </VBox>
-      <Label layoutX="14.0" layoutY="14.0" text="Information" textFill="#003da6">
+      <Label layoutX="14.0" text="Information" textFill="#003da6">
          <font>
-            <Font name="System Bold" size="50.0" />
+            <Font name="System Bold" size="45.0" />
          </font>
       </Label>
    </children>
