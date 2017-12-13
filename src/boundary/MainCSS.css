@@ -23,7 +23,7 @@
 .tab :focused{
     -fx-background-color: #003da6;
 }
-.label{
+.label1{
     -fx-text-fill: white;
 }
 .tab .tab-selected-line{

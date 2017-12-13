@@ -52,11 +52,11 @@
                   </JFXButton>
                   <JFXTreeTableView fx:id="employeeTable" prefHeight="566.0" prefWidth="689.0" styleClass="table-column" stylesheets="@../MainCSS.css" GridPane.rowIndex="1">
                      <columns>
-                        <TreeTableColumn fx:id="userIDColumn" prefWidth="130.0" style="-fx-background-color: #097bbd;" text="User ID" />
-                        <TreeTableColumn fx:id="departmentColumn" prefWidth="335.0" style="-fx-background-color: #097bbd;" text="Department" />
-                        <TreeTableColumn fx:id="usernameColumn" prefWidth="317.0" style="-fx-background-color: #097bbd;" text="Username" />
-                        <TreeTableColumn fx:id="passwordColumn" prefWidth="529.0" style="-fx-background-color: #097bbd;" text="Password" />
-                        <TreeTableColumn fx:id="adminStatusColumn" prefWidth="263.0" style="-fx-background-color: #097bbd;" text="Admin Status" />
+                        <TreeTableColumn fx:id="userIDColumn" prefWidth="130.0" text="User ID" />
+                        <TreeTableColumn fx:id="departmentColumn" prefWidth="335.0" text="Department" />
+                        <TreeTableColumn fx:id="usernameColumn" prefWidth="317.0" text="Username" />
+                        <TreeTableColumn fx:id="passwordColumn" prefWidth="529.0" text="Password" />
+                        <TreeTableColumn fx:id="adminStatusColumn" prefWidth="263.0" text="Admin Status" />
                      </columns>
                      <GridPane.margin>
                         <Insets left="30.0" top="-40.0" />

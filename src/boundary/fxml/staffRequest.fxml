@@ -192,7 +192,7 @@
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Staff Request" GridPane.halignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="label1" text="Staff Request" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
@@ -248,7 +248,7 @@
                                                                      <children>
                                                                         <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                                                            <children>
-                                                                              <Label styleClass="label2" text="Name: ">
+                                                                              <Label styleClass="label1" text="Name: ">
                                                                                  <font>
                                                                                     <Font size="20.0" />
                                                                                  </font>
@@ -260,7 +260,7 @@
                                                                               </JFXTextField>
                                                                            </children>
                                                                         </HBox>
-                                                                        <Label styleClass="label2" text="Description">
+                                                                        <Label styleClass="label1" text="Description">
                                                                            <font>
                                                                               <Font size="20.0" />
                                                                            </font>
@@ -301,7 +301,7 @@
                                                                      <children>
                                                                         <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                                                            <children>
-                                                                              <Label styleClass="label2" text="Name: ">
+                                                                              <Label styleClass="label1" text="Name: ">
                                                                                  <font>
                                                                                     <Font size="20.0" />
                                                                                  </font>
@@ -314,7 +314,7 @@
                                                                            </children>
                                                                         </HBox>
                                                                         <JFXComboBox fx:id="languageSelect" prefHeight="40.0" prefWidth="143.0" promptText="Language" styleClass="textfield" />
-                                                                        <Label styleClass="label2" text="Description">
+                                                                        <Label styleClass="label1" text="Description">
                                                                            <font>
                                                                               <Font size="20.0" />
                                                                            </font>
@@ -348,7 +348,7 @@
                                                 </JFXTabPane>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label styleClass="label2" text="Node ID:">
+                                                      <Label styleClass="label1" text="Node ID:">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>

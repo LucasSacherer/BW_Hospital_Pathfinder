@@ -26,7 +26,7 @@
             <Image url="@../images/BWH-transparent-final.png" />
          </image>
       </ImageView>
-      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" text="STAFF REPORTS">
+      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" styleClass="label1" text="STAFF REPORTS">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>

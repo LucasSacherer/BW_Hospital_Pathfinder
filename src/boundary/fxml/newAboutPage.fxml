@@ -21,7 +21,7 @@
             </AnchorPane>
          </children>
         </VBox>
-        <Label layoutX="94.0" layoutY="76.0" text="About">
+        <Label layoutX="94.0" layoutY="76.0" styleClass="label1" text="About">
             <font>
                 <Font name="System Bold" size="50.0" />
             </font>

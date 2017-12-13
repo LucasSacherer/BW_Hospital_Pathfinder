@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="824.0" prefWidth="384.0" styleClass="root" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="858.0" prefWidth="384.0" styleClass="root" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" prefHeight="933.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutY="20.0" prefHeight="854.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label alignment="CENTER" text="Settings" textAlignment="CENTER">
+            <Label alignment="CENTER" styleClass="label1" text="Settings" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <VBox spacing="20.0" styleClass="background2">
+            <VBox prefHeight="779.0" prefWidth="384.0" spacing="20.0" styleClass="background2">
                <children>
                   <Label styleClass="label2" text="Set Timeout" textAlignment="CENTER">
                      <font>

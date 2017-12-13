@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminLogPane" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="adminLogPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="logImage" fitHeight="257.0" fitWidth="349.0" layoutX="232.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/BWH-transparent-final.png" />
          </image>
       </ImageView>
-      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" text="ADMIN LOGS">
+      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" styleClass="label1" text="ADMIN LOGS">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>

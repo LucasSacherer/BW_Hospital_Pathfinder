@@ -179,7 +179,7 @@
             </JFXTabPane>
          </children>
       </VBox>
-      <Label layoutX="14.0" text="Information" textFill="#003da6">
+      <Label layoutX="14.0" styleClass="label1" text="Information" textFill="#003da6">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>

@@ -28,7 +28,7 @@
             </VBox>
             <HBox prefHeight="271.0" prefWidth="1722.0">
                <children>
-                  <Label text="MANAGE REQUESTS">
+                  <Label styleClass="label1" text="MANAGE REQUESTS">
                      <font>
                         <Font name="System Bold" size="50.0" />
                      </font>

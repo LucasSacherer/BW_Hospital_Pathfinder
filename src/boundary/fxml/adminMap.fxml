@@ -185,7 +185,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton alignment="CENTER" cancelButton="true" onAction="#mapToAdminHub" prefHeight="60.0" prefWidth="60.0" text="Back" textAlignment="CENTER" textFill="WHITE">
+                        <JFXButton alignment="CENTER" cancelButton="true" onAction="#mapToAdminHub" prefHeight="60.0" prefWidth="73.0" text="Back" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -193,7 +193,7 @@
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Map Editor" GridPane.halignment="CENTER">
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="label1" text="Map Editor" GridPane.halignment="CENTER">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
@@ -219,7 +219,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" layoutX="54.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Node Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Node Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -282,7 +282,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Selected Node Info">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Selected Node Info">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -354,7 +354,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Node Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Node Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -410,7 +410,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Edge Start Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Edge Start Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -429,7 +429,7 @@
                                                                   </JFXTextField>
                                                                </children>
                                                             </HBox>
-                                                            <Label contentDisplay="CENTER" text="Edge End Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Edge End Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -473,7 +473,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Edge Start Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Edge Start Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -492,7 +492,7 @@
                                                                   </JFXTextField>
                                                                </children>
                                                             </HBox>
-                                                            <Label contentDisplay="CENTER" text="Edge End Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Edge End Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -536,7 +536,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Start Node Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Start Node Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -555,7 +555,7 @@
                                                                   </JFXTextField>
                                                                </children>
                                                             </HBox>
-                                                            <Label contentDisplay="CENTER" text="End Node Location">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="End Node Location">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
@@ -611,7 +611,7 @@
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" prefHeight="743.0" prefWidth="275.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Label contentDisplay="CENTER" text="Kiosk Node">
+                                                            <Label contentDisplay="CENTER" styleClass="label1" text="Kiosk Node">
                                                                <font>
                                                                   <Font name="System Bold" size="24.0" />
                                                                </font>
