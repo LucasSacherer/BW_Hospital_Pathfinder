@@ -148,9 +148,9 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" maxHeight="80.0" maxWidth="520.0" minHeight="80.0" minWidth="520.0" prefHeight="80.0" prefWidth="520.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#nearestExitMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#nearestExitMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
                         <ImageView fitHeight="75.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -162,7 +162,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#nearestBathroomMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -186,7 +186,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
                      <graphic>
                         <Label text="i" textFill="#e6e6e6">
                            <font>
@@ -211,7 +211,7 @@
                   <Insets right="20.0" top="20.0" />
                </GridPane.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="320.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="320.0" spacing="5.0" style="-fx-background-color: #0068B1;" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <HBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="320.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="320.0" spacing="5.0" style="-fx-background-color: #0068B1;" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
                   <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0">
                      <HBox.margin>
@@ -284,8 +284,14 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="246.0" spacing="15.0">
                            <children>
-                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" text="About" textFill="BLUE" underline="true" />
-                              <Label text="© Brigham &amp; Women’s Hospital 2017" />
+                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" text="About" textFill="BLUE" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></JFXButton>
+                              <Label text="© Brigham &amp; Women’s Hospital 2017">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                            </children>
                            <padding>
                               <Insets right="20.0" />
