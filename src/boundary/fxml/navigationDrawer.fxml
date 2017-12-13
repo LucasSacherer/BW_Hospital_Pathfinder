@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="950.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="950.0" prefWidth="400.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutY="7.0" prefWidth="400.0">
          <columnConstraints>
@@ -40,7 +40,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <JFXButton alignment="TOP_RIGHT" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="80.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="49.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -96,7 +96,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                  <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" text="Navigate">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

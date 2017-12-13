@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="requestHubPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="requestHubPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="1096.0" fitWidth="2142.0" layoutX="3.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -75,7 +75,7 @@
                         <Insets right="20.0" top="20.0" />
                      </VBox.margin>
                      <children>
-                        <JFXButton fx:id="foodButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" onAction="#serviceHubtoFoodAPI" prefHeight="191.0" prefWidth="225.0" ripplerFill="WHITE" style="-fx-background-color: #097bbd; -fx-background-image: src\boundary\images\staffHub.png;" text="Food" textFill="WHITE" GridPane.rowIndex="1">
+                        <JFXButton fx:id="foodButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" onAction="#serviceHubtoFoodAPI" prefHeight="183.0" prefWidth="220.0" ripplerFill="WHITE" style="-fx-background-image: src\boundary\images\staffHub.png;" styleClass="specialButton" text="Food" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -93,8 +93,11 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <GridPane.margin>
+                              <Insets top="8.0" />
+                           </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="interpreterButton" contentDisplay="TOP" maxHeight="240.0" onAction="#serviceHubtoRequest" prefHeight="282.0" prefWidth="291.0" style="-fx-background-color: #097bbd;" text="Interpreter" textFill="WHITE" GridPane.rowIndex="2">
+                        <JFXButton fx:id="interpreterButton" contentDisplay="TOP" maxHeight="240.0" onAction="#serviceHubtoRequest" prefHeight="282.0" prefWidth="291.0" styleClass="specialButton" text="Interpreter" textFill="WHITE" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -106,7 +109,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="cleanupButton" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="199.0" prefWidth="302.0" style="-fx-background-color: #097bbd;" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton fx:id="cleanupButton" contentDisplay="TOP" onAction="#serviceHubtoRequest" prefHeight="199.0" prefWidth="302.0" styleClass="specialButton" text="Clean up" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -118,7 +121,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="APITestButton" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#serviceHubtoAPITest" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #097bbd;" text="Transport" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXButton fx:id="APITestButton" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#serviceHubtoAPITest" prefHeight="200.0" prefWidth="220.0" styleClass="specialButton" text="Transport" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>

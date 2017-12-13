@@ -1,88 +1,111 @@
-
-/*.jfx-tab-pane .tab-header-background {*/
-    /*-fx-background-color: #0068b1 ;*/
-/*}*/
-
-/*.tab .tab-label {*/
-    /*-fx-background-color: transparent;*/
-    /*-fx-alignment: CENTER;*/
-    /*-fx-text-fill: white;*/
-    /*-fx-font-size: 40; !* all the same except this newly added one *!*/
-    /*-fx-pref-width: 629;*/
-    /*-fx-min-width: inherit;*/
-    /*-fx-min-width: inherit;*/
-/*}*/
-.buttonNeutral {
-    -fx-background-color: #0068b1;
-    -fx-text-fill: white;
-    /*-fx-background-radius: 30;*/
-    /*-fx-background-insets: 0,1,1;*/
+.root {
+    -fx-background-color: #097bbd;
 }
-.buttonNeutralBig {
-    -fx-background-color: #0068b1;
-    -fx-text-fill: white;
-    /*-fx-background-radius: 30;*/
-    /*-fx-background-insets: 0, 1, 1;*/
+.background2{
+    -fx-background-color: #e6e6e6;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #09a1b3 ;
 }
 
-.buttonAdd {
-    -fx-background-color: #5ea459;
+.tab .tab-label {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
     -fx-text-fill: white;
-    /*-fx-background-radius: 30;*/
-    /*-fx-background-insets: 0,1,1;*/
+    -fx-font-size: 40; /* all the same except this newly added one */
+    -fx-pref-width: 629;
+    -fx-min-width: inherit;
+    -fx-min-width: inherit;
 }
-.buttonDelete {
-    -fx-background-color: #ff716a;
+.tab :hover {
+    -fx-background-color: #003da6;
+}
+.tab :focused{
+    -fx-background-color: #003da6;
+}
+.label{
     -fx-text-fill: white;
-    /*-fx-background-radius: 30;*/
-    /*-fx-background-insets: 0,1,1;*/
 }
+.tab .tab-selected-line{
+    -fx-stroke : black;
+}
+.label2{
+    -fx-text-fill: black;
+}
+
 
 .textfield {
     -fx-text-fill: black;
     -fx-background-color: white;
 }
-.backButton {
-    -fx-text-fill: #0068b1 ;
-    -fx-background-color: white;
-    /*-fx-background-radius: 30;*/
-    /*-fx-border-radius: 20;*/
-    /*-fx-border-width:5;*/
-    -fx-border-color: #0068b1;
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-}
+
 .tree-table-row-cell {
     -fx-background-color: -fx-table-cell-border-color, -fx-control-inner-background;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
     -fx-text-fill: -fx-text-inner-color;
 }
-/*.tree-table-row-cell:selected {*/
-    /*-fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;*/
-    /*-fx-background-insets: 0, 1, 2;*/
-/*}*/
-
-/*.tree-table-row-cell:odd {*/
-    /*-fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-5%);*/
-    /*-fx-background-insets: 0, 0 0 1 0;*/
-/*}*/
-
-/*.tree-table-row-cell:selected:odd {*/
-    /*-fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;*/
-    /*-fx-background-insets: 0, 1, 2;*/
-/*}*/
-/*.scroll-bar:vertical {*/
-    /*-fx-opacity: 0;*/
-    /*-fx-padding:-7;*/
-/*}*/
-/*.scroll-bar:horizontal {*/
-    /*-fx-opacity: 0;*/
-    /*-fx-padding:-7;*/
-/*}*/
-.directoryDrawer{
-
+.tree-table-row-cell:selected {
+    -fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;
+    -fx-background-insets: 0, 1, 2;
 }
-.navigationDrawer{
 
+.tree-table-row-cell:odd {
+    -fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-5%);
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.tree-table-row-cell:selected:odd {
+    -fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;
+    -fx-background-insets: 0, 1, 2;
+}
+.scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding:-7;
+}
+.scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding:-7;
+}
+
+.button {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    -fx-background-color: #09a1b3;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #003da6;
+    /*-fx-scale-y: 1.1;*/
+}
+.button:focused {
+    -fx-background-color: #003da6;
+}
+
+.specialButton{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    -fx-background-color: #097bbd;
+    -fx-text-fill: white;
+}
+
+.specialButton:hover {
+    -fx-background-color: #003da6;
+    /*-fx-scale-y: 1.1;*/
+}
+.specialButton:focused {
+    -fx-background-color: #003da6;
+}
+
+.jfx-hamburger {
+    -fx-background-color: #097bbd;
+}
+
+.jfx-hamburger StackPane {
+    -fx-background-color: white;
+}
+
+.searchbar{
+    -fx-background-color: #097bbd;
 }
