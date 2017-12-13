@@ -24,7 +24,7 @@ public class AdminSettingsPopUpController {
     private JFXToggleButton bfs, dfs, bestButton, djikstraButton, astarButton, beamButton;
 
     @FXML
-    private JFXTextField distanceScale;
+    private JFXTextField distanceScale, momentoTimeout;
 
     @FXML
     private void setDistanceScale(){
@@ -32,7 +32,7 @@ public class AdminSettingsPopUpController {
     }
 
     @FXML
-    private void setMomentoTimeout(){}
+    private void setMomentoTimeout(){ nodeEditController.setTimeOut(momentoTimeout);}
 
     @FXML
     private void initialize() {
