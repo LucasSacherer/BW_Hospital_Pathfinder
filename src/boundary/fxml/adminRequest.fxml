@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminRequestPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="adminRequestPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="33.0" layoutY="17.0" prefHeight="261.0" prefWidth="1920.0" AnchorPane.bottomAnchor="820.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,13 +22,13 @@
                <children>
                   <ImageView fx:id="requestsImageView" fitHeight="234.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/other%20images/BWH.png" />
+                        <Image url="@../images/BWH-transparent-final.png" />
                      </image></ImageView>
                </children>
             </VBox>
             <HBox prefHeight="271.0" prefWidth="1722.0">
                <children>
-                  <Label text="MANAGE REQUESTS">
+                  <Label styleClass="label1" text="MANAGE REQUESTS">
                      <font>
                         <Font name="System Bold" size="50.0" />
                      </font>
@@ -36,17 +36,6 @@
                         <Insets left="50.0" top="150.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXButton buttonType="RAISED" onAction="#requestToAdminHub" ripplerFill="#cccccc" style="-fx-background-color: #cccc; -fx-background-radius: 12; -fx-border-radius: 10; -fx-border-color: #0068B1; -fx-border-width: 5;" text="&lt;- Back" textFill="#0068b1">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets left="1020.0" />
-                     </HBox.margin>
-                  </JFXButton>
                </children>
             </HBox>
          </children>
@@ -188,5 +177,13 @@
             </JFXTabPane>
          </children>
       </AnchorPane>
+      <JFXButton layoutX="1879.0" layoutY="35.0" onAction="#requestToAdminHub" ripplerFill="#cccccc" text=" Back" textFill="#0068b1" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </JFXButton>
    </children>
 </AnchorPane>

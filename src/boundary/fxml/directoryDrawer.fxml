@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="950.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="950.0" prefWidth="400.0" styleClass="root" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutY="7.0">
         <columnConstraints>
@@ -29,7 +29,7 @@
           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Directory" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="label1" text="Directory" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -40,7 +40,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </Label>
-            <JFXButton alignment="TOP_RIGHT" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="80.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="CENTER" onAction="#closeDrawer" prefHeight="40.0" prefWidth="53.0" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -65,20 +65,20 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="originLabel" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" text="Kiosk Location" underline="true" />
+                              <Label fx:id="originLabel" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" styleClass="label2" text="Kiosk Location" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                            <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true" preserveRatio="true">
+                              <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/location.png" />
+                                    <Image url="@../images/end-point.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="destinationLabel" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" text="Select a Destination" underline="true" />
+                              <Label fx:id="destinationLabel" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" styleClass="label2" text="Select a Destination" />
                            </children>
                         </HBox>
                      </children>
@@ -98,12 +98,15 @@
                         <HBox alignment="CENTER" spacing="20.0">
                            <children>
                               <Label text="Filter:" />
-                              <JFXComboBox fx:id="browser" promptText="Directory Browser" />
+                              <JFXComboBox fx:id="browser" promptText="Directory Browser" styleClass="textfield" />
                            </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
                         </HBox>
                         <AnchorPane prefHeight="508.0" prefWidth="380.0">
                            <children>
-                              <JFXListView fx:id="listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="380.0" styleClass="custom-jfx-list-view" AnchorPane.bottomAnchor="-290.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <JFXListView fx:id="listView" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="380.0" styleClass="custom-jfx-list-view" AnchorPane.bottomAnchor="-290.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -124,7 +127,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                  <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#navigate" prefHeight="40.0" prefWidth="40.0" text="Navigate">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -135,6 +138,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </JFXButton>
                </children>
             </HBox>

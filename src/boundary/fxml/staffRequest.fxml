@@ -21,11 +21,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1118.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1118.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="adminMapPane" layoutX="48.0" layoutY="699.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="adminMapPane" layoutX="48.0" layoutY="699.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../MainCSS.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane alignment="CENTER" prefHeight="1118.0" prefWidth="1221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane alignment="CENTER" prefHeight="1118.0" prefWidth="1221.0" stylesheets="@../MainCSS.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="218.0" prefWidth="485.0" />
@@ -46,7 +46,7 @@
                      <children>
                         <VBox alignment="CENTER" fillWidth="false">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3StaffRequest" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3StaffRequest" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
                                        <font>
@@ -58,7 +58,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
                                        <font>
@@ -70,7 +70,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
                                        <font>
@@ -82,7 +82,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGStaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGStaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css" text="Button">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
                                        <font>
@@ -94,7 +94,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
                                        <font>
@@ -106,7 +106,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
                                        <font>
@@ -176,7 +176,7 @@
                   </GridPane>
                   <VBox alignment="TOP_CENTER" prefHeight="1078.0" prefWidth="275.0">
                      <children>
-                        <GridPane>
+                        <GridPane styleClass="root">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                            </columnConstraints>
@@ -184,24 +184,27 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <JFXButton alignment="CENTER" cancelButton="true" onAction="#requestToHub" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #09a1b3; -fx-border-radius: 10; -fx-background-radius: 0;" text="Back" textAlignment="CENTER" textFill="WHITE">
+                              <JFXButton alignment="CENTER" cancelButton="true" onAction="#requestToHub" prefHeight="60.0" prefWidth="75.0" text="Back" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
                               </JFXButton>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Staff Request" GridPane.halignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="label1" text="Staff Request" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
                               <ImageView fitHeight="80.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                                  <image>
-                                    <Image url="@../images/other%20images/BWH.png" />
+                                    <Image url="@../images/BWH-transparent-final.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </GridPane>
-                        <JFXTabPane prefHeight="871.0" prefWidth="425.0">
+                        <JFXTabPane prefHeight="871.0" prefWidth="425.0" styleClass="root">
                            <tabs>
                               <Tab text="View">
                                  <content>
@@ -210,7 +213,7 @@
                                           <VBox alignment="CENTER" prefHeight="801.0" prefWidth="423.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
                                                 <JFXListView fx:id="allStaffRequests" prefHeight="218.0" prefWidth="355.0" VBox.vgrow="SOMETIMES" />
-                                                <JFXTextArea fx:id="requestInfo" VBox.vgrow="SOMETIMES">
+                                                <JFXTextArea fx:id="requestInfo" styleClass="textfield" VBox.vgrow="SOMETIMES">
                                                    <font>
                                                       <Font size="20.0" />
                                                    </font>
@@ -245,24 +248,24 @@
                                                                      <children>
                                                                         <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                                                            <children>
-                                                                              <Label text="Name: ">
+                                                                              <Label styleClass="label1" text="Name: ">
                                                                                  <font>
                                                                                     <Font size="20.0" />
                                                                                  </font>
                                                                               </Label>
-                                                                              <JFXTextField fx:id="requestCleanupName" promptText="Enter Name of Request">
+                                                                              <JFXTextField fx:id="requestCleanupName" promptText="Enter Name of Request" styleClass="textfield">
                                                                                  <font>
                                                                                     <Font size="20.0" />
                                                                                  </font>
                                                                               </JFXTextField>
                                                                            </children>
                                                                         </HBox>
-                                                                        <Label text="Description">
+                                                                        <Label styleClass="label1" text="Description">
                                                                            <font>
                                                                               <Font size="20.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <JFXTextArea fx:id="requestCleanupDescription" promptText="Enter Description Here">
+                                                                        <JFXTextArea fx:id="requestCleanupDescription" promptText="Enter Description Here" styleClass="textfield">
                                                                            <font>
                                                                               <Font size="20.0" />
                                                                            </font>
@@ -298,25 +301,25 @@
                                                                      <children>
                                                                         <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                                                            <children>
-                                                                              <Label text="Name: ">
+                                                                              <Label styleClass="label1" text="Name: ">
                                                                                  <font>
                                                                                     <Font size="20.0" />
                                                                                  </font>
                                                                               </Label>
-                                                                              <JFXTextField fx:id="requestInterpreterName">
+                                                                              <JFXTextField fx:id="requestInterpreterName" styleClass="textfield">
                                                                                  <font>
                                                                                     <Font size="20.0" />
                                                                                  </font>
                                                                               </JFXTextField>
                                                                            </children>
                                                                         </HBox>
-                                                                        <JFXComboBox fx:id="languageSelect" prefHeight="40.0" prefWidth="143.0" promptText="Language" />
-                                                                        <Label text="Description">
+                                                                        <JFXComboBox fx:id="languageSelect" prefHeight="40.0" prefWidth="143.0" promptText="Language" styleClass="textfield" />
+                                                                        <Label styleClass="label1" text="Description">
                                                                            <font>
                                                                               <Font size="20.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <JFXTextArea fx:id="requestInterpreterDescription">
+                                                                        <JFXTextArea fx:id="requestInterpreterDescription" styleClass="textfield">
                                                                            <font>
                                                                               <Font size="20.0" />
                                                                            </font>
@@ -345,12 +348,12 @@
                                                 </JFXTabPane>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label text="Node ID:">
+                                                      <Label styleClass="label1" text="Node ID:">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>
                                                       </Label>
-                                                      <JFXTextField fx:id="requestNodeID">
+                                                      <JFXTextField fx:id="requestNodeID" styleClass="textfield">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,15 +16,17 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="740.0" maxWidth="550.0" minHeight="740.0" minWidth="550.0" prefHeight="740.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<!--<?import javafx.scene.control.JFXTabPane?>-->
+
+<AnchorPane maxHeight="740.0" maxWidth="550.0" minHeight="740.0" minWidth="550.0" prefHeight="740.0" prefWidth="550.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutY="53.0" prefHeight="687.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
          <children>
-            <TabPane prefHeight="688.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <JFXTabPane prefHeight="688.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
                 <Tab text="Help">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="653.0" prefWidth="400.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="653.0" prefWidth="400.0" styleClass="background2">
                            <children>
                               <GridPane prefHeight="635.0" prefWidth="400.0">
                                 <columnConstraints>
@@ -47,15 +49,15 @@
                                     <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label prefHeight="72.0" prefWidth="400.0" text="Opens information pop-up" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                    <Label prefHeight="57.0" prefWidth="400.0" text="Brings authorized users to a log in screen" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                    <Label prefHeight="21.0" prefWidth="405.0" text="Allows you to zoom in and out of the map" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                                    <Label text="Display's path to the nearest bathroom" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                                    <Label text="Display's path to the nearest elevator" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                                    <Label text="Display's path to the nearest help desk" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                                    <Label text="Displays Google Street View Options" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                                    <Label text="Navigate to searched location" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-                                    <Label text="Display the hospital directory " GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                                    <Label prefHeight="72.0" prefWidth="400.0" styleClass="label2" text="Opens information pop-up" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label prefHeight="57.0" prefWidth="400.0" styleClass="label2" text="Brings authorized users to a log in screen" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Label prefHeight="21.0" prefWidth="405.0" styleClass="label2" text="Allows you to zoom in and out of the map" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                    <Label styleClass="label2" text="Display's path to the nearest bathroom" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                    <Label styleClass="label2" text="Display's path to the nearest elevator" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                                    <Label styleClass="label2" text="Display's path to the nearest help desk" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                                    <Label styleClass="label2" text="Displays Google Street View Options" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                                    <Label styleClass="label2" text="Navigate to searched location" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                                    <Label styleClass="label2" text="Display the hospital directory " GridPane.columnIndex="3" GridPane.rowIndex="10" />
                                     <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Rectangle fill="#097bbd" height="70.0" stroke="WHITE" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -125,13 +127,13 @@
                 </Tab>
                 <Tab text="Shuttle Schedule">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background2">
                            <children>
-                              <TabPane prefHeight="648.0" prefWidth="550.0" tabClosingPolicy="UNAVAILABLE">
+                              <JFXTabPane prefHeight="648.0" prefWidth="550.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                   <Tab text="Mass General to BWH">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="365.0">
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="365.0" styleClass="background2">
                                              <children>
                                                 <TextArea layoutX="1.0" prefHeight="611.0" prefWidth="550.0" text="Saturday Shuttle for April 20, 2013&#10;&#10;Shuttles stop at: Massachusetts General Hospital and Brigham and Women's Hospital. &#10;DEPARTURE TIMES&#10;&#10;DEPART - MGH &#9;DEPART - BWH&#10;AM&#9;    PM&#9;                   AM&#9;PM&#10;6:00&#9;    12:00 PM&#9;           6:00&#9;12:00 PM&#10;6:30    12:30 PM&#9;           6:30&#9;12:30 PM&#10;7:00     1:00 PM&#9;           7:00 &#9;1:00 PM&#10;7:30     1:30 PM&#9;           7:30 &#9;1:30 PM&#10;8:00&#9;    2:00 PM&#9;           8:00&#9;2:00 PM&#10;8:30&#9;    2:30 PM&#9;           8:30&#9;2:30 PM&#10;9:00&#9;    3:00 PM&#9;           9:00&#9;3:00 PM&#10;9:30&#9;    3:30 PM&#9;           9:30&#9;3:30 PM&#10;10:00   4:00 PM&#9;          10:00&#9;4:00 PM&#10;10:30   4:30 PM&#9;          10:30&#9;4:30 PM&#10;11:00   5:00 PM&#9;          11:00&#9;5:00 PM&#10;11:30   5:30 PM&#9;          11:30&#9;5:30 PM&#10;12:00   6:00 PM&#9;          12:00&#9;6:00 PM&#10; &#9;    6:30 PM&#9; &#9;                6:30 PM&#10; &#9;    7:00 PM&#9; &#9;                7:00 PM&#10; &#9;    7:30 PM&#9; &#9;                7:30 PM&#10; &#9;    8:00 PM&#9; &#9;                8:00 PM&#10; &#9;    8:30 PM Last&#9; &#9;        8:30 PM Last&#10;" wrapText="true">
                                                    <font>
@@ -169,15 +171,15 @@
                                       </content>
                                     </Tab>
                                 </tabs>
-                              </TabPane>
+                              </JFXTabPane>
                            </children></AnchorPane>
                   </content>
                 </Tab>
               </tabs>
-            </TabPane>
+            </JFXTabPane>
          </children>
       </VBox>
-      <Label layoutX="14.0" text="Information" textFill="#003da6">
+      <Label layoutX="14.0" styleClass="label1" text="Information" textFill="#003da6">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>

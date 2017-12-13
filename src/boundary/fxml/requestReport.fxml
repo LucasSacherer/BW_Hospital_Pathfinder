@@ -19,29 +19,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminLogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="adminLogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="logImage" fitHeight="257.0" fitWidth="349.0" layoutX="232.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/other%20images/BWH.png" />
+            <Image url="@../images/BWH-transparent-final.png" />
          </image>
       </ImageView>
-      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" text="STAFF REPORTS">
+      <Label fx:id="logLabel" layoutX="531.0" layoutY="137.0" styleClass="label1" text="STAFF REPORTS">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
       </Label>
-      <JFXButton fx:id="printLogSR" layoutX="1426.0" layoutY="220.0" style="-fx-background-color: #5ea459;" text="Print" textFill="WHITE" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="216.0">
+      <JFXButton fx:id="printLogSR" layoutX="1426.0" layoutY="220.0" text="Print" textFill="WHITE" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="216.0">
          <font>
             <Font size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="sendLogSR" layoutX="1587.0" layoutY="216.0" style="-fx-background-color: #5ea459;" text="Send" textFill="WHITE" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="216.0">
+      <JFXButton fx:id="sendLogSR" layoutX="1587.0" layoutY="216.0" text="Send" textFill="WHITE" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="216.0">
          <font>
             <Font size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="clearLogSR" layoutX="1746.0" layoutY="211.0" onAction="#clearLogButton" style="-fx-background-color: #ff716a;" text="Clear" textFill="WHITE" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="216.0">
+      <JFXButton fx:id="clearLogSR" layoutX="1746.0" layoutY="211.0" onAction="#clearLogButton" text="Clear" textFill="WHITE" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="216.0">
          <font>
             <Font size="30.0" />
          </font>
@@ -54,7 +54,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXTabPane>
+            <JFXTabPane styleClass="background2">
                <tabs>
                   <Tab text="SPILLS">
                     <content>
@@ -72,7 +72,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <Label fx:id="logLabel1" text="Spill Frequency by Location">
+                                          <Label fx:id="logLabel1" styleClass="label2" text="Spill Frequency by Location">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -85,7 +85,7 @@
                                                 <TreeTableColumn fx:id="logContent" prefWidth="200.0" text="Log Content" />
                                              </columns>
                                           </TreeTableView>
-                                          <Label fx:id="logLabel11" layoutX="10.0" layoutY="10.0" text="Spill Frequency by Type">
+                                          <Label fx:id="logLabel11" layoutX="10.0" layoutY="10.0" styleClass="label2" text="Spill Frequency by Type">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -102,7 +102,7 @@
                                     </VBox>
                                     <VBox GridPane.columnIndex="1">
                                        <children>
-                                          <Label fx:id="logLabel1111" text="Spill Clean Up Burndown Chart">
+                                          <Label fx:id="logLabel1111" styleClass="label2" text="Spill Clean Up Burndown Chart">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -115,7 +115,7 @@
                                               <NumberAxis side="LEFT" />
                                             </yAxis>
                                           </LineChart>
-                                          <Label fx:id="logLabel111" text="Most Frequent Spill Types">
+                                          <Label fx:id="logLabel111" styleClass="label2" text="Most Frequent Spill Types">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -152,7 +152,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <Label fx:id="logLabel11" text="Food Frequency by Location">
+                                          <Label fx:id="logLabel11" styleClass="label2" text="Food Frequency by Location">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -165,7 +165,7 @@
                                                 <TreeTableColumn fx:id="logContent1" prefWidth="200.0" text="Log Content" />
                                              </columns>
                                           </TreeTableView>
-                                          <Label fx:id="logLabel111" layoutX="10.0" layoutY="10.0" text="Food Frequency by Type">
+                                          <Label fx:id="logLabel111" layoutX="10.0" layoutY="10.0" styleClass="label2" text="Food Frequency by Type">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -182,7 +182,7 @@
                                     </VBox>
                                     <VBox GridPane.columnIndex="1">
                                        <children>
-                                          <Label fx:id="logLabel11111" text="Food Order Burndown Chart">
+                                          <Label fx:id="logLabel11111" styleClass="label2" text="Food Order Burndown Chart">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -195,7 +195,7 @@
                                                 <NumberAxis side="LEFT" />
                                              </yAxis>
                                           </LineChart>
-                                          <Label fx:id="logLabel1111" text="Most Frequent Food Types">
+                                          <Label fx:id="logLabel1111" styleClass="label2" text="Most Frequent Food Types">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -232,7 +232,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <Label fx:id="logLabel111" text="Interpreter Frequency by Location">
+                                          <Label fx:id="logLabel111" styleClass="label2" text="Interpreter Frequency by Location">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -245,7 +245,7 @@
                                                 <TreeTableColumn fx:id="logContent11" prefWidth="200.0" text="Log Content" />
                                              </columns>
                                           </TreeTableView>
-                                          <Label fx:id="logLabel1111" layoutX="10.0" layoutY="10.0" text="Interpreter Frequency by Language">
+                                          <Label fx:id="logLabel1111" layoutX="10.0" layoutY="10.0" styleClass="label2" text="Interpreter Frequency by Language">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -262,7 +262,7 @@
                                     </VBox>
                                     <VBox GridPane.columnIndex="1">
                                        <children>
-                                          <Label fx:id="logLabel111111" text="Interpreter Burndown Chart">
+                                          <Label fx:id="logLabel111111" styleClass="label2" text="Interpreter Burndown Chart">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -275,7 +275,7 @@
                                                 <NumberAxis side="LEFT" />
                                              </yAxis>
                                           </LineChart>
-                                          <Label fx:id="logLabel11111" text="Most Frequent Interpreter Types">
+                                          <Label fx:id="logLabel11111" styleClass="label2" text="Most Frequent Interpreter Types">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -300,9 +300,9 @@
             </JFXTabPane>
          </children>
       </GridPane>
-      <JFXButton layoutX="8.0" layoutY="-1.0" prefHeight="34.0" prefWidth="81.0" ripplerFill="WHITE" style="-fx-background-color: #003da6;" text="&lt;- Back" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <JFXButton layoutX="1795.0" layoutY="28.0" prefHeight="80.0" prefWidth="80.0" ripplerFill="WHITE" text=" Back" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="1795.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </JFXButton>
    </children>
