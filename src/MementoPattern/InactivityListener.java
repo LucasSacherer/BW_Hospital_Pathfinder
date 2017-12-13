@@ -1,5 +1,6 @@
 package MementoPattern;
 
+import Database.SettingsManager;
 import boundary.GodController;
 import boundary.SceneSwitcher;
 import boundary.sceneControllers.MainSceneController;
@@ -25,15 +26,13 @@ public class InactivityListener implements ActionListener {
 
     private GodController god;
     private SceneSwitcher sceneSwitcher;
+    private SettingsManager settingsManager;
 
     Action returnToMain = new AbstractAction(){
         @Override
         public void actionPerformed(ActionEvent e){
             try {
-                System.out.println("RETURNING TO MAIN");
-                System.out.println("Pane Name" + pane);
                 sceneSwitcher.toMain(god, pane);
-                god.getMainSceneController();
             }catch(IOException exception){
                 System.out.println("failed");
             }
@@ -45,9 +44,9 @@ public class InactivityListener implements ActionListener {
         this.god = god;
         this.sceneSwitcher = sceneSwitcher;
         this.timer = new Timer(0, this);
-
+        settingsManager = SettingsManager.getInstance();
+        setInterval(Double.parseDouble(settingsManager.getSetting("Memento Delay")));
         setAction(returnToMain);
-        setInterval(0.2);
     }
 
     /*
@@ -87,40 +86,33 @@ public class InactivityListener implements ActionListener {
 
     public void startListening(){
         Pane target = pane;
+        setInterval(Double.parseDouble(settingsManager.getSetting("Memento Delay")));
+
 
         target.setFocusTraversable(true);
 
         if(timer.isRunning()){
             timer.stop();
             timer = new Timer(interval, this);;
-            System.out.println("STOPPED");
         }
-        System.out.println("Here we go!");
         timer.setInitialDelay(interval);
         timer.setRepeats(false);
         timer.start();
 
         target.addEventFilter(KeyEvent.ANY, e-> {
             timer.restart();
-            System.out.println("CAUGHT THAT KEY FILTER BOI");
         });
         target.addEventFilter(MouseEvent.MOUSE_CLICKED, e-> {
             timer.restart();
-            System.out.println("CAUGHT THAT MOUSE CLICK FILTER BOI");
         });
         target.addEventFilter(MouseEvent.MOUSE_MOVED, e-> {
             timer.restart();
-            System.out.println("CAUGHT THAT MOUSE MOVE FILTER BOI");
         });
     }
 
     public void stopListening(){
-        //How do I cancel a timer without triggering the event?
-        System.out.println("Is running? " + timer.isRunning());
         if(timer.isRunning()){
-            System.out.println("stop");
             timer.stop();
         }
-        System.out.println("Is running? " + timer.isRunning());
     }
 }
