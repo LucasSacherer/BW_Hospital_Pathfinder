@@ -7,6 +7,7 @@ import DatabaseSetup.DatabaseGargoyle;
 import Editor.EdgeEditController;
 import Editor.NodeEditController;
 import Entity.*;
+import GoogleNodes.GoogleNodeController;
 import MapNavigation.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
@@ -22,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -49,6 +51,7 @@ public class GodController {
     final private InterpreterManager interpreterManager = new InterpreterManager(databaseGargoyle, nodeManager, userManager);
     final private FoodManager foodManager = new FoodManager(databaseGargoyle, nodeManager, userManager);
     final private CleanUpManager cleanUpManager = new CleanUpManager(databaseGargoyle,nodeManager,userManager);
+    final private GoogleNodeManager googleNodeManager = new GoogleNodeManager(databaseGargoyle);
 
 
     /* Controllers */
@@ -65,6 +68,7 @@ public class GodController {
     final private RequestFoodController requestFoodController = new RequestFoodController(foodManager);
     final private ErrorController errorController = new ErrorController();
     final private SearchEngine searchEngine = new SearchEngine(directoryController);
+    final private GoogleNodeController googleNodeController = new GoogleNodeController(googleNodeManager);
     //final private AdminSettingsPopUpController adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController);
 
     /* Facades */
@@ -81,9 +85,11 @@ public class GodController {
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
     /* Drawer */
-    private JFXTreeTableView<AdminLog> textDirectionsTable;
+    private JFXTreeTableView<textDirEntry> textDirectionsTable;
 
-    private TreeTableColumn<AdminLog, String> textDirectionsColumn;
+    private TreeTableColumn<textDirEntry, String> textDirectionsColumn;
+
+    private TreeTableColumn<textDirEntry,ImageView> imageDirectionColumn;
 
 
     ///////////////////////
@@ -236,9 +242,6 @@ public class GodController {
     private Tab addNode, editNode, removeNode, kioskTab, addEdge, removeEdge, edgesTab, nodesTab, straightenTab;
 
     @FXML
-    private Label currentFloorNum, currentFloorNumRequest, currentFloorNumMapEdit, currentFloorNumPathfinding;
-
-    @FXML
     private JFXComboBox nodeTypeCombo, buildingCombo, nodeTypeComboEdit;
 
     @FXML
@@ -342,22 +345,23 @@ public class GodController {
     }
 
     private void initializeDrawers() {
-        navigationDrawerController = new NavigationDrawerController(drawer, directoryController, textDirectionsTable, textDirectionsColumn);
+        navigationDrawerController = new NavigationDrawerController( drawer, directoryController,
+                 textDirectionsTable,  textDirectionsColumn,
+                 imageDirectionColumn);
         directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade);
     }
 
     private void initializeMainScene() throws IOException {
-        mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade, currentFloorNum,
+        mainSceneController = new MainSceneController(this, mapNavigationFacade, pathFindingFacade,
                 searchAnchor, zoomSlider, directoryController, directoryDrawerController,
-                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane);
+                navigationDrawerController, mainScrollPane, drawer, hamburger, mainPane, googleNodeController);
         mainSceneController.initializeScene();
     }
 
 
     private void initializeRequestScene() {
         staffRequestController = new StaffRequestController(this, mapNavigationFacade, pathFindingFacade,
-                currentFloorNumRequest, genericRequestController, requestCleanupController,
-                requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
+                genericRequestController, requestCleanupController, requestInterpreterController, requestFoodController, allStaffRequests, requestsIMade, requestNodeID,
                 requestCleanupName, requestInterpreterName, requestFoodName, requestCleanupDescription, languageSelect,
                 requestInterpreterDescription, requestFoodDescription, requestInfo, currentFoodOrder, foodItem,
                 requestZoomSlider, requestScrollPane);
@@ -365,7 +369,7 @@ public class GodController {
 
     private void initializeMapAdminScene() {
         adminMapController = new AdminMapController(this, databaseGargoyle, edgeManager, nodeManager,
-                nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade, currentFloorNumMapEdit,
+                nodeEditController, edgeEditController, mapNavigationFacade, pathFindingFacade,
                 addNode, editNode, removeNode, addEdge, removeEdge, kioskTab, edgesTab, nodesTab, straightenTab, mapEditZoomSlider, mapEditScrollPane);
     }
 
@@ -389,7 +393,7 @@ public class GodController {
              requestDescriptionFoodColumn,  requestLocationFoodColumn,
              requestUserFoodColumn); }
 
-    private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
+    private void initializeRequestReportScene() { requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
             genericRequestController, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
@@ -402,6 +406,7 @@ public class GodController {
 
     private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
             pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
+
 
     /** Organize Functions by Scene **/
 
@@ -423,6 +428,9 @@ public class GodController {
 
     @FXML
     private void setLoc2(ActionEvent e) { mainSceneController.setDestination(); }
+
+    @FXML
+    private void resetOrigin() { mainSceneController.refreshKiosk(); }
 
     @FXML
     private void findPath(ActionEvent e) throws IOException { mainSceneController.findPath(); }
@@ -492,10 +500,10 @@ public class GodController {
     private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
 
     @FXML
-    private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
+    private void floorDownRequest() throws IOException, SQLException {  }
 
     @FXML
-    private void floorUpRequest() throws IOException, SQLException { staffRequestController.floorUp(); }
+    private void floorUpRequest() throws IOException, SQLException {  }
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
@@ -626,10 +634,10 @@ public class GodController {
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
     @FXML
-    private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
+    private void floorDownMapEdit() throws IOException, SQLException {  }
 
     @FXML
-    private void floorUpMapEdit() throws IOException, SQLException { adminMapController.floorUp(); }
+    private void floorUpMapEdit() throws IOException, SQLException {  }
 
     @FXML
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
@@ -648,6 +656,28 @@ public class GodController {
 
     @FXML
     private void exportEdges() { adminMapController.exportEdges(); }
+
+    @FXML
+    private void floorL2AdminMap() throws IOException, SQLException { adminMapController.floorL2(); }
+
+    @FXML
+    private void floorL1AdminMap() throws IOException, SQLException { adminMapController.floorL1(); }
+
+    @FXML
+    private void floorGAdminMap() throws IOException, SQLException { adminMapController.floorG(); }
+
+    @FXML
+    private void floor1AdminMap() throws IOException, SQLException { adminMapController.floor1(); }
+
+    @FXML
+    private void floor2AdminMap() throws IOException, SQLException { adminMapController.floor2(); }
+
+    @FXML
+    private void floor3AdminMap() throws IOException, SQLException { adminMapController.floor3(); }
+
+    @FXML
+    private void adminMapZoom() { adminMapController.zoom(); }
+
 
 
     /////////////////////////
@@ -704,7 +734,6 @@ public class GodController {
             if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
                 databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
                 adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
-                System.out.println(databaseGargoyle.getCurrentUser().getUsername());
                 sceneSwitcher.toAdminHub(this, loginPane);
                 adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
             } else errorController.showError("Invalid credentials! Please try again.");
@@ -789,7 +818,19 @@ public class GodController {
         Parent root2 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setTitle("About");
-        stage.setScene(new Scene(root2, 500, 800));
+        stage.setScene(new Scene(root2, 1000, 1000));
+        stage.show();
+    }
+
+
+    @FXML
+    private void toNewAboutPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/newAboutPage.fxml"));
+        fxmlLoader.setController(new AboutPopUpController());
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        stage.setScene(new Scene(root2, 1000, 1000));
         stage.show();
     }
 

@@ -20,543 +20,649 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminMapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="adminMapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="792.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <VBox prefHeight="800.0" prefWidth="275.0">
-               <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="1078.0" prefWidth="275.0">
-                     <children>
-                        <ImageView fitHeight="221.0" fitWidth="188.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="/boundary/images/other images/BWH.png" />
-                           </image>
-                        </ImageView>
-                        <Label contentDisplay="CENTER" text="Map Editor">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                        </Label>
-                        <JFXTabPane prefHeight="819.0" prefWidth="265.0" VBox.vgrow="SOMETIMES">
-                           <tabs>
-                              <Tab fx:id="nodesTab" text="NODES">
-                                 <content>
-                                    <AnchorPane>
-                                       <children>
-                                          <JFXTabPane prefHeight="743.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <tabs>
-                                                <Tab fx:id="addNode" text="Add">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" layoutX="54.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Node Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER">
-                                                                     <children>
-                                                                        <JFXTextField editable="false" prefHeight="44.0" prefWidth="92.0" promptText="X Position" fx:id="xPosAddNode">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <Region prefHeight="0.0" prefWidth="29.0" />
-                                                                        <JFXTextField fx:id="yPosAddNode" editable="false" prefHeight="44.0" prefWidth="91.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <JFXComboBox fx:id="nodeTypeCombo" promptText="Node Type" />
-                                                                  <JFXComboBox fx:id="buildingCombo" promptText="Building" />
-                                                                  <JFXTextField fx:id="shortNameAdd" alignment="CENTER" promptText="Short Name">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXTextField>
-                                                                  <JFXTextField fx:id="longNameAdd" alignment="CENTER" promptText="Long Name">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXTextField>
-                                                                  <JFXButton onAction="#addNodeButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Add Node" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetNodeButtonAdd" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="20.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                                <Tab fx:id="editNode" text="Edit">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Selected Node Info">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER">
-                                                                     <children>
-                                                                        <Label text="ID:" />
-                                                                        <JFXTextField fx:id="editNodeID" editable="false" prefHeight="27.0" prefWidth="100.0" />
-                                                                        <Label text="Type:" />
-                                                                        <JFXTextField fx:id="editNodeTypeField" editable="false" prefHeight="27.0" prefWidth="100.0" />
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField editable="false" prefHeight="44.0" prefWidth="93.0" promptText="X Position" fx:id="xPosEdit">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="yPosEdit" editable="false" prefHeight="44.0" prefWidth="89.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                     <padding>
-                                                                        <Insets top="25.0" />
-                                                                     </padding>
-                                                                  </HBox>
-                                                                  <JFXComboBox fx:id="nodeTypeComboEdit" promptText="Node Type" />
-                                                                  <JFXTextField fx:id="shortNameEdit" alignment="CENTER" promptText="Short Name">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXTextField>
-                                                                  <JFXTextField fx:id="longNameEdit" alignment="CENTER" promptText="Long Name">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font>
-                                                                  </JFXTextField>
-                                                                  <JFXButton onAction="#editNode" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Edit Node" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetNodeButtonEdit" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="25.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                                <Tab fx:id="removeNode" text="Remove">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Node Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="X Position" fx:id="xPosRemoveNode">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="yPosRemoveNode" editable="false" prefHeight="44.0" prefWidth="96.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <JFXButton onAction="#removeNodeButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Remove Node" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetNodeButtonRemove" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="25.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                             </tabs>
-                                          </JFXTabPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="edgesTab" text="EDGES">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="204.0">
-                                       <children>
-                                          <JFXTabPane prefHeight="743.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <tabs>
-                                                <Tab fx:id="addEdge" text="Add">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Edge Start Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="edgeXStartAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="96.0" promptText="X Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                        <JFXTextField fx:id="edgeYStartAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Label contentDisplay="CENTER" text="Edge End Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="edgeXEndAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="94.0" promptText="X Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                        <JFXTextField fx:id="edgeYEndAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <JFXButton onAction="#addEdgeButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Add Edge" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetEdgeButtonAdd" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="25.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                                <Tab fx:id="removeEdge" text="Remove">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Edge Start Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="edgeXStartRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="96.0" promptText="X Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                        <JFXTextField fx:id="edgeYStartRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="92.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Label contentDisplay="CENTER" text="Edge End Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="edgeXEndRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="97.0" promptText="X Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                        <JFXTextField fx:id="edgeYEndRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="98.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font></JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <JFXButton onAction="#removeEdgeButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Remove Edge" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetEdgeButtonRemove" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="25.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                                <Tab fx:id="straightenTab" text="Straighten">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Start Node Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="edgeXStartStraighten" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="95.0" promptText="X Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="edgeYStartStraighten" alignment="CENTER" prefHeight="44.0" prefWidth="97.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Label contentDisplay="CENTER" text="End Node Location">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER" spacing="25.0">
-                                                                     <children>
-                                                                        <JFXTextField fx:id="edgeXEndStraighten" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="X Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                        <JFXTextField fx:id="edgeYEndStraighten" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="94.0" promptText="Y Position">
-                                                                           <font>
-                                                                              <Font size="20.0" />
-                                                                           </font>
-                                                                        </JFXTextField>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <JFXButton onAction="#straightenButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #5ea459;" text="Straighten" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetStraightenButton" prefHeight="44.0" prefWidth="183.0" style="-fx-background-color: #ff716a;" text="Reset" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="25.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                             </tabs>
-                                          </JFXTabPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="kioskTab" text="SETTINGS">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <JFXTabPane prefHeight="483.0" prefWidth="265.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <tabs>
-                                                <Tab text="DEFAULTS">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" prefHeight="743.0" prefWidth="275.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label contentDisplay="CENTER" text="Kiosk Node">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <JFXTextField fx:id="setKioskX" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="80.0" promptText="X Position">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font></JFXTextField>
-                                                                  <JFXTextField fx:id="setKioskY" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="80.0" promptText="Y Position">
-                                                                     <font>
-                                                                        <Font size="20.0" />
-                                                                     </font></JFXTextField>
-                                                                  <JFXButton onAction="#setDefaultNode" prefHeight="44.0" prefWidth="218.0" style="-fx-background-color: #5ea459;" text="Set Default Node" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                                  <JFXButton onAction="#resetDefaultNode" prefHeight="44.0" prefWidth="214.0" style="-fx-background-color: #ff716a;" text="Reset Default Node" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="20.0" />
-                                                                     </font>
-                                                                  </JFXButton>
-                                                               </children>
-                                                               <padding>
-                                                                  <Insets top="10.0" />
-                                                               </padding>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                                <Tab text="EXPORT CSV">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <JFXButton onAction="#exportNodes" prefHeight="44.0" prefWidth="218.0" style="-fx-background-color: #5ea459;" text="Export Nodes" textFill="WHITE" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-                                                               <font>
-                                                                  <Font name="System Bold" size="20.0" />
-                                                               </font>
-                                                            </JFXButton>
-                                                            <JFXButton layoutX="60.0" layoutY="64.0" onAction="#exportEdges" prefHeight="44.0" prefWidth="218.0" style="-fx-background-color: #5ea459;" text="Export Edges" textFill="WHITE" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-                                                               <font>
-                                                                  <Font name="System Bold" size="20.0" />
-                                                               </font>
-                                                            </JFXButton>
-                                                         </children>
-                                                      </AnchorPane>
-                                                   </content>
-                                                </Tab>
-                                             </tabs>
-                                          </JFXTabPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                           </tabs>
-                        </JFXTabPane>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <GridPane layoutX="275.0" prefHeight="800.0" prefWidth="1005.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="218.0" prefWidth="485.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="686.0" minWidth="10.0" prefWidth="336.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="357.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="606.0" minHeight="10.0" prefHeight="578.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="800.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ScrollPane fx:id="mapEditScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="80.0" prefWidth="584.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="2" GridPane.rowSpan="3" />
-            <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="803.0" prefWidth="22.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadow.png');" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.valignment="CENTER" />
-            <JFXButton fx:id="back" buttonType="RAISED" onAction="#mapToAdminHub" ripplerFill="#cccccc" style="-fx-background-color: #cccc; -fx-background-radius: 12; -fx-border-radius: 10; -fx-border-color: #0068B1; -fx-border-width: 5;" text="&lt;- Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </padding>
-            </JFXButton>
-            <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ScrollPane fx:id="mapEditScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
+                  <VBox alignment="CENTER" fillWidth="false">
                      <children>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorUpMapEdit" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3AdminMap" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
-                              <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="-2.0">
-                                 <image>
-                                    <Image url="@../images/Icons/ArrowUp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
-                           <graphic>
-                              <Label fx:id="currentFloorNumMapEdit" contentDisplay="CENTER" textFill="#cccccc">
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
                                  <font>
                                     <Font name="System Bold" size="32.0" />
                                  </font>
                               </Label>
                            </graphic>
                            <VBox.margin>
-                              <Insets bottom="15.0" top="15.0" />
+                              <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorDownMapEdit" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;" text=" ">
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
-                              <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                                 <image>
-                                    <Image url="@../images/Icons/DownArrow.png" />
-                                 </image>
-                              </ImageView>
+                              <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
                            </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGAdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </JFXButton>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                   </VBox>
-                  <JFXSlider fx:id="mapEditZoomSlider" max="200.0" onMouseClicked="#mapEditZoom" onMouseDragged="#mapEditZoom" onMousePressed="#mapEditZoom" onMouseReleased="#mapEditZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" value="100.0" VBox.vgrow="SOMETIMES">
-                     <padding>
-                        <Insets right="40.0" />
-                     </padding>
-                  </JFXSlider>
                </children>
+            </GridPane>
+            <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="BOTTOM_RIGHT">
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="-" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="4.0" />
+                                 </padding>
+                              </Label>
+                           </graphic>
+                        </JFXButton>
+                        <JFXSlider fx:id="mapEditZoomSlider" onMouseClicked="#adminMapZoom" onMouseDragged="#adminMapZoom" onMousePressed="#adminMapZoom" onMouseReleased="#adminMapZoom" prefHeight="40.0" prefWidth="306.0" style="-fx-background-color: #0068B1;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXSlider>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="+" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </Label>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </GridPane>
+            <VBox alignment="TOP_CENTER" prefHeight="1078.0" prefWidth="275.0">
+               <children>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXButton alignment="CENTER" cancelButton="true" onAction="#mapToAdminHub" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #09a1b3; -fx-border-radius: 10; -fx-background-radius: 0;" text="Back" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Map Editor" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="80.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                           <image>
+                              <Image url="@../images/other%20images/BWH.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+                  <JFXTabPane prefHeight="423.0" prefWidth="407.0" VBox.vgrow="SOMETIMES">
+                     <tabs>
+                        <Tab fx:id="nodesTab" text="Nodes">
+                           <content>
+                              <AnchorPane prefWidth="408.0">
+                                 <children>
+                                    <JFXTabPane prefHeight="464.0" prefWidth="407.0" AnchorPane.bottomAnchor="-81.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <tabs>
+                                          <Tab fx:id="addNode" text="Add">
+                                             <content>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" layoutX="54.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Node Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER">
+                                                               <children>
+                                                                  <JFXTextField editable="false" prefHeight="44.0" prefWidth="92.0" promptText="X Position" fx:id="xPosAddNode">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <Region prefHeight="0.0" prefWidth="29.0" />
+                                                                  <JFXTextField fx:id="yPosAddNode" editable="false" prefHeight="44.0" prefWidth="91.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXComboBox fx:id="nodeTypeCombo" promptText="Node Type" />
+                                                            <JFXComboBox fx:id="buildingCombo" promptText="Building" />
+                                                            <JFXTextField fx:id="shortNameAdd" alignment="CENTER" promptText="Short Name">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                            <JFXTextField fx:id="longNameAdd" alignment="CENTER" promptText="Long Name">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                            <JFXButton onAction="#addNodeButton" prefHeight="44.0" prefWidth="183.0" text="Add Node">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetNodeButtonAdd" prefHeight="44.0" prefWidth="183.0" text="Reset">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="20.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="editNode" text="Edit">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Selected Node Info">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER">
+                                                               <children>
+                                                                  <Label text="ID:" />
+                                                                  <JFXTextField fx:id="editNodeID" editable="false" prefHeight="27.0" prefWidth="100.0" />
+                                                                  <Label text="Type:" />
+                                                                  <JFXTextField fx:id="editNodeTypeField" editable="false" prefHeight="27.0" prefWidth="100.0" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField editable="false" prefHeight="44.0" prefWidth="93.0" promptText="X Position" fx:id="xPosEdit">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="yPosEdit" editable="false" prefHeight="44.0" prefWidth="89.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                               <padding>
+                                                                  <Insets top="25.0" />
+                                                               </padding>
+                                                            </HBox>
+                                                            <JFXComboBox fx:id="nodeTypeComboEdit" promptText="Node Type" />
+                                                            <JFXTextField fx:id="shortNameEdit" alignment="CENTER" promptText="Short Name">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                            <JFXTextField fx:id="longNameEdit" alignment="CENTER" promptText="Long Name">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                            <JFXButton onAction="#editNode" prefHeight="44.0" prefWidth="183.0" text="Edit Node">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetNodeButtonEdit" prefHeight="44.0" prefWidth="183.0" text="Reset">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="25.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="removeNode" text="Remove">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" layoutX="52.0" layoutY="34.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Node Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="X Position" fx:id="xPosRemoveNode">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="yPosRemoveNode" editable="false" prefHeight="44.0" prefWidth="96.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXButton onAction="#removeNodeButton" prefHeight="44.0" prefWidth="183.0" text="Remove Node">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetNodeButtonRemove" prefHeight="44.0" prefWidth="183.0" text="Reset">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="25.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </JFXTabPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="edgesTab" text="Edges">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="204.0">
+                                 <children>
+                                    <JFXTabPane prefHeight="743.0" prefWidth="275.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <tabs>
+                                          <Tab fx:id="addEdge" text="Add">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Edge Start Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField fx:id="edgeXStartAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="96.0" promptText="X Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="edgeYStartAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <Label contentDisplay="CENTER" text="Edge End Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField fx:id="edgeXEndAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="94.0" promptText="X Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="edgeYEndAdd" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXButton onAction="#addEdgeButton" prefHeight="44.0" prefWidth="183.0" text="Add Edge">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetEdgeButtonAdd" prefHeight="44.0" prefWidth="183.0" text="Reset">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="25.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="removeEdge" text="Remove">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Edge Start Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField fx:id="edgeXStartRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="96.0" promptText="X Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="edgeYStartRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="92.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <Label contentDisplay="CENTER" text="Edge End Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField fx:id="edgeXEndRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="97.0" promptText="X Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="edgeYEndRemove" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="98.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXButton onAction="#removeEdgeButton" prefHeight="44.0" prefWidth="183.0" text="Remove Edge">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetEdgeButtonRemove" prefHeight="44.0" prefWidth="183.0" text="Reset">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="25.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="straightenTab" text="Straighten">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="47.0" prefHeight="713.0" prefWidth="275.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Start Node Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField fx:id="edgeXStartStraighten" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="95.0" promptText="X Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="edgeYStartStraighten" alignment="CENTER" prefHeight="44.0" prefWidth="97.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <Label contentDisplay="CENTER" text="End Node Location">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" spacing="25.0">
+                                                               <children>
+                                                                  <JFXTextField fx:id="edgeXEndStraighten" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="93.0" promptText="X Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                                  <JFXTextField fx:id="edgeYEndStraighten" alignment="CENTER" editable="false" prefHeight="44.0" prefWidth="94.0" promptText="Y Position">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXButton onAction="#straightenButton" prefHeight="44.0" prefWidth="183.0" text="Straighten">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetStraightenButton" prefHeight="44.0" prefWidth="183.0" text="Reset">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="25.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </JFXTabPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="kioskTab" text="Settings">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXTabPane prefHeight="483.0" prefWidth="265.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <tabs>
+                                          <Tab text="DEFAULTS">
+                                             <content>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" prefHeight="743.0" prefWidth="275.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label contentDisplay="CENTER" text="Kiosk Node">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <JFXTextField fx:id="setKioskX" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="80.0" promptText="X Position">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                            <JFXTextField fx:id="setKioskY" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="80.0" promptText="Y Position">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                            <JFXButton onAction="#setDefaultNode" prefHeight="44.0" prefWidth="218.0" text="Set Default Node">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                            <JFXButton onAction="#resetDefaultNode" prefHeight="44.0" prefWidth="214.0" text="Reset Default Node">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                            </JFXButton>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="10.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab text="EXPORT CSV">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <JFXButton onAction="#exportNodes" prefHeight="44.0" prefWidth="218.0" text="Export Nodes" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                      <JFXButton layoutX="60.0" layoutY="64.0" onAction="#exportEdges" prefHeight="44.0" prefWidth="218.0" text="Export Edges" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </JFXButton>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </JFXTabPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXTabPane>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" top="20.0" />
+               </GridPane.margin>
             </VBox>
          </children>
       </GridPane>
