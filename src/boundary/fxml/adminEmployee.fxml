@@ -90,11 +90,34 @@
                      <children>
                         <VBox alignment="TOP_CENTER" layoutY="136.0" prefHeight="597.0" prefWidth="359.0" spacing="25.0" AnchorPane.bottomAnchor="-136.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="136.0">
                            <children>
-                              <JFXTextField fx:id="employeeUserIDAE" promptText="User ID">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </JFXTextField>
+                              <VBox>
+                                 <children>
+                                    <Label text="User ID: ">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="employeeUserIDAE" prefHeight="40.0" prefWidth="130.0" promptText="User ID">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </JFXTextField>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label text="Username: ">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="employeeUsernameAE" prefHeight="40.0" prefWidth="128.0" promptText="Username">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </JFXTextField>
+                                 </children>
+                              </VBox>
                               <JFXComboBox fx:id="employeeTypeAE" prefHeight="47.0" prefWidth="168.0" promptText="Department" />
                               <JFXPasswordField fx:id="employeePasswordAE" promptText="Password">
                                  <font>
@@ -134,11 +157,6 @@
                                     </JFXButton>
                                  </children>
                               </HBox>
-                              <JFXTextField fx:id="employeeUsernameAE" promptText="Username">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </JFXTextField>
                            </children>
                            <padding>
                               <Insets bottom="25.0" left="50.0" right="50.0" top="5.0" />
