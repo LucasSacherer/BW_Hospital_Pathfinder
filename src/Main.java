@@ -1,9 +1,12 @@
 import DatabaseSetup.DatabaseGargoyle;
 import boundary.GodController;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class Main extends Application {
