@@ -11,6 +11,7 @@ import boundary.GodController;
 import com.jfoenix.controls.*;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import Entity.ErrorController;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -258,6 +260,17 @@ public class MainSceneController extends AbstractMapController {
                         Stage stage = new Stage();
                         stage.setScene(scene);
                         stage.setTitle("Street View");
+                        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent event) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        browser.dispose();
+                                    }
+                                }).start();
+                            }
+                        });
                         stage.show();
 
                         //JFXPopup popup = new JFXPopup(browserView); // Insert you JFXPopup in here!
