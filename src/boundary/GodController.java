@@ -339,7 +339,7 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
-//        initializeStaffRequestHubScene();
+        initializeStaffRequestHubScene();
         initializeAdminSettingsPopUpController();
         firstTime = false;
     }
@@ -347,7 +347,7 @@ public class GodController {
     private void initializeDrawers() {
         navigationDrawerController = new NavigationDrawerController( drawer, directoryController,
                  textDirectionsTable,  textDirectionsColumn,
-                 imageDirectionColumn);
+                 imageDirectionColumn, directoryDrawerController);
         directoryDrawerController = new DirectoryDrawerController(drawer, mapNavigationFacade);
     }
 
@@ -393,7 +393,7 @@ public class GodController {
              requestDescriptionFoodColumn,  requestLocationFoodColumn,
              requestUserFoodColumn); }
 
-    private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
+    private void initializeRequestReportScene() { requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
             genericRequestController, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
@@ -402,8 +402,8 @@ public class GodController {
               usernameColumn,  passwordColumn,adminStatusColumn);
     }
 
-//    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
-//
+    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
+
     private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
             pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
 
@@ -712,7 +712,6 @@ public class GodController {
             if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
                 databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
                 adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
-                System.out.println(databaseGargoyle.getCurrentUser().getUsername());
                 sceneSwitcher.toAdminHub(this, loginPane);
                 adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
             } else errorController.showError("Invalid credentials! Please try again.");

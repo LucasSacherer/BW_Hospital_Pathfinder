@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -133,13 +132,6 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" onMouseClicked="#backToDirectory" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding></JFXHamburger>
          </children>
       </GridPane>
    </children>

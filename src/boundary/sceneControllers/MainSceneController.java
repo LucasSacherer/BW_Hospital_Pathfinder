@@ -78,7 +78,7 @@ public class MainSceneController extends AbstractMapController {
         drawer.setMinHeight(height);
     }
 
-    private void initializeBurger(Region directoryRegion) {
+    public void initializeBurger(Region directoryRegion) {
         hamburger.setOnMouseClicked(e -> {
             drawer.setSidePane(directoryRegion);
             directoryDrawerController.setMainSceneController(this);
