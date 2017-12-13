@@ -64,6 +64,12 @@ public class NodeEditController {
         adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed Distance Scale", LocalDateTime.now()));
 
     }
+    public void setTimeOut(JFXTextField momentoTimeout){
+
+        settingsManager.setSetting("Momento Timeout", momentoTimeout.getText());
+        adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed Timeout time", LocalDateTime.now()));
+
+    }
 
     //first two nodes are start and end
     //it doesnt matter the order of which one is "start" or "end"
