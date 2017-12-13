@@ -310,56 +310,6 @@ public abstract class AbstractMapController {
         return 3;
     }
 
-    public void floorDown() throws IOException, SQLException {
-        switch(currentFloor) {
-            case "L2" :
-                return;
-            case "L1" :
-                currentFloor = "L2";
-                break;
-            case "G" :
-                currentFloor = "L1";
-                break;
-            case "1" :
-                currentFloor = "G";
-                break;
-            case "2" :
-                currentFloor = "1";
-                break;
-            case "3" :
-                currentFloor = "2";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
-    public void floorUp() throws IOException, SQLException {
-        switch (currentFloor) {
-            case "3":
-                return;
-            case "L2":
-                currentFloor = "L1";
-                break;
-            case "L1":
-                currentFloor = "G";
-                break;
-            case "G":
-                currentFloor = "1";
-                break;
-            case "1":
-                currentFloor = "2";
-                break;
-            case "2":
-                currentFloor = "3";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-//        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
     public void zoom() {
         double sliderLevel = zoomSlider.getValue() / 100;
         double zoomLevel = sliderLevel+ ZOOM;
@@ -424,6 +374,11 @@ public abstract class AbstractMapController {
         imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
         refreshCanvas();
     }
+    protected void goToCorrectFloorOfNode(Node node) {
+        currentFloor =node.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
 
     public class ImageButton extends Button {
         public void initiate(final Image image, final Node next) {
@@ -433,6 +388,9 @@ public abstract class AbstractMapController {
             iv.setFitWidth(30);
             this.getChildren().add(iv);
             this.resize(30,30);
+            this.setStyle("-fx-background-color: #09a1b3");
+
+
 
             this.setOnAction(new EventHandler<ActionEvent>() {
                 @Override

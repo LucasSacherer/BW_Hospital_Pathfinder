@@ -89,7 +89,7 @@ public class GodController {
 
     private TreeTableColumn<textDirEntry, String> textDirectionsColumn;
 
-    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn;
+    private TreeTableColumn<textDirEntry,ImageView> imageDirectionColumn;
 
 
     ///////////////////////
@@ -500,10 +500,10 @@ public class GodController {
     private void deleteStaffRequest() { staffRequestController.deleteRequest(); }
 
     @FXML
-    private void floorDownRequest() throws IOException, SQLException { staffRequestController.floorDown(); }
+    private void floorDownRequest() throws IOException, SQLException {  }
 
     @FXML
-    private void floorUpRequest() throws IOException, SQLException { staffRequestController.floorUp(); }
+    private void floorUpRequest() throws IOException, SQLException {  }
 
     @FXML
     private void clickOnRequestMap(MouseEvent m) { staffRequestController.clickOnMap(m); }
@@ -634,10 +634,10 @@ public class GodController {
     private void resetEdgeButtonAdd() { adminMapController.resetEdgeButtonAdd(); }
 
     @FXML
-    private void floorDownMapEdit() throws IOException, SQLException { adminMapController.floorDown(); }
+    private void floorDownMapEdit() throws IOException, SQLException {  }
 
     @FXML
-    private void floorUpMapEdit() throws IOException, SQLException { adminMapController.floorUp(); }
+    private void floorUpMapEdit() throws IOException, SQLException {  }
 
     @FXML
     private void clickOnMapEdit(MouseEvent m) { adminMapController.clickOnMap(m); }
@@ -820,7 +820,18 @@ public class GodController {
         Stage stage = new Stage();
         stage.setTitle("About");
         stage.setScene(new Scene(root2, 1000, 1000));
-        stage.setMaximized(true);
+        stage.show();
+    }
+
+
+    @FXML
+    private void toNewAboutPopUp() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/newAboutPage.fxml"));
+        fxmlLoader.setController(new AboutPopUpController());
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        stage.setScene(new Scene(root2, 1000, 1000));
         stage.show();
     }
 

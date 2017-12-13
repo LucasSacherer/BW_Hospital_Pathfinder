@@ -3,6 +3,7 @@ package Pathfinding;
 import Entity.Node;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class textDirEntry extends RecursiveTreeObject<textDirEntry> {
 
@@ -12,36 +13,39 @@ public class textDirEntry extends RecursiveTreeObject<textDirEntry> {
     String direction;
     String distance;
     String instruction;
-    Image symbol;
+    ImageView symbol = new ImageView();
 
     textDirEntry(Node node, Node nextNode, String direction, String distance){
         this.currNode = node;
         this.nextNode = nextNode;
         this.direction = direction;
         this.distance = distance;
+        symbol.setPreserveRatio(true);
+        symbol.setFitWidth(48);
+        symbol.setFitHeight(48);
 
         //set symbol based on direction, for choosing icon later
         switch (direction) {
             case "Take a hard right and continue":
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/arrow-bottom-right.png"));
                 break;
             case "Turn right and continue":
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/subdirectory-arrow-right.png"));
                 break;
             case "Take a slight right and continue":
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/arrow-top-right.png"));
                 break;
             case "Take a hard left and continue":
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/arrow-bottom-left.png"));
                 break;
             case "Turn left and continue":
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/subdirectory-arrow-left.png"));
                 break;
             case "Take a slight left and continue":
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/arrow-top-left.png"));
                 break;
             default:
-                symbol = new Image("/boundary/images/circle-outline.png");
+                symbol.setImage(new Image("/boundary/images/TextDirectionsImages/arrow-up.png"));
         }
 
         //instructions are written based on this node and the next node
@@ -53,18 +57,24 @@ public class textDirEntry extends RecursiveTreeObject<textDirEntry> {
 
             switch(floor){
                 case "L2":
-                    symbol = new Image("/boundary/images/circle-outline.png");
+                    symbol.setImage(new Image("/boundary/images/TextDirectionsImages/L2.png"));
+
                     break;
                 case "L1":
-                    symbol = new Image("/boundary/images/circle-outline.png");
+                    symbol.setImage(new Image("/boundary/images/TextDirectionsImages/L1.png"));
+                    break;
                 case "G":
-                    symbol = new Image("/boundary/images/circle-outline.png");
+                    symbol.setImage(new Image("/boundary/images/TextDirectionsImages/G.png"));
+                    break;
                 case "1":
-                    symbol = new Image("/boundary/images/circle-outline.png");
+                    symbol.setImage(new Image("/boundary/images/TextDirectionsImages/1.png"));
+                    break;
                 case "2":
-                    symbol = new Image("/boundary/images/circle-outline.png");
+                    symbol.setImage(new Image("/boundary/images/TextDirectionsImages/2.png"));
+                    break;
                 case "3":
-                    symbol = new Image("/boundary/images/circle-outline.png");
+                    symbol.setImage(new Image("/boundary/images/TextDirectionsImages/3.png"));
+                    break;
             }
             //instructions for switching buildings
         } else if (!node.getBuilding().equals(nextNode.getBuilding())){
@@ -112,7 +122,7 @@ public class textDirEntry extends RecursiveTreeObject<textDirEntry> {
         return instruction;
     }
 
-    public Image getSymbol() {
+    public ImageView getSymbol() {
         return symbol;
     }
 }
