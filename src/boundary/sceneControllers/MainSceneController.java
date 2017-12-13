@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -36,7 +37,7 @@ public class MainSceneController extends AbstractMapController {
     private Pane mainPane;
     private Region navigationRegion, directoryRegion;
     private GoogleNodeController googleNodeController;
-    private ArrayList<JFXButton> googleNodes = new ArrayList<JFXButton>();
+    private ArrayList<JFXButton> googleNodeButtons = new ArrayList<JFXButton>();
     public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
                                DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
@@ -126,8 +127,6 @@ public class MainSceneController extends AbstractMapController {
     public void bathroomClicked() throws IOException { findNearest(origin, "REST"); }
 
     public void infoClicked() throws IOException { findNearest(origin, "INFO"); }
-
-    public void elevatorClicked() throws IOException { findNearest(origin, "ELEV"); }
 
     public void exitClicked() throws IOException { findNearest(origin, "EXIT"); }
 
@@ -227,8 +226,9 @@ public class MainSceneController extends AbstractMapController {
     }
 
     public void streetView() {
+        //TODO turn off if the floor switches
         if (streetView) {
-            googleNodes.clear();
+            googleNodeButtons.clear();
             streetView = false;
             System.out.println("streetView turned off");
         }
@@ -237,14 +237,19 @@ public class MainSceneController extends AbstractMapController {
                 JFXButton jfxButton = new JFXButton();
                 jfxButton.setLayoutX(gn.getXcoord());
                 jfxButton.setLayoutY(gn.getYcoord());
-                jfxButton.setText("HEY");
-                googleNodes.add(jfxButton);
+                jfxButton.setGraphic(new JFXSpinner());
+                googleNodeButtons.add(jfxButton);
                 mapPane.getChildren().add(jfxButton);
                 jfxButton.toFront();
                 jfxButton.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        System.out.println("Google me");
+
+                        JFXRippler rippler = new JFXRippler();
+                        mainPane.getChildren().add(rippler);
+
+                        JFXPopup popup = new JFXPopup(); // Insert you JFXPopup in here!
+                        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
                     }
                 });
             }
@@ -258,4 +263,45 @@ public class MainSceneController extends AbstractMapController {
     public Node getOrigin() { return origin; }
 
     public Node getDestination() { return destination; }
+
+    public void floorL2() {
+        super.floorL2();
+        streetView = false;
+        clearGoogleNodes();
+    }
+
+    private void clearGoogleNodes() {
+        for (JFXButton j : googleNodeButtons) { mapPane.getChildren().remove(j); }
+        googleNodeButtons.clear();
+    }
+
+    public void floorL1() {
+        super.floorL1();
+        streetView = false;
+        clearGoogleNodes();
+    }
+
+    public void floorG() {
+        super.floorG();
+        streetView = false;
+        clearGoogleNodes();
+    }
+
+    public void floor1() {
+        super.floor1();
+        streetView = false;
+        clearGoogleNodes();
+    }
+
+    public void floor2() {
+        super.floor2();
+        streetView = false;
+        clearGoogleNodes();
+    }
+
+    public void floor3() {
+        super.floor3();
+        streetView = false;
+        clearGoogleNodes();
+    }
 }
