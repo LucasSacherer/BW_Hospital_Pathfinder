@@ -66,7 +66,7 @@ public class NodeEditController {
     }
     public void setTimeOut(JFXTextField momentoTimeout){
 
-        settingsManager.setSetting("Momento Timeout", momentoTimeout.getText());
+        settingsManager.setSetting("Memento Delay", momentoTimeout.getText());
         adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(),"Changed the timeout time", LocalDateTime.now()));
 
     }
