@@ -37,93 +37,95 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
               </content>
             </ScrollPane>
-            <VBox alignment="CENTER_RIGHT" fillWidth="false" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
+                  <VBox alignment="CENTER" fillWidth="false">
                      <children>
-                        <VBox alignment="CENTER" fillWidth="false">
-                           <children>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3AdminMap" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
-                                       <font>
-                                          <Font name="System Bold" size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                                 <graphic>
-                                    <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
-                                       <font>
-                                          <Font name="System Bold" size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                                 <graphic>
-                                    <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
-                                       <font>
-                                          <Font name="System Bold" size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGAdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
-                                       <font>
-                                          <Font name="System Bold" size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
-                                       <font>
-                                          <Font name="System Bold" size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
-                                       <font>
-                                          <Font name="System Bold" size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3AdminMap" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGAdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2AdminMap" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
                      </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
                   </VBox>
                </children>
-            </VBox>
+            </GridPane>
             <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
