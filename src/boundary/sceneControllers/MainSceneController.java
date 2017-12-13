@@ -1,13 +1,18 @@
 package boundary.sceneControllers;
 
+import Entity.GoogleNode;
 import Entity.Node;
+import GoogleNodes.GoogleNodeController;
 import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,58 +21,67 @@ import javafx.scene.layout.Region;
 import Entity.ErrorController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainSceneController extends AbstractMapController {
+    private boolean streetView;
     private DirectoryDrawerController directoryDrawerController;
     private NavigationDrawerController navigationDrawerController;
-    private JFXComboBox originField;
     private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
     private AutoCompleteTextField destinationTextField;
-    private AnchorPane textPane;
     private DirectoryController dc;
     private JFXHamburger hamburger;
     private JFXDrawer drawer;
     private Pane mainPane;
-    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXComboBox originField,
+    private Region navigationRegion, directoryRegion;
+    private GoogleNodeController googleNodeController;
+    private ArrayList<JFXButton> googleNodes = new ArrayList<JFXButton>();
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
                                AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
-                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController, AnchorPane textPane,
-                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane) {
-        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
-        this.originField = originField;
+                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
+                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane, GoogleNodeController googleNodeController) {
+        super(g, m, p, zoomSlider, scrollPane);
         this.searchAnchor = searchAnchor;
         this.directoryDrawerController = directoryDrawerController;
         this.navigationDrawerController = navigationDrawerController;
-        this.textPane = textPane;
         this.dc = dc;
         this.drawer = drawer;
         this.hamburger = hamburger;
         this.mainPane = mainPane;
+        this.googleNodeController = googleNodeController;
     }
 
     public void initializeScene() throws IOException {
         super.initializeScene();
-        destinationTextField = new AutoCompleteTextField(dc, destination);
+        destinationTextField = new AutoCompleteTextField(dc, false);
+        destinationTextField.setMainSceneController(this);
         destinationTextField.setPromptText("Search Brigham & Women's");
         searchAnchor.getChildren().add(destinationTextField);
-        origin = mapNavigationFacade.getDefaultNode();
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
         directoryLoader.setController(directoryDrawerController);
-        Region directoryRegion = directoryLoader.load();
-
+        directoryRegion = directoryLoader.load();
+        navigationDrawerController.setDirectoryRegion(directoryRegion);
         FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
         navigationLoader.setController(navigationDrawerController);
-        Region navigationRegion = navigationLoader.load();
-        directoryDrawerController.setRegion(navigationRegion);
+        navigationRegion = navigationLoader.load();
+
+        directoryDrawerController.setNavigateRegion(navigationRegion);
         initializeBurger(directoryRegion);
     }
 
-    private void initializeBurger(Region region) {
+    private void resizeDrawer() {
+        double height = mainPane.getHeight() - 40;
+        drawer.setMaxHeight(height);
+        drawer.setPrefHeight(height);
+        drawer.setMinHeight(height);
+    }
+
+    public void initializeBurger(Region directoryRegion) {
         hamburger.setOnMouseClicked(e -> {
-            region.setMaxHeight(mainPane.getHeight()-40);
-            region.setPrefHeight(mainPane.getHeight()-40);
-            drawer.setSidePane(region);
+            drawer.setSidePane(directoryRegion);
+            directoryDrawerController.setMainSceneController(this);
             if (drawer.isHidden() || drawer.isHiding()) {
                 drawer.open();
                 drawer.toFront();
@@ -77,15 +91,23 @@ public class MainSceneController extends AbstractMapController {
         });
     }
 
-
-    public void setOrigin(Node o) {
-        this.origin = o;
-        originField.setPromptText(o.getNodeID());
+    private void openNavigationDrawer() {
+        navigationDrawerController.setMainSceneController(this);
+        navigationDrawerController.setPath(currentPath);
+        drawer.setSidePane(navigationRegion);
+        if (drawer.isHidden() || drawer.isHiding()) {
+            drawer.open();
+            drawer.toFront();
+        }
+        navigationDrawerController.setFields(origin, destination);
+        navigationDrawerController.hide();
     }
 
-    public void setNode(Node d) {
+    public void setOrigin(Node o) { this.origin = o; }
+
+    public void setDestination(Node d) {
         this.destination = d;
-        destinationTextField.setText(d.getNodeID());
+        setDestinationText();
     }
 
     private boolean checkNullLocations(){
@@ -110,37 +132,21 @@ public class MainSceneController extends AbstractMapController {
     public void exitClicked() throws IOException { findNearest(origin, "EXIT"); }
 
     private void findNearest(Node node, String type) throws IOException {
-        if (origin == null) origin = mapNavigationFacade.getDefaultNode();
-        System.out.println(origin);
+        origin = mapNavigationFacade.getDefaultNode();
         destination = mapNavigationFacade.getNearestPOI(origin.getXcoord(), origin.getYcoord(), type);
         findPath();
         refreshCanvas();
     }
 
     public void navigateToHere() throws IOException {
-//        boolean success = checkNullLocations();
-//        if(success) {
         setDestination();
         findPath();
-//        }
+        hide();
     }
-
-    public void setOrigin() {
-        super.setOrigin();
-        setOriginText();
-    }
-
 
     public void setDestination() {
         super.setDestination();
         setDestinationText();
-    }
-
-    private void setOriginText() { //TODO sometimes the short names are too long for the JFXComboBox
-        String prompt;
-        if (origin.toString().length() < 1) prompt = origin.getNodeID();
-        else prompt = origin.getShortName();
-        originField.setPromptText(prompt);
     }
 
     private void setDestinationText() {
@@ -154,7 +160,6 @@ public class MainSceneController extends AbstractMapController {
         snapToNode(m);
         currentPath = null;
         origin = currentLoc;
-        setOriginText();
         refreshCanvas();
     }
 
@@ -164,80 +169,93 @@ public class MainSceneController extends AbstractMapController {
         findPath();
     }
 
-    public void findPath() throws IOException {
-        if (origin == null || destination == null) return; //TODO throw an error
-        goToCorrectFloor();
-        //centerMap();
-        currentPath = pathFindingFacade.getPath(origin, destination);
-        refreshCanvas();
-    }
-
-    private void goToCorrectFloor() {
-        currentFloor = origin.getFloor();
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
     public void reversePath() throws IOException {
-        if (origin == null || destination == null) return; //TODO throw an error
-        Node temp = destination;
-        destination = origin;
-        origin = temp;
-        setOriginText();
-        setDestinationText();
-        goToCorrectFloor();
-        centerMap();
+        navigate(destination, origin);
+    }
+
+    public void findPath() throws IOException {
+        if (origin == null || destination == null) return;
         currentPath = pathFindingFacade.getPath(origin, destination);
+        zoomToPath();
+        openNavigationDrawer();
+        goToCorrectFloor();
         refreshCanvas();
     }
 
-    private void centerMap() {
-        //TODO
+    private void zoomToPath() {
+        double zoomLevel =  ZOOM;
+
+        if (zoomLevel < ZOOM) zoomLevel = ZOOM;
+        zoomSlider.setValue(0);
+        mapPane.setScaleX(zoomLevel);
+        mapPane.setScaleY(zoomLevel);
+
+        Point2D scrollOffset = figureScrollOffset(mapPane, scrollPane);
+        repositionScroller(mapPane, scrollPane, 1, scrollOffset);
+
+        double height = 3400.0;
+        double y = getPathY();
+        double viewHeight = scrollPane.getViewportBounds().getHeight();
+        scrollPane.setVvalue(scrollPane.getVmax() * ((y - 0.5 * viewHeight) / (height - viewHeight)));
+
+        double width = 5000.0;
+        double x = getPathX();
+        double viewWidth = scrollPane.getViewportBounds().getWidth();
+        scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)) * 0.9);
     }
 
-    public void zoomIn() {
+    private double getPathX() {
+        ArrayList<Node> pathList = new ArrayList<>(currentPath);
+        int xMax = 0;
+        int xMin = 3400;
+        for (Node n : pathList) {
+            if (n.getXcoord() > xMax) xMax = n.getXcoord();
+            if (n.getXcoord() < xMin) xMin = n.getXcoord();
+        }
+        return (xMax + xMin) / 2;
     }
 
-    public void zoomOut() {
-    }
-
-    public void floorL2() {
-        currentFloor = "L2";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floorL1() {
-        currentFloor = "L1";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floorG() {
-        currentFloor = "G";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor1() {
-        currentFloor = "1";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor2() {
-        currentFloor = "2";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
-    }
-
-    public void floor3() {
-        currentFloor = "3";
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        refreshCanvas();
+    private double getPathY() {
+        ArrayList<Node> pathList = new ArrayList<>(currentPath);
+        int yMax = 0;
+        int yMin = 5000;
+        for (Node n : pathList) {
+            if (n.getYcoord() > yMax) yMax = n.getYcoord();
+            if (n.getYcoord() < yMin) yMin = n.getYcoord();
+        }
+        return (yMax + yMin) / 2;
     }
 
     public void streetView() {
+        if (streetView) {
+            googleNodes.clear();
+            streetView = false;
+            System.out.println("streetView turned off");
+        }
+        else {
+            for (GoogleNode gn : googleNodeController.getGoogleNodeByFloor(currentFloor)) {
+                JFXButton jfxButton = new JFXButton();
+                jfxButton.setLayoutX(gn.getXcoord());
+                jfxButton.setLayoutY(gn.getYcoord());
+                jfxButton.setText("HEY");
+                googleNodes.add(jfxButton);
+                mapPane.getChildren().add(jfxButton);
+                jfxButton.toFront();
+                jfxButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Google me");
+                    }
+                });
+            }
+            streetView = true;
+            System.out.println("streetView turned on");
+        }
     }
+
+    public void hide() { destinationTextField.hide(); }
+
+    public Node getOrigin() { return origin; }
+
+    public Node getDestination() { return destination; }
 }

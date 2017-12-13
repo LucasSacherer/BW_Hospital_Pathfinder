@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
@@ -23,8 +24,8 @@
       <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="439.0568542480469" minWidth="10.0" prefWidth="350.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="216.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="306.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="600.0" />
+            <ColumnConstraints />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="100.0" valignment="TOP" vgrow="SOMETIMES" />
@@ -32,44 +33,106 @@
             <RowConstraints maxHeight="195.0" minHeight="18.0" prefHeight="154.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false">
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" direction="TOP" overLayVisible="false" GridPane.rowSpan="3">
                <GridPane.margin>
-                  <Insets left="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </GridPane.margin>
             </JFXDrawer>
-            <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="3" GridPane.rowSpan="3">
+            <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.6" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.37" GridPane.columnSpan="3" GridPane.rowSpan="3">
                <contextMenu>
                   <ContextMenu>
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
                         <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetOrigin" text="Reset Origin" />
                     </items>
                   </ContextMenu>
                </contextMenu>
             </ScrollPane>
-            <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+            <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <children>
+                  <VBox alignment="CENTER" fillWidth="false">
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorG" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
+                                 <font>
+                                    <Font name="System Bold" size="32.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="80.0" />
+                     </padding>
+                  </VBox>
                   <VBox alignment="CENTER" fillWidth="false" prefHeight="219.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
                      <children>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="395.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomIn" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                           <graphic>
-                              <Label fx:id="currentFloorNum111111" alignment="CENTER" contentDisplay="CENTER" text="+" textFill="#cccccc">
-                                 <font>
-                                    <Font name="System Bold" size="32.0" />
-                                 </font>
-                              </Label>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="470.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomOut" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                           <graphic>
-                              <Label fx:id="currentFloorNum1111111" alignment="CENTER" contentDisplay="CENTER" text="-" textFill="#cccccc">
-                                 <font>
-                                    <Font name="System Bold" size="32.0" />
-                                 </font>
-                              </Label>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="233.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#streetView" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                        <JFXButton buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="233.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#streetView" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
                            <graphic>
                               <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -78,31 +141,28 @@
                               </ImageView>
                            </graphic>
                            <VBox.margin>
-                              <Insets top="75.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </JFXButton>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="BOTTOM_RIGHT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" maxHeight="80.0" maxWidth="520.0" minHeight="80.0" minWidth="520.0" prefHeight="80.0" prefWidth="520.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestInfoDeskMain" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#nearestExitMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="75.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/Icons/Info%20desk.png" />
+                              <Image url="@../images/Icons/Exits.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestBathroomMain" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#nearestBathroomMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -111,142 +171,136 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#nearestExitMain" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#nearestInfoDeskMain" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" ">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/Icons/Exits.png" />
+                              <Image url="@../images/Icons/Info%20desk.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAboutPopUp" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
                      <graphic>
-                        <Label text="i" textFill="#cccccc">
+                        <Label text="i" textFill="#e6e6e6">
                            <font>
                               <Font name="Serif Bold" size="62.0" />
                            </font>
                         </Label>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="75.0" prefWidth="150.0" ripplerFill="#cccccc" style="-fx-background-radius: 12; -fx-background-color: white; -fx-border-color: #0068b1; -fx-border-radius: 0; -fx-border-width: 5;" text="Login" textFill="#0068b1">
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="80.0" prefWidth="160.0" ripplerFill="#cccccc" style="-fx-background-radius: 12; -fx-background-color: #0068b1; -fx-border-color: #0068b1; -fx-border-radius: 0; -fx-border-width: 10;" text="Login" textFill="#e6e6e6">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="28.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </JFXButton>
                </children>
+               <GridPane.margin>
+                  <Insets right="20.0" top="20.0" />
+               </GridPane.margin>
             </HBox>
-            <AnchorPane GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <HBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="320.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="320.0" spacing="5.0" style="-fx-background-color: #0068B1;" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <children>
-                  <VBox layoutX="120.0" prefHeight="348.0" prefWidth="516.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="40.0" minHeight="80.0" minWidth="40.0" prefHeight="80.0" prefWidth="40.0">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></JFXHamburger>
+                  <VBox alignment="CENTER" prefWidth="200.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                        <AnchorPane fx:id="searchAnchor" style="-fx-background-color: white;" />
+                     </children>
+                  </VBox>
+                  <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" translateX="3.0">
+                           <image>
+                              <Image url="@../images/Icons/Navagate.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets left="20.0" top="20.0" />
+               </GridPane.margin>
+            </HBox>
+            <AnchorPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <children>
+                  <VBox alignment="BOTTOM_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="BOTTOM_RIGHT">
                            <children>
-                              <VBox alignment="CENTER" style="-fx-background-color: #CCCCCC; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 0; -fx-border-width: 5;">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT">
-                                       <children>
-                                          <AnchorPane fx:id="directoryPane">
-                                             <children>
-                                                <JFXHamburger fx:id="hamburger" layoutY="15.0" />
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane fx:id="searchAnchor" prefHeight="200.0" prefWidth="200.0" />
-                                          <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#findPath" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 0; -fx-background-color: #0068B1;" text="Navigate">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                             <graphic>
-                                                <ImageView fitHeight="25.0" fitWidth="25.0" translateX="3.0">
-                                                   <image>
-                                                      <Image url="@../images/Icons/Navagate.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                       </children>
-                                    </HBox>
-                                 </children>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="-" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="4.0" />
+                                       </padding>
+                                    </Label>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXSlider fx:id="zoomSlider" onMouseClicked="#zoom" onMouseDragged="#zoom" onMousePressed="#zoom" onMouseReleased="#zoom" prefHeight="40.0" prefWidth="306.0" style="-fx-background-color: #0068B1;">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
-                              </VBox>
+                              </JFXSlider>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="+" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="246.0" spacing="15.0">
+                           <children>
+                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" text="About" textFill="BLUE" underline="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></JFXButton>
+                              <Label text="© Brigham &amp; Women’s Hospital 2017">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                            </children>
                            <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets right="20.0" />
                            </padding>
                         </HBox>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
-            <HBox alignment="CENTER" GridPane.columnSpan="3" GridPane.rowIndex="2">
-               <children>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                     <graphic>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Label>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                     <graphic>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Label>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorG" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
-                     <graphic>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Label>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                     <graphic>
-                        <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Label>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                     <graphic>
-                        <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Label>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3" prefHeight="75.0" prefWidth="75.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
-                     <graphic>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Label>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </HBox>
          </children>
       </GridPane>
    </children>

@@ -5,13 +5,12 @@ import Entity.ErrorController;
 import MapNavigation.MapNavigationFacade;
 import Pathfinding.PathFindingFacade;
 import boundary.GodController;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -36,7 +36,6 @@ public abstract class AbstractMapController {
     protected final double ZOOM = 0.5;
     protected Group group;
     protected GodController godController;
-    protected Label currentFloorNum;
     protected Canvas canvas;
     protected String currentFloor = "G";
     protected GraphicsContext gc;
@@ -45,6 +44,7 @@ public abstract class AbstractMapController {
     protected MapNavigationFacade mapNavigationFacade;
     protected PathFindingFacade pathFindingFacade;
     protected ImageView imageView;
+    protected Image locationImage = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/end-point.png"));
     protected Image uparrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/up_arrow.png"));//new Image("./boundary/images/up_arrow.png");
     protected Image downarrow = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/down_arrow.png"));//new Image("./boundary/images/down_arrow.png");
     protected Image circleoutline = new Image(AbstractMapController.class.getResourceAsStream("/boundary/images/circle-outline.png"));//new Image("./boundary/images/circle-outline.png");
@@ -54,12 +54,10 @@ public abstract class AbstractMapController {
     protected JFXSlider zoomSlider;
     protected javafx.scene.control.ScrollPane scrollPane;
 
-    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
+    public AbstractMapController(GodController g, MapNavigationFacade m, PathFindingFacade p, JFXSlider zoomSlider, javafx.scene.control.ScrollPane scrollPane) {
         this.godController = g;
         this.mapNavigationFacade = m;
         this.pathFindingFacade = p;
-        this.currentFloorNum = currentFloorNum;
-        currentFloor = "G"; // TODO maybe make it follow the last floor?
         this.zoomSlider = zoomSlider;
         this.scrollPane = scrollPane;
     }
@@ -78,20 +76,31 @@ public abstract class AbstractMapController {
                 clickOnMap(event);
             }
         };
+
         canvas.setOnMouseClicked(handler);
+
         gc = canvas.getGraphicsContext2D();
         mapPane.getChildren().addAll(imageView, canvas);
         group.getChildren().add(mapPane);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setContent(group);
+        refreshKiosk();
+        scrollPane.setHvalue(0.29);
+        scrollPane.setVvalue(0.69);
+    }
 
-        imageView.setImage(mapNavigationFacade.getFloorMap("G"));
-        gc = canvas.getGraphicsContext2D();
-//        currentFloorNum.setText(currentFloor);
-//        zoomSlider.setValue(0);
-        mapPane.setScaleX(ZOOM);
-        mapPane.setScaleY(ZOOM);
+    public void refreshKiosk() {
+        origin = mapNavigationFacade.getDefaultNode();
+        currentFloor = origin.getFloor();
+        JFXButton jfxButton = new JFXButton();
+        imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
+        centerMap(origin);
+        refreshCanvas();
+        zoomOut();
+    }
+
+    private void zoomOut() {
     }
 
     public void clickOnMap(MouseEvent m) {
@@ -118,7 +127,7 @@ public abstract class AbstractMapController {
         drawPathNodes();
     }
 
-    private void drawDestination() { //TODO make this the icon of location
+    private void drawDestination() {
         if (destination != null && destination.getFloor().equals(currentFloor)) {
             gc.setFill(Color.WHITE);
             gc.fillOval(destination.getXcoord() - 10, destination.getYcoord() - 10, 20, 20);
@@ -128,6 +137,8 @@ public abstract class AbstractMapController {
             gc.fillOval(destination.getXcoord() - 6, destination.getYcoord() - 6, 12, 12);
             gc.setFill(Color.BLACK);
             gc.fillOval(destination.getXcoord() - 3, destination.getYcoord() - 3, 6, 6);
+            gc.drawImage(locationImage, destination.getXcoord() - 16, destination.getYcoord() - 46, 32, 46);
+
         }
     }
 
@@ -139,6 +150,15 @@ public abstract class AbstractMapController {
             gc.fillOval(origin.getXcoord() - 12, origin.getYcoord() - 12, 24, 24);
             gc.setFill(Color.BLUE);
             gc.fillOval(origin.getXcoord() - 9, origin.getYcoord() - 9, 18, 18);
+
+            JFXSpinner jfxSpinner = new JFXSpinner();
+            jfxSpinner.setRadius(10);
+            jfxSpinner.setLayoutX(origin.getXcoord());
+            jfxSpinner.setLayoutY(origin.getYcoord());
+            mapPane.getChildren().add(jfxSpinner);
+            jfxSpinner.setStartingAngle(0);
+            jfxSpinner.toFront();
+            jfxSpinner.setVisible(true);
         }
         gc.setFill(Color.BLACK);
     }
@@ -249,6 +269,18 @@ public abstract class AbstractMapController {
             Node current = pathToDraw.get(i + 1);
             int currentFloorInt = floorStringToInt(current.getFloor());
             int nextFloorInt = floorStringToInt(next.getFloor());
+            if (next.getFloor().equals(currentFloor) && !current.getFloor().equals(currentFloor)) {
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 10, next.getYcoord() - 10, 20, 20);
+                gc.setFill(Color.DARKGREEN);
+                gc.fillOval(next.getXcoord() - 9, next.getYcoord() - 9, 18, 18);
+                gc.setFill(Color.WHITE);
+                gc.fillOval(next.getXcoord() - 8, next.getYcoord() - 8, 16, 16);
+                gc.setFill(Color.GREEN);
+                gc.fillOval(next.getXcoord() - 5, next.getYcoord() - 5, 10, 10);
+                gc.setFill(Color.BLACK);
+            }
+
             if (current.getFloor().equals(currentFloor) &&  !next.getFloor().equals(currentFloor)) {
                 ImageButton floorChange;
                 if (currentFloorInt < nextFloorInt) {
@@ -279,56 +311,6 @@ public abstract class AbstractMapController {
         return 3;
     }
 
-    public void floorDown() throws IOException, SQLException {
-        switch(currentFloor) {
-            case "L2" :
-                return;
-            case "L1" :
-                currentFloor = "L2";
-                break;
-            case "G" :
-                currentFloor = "L1";
-                break;
-            case "1" :
-                currentFloor = "G";
-                break;
-            case "2" :
-                currentFloor = "1";
-                break;
-            case "3" :
-                currentFloor = "2";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
-    public void floorUp() throws IOException, SQLException {
-        switch (currentFloor) {
-            case "3":
-                return;
-            case "L2":
-                currentFloor = "L1";
-                break;
-            case "L1":
-                currentFloor = "G";
-                break;
-            case "G":
-                currentFloor = "1";
-                break;
-            case "1":
-                currentFloor = "2";
-                break;
-            case "2":
-                currentFloor = "3";
-                break;
-        }
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
     public void zoom() {
         double sliderLevel = zoomSlider.getValue() / 100;
         double zoomLevel = sliderLevel+ ZOOM;
@@ -338,12 +320,10 @@ public abstract class AbstractMapController {
         mapPane.setScaleX(zoomLevel);
         mapPane.setScaleY(zoomLevel);
 
-        // move viewport so that old center remains in the center after the
-        // scaling
         repositionScroller(mapPane, scrollPane, scaleFactor, scrollOffset);
     }
 
-    private Point2D figureScrollOffset(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller) {
+    protected Point2D figureScrollOffset(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller) {
         double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
         double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
         double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
@@ -353,7 +333,7 @@ public abstract class AbstractMapController {
         return new Point2D(scrollXOffset, scrollYOffset);
     }
 
-    private void repositionScroller(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
+    protected void repositionScroller(javafx.scene.Node scrollContent, javafx.scene.control.ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
         double scrollXOffset = scrollOffset.getX();
         double scrollYOffset = scrollOffset.getY();
         double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
@@ -374,6 +354,33 @@ public abstract class AbstractMapController {
         }
     }
 
+    protected void centerMap(Node node) {
+//        zoomToNode(); //TODO is this important?
+        goToCorrectFloor();
+        if (node != null) {
+            double height = 3400.0;
+            double y = node.getYcoord();
+            double viewHeight = scrollPane.getViewportBounds().getHeight();
+            scrollPane.setVvalue(scrollPane.getVmax() * ((y - 0.5 * viewHeight) / (height - viewHeight)));
+
+            double width = 5000.0;
+            double x = node.getXcoord();
+            double viewWidth = scrollPane.getViewportBounds().getWidth();
+            scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)));
+        }
+    }
+
+    protected void goToCorrectFloor() {
+        currentFloor = origin.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+    protected void goToCorrectFloorOfNode(Node node) {
+        currentFloor =node.getFloor();
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
     public class ImageButton extends Button {
         public void initiate(final Image image, final Node next) {
             final ImageView iv = new ImageView(image);
@@ -382,13 +389,16 @@ public abstract class AbstractMapController {
             iv.setFitWidth(30);
             this.getChildren().add(iv);
             this.resize(30,30);
+            this.setStyle("-fx-background-color: #09a1b3");
+
+
 
             this.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-                    currentFloorNum.setText(currentFloor);
+//                    currentFloorNum.setText(currentFloor);
                     refreshCanvas();
                 }
             });
@@ -396,11 +406,47 @@ public abstract class AbstractMapController {
                 public void handle(MouseEvent evt) {
                     currentFloor = next.getFloor();
                     imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-                    currentFloorNum.setText(currentFloor);
+//                    currentFloorNum.setText(currentFloor);
                     refreshCanvas();
                 }
             });
             super.setGraphic(iv);
         }
+    }
+
+    public void floorL2() {
+        currentFloor = "L2";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floorL1() {
+        currentFloor = "L1";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floorG() {
+        currentFloor = "G";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor1() {
+        currentFloor = "1";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor2() {
+        currentFloor = "2";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
+    }
+
+    public void floor3() {
+        currentFloor = "3";
+        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
+        refreshCanvas();
     }
 }
