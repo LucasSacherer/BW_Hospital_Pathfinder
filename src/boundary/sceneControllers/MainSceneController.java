@@ -9,6 +9,8 @@ import Pathfinding.PathFindingFacade;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import Entity.ErrorController;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -237,6 +240,7 @@ public class MainSceneController extends AbstractMapController {
                 JFXButton jfxButton = new JFXButton();
                 jfxButton.setLayoutX(gn.getXcoord());
                 jfxButton.setLayoutY(gn.getYcoord());
+                jfxButton.setText(" ");
                 jfxButton.setGraphic(new JFXSpinner());
                 googleNodeButtons.add(jfxButton);
                 mapPane.getChildren().add(jfxButton);
@@ -248,8 +252,16 @@ public class MainSceneController extends AbstractMapController {
                         JFXRippler rippler = new JFXRippler();
                         mainPane.getChildren().add(rippler);
 
-                        JFXPopup popup = new JFXPopup(); // Insert you JFXPopup in here!
-                        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+                        Browser browser = new Browser();
+                        BrowserView browserView = new BrowserView(browser);
+                        browser.loadHTML(gn.getUrl());
+                        Scene scene = new Scene(browserView);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.show();
+
+                        //JFXPopup popup = new JFXPopup(browserView); // Insert you JFXPopup in here!
+                        //popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
                     }
                 });
             }
