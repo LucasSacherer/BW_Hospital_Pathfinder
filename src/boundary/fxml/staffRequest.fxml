@@ -46,7 +46,7 @@
                      <children>
                         <VBox alignment="CENTER" fillWidth="false">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3StaffRequest" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" stylesheets="@../MainCSS.css">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3StaffRequest" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" styleClass="specialButton" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
                                        <font>
@@ -58,7 +58,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2StaffRequest" prefHeight="40.0" prefWidth="80.0" styleClass="specialButton" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
                                        <font>
@@ -70,7 +70,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1StaffRequest" prefHeight="40.0" prefWidth="80.0" styleClass="specialButton" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
                                        <font>
@@ -82,7 +82,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGStaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css" text="Button">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGStaffRequest" prefHeight="40.0" prefWidth="80.0" styleClass="specialButton" stylesheets="@../MainCSS.css" text="Button">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
                                        <font>
@@ -94,7 +94,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1StaffRequest" prefHeight="40.0" prefWidth="80.0" styleClass="specialButton" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
                                        <font>
@@ -106,7 +106,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2StaffRequest" prefHeight="40.0" prefWidth="80.0" stylesheets="@../MainCSS.css">
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2StaffRequest" prefHeight="40.0" prefWidth="80.0" styleClass="specialButton" stylesheets="@../MainCSS.css">
                                  <graphic>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
                                        <font>
