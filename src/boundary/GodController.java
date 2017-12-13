@@ -551,7 +551,7 @@ public class GodController {
     private void floor2StaffRequest() throws IOException, SQLException { staffRequestController.floor2(); }
 
     @FXML
-    private void floor3StaffRequest() throws IOException, SQLException { mainSceneController.floor3(); }
+    private void floor3StaffRequest() throws IOException, SQLException { staffRequestController.floor3(); }
 
 
     /////////////////////
