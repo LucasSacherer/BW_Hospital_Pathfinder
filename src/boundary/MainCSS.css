@@ -79,6 +79,7 @@
     transition-duration: 0.4s;
     -fx-background-color: #09a1b3;
     -fx-text-fill: white;
+    -fx-background-radius: 0;
 }
 
 .button:hover {
@@ -94,6 +95,7 @@
     transition-duration: 0.4s;
     -fx-background-color: #097bbd;
     -fx-text-fill: white;
+    -fx-background-radius: 0;
 }
 
 .specialButton:hover {
