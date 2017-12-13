@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -63,7 +62,7 @@
                                     <Image url="@../images/circle-outline.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="5.0" />
+                                    <Insets left="6.0" />
                                  </HBox.margin>
                               </ImageView>
                               <AnchorPane fx:id="originPane" prefHeight="30.0" prefWidth="263.0" />
@@ -71,12 +70,12 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                            <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" mouseTransparent="true" preserveRatio="true">
+                              <ImageView fitHeight="25.0" fitWidth="25.0" mouseTransparent="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/location.png" />
+                                    <Image url="@../images/end-point.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="2.0" />
+                                    <Insets bottom="4.0" left="5.0" />
                                  </HBox.margin>
                               </ImageView>
                               <AnchorPane fx:id="destinationPane" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="269.0" />
@@ -133,13 +132,6 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT" onMouseClicked="#backToDirectory" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding></JFXHamburger>
          </children>
       </GridPane>
    </children>

@@ -71,7 +71,6 @@ public class NavigationDrawerController {
         this.textDirectionsColumn = textDirectionsColumn;
         this.imageDirectionColumn = imageDirectionColumn;
 
-
     }
 
     @FXML
@@ -139,13 +138,6 @@ public class NavigationDrawerController {
         }
     }
 
-
-    @FXML
-    public void backToDirectory() {
-        drawer.setSidePane(directoryRegion);
-    }
-
-
     @FXML
     public void closeDrawer() {
         originTextField.clear();
@@ -209,7 +201,5 @@ public class NavigationDrawerController {
         this.path = path;
         textDirs = textualDirections.makeTextDir(path);
         initializeTable();
-
-
     }
 }
