@@ -13,7 +13,7 @@ public class SettingsManager {
         // ***** Default Settings ***** //
         settings.put("Default Node","GHALL03802");
         settings.put("Distance Scale", "1.76");
-        settings.put("Memento Delay","0.5");
+        settings.put("Memento Delay", "0.5");
     }
 
     public void setSetting(String setting, String nodeID){
