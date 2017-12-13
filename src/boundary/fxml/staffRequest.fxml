@@ -17,32 +17,195 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1118.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="adminMapPane" layoutX="48.0" layoutY="699.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane minWidth="-Infinity" prefHeight="800.0" prefWidth="371.0">
+            <GridPane alignment="CENTER" prefHeight="1118.0" prefWidth="1221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="218.0" prefWidth="485.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="686.0" minWidth="10.0" prefWidth="336.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="800.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="requestScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                  <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <Label alignment="TOP_CENTER" text="Staff Request">
-                           <font>
-                              <Font name="System Bold" size="35.0" />
-                           </font>
+                        <VBox alignment="CENTER" fillWidth="false">
+                           <children>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor3StaffRequest" prefHeight="40.0" prefWidth="80.0" ripplerFill="#cccccc" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="3" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor2StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label contentDisplay="CENTER" text="2" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floor1StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label contentDisplay="CENTER" text="1" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorGStaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text="Button">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="G" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL1StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="L1" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorL2StaffRequest" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="L2" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
                            <padding>
-                              <Insets top="20.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
-                        </Label>
+                        </VBox>
+                     </children>
+                  </GridPane>
+                  <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <HBox alignment="BOTTOM_RIGHT">
+                           <children>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="-" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="4.0" />
+                                       </padding>
+                                    </Label>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXSlider fx:id="requestZoomSlider" onMouseClicked="#requestZoom" onMouseDragged="#requestZoom" onMousePressed="#requestZoom" onMouseReleased="#requestZoom" prefHeight="40.0" prefWidth="306.0" style="-fx-background-color: #0068B1;">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </JFXSlider>
+                              <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;">
+                                 <graphic>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="+" textFill="#cccccc">
+                                       <font>
+                                          <Font name="System Bold" size="32.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </GridPane>
+                  <VBox alignment="TOP_CENTER" prefHeight="1078.0" prefWidth="275.0">
+                     <children>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <JFXButton alignment="CENTER" cancelButton="true" onAction="#requestToHub" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #09a1b3; -fx-border-radius: 10; -fx-background-radius: 0;" text="Back" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </JFXButton>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Staff Request" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="80.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                                 <image>
+                                    <Image url="@../images/other%20images/BWH.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </GridPane>
                         <JFXTabPane prefHeight="871.0" prefWidth="425.0">
                            <tabs>
                               <Tab text="View">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="423.0">
+                                    <AnchorPane>
                                        <children>
                                           <VBox alignment="CENTER" prefHeight="801.0" prefWidth="423.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
@@ -52,7 +215,7 @@
                                                       <Font size="20.0" />
                                                    </font>
                                                 </JFXTextArea>
-                                                <JFXButton buttonType="RAISED" onAction="#completeRequest" prefHeight="51.0" prefWidth="146.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE">
+                                                <JFXButton onAction="#completeRequest" prefHeight="51.0" prefWidth="146.0" text="Complete">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
@@ -68,7 +231,7 @@
                               </Tab>
                               <Tab text="Add">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane>
                                        <children>
                                           <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
@@ -300,7 +463,7 @@
                                              </rowConstraints>
                                              <children>
                                                 <JFXListView fx:id="requestsIMade" prefHeight="119.0" prefWidth="248.0" GridPane.columnSpan="2" GridPane.rowSpan="2" />
-                                                <JFXButton buttonType="RAISED" onAction="#deleteStaffRequest" prefHeight="48.0" prefWidth="101.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                                <JFXButton onAction="#deleteStaffRequest" prefHeight="48.0" prefWidth="101.0" text="Delete" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font size="22.0" />
                                                    </font>
@@ -312,91 +475,16 @@
                                  </content>
                               </Tab>
                            </tabs>
-                           <padding>
-                              <Insets top="20.0" />
-                           </padding>
                         </JFXTabPane>
                      </children>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" top="20.0" />
+                     </GridPane.margin>
                   </VBox>
                </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="1080.0" prefWidth="1652.0">
-               <children>
-                  <GridPane prefHeight="1080.0" prefWidth="1497.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="842.0" minWidth="10.0" prefWidth="723.0" />
-                      <ColumnConstraints hgrow="ALWAYS" maxWidth="743.0" minWidth="10.0" prefWidth="134.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="353.0" minHeight="0.0" prefHeight="44.00000190734863" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="797.0" minHeight="10.0" prefHeight="752.9999980926514" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="118.0" minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <ScrollPane fx:id="requestScrollPane" hbarPolicy="NEVER" hvalue="0.29" pannable="true" prefHeight="800.0" prefWidth="702.0" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.59" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS" />
-                        <VBox alignment="CENTER_RIGHT" fillWidth="false" maxWidth="-Infinity" prefHeight="446.0" prefWidth="83.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <children>
-                              <VBox alignment="CENTER" fillWidth="false" prefHeight="263.0" prefWidth="108.0" VBox.vgrow="SOMETIMES">
-                                 <children>
-                                    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorUpRequest" prefHeight="70.0" prefWidth="70.0" ripplerFill="#cccccc" style="-fx-background-radius: 100; -fx-background-color: #0068B1;">
-                                       <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="-2.0">
-                                             <image>
-                                                <Image url="@../images/Icons/ArrowUp.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                    <JFXButton contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="88.0" prefWidth="88.0" style="-fx-background-color: #0068B1; -fx-background-radius: 110;">
-                                       <graphic>
-                                          <Label fx:id="currentFloorNumRequest" contentDisplay="CENTER" textFill="#cccccc">
-                                             <font>
-                                                <Font name="System Bold" size="32.0" />
-                                             </font>
-                                          </Label>
-                                       </graphic>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" top="10.0" />
-                                       </VBox.margin>
-                                    </JFXButton>
-                                    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" onAction="#floorDownRequest" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 100; -fx-background-color: #0068B1;" text=" ">
-                                       <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateY="4.0">
-                                             <image>
-                                                <Image url="@../images/Icons/DownArrow.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </JFXButton>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                              </VBox>
-                              <JFXSlider fx:id="requestZoomSlider" onMouseClicked="#requestZoom" onMouseDragged="#requestZoom" onMousePressed="#requestZoom" onMouseReleased="#requestZoom" orientation="VERTICAL" prefHeight="147.0" prefWidth="58.0" VBox.vgrow="SOMETIMES">
-                                 <padding>
-                                    <Insets right="40.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets bottom="30.0" />
-                                 </VBox.margin>
-                              </JFXSlider>
-                           </children>
-                        </VBox>
-                        <JFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#requestToHub" prefHeight="61.0" prefWidth="110.0" style="-fx-background-color: #cccccc; -fx-background-radius: 12; -fx-border-color: #0068B1; -fx-border-radius: 10; -fx-border-width: 5;" text="Back" textFill="#0068b1" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                           <GridPane.margin>
-                              <Insets right="15.0" top="15.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </JFXButton>
-                        <Region maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="804.0" prefWidth="22.0" style="-fx-background-image: url('/boundary/images/other%20images/halfShadow.png');" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS" />
-                     </children>
-                  </GridPane>
-               </children>
-            </AnchorPane>
+            </GridPane>
          </children>
-      </HBox>
+      </AnchorPane>
+      <AnchorPane layoutX="266.0" layoutY="-798.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
