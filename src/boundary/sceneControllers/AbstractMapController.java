@@ -93,6 +93,7 @@ public abstract class AbstractMapController {
     public void refreshKiosk() {
         origin = mapNavigationFacade.getDefaultNode();
         currentFloor = origin.getFloor();
+        JFXButton jfxButton = new JFXButton();
         imageView.setImage(mapNavigationFacade.getFloorMap(origin.getFloor()));
         centerMap(origin);
         refreshCanvas();
