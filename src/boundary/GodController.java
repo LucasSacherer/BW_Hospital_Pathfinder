@@ -535,6 +535,25 @@ public class GodController {
     @FXML
     private void resetFoodRequest() { staffRequestController.resetFoodRequest(); }
 
+    @FXML
+    private void floorL2StaffRequest() throws IOException, SQLException { staffRequestController.floorL2(); }
+
+    @FXML
+    private void floorL1StaffRequest() throws IOException, SQLException { staffRequestController.floorL1(); }
+
+    @FXML
+    private void floorGStaffRequest() throws IOException, SQLException { staffRequestController.floorG(); }
+
+    @FXML
+    private void floor1StaffRequest() throws IOException, SQLException { staffRequestController.floor1(); }
+
+    @FXML
+    private void floor2StaffRequest() throws IOException, SQLException { staffRequestController.floor2(); }
+
+    @FXML
+    private void floor3StaffRequest() throws IOException, SQLException { mainSceneController.floor3(); }
+
+
     /////////////////////
     /* Request Reports */
     /////////////////////

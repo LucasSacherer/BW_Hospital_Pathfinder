@@ -18,7 +18,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="derbyclient" level="project" />
     <orderEntry type="library" name="commons-csv-1.5" level="project" />
     <orderEntry type="library" name="ejml-core-0.32" level="project" />
     <orderEntry type="library" name="ejml-fdense-0.32" level="project" />
@@ -29,5 +28,6 @@
     <orderEntry type="library" name="jxbrowser-mac-6.17" level="project" />
     <orderEntry type="library" name="jxbrowser-win32-6.17" level="project" />
     <orderEntry type="library" name="Transporter-1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="derby" level="project" />
   </component>
 </module>
