@@ -254,8 +254,8 @@ public class MainSceneController extends AbstractMapController {
                 smallPerson.setFitWidth(60);
 
                 button.setStyle("-fx-background-color:#09a1b3; " +
-                        "-fx-pref-height: 60; " + "-fx-background-radius: 50%;" +
-                        "-fx-pref-width: 60;" + "-fx-alignment: CENTER");
+                        "-fx-min-height: 60; " + "-fx-background-radius: 100%;" +
+                        "-fx-min-width: 60;" + "-fx-max-height: 60;" + "-fx-max-width: 60;");
                 button.setGraphic(smallPerson);
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
