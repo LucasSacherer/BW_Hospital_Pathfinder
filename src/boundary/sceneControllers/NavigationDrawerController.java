@@ -10,9 +10,11 @@ import Pathfinding.textDirEntry;
 import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
+import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -20,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 
@@ -33,9 +36,6 @@ public class NavigationDrawerController {
     private DirectoryController dc;
     private TextualDirections textualDirections = new TextualDirections();
     private AutoCompleteTextField originTextField, destinationTextField;
-//    private GodController g;
-//    private MapNavigationFacade m;
-//    private PathFindingFacade p;
     private MainSceneController mainSceneController;
     private Region directoryRegion;
 
@@ -45,11 +45,12 @@ public class NavigationDrawerController {
     @FXML
     private ButtonBar buttonBar;
 
+
     @FXML
     private JFXTreeTableView<textDirEntry> textDirectionsTable = new JFXTreeTableView<>();
 
     @FXML
-    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn = new TreeTableColumn<>();
+    private TreeTableColumn<textDirEntry, ImageView> imageDirectionColumn = new TreeTableColumn<>();
 
     @FXML
     private TreeTableColumn<textDirEntry, String> textDirectionsColumn = new TreeTableColumn<>();
@@ -59,10 +60,9 @@ public class NavigationDrawerController {
     protected List<List<textDirEntry>> textDirs = new ArrayList<>();
 
 
-
     public NavigationDrawerController(JFXDrawer drawer, DirectoryController dc,
                                       JFXTreeTableView<textDirEntry> textDirectionsTable, TreeTableColumn<textDirEntry, String> textDirectionsColumn,
-                                      TreeTableColumn<textDirEntry, Image> imageDirectionColumn) {
+                                      TreeTableColumn<textDirEntry, ImageView> imageDirectionColumn) {
         this.drawer = drawer;
         this.dc = dc;
         JFXListView directions = new JFXListView();
@@ -70,7 +70,6 @@ public class NavigationDrawerController {
         this.textDirectionsTable = textDirectionsTable;
         this.textDirectionsColumn = textDirectionsColumn;
         this.imageDirectionColumn = imageDirectionColumn;
-
 
     }
 
@@ -94,25 +93,50 @@ public class NavigationDrawerController {
     public void initializeTable() {
         root.getChildren().clear();
 
-        for (List<textDirEntry> lists : textDirs){
-            for (textDirEntry dirEntry : lists){
+        for (List<textDirEntry> lists : textDirs) {
+            for (textDirEntry dirEntry : lists) {
                 root.getChildren().add(new TreeItem<>(dirEntry));
             }
 //            root.getChildren().add(new TreeItem<>(null));
         }
-//        imageDirectionColumn.setCellValueFactory(
-//                (TreeTableColumn.CellDataFeatures<textDirEntry, Image> param) -> new ReadOnlyObjectWrapper(param.getValue().getValue().getSymbol()));
+        imageDirectionColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<textDirEntry, ImageView> param) -> new SimpleObjectProperty<ImageView>(param.getValue().getValue().getSymbol()));
         textDirectionsColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<textDirEntry, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getInstruction()));
 
+        textDirectionsColumn.setCellFactory(new Callback<TreeTableColumn<textDirEntry, String>, TreeTableCell<textDirEntry, String>>() {
+
+            @Override
+            public TreeTableCell<textDirEntry, String> call(
+                    TreeTableColumn<textDirEntry, String> param) {
+                TreeTableCell<textDirEntry, String> cell = new TreeTableCell();
+                Text text = new Text();
+                cell.setGraphic(text);
+                cell.wrapTextProperty();
+                cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+                text.wrappingWidthProperty().bind(cell.widthProperty());
+                text.textProperty().bind(cell.itemProperty());
+                return cell;
+            }
+
+        });
         textDirectionsTable.setRoot(root);
         textDirectionsTable.setShowRoot(false);
+        textDirectionsTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() > 0) {
+                centerNode();
+            }
+        });
     }
 
-    @FXML
-    public void backToDirectory() { drawer.setSidePane(directoryRegion); }
 
-
+    private void centerNode() {
+        if (textDirectionsTable.getSelectionModel().getSelectedItem() != null) {
+            TreeItem<textDirEntry> selectedTextDirEntry = textDirectionsTable.getSelectionModel().getSelectedItem();
+            mainSceneController.centerMap(selectedTextDirEntry.getValue().getCurrNode());
+            mainSceneController.goToCorrectFloorOfNode(selectedTextDirEntry.getValue().getCurrNode());
+        }
+    }
 
     @FXML
     public void closeDrawer() {
@@ -124,9 +148,9 @@ public class NavigationDrawerController {
 
     @FXML
     public void navigate() throws IOException {
-            mainSceneController.findPath();
-            mainSceneController.hide();
-            hide();
+        mainSceneController.findPath();
+        mainSceneController.hide();
+        hide();
     }
 
     @FXML
@@ -177,7 +201,5 @@ public class NavigationDrawerController {
         this.path = path;
         textDirs = textualDirections.makeTextDir(path);
         initializeTable();
-
-
     }
 }
