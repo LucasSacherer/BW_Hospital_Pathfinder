@@ -215,7 +215,7 @@
                                                       <Font size="20.0" />
                                                    </font>
                                                 </JFXTextArea>
-                                                <JFXButton buttonType="RAISED" onAction="#completeRequest" prefHeight="51.0" prefWidth="146.0" style="-fx-background-color: green;" text="Complete" textFill="WHITE">
+                                                <JFXButton onAction="#completeRequest" prefHeight="51.0" prefWidth="146.0" text="Complete">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
@@ -463,7 +463,7 @@
                                              </rowConstraints>
                                              <children>
                                                 <JFXListView fx:id="requestsIMade" prefHeight="119.0" prefWidth="248.0" GridPane.columnSpan="2" GridPane.rowSpan="2" />
-                                                <JFXButton buttonType="RAISED" onAction="#deleteStaffRequest" prefHeight="48.0" prefWidth="101.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                                <JFXButton onAction="#deleteStaffRequest" prefHeight="48.0" prefWidth="101.0" text="Delete" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font size="22.0" />
                                                    </font>
