@@ -179,9 +179,7 @@ public class TextualDirections {
         //writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
         //add the list for the first floor in the directions
         writtenDirections.add(new LinkedList<textDirEntry>());
-        nextEntry = (new textDirEntry(path.get(0), path.get(1), "Directions from " + startName +
-                " to " + destName + "\nProceed to ",distNode(path.get(0), path.get(1))));
-        writtenDirections.get(0).add(nextEntry);
+
 
         //accounts for the case where path size is 2
         if (path.size() == 2){

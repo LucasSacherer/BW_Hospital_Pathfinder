@@ -89,7 +89,7 @@ public class GodController {
 
     private TreeTableColumn<textDirEntry, String> textDirectionsColumn;
 
-    private TreeTableColumn<textDirEntry,Image> imageDirectionColumn;
+    private TreeTableColumn<textDirEntry,ImageView> imageDirectionColumn;
 
 
     ///////////////////////
@@ -339,7 +339,7 @@ public class GodController {
         initializeAdminRequestScene();
         initializeAdminEmployeeScene();
         initializeAdminLogScene();
-        initializeStaffRequestHubScene();
+//        initializeStaffRequestHubScene();
         initializeAdminSettingsPopUpController();
         firstTime = false;
     }
@@ -402,8 +402,8 @@ public class GodController {
               usernameColumn,  passwordColumn,adminStatusColumn);
     }
 
-    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
-
+//    private void initializeStaffRequestHubScene(){ staffRequestHubController = new StaffRequestHubController(nodeManager); }
+//
     private void initializeAdminSettingsPopUpController(){adminSettingsPopUpController = new AdminSettingsPopUpController(nodeEditController,
             pathFindingFacade, astar, beam, breadth, depth, best, dijkstra);}
 
