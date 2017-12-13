@@ -187,16 +187,16 @@
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" maxHeight="80.0" maxWidth="80.0" minHeight="80.0" minWidth="80.0" onAction="#toAboutPopUp" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #0068B1; -fx-background-radius: 0;" text=" " wrapText="true">
-                     <graphic>
-                        <Label text="i" textFill="#e6e6e6">
-                           <font>
-                              <Font name="Serif Bold" size="62.0" />
-                           </font>
-                        </Label>
-                     </graphic>
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/help.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="TEXT_ONLY" onAction="#mainToLogin" prefHeight="80.0" prefWidth="160.0" ripplerFill="#cccccc" style="-fx-background-radius: 12; -fx-background-color: #0068b1; -fx-border-color: #0068b1; -fx-border-radius: 0; -fx-border-width: 10;" text="Login" textFill="#e6e6e6">
                      <font>

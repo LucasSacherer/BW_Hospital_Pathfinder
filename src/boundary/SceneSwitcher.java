@@ -20,11 +20,13 @@ public class SceneSwitcher {
     private final String staffRequestHubLoc = "/boundary/fxml/staffRequestHub.fxml";
 
     public void switchScene(GodController g, Pane from, String to) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(to));
-        loader.setController(g);
-        AnchorPane mainScene = (AnchorPane) loader.load();
-        Scene primaryScene = from.getScene();
-        primaryScene.setRoot(mainScene);
+        if(from.getScene() != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(to));
+            loader.setController(g);
+            AnchorPane mainScene = (AnchorPane) loader.load();
+            Scene primaryScene = from.getScene();
+            primaryScene.setRoot(mainScene);
+        }
     }
 
     public void toMain(GodController g, Pane from) throws IOException { switchScene(g, from, mainLoc); }
