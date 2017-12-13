@@ -657,6 +657,28 @@ public class GodController {
     @FXML
     private void exportEdges() { adminMapController.exportEdges(); }
 
+    @FXML
+    private void floorL2AdminMap() throws IOException, SQLException { adminMapController.floorL2(); }
+
+    @FXML
+    private void floorL1AdminMap() throws IOException, SQLException { adminMapController.floorL1(); }
+
+    @FXML
+    private void floorGAdminMap() throws IOException, SQLException { adminMapController.floorG(); }
+
+    @FXML
+    private void floor1AdminMap() throws IOException, SQLException { adminMapController.floor1(); }
+
+    @FXML
+    private void floor2AdminMap() throws IOException, SQLException { adminMapController.floor2(); }
+
+    @FXML
+    private void floor3AdminMap() throws IOException, SQLException { adminMapController.floor3(); }
+
+    @FXML
+    private void adminMapZoom() { adminMapController.zoom(); }
+
+
 
     /////////////////////////
     /* Service Request Hub */
