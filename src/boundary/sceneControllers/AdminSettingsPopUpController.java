@@ -4,6 +4,7 @@ import Editor.NodeEditController;
 import Pathfinding.*;
 import boundary.sceneControllers.mapEditing.KioskEditor;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +21,9 @@ public class AdminSettingsPopUpController {
     protected GraphicsContext gc;
 
     @FXML
+    private JFXToggleButton bfs, dfs, bestButton, djikstraButton, astarButton, beamButton;
+
+    @FXML
     private JFXTextField distanceScale;
 
     @FXML
@@ -31,31 +35,57 @@ public class AdminSettingsPopUpController {
     private void setMomentoTimeout(){}
 
     @FXML
-    private void selectAstar() { pathFindingFacade.setPathfinder(astar); }
+    private void initialize() {
+       String currentPath = pathFindingFacade.getPathFinder();
+       if (currentPath != null) {
+           if (currentPath.equals("astar")) astarButton.setSelected(true);
+           if (currentPath.equals("beam")) beamButton.setSelected(true);
+           if (currentPath.equals("breadth")) bfs.setSelected(true);
+           if (currentPath.equals("depth")) dfs.setSelected(true);
+           if (currentPath.equals("best")) bestButton.setSelected(true);
+           if (currentPath.equals("djikstra")) djikstraButton.setSelected(true);
+       }
+    }
 
     @FXML
-    private void selectBeam() { pathFindingFacade.setPathfinder(beam); }
+    private void selectAstar() {
+        pathFindingFacade.setPathfinder(astar);
+        pathFindingFacade.setPathFinder("astar");
+    }
 
     @FXML
-    private void selectBreadth() { pathFindingFacade.setPathfinder(breadth); }
+    private void selectBeam() {
+        pathFindingFacade.setPathfinder(beam);
+        pathFindingFacade.setPathFinder("beam");
+    }
 
     @FXML
-    private void selectDepth() { pathFindingFacade.setPathfinder(depth); }
+    private void selectBreadth() {
+        pathFindingFacade.setPathfinder(breadth);
+        pathFindingFacade.setPathFinder("breadth");
+    }
 
     @FXML
-    private void selectBest() { pathFindingFacade.setPathfinder(best);}
+    private void selectDepth() {
+        pathFindingFacade.setPathfinder(depth);
+        pathFindingFacade.setPathFinder("depth");
+    }
 
     @FXML
-    private void selectDijkstras() { pathFindingFacade.setPathfinder(dijkstra);}
+    private void selectBest() {
+        pathFindingFacade.setPathfinder(best);
+        pathFindingFacade.setPathFinder("best");
+    }
 
     @FXML
-    private void selectScenicRoute() { }
+    private void selectDijkstras() {
+        pathFindingFacade.setPathfinder(dijkstra);
+        pathFindingFacade.setPathFinder("djikstra");
+    }
 
-    @FXML
-    private void selectQuickScenicRoute() { }
-
-
-    public AdminSettingsPopUpController(NodeEditController nodeEditController, PathFindingFacade pathFindingFacade, Astar astar, BeamSearch beam, BreadthSearch breadth, DepthSearch depth, BestFirst best, Dijkstra dijkstra ) {
+    public AdminSettingsPopUpController(NodeEditController nodeEditController, PathFindingFacade pathFindingFacade,
+                                        Astar astar, BeamSearch beam, BreadthSearch breadth, DepthSearch depth,
+                                        BestFirst best, Dijkstra dijkstra ) {
         this.nodeEditController = nodeEditController;
         this.pathFindingFacade = pathFindingFacade;
         this.astar = astar;
@@ -65,8 +95,4 @@ public class AdminSettingsPopUpController {
         this.best = best;
         this.dijkstra = dijkstra;
     }
-
-
-
-
 }

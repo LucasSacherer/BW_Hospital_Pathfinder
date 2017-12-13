@@ -393,7 +393,7 @@ public class GodController {
              requestDescriptionFoodColumn,  requestLocationFoodColumn,
              requestUserFoodColumn); }
 
-    private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
+    private void initializeRequestReportScene() { requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
             genericRequestController, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
@@ -753,7 +753,6 @@ public class GodController {
             if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
                 databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
                 adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
-                System.out.println(databaseGargoyle.getCurrentUser().getUsername());
                 sceneSwitcher.toAdminHub(this, loginPane);
                 adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
             } else errorController.showError("Invalid credentials! Please try again.");

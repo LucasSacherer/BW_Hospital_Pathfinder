@@ -52,9 +52,7 @@ public class UserManager implements EntityManager {
     public Boolean authenticateStaff(String username, String password){
         for (User user: users){
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
-                if (!user.getAdminFlag()){
-                    return true;
-                }
+                return true;
             }
         }
         return false;
