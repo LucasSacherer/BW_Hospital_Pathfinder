@@ -2,6 +2,7 @@ package MementoPattern;
 
 import boundary.GodController;
 import boundary.SceneSwitcher;
+import boundary.sceneControllers.MainSceneController;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +33,7 @@ public class InactivityListener implements ActionListener {
                 System.out.println("RETURNING TO MAIN");
                 System.out.println("Pane Name" + pane);
                 sceneSwitcher.toMain(god, pane);
+                god.getMainSceneController();
             }catch(IOException exception){
                 System.out.println("failed");
             }
