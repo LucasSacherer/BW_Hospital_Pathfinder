@@ -211,6 +211,8 @@ public class TableCreator {
             System.out.println("Settings table created!");
             statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Default Node','GHALL03802')");
             statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Distance Scale','1.76')");
+            statement.executeUpdate("INSERT INTO SETTINGS VALUES ('Memento Delay','0.5')");
+
         } catch (SQLException e) {
             System.out.println("Settings table already exists");
         }
