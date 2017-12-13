@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 import javafx.scene.shape.*;
@@ -123,7 +124,6 @@ public abstract class AbstractMapController {
         clearCanvas();
         drawCurrentNode();
         drawPath();
-        gc.setTransform(1, 0, 0, 1, 0, 0);
         drawOrigin();
         drawDestination();
         drawPathNodes();
@@ -198,16 +198,15 @@ public abstract class AbstractMapController {
         }
     }
 
-    //initializations for drawing the animation
-    double rate = 0;
-    Timeline timeline = new Timeline();
-    DoubleProperty x1d = new SimpleDoubleProperty(0);
-    DoubleProperty y1d = new SimpleDoubleProperty(0);
+    DoubleProperty x1d = new SimpleDoubleProperty();
+    DoubleProperty y1d = new SimpleDoubleProperty();
 
     public void drawPath() {
         List<Node> pathToDraw = currentPath;
         if(currentPath == null || currentPath.size() == 0){ return; }
         Collections.reverse(pathToDraw);
+
+
         /** Testing Only **
          ArrayList<Node> pathToDraw = new ArrayList<>(); //TODO this list is for testing
          pathToDraw.add(new Node("a",10, 10, "a","a","a","a","a",true));
@@ -216,7 +215,7 @@ public abstract class AbstractMapController {
          /** testing over **/
 
         //draws the path outline
-        for(int i=0;i<pathToDraw.size()-1;i++) {
+        for(int i=0; i<pathToDraw.size()-1; i++) {
             Node current = pathToDraw.get(i);
             Node next = pathToDraw.get(i+1);
             int x1 = current.getXcoord();
@@ -226,12 +225,15 @@ public abstract class AbstractMapController {
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 gc.setStroke(Color.SLATEGRAY);
                 gc.setLineWidth(12);
-                gc.strokeLine(x1, y1, x2, y2);
+               // gc.strokeLine(x1, y1, x2, y2);
             }
         }
+//        Image pattern = new Image("/boundary/images/other images/pathpattern.gif",
+//                20, 20, true, false);
+//        ImagePattern pathPattern = new ImagePattern(pattern, 12, 12, 10, 70, true);
 
         //fills the inside of the path
-        for(int i=0;i<pathToDraw.size()-1;i++) {
+        for(int i=0; i<pathToDraw.size()-1; i++) {
             Node current = pathToDraw.get(i);
             Node next = pathToDraw.get(i + 1);
             int x1 = current.getXcoord();
@@ -240,16 +242,21 @@ public abstract class AbstractMapController {
             int y2 = next.getYcoord();
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
                 gc.setStroke(Color.ROYALBLUE);
-                gc.setLineWidth(6);
+                gc.setLineWidth(7);
                 gc.strokeLine(x1, y1, x2, y2);
             }
         }
 
-        //populates the timeline with all animations in order
-        for(int i=0;i<pathToDraw.size()-1;i++) {
-            Node current = pathToDraw.get(i);
-            Node next = pathToDraw.get(i + 1);
-            //subtract 7 to fix node alignment
+        //animation initializations
+        Timeline timeline = new Timeline();
+        Image bullsEye = new Image("/boundary/images/other images/bullsEye.png",
+                20, 20, true, false);
+
+
+        //builds the timeline
+        for(int i=0; i<pathToDraw.size()-1; i++) {
+            Node next = pathToDraw.get(i);
+            Node current = pathToDraw.get(i + 1);
             int x1 = current.getXcoord() - 7;
             int y1 = current.getYcoord() - 7;
             int x2 = next.getXcoord() - 7;
@@ -257,38 +264,47 @@ public abstract class AbstractMapController {
             x1d = new SimpleDoubleProperty(x1);
             y1d = new SimpleDoubleProperty(y1);
             if (current.getFloor().equals(currentFloor) && next.getFloor().equals(currentFloor)) {
-                buildTimeline(x1d, y1d, x2, y2);
+                KeyValue xVal = new KeyValue(x1d, x2);
+                KeyValue yVal = new KeyValue(y1d, y2);
+                KeyFrame step = new KeyFrame(Duration.seconds(1), xVal, yVal);
+                timeline.getKeyFrames().add(step);
             }
         }
-
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.setAutoReverse(false);
-
-        AnimationTimer timer = new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gc.setFill(Color.FORESTGREEN);
-                gc.fillOval(
-                        x1d.doubleValue(),
-                        y1d.doubleValue(),
-                        12,
-                        12
-                );
+                gc.drawImage(bullsEye, x1d.doubleValue(),y1d.doubleValue());
             }
         };
-
-
-        timer.start();
-        timeline.playFromStart();
+        animationTimer.start();
+        timeline.play();
     }
 
-    private void buildTimeline(DoubleProperty x, DoubleProperty y, int x_end, int y_end){
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(1), //TODO: implement a steady rate by setting duration to distance*rate
-                        new KeyValue(x, x_end),
-                        new KeyValue(y, y_end)));
-        System.out.println(x.toString() + y.toString());
+
+    private Path createPath(List<Node> stops){
+        Path aniPath = new Path();
+        //creates the animation path
+        for(int i=0; i<stops.size()-1; i++){
+            Node current = stops.get(i);
+            Node next = stops.get(i + 1);
+            int x1 = current.getXcoord();
+            int y1 = current.getYcoord();
+            int x2 = next.getXcoord();
+            int y2 = next.getYcoord();
+            if(i==0){
+                MoveTo moveTo = new MoveTo();
+                moveTo.setX(x1);
+                moveTo.setY(y1);
+                aniPath.getElements().add(moveTo);
+            }
+            LineTo lineTo = new LineTo();
+            lineTo.setX(x2);
+            lineTo.setY(y2);
+            aniPath.getElements().add(lineTo);
+        }
+        return aniPath;
     }
+
 
     private void drawPathNodes() {
         List<Node> pathToDraw = currentPath;
