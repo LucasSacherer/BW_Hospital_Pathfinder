@@ -396,7 +396,7 @@ public class GodController {
              requestDescriptionFoodColumn,  requestLocationFoodColumn,
              requestUserFoodColumn); }
 
-    private void initializeRequestReportScene(){ requestReportController = new RequestReportController(); }
+    private void initializeRequestReportScene() { requestReportController = new RequestReportController(); }
 
     private void initializeAdminEmployeeScene() { adminEmployeeController = new AdminEmployeeController(userManager,
             genericRequestController, employeeUserIDAE, employeeUsernameAE, employeePasswordAE,
@@ -538,6 +538,25 @@ public class GodController {
     @FXML
     private void resetFoodRequest() { staffRequestController.resetFoodRequest(); }
 
+    @FXML
+    private void floorL2StaffRequest() throws IOException, SQLException { staffRequestController.floorL2(); }
+
+    @FXML
+    private void floorL1StaffRequest() throws IOException, SQLException { staffRequestController.floorL1(); }
+
+    @FXML
+    private void floorGStaffRequest() throws IOException, SQLException { staffRequestController.floorG(); }
+
+    @FXML
+    private void floor1StaffRequest() throws IOException, SQLException { staffRequestController.floor1(); }
+
+    @FXML
+    private void floor2StaffRequest() throws IOException, SQLException { staffRequestController.floor2(); }
+
+    @FXML
+    private void floor3StaffRequest() throws IOException, SQLException { mainSceneController.floor3(); }
+
+
     /////////////////////
     /* Request Reports */
     /////////////////////
@@ -660,6 +679,28 @@ public class GodController {
     @FXML
     private void exportEdges() { adminMapController.exportEdges(); }
 
+    @FXML
+    private void floorL2AdminMap() throws IOException, SQLException { adminMapController.floorL2(); }
+
+    @FXML
+    private void floorL1AdminMap() throws IOException, SQLException { adminMapController.floorL1(); }
+
+    @FXML
+    private void floorGAdminMap() throws IOException, SQLException { adminMapController.floorG(); }
+
+    @FXML
+    private void floor1AdminMap() throws IOException, SQLException { adminMapController.floor1(); }
+
+    @FXML
+    private void floor2AdminMap() throws IOException, SQLException { adminMapController.floor2(); }
+
+    @FXML
+    private void floor3AdminMap() throws IOException, SQLException { adminMapController.floor3(); }
+
+    @FXML
+    private void adminMapZoom() { adminMapController.zoom(); }
+
+
 
     /////////////////////////
     /* Service Request Hub */
@@ -727,7 +768,6 @@ public class GodController {
             if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
                 databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
                 adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
-                System.out.println(databaseGargoyle.getCurrentUser().getUsername());
                 sceneSwitcher.toAdminHub(this, loginPane);
                 adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
 

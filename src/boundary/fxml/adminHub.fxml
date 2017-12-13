@@ -41,7 +41,7 @@
                   <Insets bottom="30.0" right="30.0" top="30.0" />
                </GridPane.margin>
             </GridPane>
-            <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#adminHubToMain" prefHeight="80.0" prefWidth="80.0" ripplerFill="WHITE" style="-fx-background-color: #003da6; -fx-background-image: src\boundary\images\staffHub.png;" text="Back" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <JFXButton fx:id="back" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubToMain" prefHeight="80.0" prefWidth="110.0" ripplerFill="WHITE" text="Log Out" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -52,13 +52,6 @@
                      </input>
                   </DropShadow>
                </effect>
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/Icons/Back.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
                <GridPane.margin>
                   <Insets left="20.0" top="20.0" />
                </GridPane.margin>
@@ -76,7 +69,7 @@
                         <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="240.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton fx:id="requests" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubtoRequest" prefHeight="240.0" prefWidth="240.0" ripplerFill="WHITE" style="-fx-background-color: #097bbd; -fx-background-image: src\boundary\images\staffHub.png;" text="Requests" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="requests" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubtoRequest" prefHeight="240.0" prefWidth="240.0" ripplerFill="WHITE" text="Requests" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -95,7 +88,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="employees" contentDisplay="TOP" onAction="#adminHubtoEmployee" prefHeight="240.0" prefWidth="240.0" style="-fx-background-color: #097bbd;" text="Employees" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="employees" contentDisplay="TOP" onAction="#adminHubtoEmployee" prefHeight="240.0" prefWidth="240.0" text="Employees" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -107,7 +100,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="maps" alignment="CENTER" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoMap" prefHeight="225.0" prefWidth="224.0" style="-fx-background-color: #097bbd;" text="Maps" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="maps" alignment="CENTER" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoMap" prefHeight="225.0" prefWidth="224.0" text="Maps" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -119,7 +112,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="logs" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoLog" prefHeight="235.0" prefWidth="240.0" style="-fx-background-color: #097bbd;" text="Admin logs" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="logs" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoLog" prefHeight="235.0" prefWidth="240.0" text="Admin logs" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -141,12 +134,12 @@
                               <Font name="System Italic" size="34.0" />
                            </font>
                         </Label>
-                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toSettingsPopUp" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 120; -fx-background-color: white;" text=" " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                        <JFXButton alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#toSettingsPopUp" prefHeight="50.0" prefWidth="50.0" text=" " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="41.0" fitWidth="41.0">
+                              <ImageView fitHeight="33.0" fitWidth="33.0" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/Icons/settings.png" />
                                  </image>

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PathFindingFacade {
+    private String currentPath;
     PathFinder pF;
     PathController pathController;
     PathfindingLogManager pathfindingLogManager = new PathfindingLogManager();
@@ -35,4 +36,8 @@ public class PathFindingFacade {
     void addPathtoLog (List<Node> path){
         pathfindingLogManager.addPathToLog(path);
     }
+
+    public String getPathFinder() { return currentPath; }
+
+    public void setPathFinder(String pathFinder) { currentPath = pathFinder; }
 }
