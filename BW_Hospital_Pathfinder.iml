@@ -18,12 +18,12 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="derbyclient" level="project" />
     <orderEntry type="library" name="commons-csv-1.5" level="project" />
     <orderEntry type="library" name="ejml-core-0.32" level="project" />
     <orderEntry type="library" name="ejml-fdense-0.32" level="project" />
     <orderEntry type="library" name="jfoenix" level="project" />
     <orderEntry type="library" name="Team-G-Food-Request" level="project" />
     <orderEntry type="library" name="Transporter-1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="derby" level="project" />
   </component>
 </module>
