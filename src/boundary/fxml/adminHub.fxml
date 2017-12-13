@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminHubPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="adminHubPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../MainCSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="1667.0" fitWidth="2345.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -69,7 +69,7 @@
                         <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="240.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton fx:id="requests" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubtoRequest" prefHeight="240.0" prefWidth="240.0" ripplerFill="WHITE" text="Requests" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="requests" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubtoRequest" prefHeight="240.0" prefWidth="240.0" ripplerFill="WHITE" styleClass="specialButton" text="Requests" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -88,7 +88,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="employees" contentDisplay="TOP" onAction="#adminHubtoEmployee" prefHeight="240.0" prefWidth="240.0" text="Employees" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="employees" contentDisplay="TOP" onAction="#adminHubtoEmployee" prefHeight="240.0" prefWidth="240.0" styleClass="specialButton" text="Employees" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -100,7 +100,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="maps" alignment="CENTER" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoMap" prefHeight="225.0" prefWidth="224.0" text="Maps" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="maps" alignment="CENTER" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoMap" prefHeight="225.0" prefWidth="224.0" styleClass="specialButton" text="Maps" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -112,7 +112,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="logs" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoLog" prefHeight="235.0" prefWidth="240.0" text="Admin logs" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="logs" contentDisplay="TOP" maxHeight="240.0" maxWidth="240.0" onAction="#adminHubtoLog" prefHeight="235.0" prefWidth="240.0" styleClass="specialButton" text="Admin logs" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -126,7 +126,7 @@
                         </JFXButton>
                         <ImageView fitHeight="168.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                            <image>
-                              <Image url="@../images/other%20images/BWH.png" />
+                              <Image url="@../images/BWH-transparent-final.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" focusTraversable="false" prefHeight="103.0" prefWidth="167.0" text="Admin Hub" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">

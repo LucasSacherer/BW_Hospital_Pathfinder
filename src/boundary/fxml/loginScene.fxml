@@ -50,7 +50,7 @@
                      <children>
                             <ImageView fitHeight="193.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                 <image>
-                                    <Image url="@../images/other%20images/BWH.png" />
+                                    <Image url="@../images/BWH-transparent-final.png" />
                                 </image>
                             </ImageView>
                             <JFXButton onAction="#goToHub" prefHeight="36.0" prefWidth="160.0" ripplerFill="WHITE" text="Log in" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">

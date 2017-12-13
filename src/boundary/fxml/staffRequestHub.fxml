@@ -135,7 +135,7 @@
                         </JFXButton>
                         <ImageView fitHeight="157.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                            <image>
-                              <Image url="@../images/other%20images/BWH.png" />
+                              <Image url="@../images/BWH-transparent-final.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="100.0" prefWidth="217.0" text="Staff Service Request Hub " textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1">

@@ -38,13 +38,13 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </GridPane.margin>
             </JFXDrawer>
-            <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.6" pannable="true" style="-fx-background-color: #E0E0E0;" vbarPolicy="NEVER" vvalue="0.37" GridPane.columnSpan="3" GridPane.rowSpan="3">
+            <ScrollPane fx:id="mainScrollPane" hbarPolicy="NEVER" hvalue="0.6" pannable="true" stylesheets="@../MainCSS.css" vbarPolicy="NEVER" vvalue="0.37" GridPane.columnSpan="3" GridPane.rowSpan="3">
                <contextMenu>
-                  <ContextMenu>
+                  <ContextMenu styleClass="label2">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#navigateToHere" text="Navigate to here" />
-                        <MenuItem mnemonicParsing="false" onAction="#setLoc1" text="Set as origin" />
-                        <MenuItem mnemonicParsing="false" onAction="#resetOrigin" text="Reset Origin" />
+                      <MenuItem mnemonicParsing="false" onAction="#navigateToHere" style="-fx-text-fill: black;" text="Navigate to here" />
+                        <MenuItem mnemonicParsing="false" onAction="#setLoc1" style="-fx-text-fill: black;" text="Set as origin" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetOrigin" style="-fx-text-fill: black;" text="Reset Origin" />
                     </items>
                   </ContextMenu>
                </contextMenu>
@@ -291,11 +291,11 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="246.0" spacing="15.0">
                            <children>
-                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" text="About" textFill="BLUE">
+                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" styleClass="about" text="About" textFill="BLUE" underline="true">
                                  <font>
                                     <Font size="18.0" />
                                  </font></JFXButton>
-                              <Label text="© Brigham &amp; Women’s Hospital 2017">
+                              <Label style="-fx-text-fill: black;" text="© Brigham &amp; Women’s Hospital 2017">
                                  <font>
                                     <Font size="18.0" />
                                  </font></Label>
