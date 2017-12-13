@@ -9,6 +9,7 @@ import Editor.NodeEditController;
 import Entity.*;
 import GoogleNodes.GoogleNodeController;
 import MapNavigation.*;
+import MementoPattern.*;
 import Pathfinding.*;
 import Request.GenericRequestController;
 import Request.RequestCleanupController;
@@ -84,6 +85,7 @@ public class GodController {
     final private BestFirst best = new BestFirst(edgeManager);
     final private Dijkstra dijkstra = new Dijkstra(edgeManager);
 
+    private InactivityListener memento;
     /* Drawer */
     private JFXTreeTableView<textDirEntry> textDirectionsTable;
 
@@ -326,7 +328,6 @@ public class GodController {
 
     public GodController(Stage primaryStage) { this.primaryStage = primaryStage; } //TODO do we need the stage?
 
-
     @FXML
     private void initialize() throws IOException {
         //pathFindingFacade.setPathfinder(beamSearch);
@@ -342,6 +343,8 @@ public class GodController {
         initializeStaffRequestHubScene();
         initializeAdminSettingsPopUpController();
         firstTime = false;
+
+        memento = new InactivityListener(mainPane, this, sceneSwitcher);
     }
 
     private void initializeDrawers() {
@@ -735,63 +738,109 @@ public class GodController {
     /////////////////////
 
     @FXML
-    private void mainToLogin() throws IOException { sceneSwitcher.toLogin(this, mainPane); }
+    private void mainToLogin() throws IOException {
+        sceneSwitcher.toLogin(this, mainPane);
+        memento.stopListening();
+        memento.setPane(loginPane);
+        memento.startListening();
+    }
 
     @FXML
     private void requestToHub() throws IOException {
         User u = staffRequestController.getUser();
         sceneSwitcher.toStaffRequestHub(this, requestPane);
         staffRequestHubController.setUser(u);
+        memento.stopListening();
+        memento.setPane(requestHubPane);
+        memento.startListening();
+        System.out.println("from requests to requests hub");
     }
 
     @FXML
-    private void goToMainScene() throws IOException { sceneSwitcher.toMain(this, loginPane); }
+    private void goToMainScene() throws IOException {
+        sceneSwitcher.toMain(this, loginPane);
+        memento.stopListening();
+    }
 
     @FXML
-    private void goToHub() throws IOException{
-        if (loginAdminToggle.isSelected()){
+    private void goToHub() throws IOException {
+        if (loginAdminToggle.isSelected()) {
             if (userLoginController.authenticateAdmin(loginText.getText(), passwordText.getText())) {
                 databaseGargoyle.setCurrentUser(userManager.getUserByName(loginText.getText()));
                 adminLogManager.addAdminLog(new AdminLog(databaseGargoyle.getCurrentUser().getUserID(), "Successfully logged in as " + databaseGargoyle.getCurrentUser().getUsername(), LocalDateTime.now()));
                 sceneSwitcher.toAdminHub(this, loginPane);
                 adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
+
+                memento.stopListening();
+                memento.setPane(adminHubPane);
+                memento.startListening();
+                System.out.println("from login to admin hub");
             } else errorController.showError("Invalid credentials! Please try again.");
-            }
-        else{
-            if (userLoginController.authenticateStaff(loginText.getText(), passwordText.getText())){
+        } else {
+            if (userLoginController.authenticateStaff(loginText.getText(), passwordText.getText())) {
                 sceneSwitcher.toStaffRequestHub(this, loginPane);
                 staffRequestHubController.setUser(userManager.getUserByName(loginText.getText()));
+
+                memento.stopListening();
+                memento.setPane(requestHubPane);
+                memento.startListening();
+                System.out.println("from login to staff request hub");
             } else errorController.showError("Invalid credentials! Please try again.");
 
         }
     }
 
+    //where does this go?
     @FXML
     private void serviceHubToRequest() throws IOException {
         sceneSwitcher.toStaffRequests(this, requestPane);
         System.out.println(staffRequestHubController.getUser());
         staffRequestController.initializeScene(userManager.getUser(staffRequestHubController.getUser().getUserID()));
+
+        memento.stopListening();
+        memento.setPane(requestPane);
+        memento.startListening();
+        System.out.println("from service hub to requests");
     }
 
     @FXML
-    private void adminHubToMain() throws IOException { sceneSwitcher.toMain(this, adminHubPane); }
+    private void adminHubToMain() throws IOException {
+        sceneSwitcher.toMain(this, adminHubPane);
+        memento.stopListening();
+    }
 
     @FXML
     private void adminHubtoLog() throws IOException {
         sceneSwitcher.toAdminLog(this, adminHubPane);
         adminLogController.initializeScene(userManager.getUserByName(loginText.getText()));
+
+        memento.stopListening();
+        memento.setPane(adminLogPane);
+        memento.startListening();
+        System.out.println("from admin hub to admin log");
     }
 
     @FXML
     private void adminHubtoRequest() throws IOException { //TODO this scene needs help
          sceneSwitcher.toAdminRequests(this, adminHubPane);
          adminRequestController.initializeScene();
+
+
+        memento.stopListening();
+        memento.setPane(adminRequestPane);
+        memento.startListening();
+        System.out.println("from admin hub to admin requests");
     }
 
     @FXML
     private void adminHubtoEmployee() throws IOException {
         sceneSwitcher.toAdminEmployee(this, adminHubPane);
         adminEmployeeController.initializeScene();
+
+        memento.stopListening();
+        memento.setPane(adminEmployeePane);
+        memento.startListening();
+        System.out.println("from admin hub to employees");
     }
 
     @FXML
@@ -805,19 +854,53 @@ public class GodController {
         adminMapController.initializeEdgeRemover(edgeXStartRemove, edgeYStartRemove, edgeXEndRemove, edgeYEndRemove);
         adminMapController.initializeKioskEditor(setKioskX, setKioskY);
         adminMapController.initializeStraightener(edgeXStartStraighten, edgeYStartStraighten, edgeXEndStraighten, edgeYEndStraighten);
+
+        //what pane is this? Should we even have it here?
+        memento.stopListening();
+        memento.setPane(adminMapPane);
+        memento.startListening();
+        System.out.println("from hub to admin map");
     }
 
     @FXML
-    private void requestToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminRequestPane); }
+    private void requestToAdminHub() throws IOException {
+        sceneSwitcher.toAdminHub(this, adminRequestPane);
+
+        memento.stopListening();
+        memento.setPane(adminHubPane);
+        memento.startListening();
+        System.out.println("from admin request to admin hub");
+    }
 
     @FXML
-    private void mapToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminMapPane); }
+    private void mapToAdminHub() throws IOException {
+        sceneSwitcher.toAdminHub(this, adminMapPane);
+
+        memento.stopListening();
+        memento.setPane(adminHubPane);
+        memento.startListening();
+        System.out.println("from map to admin hub");
+    }
 
     @FXML
-    private void logToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminLogPane); }
+    private void logToAdminHub() throws IOException {
+        sceneSwitcher.toAdminHub(this, adminLogPane);
+
+        memento.stopListening();
+        memento.setPane(adminHubPane);
+        memento.startListening();
+        System.out.println("from admin log to admin hub");
+    }
 
     @FXML
-    private void employeeToAdminHub() throws IOException { sceneSwitcher.toAdminHub(this, adminEmployeePane); }
+    private void employeeToAdminHub() throws IOException {
+        sceneSwitcher.toAdminHub(this, adminEmployeePane);
+
+        memento.stopListening();
+        memento.setPane(adminHubPane);
+        memento.startListening();
+        System.out.println("from employees to admin hub");
+    }
 
     @FXML
     private void toSettingsPopUp() throws IOException{
@@ -862,5 +945,9 @@ public class GodController {
         databaseGargoyle.attachManager(foodManager);
         databaseGargoyle.attachManager(adminLogManager);
         databaseGargoyle.notifyManagers();
+    }
+
+    public MainSceneController getMainSceneController() {
+        return mainSceneController;
     }
 }
