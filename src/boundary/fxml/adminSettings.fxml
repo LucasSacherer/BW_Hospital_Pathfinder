@@ -5,95 +5,93 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="824.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <content>
-            <VBox prefHeight="843.0" prefWidth="345.0" spacing="30.0">
+      <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" text="Settings" textAlignment="CENTER">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="Set Timeout" textAlignment="CENTER">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                <children>
-                  <Label layoutX="10.0" layoutY="10.0" text="Settings" textAlignment="CENTER">
+                  <JFXTextField fx:id="momentoTimeout">
                      <font>
-                        <Font size="30.0" />
+                        <Font size="20.0" />
                      </font>
-                  </Label>
-                  <Label text="Set Timeout" textAlignment="CENTER">
+                  </JFXTextField>
+                  <JFXButton onAction="#setMomentoTimeout" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
                      <font>
-                        <Font size="30.0" />
+                        <Font size="20.0" />
                      </font>
-                  </Label>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-                     <children>
-                        <JFXTextField fx:id="momentoTimeout">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton onAction="#setMomentoTimeout" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-                  <Label text="Set Distance Ratio" textAlignment="CENTER">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-                     <children>
-                        <JFXTextField fx:id="distanceScale">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton onAction="#setDistanceScale" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-                     <children>
-                        <VBox prefHeight="453.0" prefWidth="265.0" spacing="15.0">
-                           <children>
-                              <Label text="Path Finding" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                              </Label>
-                              <JFXToggleButton onAction="#selectAstar" selected="true" text="AStar">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="path" />
-                                 </toggleGroup>
-                              </JFXToggleButton>
-                              <JFXToggleButton onAction="#selectBreadth" text="Breadth First Search" toggleGroup="$path" />
-                              <JFXToggleButton layoutX="20.0" layoutY="509.0" onAction="#selectDepth" text="Depth First Search" toggleGroup="$path" />
-                              <JFXToggleButton layoutX="20.0" layoutY="584.0" onAction="#selectBest" text="Best First Search" toggleGroup="$path" />
-                              <JFXToggleButton layoutX="20.0" layoutY="659.0" onAction="#selectDijkstras" text="Dijkstra" toggleGroup="$path" />
-                              <JFXToggleButton layoutX="20.0" layoutY="734.0" onAction="#selectScenicRoute" text="Scenic Route" toggleGroup="$path" />
-                              <JFXToggleButton layoutX="20.0" layoutY="809.0" onAction="#selectQuickScenicRoute" text="Quick Scenic Route" toggleGroup="$path" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </HBox>
+                  </JFXButton>
                </children>
-               <padding>
-                  <Insets left="30.0" top="30.0" />
-               </padding>
-            </VBox>
-         </content>
-      </ScrollPane>
+            </HBox>
+            <Label text="Set Distance Ratio" textAlignment="CENTER">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+               <children>
+                  <JFXTextField fx:id="distanceScale">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton onAction="#setDistanceScale" style="-fx-background-color: #5ea459;" text="Set" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox prefHeight="582.0" prefWidth="327.0" spacing="15.0">
+                     <children>
+                        <Label text="Path Finding" textAlignment="CENTER">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <JFXToggleButton fx:id="astarButton" onAction="#selectAstar" selected="true" text="AStar">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="path" />
+                           </toggleGroup>
+                        </JFXToggleButton>
+                        <JFXToggleButton fx:id="bfs" onAction="#selectBreadth" text="Breadth First Search" toggleGroup="$path" />
+                        <JFXToggleButton fx:id="dfs" layoutX="20.0" layoutY="509.0" onAction="#selectDepth" text="Depth First Search" toggleGroup="$path" />
+                        <JFXToggleButton fx:id="bestButton" layoutX="20.0" layoutY="584.0" onAction="#selectBest" text="Best First Search" toggleGroup="$path" />
+                        <JFXToggleButton fx:id="djikstraButton" layoutX="20.0" layoutY="659.0" onAction="#selectDijkstras" text="Dijkstra" toggleGroup="$path" />
+                        <JFXToggleButton fx:id="beamButton" layoutX="20.0" layoutY="372.0" onAction="#selectBeam" text="Beam">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="path1" />
+                           </toggleGroup>
+                        </JFXToggleButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>

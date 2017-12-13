@@ -28,7 +28,7 @@ public class StaffRequestHubController {
         }
         intf.setNodes(converted);
         try {
-            intf.run(0, 0, 1200, 800, null, null, null);
+            intf.run(0, 0, 1200, 800, "/boundary/APIStyle.css", null, null);
         } catch (ServiceException se) {
             se.printStackTrace();
         }
