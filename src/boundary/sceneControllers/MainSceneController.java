@@ -56,7 +56,7 @@ public class MainSceneController extends AbstractMapController {
         super.initializeScene();
         destinationTextField = new AutoCompleteTextField(dc, false);
         destinationTextField.setMainSceneController(this);
-        destinationTextField.setPromptText("Search Brigham & Women's");
+        destinationTextField.setPromptText("Search");
         searchAnchor.getChildren().add(destinationTextField);
 
         FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
