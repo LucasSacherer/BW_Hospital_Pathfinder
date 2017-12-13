@@ -1,62 +1,113 @@
 package boundary.sceneControllers;
 
+import Entity.GoogleNode;
 import Entity.Node;
+import GoogleNodes.GoogleNodeController;
+import MapNavigation.DirectoryController;
 import MapNavigation.MapNavigationFacade;
-import MapNavigation.SearchEngine;
 import Pathfinding.PathFindingFacade;
-import Pathfinding.TextualDirections;
+import boundary.AutoCompleteTextField;
 import boundary.GodController;
 import com.jfoenix.controls.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-import javafx.scene.control.Alert.AlertType;
 import Entity.ErrorController;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
-public class MainSceneController extends AbstractMapController{
-    private TextualDirections textualDirections = new TextualDirections();
-    private SearchEngine searchEngine;
-    private DirectorySceneController directorySceneController;
-    private JFXComboBox originField, destinationField;
+public class MainSceneController extends AbstractMapController {
+    private boolean streetView;
+    private DirectoryDrawerController directoryDrawerController;
+    private NavigationDrawerController navigationDrawerController;
+    private AnchorPane searchAnchor;
     private ErrorController errorController = new ErrorController();
-    private JFXComboBox searchBar;
-    private Stage primaryStage;
-    private AnchorPane textPane;
-    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p, Label currentFloorNum,
-                               JFXComboBox originField, JFXComboBox destinationField, JFXSlider zoomSlider,
-                               DirectorySceneController directorySceneController, AnchorPane textPane,
-                               ScrollPane scrollPane, SearchEngine searchEngine, Stage primaryStage) {
-        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
-        this.primaryStage = primaryStage;
-        this.searchEngine = searchEngine;
-        this.originField = originField;
-        this.destinationField = destinationField;
-        this.directorySceneController = directorySceneController;
-        this.textPane = textPane;
-        initializeSearchBoxes();
+    private AutoCompleteTextField destinationTextField;
+    private DirectoryController dc;
+    private JFXHamburger hamburger;
+    private JFXDrawer drawer;
+    private Pane mainPane;
+    private Region navigationRegion, directoryRegion;
+    private GoogleNodeController googleNodeController;
+    private ArrayList<JFXButton> googleNodes = new ArrayList<JFXButton>();
+    public MainSceneController(GodController g, MapNavigationFacade m, PathFindingFacade p,
+                               AnchorPane searchAnchor, JFXSlider zoomSlider, DirectoryController dc,
+                               DirectoryDrawerController directoryDrawerController, NavigationDrawerController navigationDrawerController,
+                               ScrollPane scrollPane, JFXDrawer drawer, JFXHamburger hamburger, Pane mainPane, GoogleNodeController googleNodeController) {
+        super(g, m, p, zoomSlider, scrollPane);
+        this.searchAnchor = searchAnchor;
+        this.directoryDrawerController = directoryDrawerController;
+        this.navigationDrawerController = navigationDrawerController;
+        this.dc = dc;
+        this.drawer = drawer;
+        this.hamburger = hamburger;
+        this.mainPane = mainPane;
+        this.googleNodeController = googleNodeController;
     }
 
-    private void initializeSearchBoxes() { } //TODO
+    public void initializeScene() throws IOException {
+        super.initializeScene();
+        destinationTextField = new AutoCompleteTextField(dc, false);
+        destinationTextField.setMainSceneController(this);
+        destinationTextField.setPromptText("Search Brigham & Women's");
+        searchAnchor.getChildren().add(destinationTextField);
 
-    public void setOrigin(Node o) {
-        this.origin = o;
-        originField.setPromptText(o.getNodeID());
+        FXMLLoader directoryLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/directoryDrawer.fxml"));
+        directoryLoader.setController(directoryDrawerController);
+        directoryRegion = directoryLoader.load();
+        navigationDrawerController.setDirectoryRegion(directoryRegion);
+        FXMLLoader navigationLoader = new FXMLLoader(getClass().getResource("/boundary/fxml/navigationDrawer.fxml"));
+        navigationLoader.setController(navigationDrawerController);
+        navigationRegion = navigationLoader.load();
+
+        directoryDrawerController.setNavigateRegion(navigationRegion);
+        initializeBurger(directoryRegion);
     }
+
+    private void resizeDrawer() {
+        double height = mainPane.getHeight() - 40;
+        drawer.setMaxHeight(height);
+        drawer.setPrefHeight(height);
+        drawer.setMinHeight(height);
+    }
+
+    public void initializeBurger(Region directoryRegion) {
+        hamburger.setOnMouseClicked(e -> {
+            drawer.setSidePane(directoryRegion);
+            directoryDrawerController.setMainSceneController(this);
+            if (drawer.isHidden() || drawer.isHiding()) {
+                drawer.open();
+                drawer.toFront();
+            } else {
+                drawer.close();
+            }
+        });
+    }
+
+    private void openNavigationDrawer() {
+        navigationDrawerController.setMainSceneController(this);
+        navigationDrawerController.setPath(currentPath);
+        drawer.setSidePane(navigationRegion);
+        if (drawer.isHidden() || drawer.isHiding()) {
+            drawer.open();
+            drawer.toFront();
+        }
+        navigationDrawerController.setFields(origin, destination);
+        navigationDrawerController.hide();
+    }
+
+    public void setOrigin(Node o) { this.origin = o; }
 
     public void setDestination(Node d) {
         this.destination = d;
-        destinationField.setPromptText(d.getNodeID());
+        setDestinationText();
     }
 
     private boolean checkNullLocations(){
@@ -81,84 +132,35 @@ public class MainSceneController extends AbstractMapController{
     public void exitClicked() throws IOException { findNearest(origin, "EXIT"); }
 
     private void findNearest(Node node, String type) throws IOException {
-        if (origin == null) origin = mapNavigationFacade.getDefaultNode();
-        System.out.println(origin);
+        origin = mapNavigationFacade.getDefaultNode();
         destination = mapNavigationFacade.getNearestPOI(origin.getXcoord(), origin.getYcoord(), type);
         findPath();
         refreshCanvas();
     }
 
     public void navigateToHere() throws IOException {
-//        boolean success = checkNullLocations();
-//        if(success) {
         setDestination();
         findPath();
-//        }
+        hide();
     }
-
-    public void setOrigin() {
-        super.setOrigin();
-        setOriginText();
-    }
-
 
     public void setDestination() {
         super.setDestination();
         setDestinationText();
     }
 
-    private void setOriginText() { //TODO sometimes the short names are too long for the JFXComboBox
-        String prompt;
-        if (origin.toString().length() < 1) prompt = origin.getNodeID();
-        else prompt = origin.getShortName();
-        originField.setPromptText(prompt);
-    }
-
     private void setDestinationText() {
         String prompt;
         if (destination.toString().length() < 1) prompt = destination.getNodeID();
         else prompt = destination.getShortName();
-        destinationField.setPromptText(prompt);
+        destinationTextField.setText(prompt);
     }
 
     public void setOrigin(MouseEvent m) {
         snapToNode(m);
         currentPath = null;
         origin = currentLoc;
-        setOriginText();
         refreshCanvas();
-    }
-
-    public void displayTextDir() throws IOException {
-        boolean success = checkNullLocations();
-        if(success) {
-            currentPath = pathFindingFacade.getPath(origin, destination);
-            List<String> writtenDir = pathFindingFacade.getDirections(currentPath);
-            String dirMessage = "";
-            findPath();
-            if (writtenDir.isEmpty()) {
-                return;
-            }
-            for (int i = 0; i < writtenDir.size(); i++) {
-                dirMessage += writtenDir.get(i);
-                dirMessage += "\n";
-            }
-
-            Alert directions = new Alert(AlertType.INFORMATION, dirMessage);
-            directions.show();
-        }
-    }
-
-    public void openDirectory(AnchorPane dPane) throws IOException {
-        JFXRippler rippler = new JFXRippler();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/boundary/fxml/directory.fxml"));
-        loader.setController(directorySceneController);
-        Region region = loader.load();
-        dPane.getChildren().add(rippler);
-        JFXPopup popup = new JFXPopup(region);
-        directorySceneController.setMainSceneController(this);
-
-        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
     }
 
     public void navigate(Node o, Node d) throws IOException {
@@ -167,49 +169,93 @@ public class MainSceneController extends AbstractMapController{
         findPath();
     }
 
-    public void findPath() throws IOException {
-        if (origin == null || destination == null) return; //TODO throw an error
-        goToCorrectFloor();
-        //centerMap();
-        currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirections();
-        refreshCanvas();
-    }
-
-    private void textDirections() {
-        JFXRippler rippler = new JFXRippler();
-        textPane.getChildren().add(rippler);
-        JFXListView directions = new JFXListView();
-        directions.setItems(textualDirections.getTextDirections(currentPath));
-
-        JFXPopup popup = new JFXPopup(directions);
-
-        popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-    }
-
-    private void goToCorrectFloor() {
-        currentFloor = origin.getFloor();
-        imageView.setImage(mapNavigationFacade.getFloorMap(currentFloor));
-        currentFloorNum.setText(currentFloor);
-        refreshCanvas();
-    }
-
     public void reversePath() throws IOException {
-        if (origin == null || destination == null) return; //TODO throw an error
-        Node temp = destination;
-        destination = origin;
-        origin = temp;
-        setOriginText();
-        setDestinationText();
-        goToCorrectFloor();
-        centerMap();
+        navigate(destination, origin);
+    }
+
+    public void findPath() throws IOException {
+        if (origin == null || destination == null) return;
         currentPath = pathFindingFacade.getPath(origin, destination);
-        textDirections();
+        zoomToPath();
+        openNavigationDrawer();
+        goToCorrectFloor();
         refreshCanvas();
     }
 
-    private void centerMap() {
-    //TODO
+    private void zoomToPath() {
+        double zoomLevel =  ZOOM;
+
+        if (zoomLevel < ZOOM) zoomLevel = ZOOM;
+        zoomSlider.setValue(0);
+        mapPane.setScaleX(zoomLevel);
+        mapPane.setScaleY(zoomLevel);
+
+        Point2D scrollOffset = figureScrollOffset(mapPane, scrollPane);
+        repositionScroller(mapPane, scrollPane, 1, scrollOffset);
+
+        double height = 3400.0;
+        double y = getPathY();
+        double viewHeight = scrollPane.getViewportBounds().getHeight();
+        scrollPane.setVvalue(scrollPane.getVmax() * ((y - 0.5 * viewHeight) / (height - viewHeight)));
+
+        double width = 5000.0;
+        double x = getPathX();
+        double viewWidth = scrollPane.getViewportBounds().getWidth();
+        scrollPane.setHvalue(scrollPane.getVmax() * ((x - 0.5 * viewWidth) / (width - viewWidth)) * 0.9);
     }
 
+    private double getPathX() {
+        ArrayList<Node> pathList = new ArrayList<>(currentPath);
+        int xMax = 0;
+        int xMin = 3400;
+        for (Node n : pathList) {
+            if (n.getXcoord() > xMax) xMax = n.getXcoord();
+            if (n.getXcoord() < xMin) xMin = n.getXcoord();
+        }
+        return (xMax + xMin) / 2;
+    }
+
+    private double getPathY() {
+        ArrayList<Node> pathList = new ArrayList<>(currentPath);
+        int yMax = 0;
+        int yMin = 5000;
+        for (Node n : pathList) {
+            if (n.getYcoord() > yMax) yMax = n.getYcoord();
+            if (n.getYcoord() < yMin) yMin = n.getYcoord();
+        }
+        return (yMax + yMin) / 2;
+    }
+
+    public void streetView() {
+        if (streetView) {
+            googleNodes.clear();
+            streetView = false;
+            System.out.println("streetView turned off");
+        }
+        else {
+            for (GoogleNode gn : googleNodeController.getGoogleNodeByFloor(currentFloor)) {
+                JFXButton jfxButton = new JFXButton();
+                jfxButton.setLayoutX(gn.getXcoord());
+                jfxButton.setLayoutY(gn.getYcoord());
+                jfxButton.setText("HEY");
+                googleNodes.add(jfxButton);
+                mapPane.getChildren().add(jfxButton);
+                jfxButton.toFront();
+                jfxButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Google me");
+                    }
+                });
+            }
+            streetView = true;
+            System.out.println("streetView turned on");
+        }
+    }
+
+    public void hide() { destinationTextField.hide(); }
+
+    public Node getOrigin() { return origin; }
+
+    public Node getDestination() { return destination; }
 }

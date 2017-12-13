@@ -43,7 +43,7 @@ public class StaffRequestController extends AbstractMapController{
     private ObservableList allStaffRequestsList, requestsIMadeList;
 
     public StaffRequestController(GodController g, MapNavigationFacade mapNavigationFacade,
-                                  PathFindingFacade pathFindingFacade, Label currentFloorNumRequest,
+                                  PathFindingFacade pathFindingFacade,
                                   GenericRequestController genericRequestController,
                                   RequestCleanupController requestCleanupController,
                                   RequestInterpreterController requestInterpreterController,
@@ -54,7 +54,7 @@ public class StaffRequestController extends AbstractMapController{
                                   JFXComboBox languageSelect, JFXTextArea requestInterpreterDescription,
                                   JFXTextArea requestFoodDescription, JFXTextArea requestInfo,
                                   JFXListView currentFoodOrder, JFXTextField foodItem, JFXSlider zoomSlider, ScrollPane staffScrollPane) {
-        super(g, mapNavigationFacade, pathFindingFacade, currentFloorNumRequest, zoomSlider, staffScrollPane);
+        super(g, mapNavigationFacade, pathFindingFacade, zoomSlider, staffScrollPane);
         this.requestCleanupController = requestCleanupController;
         this.allStaffRequests = allStaffRequests;
         this.requestsIMade = requestsIMade;
@@ -74,7 +74,7 @@ public class StaffRequestController extends AbstractMapController{
         this.foodItem = foodItem;
     }
 
-    public void initializeScene(User user){
+    public void initializeScene(User user) throws IOException {
         requestsIMadeList = genericRequestController.getAllRequestsByUser(user);
         allStaffRequestsList = genericRequestController.getAllRequestsByDepartment(user.getDepartment());
         super.initializeScene();
@@ -106,16 +106,6 @@ public class StaffRequestController extends AbstractMapController{
         // requestChoiceBox.setItems(requestTypeList);
     }
 
-
-    public void floorDown() throws IOException, SQLException {
-        super.floorDown();
-        refreshRequestCanvas();
-    }
-
-    public void floorUp() throws IOException, SQLException {
-        super.floorUp();
-        refreshRequestCanvas();
-    }
     public void clickOnMap(MouseEvent m) {
         int x = (int) m.getX();
         int y = (int) m.getY();

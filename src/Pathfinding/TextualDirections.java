@@ -3,6 +3,7 @@ package Pathfinding;
 import Database.SettingsManager;
 import Entity.ErrorController;
 import Entity.Node;
+import com.jfoenix.controls.JFXListCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +18,7 @@ public class TextualDirections {
     private Node previousNode;
     private Node currentNode;
     private Node nextNode;
+    private textDirEntry nextEntry;
 
     private int sRightLow = 220;
     private int rightLow = 250;
@@ -45,6 +47,7 @@ public class TextualDirections {
         int currentY = current.getYcoord();
         int nextX = next.getXcoord();
         int nextY = next.getYcoord();
+
 
 
         //handling in polar to avoid divide-by-zero errors
@@ -132,8 +135,8 @@ public class TextualDirections {
     }
 
     //method that does the work creating the textual directions
-    public List<String> makeTextDir(List<Node> path){
-        List<String> writtenDirections = new LinkedList();
+    public List<List<textDirEntry>> makeTextDir(List<Node> path){
+        List<List<textDirEntry>> writtenDirections = new LinkedList();
 
         Collections.reverse(path);
 
@@ -153,7 +156,7 @@ public class TextualDirections {
         Node destNode = path.get(path.size() - 1);
 
         //make readable names for start and dest node. If they're hallways, just say hallway. Otherwise, use short name.
-        //if no short name, just use NodeID
+        //if no short name, use NodeID
         String startName = sNameNode(startNode);
         if(startName.equals("")){
             startName = startNode.getNodeID();
@@ -169,11 +172,14 @@ public class TextualDirections {
             destName = destName + " in " + destNode.getBuilding();
         }
         //inserts directions overview
-        writtenDirections.add("Directions from " + startName + " to "
+        /*writtenDirections.add("Directions from " + startName + " to "
                 + destName + ".");
-
+        */
         //adds first step
-        writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
+        //writtenDirections.add("1. Proceed to " + sNameNode(path.get(1)));
+        //add the list for the first floor in the directions
+        writtenDirections.add(new LinkedList<textDirEntry>());
+
 
         //accounts for the case where path size is 2
         if (path.size() == 2){
@@ -188,41 +194,54 @@ public class TextualDirections {
 
             distance = distNode(currentNode, nextNode);
 
-            //deviates directions text if you're taking the stairs or elevator to a different floor
-            if(currentNode.getNodeType().equals("ELEV") && !currentNode.getFloor().equals(nextNode.getFloor())){
-                writtenDirections.add(Integer.toString(i+1) + ". Take " + sNameNode(currentNode) +
-                        " to floor " + nextNode.getFloor() + ".");
-            } else if(currentNode.getNodeType().equals("STAI") && !currentNode.getFloor().equals(nextNode.getFloor())){
-                writtenDirections.add(Integer.toString(i+1) + ". Take " + sNameNode(currentNode) +
-                        " to floor " + nextNode.getFloor() + ".");
-            //deviates directions text if you're going to another building
-            } else if (!currentNode.getBuilding().equals(nextNode.getBuilding())){
-                writtenDirections.add(Integer.toString(i+1) + ". Exit " + currentNode.getBuilding() + " through " +
-                        sNameNode(currentNode) + " and enter " + nextNode.getBuilding() + " through "
-                        + sNameNode(nextNode) + ".");
-            //default directions text
-            } else if (currentNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("HALL")){
-                writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " down the hall for " + distance + " feet.");
-            }else{
-                writtenDirections.add(Integer.toString(i+1) + ". " + findTurn() + " for " + distance + " feet until you reach " +
-                        sNameNode(nextNode) + ".");
+            nextEntry = new textDirEntry(currentNode, nextNode, findTurn(), distNode(currentNode, nextNode));
+            writtenDirections.get(writtenDirections.size() - 1).add(nextEntry);
+
+            if(!currentNode.getFloor().equals(nextNode.getFloor())){
+                writtenDirections.add(new LinkedList<textDirEntry>());
             }
         }
-        writtenDirections.add("You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.");
+        //need a good way to set the arrival message
+        //writtenDirections.get(writtenDirections.size() - 1).get(writtenDirections.get(writtenDirections.size() - 1).size()).instruction +=
+          //      "You have arrived at " + destName + "! Thank you for visiting Brigham and Women's Hospital.";
 
         Collections.reverse(path);
         return writtenDirections;
     }
 
     //getter for textual directions
-    protected List<String> getDir(List<Node> path){return makeTextDir(path);}
+    //protected List<String> getDir(List<Node> path){return makeTextDir(path);}
+    protected List<List<textDirEntry>> getDir(List<Node> path){return makeTextDir(path);}
 
-    //get an observable list
+
+    //for now just returns an observable list of strings so it works with how we have it now
+    //once we figure out how we want to do text directions, change it to do stuff with lists of lists
     public ObservableList<String> getTextDirections(List<Node> path) {
         ObservableList textualDirections = FXCollections.observableArrayList();
-        List<String> thePath = makeTextDir(path);
-        textualDirections.addAll(thePath);
+        List<List<textDirEntry>> thePath = makeTextDir(path);
+        for(int i  = 0; i < thePath.size(); i++) {
+            for(int j = 0; j < thePath.get(i).size(); j++) {
+                textualDirections.add(thePath.get(i).get(j).instruction);
+            }
+        }
         return textualDirections;
     }
+
+    //converts a list of lists to a numbered, intended, string of text directions
+    public String toStringTextDir(List<List<textDirEntry>> list) {
+        String result = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            result += ("Floor " + list.get(i).get(0).currNode.getFloor() + "\n");
+            for (int j = 0; j < list.get(i).size(); j++) {
+                result += ("    " + (j+1) + ". " + list.get(i).get(j).instruction + "\n");
+            }
+        }
+
+        return result;
+    }
+//PathfindingSceneController line 45
+    //PathFindingFacade line 25
+    //both use text directions, go change them to process the new way.
 
 }

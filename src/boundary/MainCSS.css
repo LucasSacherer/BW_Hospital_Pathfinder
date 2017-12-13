@@ -1,19 +1,17 @@
-.root {
-    -fx-background-color: lightgrey;
-}
-.jfx-tab-pane .tab-header-background {
-    -fx-background-color: #0068b1 ;
-}
 
-.tab .tab-label {
-    -fx-background-color: transparent;
-    -fx-alignment: CENTER;
-    -fx-text-fill: white;
-    -fx-font-size: 40; /* all the same except this newly added one */
-    -fx-pref-width: 629;
-    -fx-min-width: inherit;
-    -fx-min-width: inherit;
-}
+/*.jfx-tab-pane .tab-header-background {*/
+    /*-fx-background-color: #0068b1 ;*/
+/*}*/
+
+/*.tab .tab-label {*/
+    /*-fx-background-color: transparent;*/
+    /*-fx-alignment: CENTER;*/
+    /*-fx-text-fill: white;*/
+    /*-fx-font-size: 40; !* all the same except this newly added one *!*/
+    /*-fx-pref-width: 629;*/
+    /*-fx-min-width: inherit;*/
+    /*-fx-min-width: inherit;*/
+/*}*/
 .buttonNeutral {
     -fx-background-color: #0068b1;
     -fx-text-fill: white;
@@ -60,25 +58,31 @@
     -fx-padding: 0.0em;
     -fx-text-fill: -fx-text-inner-color;
 }
-.tree-table-row-cell:selected {
-    -fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;
-    -fx-background-insets: 0, 1, 2;
-}
+/*.tree-table-row-cell:selected {*/
+    /*-fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;*/
+    /*-fx-background-insets: 0, 1, 2;*/
+/*}*/
 
-.tree-table-row-cell:odd {
-    -fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-5%);
-    -fx-background-insets: 0, 0 0 1 0;
-}
+/*.tree-table-row-cell:odd {*/
+    /*-fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-5%);*/
+    /*-fx-background-insets: 0, 0 0 1 0;*/
+/*}*/
 
-.tree-table-row-cell:selected:odd {
-    -fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;
-    -fx-background-insets: 0, 1, 2;
+/*.tree-table-row-cell:selected:odd {*/
+    /*-fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;*/
+    /*-fx-background-insets: 0, 1, 2;*/
+/*}*/
+/*.scroll-bar:vertical {*/
+    /*-fx-opacity: 0;*/
+    /*-fx-padding:-7;*/
+/*}*/
+/*.scroll-bar:horizontal {*/
+    /*-fx-opacity: 0;*/
+    /*-fx-padding:-7;*/
+/*}*/
+.directoryDrawer{
+
 }
-.scroll-bar:vertical {
-    -fx-opacity: 0;
-    -fx-padding:-7;
-}
-.scroll-bar:horizontal {
-    -fx-opacity: 0;
-    -fx-padding:-7;
+.navigationDrawer{
+
 }

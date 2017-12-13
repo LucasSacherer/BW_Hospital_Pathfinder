@@ -53,11 +53,10 @@ public class AdminMapController extends AbstractMapController{
 
 
     public AdminMapController(GodController g, DatabaseGargoyle dbG, EdgeManager em, NodeManager nm,
-                              NodeEditController n, EdgeEditController e, MapNavigationFacade m, PathFindingFacade p,
-                              Label currentFloorNum, Tab addNode, Tab editNode, Tab removeNode, Tab addEdge,
+                              NodeEditController n, EdgeEditController e, MapNavigationFacade m, PathFindingFacade p, Tab addNode, Tab editNode, Tab removeNode, Tab addEdge,
                               Tab removeEdge, Tab kioskTab, Tab edgesTab, Tab nodesTab, Tab straightenTab, JFXSlider zoomSlider,
                               ScrollPane scrollPane) {
-        super(g, m, p, currentFloorNum, zoomSlider, scrollPane);
+        super(g, m, p, zoomSlider, scrollPane);
         this.databaseGargoyle = dbG;
         this.edgeEditController = e;
         this.nodeEditController = n;
@@ -103,6 +102,7 @@ public class AdminMapController extends AbstractMapController{
     public void initializeKioskEditor(JFXTextField setKioskX, JFXTextField setKioskY) {
         this.kioskEditor = new KioskEditor(gc, nodeEditController, setKioskX, setKioskY);
     }
+
 
     public void refreshCanvas() {
         super.refreshCanvas();
@@ -249,7 +249,7 @@ public class AdminMapController extends AbstractMapController{
         refreshCanvas();
     }
 
-    public void setScale(JFXTextField distanceScale){ kioskEditor.setScale(distanceScale); }
+
 
 
     public void resetKioskScene() {
