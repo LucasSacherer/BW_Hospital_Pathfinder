@@ -41,7 +41,7 @@
                   <Insets bottom="30.0" right="30.0" top="30.0" />
                </GridPane.margin>
             </GridPane>
-            <JFXButton fx:id="back" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubToMain" prefHeight="80.0" prefWidth="80.0" ripplerFill="WHITE" text="Back" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <JFXButton fx:id="back" alignment="CENTER" contentDisplay="TOP" onAction="#adminHubToMain" prefHeight="80.0" prefWidth="110.0" ripplerFill="WHITE" text="Log Out" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
