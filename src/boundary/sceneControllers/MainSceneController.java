@@ -239,7 +239,7 @@ public class MainSceneController extends AbstractMapController {
     public void streetView() {
         //TODO turn off if the floor switches
         if (streetView) {
-            googleNodeButtons.clear();
+            clearGoogleNodes();
             streetView = false;
             System.out.println("streetView turned off");
         }
@@ -255,7 +255,7 @@ public class MainSceneController extends AbstractMapController {
 
                 button.setStyle("-fx-background-color:#09a1b3; " +
                         "-fx-pref-height: 60; " + "-fx-background-radius: 50%;" +
-                        "-fx-pref-width: 60;");
+                        "-fx-pref-width: 60;" + "-fx-alignment: CENTER");
                 button.setGraphic(smallPerson);
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
