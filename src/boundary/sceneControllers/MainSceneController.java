@@ -245,12 +245,12 @@ public class MainSceneController extends AbstractMapController {
                 button.setLayoutY(gn.getYcoord());
 
                 ImageView smallPerson = new ImageView(new Image("/boundary/images/street_view.png"));
-                smallPerson.setFitHeight(40);
-                smallPerson.setFitWidth(40);
+                smallPerson.setFitHeight(60);
+                smallPerson.setFitWidth(60);
 
-                button.setStyle("-fx-background-image: url('" + smallPerson + "'); " +
-                        "-fx-pref-height: 40; " +"-fx-background-color:#09a1b3;" +"-fx-background-radius: 50%;" +
-                        "-fx-pref-width: 40;");
+                button.setStyle("-fx-background-color:#09a1b3; " +
+                        "-fx-pref-height: 60; " + "-fx-background-radius: 50%;" +
+                        "-fx-pref-width: 60;");
                 button.setGraphic(smallPerson);
 //                button.setOnAction(new EventHandler<ActionEvent>() {
 ////                    @Override

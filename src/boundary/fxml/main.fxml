@@ -291,7 +291,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="246.0" spacing="15.0">
                            <children>
-                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" styleClass="about" text="About" textFill="BLUE" underline="true">
+                              <JFXButton onAction="#toNewAboutPopUp" opacity="0.45" style="-fx-background-color: transparent;" styleClass="about" text="About" textFill="BLUE" underline="true">
                                  <font>
                                     <Font size="18.0" />
                                  </font></JFXButton>

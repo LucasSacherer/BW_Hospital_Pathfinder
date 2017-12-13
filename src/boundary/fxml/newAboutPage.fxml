@@ -12,7 +12,7 @@
     <children>
         <VBox prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
             <children>
-                <JFXTabPane prefHeight="1080.0" prefWidth="1920.0">
+                <JFXTabPane prefHeight="1080.0" prefWidth="1920.0" styleClass="background2">
                     <tabs>
                         <Tab text="About">
                             <content>
