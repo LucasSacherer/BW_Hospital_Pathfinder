@@ -253,10 +253,11 @@ public class MainSceneController extends AbstractMapController {
 
                         Browser browser = new Browser();
                         BrowserView browserView = new BrowserView(browser);
-                        browser.loadHTML(gn.getUrl());
+                        browser.loadURL(gn.getUrl());
                         Scene scene = new Scene(browserView);
                         Stage stage = new Stage();
                         stage.setScene(scene);
+                        stage.setTitle("Street View");
                         stage.show();
 
                         //JFXPopup popup = new JFXPopup(browserView); // Insert you JFXPopup in here!
